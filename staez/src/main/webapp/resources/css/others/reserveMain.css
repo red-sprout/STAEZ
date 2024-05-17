@@ -1,0 +1,349 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+
+#main-advertisement-area{
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+#main-advertisement-area>img{
+    width: 100%;
+
+}
+
+.popularity-concert-container{
+    width: 1300px;
+}
+
+.popularity-concert-head{
+    width: 1300px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#popularity-concert-category-box{
+    width: 60px;
+    height: 24px;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 10px;
+    position: absolute;
+    left: 100px;
+    bottom: 4px;
+}
+
+#popularity-concert-category-box:focus{
+    outline: none;  
+}
+
+.popularity-concert-category-area>span {
+    font-size: 23px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.popularity-concert-category-area{
+    display: flex;
+    align-items: center;
+    width: 200px;
+    position: relative;
+}
+
+.paging-area-container{
+    width: 100px;
+    height: 23px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#paging-area{
+    width: 60px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#paging-tag{
+    height: 23px;
+}
+
+#paging-tag>span{
+    font-size: 12px;
+}
+
+.popularity-concert-information-area{
+    width: 1300px;
+    height: 330px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.popularity-concert-information-slider{
+    display: flex;
+    align-items: center;
+    overflow: hidden; 
+    height: 330px;
+    /* transition: transform 0.5s ease; 나중 스크립트 할때 사용할거 */
+}
+
+.popularity-concert-information{
+    margin-right: 50px;
+
+}
+.popularity-concert-information-a{
+    display: inline-block;
+    height: 277px;
+    width: 220px;
+}
+
+.popularity-concert-information-img{
+    width: 220px;
+    cursor: pointer;
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+
+.popularity-concert-information-img:hover {
+    -webkit-transform: scale(1.3);
+    transform: scale(1.1);
+}
+
+.slider-btn{
+    width: 50px;
+    height: 50px;
+    background: none;
+    border: none;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.left-btn{
+    position: absolute;
+    top: 50%;
+    left: -80px; 
+}
+
+.right-btn{
+    position: absolute;
+    top: 50%;
+    right: -80px; 
+}
+
+.latest-concert-container{
+    width: 1300px;
+    margin-top: 50px;
+}
+
+.latest-concert-head{
+    width: 1300px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#latest-concert-category-box{
+    width: 60px;
+    height: 24px;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 10px;
+    position: absolute;
+    left: 100px;
+    bottom: 4px;
+}
+
+#latest-concert-category-box:focus{
+    outline: none;  
+}
+
+.latest-concert-category-area>span {
+    font-size: 23px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.latest-concert-category-area{
+    display: flex;
+    align-items: center;
+    width: 200px;
+    position: relative;
+}
+
+.latest-concert-information-area{
+    width: 1300px;
+    height: 330px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.latest-concert-information-slider{
+    display: flex;
+    align-items: center;
+    overflow-x: hidden; 
+    height: 330px;
+    /* transition: transform 0.5s ease; 나중 스크립트 할때 사용할거 */
+}
+
+.latest-concert-information{
+    margin-right: 50px;
+
+}
+.latest-concert-information-a{
+    display: inline-block;
+    height: 277px;
+    width: 220px;
+}
+
+.latest-concert-information-img{
+    width: 220px;
+    cursor: pointer;
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+
+.latest-concert-information-img:hover {
+    -webkit-transform: scale(1.3);
+    transform: scale(1.1);
+}
+
+.popularity-bulletin-container{
+    width: 1300px;
+    margin-top: 50px;
+}
+
+.popularity-bulletin-head{
+    width: 1300px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.popularity-bulletin-title-area{
+    display: flex;
+    align-items: center;
+    width: 200px;
+    position: relative;
+}
+
+.popularity-bulletin-title-area>span {
+    font-size: 23px;
+    margin-right: 10px;
+}
+
+.popularity-bulletin-information-area{
+    width: 1300px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.popularity-bulletin-information{
+    height: 300px;
+    width: 220px;
+    margin-right: 50px;
+}
+
+.popularity-bulletin-information-a{
+    display: inline-block;
+    width: 220px;
+    height: 300px;
+}
+
+.popularity-bulletin-content-area{
+    width: 100%;
+    height: 240px;
+    border: 1px solid black;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.user-and-category-tag-area{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.popularity-bulletin-title{
+    width: 220px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0px 20px;
+}    
+
+.popularity-bulletin-title>span{
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.popularity-bulletin-hr{
+    width: 180px;
+    border: 1px solid #969696;
+}
+
+.popularity-bulletin-detail-content>p{
+    text-align: left;
+    font-weight: 500;
+}
+
+.popularity-bulletin-detail-content{
+    width: 220px;
+    height: 195px;
+    padding: 10px 20px;
+    position: relative;
+}
+
+.heart-count-area{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    border: 1px solid #969696;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    bottom: 10px;
+    left: 150px;
+}
+
+.heart-count-area>img{
+    width: 23px;
+    margin-top: 4px;
+}
+
+.heart-count-area>span{
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.user-profile{
+    width: 50px;
+    height: 50px;
+    margin-right: 5px;
+}
+
+.user-profile>img{
+    width: 50px;
+    border-radius: 50px;
+}
+
+.user-and-category-tag-area button{
+    margin-right: 5px;
+}
+

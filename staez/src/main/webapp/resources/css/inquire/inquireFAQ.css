@@ -1,0 +1,249 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+
+#customer-service-content-area{
+    width: 1300px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    margin: 50px 0px;
+}
+
+#customer-service-insert-from-choice{
+    width: 249px;
+    height: 60px;
+    border: solid 1px #d9d9d9;  
+    border-radius: 0px 50px 50px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#customer-service-faq-choice{
+    width: 251px;
+    height: 60px;
+    border: solid 1px #d9d9d9;
+    border-radius: 50px 0px 0px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#customer-service-insert-from-choice:hover span{
+    color: #B51B75;
+}
+
+#customer-service-faq-choice:hover span{
+    color: #B51B75;
+}
+
+#customer-service-insert-from-choice>span{
+    font-size: 22px;
+    font-weight: bold;
+    color: #969696;
+    cursor: pointer;
+}
+
+#customer-service-faq-choice>span{
+    font-size: 22px;
+    font-weight: bold;
+    color: #969696;
+    cursor: pointer;
+}
+
+
+#customer-service-content-category-area{
+    width: 1300px;
+    height: 70px;
+    padding: 0px 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.category-choice{
+    width: 120px;
+    height: 70px;
+    border: 1px solid #D9D9D9;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.category-choice>span{
+    font-size: 20px;
+    color: #969696;
+}
+
+.category-choice:hover span{
+    color: #FFFFFF;
+    
+}
+
+.category-choice:hover{
+    background-color: #B51B75;
+}
+
+.faq-content-container{
+    width: 1300px;
+    margin-bottom: 40px;
+}
+
+#faq-count-area{
+    width: 1100px;
+    height: 30px;
+    margin: 0px 100px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    border-bottom: 1px solid black;
+}
+
+#faq-count-area span{
+    font-size: 18px;
+    color: #969696;
+}
+
+.faq-content-area{
+    width: 1100px;
+    height: 70px;
+    margin: 0px 100px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-bottom: 1px solid #D9D9D9;
+}
+
+.arrow-img{
+    position: absolute;
+    right: 0px;
+    cursor: pointer;
+}
+
+.faq-content-category{
+    width: 100px;
+    height: 50px;
+    border: 1px solid black;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 25px;
+}
+
+.faq-content-category span{
+    font-size: 18px;
+    color: black;
+}
+
+.faq-content{
+    font-size: 18px;
+    color: black;
+}
+
+.faq-content-answer-area{
+    width: 1100px;
+    margin: 0px 100px;
+    background: #FCFCFC;
+    padding-bottom: 10px;
+    padding-top: 30px;
+    border-bottom: 1px solid #D9D9D9;
+    text-align: left;
+    
+}
+
+.customer-service-insert-from-shortcut{
+    width: 100px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 990px;
+}
+
+.customer-service-insert-from-shortcut a{
+    text-decoration: none;
+    color: black;
+}
+
+.paging-area-container{
+    width: 1300px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+#paging-area{
+    width: 70px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.search-bar-area{
+    width: 1100px;
+    height: 70px;
+    margin: 0px 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
+
+}
+
+#search-way-box{
+    width: 100px;
+    padding: 0px 10px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    border: 1px solid black;
+}
+
+#search-way-box:focus{
+    outline: none;
+}
+
+#input-search-bar{
+    width: 870px;
+    height: 40px;
+    border-radius: 10px;
+    padding: 0px 10px;
+    border: 1px solid black;
+}
+
+#input-search-bar:focus{
+    outline: none;
+}
+
+#search-button{
+    width: 100px; 
+    height: 40px;
+    border-radius: 10px;
+    background: white;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+#search-button span{
+    font-size: 18px;
+    font-weight: 500;
+    margin-left: 10px;
+}
+
+#search-button img{
+    width: 25px;
+}
