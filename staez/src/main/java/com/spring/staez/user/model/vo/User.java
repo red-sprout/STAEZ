@@ -1,14 +1,5 @@
 package com.spring.staez.user.model.vo;
 
-<<<<<<< HEAD
-public class User {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
-=======
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -37,6 +28,5 @@ public class User {
 	private Timestamp enrollDate; //가입날짜
 	private Timestamp withdrawalDate; //탈퇴날짜
 	private String userStatus; //회원상태
-	
->>>>>>> 591785696fd55208dcf2a0f45d593d050bb31853
+
 }
