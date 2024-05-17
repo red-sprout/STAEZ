@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace: 해당 mapper파일의 고유한 별칭 -->
+<mapper namespace="mypageMapper">
+	<!-- 
+		<resultMap type="mybatis-config.xml의 alias값" id="객체명Result 형태">
+			<result column="user_no" property="userNo" />
+		</resultMap>
+	 -->
+
+	<!-- db의 컬럼과 객체의 필드명이 완전히 같다면 resultType사용 가능 -->
+	
+</mapper>
+
