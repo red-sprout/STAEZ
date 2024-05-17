@@ -1,0 +1,88 @@
+#admin-main-wrapper {
+    padding: 20px 50px;
+    text-align: left;
+}
+
+#admin-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+#admin-header>h1 {
+    width: fit-content;
+}
+
+#admin-header>select {
+    width: 160px;
+    height: 40px;
+}
+
+#admin-search {
+    border: 1px solid #969696;
+    border-radius: 20px;
+    width: 800px;
+    display: flex;
+    align-items: center;
+}
+
+#admin-search>button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    width: 60px;
+    height: 40px;
+}
+
+#admin-search>button>img {
+    width: 20px;
+}
+
+#admin-search>input {
+    border: none;
+    outline: none;
+    width: 700px;
+    height: 40px;
+}
+
+#admin-main-wrapper>li {
+    margin: 10px;
+}
+
+#admin-table>table {
+    list-style: 1px solid #B51B75;
+}
+
+#admin-table td {
+    width: 150px;
+    text-align: center;
+    border-spacing: 0px;
+    border-style: none;
+    padding: 0px;
+    line-height: 50px;
+    border-bottom: 1px solid #B51B75;
+}
+
+#admin-table td:nth-child(1) {
+    width: 50px;
+}
+
+#admin-table table {
+    width: 1200px;
+    border-spacing: 0px;
+    border-style: none;
+    padding: 0px;
+}
+
+#admin-table thead>tr {
+    background-color: #B51B75;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    color: white;
+}
+
+.admin-middle {
+    display: flex;
+    justify-content: center;
+}
