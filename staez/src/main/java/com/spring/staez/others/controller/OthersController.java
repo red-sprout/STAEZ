@@ -10,5 +10,10 @@ public class OthersController {
 	public String reserveMain() {
 		return "others/reserveMain";
 	}
+	
+	@GetMapping("searchResult.ot")
+	public String searchResultPage() {
+		return "others/searchResultPage";
+	}
 
 }
