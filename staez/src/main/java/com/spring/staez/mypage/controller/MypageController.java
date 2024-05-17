@@ -14,7 +14,7 @@ public class MypageController {
 	@Autowired
 	private MypageService mps;
 	
-	@RequestMapping("test.my")
+	@RequestMapping("main.my")
 	public String test(Model model) {
 		User m = mps.test();
 		
