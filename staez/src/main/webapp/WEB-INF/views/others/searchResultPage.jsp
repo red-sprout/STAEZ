@@ -70,6 +70,88 @@
                 </div>
             </div>
         </div>
+        <div class="concert-search-result-title-area">
+            <span>커뮤니티(56)</span>
+            <div class="paging-area-container">
+                <div id="paging-area">
+                    <a href="" id="paging-tag">
+                        <span>더보기 +</span>
+                    </a>
+                </div>
+            </div> 
+        </div>
+        <hr class="hr-line">
+        <a href="" class="community-bulletin-search-result-a-area">
+            <div class="community-bulletin-search-result-area">
+                <div class="user-profile-area">
+                    <img class="user-profile-img" src="" alt="">
+                    <div class="user-info-area">
+                        <span class="user-name">뮤덕이</span>
+                        <span class="user-bulletin-upload-date">2024-05-01 00:00</span>
+                    </div>
+                </div>
+                <div class="bulletin-content-area">
+                        <span class="bulletin-content-title">웃는남자 같이 보실 분 있나요?</span>
+                        <span class="bulletin-detail-content">제목이 곧 내용입니다.</span>
+                </div>
+                <div class="bulletin-content-tag-area">
+                    <button class="btn-staez checked "><h4>뮤지컬</h4></button>
+                    <button class="btn-staez  "><h4>질문과 답변</h4></button>
+                </div>
+            </div>
+            <div class="bulletin-thumbnail-area">
+                <img class="bulletin-thumbnail" src="" alt="">
+            </div>
+        </a>
+        <hr class="hr-line">
+        <a href="" class="community-bulletin-search-result-a-area">
+            <div class="community-bulletin-search-result-area">
+                <div class="user-profile-area">
+                    <img class="user-profile-img" src="" alt="">
+                    <div class="user-info-area">
+                        <span class="user-name">뮤덕이</span>
+                        <span class="user-bulletin-upload-date">2024-05-01 00:00</span>
+                    </div>
+                </div>
+                <div class="bulletin-content-area">
+                        <span class="bulletin-content-title">웃는남자 같이 보실 분 있나요?</span>
+                        <span class="bulletin-detail-content">제목이 곧 내용입니다.</span>
+                </div>
+                <div class="bulletin-content-tag-area">
+                    <button class="btn-staez checked "><h4>뮤지컬</h4></button>
+                    <button class="btn-staez  "><h4>질문과 답변</h4></button>
+                </div>
+            </div>
+            <div class="bulletin-thumbnail-area">
+                <img class="bulletin-thumbnail" src="" alt="">
+            </div>
+        </a>
+        <hr class="hr-line">
+        <a href="" class="community-bulletin-search-result-a-area">
+            <div class="community-bulletin-search-result-area">
+                <div class="user-profile-area">
+                    <img class="user-profile-img" src="" alt="">
+                    <div class="user-info-area">
+                        <span class="user-name">뮤덕이</span>
+                        <span class="user-bulletin-upload-date">2024-05-01 00:00</span>
+                    </div>
+                </div>
+                <div class="bulletin-content-area">
+                        <span class="bulletin-content-title">웃는남자 같이 보실 분 있나요?</span>
+                        <span class="bulletin-detail-content">제목이 곧 내용입니다.</span>
+                </div>
+                <div class="bulletin-content-tag-area">
+                    <button class="btn-staez checked "><h4>뮤지컬</h4></button>
+                    <button class="btn-staez  "><h4>질문과 답변</h4></button>
+                </div>
+            </div>
+            <div class="bulletin-thumbnail-area">
+                <img class="bulletin-thumbnail" src="${contextPath}/resources/img/others/thumbnail1.png" alt="">
+            </div>
+        </a>
+        <hr class="hr-line">
+
+        <hr class="gap-hr">
     </main>
     <footer>
 		<jsp:include page="../common/footer.jsp" />

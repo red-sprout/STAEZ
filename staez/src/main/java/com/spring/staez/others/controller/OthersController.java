@@ -15,5 +15,10 @@ public class OthersController {
 	public String searchResultPage() {
 		return "others/searchResultPage";
 	}
+	
+	@GetMapping("moreConcert.ot")
+	public String searchResultMoreConcert() {
+		return "others/searchResultMoreConcert";
+	}
 
 }
