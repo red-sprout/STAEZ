@@ -41,7 +41,7 @@
 					<button class="btn-staez"><h4>서커스/마술</h4></button>
 					<button class="btn-staez"><h4>기타</h4></button>
 				</li>
-				<li class="community-posting">
+				<li class="community-posting" onclick="location.href='detail.co'">
 					<table>
 						<tbody>
 							<tr class="profile-area">
@@ -67,7 +67,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li class="community-posting">
+				<li class="community-posting" onclick="location.href='detail.co'">
 					<table>
 						<tbody>
 							<tr class="profile-area">
@@ -93,7 +93,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li class="community-posting">
+				<li class="community-posting" onclick="location.href='detail.co'">
 					<table>
 						<tbody>
 							<tr class="profile-area">
@@ -119,7 +119,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li class="community-posting">
+				<li class="community-posting" onclick="location.href='detail.co'">
 					<table>
 						<tbody>
 							<tr class="profile-area">
@@ -145,7 +145,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li class="community-posting">
+				<li class="community-posting" onclick="location.href='detail.co'">
 					<table>
 						<tbody>
 							<tr class="profile-area">
@@ -171,7 +171,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li class="community-posting">
+				<li class="community-posting" onclick="location.href='detail.co'">
 					<table>
 						<tbody>
 							<tr class="profile-area">
@@ -197,7 +197,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li class="community-posting">
+				<li class="community-posting" onclick="location.href='detail.co'">
 					<table>
 						<tbody>
 							<tr class="profile-area">
@@ -223,7 +223,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li class="community-posting">
+				<li class="community-posting" onclick="location.href='detail.co'">
 					<table>
 						<tbody>
 							<tr class="profile-area">
@@ -249,7 +249,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li class="community-posting">
+				<li class="community-posting" onclick="location.href='detail.co'">
 					<table>
 						<tbody>
 							<tr class="profile-area">
@@ -275,7 +275,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li class="community-posting">
+				<li class="community-posting" onclick="location.href='detail.co'">
 					<table>
 						<tbody>
 							<tr class="profile-area">

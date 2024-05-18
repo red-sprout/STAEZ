@@ -55,6 +55,7 @@
 
 #community-contents>li {
     margin: 10px;
+    cursor: pointer;
 }
 
 #community-search {

@@ -7,17 +7,32 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/main.css'/>">
+<link rel="stylesheet" href="<c:url value='/resources/css/admin/adminHeader.css'/>">
 </head>
 <body>
-    <ul>
-        <li>이용자</li>
-        <li>공연</li>
-        <li>공연장</li>
-        <li>커뮤니티</li>
-        <li>카테고리</li>
-        <li>FAQ</li>
-        <li>문의</li>
-        <li>신고</li>
-    </ul>
+    <div id="admin-header-wrapper">
+        <div id="admin-header-nav">
+            <ul id="admin-header-flex">
+                <li><h2>이용자</h2></li>
+                <li><h2>공연</h2></li>
+                <li><h2>공연장</h2></li>
+                <li><h2>커뮤니티</h2></li>
+                <li><h2>카테고리</h2></li>
+                <li><h2>FAQ</h2></li>
+                <li><h2>문의</h2></li>
+                <li><h2>신고</h2></li>
+            </ul>
+        </div>
+        <!-- <ul>
+            <li><h2>이용자</h2></li>
+            <li><h2>공연</h2></li>
+            <li><h2>공연장</h2></li>
+            <li><h2>커뮤니티</h2></li>
+            <li><h2>카테고리</h2></li>
+            <li><h2>FAQ</h2></li>
+            <li><h2>문의</h2></li>
+            <li><h2>신고</h2></li>
+        </ul> -->
+    </div>
 </body>
 </html>

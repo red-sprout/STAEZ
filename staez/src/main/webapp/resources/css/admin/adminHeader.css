@@ -1,0 +1,19 @@
+#admin-header-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#admin-header-nav {
+    max-width: 1300px;
+}
+
+#admin-header-flex {
+    display: flex;
+    justify-content: flex-start;
+}
+
+#admin-header-flex>li {
+    width: 100px;
+}

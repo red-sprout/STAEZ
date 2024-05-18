@@ -22,17 +22,20 @@
 #admin-search {
     border: 1px solid #969696;
     border-radius: 20px;
-    width: 800px;
+    max-width: 800px;
     display: flex;
     align-items: center;
+    height: 40px;
 }
 
 #admin-search>button {
     border: none;
     background: none;
     cursor: pointer;
-    width: 60px;
-    height: 40px;
+    width: fit-content;
+    margin-left: 20px;
+    margin-right: 10px;
+    height: 100%;
 }
 
 #admin-search>button>img {
@@ -42,34 +45,33 @@
 #admin-search>input {
     border: none;
     outline: none;
-    width: 700px;
-    height: 40px;
+    margin-right: 20px;
+    height: 100%;
 }
 
 #admin-main-wrapper>li {
     margin: 10px;
 }
 
-#admin-table>table {
-    list-style: 1px solid #B51B75;
-}
-
 #admin-table td {
-    width: 150px;
     text-align: center;
     border-spacing: 0px;
     border-style: none;
-    padding: 0px;
     line-height: 50px;
     border-bottom: 1px solid #B51B75;
+    padding: 0px 10px;
 }
 
 #admin-table td:nth-child(1) {
     width: 50px;
 }
 
+#admin-table>form {
+    width: 100%;
+}
+
 #admin-table table {
-    width: 1200px;
+    width: 100%;
     border-spacing: 0px;
     border-style: none;
     padding: 0px;
@@ -85,4 +87,26 @@
 .admin-middle {
     display: flex;
     justify-content: center;
+}
+
+@media screen and (max-width: 950px) {
+    #admin-search {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    nav {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    #admin-header>select {
+        display: none;
+    }
+
+    .btn-staez {
+        display: none;
+    }
 }

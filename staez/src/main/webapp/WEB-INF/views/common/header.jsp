@@ -17,27 +17,26 @@
     <div align="center">
         <div class="header">
             <div class="header-top">
-                <div class="header-logo-area">
-                    <a href=""><img id="header-logo-img" src="${contextPath}/resources/img/common/header/STAEZ_logo.png" alt=""></a>
-                </div>
-                <div class="header-search-area">
-                    <button onclick="">
-                        <img src="${contextPath}/resources/img/common/header/search.png" alt="">
-                    </button>
-                    <input type="text">
+                <div id="header-top-flex">
+                    <div class="header-logo-area">
+                        <a href=""><img id="header-logo-img" src="${contextPath}/resources/img/common/header/STAEZ_logo.png" alt=""></a>
+                    </div>
+                    <div class="header-search-area">
+                        <button onclick="">
+                            <img src="${contextPath}/resources/img/common/header/search.png" alt="">
+                        </button>
+                        <input type="text">
+                    </div>
                 </div>
 
                 <!--로그인 X-->
-
                 <div class="header-other-area">
-                        <a href=""><span id="login">로그인</span></a>
-                        <img class="stick" src="${contextPath}/resources/img/common/header/divide.png" alt="">
-                        <a href=""><span id="join-membership">회원가입</span></a>
+                    <a href="loginForm.me"><span id="login">로그인</span></a>
+                    <img class="stick" src="${contextPath}/resources/img/common/header/divide.png" alt="">
+                    <a href="signinForm.me"><span id="join-membership">회원가입</span></a>
                 </div>
 
-
                 <!--로그인 O-->
-
                 <!-- <div class="header-other-area">
                     <a href=""><img id="header-like-img" class="other-img" src="${contextPath}/resources/img/common/header/heart-header.png" alt=""></a>
                     <img class="stick" src="${contextPath}/resources/img/common/header/divide.png" alt="">
@@ -58,10 +57,10 @@
                         <a href=""><span>공연</span></a>
                     </div>
                     <div class="menu-bar">
-                        <a href=""><span>커뮤니티</span></a>
+                        <a href="main.co"><span>커뮤니티</span></a>
                     </div>
                     <div class="menu-bar">
-                        <a href=""><span>공지사항</span></a>
+                        <a href="notice.ad"><span>공지사항</span></a>
                     </div>
                     <div class="menu-bar">
                         <a href=""><span>고객센터</span></a>
@@ -85,9 +84,13 @@
                         <a href=""><span>관리자 페이지</span></a>
                     </div>
                 </div> -->
-
+                <div class="menu-bar-small">
+                    <div class="menu-bar">
+                        <a href=""><span>메뉴</span></a>
+                    </div>
+                </div>
             </div>
-     </div>
+        </div>
     </div>
     <hr class="line">
 </body>
