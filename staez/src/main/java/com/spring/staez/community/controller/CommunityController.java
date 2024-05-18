@@ -10,4 +10,9 @@ public class CommunityController {
 	public String communityMain() {
 		return "community/communityMain";
 	}
+	
+	@GetMapping("detail.co")
+	public String communityDetail() {
+		return "community/communityDetail";
+	}
 }
