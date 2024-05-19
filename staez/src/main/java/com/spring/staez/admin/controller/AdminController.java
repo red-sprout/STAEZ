@@ -60,4 +60,24 @@ public class AdminController {
 	public String reportMain() {
 		return "admin/reportMain";
 	}
+	
+	@GetMapping("faqIncertForm.ad")
+	public String faqIncertForm() {
+		return "admin/faqIncertForm";
+	}
+	
+	@GetMapping("faqUpdateForm.ad")
+	public String faqUpdateForm() {
+		return "admin/faqUpdateForm";
+	}
+	
+	@GetMapping("inquireIncertForm.ad")
+	public String inquireIncertForm() {
+		return "admin/inquireIncertForm";
+	}
+	
+	@GetMapping("reportIncertForm.ad")
+	public String reportIncertForm() {
+		return "admin/reportIncertForm";
+	}
 }

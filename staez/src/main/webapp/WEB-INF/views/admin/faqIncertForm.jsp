@@ -6,8 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="<c:url value='/resources/css/admin/noticeIncertForm.css'/>">
-<script src="<c:url value='/resources/js/admin/noticeIncertForm.js'/>"></script>
+<link rel="stylesheet" href="<c:url value='/resources/css/admin/faqIncertForm.css'/>">
 </head>
 <body>
     <header>
@@ -16,11 +15,15 @@
     <main>
         <div id="community-wrapper">
             <form id="community-contents" align="left">
-                <h1>공지사항</h1>
+                <h1>FAQ</h1>
                 <hr>
                 <li>
                     <h3>제목</h3>
-                    <input type="text" name="" id="">
+                    <input type="text" name="" id="title">
+                </li>
+                <li>
+                    <h3>작성자</h3>
+                    <input type="text" name="" id="writer" value="abs123" readonly>
                 </li>
                 <li>
                     <h3>카테고리</h3>
@@ -44,7 +47,7 @@
                     </button>
                 </li>
                 <li>
-                    <div id="summernote"></div>
+                    <textarea name="" id="" rows="10" ></textarea>
                 </li>
                 <li id="community-submit">
                     <button class="btn-staez purple" type="submit">

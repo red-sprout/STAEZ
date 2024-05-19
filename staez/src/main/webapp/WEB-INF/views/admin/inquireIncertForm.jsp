@@ -6,8 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="<c:url value='/resources/css/admin/noticeIncertForm.css'/>">
-<script src="<c:url value='/resources/js/admin/noticeIncertForm.js'/>"></script>
+<link rel="stylesheet" href="<c:url value='/resources/css/admin/inquireIncertForm.css'/>">
 </head>
 <body>
     <header>
@@ -15,12 +14,16 @@
     </header>
     <main>
         <div id="community-wrapper">
-            <form id="community-contents" align="left">
-                <h1>공지사항</h1>
+            <form id="community-contents" align="left" method="POST" action="">
+                <h1>문의하기</h1>
                 <hr>
                 <li>
                     <h3>제목</h3>
-                    <input type="text" name="" id="">
+                    <input type="text" name="" id="question-title" value="제목입니다." readonly>
+                </li>
+                <li>
+                    <h3>문의자</h3>
+                    <input type="text" name="" class="writer" value="abc123" readonly>
                 </li>
                 <li>
                     <h3>카테고리</h3>
@@ -44,7 +47,18 @@
                     </button>
                 </li>
                 <li>
-                    <div id="summernote"></div>
+                    <textarea name="" id="question-contents" rows="10" readonly>내용입니다.</textarea>
+                </li>
+                <li>
+                    <h3>제목</h3>
+                    <input type="text" name="" id="answer-title">
+                </li>
+                <li>
+                    <h3>답변자</h3>
+                    <input type="text" name="" class="writer" value="abc123" readonly>
+                </li>
+                <li>
+                    <textarea name="" id="answer-contents" rows="10"></textarea>
                 </li>
                 <li id="community-submit">
                     <button class="btn-staez purple" type="submit">

@@ -16,6 +16,8 @@
     <main>
         <div id="community-wrapper">
             <form id="community-contents" align="left">
+                <h1>공지사항</h1>
+                <hr>
                 <li>
                     <h3>제목</h3>
                     <input type="text" name="" id="">
