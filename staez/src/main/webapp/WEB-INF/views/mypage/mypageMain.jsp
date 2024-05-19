@@ -23,32 +23,121 @@
         <div class="main-section">
             <div class="side">
                 <div class="profile">
-                    <div id="profile-image">
-                        <img src="${pageContext.request.contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
-                    </div>
+                    <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
                     <div id="profile-text">
                         <span>00님</span><br>
                         <span>환영합니다</span>
                     </div>
                 </div>
                 <div class="side-menu">
+                    <div class="small-title">마이페이지</div>
                     <ul>
-                        <li class="small-title">마이페이지</li>
-                        <li><a href="#">결제내역</a></li>
-                        <li><a href="#">찜목록</a></li>
-                        <li><a href="#">한줄평</a></li>
-                        <li>커뮤니티 관리</li>
-                        <li><a href="#">나의 게시글</a></li>
-                        <li><a href="#">좋아요</a></li>
-                        <li>설정</li>
-                        <li><a href="#">회원정보 변경</a></li>
-                        <li><a href="#">1:1 문의 내역</a></li>
-                        
+                        <li><a href="${contextPath}/payment.my">결제내역</a></li>
+                        <li><a href="${contextPath}/save.my">찜목록</a></li>
+                        <li><a href="${contextPath}/review.my">한줄평</a></li>
                     </ul>
+                    <ul>
+                        <li class="side-menu-title">커뮤니티 관리</li>
+                        <li><a href="${contextPath}/board.my">나의 게시글</a></li>
+                        <li><a href="${contextPath}/like.my">좋아요</a></li>
+                    </ul>
+                    <ul>
+                        <li class="side-menu-title">설정</li>
+                        <li><a href="${contextPath}/update.my">회원정보 변경</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="${contextPath}/inquire.my">1:1 문의 내역</a></li>
+                    </ul>
+                        
                 </div>
             </div>
             <div class="main-content">
-                
+                <div id="reserve-td">
+                    <div class="table-title">최근 예매내역</div>
+                    <table>
+                        <tr>
+                            <th id="reserve-date">예매일</th>
+                            <th id="reserve-no">예약번호</th>
+                            <th id="concert-title">공연명</th>
+                            <th id="watch-date">관람일</th>
+                            <th id="ticket-amount">매수</th>
+                        </tr>
+                        <c:forEach var="i" begin="0" end="4">
+                            <tr>
+                                <td>24.04.04</td>
+                                <td>11111111</td>
+                                <td align="left">꽃 별이지나</td>
+                                <td>24.04.16</td>
+                                <td>2</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                    <div class="more-btn"><a href="#">더보기</a></div> 
+                </div>
+
+                <div id="like-and-review">
+                    <div id="like">
+                        <div class="table-title">최근 찜목록</div>
+                        <table>
+                            <c:forEach var="i" begin="0" end="4">
+                            <tr>
+                                <td class="long-td">2024 최현우 Answer - 여수</td>
+                                <td>24.04.01</td>
+                            </tr>
+                            </c:forEach>
+                        </table>
+                        <div class="more-btn"><a href="#">더보기</a></div> 
+                    </div>
+                    <div id="review">
+                        <div class="table-title">한줄평</div>
+                        <table>
+                            <c:forEach var="i" begin="0" end="4">      
+                            <tr>
+                                <td class="long-td">2024 최현우 Answer - 여수</td>     
+                                <td>★ 5</td>
+                            </tr>
+                            </c:forEach>
+                        </table>
+                        <div class="more-btn"><a href="#">더보기</a></div> 
+                    </div>
+                    
+                </div>
+                <div id="community-manage">
+                    <div class="section-title">커뮤니티 관리</div>
+                    <div>
+                        <div id="my-board">
+                            <div class="table-title">
+                                나의 게시글
+                                <button>+</button>
+                            </div>
+                            <table>
+                                <c:forEach var="i" begin="0" end="4">      
+                                <tr>
+                                    <td class="long-td">〈웨스턴 스토리〉재밌어요</td>     
+                                    <td>24.04.01</td>
+                                </tr>
+                                </c:forEach>
+                            </table>
+                            <div class="more-btn"><a href="#">더보기</a></div> 
+                        </div>
+                        <div id="my-inquire">
+                            <div class="table-title">
+                                문의내역
+                                <button>+</button>
+                            </div>
+                            <table>
+                                <c:forEach var="i" begin="0" end="4">      
+                                <tr>
+                                    <td class="long-td">환불 가능할까요?</td>     
+                                    <td class="short-td">24.04.01</td>
+                                </tr>
+                                </c:forEach>
+                            </table>
+                            <div class="more-btn"><a href="#">더보기</a></div> 
+                        </div>
+                    </div>
+
+                </div>
             </div>
         
         </div>

@@ -15,12 +15,17 @@ public class MypageController {
 	private MypageService mps;
 	
 	@RequestMapping("main.my")
-	public String test(Model model) {
+	public String loadToMain(Model model) {
 		User m = mps.test();
 		
 		model.addAttribute("test", m);
 		
 		return "mypage/mypageMain";
+	}
+	
+	@RequestMapping("payment.my")
+	public String paymentLog(Model model) {
+		return "mypage/paymentsLog";
 	}
 	
 }
