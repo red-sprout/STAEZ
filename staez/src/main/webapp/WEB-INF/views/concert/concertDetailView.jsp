@@ -268,72 +268,62 @@
     </section> -->
 
     <!-- 한줄평 -->
-    <style>
-        .concert-detail-comment-div{
-            width: 75%;
-            margin: auto;
-            background-color: #D9D9D9;   
-        }
-        .concert-detail-comment-table{
-            margin: auto;
-        }
-        .concert-detail-comment-table th,
-        .concert-detail-comment-table td,
-        .concert-detail-comment-table tr{
-            border: 1px solid black;
-        }
-        .concert-detail-comment-page-list{
-            display: flex;
-            justify-content: center;
-        }
-    </style>
-    <section>
+    <!-- <section>
         <div>
             <p><h4><b>글쓰기 전 주의사항</b></h4></p>
             <p>※ 저속한 표현, 타인의 명예훼손, 광고성 게시물 등 게시판 운영규정에 어긋나는 글은 통보 없이 삭제될 수 있습니다.</p>
             <p>※ 등록된 관람평, 관람후기의 수정과 삭제는 마이페이지에서 가능합니다.</p>        
         </div>
         <br>
-        <div class="">
+        <div>
             <div class="concert-detail-comment-div">
                 <table class="concert-detail-comment-table">
-                    <tbody>
-                        <tr>
-                            <td>뮤덕이</td>
-                            <td>2024-05-01 00:00</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">재미있을 것 같습니다</td>
-                        </tr>
-                        <tr>
-                            <td>뮤덕이</td>
-                            <td>2024-05-01 00:00</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">재미있을 것 같습니다</td>
-                        </tr>
-                        <tr>
-                            <td>뮤덕이</td>
-                            <td>2024-05-01 00:00</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">재미있을 것 같습니다</td>
-                        </tr>
-                        <tr>
-                            <td>뮤덕이</td>
-                            <td>2024-05-01 00:00</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">재미있을 것 같습니다</td>
-                        </tr>
-                        <tr>
-                            <td>뮤덕이</td>
-                            <td>2024-05-01 00:00</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">재미있을 것 같습니다</td>
-                        </tr>
-                    </tbody>   
+                        <tbody>
+                            <tr>
+                                <td align="left"><b>뮤덕이</b></td>
+                                <td align="right">2024-05-01 00:00</td>
+                            </tr>
+                            <tr>
+                                <td align="left" colspan="2">재미있을 것 같습니다</td>
+                            </tr>
+                        </tbody>                 
+                        <tbody>
+                            <tr>
+                                <td align="left"><b>뮤덕이</b></td>
+                                <td align="right">2024-05-01 00:00</td>
+                            </tr>
+                            <tr>
+                                <td align="left" colspan="2">재미있을 것 같습니다</td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td align="left"><b>뮤덕이</b></td>
+                                <td align="right">2024-05-01 00:00</td>
+                            </tr>
+                            <tr>
+                                <td align="left" colspan="2">재미있을 것 같습니다</td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td align="left"><b>뮤덕이</b></td>
+                                <td align="right">2024-05-01 00:00</td>
+                            </tr>
+                            <tr>
+                                <td align="left" colspan="2">재미있을 것 같습니다</td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td align="left"><b>뮤덕이</b></td>
+                                <td align="right">2024-05-01 00:00</td>
+                            </tr>
+                            <tr>
+                                <td align="left" colspan="2">재미있을 것 같습니다</td>
+                            </tr>
+                        </tbody>
+                      
                 </table>
             </div>
             <br>        
@@ -354,6 +344,90 @@
             </div>
                 <br><br>
         </div>
+    </section> -->
+
+    <section>
+        <div>
+            <p><h4><b>글쓰기 전 주의사항</b></h4></p>
+            <p>※ 저속한 표현, 타인의 명예훼손, 광고성 게시물 등 게시판 운영규정에 어긋나는 글은 통보 없이 삭제될 수 있습니다.</p>
+            <p>※ 등록된 관람평, 관람후기의 수정과 삭제는 마이페이지에서 가능합니다.</p>        
+        </div>
+        <br>
+        <div>
+            <div class="concert-detail-comment-div">
+                <table class="concert-detail-comment-table">
+                        <tbody>
+                            <tr>
+                                <td align="left"><b>뮤덕이</b></td>
+                                <td align="right">2024-05-01 00:00</td>
+                            </tr>
+                            <tr>
+                                <td><h3>천개의 파랑 리뷰</h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" colspan="2">연뮤덕입장 솔직하게 작성했습니다...</td>
+                            </tr>
+                        </tbody>                 
+                        <tbody>
+                            <tr>
+                                <td align="left"><b>뮤덕이</b></td>
+                                <td align="right">2024-05-01 00:00</td>
+                            </tr>
+                            <tr>
+                                <td align="left" colspan="2">재미있을 것 같습니다</td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td align="left"><b>뮤덕이</b></td>
+                                <td align="right">2024-05-01 00:00</td>
+                            </tr>
+                            <tr>
+                                <td align="left" colspan="2">재미있을 것 같습니다</td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td align="left"><b>뮤덕이</b></td>
+                                <td align="right">2024-05-01 00:00</td>
+                            </tr>
+                            <tr>
+                                <td align="left" colspan="2">재미있을 것 같습니다</td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td align="left"><b>뮤덕이</b></td>
+                                <td align="right">2024-05-01 00:00</td>
+                            </tr>
+                            <tr>
+                                <td align="left" colspan="2">재미있을 것 같습니다</td>
+                            </tr>
+                        </tbody>
+                      
+                </table>
+            </div>
+            <br>        
+            <div class="concert-detail-comment-page-list">    
+                <div class="page-list" align="center">
+                    <div class="pagination">
+                        <img src="${pageContext.request.contextPath}/resources/img/main/before.png">
+                    </div>
+                    <div class="pagination current"><h4>1</h4></div>
+                    <div class="pagination"><h4>2</h4></div>
+                    <div class="pagination"><h4>3</h4></div>
+                    <div class="pagination"><h4>4</h4></div>
+                    <div class="pagination"><h4>5</h4></div>
+                    <div class="pagination">
+                        <img src="${pageContext.request.contextPath}/resources/img/main/after.png">
+                    </div>
+                </div>
+            </div>
+                <br><br>
+        </div>
+
+
     </section>
 
 	<div>

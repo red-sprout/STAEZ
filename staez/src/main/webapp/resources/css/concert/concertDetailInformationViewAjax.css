@@ -34,3 +34,33 @@
     border-left: none;
     border-right: none;
 }
+
+
+/* 한줄평 */
+/* 표 배경 회색 */
+.concert-detail-comment-div{
+    width: 75%;
+    margin: auto;
+    background-color: #f5f5f5;
+    padding: 10px;
+}
+/* 표 가운데, 테두리 기본 설정 */
+.concert-detail-comment-table{
+    border-collapse: collapse;
+    margin: auto;
+}
+.concert-detail-comment-page-list{
+    display: flex;
+    justify-content: center;
+}
+.concert-detail-comment-table{
+    width: 85%;
+    margin: auto;
+}
+.concert-detail-comment-table tbody tr:first-child td {
+    border-top: 2px solid #D9D9D9;
+    padding: 15px 20px 0px 20px;
+}
+.concert-detail-comment-table tbody tr td {
+    padding: 0px 20px 10px 20px;
+}
