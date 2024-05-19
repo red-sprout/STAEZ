@@ -20,5 +20,10 @@ public class OthersController {
 	public String searchResultMoreConcert() {
 		return "others/searchResultMoreConcert";
 	}
+	
+	@GetMapping("concertCalendar.ot")
+	public String concertCalendar() {
+		return "others/concertCalendar";
+	}
 
 }
