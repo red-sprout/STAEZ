@@ -15,4 +15,9 @@ public class CommunityController {
 	public String communityDetail() {
 		return "community/communityDetail";
 	}
+	
+	@GetMapping("incertForm.co")
+	public String communityIncert() {
+		return "community/communityIncertForm";
+	}
 }
