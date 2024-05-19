@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace: 해당 mapper파일의 고유한 별칭 -->
+<mapper namespace="userMapper">
+	<resultMap type="User" id="userResult">
+		<result column="user_no" property="userNo" />
+		<result column="user_id" property="userId" />
+		<result column="user_pwd" property="userPwd" />
+		<result column="nickname" property="nickname" />
+		<result column="gender" property="gender" />
+		<result column="birth" property="birth" />
+		<result column="address" property="address" />
+		<result column="email" property="email" />
+		<result column="genre_like" property="genreLike" />
+		<result column="enroll_date" property="enrollDate" />
+		<result column="withdrawal_date" property="withdrawalDate" />
+		<result column="user_status" property="userStatus" />
+	</resultMap>
+
+	<select id="test" resultMap="userResult"> <!-- db의 컬럼과 객체의 필드명이 완전히 같다면 resultType사용 가능 -->
+		SELECT *
+		FROM staez_user <!-- db에 user의 테이블 이름이 staez_user니까 주의 -->
+		WHERE user_status = 'Y'
+	</select>
+</mapper>
+

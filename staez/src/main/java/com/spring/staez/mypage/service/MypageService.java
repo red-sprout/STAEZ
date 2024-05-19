@@ -1,8 +1,7 @@
 package com.spring.staez.mypage.service;
 
-import org.springframework.stereotype.Service;
+import com.spring.staez.user.model.vo.User;
 
-@Service
-public class MypageService {
-
+public interface MypageService {
+	public User test();
 }
