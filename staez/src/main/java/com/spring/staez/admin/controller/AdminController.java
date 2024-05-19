@@ -6,9 +6,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AdminController {
 	
-	@GetMapping("notice.ad") 
+	@GetMapping("main.no") 
 	public String noticeMain() {
 		return "admin/noticeMain";
+	}
+	
+	@GetMapping("incertForm.no")
+	public String noticeIncertForm() {
+		return "admin/noticeIncertForm";
+	}
+	
+	@GetMapping("updateForm.no")
+	public String noticeUpdateForm() {
+		return "admin/noticeUpdateForm";
 	}
 	
 	@GetMapping("user.ad")
