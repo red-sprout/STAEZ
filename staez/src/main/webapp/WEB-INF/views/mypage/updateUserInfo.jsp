@@ -82,7 +82,7 @@
                                 <tr>
                                     <th><h3>아이디</h3></th>
                                     <td class="input-box">
-                                        <input type="text">
+                                        <input type="text" name="userId">
                                     </td>
                                     <td class="input-btn"></td>
                                 </tr>
@@ -97,12 +97,14 @@
                                     <th><h3>성별</h3></th>
                                     <td id="gender-input">
                                         <div>
-                                            <input type="radio" name="gender" id="male">
-                                            <label for="male">남</label>
-                                        </div>
-                                        <div>
-                                            <input type="radio" name="gender" id="female">
-                                            <label for="female">여</label>
+                                            <div>
+                                                <input type="radio" name="gender" id="male">
+                                                <label for="male">남</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" name="gender" id="female">
+                                                <label for="female">여</label>
+                                            </div>
                                         </div>
                                     </td>
                                     <td></td>
@@ -110,7 +112,7 @@
                                 <tr>
                                     <th><h3>주소</h3></th>
                                     <td class="input-box">
-                                        <input type="text">
+                                        <input type="text" name="address">
                                     </td>
                                     <td class="input-btn">
                                         <button type="button">우편번호</button>
@@ -126,14 +128,14 @@
                                 <tr>
                                     <th><h3>휴대폰번호</h3></th>
                                     <td id="phone-input">
-                                        <select name="front-phone-no" id="">
-                                            <option value="1">010</option>
-                                            <option value="1">011</option>
-                                        </select>
-                                        -
-                                        <input type="text">
-                                        -
-                                        <input type="text">
+                                        <div>
+                                            <select name="front-phone-no" id="">
+                                                <option value="1">010</option>
+                                                <option value="2">011</option>
+                                            </select>
+                                            <input type="text" maxlength="4" >
+                                            <input type="text" maxlength="4">
+                                        </div>
                                     </td>
                                     <td class="input-btn">
                                         <button type="button">인증번호</button>
@@ -146,24 +148,47 @@
                                         <button type="button">인증</button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th><h3>이메일</h3></th>
-                                    <td class="input-box">
-                                        <input type="email">
-                                    </td>
-                                    <td class="input-btn"></td>
+                                <tr class="warning-text">
+                                    <td></td>
+                                    <td><h5>잘못된 인증번호입니다</h5></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
-                                    <th><h3>관심장르</h3></th>
-                                    <td colspan="2">
-                                        <button type="button" class="btn-staez checked"><h4>뮤지컬</h4></button>
-                                        <button type="button" class="btn-staez"><h4>클래식</h4></button>    
-                                        <button type="button" class="btn-staez"><h4>연극</h4></button>    
-                                        <button type="button" class="btn-staez"><h4>국악</h4></button>    
-                                        <button type="button" class="btn-staez checked"><h4>대중음악</h4></button>    
-                                        <button type="button" class="btn-staez"><h4>서커스/마술</h4></button>    
-                                        <button type="button" class="btn-staez"><h4>기타</h4></button>    
+                                    <th><h3>이메일</h3></th>
+                                    <td id="email-input">
+                                        <div>
+                                            <input type="text"> 
+                                            <span>@</span>
+                                            <input type="text">
+                                        </div>
                                     </td>
+                                    <td class="input-btn">
+                                        <select name="domain" id="">
+                                            <option value="self-input">직접입력</option>
+                                            <option value="naver">naver.com</option>
+                                            <option value="google">gmail.com</option>
+                                            <option value="daum">daum.net</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2"><h3>관심장르</h3></th>
+                                    <td colspan="2" rowspan="2" id="like-genre-input" >
+                                        <div>
+                                            <button type="button" class="btn-staez checked"><h4>뮤지컬</h4></button>
+                                            <button type="button" class="btn-staez"><h4>클래식</h4></button>    
+                                            <button type="button" class="btn-staez"><h4>연극</h4></button>    
+                                            <button type="button" class="btn-staez"><h4>국악</h4></button>    
+                                            <button type="button" class="btn-staez checked full-width"><h4>대중음악</h4></button>    
+                                            <button type="button" class="btn-staez full-width"><h4>서커스/마술</h4></button>    
+                                            <button type="button" class="btn-staez full-width"><h4>기타</h4></button>    
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             </table>
                         </div>

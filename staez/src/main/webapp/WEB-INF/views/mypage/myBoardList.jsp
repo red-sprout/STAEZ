@@ -56,30 +56,21 @@
                 <div class="section-title">커뮤니티 관리</div>
 
                 <div class="main-title">
-                    <h2>결제내역</h2>
+                    <h2>나의 게시글</h2>
                 </div>
                 <table>
                     <tr class="tb-title">
-                        <th colspan="2" id="concert-info">공연정보</th>
-                        <th id="reserve-info">예약정보</th>
+                        <th id="board-title">제목</th>
+                        <th id="enroll-date">작성일</th>
+                        <th id="views">조회수</th>
+                        <th id="likes">좋아요</th>
                     </tr>
-                    <c:forEach var="i" begin="0" end="4">
+                    <c:forEach var="i" begin="0" end="9">
                     <tr class="tb-content">
-                        <td>
-                            <img src="${contextPath}/resources/img/mypage/chicago.gif" alt="">
-                        </td>
-                        <td id="content">
-                            <h3>꽃 별이지나</h3>
-                            <h5>서경대학교 공연예술센터 스콘 1관</h5>
-                            <h4>2024.04.15 (수) 15:00 (100분)</h4>
-                        </td>
-                        <td>
-                            <h5>
-                                예약번호: 22222222 <br>
-                                2024.04.01 <br>
-                                2매 200,000￦
-                            </h5>
-                        </td>
+                        <td>가나다라마바사아자차카타파하거너더러머버서어저처커터퍼허고노도로모보소오조초코토포호구누두루무부수우주추쿠투푸후</td>
+                        <td>24.02.28</td>
+                        <td>8000</td>
+                        <td>65</td>
                     </tr>
                     </c:forEach>
                 </table>

@@ -304,7 +304,7 @@ a {
 
 }
 
-.main-section>.main-content>#profile-update #update-form .input-box>input[type="text"],input[type="email"]{
+.main-section>.main-content>#profile-update #update-form .input-box>input[type="text"]{
     border: none;
     width: 100%;
     height: 30px;
@@ -312,6 +312,10 @@ a {
     position: absolute;
     bottom: 0px;
     left: 0px;
+
+    text-align: left;
+
+    padding-left: 10px;
 }
 
 .main-section>.main-content>#profile-update #update-form #pwd-btn{
@@ -324,7 +328,6 @@ a {
     position: absolute;
     left: 0;
     bottom: 0;
-    margin: 5px 0;
 
     background: none;
     border: 1px solid black;
@@ -333,16 +336,90 @@ a {
     cursor: pointer;
 
 }
-.main-section>.main-content>#profile-update #update-form #phone-input>select{
-    width: 30px;
+
+.main-section>.main-content>#profile-update #update-form #phone-input{
+    position: relative;
 }
+
+.main-section>.main-content>#profile-update #update-form #phone-input>div{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.main-section>.main-content>#profile-update #update-form #phone-input select{
+    width: 70px;
+    text-align: center;
+    margin: 0 3px;
+    border-radius: 5px;
+
+}
+.main-section>.main-content>#profile-update #update-form #phone-input input{
+    width: 100px;
+    text-align: left;
+    
+    margin: 0 3px;
+    padding-left: 10px;
+
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+
 
 .main-section>.main-content>#profile-update #update-form #gender-input{
+    position: relative;
 }
 
-.main-section>.main-content>#profile-update #update-form #gender-input>*{
-    display: inline-block;
+.main-section>.main-content>#profile-update #update-form #gender-input>div{
+    position: absolute;
+    left: 0;
+    bottom: 0;
 
+    display: flex;
+    flex-direction: row;
+
+    margin-bottom: 5px;
+}
+
+.main-section>.main-content>#profile-update #update-form #gender-input>div>*{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.main-section>.main-content>#profile-update #update-form #gender-input>div>div>*{
+    
+    margin-bottom: 0;
+
+}
+
+.main-section>.main-content>#profile-update #update-form #email-input{
+    position: relative;
+}
+
+.main-section>.main-content>#profile-update #update-form #email-input>div{
+    bottom: 0;
+    left: 0;
+    position: absolute;
+
+    margin-bottom: 5px;
+}
+
+.main-section>.main-content>#profile-update #update-form #email-input>div>input{
+    width: 135px;
+    border: 1px solid black;
+    border-radius: 5px;
+
+    padding-left: 10px;
+}
+
+.main-section>.main-content>#profile-update #update-form #like-genre-input>div{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 2열로 나누고 각 열의 너비를 동일하게 설정 */
+    gap: 10px; /* 버튼 사이의 간격 */
+}
+
+.main-section>.main-content>#profile-update #update-form #like-genre-input>div>button {
+    width: 100%;
 }
 
 /*입력 버튼(3번째 칸)*/
@@ -364,6 +441,11 @@ a {
     border-radius: 10px;
 
     cursor: pointer;
+}
+
+.main-section>.main-content>#profile-update #update-form .input-btn>select{
+    border: 1px solid black;
+    border-radius: 5px;
 }
 
 .main-section>.main-content>#profile-update #update-form .warning-text{

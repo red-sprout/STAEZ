@@ -118,7 +118,7 @@ a {
 }
 
 /*내가 한 부분*/
-main>.title{
+.title{
     width: 1250px;
     height: 120px;
     text-align: left;
@@ -129,7 +129,7 @@ main>.title{
 
 }
 
-main>.main-section{
+.main-section{
     width: 95%;
     height: 100%;
     display: flex;
@@ -137,7 +137,7 @@ main>.main-section{
     justify-content: space-around;
 }
 
-main>.main-section>.side{
+.main-section>.side{
     width: 250px;
     height: 1000px;
     display: flex;
@@ -146,7 +146,7 @@ main>.main-section>.side{
     align-items: center;
 }
 
-main>.main-section>.side>.profile{
+.main-section>.side>.profile{
     width: 95%;
     height: 260px;
     border: solid 1px black;
@@ -161,18 +161,18 @@ main>.main-section>.side>.profile{
     align-items: center;
 }
 
-main>.main-section>.side>.profile>img{
+.main-section>.side>.profile>img{
     width: 150px;
     height: 150px;
 
     margin-bottom: 20px;
 }
 
-main>.main-section>.side>.side-menu{
+.main-section>.side>.side-menu{
     width: 100%;
 }
 
-main>.main-section>.side>.side-menu>.small-title{
+.main-section>.side>.side-menu>.small-title{
     font-size: 23px;
     font-weight: 800;
     text-align: left;
@@ -182,28 +182,28 @@ main>.main-section>.side>.side-menu>.small-title{
     margin-bottom: 20px;
 }
 
-main>.main-section>.side>.side-menu>ul{
+.main-section>.side>.side-menu>ul{
     margin: 10px 0;
 }
 
-main>.main-section>.side>.side-menu>ul *{
+.main-section>.side>.side-menu>ul *{
     font-size: 20px;
     text-align: left;
     line-height: 40px;
 }
 
-main>.main-section>.side>.side-menu>ul>li{
+.main-section>.side>.side-menu>ul>li{
     width: 250px;
     height: 40px;
     padding-left: 15px;
 }
 
-main>.main-section>.side>.side-menu>ul>.side-menu-title{
+.main-section>.side>.side-menu>ul>.side-menu-title{
     font-weight: 600;
 }
 
 /*메인 콘텐츠*/
-main>.main-section>.main-content{
+.main-section>.main-content{
     width: 950px;
     height: 1300px;
 
@@ -213,7 +213,7 @@ main>.main-section>.main-content{
     justify-content: start;
 }
 
-main>.main-section>.main-content .section-title{
+.main-section>.main-content .section-title{
     width: 900px;
     height: 60px;
     
@@ -231,72 +231,45 @@ main>.main-section>.main-content .section-title{
     
 }
 
-main>.main-section>.main-content>.main-title{   
+.main-section>.main-content>.main-title{   
     width: 820px;
     height: 80px;
-
-    margin-top: 40px;
 }
 
 /*콘텐츠 제목*/
-main>.main-section>.main-content>.main-title>h2{
+.main-section>.main-content>.main-title>h2{
     text-align: left;
     line-height: 80px;
     padding-left: 20px;   
 }
 
-/*결제내역 리스트 테이블*/
-main>.main-section>.main-content>table{
+/*나의 게시글 리스트*/
+.main-section>.main-content>table{
     border-collapse: collapse;
     width: 820px;
-    height: 200px;
+    height: auto;
 
     margin: 0 0 40px 0;
 }
 
-
-main>.main-section>.main-content>table tr{
-    height: 140px;
-    
-    border-bottom: solid 1px black;
+.main-content>table>tr {
+    height: 140px;    
 }
 
-main>.main-section>.main-content>table .tb-title{
-    border-top: solid 2px black;
-    height: 50px;
-}
-
-
-main>.main-section>.main-content>table .tb-title>#concert-info{
-    width: 620px;
-}
-main>.main-section>.main-content>table .tb-content>td:nth-child(1){
-    width: 140px;
-}
-main>.main-section>.main-content>table .tb-content>td:nth-child(2){
+.tb-title>#board-title{
     width: 500px;
 }
-main>.main-section>.main-content>table .tb-title>#reserve-info{
-    width: 200px;
+
+.tb-title>#enroll-date{
+    width: 120px;
 }
 
-/*공연 포스터 이미지*/
-main>.main-section>.main-content>table img{
-    width: 90px;
-    height: 120px;
+.tb-title>#views{
+    width: 100px;
 }
-
-
-main>.main-section>.main-content>table #content{
-    padding-left: 20px;
+.tb-title>#blikes{
+    width: 100px;
 }
-main>.main-section>.main-content>table #content>*{
-    text-align: left;
-}
-
-
-
-
 
 
 
