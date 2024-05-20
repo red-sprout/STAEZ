@@ -52,9 +52,8 @@
 
 #calendar-container{
     width: 1300px;
-    height: 1000px;
+    height: fit-content;
     display: flex;
-    align-items: center;
     margin-bottom: 120px;
 
 }
@@ -82,7 +81,7 @@
 .calendar{
     margin: 75px;
     margin-top: 30px;
-    width: 500px;
+    width: 500px;   
     height: 500px;
 }
 
@@ -204,11 +203,25 @@
     color: white;
 }
 
+.reservation::before{
+    content: '';
+    width: 5px;
+    height: 5px;
+    position: absolute;
+    top: 0px;
+    right: 20px;
+    transform: translate(-50%, -50%);
+    background: #B51B75;
+    border-radius: 50px;
+    z-index: -1; 
+}
 
 
-/* 공연 목록 */
 
-.concert-day-list-area{
+
+/* 예매 목록 */
+
+.reservation-day-list-area{
     width: 50%;
     height: 100%;
     display: flex;
@@ -216,18 +229,18 @@
     margin-left: 50px;
 }
 
-.concert-list-title-area{
+.reservation-list-title-area{
     width: auto;
     height: auto;
     margin-top: 10px;
 }
 
-.concert-list-title-area>span{
+.reservation-list-title-area>span{
     font-size: 40px;
     font-weight: 700;
 }
 
-.concert-day-list-category{
+.reservation-list-day{
     width: 650px;
     height: 60px;
     display: flex;
@@ -236,49 +249,23 @@
     gap: 10px;
     border-bottom: 1px solid #d9d9d9;
     margin-top: 10px;
+    margin-bottom: 15px;
 }
 
-.concert-day-choice-area{
-    width: 100%;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    position: relative;
-}
-
-.concert-day-choice-area>div{
+.reservation-list-day>div{
     border: none;
     border-radius: 20px;
     background: #F8D082;
     padding: 3px 20px;
 }
 
-.concert-day-choice-area>div>span{
+.reservation-list-day>div>span{
     font-size: 17px;
-    font-weight: 500;
+    font-weight: 400;
     margin: 5px 0;
 }
 
-.concert-day-choice-area .btn-staez{
-    cursor: auto;
-}
-
-
-.concert-day-more{
-    padding: 6px 20px;
-    background: none;
-    border: 1px solid #D9D9D9;
-    border-radius: 10px;
-    color: #969696;
-    font-weight: 700;
-    position: absolute;
-    right: 0px;
-    bottom: 25%;
-    cursor: pointer;
-}
-
-.concert-day-info-area{
+.reservation-day-info-area{
     width: 650px;
     display: flex;
     flex-wrap: wrap;
@@ -350,3 +337,17 @@
     width: 115px;
     text-align: left;
 }
+
+.concert-day-list-category>div{
+    border: none;
+    border-radius: 20px;
+    background: #F8D082;
+    padding: 5px 20px;
+}
+
+.concert-day-list-category>div>span{
+    font-size: 17px;
+    font-weight: 500;
+    margin: 5px 0;
+}
+

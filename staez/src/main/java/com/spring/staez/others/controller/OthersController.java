@@ -25,5 +25,9 @@ public class OthersController {
 	public String concertCalendar() {
 		return "others/concertCalendar";
 	}
-
+	
+	@GetMapping("reservationCalendar.ot")
+	public String reservationCalendar() {
+		return "others/reservationCalendar";
+	}
 }

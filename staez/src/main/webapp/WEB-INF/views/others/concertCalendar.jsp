@@ -27,7 +27,7 @@
         </div>
 		<div id="calendar-container">
 			<div class="concert-calendar-area">
-				<div class="concert-calendar-title-area"><span>공연 날짜</span></div>
+				<div class="concert-calendar-title-area"><h1>공연 날짜</h1></div>
 				<div class="calendar">
 					<div class="calendar-top">
 						<button id="previous"></button>
@@ -51,7 +51,7 @@
 				</div>
 			</div>
 			<div class="concert-day-list-area">
-				<div class="concert-list-title-area"><span>공연 목록</span></div>
+				<div class="concert-list-title-area"><h1>공연 목록</h1></div>
 				<div class="concert-day-list-category">
 					<button class="btn-staez checked"><h4>뮤지컬</h4></button>
 					<button class="btn-staez"><h4>클래식</h4></button>
@@ -63,7 +63,7 @@
 				</div>
 				<div class="concert-day-choice-area">
 					<div class="concert-day"><span>2024-05-20</span></div>
-					<button class="btn-staez checked"><h3>뮤지컬</h3></button>
+					<button class="btn-staez checked"><h4>뮤지컬</h4></button>
 					<button class="concert-day-more">더보기</button>
 				</div>
 				<div class="concert-day-info-area">
