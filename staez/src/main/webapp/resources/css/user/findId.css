@@ -87,6 +87,7 @@ input[type=checkbox] {
     appearance: none;
     cursor: pointer;
     transition: background 0.2s;
+    outline: none;
 }
 
 /* 누르면 검은색 원 */
@@ -94,6 +95,7 @@ input[type="checkbox"]:checked {
     background: #000000;
     border: 0.8px solid black;
     transform: scale(1.0);
+    outline: none;
 }
 
 /* 이름 인증번호 */
@@ -106,6 +108,7 @@ input[type="text"] {
     height: 40px;
     margin: 0;
     background-color: transparent;
+    outline: none;
 }
 
 /* 휴대전화 */
@@ -118,6 +121,7 @@ input[type="number"] {
     margin: 0;
     background-color: transparent;
     border-radius: 10px;
+    outline: none;
 }
 
 /* 테이블 안에 라벨 */
