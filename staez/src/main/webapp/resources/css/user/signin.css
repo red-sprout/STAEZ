@@ -101,6 +101,7 @@ input[type="text"] {
     border: none; /* 테두리를 제거합니다. */
     border-bottom: 1px solid #000; /* 하단에만 테두리를 추가합니다. */
     margin: 0; /* 마진을 제거합니다. */
+    outline: none;
 }
 
 /* 모든 input 필드 */
@@ -110,6 +111,7 @@ input[type="password"] {
     border: none; /* 테두리를 제거합니다. */
     border-bottom: 1px solid #000; /* 하단에만 테두리를 추가합니다. */
     margin: 0; /* 마진을 제거합니다. */
+    outline: none;
 }
 
 /* 생년월일 컨테이너 */
