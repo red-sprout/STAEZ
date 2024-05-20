@@ -24,8 +24,38 @@ public class MypageController {
 	}
 	
 	@RequestMapping("payment.my")
-	public String paymentLog(Model model) {
+	public String paymentsLog(Model model) {
 		return "mypage/paymentsLog";
+	}
+	
+	@RequestMapping("save.my")
+	public String mySaveConcert(Model model) {
+		return "mypage/mySaveConcert";
+	}
+
+	@RequestMapping("review.my")
+	public String oneLineReview(Model model) {
+		return "mypage/oneLineReview";
+	}
+	
+	@RequestMapping("board.my")
+	public String myBoardList(Model model) {
+		return "mypage/myBoardList";
+	}
+	
+	@RequestMapping("like.my")
+	public String likeBoardList(Model model) {
+		return "mypage/likeBoardList";
+	}
+	
+	@RequestMapping("update.my")
+	public String updateUserInfo(Model model) {
+		return "mypage/updateUserInfo";
+	}
+	
+	@RequestMapping("inquire.my")
+	public String myInquireList(Model model) {
+		return "mypage/myInquireList";
 	}
 	
 }

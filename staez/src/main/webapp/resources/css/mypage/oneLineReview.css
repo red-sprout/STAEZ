@@ -213,6 +213,7 @@ main>.main-section>.main-content{
     justify-content: start;
 }
 
+/*콘텐츠 제목*/
 main>.main-section>.main-content>.main-title{   
     width: 820px;
     height: 80px;
@@ -220,61 +221,70 @@ main>.main-section>.main-content>.main-title{
     margin-top: 40px;
 }
 
-/*콘텐츠 제목*/
 main>.main-section>.main-content>.main-title>h2{
     text-align: left;
     line-height: 80px;
     padding-left: 20px;   
 }
 
-/*결제내역 리스트 테이블*/
+/*찜목록 리스트 테이블*/
 main>.main-section>.main-content>table{
     border-collapse: collapse;
     width: 820px;
-    height: 200px;
 
     margin: 0 0 40px 0;
+
+    border-top: solid 2px black;
+
 }
 
-
 main>.main-section>.main-content>table tr{
-    height: 140px;
-    
+    height: 150px;
     border-bottom: solid 1px black;
 }
 
-main>.main-section>.main-content>table .tb-title{
-    border-top: solid 2px black;
-    height: 50px;
-}
-
-
-main>.main-section>.main-content>table .tb-title>#concert-info{
-    width: 620px;
-}
-main>.main-section>.main-content>table .tb-content>td:nth-child(1){
+/*공연 포스터 이미지*/
+main>.main-section>.main-content>table #concert-img{
     width: 140px;
 }
-main>.main-section>.main-content>table .tb-content>td:nth-child(2){
-    width: 500px;
-}
-main>.main-section>.main-content>table .tb-title>#reserve-info{
-    width: 200px;
-}
 
-/*공연 포스터 이미지*/
 main>.main-section>.main-content>table img{
     width: 90px;
     height: 120px;
 }
 
-
 main>.main-section>.main-content>table #content{
-    padding-left: 20px;
+    width: 580px;
+    height: 150px;
+    padding: 15px 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
+
 main>.main-section>.main-content>table #content>*{
     text-align: left;
 }
+
+main>.main-section>.main-content>table #review-func{
+    width: 100px;
+    height: 150px;
+}
+
+main>.main-section>.main-content>table #review-func>button{
+    width: 70px;
+    height: 35px;
+
+    background: none;
+    border: 1px solid black;
+    border-radius: 5px;
+
+}
+
+
+
+
 
 
 

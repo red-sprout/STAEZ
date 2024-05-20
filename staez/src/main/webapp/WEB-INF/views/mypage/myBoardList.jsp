@@ -7,7 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="${contextPath}/resources/css/mypage/paymentsLog.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/mypage/myBoardList.css">
+
 <title>Insert title here</title>
 </head>
 
@@ -52,6 +53,8 @@
                 </div>
             </div>
             <div class="main-content">
+                <div class="section-title">커뮤니티 관리</div>
+
                 <div class="main-title">
                     <h2>결제내역</h2>
                 </div>

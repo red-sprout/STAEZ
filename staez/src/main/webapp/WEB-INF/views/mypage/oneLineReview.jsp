@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="${contextPath}/resources/css/mypage/paymentsLog.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/mypage/oneLineReview.css">
 <title>Insert title here</title>
 </head>
 
@@ -53,32 +53,45 @@
             </div>
             <div class="main-content">
                 <div class="main-title">
-                    <h2>결제내역</h2>
+                    <h2>한줄평</h2>
                 </div>
                 <table>
-                    <tr class="tb-title">
-                        <th colspan="2" id="concert-info">공연정보</th>
-                        <th id="reserve-info">예약정보</th>
-                    </tr>
-                    <c:forEach var="i" begin="0" end="4">
-                    <tr class="tb-content">
-                        <td>
+                    <tr>
+                        <td id="concert-img">
                             <img src="${contextPath}/resources/img/mypage/chicago.gif" alt="">
                         </td>
                         <td id="content">
                             <h3>꽃 별이지나</h3>
-                            <h5>서경대학교 공연예술센터 스콘 1관</h5>
-                            <h4>2024.04.15 (수) 15:00 (100분)</h4>
+                            <h4>꽃이 왜 별이죠. 공감못하겠으니 5점 드립니다.</h4>
                         </td>
-                        <td>
-                            <h5>
-                                예약번호: 22222222 <br>
-                                2024.04.01 <br>
-                                2매 200,000￦
-                            </h5>
+                        <td id="review-func">
+                            <h4>★ 5</h4>
                         </td>
                     </tr>
-                    </c:forEach>
+                    <tr>
+                        <td id="concert-img">
+                            <img src="${contextPath}/resources/img/mypage/chicago.gif" alt="">
+                        </td>
+                        <td id="content">
+                            <h3>꽃 별이지나</h3>
+                            <h4>꽃이 왜 별이죠. 공감못하겠으니 5점 드립니다.</h4>
+                        </td>
+                        <td id="review-func">
+                            <button><h4>후기작성</h4></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="concert-img">
+                            <img src="${contextPath}/resources/img/mypage/chicago.gif" alt="">
+                        </td>
+                        <td id="content">
+                            <h3>꽃 별이지나</h3>
+                            <h4>꽃이 왜 별이죠. 공감못하겠으니 5점 드립니다.</h4>
+                        </td>
+                        <td id="review-func">
+                            <button><h4>수정</h4></button>
+                        </td>
+                    </tr>
                 </table>
 
                 <div class="page-list">
