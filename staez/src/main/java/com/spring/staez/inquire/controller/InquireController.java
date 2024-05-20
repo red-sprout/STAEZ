@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class InquireController {
 	
-	@GetMapping("faq.iq")
+	@GetMapping("main.iq")
 	public String inquireFAQ(){
 		return "inquire/inquireFAQ";
 	}
