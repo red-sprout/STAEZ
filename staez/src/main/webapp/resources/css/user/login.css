@@ -157,3 +157,10 @@ input::placeholder {
     width: 50px;
     margin: 0 10px;
 }
+
+/* 아디,비번,회원가입 */
+#findIdButton, #findPwdButton ,#signinButton{
+    border: none;
+    background-color: white;
+    color: black;
+}
