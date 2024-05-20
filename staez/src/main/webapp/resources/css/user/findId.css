@@ -7,7 +7,28 @@ img {
 }
 
 /* form 안 전체를 감싸는 div */
-#find-div {
+#find-div-phone {
+    max-width: 800px;
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+/* 테이블안에있는 th */
+th{
+    min-width: 70px;
+    text-align: left;
+}
+/* 테이블안에 th 안에  findId-label 라는 클래스*/
+th.findId-label {
+    text-align: left;
+    
+}
+/* 이메일 선택 */
+#find-div-email {
     max-width: 800px;
     width: 100%;
     margin-top: 20px;
@@ -18,7 +39,15 @@ img {
 }
 
 /* 휴대전화인증 칸 */
-#findId-div{
+#findphone-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 500px;
+}
+
+/* 이메일 칸 */
+#findemail-div{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,7 +56,7 @@ img {
 
 /* 테이블 */
 table {
-    max-width: 540px;
+    max-width: 500px;
 }
 
 /* 폼태그 */
@@ -93,10 +122,30 @@ input[type="number"] {
 
 /* 테이블 안에 라벨 */
 #findId-label {
-    max-width: 600px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    
+}
+
+/* 핸드폰 앞자리 */
+#phone-select{
+    min-width: 100px;
+    min-height: 40px;
+    border: 0.8px solid #535353;
+    border-radius: 10px;
+}
+
+/* 핸드폰 번호 입력 가운데 */
+#phone-mid{
+    border: 0.8px solid #535353;
+    border-radius: 10px;
+}
+
+/* 핸드폰 번호 입력 마지막 */
+#phone-end{
+    border: 0.8px solid #535353;
+    border-radius: 10px;
 }
 
 table tr {
@@ -113,7 +162,6 @@ table td {
 #findId-div th {
     padding: 10px;
     text-align: left;
-    min-width: 100px;
 }
 
 hr{

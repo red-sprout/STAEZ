@@ -25,20 +25,87 @@
                 <table>
                     <tr>
                         <th colspan="2" class="findId-label">새 비밀번호</th>
-                        <td colspan="5"><input type="password" name="password"></td>
+                        <td colspan="5"><input type="password" id="newPassword" name="newPassword"></td>
                     </tr>
                     <tr>
                         <th colspan="2" class="findId-label">새 비밀번호 확인</th>
-                        <td colspan="5"><input type="password" name="password"></td>
+                        <td colspan="5"><input type="password" id="confirmNewPassword" name="confirmNewPassword"></td>
                     </tr>
                 </table>
             </div>
         </form>
+
         <div class="insert-member-div">
-            <button type="{main/jsp}">로그인</button>
+            <!-- Button to Open the Modal -->
+            <button type="button" id="changeButton">변경</button>
+
+            <!-- The Success Modal -->
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">비밀번호 변경 성공!</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        
+                        <!-- Modal body -->
+                        <div class="modal-body">비밀번호 변경에 성공하셨습니다!</div>
+                        
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="window.location.href = 'loginForm.me'">로그인</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Failure Modal -->
+            <div class="modal fade" id="failureModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">비밀번호 변경 실패!</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        
+                        <!-- Modal body -->
+                        <div class="modal-body">비밀번호가 일치하지 않습니다.</div>
+                        
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
- 
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var changeButton = document.getElementById('changeButton');
+            changeButton.addEventListener('click', function() {
+                // 비밀번호 확인
+                var newPassword = document.getElementById('newPassword').value;
+                var confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+                if (newPassword === confirmNewPassword) {
+                    // 변경 성공 모달 열기
+                    $('#myModal').modal('show');
+                } else {
+                    // 변경 실패 모달 열기
+                    $('#failureModal').modal('show');
+                }
+            });
+        });
+    </script>
     <footer>
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     </footer>

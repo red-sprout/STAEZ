@@ -193,3 +193,9 @@ hr{
     background-color: #640D6B;
     color: white;
 }
+
+/*  @ */
+#email-prefix-shift2{
+    margin: 0 10px;
+    padding: 10px 0px 0px 0px;
+}
