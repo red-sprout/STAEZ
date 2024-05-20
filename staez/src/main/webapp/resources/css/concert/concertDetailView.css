@@ -1,3 +1,10 @@
+/* 공통파일 margin 없앰 */
+ul {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
 /* 공연 navi */
 .concert-ul{
     display: flex;
@@ -16,12 +23,13 @@
 /* 공연상세페이지 노란블럭 */
 .concert-detail-upper-section{
     display: flex;
-    padding: 50px 200px 50px 200px;
+    justify-content: center;
+    align-items: center;
     background-color: #F8D082;
 }
 
 .concert-detail-upper-section > div{
-    margin: auto;
+    margin: 20px;
 }
 
 
@@ -43,6 +51,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     height: 60px;
 }
 /* 클래스로 안잡혀서 id로 */
@@ -88,9 +97,9 @@
     border: 0;
     border-radius: 5px;
     background-color: #640D6B;
-    width: 300px;
+    width: 250px;
     height: 40px;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 .reservation-button span{
     color: white;
@@ -102,95 +111,38 @@
     flex-direction: row;
     gap: 25px;
     padding: 20px 250px 20px 250px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 .concert-detail-hr{
     align-self: center;
     width: 80%;
     height: 3px;
     background: black;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 /* 달력 */
-#concert-reservation-calendar-area{
-    width: 1300px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    margin: 50px 0px;
-}
-
-#reservation-calendar-choice{
-    width: 249px;
-    height: 60px;
-    border: solid 1px #d9d9d9;  
-    border-radius: 0px 50px 50px 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#concert-calendar-choice{
-    width: 251px;
-    height: 60px;
-    border: solid 1px #d9d9d9;
-    border-radius: 50px 0px 0px 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#reservation-calendar-choice:hover span{
-    color: #B51B75;
-}
-
-#concert-calendar-choice:hover span{
-    color: #B51B75;
-}
-
-#reservation-calendar-choice>span{
-    font-size: 22px;
-    font-weight: bold;
-    color: #969696;
-    cursor: pointer;
-}
-
-#concert-calendar-choice>span{
-    font-size: 22px;
-    font-weight: bold;
-    color: #969696;
-    cursor: pointer;
-}
-
-#calendar-container{
-    width: 1300px;
-    height: 1000px;
-    display: flex;
-    align-items: center;
-    margin-bottom: 120px;
-
-}
-
-.concert-calendar-area{
-    width: 50%;
-    height: 100%;
-    border-right: 1px solid #969696;
+.concert-calendar-container{
+    width: 300px;
     display: flex;
     flex-direction: column;
-    
+    align-items: center;
 }
 
 .calendar{
-    margin: 75px;
-    margin-top: 30px;
-    width: 500px;
-    height: 500px;
+    background-color: whitesmoke;
+    width: 250px;
+    height: 290px;
+    border-radius: 5px;
 }
 
 .calendar-top{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0px 30px;
+
 }
 
 .calendar ul{
@@ -202,7 +154,7 @@
 
 .calendar ul li{
     width: calc(100% / 7);
-    margin-top: 25px;
+    margin-top: 10px;
     position: relative;
     z-index: 2;
 }

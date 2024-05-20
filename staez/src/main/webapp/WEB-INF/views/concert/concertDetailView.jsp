@@ -86,7 +86,7 @@
         </div>
         
         <!-- 달력구현 -->
-        
+            <div class="concert-calendar-container">        
 				<div class="calendar">
 					<div class="calendar-top">
 						<button id="previous"></button>
@@ -107,23 +107,23 @@
 							<!-- 스크립트 이용해서 넣을 것 -->
 						</ul>
 					</div>
-				
+				</div>
 			
-         <!-- <div class="concert-detail-body-div">
-            <div id='calendar'></div>
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                    var calendarEl = document.getElementById('calendar');
-                    var calendar = new FullCalendar.Calendar(calendarEl, {
-                        initialView: 'dayGridMonth'
-                    });
-                    calendar.render();
-                    });
-                </script>
-            </div> -->
+                    <!-- <div class="concert-detail-body-div">
+                        <div id='calendar'></div>
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                var calendarEl = document.getElementById('calendar');
+                                var calendar = new FullCalendar.Calendar(calendarEl, {
+                                    initialView: 'dayGridMonth'
+                                });
+                                calendar.render();
+                                });
+                            </script>
+                        </div> -->
 
-            <button class="reservation-button"><span>예매하기</span></button>
-        
+                <button class="reservation-button"><span>예매하기</span></button>
+            </div>
     </section>
 
         <!-- 공연상세페이지 아래쪽 navi-->
@@ -136,7 +136,6 @@
         </ul>
     </section>
     <hr class="concert-detail-hr">
-    <br>
 
 
 
