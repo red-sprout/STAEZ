@@ -15,5 +15,14 @@
 }
 
 #admin-header-flex>li {
-    width: 100px;
+    padding: 0 20px;
+    cursor: pointer;
+}
+
+#admin-header-flex>li>h2 {
+    width: fit-content;
+}
+
+#admin-header-flex>li:hover {
+    color: #B51B75;
 }

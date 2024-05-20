@@ -75,6 +75,7 @@
     border-spacing: 0px;
     border-style: none;
     padding: 0px;
+    white-space: nowrap;
 }
 
 #admin-table thead>tr {
@@ -109,4 +110,26 @@
     .btn-staez {
         display: none;
     }
+}
+
+.modal-body>ul>li {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.modal-body>ul>li>h3 {
+    width: 80px;
+}
+
+.modal-body>ul>li>input {
+    width: 70%;
+    height: 35px;
+    padding: 10px;
+}
+
+.modal-body>ul>li>textarea {
+    width: 70%;
+    height: 200px;
+    resize: none;
+    padding: 10px;
 }

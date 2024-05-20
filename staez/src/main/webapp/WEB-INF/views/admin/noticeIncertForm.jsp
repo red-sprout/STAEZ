@@ -50,7 +50,7 @@
                     <button class="btn-staez purple" type="submit">
                         <h3>등록</h3>
                     </button>
-                    <button class="btn-staez purple">
+                    <button class="btn-staez purple" type="button" onclick="location.href='main.no'">
                         <h3>목록</h3>
                     </button>
                 </li>

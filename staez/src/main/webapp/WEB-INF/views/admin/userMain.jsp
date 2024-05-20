@@ -12,6 +12,9 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	</header>
+    <nav>
+        <jsp:include page="/WEB-INF/views/admin/adminHeader.jsp" />
+    </nav>
     <main>
         <ul id="admin-main-wrapper">
             <li id="admin-header">
@@ -33,7 +36,7 @@
             <li>
                 <button class="btn-staez purple"><h4>강퇴</h4></button>
                 <button class="btn-staez purple"><h4>권한</h4></button>
-                <button class="btn-staez purple"><h4>메일</h4></button>
+                <button class="btn-staez purple" data-toggle="modal" data-target="#myModal"><h4>메일</h4></button>
             </li>
             <li id="admin-table" class="admin-middle">
                 <form method="GET">
@@ -210,6 +213,40 @@
             </li>
         </ul>
     </main>
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h3 class="modal-title">메일보내기</h3>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <form method="POST">
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <ul>
+                            <li>
+                                <h3>제목</h3>
+                                <input type="text" name="" id="">
+                            </li>
+                            <li>
+                                <h3>내용</h3>
+                                <textarea name="" id=""></textarea>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">전송</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <footer>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</footer>

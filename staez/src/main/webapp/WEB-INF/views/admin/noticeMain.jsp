@@ -38,7 +38,7 @@
                     <button class="btn-staez"><h3>티켓</h3></button>
                 </div>
                 <div class="">
-                    <button class="btn-staez purple"><h3>작성</h3></button>
+                    <button class="btn-staez purple" onclick="location.href='incertForm.no'"><h3>작성</h3></button>
                 </div>
             </li>
             <li class="notice-posting">

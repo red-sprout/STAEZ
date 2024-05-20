@@ -13,14 +13,14 @@
     <div id="admin-header-wrapper">
         <div id="admin-header-nav">
             <ul id="admin-header-flex">
-                <li><h2>이용자</h2></li>
-                <li><h2>공연</h2></li>
-                <li><h2>공연장</h2></li>
-                <li><h2>커뮤니티</h2></li>
-                <li><h2>카테고리</h2></li>
-                <li><h2>FAQ</h2></li>
-                <li><h2>문의</h2></li>
-                <li><h2>신고</h2></li>
+                <li onclick="location.href='user.ad'"><h2>이용자</h2></li>
+                <li onclick="location.href='concert.ad'"><h2>공연</h2></li>
+                <li onclick="location.href='theater.ad'"><h2>공연장</h2></li>
+                <li onclick="location.href='community.ad'"><h2>커뮤니티</h2></li>
+                <li onclick="location.href='category.ad'"><h2>카테고리</h2></li>
+                <li onclick="location.href='faq.ad'"><h2>FAQ</h2></li>
+                <li onclick="location.href='inquire.ad'"><h2>문의</h2></li>
+                <li onclick="location.href='report.ad'"><h2>신고</h2></li>
             </ul>
         </div>
         <!-- <ul>

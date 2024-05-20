@@ -13,6 +13,9 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	</header>
+    <nav>
+        <jsp:include page="/WEB-INF/views/admin/adminHeader.jsp" />
+    </nav>
     <main>
         <ul id="admin-main-wrapper">
             <li id="admin-header">
