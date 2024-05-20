@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ConcertController {
 	
-	@GetMapping("concert.co")
+	@GetMapping("main.co")
 	public String concertMain() {
 		return "concert/concertMainView";
 	}
 	
-	@GetMapping("concertDetail.co")
+	@GetMapping("detail.co")
 	public String concertDetail() {
 		return "concert/concertDetailView";
 	}

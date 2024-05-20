@@ -70,7 +70,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             var loginButton = document.getElementById('signinButton');
             loginButton.addEventListener('click', function() {
-                window.location.href = '${contextPath}/signinForm.me';
+                window.location.href = '${contextPath}/insertForm.me';
             });
         });
         </script>

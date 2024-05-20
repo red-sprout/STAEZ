@@ -19,9 +19,9 @@ public class UserController {
 		}
 	
 	//	회원가입
-		@GetMapping("signinForm.me")
+		@GetMapping("insertForm.me")
 		public String signinForm() {
-			return "user/signinForm";
+			return "user/insertForm";
 	}
 		
 //		아이디찾기
@@ -40,9 +40,9 @@ public class UserController {
 			return "user/findPwdForm";
 		}
 //		새 비밀번호 입력
-		@GetMapping("newPwdForm.me")
+		@GetMapping("insertPwdForm.me")
 		public String newPwdForm() {
-			return "user/newPwdForm";
+			return "user/insertPwdForm";
 		}
 		
 		
