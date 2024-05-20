@@ -70,7 +70,7 @@
                         <a href="main.co"><span>커뮤니티</span></a>
                     </div>
                     <div class="menu-bar">
-                        <a href="notice.ad"><span>공지사항</span></a>
+                        <a href="main.no"><span>공지사항</span></a>
                     </div>
                     <div class="menu-bar">
                         <a href=""><span>고객센터</span></a>

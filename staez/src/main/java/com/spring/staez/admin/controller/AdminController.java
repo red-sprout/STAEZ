@@ -80,4 +80,24 @@ public class AdminController {
 	public String reportIncertForm() {
 		return "admin/reportIncertForm";
 	}
+	
+	@GetMapping("concertIncertForm.ad")
+	public String concertIncertForm() {
+		return "admin/concertIncertForm";
+	}
+	
+	@GetMapping("concertUpdateForm.ad")
+	public String concertUpdateForm() {
+		return "admin/concertUpdateForm";
+	}
+	
+	@GetMapping("theaterIncertForm.ad")
+	public String theaterIncertForm() {
+		return "admin/theaterIncertForm";
+	}
+	
+	@GetMapping("theaterUpdateForm.ad")
+	public String theaterUpdateForm() {
+		return "admin/theaterUpdateForm";
+	}
 }
