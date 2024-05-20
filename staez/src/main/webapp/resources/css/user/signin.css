@@ -95,7 +95,16 @@ select.box option {
 }
 
 /* 모든 input 필드 */
-input[type="text"], input[type="password"] {
+input[type="text"] {
+    width: 100%; /* 너비를 100%로 설정하여 부모 요소에 맞춥니다. */
+    height: 40px; /* 높이를 지정합니다. */
+    border: none; /* 테두리를 제거합니다. */
+    border-bottom: 1px solid #000; /* 하단에만 테두리를 추가합니다. */
+    margin: 0; /* 마진을 제거합니다. */
+}
+
+/* 모든 input 필드 */
+input[type="password"] {
     width: 100%; /* 너비를 100%로 설정하여 부모 요소에 맞춥니다. */
     height: 40px; /* 높이를 지정합니다. */
     border: none; /* 테두리를 제거합니다. */

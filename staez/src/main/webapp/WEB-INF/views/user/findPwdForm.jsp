@@ -24,37 +24,55 @@
             <div id="findId-div">
                 <table>
                     <tr>
-                        <th colspan="2" class="findId-label">아이디</th>
-                        <td colspan="5"><input type="text" name="name"></td>
+                        <th>아이디</th>
+                        <td colspan="6" class="email-container" id="">
+                            <input type="text" name="name">
+                        </td>
                     </tr>
                     <tr>
-                        <th colspan="2" class="findId-label">이메일</th>
-                        <td colspan="2"><input type="text" placeholder=""></td>
-                        <td colspan="1" >@</td>
-                        <td colspan="2"><input type="text"></td>
+                        <th>이메일</th>
+                        <td colspan="6" class="email-container">
+                            <div style="display: flex;">
+                                <input type="text" id="email-prefix">
+                                <span id="email-prefix-shift2">@</span>
+                                <input type="text" id="email-suffix" placeholder="직접 입력">
+                            </div>
+                        </td>
                         <td>
-							<select class="box" id="domain-list">
-								<option value="type">직접 입력</option>
-								<option value="naver.com">naver.com</option>
-								<option value="google.com">google.com</option>
-								<option value="hanmail.net">hanmail.net</option>
-								<option value="nate.com">nate.com</option>
-								<option value="kakao.com">kakao.com</option>
-							</select>
-						</td>
-                    </tr>
-                    
-                    <tr>
-                        <th colspan="2" class="findId-label">휴대 번호</th>
-                        <td colspan="1"><input type="number" placeholder=""></td>
-                        <td colspan="1">-</td>
-                        <td colspan="1"><input type="number"></td>
-                        <td colspan="1">-</td>
-                        <td colspan="1"><input type="number"></td>
-                        <td colspan="1"><input type="button" class="check_button" value=" 인증번호 전송 "></td>
+                            <select class="box" id="domain-list">
+                                <option value="type">직접 입력</option>
+                                <option value="naver.com">naver.com</option>
+                                <option value="google.com">google.com</option>
+                                <option value="hanmail.net">hanmail.net</option>
+                                <option value="nate.com">nate.com</option>
+                                <option value="kakao.com">kakao.com</option>
+                            </select>
+                        </td>                        
                     </tr>
                     <tr>
-                        <th colspan="2" class="findId-label">인증 번호</th>
+                        <th>
+                            휴대 번호
+                        </th>
+                        <td colspan="6" class="email-container">
+                            <div style="display: flex;">
+                                <select class="box" id="domain-list">
+                                    <option value="010" selected>010</option>
+                                    <option value="011">011</option>
+                                    <option value="016">016</option>
+                                    <option value="017">017</option>
+                                    <option value="018">018</option>
+                                    <option value="019">019</option>
+                                </select>
+                                <span id="email-prefix-shift2">-</span>
+                                <input type="text" id="email-suffix">
+                                <span id="email-prefix-shift2">-</span>
+                                <input type="text" id="email-suffix">
+                                <td colspan="1"><input type="button" class="check_button" value=" 인증번호 전송 "></td>
+                            </div>
+                        </td>                       
+                    </tr>
+                    <tr>
+                        <th colspan="1" class="findId-label">인증 번호</th>
                         <td colspan="4"><input type="text" name="verification"></td>
                         <td colspan="1"><input type="button" class="check_button" value="확인"></td>
                         <td colspan="1"><input type="button" class="check_button" value="재발송"></td>
@@ -63,11 +81,50 @@
             </div>
         </form>
         <div class="insert-member-div">
-            <button type="{main/jsp}">이전</button>
+            <button type="button" id="backButton">이전</button>
             <button type="submit">다음</button>
         </div>
     </main>
  
+    <script>
+        // 이메일 접미사가 변경될 때마다 호출되는 함수
+        function handleDomainListChange() {
+            const domainList = document.getElementById("domain-list");
+            const emailSuffixInput = document.getElementById("email-suffix");
+
+            domainList.addEventListener("change", function () {
+                const selectedOption = domainList.options[domainList.selectedIndex].value;
+
+                if (selectedOption !== "type") {
+                    emailSuffixInput.value = selectedOption;
+                    emailSuffixInput.placeholder = "";
+                } else {
+                    emailSuffixInput.value = "";
+                    emailSuffixInput.placeholder = "직접 입력";
+                }
+            });
+        }
+
+        // 초기화 함수
+        function init() {
+            handleDomainListChange();
+        }
+
+        init(); // 페이지 로드 시 초기화 함수 호출
+
+        // 이전페이지로 돌아가는
+        document.addEventListener('DOMContentLoaded', function() {
+            var backButton = document.getElementById('backButton');
+            backButton.addEventListener('click', function() {
+                window.history.back();
+            });
+
+            var loginButton = document.getElementById('loginButton');
+            loginButton.addEventListener('click', function() {
+                window.location.href = '${contextPath}/loginForm.jsp';
+            });
+        });
+    </script>
     <footer>
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     </footer>
