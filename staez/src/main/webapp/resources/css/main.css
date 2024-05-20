@@ -14,7 +14,7 @@ body {
 
 main {
     flex: 1;
-    width: 100%;
+    width: 80%;
     max-width: 1300px;
     margin: auto;
 }
@@ -39,30 +39,35 @@ h1 {
     font-size: 30px;
     font-weight: 500;
     margin: 15px 0;
+    white-space: nowrap;
 }
 
 h2 {
     font-size: 20px;
     font-weight: 500;
     margin: 10px 0;
+    white-space: nowrap;
 }
 
 h3 {
     font-size: 17px;
     font-weight: 500;
     margin: 5px 0;
+    white-space: nowrap;
 }
 
 h4 {
     font-size: 15px;
     font-weight: 500;
     margin: 5px 0;
+    white-space: nowrap;
 }
 
 h5 {
     font-size: 12px;
     font-weight: 500;
     margin: 5px 0;
+    white-space: nowrap;
 }
 
 .btn-staez {
@@ -71,6 +76,7 @@ h5 {
     border-radius: 20px;
     background-color: #D9D9D9;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .checked {
@@ -112,4 +118,18 @@ h5 {
 a {
   text-decoration: none;
   color: black;
+}
+
+.hidden {
+    display: none;
+}
+
+@media screen and (max-width: 700px) {
+    .page-list {
+        display: none;
+    }
+}
+
+button:focus {
+    outline: none;
 }

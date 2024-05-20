@@ -35,11 +35,11 @@
                 </div>
                 <button type="submit" class="btn btn-primary" id="btn-login">로그인</button>
                 <ul class="ID-PWD-USER">
-                    <li><a href="">아이디찾기</a></li>
+                    <li><button type="button" id="findIdButton">아이디찾기</button></li>
                     <li class="divide">|</li>
-                    <li><a href="">비밀번호찾기</a></li>
+                    <li><button type="button" id="findPwdButton">비밀번호찾기</button></li>
                     <li class="divide">|</li>
-                    <li><a href="">회원가입</a></li>
+                    <li><button type="button" id="signinButton">회원가입</button></li>
                 </ul>
             </div>
         </form>
@@ -48,6 +48,33 @@
             <a href=""><img src="${contextPath}/resources/img/user/btnG_icon_square 1.png" alt="네이버 로그인"></a>
             <a href=""><img src="${contextPath}/resources/img/user/web_neutral_sq_na@3x 1.png" alt="구글 로그인"></a>
         </div>
+
+        <script>
+        // 아이디찾기 버튼 눌렀을때
+        document.addEventListener('DOMContentLoaded', function() {
+            var loginButton = document.getElementById('findIdButton');
+            loginButton.addEventListener('click', function() {
+                window.location.href = '${contextPath}/findIdForm.me';
+            });
+        });
+
+        // 비밀번호찾기 버튼 눌렀을때
+        document.addEventListener('DOMContentLoaded', function() {
+            var loginButton = document.getElementById('findPwdButton');
+            loginButton.addEventListener('click', function() {
+                window.location.href = '${contextPath}/findPwdForm.me';
+            });
+        });
+
+        // 회원가입 버튼 눌렀을때
+        document.addEventListener('DOMContentLoaded', function() {
+            var loginButton = document.getElementById('signinButton');
+            loginButton.addEventListener('click', function() {
+                window.location.href = '${contextPath}/signinForm.me';
+            });
+        });
+        </script>
+        
         <footer>
             <!-- 푸터 -->
         </footer>

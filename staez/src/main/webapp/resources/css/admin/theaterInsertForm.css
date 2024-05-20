@@ -1,0 +1,142 @@
+.selected {
+    color: #B51B75;
+}
+
+#community-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+#community-contents {
+    width: max-content;
+}
+
+#community-contents>li {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#community-contents>li>h3 {
+    width: 80px;
+    margin: 10px 15px 10px 0;
+    white-space: nowrap;
+}
+
+#community-contents>li>.input {
+    width: calc(100% - 80px);
+    height: 35px;
+    outline: none;
+    border: 1px solid #969696;
+    padding: 10px;
+}
+
+#community-contents>li>button {
+    margin-right: 5px;
+}
+
+.form-search {
+    border: 1px solid #969696;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+    margin-right: 10px;
+}
+
+.form-search>button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    width: 60px;
+    height: 35px;
+}
+
+.form-search>button>img {
+    width: 20px;
+}
+
+.form-search>input {
+    border: none;
+    outline: none;
+    width: 80%;
+    height: 35px;
+}
+
+#community-submit {
+    justify-content: center !important;
+}
+
+.range-form {
+    display: flex;
+    width: 40%;
+    margin-right: 10px;
+}
+
+.short-input {
+    width: 45%;
+    height: 35px;
+    border: 1px solid #969696;
+    padding: 10px;
+    outline: none;
+}
+
+.time-input {
+    width: 30%;
+    height: 35px;
+    border: 1px solid #969696;
+    padding: 10px;
+    margin-right: 10px;
+    outline: none;
+}
+
+.short-short-input {
+    width: 15%;
+    height: 35px;
+    border: 1px solid #969696;
+    padding: 10px;
+    margin-right: 10px;
+    outline: none;
+}
+
+.short-input~span {
+    display: inline-block;
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.note-editor {
+    width: 100% !important;
+}
+
+.seat-ui {
+    width: 100%;
+    padding: 50px;
+    border: 1px solid #969696;
+}
+
+.seat-ui th {
+    display: inline-block;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+}
+
+.seat-yes {
+    cursor: pointer;
+    background-color: #d9d9d9;
+}
+
+.seat-no {
+    cursor: pointer;
+    background-color: #969696;
+}
+
+.msg {
+    padding-left: 10px;
+    color: #B51B75;
+}

@@ -1,0 +1,201 @@
+/* 이미지 로고 */
+img {
+    width: 248px;
+    height: 75px;
+    margin-bottom: 40px;
+    margin-top: 80px;
+}
+
+h2 {
+    margin-bottom: 40px; /* 아래쪽 여백 30px */
+    color: #DD0D64;
+}
+
+h3{
+    margin: 0;
+    padding: 0;
+}
+
+p{
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+
+/* form 안 전체를 감싸는 div */
+#find-div {
+    max-width: 800px;
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+/* 휴대전화인증 칸 */
+#findId-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 500px;
+}
+
+/* 테이블 */
+table {
+    max-width: 540px;
+}
+
+/* 폼태그 */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+/* 인풋 ㅊㅔ크박스 옆 글 */
+label {
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #dd0d64;
+    margin-bottom: 0;
+}
+
+/* 휴대전화인증인 이메일인증인지 확인하는거 */
+input[type=checkbox] {
+    transform: scale(1.5);
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border: 1px solid #999;
+    appearance: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+/* 셀렉트 박스 */
+select.box {
+    width: 100%; /* 너비를 100%로 설정하여 부모 요소에 맞춥니다. */
+    box-sizing: border-box; /* 박스 모델을 변경합니다. */
+    border-radius: 4px; /* 테두리를 둥글게 만듭니다. */
+    border: 1px solid #d9d6d6; /* 테두리 색상을 지정합니다. */
+    color: #383838; /* 글자 색상을 지정합니다. */
+    background-color: #ffffff; /* 배경 색상을 지정합니다. */
+    font-family: 'Montserrat', 'Pretendard', sans-serif; /* 폰트를 지정합니다. */
+    margin: 0 5px; /* 좌우 여백을 줍니다. */
+    height: 40px; /* 높이를 추가합니다. */
+}
+
+/* 셀렉트 박스 옵션 */
+select.box option {
+    font-size: 16px; /* 글자 크기를 지정합니다. */
+}
+
+/* 전송버튼 */
+input[type="checkbox"]:checked {
+    background: #000000;
+    border: 0.8px solid black;
+    transform: scale(1.0);
+}
+
+/* 이름 인증번호 */
+input[type="text"] {
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 5px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    background-color: transparent;
+}
+
+/* 비밀번호 */
+input[type="password"] {
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 5px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    background-color: transparent;
+}
+
+/* 휴대전화 */
+input[type="number"] {
+    border: 1px solid black;
+    padding: 5px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    background-color: transparent;
+    border-radius: 10px;
+}
+
+/* 테이블 안에 라벨 */
+#findId-label {
+    max-width: 600px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+table tr {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+table td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+#findId-div th {
+    padding: 10px;
+    text-align: left;
+    min-width: 100px;
+}
+
+hr{
+    border: 0.8px solid rgb(124, 124, 124);
+    width: 100%;
+    max-width: 950px;
+}
+
+/* 인증보내기 확인 재발송 */
+.check_button {
+    border: 2px solid black;
+    height: 40px;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+/* 이전 다음 */
+.insert-member-div{
+    display: flex;
+    justify-content:right;
+    margin-bottom: 150px;
+
+}
+/* 버튼 상세 */
+.insert-member-div > button{
+    min-width: 70px;
+    min-height: 40px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #640D6B;
+    color: white;
+}
+
+/*  @ */
+#email-prefix-shift2{
+    margin: 0 10px;
+    padding: 10px 0px 0px 0px;
+}
