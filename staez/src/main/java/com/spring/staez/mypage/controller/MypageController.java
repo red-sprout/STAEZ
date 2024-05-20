@@ -14,7 +14,7 @@ public class MypageController {
 	@Autowired
 	private MypageService mps;
 	
-	@RequestMapping("main.my")
+	@RequestMapping("main.me")
 	public String loadToMain(Model model) {
 		User m = mps.test();
 		
@@ -23,37 +23,37 @@ public class MypageController {
 		return "mypage/mypageMain";
 	}
 	
-	@RequestMapping("payment.my")
+	@RequestMapping("paymentList.me")
 	public String paymentsLog(Model model) {
 		return "mypage/paymentsLog";
 	}
 	
-	@RequestMapping("save.my")
-	public String mySaveConcert(Model model) {
-		return "mypage/mySaveConcert";
+	@RequestMapping("scrapList.me")
+	public String myScrapList(Model model) {
+		return "mypage/myScrapList";
 	}
 
-	@RequestMapping("review.my")
+	@RequestMapping("reviewList.me")
 	public String oneLineReview(Model model) {
 		return "mypage/oneLineReview";
 	}
 	
-	@RequestMapping("board.my")
+	@RequestMapping("boardList.me")
 	public String myBoardList(Model model) {
 		return "mypage/myBoardList";
 	}
 	
-	@RequestMapping("like.my")
+	@RequestMapping("likeList.me")
 	public String likeBoardList(Model model) {
 		return "mypage/likeBoardList";
 	}
 	
-	@RequestMapping("update.my")
-	public String updateUserInfo(Model model) {
-		return "mypage/updateUserInfo";
+	@RequestMapping("updateForm.me")
+	public String updateInfoForm(Model model) {
+		return "mypage/updateInfoForm";
 	}
 	
-	@RequestMapping("inquire.my")
+	@RequestMapping("inquireList.me")
 	public String myInquireList(Model model) {
 		return "mypage/myInquireList";
 	}
