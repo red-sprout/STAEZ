@@ -9,35 +9,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
     <link rel="stylesheet" href="${contextPath}/resources/css/common/header.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/main.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
     <div align="center">
         <div class="header">
             <div class="header-top">
-                <div class="header-logo-area">
-                    <a href=""><img id="header-logo-img" src="${contextPath}/resources/img/common/header/STAEZ_logo.png" alt=""></a>
-                </div>
-                <div class="header-search-area">
-                    <button onclick="">
-                        <img src="${contextPath}/resources/img/common/header/search.png" alt="">
-                    </button>
-                    <input type="text">
+                <div id="header-top-flex">
+                    <div class="header-logo-area">
+                        <a href=""><img id="header-logo-img" src="${contextPath}/resources/img/common/header/STAEZ_logo.png" alt=""></a>
+                    </div>
+                    <div class="header-search-area">
+                        <button onclick="">
+                            <img src="${contextPath}/resources/img/common/header/search.png" alt="">
+                        </button>
+                        <input type="text">
+                    </div>
                 </div>
 
                 <!--로그인 X-->
-
                 <div class="header-other-area">
-                        <a href=""><span id="login">로그인</span></a>
-                        <img class="stick" src="${contextPath}/resources/img/common/header/divide.png" alt="">
-                        <a href=""><span id="join-membership">회원가입</span></a>
+                    <a href="loginForm.me"><span id="login">로그인</span></a>
+                    <img class="stick" src="${contextPath}/resources/img/common/header/divide.png" alt="">
+                    <a href="signinForm.me"><span id="join-membership">회원가입</span></a>
                 </div>
 
-
                 <!--로그인 O-->
-
                 <!-- <div class="header-other-area">
                     <a href=""><img id="header-like-img" class="other-img" src="${contextPath}/resources/img/common/header/heart-header.png" alt=""></a>
                     <img class="stick" src="${contextPath}/resources/img/common/header/divide.png" alt="">
@@ -58,10 +67,10 @@
                         <a href=""><span>공연</span></a>
                     </div>
                     <div class="menu-bar">
-                        <a href=""><span>커뮤니티</span></a>
+                        <a href="main.co"><span>커뮤니티</span></a>
                     </div>
                     <div class="menu-bar">
-                        <a href=""><span>공지사항</span></a>
+                        <a href="main.no"><span>공지사항</span></a>
                     </div>
                     <div class="menu-bar">
                         <a href=""><span>고객센터</span></a>
@@ -85,9 +94,13 @@
                         <a href=""><span>관리자 페이지</span></a>
                     </div>
                 </div> -->
-
+                <div class="menu-bar-small">
+                    <div class="menu-bar">
+                        <a href=""><span>메뉴</span></a>
+                    </div>
+                </div>
             </div>
-     </div>
+        </div>
     </div>
     <hr class="line">
 </body>
