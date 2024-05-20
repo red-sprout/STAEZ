@@ -64,13 +64,64 @@
                             <span>20시 00분</span>
                         </div>
                     </div>
-                    <div class="seat-rating-choice-area"></div>
+                    <div class="seat-rating-choice-area">
+                        <div class="remaining-seat-rating-area">
+                            <span>좌석등급/잔여석</span>
+                        </div>
+                        <div class="remaining-seat-rating-info">
+                            <div class="rating-area">
+                                <div class="rating-color"></div>
+                                <span class="rating-name">R석</span>
+                                <img class="divide" src="${contextPath}/resources/img/concert/divide.png" alt="">
+                                <span class="seat-count">73석</span>
+                            </div>
+                            <div class="rating-area">
+                                <div class="rating-color"></div>
+                                <span class="rating-name">S석</span>
+                                <img class="divide" src="${contextPath}/resources/img/concert/divide.png" alt="">
+                                <span class="seat-count">73석</span>
+                            </div>
+                            <div class="rating-area">
+                                <div class="rating-color"></div>
+                                <span class="rating-name">A석</span>
+                                <img class="divide" src="${contextPath}/resources/img/concert/divide.png" alt="">
+                                <span class="seat-count">73석</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="precautions-area">
-
+                    <span>유의사항</span>
+                    <p>&#183; 증빙이 필요한 할인 (장애인, 국가유공자, 싹틔우미/노블 회원, 학생 등)을 받은 경우, 해당자 본인이 직접 증빙 자료를 제시해야 하며 미지참시 할인받은 만큼 차액을 지불해</p>
+                    <p>&nbsp; 야 합니다.</p>
+                    <p>&#183; 예매 변경은 결제 건을 취소 후 재예매하는 절차이므로 환불과 동일한 수수료가 부과됩니다. (할인은 재예매 시점에 적용되는 할인율로만 적용 가능합니다.)</p>
+                    <p>&#183; 취소수수료와 취소 가능 일자는 상품별로 다르니, 오른쪽 하단 My예매정보를 확인해주시기 바랍니다.</p>
+                    <p>&#183; ATM 기기에서 가상 계좌 입금이 안 될 수 있으니, 무통장 입금 외 다른 결제수단을 선택해주세요.</p>
+                    <p>&#183; 8세 이상 공연장 입장 가능합니다. (공연 별 입장 연령 확인)</p>
+                    <p>&#183; 승용차 이용 시 전당 주변의 교통체증과 주차장 혼잡으로 정시입장이 어려울 수 있습니다. 가급적 대중교통을 이용해주시기 바랍니다. 주차장 혼잡 및 입차 불가로 인한 지연</p>
+                    <p>&nbsp; 입장, 티켓환불 불가합니다.</p>
+                    <p>&#183; 조세특례제한법 제126조2에 따른 도서·공연비 소득공제 적용으로 예술의전당 공연 예매 시 신용카드 등 사용금액에 대해 추가 소득공제를 받으실 수 있습니다. (2018.7.1 시</p>
+                    <p>&nbsp; 행, 관련 세부사항은 별도 확인)</p>
                 </div>
             </div>
-            <div class="concert-reserve-area"></div>
+            <div class="concert-reserve-area">
+                <div class="concert-reserve-info-area">
+                    <img class="concert-reserve-info-img" src="${contextPath}/resources/img/concert/reserveConcert1.png" alt="">
+                    <div class="concert-reserve-info-content">
+                        <span>뮤지컬 <천개의 파랑></span>
+                        <span>2024.05.12 ~ 2024.05.26</span>
+                        <span>예술의전당 CJ 토월극장</span>
+                        <span>초등학생이상 관람가</span>
+                        <span>관람시간 : 140분</span>
+                    </div>
+                </div>
+                <div class="my-reserve-info-area">
+                    <span ></span>
+                    <div></div>
+                </div>
+                <div class="total-payment-amount-area"></div>
+                <div class="next-step-area"></div>
+            </div>
         </div>
         <script src="${contextPath}/resources/js/concert/concertReserveStepOne.js"></script>
     </div>

@@ -99,16 +99,8 @@
 .viewing-date-and-round-choice-area>div:nth-child(3){
     width: 30%;
     height: 100%;
-}
-
-.precautions-area{
-    width: 100%;
-    height: 30%; 
-}
-
-.concert-reserve-area{
-    height: 100%;
-    width: 30%;  
+    padding: 10px;
+    padding-top: 69px;
 }
 
 .viewing-date-calendar{
@@ -249,7 +241,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 5px;
+    margin-top: 6px;
     margin-bottom: 10px;
     
 }
@@ -297,5 +289,146 @@
     color: white;
 }
 
+.seat-rating-choice-area{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.remaining-seat-rating-area>span{
+    font-size: 18px;
+    font-weight: 600;    
+}
+
+.remaining-seat-rating-info{
+    width: 180px;
+    height: 216px;
+    border: 1px solid black;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.rating-area{
+    width: fit-content;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+}
+
+.rating-area *{
+    line-height: 1;
+}
+
+.rating-area:hover{
+    border-bottom: 1px solid #B51B75;
+}
+
+.remaining-seat-rating-info .rating-area:nth-child(1)>div{
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: #640D6B;
+    margin: 0px 5px;
+}
+
+.remaining-seat-rating-info .rating-area:nth-child(2)>div{
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: #42FF00;
+    margin: 0px 5px;
+}
+
+.remaining-seat-rating-info .rating-area:nth-child(3)>div{
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: #1400FF;
+    margin: 0px 5px;
+}
+
+.divide{
+    width: 11px;
+}
+
+.precautions-area{
+    width: 98%;
+    height: 30%; 
+    border: 1px solid black;
+    padding: 3px;
+}
+
+.precautions-area p{
+    font-size: 8px;
+    font-weight: 900;
+}
+
+.precautions-area span{
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.concert-reserve-area{
+    height: 100%;
+    width: 30%;  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}    
+
+.concert-reserve-info-area{
+    width: 100%;
+    height: 35%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.concert-reserve-info-area img{
+    width: 42%;
+}
+
+.concert-reserve-info-content{
+    width: 55%;
+    height: 100%;
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.concert-reserve-info-content span:nth-child(1){
+    font-size: 15px;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.concert-reserve-info-content span:nth-child(2){
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.concert-reserve-info-content span:nth-child(3){
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.concert-reserve-info-content span:nth-child(4){
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.concert-reserve-info-content span:nth-child(5){
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.my-reserve-info-area{
+    width: 100%;
+    height: 40%;
+}
 
 
