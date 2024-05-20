@@ -32,21 +32,21 @@
                 <div class="side-menu">
                     <div class="small-title">마이페이지</div>
                     <ul>
-                        <li><a href="${contextPath}/payment.my">결제내역</a></li>
-                        <li><a href="${contextPath}/save.my">찜목록</a></li>
-                        <li><a href="${contextPath}/review.my">한줄평</a></li>
+                        <li><a href="${contextPath}/paymentList.me">결제내역</a></li>
+                        <li><a href="${contextPath}/scrapList.me">찜목록</a></li>
+                        <li><a href="${contextPath}/reviewList.me">한줄평</a></li>
                     </ul>
                     <ul>
                         <li class="side-menu-title">커뮤니티 관리</li>
-                        <li><a href="${contextPath}/board.my">나의 게시글</a></li>
-                        <li><a href="${contextPath}/like.my">좋아요</a></li>
+                        <li><a href="${contextPath}/boardList.me">나의 게시글</a></li>
+                        <li><a href="${contextPath}/likeList.me">좋아요</a></li>
                     </ul>
                     <ul>
                         <li class="side-menu-title">설정</li>
-                        <li><a href="${contextPath}/update.my">회원정보 변경</a></li>
+                        <li><a href="${contextPath}/updateForm.me">회원정보 변경</a></li>
                     </ul>
                     <ul>
-                        <li><a href="${contextPath}/inquire.my">1:1 문의 내역</a></li>
+                        <li><a href="${contextPath}/inquireList.me">1:1 문의 내역</a></li>
                     </ul>
                         
                 </div>
