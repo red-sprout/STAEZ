@@ -1,0 +1,112 @@
+/* 공연 navi */
+.concert-ul{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 25px;
+    width: 1300px;
+    height: 40px;
+    padding-left: 50px;
+    margin: auto;
+}
+.concert-ul:hover li>a{
+    color: #640D6B
+    /* 나중에 script로 바꾸기 */
+}
+
+/* 공연상세페이지 노란블럭 */
+.concert-detail-upper-section{
+    display: flex;
+    padding: 50px 200px 50px 200px;
+    background-color: #F8D082;
+}
+
+.concert-detail-upper-section > div{
+    margin: auto;
+}
+
+
+/* 공연상세페이지 대표사진*/
+.concert-detail-upper-div img{
+    width: 300px;
+    height: 400px;
+}
+.concert-detail-body-div{
+    align-items: center;
+    width: 300px;   
+}
+/* 공연상세페이지 대표사진 아래 찜, 커뮤니티로 가기 */
+.concert-detail-like{
+    display: flex;
+    width: 300px;
+}
+.concert-detail-like>div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 60px;
+}
+/* 클래스로 안잡혀서 id로 */
+#concert-detail-like-heartImg{
+    width: 16px;
+    height: 16px;
+    position: relative;
+    top:3px;
+}
+#concert-detail-like-heartImg-background{
+    width: 32px;
+    height: 32px;
+    position: absolute;
+}
+.concert-detail-like-jim{
+    width: 50px;
+}
+.concert-detail-like-commu{
+    width: 250px;
+    align-items: center;
+}
+.concert-detail-like-jim span{
+    position: relative;
+    font-size: 10px;
+    font-weight: 700;
+}
+.concert-detail-like-commu span{
+    color: white;
+}
+
+/* 공연상세페이지 별점, 공연안내 */
+.concert-detail-table{
+    margin-top: 30px;
+    margin-bottom: 50px;
+    height: 300px;
+}
+.concert-detail-table td{
+    text-align: left;  
+}
+
+/* 공연상세페이지 달력, 예매하기 버튼 */
+.reservation-button{
+    border: 0;
+    border-radius: 5px;
+    background-color: #640D6B;
+    width: 300px;
+    height: 40px;
+    margin-top: 50px;
+}
+.reservation-button span{
+    color: white;
+}
+
+/* 공연상세페이지 아래 navi(공연상세정보, 판매정보, 한줄평, 관람후기) */
+.concert-down-ul{
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    padding: 20px 250px 20px 250px;
+}
+.concert-detail-hr{
+    align-self: center;
+    width: 80%;
+    height: 3px;
+    background: black;
+}
