@@ -6,22 +6,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class CommunityController {
 	
-	@GetMapping("main.co")
+	@GetMapping("main.cm")
 	public String communityMain() {
 		return "community/communityMain";
 	}
 	
-	@GetMapping("detail.co")
+	@GetMapping("detail.cm")
 	public String communityDetail() {
 		return "community/communityDetail";
 	}
 	
-	@GetMapping("incertForm.co")
+	@GetMapping("incertForm.cm")
 	public String communityIncertForm() {
 		return "community/communityIncertForm";
 	}
 	
-	@GetMapping("updateForm.co")
+	@GetMapping("updateForm.cm")
 	public String communityUpdateForm() {
 		return "community/communityUpdateForm";
 	}

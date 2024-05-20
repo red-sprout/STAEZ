@@ -51,6 +51,7 @@ input[type=checkbox] {
     appearance: none;
     cursor: pointer;
     transition: background 0.2s;
+    outline: none;
 }
 
 /* 인풋 ㅊㅔ크박스 옆 글 */
@@ -67,6 +68,7 @@ input[type="checkbox"]:checked {
     background: #000000;
     border: 0.8px solid black;
     transform: scale(1.0);
+    outline: none;
 }
 
 /* 이전 다음 버튼 영역 */

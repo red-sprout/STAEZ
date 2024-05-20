@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/main.css">
-    <link rel="stylesheet" href="${contextPath}/resources/css/user/signin.css">
+    <link rel="stylesheet" href="${contextPath}/resources/css/user/insertForm.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -61,7 +61,7 @@
                             <h2>휴대폰 번호</h2>
                         </th>
                         <td colspan="6" class="email-container">
-                            <div style="display: flex;">
+                            <div id="td-div">
                                 <select class="box" id="domain-list">
                                     <option value="010" selected>010</option>
                                     <option value="011">011</option>
@@ -87,14 +87,23 @@
                         <th>
                             <h2>생년월일</h2>
                         </th>
-                        <td colspan="2"><input type="text" placeholder="- 없이 8자"></td>
+                        <td  class="email-container">
+                            <div id="td-div">
+                                <input type="text" id="email-suffix" placeholder="2024">
+                                <span id="email-prefix-shift2">년</span>
+                                <input type="text" id="email-suffix" placeholder="01">
+                                <span id="email-prefix-shift2">월</span>
+                                <input type="text" id="email-suffix" placeholder="01">
+                                <span id="email-prefix-shift2">일</span>
+                            </div>
+                        </td>   
                     </tr>
                     <tr>
                         <th>
                             <h2>이메일</h2>
                         </th>
                         <td colspan="5" class="email-container">
-                            <div style="display: flex;">
+                            <div id="td-div">
                                 <input type="text" id="email-prefix">
                                 <span id="email-prefix-shift2">@</span>
                                 <input type="text" id="email-suffix" placeholder="직접 입력">
