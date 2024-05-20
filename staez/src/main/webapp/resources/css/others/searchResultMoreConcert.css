@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+
+.search-result-value-area{
+    width: 1300px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    margin: 50px 0px;
+}
+
+.search-result-value-area>span{
+    font-size: 30px;
+    font-weight: 400;
+}
+
+.concert-search-result-title-area{
+    width: 1300px;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+.concert-search-result-title-area>span{
+   font-size: 23px;
+   font-weight: 700;
+}
+
+.concert-search-result-area{
+    width: 1300px;
+    
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 70px;
+    flex-wrap: wrap;
+}
+
+.concert-search-result-info{
+    width: 220px;
+    height: 360px;
+}
+
+.concert-search-result-info>a{
+    display: inline-block;
+    width: 220px;
+    height: 277px;
+}
+
+.concert-search-result-info>a>img{
+    width: 220px;
+    cursor: pointer;
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+
+.concert-search-result-info>a>img:hover {
+    -webkit-transform: scale(1.3);
+    transform: scale(1.1);
+}
+
+.concert-search-result-content-info{
+    width: 220px;
+    height: 43px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.concert-search-result-content-span1{
+    font-weight: 500;
+}
+
+.concert-search-result-content-span2{
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.concert-search-result-content-span3{
+    font-weight: 300;
+}
+
+.gap-hr{
+    border: none;
+    height: 200px;
+}
