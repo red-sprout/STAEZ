@@ -21,13 +21,13 @@
     <!-- 공연 navi -->
     <div>
         <ul class="concert-ul">
-            <li><a href=""><h2>뮤지컬</h2></a></li>
-            <li><a href=""><h2>클래식</h2></a></li>
-            <li><a href=""><h2>국악</h2></a></li>
-            <li><a href=""><h2>대중음악</h2></a></li>
-            <li><a href=""><h2>연극</h2></a></li>
-            <li><a href=""><h2>서커스/마술</h2></a></li>
-            <li><a href=""><h2>기타</h2></a></li>
+            <li><a href=""><span><h2>뮤지컬</h2></span></a></li>
+            <li><a href=""><span><h2>클래식</h2></span></a></li>
+            <li><a href=""><span><h2>국악</h2></span></a></li>
+            <li><a href=""><span><h2>대중음악</h2></span></a></li>
+            <li><a href=""><span><h2>연극</h2></span></a></li>
+            <li><a href=""><span><h2>서커스/마술</h2></span></a></li>
+            <li><a href=""><span><h2>기타</h2></span></a></li>
         </ul>
     </div>
     <section class="concert-main-upper-section">

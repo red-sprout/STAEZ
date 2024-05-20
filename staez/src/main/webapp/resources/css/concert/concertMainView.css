@@ -6,15 +6,13 @@
         gap: 25px;
         width: 1300px;
         height: 40px;
-        padding-left: 50px;
+        padding-left: 75px;
         margin: auto;
     }
-    .concert-ul:hover li>a{
-        color: #640D6B
-        /* 나중에 script로 바꾸기 */
+
+    .concert-ul li:hover a > span {
+        color: #B51B75;
     }
-    
-    
     
     .concert-main-upper-section{
         background-color: #F8D082;

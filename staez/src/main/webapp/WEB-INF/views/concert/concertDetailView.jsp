@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertDetailInformationViewAjax.css">
 
     <!-- 달력 -->
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <script src="${pageContext.request.contextPath}/resources/js/others/concertCalendar.js"></script>
+    <!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script> -->
 </head>
 
 <body>
@@ -24,13 +25,13 @@
     <!-- 공연 navi -->
     <div>
         <ul class="concert-ul">
-            <li><a href=""><h2>뮤지컬</h2></a></li>
-            <li><a href=""><h2>클래식</h2></a></li>
-            <li><a href=""><h2>국악</h2></a></li>
-            <li><a href=""><h2>대중음악</h2></a></li>
-            <li><a href=""><h2>연극</h2></a></li>
-            <li><a href=""><h2>서커스/마술</h2></a></li>
-            <li><a href=""><h2>기타</h2></a></li>
+            <li><a href=""><span><h2>뮤지컬</h2></span></a></li>
+            <li><a href=""><span><h2>클래식</h2></span></a></li>
+            <li><a href=""><span><h2>국악</h2></span></a></li>
+            <li><a href=""><span><h2>대중음악</h2></span></a></li>
+            <li><a href=""><span><h2>연극</h2></span></a></li>
+            <li><a href=""><span><h2>서커스/마술</h2></span></a></li>
+            <li><a href=""><span><h2>기타</h2></span></a></li>
         </ul>
     </div>
 
@@ -85,7 +86,30 @@
         </div>
         
         <!-- 달력구현 -->
-        <div class="concert-detail-body-div">
+        
+				<div class="calendar">
+					<div class="calendar-top">
+						<button id="previous"></button>
+						<h3></h3>
+						<button id="next"></button>
+					</div>
+					<div class="days-area">
+						<ul class="days">
+							<li>일</li>
+							<li>월</li>
+							<li>화</li>
+							<li>수</li>
+							<li>목</li>
+							<li>금</li>
+							<li>토</li>
+						</ul>
+						<ul class="dates">
+							<!-- 스크립트 이용해서 넣을 것 -->
+						</ul>
+					</div>
+				
+			
+         <!-- <div class="concert-detail-body-div">
             <div id='calendar'></div>
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
@@ -96,10 +120,10 @@
                     calendar.render();
                     });
                 </script>
-
+            </div> -->
 
             <button class="reservation-button"><span>예매하기</span></button>
-        </div>
+        
     </section>
 
         <!-- 공연상세페이지 아래쪽 navi-->

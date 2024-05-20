@@ -6,12 +6,11 @@
     gap: 25px;
     width: 1300px;
     height: 40px;
-    padding-left: 50px;
+    padding-left: 75px;
     margin: auto;
 }
-.concert-ul:hover li>a{
-    color: #640D6B
-    /* 나중에 script로 바꾸기 */
+.concert-ul li:hover a > span {
+    color: #B51B75;
 }
 
 /* 공연상세페이지 노란블럭 */
@@ -109,4 +108,198 @@
     width: 80%;
     height: 3px;
     background: black;
+}
+
+/* 달력 */
+#concert-reservation-calendar-area{
+    width: 1300px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    margin: 50px 0px;
+}
+
+#reservation-calendar-choice{
+    width: 249px;
+    height: 60px;
+    border: solid 1px #d9d9d9;  
+    border-radius: 0px 50px 50px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#concert-calendar-choice{
+    width: 251px;
+    height: 60px;
+    border: solid 1px #d9d9d9;
+    border-radius: 50px 0px 0px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#reservation-calendar-choice:hover span{
+    color: #B51B75;
+}
+
+#concert-calendar-choice:hover span{
+    color: #B51B75;
+}
+
+#reservation-calendar-choice>span{
+    font-size: 22px;
+    font-weight: bold;
+    color: #969696;
+    cursor: pointer;
+}
+
+#concert-calendar-choice>span{
+    font-size: 22px;
+    font-weight: bold;
+    color: #969696;
+    cursor: pointer;
+}
+
+#calendar-container{
+    width: 1300px;
+    height: 1000px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 120px;
+
+}
+
+.concert-calendar-area{
+    width: 50%;
+    height: 100%;
+    border-right: 1px solid #969696;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.calendar{
+    margin: 75px;
+    margin-top: 30px;
+    width: 500px;
+    height: 500px;
+}
+
+.calendar-top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 30px;
+}
+
+.calendar ul{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.calendar ul li{
+    width: calc(100% / 7);
+    margin-top: 25px;
+    position: relative;
+    z-index: 2;
+}
+
+#previous,
+#next{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+#previous::before,
+#next::before{
+    content: '';
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-style: solid;
+    border-width: 0.25em 0.25em 0 0;
+    color: #ccc;
+}
+
+#previous::before{
+    transform: translate(-50%, -50%) rotate(-135deg);
+}
+
+#next::before{
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+#previous:hover::before,
+#next:hover::before{
+    border-color: #B51B75;
+}
+
+.days{
+    font-weight: 600;
+}
+
+.dates li:hover::before{
+    content: '';
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #B51B75;
+    border-radius: 50px;
+    z-index: -1;
+    cursor: pointer;
+}   
+
+.dates li:hover{
+    color: white;
+    cursor: pointer;
+}
+
+.dates li.today{
+    /* color: #ccc */
+}
+
+/* .dates li.today::before{    
+    content: '';
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #B51B75;
+    border-radius: 50px;
+    z-index: -1;
+} */
+
+.dates li.inactive{
+    color: #ccc
+}
+
+.clickDate::before{
+    content: '';
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #B51B75;
+    border-radius: 50px;
+    z-index: -1; 
+}
+
+.dates li.clicked{
+    color: white;
 }
