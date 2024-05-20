@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ConcertReserveController {
 	
-	@GetMapping("stepOne.cc")
+	@GetMapping("selectDate.co")
 	public String concertReserveStepOne() {
 		return "concert/concertReserveStepOne";
 	}
+	
+	// selectSeat.co selectMember.co selectPayment.co
 }

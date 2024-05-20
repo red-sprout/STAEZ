@@ -21,42 +21,42 @@ public class AdminController {
 		return "admin/noticeUpdateForm";
 	}
 	
-	@GetMapping("user.ad")
+	@GetMapping("userList.ad")
 	public String userMain() {
 		return "admin/userMain";
 	}
 	
-	@GetMapping("concert.ad")
+	@GetMapping("concertList.ad")
 	public String concertMain() {
 		return "admin/concertMain";
 	}
 
-	@GetMapping("theater.ad")
+	@GetMapping("theaterList.ad")
 	public String theaterMain() {
 		return "admin/theaterMain";
 	}
 	
-	@GetMapping("community.ad")
+	@GetMapping("communityList.ad")
 	public String communityMain() {
 		return "admin/communityMain";
 	}
 	
-	@GetMapping("category.ad")
+	@GetMapping("categoryList.ad")
 	public String categoryMain() {
 		return "admin/categoryMain";
 	}
 	
-	@GetMapping("faq.ad")
+	@GetMapping("faqList.ad")
 	public String faqMain() {
 		return "admin/faqMain";
 	}
 	
-	@GetMapping("inquire.ad")
+	@GetMapping("inquireList.ad")
 	public String inquireMain() {
 		return "admin/inquireMain";
 	}
 	
-	@GetMapping("report.ad")
+	@GetMapping("reportList.ad")
 	public String reportMain() {
 		return "admin/reportMain";
 	}
