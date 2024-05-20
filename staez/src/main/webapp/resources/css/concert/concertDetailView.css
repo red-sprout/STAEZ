@@ -46,6 +46,7 @@
     align-items: center;
     height: 60px;
 }
+/* 클래스로 안잡혀서 id로 */
 #concert-detail-like-heartImg{
     width: 16px;
     height: 16px;
