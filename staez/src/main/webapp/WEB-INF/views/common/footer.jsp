@@ -39,14 +39,14 @@
                         <p>티켓 1544-1555</p>
                         <p>팩스 02-830-7807</p>
                         <p>해외항공 02-3479-4399 | 국내항공 02-3479-4340</p>
-                        <p>고객센터 이메일 helpdesk@interparktriple.com</p>
+                        <p>고객센터 이메일 helpdesk@staez.com</p>
                     </div>
                     <div class="footer-content" align="left">
                         <span>전자금융거래 분쟁처리 담당</span>
                         <p>티켓 1544-1555</p>
                         <p>팩스 02-830-8295</p>
-                        <p>개인정보보호책임자 cpo@interparktriple.com</p>
-                        <p>전자 금융 거래이메일 intersolution@interparktriple.com</p>
+                        <p>개인정보보호책임자 cpo@staez.com</p>
+                        <p>전자 금융 거래이메일 intersolution@staez.com</p>
                     </div>
                 </div>
             </div>

@@ -10,4 +10,19 @@ public class CommunityController {
 	public String communityMain() {
 		return "community/communityMain";
 	}
+	
+	@GetMapping("detail.co")
+	public String communityDetail() {
+		return "community/communityDetail";
+	}
+	
+	@GetMapping("incertForm.co")
+	public String communityIncertForm() {
+		return "community/communityIncertForm";
+	}
+	
+	@GetMapping("updateForm.co")
+	public String communityUpdateForm() {
+		return "community/communityUpdateForm";
+	}
 }

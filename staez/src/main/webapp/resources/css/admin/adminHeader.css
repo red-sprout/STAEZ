@@ -1,0 +1,28 @@
+#admin-header-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#admin-header-nav {
+    max-width: 1300px;
+}
+
+#admin-header-flex {
+    display: flex;
+    justify-content: flex-start;
+}
+
+#admin-header-flex>li {
+    padding: 0 20px;
+    cursor: pointer;
+}
+
+#admin-header-flex>li>h2 {
+    width: fit-content;
+}
+
+#admin-header-flex>li:hover {
+    color: #B51B75;
+}

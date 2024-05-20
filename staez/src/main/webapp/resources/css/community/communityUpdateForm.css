@@ -1,7 +1,3 @@
-.hidden {
-    display: none;
-}
-
 .selected {
     color: #B51B75;
 }
@@ -10,6 +6,7 @@
     display: flex;
     justify-content: space-between;
     padding: 20px;
+    gap: 20px;
 }
 
 #community-nav {
@@ -24,12 +21,6 @@
 
 #community-nav>li {
     cursor: pointer;
-}
-
-@media (max-width: 1200px) {
-    #community-nav {
-        display: none;
-    }
 }
 
 #write-btn {
@@ -49,20 +40,44 @@
     height: 20px;
 }
 
+@media (max-width: 1200px) {
+    #community-nav {
+        display: none;
+    }
+}
+
 #community-contents {
-    padding: 10px;
-    width: 900px;
-    height: fit-content;
+    width: max-content;
 }
 
 #community-contents>li {
-    margin: 10px;
-    cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#community-contents>li>h3 {
+    width: 40px;
+    margin: 10px 15px 10px 0;
+    white-space: nowrap;
+}
+
+#community-contents>li>input {
+    width: 100%;
+    height: 35px;
+    outline: none;
+    border: 1px solid #969696;
+}
+
+#community-contents>li>button {
+    margin-right: 5px;
 }
 
 #community-search {
     border: 1px solid #969696;
     border-radius: 20px;
+    width: 100%;
     display: flex;
     align-items: center;
 }
@@ -86,36 +101,6 @@
     height: 40px;
 }
 
-.community-posting {
-    border: 1px solid #969696;
-    border-radius: 20px;
-    padding: 20px;
-    height: fit-content;
-}
-
-.community-posting td {
-    padding: 2px 5px;
-}
-
-.profile-area>td:nth-child(1)>img{
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 25px;
-}
-
-.profile-area>td:nth-child(2) {
-    width: 700px;
-}
-
-.profile-area>td:nth-child(3)>img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-#community-pagination {
-    display: flex;
-    justify-content: center;
+#community-submit {
+    justify-content: center !important;
 }
