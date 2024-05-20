@@ -1,0 +1,287 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 0;
+}
+
+main {
+    flex: 1;
+    width: 1300px;
+    margin: auto;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+* {
+    font-family: "Noto Sans KR", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 15px;
+    font-style: normal;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+ul, 
+ol, 
+li {
+    list-style: none;
+}
+
+h1 {
+    font-size: 30px;
+    font-weight: 500;
+    margin: 15px 0;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 10px 0;
+}
+
+h3 {
+    font-size: 17px;
+    font-weight: 500;
+    margin: 5px 0;
+}
+
+h4 {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 5px 0;
+}
+
+h5 {
+    font-size: 12px;
+    font-weight: 500;
+    margin: 5px 0;
+}
+
+.btn-staez {
+    border: none;
+    padding: 0 20px;
+    border-radius: 20px;
+    background-color: #D9D9D9;
+    cursor: pointer;
+}
+
+.checked {
+    background-color: #F8D082;
+}
+
+.purple {
+    background-color: #640D6B;
+    color: white;
+}
+
+.page-list {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.pagination {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #D9D9D9;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination > img {
+    width: 20px;
+    height: 20px;
+}
+
+.current {
+    border: none;
+    background: #B51B75;
+    color: white;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+/*내가 한 부분*/
+main>.title{
+    width: 1250px;
+    height: 120px;
+    text-align: left;
+    line-height: 160px;
+    border-bottom: solid 1px black;
+    font-size: 31px;
+    padding-left: 20px;
+
+}
+
+main>.main-section{
+    width: 95%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+main>.main-section>.side{
+    width: 250px;
+    height: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+main>.main-section>.side>.profile{
+    width: 95%;
+    height: 260px;
+    border: solid 1px black;
+    border-radius: 10px;
+
+    margin-top: 50px;
+    margin-bottom: 40px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+main>.main-section>.side>.profile>img{
+    width: 150px;
+    height: 150px;
+
+    margin-bottom: 20px;
+}
+
+main>.main-section>.side>.side-menu{
+    width: 100%;
+}
+
+main>.main-section>.side>.side-menu>.small-title{
+    font-size: 23px;
+    font-weight: 800;
+    text-align: left;
+
+    border-bottom: solid 2px black;
+    padding: 0 0 10px 10px;
+    margin-bottom: 20px;
+}
+
+main>.main-section>.side>.side-menu>ul{
+    margin: 10px 0;
+}
+
+main>.main-section>.side>.side-menu>ul *{
+    font-size: 20px;
+    text-align: left;
+    line-height: 40px;
+}
+
+main>.main-section>.side>.side-menu>ul>li{
+    width: 250px;
+    height: 40px;
+    padding-left: 15px;
+}
+
+main>.main-section>.side>.side-menu>ul>.side-menu-title{
+    font-weight: 600;
+}
+
+/*메인 콘텐츠*/
+main>.main-section>.main-content{
+    width: 950px;
+    height: 1300px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+main>.main-section>.main-content>.main-title{   
+    width: 820px;
+    height: 80px;
+
+    margin-top: 40px;
+}
+
+/*콘텐츠 제목*/
+main>.main-section>.main-content>.main-title>h2{
+    text-align: left;
+    line-height: 80px;
+    padding-left: 20px;   
+}
+
+/*결제내역 리스트 테이블*/
+main>.main-section>.main-content>table{
+    border-collapse: collapse;
+    width: 820px;
+    height: 200px;
+
+    margin: 0 0 40px 0;
+}
+
+
+main>.main-section>.main-content>table tr{
+    height: 140px;
+    
+    border-bottom: solid 1px black;
+}
+
+main>.main-section>.main-content>table .tb-title{
+    border-top: solid 2px black;
+    height: 50px;
+}
+
+
+main>.main-section>.main-content>table .tb-title>#concert-info{
+    width: 620px;
+}
+main>.main-section>.main-content>table .tb-content>td:nth-child(1){
+    width: 140px;
+}
+main>.main-section>.main-content>table .tb-content>td:nth-child(2){
+    width: 500px;
+}
+main>.main-section>.main-content>table .tb-title>#reserve-info{
+    width: 200px;
+}
+
+/*공연 포스터 이미지*/
+main>.main-section>.main-content>table img{
+    width: 90px;
+    height: 120px;
+}
+
+
+main>.main-section>.main-content>table #content{
+    padding-left: 20px;
+}
+main>.main-section>.main-content>table #content>*{
+    text-align: left;
+}
+
+
+
+
+
+
+
+
+
+
