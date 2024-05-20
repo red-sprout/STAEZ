@@ -189,5 +189,9 @@ input[type="checkbox"] {
     color: black;
 }
 
+#td-div{
+    display: flex;
+}
+
 
 
