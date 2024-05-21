@@ -33,7 +33,7 @@
                 </div>
             </li>
             <li>
-                <button class="btn-staez purple"><h4>답변</h4></button>
+                <button class="btn-staez purple" onclick="location.href='inquireIncertForm.ad'"><h4>답변</h4></button>
                 <button class="btn-staez purple"><h4>수정</h4></button>
                 <button class="btn-staez purple"><h4>삭제</h4></button>
             </li>

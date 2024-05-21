@@ -34,7 +34,6 @@
                 </div>
             </li>
             <li>
-                <button class="btn-staez purple"><h4>수정</h4></button>
                 <button class="btn-staez purple"><h4>삭제</h4></button>
                 <button class="btn-staez purple"><h4>장르 변경</h4></button>
                 <button class="btn-staez purple"><h4>구분 변경</h4></button>
