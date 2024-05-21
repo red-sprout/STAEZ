@@ -30,7 +30,7 @@
                 <li onclick="">
                     <h2>자유게시판</h2>
                 </li>
-                <li id="write-btn" onclick="location.href='incertForm.co'">
+                <li id="write-btn" onclick="location.href='incertForm.cm'">
                     <h2>글쓰기</h2>
                     <img src="<c:url value='/resources/img/community/communityMain/write.png'/>" alt="">
                 </li>
@@ -51,7 +51,7 @@
                                 <td><h3>전자인간</h3></td>
                                 <td rowspan="2">
                                     <div>
-                                        <button class="function" onclick="location.href='updateForm.co'">수정</button>
+                                        <button class="function" onclick="location.href='updateForm.cm'">수정</button>
                                         <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
                                         <button class="function">삭제</button>
                                         <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">

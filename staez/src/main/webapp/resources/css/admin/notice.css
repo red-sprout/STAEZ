@@ -57,6 +57,7 @@
     padding: 20px;
     height: fit-content;
     min-width: fit-content;
+    cursor: pointer;
 }
 
 #notice-category {

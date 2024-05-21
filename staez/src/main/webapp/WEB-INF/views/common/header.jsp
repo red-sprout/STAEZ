@@ -43,7 +43,7 @@
                 <div class="header-other-area">
                     <a href="loginForm.me"><span id="login">로그인</span></a>
                     <img class="stick" src="${contextPath}/resources/img/common/header/divide.png" alt="">
-                    <a href="signinForm.me"><span id="join-membership">회원가입</span></a>
+                    <a href="insertForm.me"><span id="join-membership">회원가입</span></a>
                 </div>
 
                 <!--로그인 O-->
@@ -64,16 +64,16 @@
                 <!--일반 회원-->
                 <div class="menu-bar-area">
                     <div class="menu-bar">
-                        <a href=""><span>공연</span></a>
+                        <a href="main.co"><span>공연</span></a>
                     </div>
                     <div class="menu-bar">
-                        <a href="main.co"><span>커뮤니티</span></a>
+                        <a href="main.cm"><span>커뮤니티</span></a>
                     </div>
                     <div class="menu-bar">
                         <a href="main.no"><span>공지사항</span></a>
                     </div>
                     <div class="menu-bar">
-                        <a href=""><span>고객센터</span></a>
+                        <a href="main.iq"><span>고객센터</span></a>
                     </div>
                 </div>
                 <!--관리자-->

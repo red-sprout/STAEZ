@@ -32,8 +32,8 @@
                 </div>
             </li>
             <li>
-                <button class="btn-staez purple"><h4>추가</h4></button>
-                <button class="btn-staez purple"><h4>수정</h4></button>
+                <button class="btn-staez purple" onclick="location.href='theaterIncertForm.ad'"><h4>추가</h4></button>
+                <button class="btn-staez purple" onclick="location.href='theaterIncertForm.ad'"><h4>수정</h4></button>
                 <button class="btn-staez purple"><h4>삭제</h4></button>
             </li>
             <li id="admin-table" class="admin-middle">
