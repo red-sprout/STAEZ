@@ -47,6 +47,7 @@
                         <li><a href="${contextPath}/updateForm.me">회원정보 변경</a></li>
                     </ul>
                     <ul>
+                        <li class="side-menu-title">문의</li>
                         <li><a href="${contextPath}/inquireList.me">1:1 문의 내역</a></li>
                     </ul>
                         
@@ -59,20 +60,22 @@
                     <h2>나의 게시글</h2>
                 </div>
                 <table>
-                    <tr class="tb-title">
-                        <th id="board-title">제목</th>
-                        <th id="enroll-date">작성일</th>
-                        <th id="views">조회수</th>
-                        <th id="likes">좋아요</th>
-                    </tr>
-                    <c:forEach var="i" begin="0" end="9">
-                    <tr class="tb-content">
-                        <td>가나다라마바사아자차카타파하거너더러머버서어저처커터퍼허고노도로모보소오조초코토포호구누두루무부수우주추쿠투푸후</td>
-                        <td>24.02.28</td>
-                        <td>8000</td>
-                        <td>65</td>
-                    </tr>
-                    </c:forEach>
+                    <tbody>
+                        <tr class="col-name">
+                            <th id="board-title">제목</th>
+                            <th id="enroll-date">작성일</th>
+                            <th id="views">조회수</th>
+                            <th id="likes">좋아요</th>
+                        </tr>
+                        <c:forEach var="i" begin="0" end="9">
+                        <tr class="tb-content">
+                            <td id="btitle">가나다라마바사아자차카타파하거너더러머버서어저처커터퍼허고노도로모보소오조초코토포호구누두루무부수우주추쿠투푸후</td>
+                            <td>24.02.28</td>
+                            <td>8000</td>
+                            <td>65</td>
+                        </tr>
+                        </c:forEach>
+                    </tbody>
                 </table>
 
                 <div class="page-list">
