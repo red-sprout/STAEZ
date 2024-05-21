@@ -12,6 +12,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let month = date.getMonth();
     let year = date.getFullYear();
 
+    const clickedDate = document.querySelector(".concert-day span");
+
+    function spanDayChange(d){
+    
+        clickedDate.innerHTML = ``; 
+        clickedDate.innerHTML = `${year}년${months[month]}-${String(d).padStart(2, '0')}일`;
+    }
+
+    spanDayChange(date.getDate());
+
     function renderCalendar() {
         const startDay = new Date(year, month, 1).getDay(); // 월의 시작 요일
         
@@ -85,4 +95,58 @@ function clickDate(_this){
     }
     _this.classList.add("clickDate");
     _this.classList.add("clicked");
+
+    let year = date.getFullYear();
+    let day = _this.textContent; // 클릭된 날짜의 텍스트 콘텐츠
+    let month = date.getMonth();
+    spanDayChange2(year, month, day);
 }
+
+const clickedDate = document.querySelector(".concert-day span");
+let date = new Date();
+let month = date.getMonth();
+let year = date.getFullYear();
+const months = [
+    "1월", "2월", "3월", "4월", "5월", "6월",
+    "7월", "8월", "9월", "10월", "11월", "12월"
+];
+function spanDayChange2(y, m, d){
+    console.log(clickedDate);
+
+    
+    clickedDate.innerHTML = ``; 
+    clickedDate.innerHTML += `${y}년 ${months[m]} ${String(d).padStart(2, '0')}일`; 
+    
+}
+
+function spanDayChange3(y, m){
+    console.log(clickedDate);
+
+    
+    clickedDate.innerHTML = ``; 
+    clickedDate.innerHTML += `${y}년 ${months[m]}`; 
+    
+}
+
+const navs = document.querySelectorAll("#previous, #next");
+
+navs.forEach(nav => {
+    nav.addEventListener('click', e => {
+        const btnId = e.target.id;
+
+        if (btnId === 'previous' && month === 0) {
+            year--;
+            month = 11;
+        } else if (btnId === 'next' && month === 11) {
+            year++;
+            month = 0;
+        } else {
+            month = btnId === "next" ? month + 1 : month - 1;
+        }
+        
+    
+        date = new Date(year, month, new Date().getDate());
+        spanDayChange3(year, month);
+        
+    });
+});

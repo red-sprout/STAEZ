@@ -1,0 +1,341 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+.container{
+    width: 1000px;
+    height: 600px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.reserve-step-area-top{
+    width: 100%;
+    height: 20%;
+    background: #4D4D4D;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.reserve-step-area-top>span{
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    color: white;
+}
+
+.reserve-step-area{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.step-one{
+    width: 25%;
+    height: 100%;
+    background: #D9D9D9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step-one span{
+    font-size: 18px;
+}
+
+#step-two-info{
+    width: 75%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;  
+    padding: 5px 20px;
+    background: #D9D9D9;
+}
+
+#step-two-info div{
+    background: #D9D9D9;
+    height: 50%;
+}
+
+.step-two-top-span{
+    font-size: 13px;
+    color: #4D4D4D;
+}
+
+.reserve-step-area div>span{
+    font-weight: 600;
+}
+
+.reserve-step-area div:nth-child(1){
+    background: #E65C19;
+}
+
+.reserve-step-content-area{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+#step-two-concert-title{
+    font-size: 15px;
+    color: black;
+}
+
+.seat-choice-container{
+    height: 100%;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.seat-choice-info-container{
+    height: 100%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 10px;
+}
+
+/* 좌석 선택 */
+
+.seat-ui {
+    width: 100%;
+    padding: 18px;
+    border: 1px solid #969696;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.seat-ui th {
+    display: inline-block;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+}
+
+.seat-yes {
+    cursor: pointer;
+    background-color: #d9d9d9;
+}
+
+.seat-no {
+    cursor: pointer;
+    background-color: #969696;
+}
+
+.seat-rating-choice-area{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.remaining-seat-rating-area>span{
+    font-size: 18px;
+    font-weight: 600;    
+}
+
+.remaining-rating-info{
+    width: 100%;
+    height: 180px;
+    border: 1px solid black;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.rating-area{
+    width: fit-content;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+    position: relative;
+}
+
+.rating-area *{
+    line-height: 1;
+}
+
+.remaining-rating-info .rating-area:nth-child(1)>div{
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: #640D6B;
+    margin: 0px 5px;
+}
+
+.remaining-rating-info .rating-area:nth-child(2)>div{
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: #42FF00;
+    margin: 0px 5px;
+}
+
+.remaining-rating-info .rating-area:nth-child(3)>div{
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: #1400FF;
+    margin: 0px 5px;
+}
+
+.divide{
+    width: 11px;
+}
+
+.seat-rating-mount{
+    position: absolute;
+    right: -118px;
+    font-weight: 600;
+}
+
+.remaining-seat-info{
+    width: 100%;
+    height: 100px;
+}
+
+.remaining-seat-info>div:nth-child(1){
+    width: 100%;
+    height: 50%;
+    border-top: 3px solid black;
+    border-bottom: 1px solid black;
+    display: flex;
+    align-items: center;
+}
+
+.remaining-seat-info>div:nth-child(2){
+    width: 100%;
+    height: 50%;
+    border-bottom: 3px solid black;
+    display: flex;
+    align-items: center;
+}
+
+.remaining-seat-info>div>span{
+    font-size: 17px;
+}
+    
+.remaining-seat-info>div>div{
+    height: 100%;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #d9d9d9;
+    margin-right: 10px;
+}
+
+.total-payment-amount-area{
+    width: 100%;
+    height: 8%;
+    border: 1px solid black;
+    background: #969696;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 0px 10px;
+    margin-top: 10px;
+}
+
+.total-payment-amount-area span{
+    color: white;
+}
+
+.total-payment-amount-area div{
+    display: flex;
+    align-items: center;
+}
+
+#amount{
+    font-size: 24px;
+    font-weight: 700;
+    color: #F8D082;
+    margin-right: 3px;
+}
+
+.next-and-back-area{
+    width: 100%;
+    height: 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.next-step-area{
+    width: 48%;
+    height: 100%;
+    background: #E65C19;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.back-step-area{
+    width: 48%;
+    height: 100%;
+    background: #5D5D5D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.back-step-area:hover{
+    opacity: 1;
+}
+
+.next-step-area:hover{
+    opacity: 1;
+}
+
+.next-step-area>img{
+    width: 12px;
+    position: absolute;
+    top: 30%;
+    right: 5px;
+}
+
+.next-step-area span{
+    font-size: 18px;
+    color: white;
+}
+
+.back-step-area>img{
+    width: 12px;
+    position: absolute;
+    top: 30%;
+    left: 5px;
+    transform: rotate(180deg);
+}
+
+.back-step-area span{
+    font-size: 18px;
+    color: white;
+}
