@@ -1,9 +1,20 @@
-/* 공통파일 margin 없앰 */
-ul {
+/* 공통 CSS로 틀어지는 내용 변경 */
+li a:link{text-decoration: none;}
+li a:visited{text-decoration: none;}
+li a:hover{text-decoration: none;}
+li a:active{text-decoration: none;}
+
+div a:link{text-decoration: none;}
+div a:visited{text-decoration: none;}
+div a:hover{text-decoration: none;}
+div a:active{text-decoration: none;}
+
+div p {
     margin-top: 0;
     margin-bottom: 0;
 }
 
+html { font-size:62.5%; }
 
 /* 공연 navi */
 .concert-ul{
@@ -14,7 +25,9 @@ ul {
     width: 1300px;
     height: 40px;
     padding-left: 75px;
+    padding-bottom: 15px;
     margin: auto;
+    text-decoration-line: none;
 }
 .concert-ul li:hover a > span {
     color: #B51B75;
@@ -27,9 +40,13 @@ ul {
     align-items: center;
     background-color: #F8D082;
 }
-
 .concert-detail-upper-section > div{
     margin: 20px;
+}
+.concert-detail-upper-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 
@@ -37,14 +54,19 @@ ul {
 .concert-detail-upper-div img{
     width: 300px;
     height: 400px;
+    border-radius: 5px;
 }
 .concert-detail-body-div{
     align-items: center;
-    width: 300px;   
+    width: 420px;
+    position: relative;   
 }
 /* 공연상세페이지 대표사진 아래 찜, 커뮤니티로 가기 */
 .concert-detail-like{
     display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     width: 300px;
 }
 .concert-detail-like>div{
@@ -54,28 +76,30 @@ ul {
     justify-content: center;
     height: 60px;
 }
-/* 클래스로 안잡혀서 id로 */
-#concert-detail-like-heartImg{
+/* 여기서 relative 들은 띄울려고 */
+.fa-regular, .fa-solid{
     width: 16px;
     height: 16px;
-    position: relative;
     top:3px;
+    color: red;
 }
-#concert-detail-like-heartImg-background{
-    width: 32px;
-    height: 32px;
-    position: absolute;
-}
-.concert-detail-like-jim{
-    width: 50px;
+.concert-detail-like-button{
+    width: 35px;
+    height: 35px;
+    border: none;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .concert-detail-like-commu{
     width: 250px;
     align-items: center;
 }
-.concert-detail-like-jim span{
-    position: relative;
-    font-size: 10px;
+.concert-detail-like-button span{
+    font-size: 1rem;
     font-weight: 700;
 }
 .concert-detail-like-commu span{
@@ -83,6 +107,10 @@ ul {
 }
 
 /* 공연상세페이지 별점, 공연안내 */
+/* 클래스로 안잡혀서 id로 */
+#concert-detail-starImg{
+    width: 30%;
+}
 .concert-detail-table{
     margin-top: 30px;
     margin-bottom: 50px;
@@ -90,6 +118,10 @@ ul {
 }
 .concert-detail-table td{
     text-align: left;  
+}
+.concert-detail-table span{
+    font-size: 1.6rem;
+    line-height: 2.5;
 }
 
 /* 공연상세페이지 달력, 예매하기 버튼 */
@@ -142,9 +174,7 @@ ul {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
 }
-
 .calendar ul{
     list-style: none;
     display: flex;
