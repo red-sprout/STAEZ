@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${contextPath}/resources/css/mypage/oneLineReview.css">
+<script src="${contextPath}/resources/js/mypage/oneLineReview.js"></script>
 <title>Insert title here</title>
 </head>
 
@@ -46,6 +47,7 @@
                         <li><a href="${contextPath}/updateForm.me">회원정보 변경</a></li>
                     </ul>
                     <ul>
+                        <li class="side-menu-title">문의</li>
                         <li><a href="${contextPath}/inquireList.me">1:1 문의 내역</a></li>
                     </ul>
                         
@@ -77,7 +79,7 @@
                             <h4>꽃이 왜 별이죠. 공감못하겠으니 5점 드립니다.</h4>
                         </td>
                         <td id="review-func">
-                            <button><h4>후기작성</h4></button>
+                            <button type="button" data-toggle="modal" data-target="#myModal"><h4>후기작성</h4></button>
                         </td>
                     </tr>
                     <tr>
@@ -89,7 +91,7 @@
                             <h4>꽃이 왜 별이죠. 공감못하겠으니 5점 드립니다.</h4>
                         </td>
                         <td id="review-func">
-                            <button><h4>수정</h4></button>
+                            <button type="button" data-toggle="modal" data-target="#myModal"><h4>수정</h4></button>
                         </td>
                     </tr>
                 </table>
@@ -114,10 +116,84 @@
                 </div>
 
             </div>
-        
         </div>
 
 	</main>
+    	 <!-- The Modal -->
+         <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h3 class="modal-title">한줄평</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    
+                    <form method="POST">
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="concert-tag">
+                                <table>
+                                    <tr>
+                                        <td rowspan="5">
+                                            <img src="${contextPath}/resources/img/mypage/chicago.gif" alt="">
+                                        </td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td><h3>뮤지컬 〈천개의 파랑〉</h3></td>
+                                    </tr>
+                                    <tr>
+                                        <td>예술의전당 콘서트홀</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            관람일 : 2024.05.12 (월) 14:00 (130분)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="star-rating">
+                                <h3>별점</h3>
+                                <label class="star-label">
+                                    <input type="radio" value="1" class="hidden" onclick="starRating(this);">
+                                    <span class="star-icon"><img src="${contextPath}/resources/img/mypage/star.png" alt=""></span>
+                                </label>
+                                <label class="star-label">
+                                    <input type="radio" value="2" class="hidden" onclick="starRating(this);">
+                                    <span class="star-icon"><img src="${contextPath}/resources/img/mypage/star.png" alt=""></span>
+                                </label>
+                                <label class="star-label">
+                                    <input type="radio" value="3" class="hidden" onclick="starRating(this);">
+                                    <span class="star-icon"><img src="${contextPath}/resources/img/mypage/star.png" alt=""></span>
+                                </label>
+                                <label class="star-label">
+                                    <input type="radio" value="4" class="hidden" onclick="starRating(this);">
+                                    <span class="star-icon"><img src="${contextPath}/resources/img/mypage/star.png" alt=""></span>
+                                </label>
+                                <label class="star-label">
+                                    <input type="radio" value="5" class="hidden" onclick="starRating(this);">
+                                    <span class="star-icon"><img src="${contextPath}/resources/img/mypage/star.png" alt=""></span>
+                                </label>
+                            </div>
+                            <div class="comment-area">
+                                <h3>한줄평</h3>
+                                <textarea rows="4" placeholder="200자"></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">저장</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 	<footer>
 		<jsp:include page="../common/footer.jsp" />
 	</footer>

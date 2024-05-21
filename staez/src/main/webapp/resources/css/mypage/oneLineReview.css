@@ -1,123 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
 
-html,
-body {
-    height: 100%;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    margin: 0;
-}
-
-main {
-    flex: 1;
-    width: 1300px;
-    margin: auto;
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-* {
-    font-family: "Noto Sans KR", sans-serif;
-    font-optical-sizing: auto;
-    font-size: 15px;
-    font-style: normal;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-ul, 
-ol, 
-li {
-    list-style: none;
-}
-
-h1 {
-    font-size: 30px;
-    font-weight: 500;
-    margin: 15px 0;
-}
-
-h2 {
-    font-size: 20px;
-    font-weight: 500;
-    margin: 10px 0;
-}
-
-h3 {
-    font-size: 17px;
-    font-weight: 500;
-    margin: 5px 0;
-}
-
-h4 {
-    font-size: 15px;
-    font-weight: 500;
-    margin: 5px 0;
-}
-
-h5 {
-    font-size: 12px;
-    font-weight: 500;
-    margin: 5px 0;
-}
-
-.btn-staez {
-    border: none;
-    padding: 0 20px;
-    border-radius: 20px;
-    background-color: #D9D9D9;
-    cursor: pointer;
-}
-
-.checked {
-    background-color: #F8D082;
-}
-
-.purple {
-    background-color: #640D6B;
-    color: white;
-}
-
-.page-list {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.pagination {
-    width: 40px;
-    height: 40px;
-    border: 2px solid #D9D9D9;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.pagination > img {
-    width: 20px;
-    height: 20px;
-}
-
-.current {
-    border: none;
-    background: #B51B75;
-    color: white;
-}
-
-a {
-  text-decoration: none;
-  color: black;
-}
-
-/*내가 한 부분*/
 main>.title{
     width: 1250px;
     height: 120px;
@@ -282,6 +164,11 @@ main>.main-section>.main-content>table #review-func>button{
 
 }
 
+.concert-tag img{
+    width: 100px;
+    height: 130px;
+    margin-right: 10px;
+}
 
 
 

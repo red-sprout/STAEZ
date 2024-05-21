@@ -7,13 +7,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="${contextPath}/resources/css/mypage/paymentsLog.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/mypage/myInquireList.css">
+<script src="${contextPath}/resources/js/mypage/myInquireList.js"></script>
+
 <title>Insert title here</title>
 </head>
 
 <body onload="init()">
 	<header>
-		<jsp:include page="../common/header.jsp" />
+        <jsp:include page="../common/header.jsp" />
 	</header>
 	<main>
         <div class="title">
@@ -53,34 +55,38 @@
                 </div>
             </div>
             <div class="main-content">
+                <div class="section-title">문의</div>
+
                 <div class="main-title">
-                    <h2>결제내역</h2>
+                    <h2>1:1 문의내역</h2>
                 </div>
-                <table>
-                    <tr class="tb-title">
-                        <th colspan="2" id="concert-info">공연정보</th>
-                        <th id="reserve-info">예약정보</th>
-                    </tr>
-                    <c:forEach var="i" begin="0" end="4">
-                    <tr class="tb-content">
-                        <td>
-                            <img src="${contextPath}/resources/img/mypage/chicago.gif" alt="">
-                        </td>
-                        <td id="content">
-                            <h3>꽃 별이지나</h3>
-                            <h5>서경대학교 공연예술센터 스콘 1관</h5>
-                            <h4>2024.04.15 (수) 15:00 (100분)</h4>
-                        </td>
-                        <td>
-                            <h5>
-                                예약번호: 22222222 <br>
-                                2024.04.01 <br>
-                                2매 200,000￦
-                            </h5>
-                        </td>
-                    </tr>
-                    </c:forEach>
-                </table>
+
+                <div id="inq-section">
+                    <ul>
+                        <c:forEach var="i" begin="0" end="7">
+                        <li class="menu-item">
+                            <div class="inq-info">
+                                <span class="inq-cate">분류</span>
+                                <span class="inq-title">환불 가능할까요?</span>
+                                <span class="inq-date">2024-04-01</span>
+                                <span class="folding-icon">▼</span>
+                            </div>
+                            <div class="fold-content hidden">
+                                <div class="inquire">
+                                    <p class="fold-title"><h3>문의내용</h3></p>
+                                    <p>급한 사정이 생겨 예매 날짜에 가지 못하게됐습니다. 환불해주세요</p>
+                                </div>
+                                <hr>
+                                <div class="answer">
+                                    <p class="fold-title"><h3>답변내용</h3></p>
+                                    <p>안됩니다</p> <!--답변이 null 일 경우 '답변을 기다리는 중입니다.'-->
+                                </div>
+                            </div>
+                        </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+
 
                 <div class="page-list">
                     <div class="pagination">

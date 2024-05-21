@@ -160,7 +160,7 @@
     border-right: 1px solid #969696; /* 원하는 border 스타일 설정 */
 }
 
-.main-content>table th:nth-child(4)::after {
+.main-content>table th:nth-child(5)::after {
   border-right: none;
 }
 
@@ -169,18 +169,22 @@
 }
 
 .col-name>#board-title{
-    width: 540px;
+    width: 480px;
 }
 
-.col-name>#enroll-date{
+.col-name>#writer{
     width: 120px;
 }
 
-.col-name>#views{
+.col-name>#enroll-date{
     width: 100px;
 }
+
+.col-name>#views{
+    width: 80px;
+}
 .col-name>#likes{
-    width: 100px;
+    width: 80px;
 }
 
 .tb-content>#btitle{
