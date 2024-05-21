@@ -130,7 +130,7 @@ main>.main-section>.main-content>table #concert-img{
     width: 140px;
 }
 
-main>.main-section>.main-content>table img{
+main>.main-section>.main-content>table #concert-img>img{
     width: 90px;
     height: 120px;
 }
@@ -154,6 +154,20 @@ main>.main-section>.main-content>table #review-func{
     height: 150px;
 }
 
+main>.main-section>.main-content>table #review-func>span{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+
+main>.main-section>.main-content>table #review-func>span>*{
+    width: 20px;
+    height: 20px;
+    margin: 0 2px;
+}
+
 main>.main-section>.main-content>table #review-func>button{
     width: 70px;
     height: 35px;
@@ -164,17 +178,67 @@ main>.main-section>.main-content>table #review-func>button{
 
 }
 
-.concert-tag img{
-    width: 100px;
-    height: 130px;
-    margin-right: 10px;
+
+
+/*modal*/
+.concert-tag {
+    border: 1px solid #969696;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+    cursor: pointer;
 }
 
+.concert-tag tr img {
+    width: 100px;
+    margin-right: 20px;
+}
 
+.star-rating {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
+.star-rating>h3 {
+    width: 60px;
+    text-align: left;
+}
 
+.star-label {
+    margin-bottom: 0;
+}
 
+.star-label .star-icon {
+    width: 30px;
+	height: 30px;
+	display: block;
+	background-repeat: no-repeat;
+    cursor: pointer;
+}
 
+.star-label .star-icon>img {
+    width: 100%;
+}
+
+.comment-area {
+    display: flex;
+    align-items: start;
+}
+
+.comment-area>h3 {
+    width: 60px;
+    text-align: left;
+}
+
+.comment-area>textarea {
+    width: calc(100% - 60px);
+    border: 1px solid #969696;
+    outline: none;
+    padding: 10px;
+    resize: none;
+}
 
 
 

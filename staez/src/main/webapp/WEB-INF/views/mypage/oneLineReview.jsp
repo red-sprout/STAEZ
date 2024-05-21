@@ -67,7 +67,10 @@
                             <h4>꽃이 왜 별이죠. 공감못하겠으니 5점 드립니다.</h4>
                         </td>
                         <td id="review-func">
-                            <h4>★ 5</h4>
+                            <span>
+                                <img src="${contextPath}/resources/img/mypage/star-filled.png" alt=""> 
+                                <h4>5</h4>
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -141,10 +144,10 @@
                                         <td>&nbsp;</td>
                                     </tr>
                                     <tr>
-                                        <td><h3>뮤지컬 〈천개의 파랑〉</h3></td>
+                                        <td><h3>꽃 별이지나</h3></td>
                                     </tr>
                                     <tr>
-                                        <td>예술의전당 콘서트홀</td>
+                                        <td>서경대학교 공연예술센터 스콘 1관</td>
                                     </tr>
                                     <tr>
                                         <td>
