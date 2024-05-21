@@ -9,15 +9,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <!-- css -->
     <link rel="stylesheet" href="${contextPath}/resources/css/main.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/user/insertForm.css">
+    <!-- js -->
     <script src="${contextPath}/resources/js/user/insertForm.js"></script>
+    <!-- Bootstrap 4 Tutorial -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <title>회원가입</title>
 </head>
-
 <body onload="init()">
     <header>
         <jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -28,45 +30,34 @@
         </div>
         <h1 class="signin-h1">정보입력</h1>
         <hr>
-        <form id="enrollForm" action="">
+        <form id="enrollForm" action="" method="post">
             <div class="insert-member">
                 <table class="insert-member-table">
-                    <<tr>
-                        <th>
-                            <h2>닉네임</h2>
-                        </th>
+                    <tr>
+                        <th>닉네임</th>
                         <td colspan="2"><input type="text" placeholder="8~16자" name="nickname" id="nickname"></td>
-                        <td><input type="button" class="check_button" value="중복검사" onclick="checkNickname()"></td>
-                    </tr>
+                        <td><input type="button" class="check_button" value="중복검사" ></td>
+                    </tr>                  
                     <tr>
-                        <td colspan="3"><span id="nicknameResult"></span></td> <!-- 중복 검사 결과를 여기에 표시 -->
-                    </tr>                    
-                    <tr>
-                        <th>
-                            <h2>아이디</h2>
-                        </th>
+                        <th>아이디</th>
                         <td colspan="2"><input type="text" placeholder="8~16자" name="userId" id="userId"></td>
-                        <td><input type="button" class="check_button" value="중복검사" onclick="checkUserId()"></td>
+                        <td><input type="button" class="check_button" value="중복검사" ></td>
                     </tr>
                     <tr>
-                        <th>
-                            <h2>비밀번호</h2>
+                        <th>비밀번호
                         </th>
                         <td colspan="2"><input type="password" placeholder="8~16자"></td>
                     </tr>
                     <tr>
-                        <th>
-                            <h2>비밀번호 확인</h2>
+                        <th>비밀번호 확인
                         </th>
                         <td colspan="2"><input type="password"></td>
                     </tr>
                     <tr>
-                        <th>
-                            <h2>휴대폰 번호</h2>
-                        </th>
+                        <th>휴대폰 번호</th>
                         <td colspan="6" class="email-container">
                             <div id="td-div">
-                                <select class="box" id="domain-list-1">
+                                <select class="box" id="phone-prefix">
                                     <option value="010" selected>010</option>
                                     <option value="011">011</option>
                                     <option value="016">016</option>
@@ -74,11 +65,11 @@
                                     <option value="018">018</option>
                                     <option value="019">019</option>
                                 </select>
-                                <span id="email-prefix-shift2">-</span>
-                                <input type="text" id="email-suffix1">
-                                <span id="email-prefix-shift2">-</span>
-                                <input type="text" id="email-suffix2">
-                                <td colspan="1"><input type="button" class="check_button" value=" 인증번호 전송 "></td>
+                                <span id="phone-prefix-shift2">-</span>
+                                <input type="text" id="phone-suffix1">
+                                <span id="phone-prefix-shift2">-</span>
+                                <input type="text" id="phone-suffix2">
+                                <td colspan="1"><input type="button" class="check_button" value="인증번호 전송"></td>
                             </div>
                         </td>                       
                     </tr>
@@ -88,24 +79,20 @@
                         <td><input type="button" class="check_button" value="인증확인"></td>
                     </tr>
                     <tr>
-                        <th>
-                            <h2>생년월일</h2>
-                        </th>
-                        <td  class="email-container">
+                        <th>생년월일</th>
+                        <td class="email-container">
                             <div id="td-div">
-                                <input type="text" id="email-suffix" placeholder="2024">
-                                <span id="email-prefix-shift2">년</span>
-                                <input type="text" id="email-suffix" placeholder="01">
-                                <span id="email-prefix-shift2">월</span>
-                                <input type="text" id="email-suffix" placeholder="01">
-                                <span id="email-prefix-shift2">일</span>
+                                <input type="text" id="birthday-year" placeholder="2024">
+                                <span id="birthday-prefix-shift2">년</span>
+                                <input type="text" id="birthday-month" placeholder="01">
+                                <span id="birthday-prefix-shift2">월</span>
+                                <input type="text" id="birthday-day" placeholder="01">
+                                <span id="birthday-prefix-shift2">일</span>
                             </div>
                         </td>   
                     </tr>
                     <tr>
-                        <th>
-                            <h2>이메일</h2>
-                        </th>
+                        <th>이메일</th>
                         <td colspan="5" class="email-container">
                             <div id="td-div">
                                 <input type="text" id="email-prefix">
@@ -114,7 +101,7 @@
                             </div>
                         </td>
                         <td>
-                            <select class="box" id="domain-list-2">
+                            <select class="box" id="email-domain-list">
                                 <option value="type">직접 입력</option>
                                 <option value="naver.com">naver.com</option>
                                 <option value="google.com">google.com</option>
@@ -122,12 +109,10 @@
                                 <option value="nate.com">nate.com</option>
                                 <option value="kakao.com">kakao.com</option>
                             </select>
-                        </td>                        
-                    </tr>
+                        </td>                
+                    </tr>                    
                     <tr>
-                        <th>
-                            <h2>성별</h2>
-                        </th>
+                        <th>성별</th>
                         <td colspan="2">
                             <input type="checkbox" name="gender" value="남" id="man">
                             <label for="man" id="label-man">남</label>
@@ -136,9 +121,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>
-                            <h2>주소</h2>
-                        </th>
+                        <th>주소</th>
                         <td colspan="2"><input type="text"></td>
                         <td><input type="button" class="check_button" value="우편번호"></td>
                     </tr>
@@ -148,28 +131,14 @@
                     </tr>
                     <tr>
                         <th>관심장르(택3)</th>
-                        <td colspan="4">
-                            <button class="btn-staez3" onclick="toggleButton(event, this)">
-                                <h3>클래식</h3>
-                            </button>
-                            <button class="btn-staez3" onclick="toggleButton(event, this)">
-                                <h3>국악</h3>
-                            </button>
-                            <button class="btn-staez3" onclick="toggleButton(event, this)">
-                                <h3>대중음악</h3>
-                            </button>
-                            <button class="btn-staez3" onclick="toggleButton(event, this)">
-                                <h3>기타</h3>
-                            </button>
-                            <button class="btn-staez3" onclick="toggleButton(event, this)">
-                                <h3>뮤지컬</h3>
-                            </button>
-                            <button class="btn-staez3" onclick="toggleButton(event, this)">
-                                <h3>연극</h3>
-                            </button>
-                            <button class="btn-staez3" onclick="toggleButton(event, this)">
-                                <h3>서커스/마술</h3>
-                            </button>
+                        <td colspan="4" id="genre-buttons">
+                            <button class="btn-staez3" data-genre="클래식"><h3>클래식</h3></button>
+                            <button class="btn-staez3" data-genre="국악"><h3>국악</h3></button>
+                            <button class="btn-staez3" data-genre="대중음악"><h3>대중음악</h3></button>
+                            <button class="btn-staez3" data-genre="기타"><h3>기타</h3></button>
+                            <button class="btn-staez3" data-genre="뮤지컬"><h3>뮤지컬</h3></button>
+                            <button class="btn-staez3" data-genre="연극"><h3>연극</h3></button>
+                            <button class="btn-staez3" data-genre="서커스/마술"><h3>서커스/마술</h3></button>
                         </td>
                     </tr>
                 </table>
