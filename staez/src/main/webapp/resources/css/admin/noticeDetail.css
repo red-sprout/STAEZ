@@ -4,23 +4,9 @@
 
 #community-wrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 20px;
     gap: 20px;
-}
-
-#community-nav {
-    border: 1px solid #969696;
-    padding: 50px;
-    width: 300px;
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-#community-nav>li {
-    cursor: pointer;
 }
 
 #write-btn {

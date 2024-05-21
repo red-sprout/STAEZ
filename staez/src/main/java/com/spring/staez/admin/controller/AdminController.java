@@ -11,6 +11,11 @@ public class AdminController {
 		return "admin/noticeMain";
 	}
 	
+	@GetMapping("detail.no")
+	public String noticeDetail() {
+		return "admin/noticeDetail";
+	}
+	
 	@GetMapping("incertForm.no")
 	public String noticeIncertForm() {
 		return "admin/noticeIncertForm";
