@@ -40,11 +40,6 @@ var backButton = document.getElementById('backButton');
 backButton.addEventListener('click', function() {
     window.history.back();
 });
-
-var loginButton = document.getElementById('loginButton');
-loginButton.addEventListener('click', function() {
-    window.location.href = '${contextPath}/loginForm.jsp';
-});
 });
 
 // 아이디찾은 페이지로 가기위해
