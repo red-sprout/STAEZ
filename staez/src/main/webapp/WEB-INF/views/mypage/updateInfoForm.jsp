@@ -27,7 +27,8 @@
                 <div class="profile">
                     <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
                     <div id="profile-text">
-                        <span>00님</span><br>
+                        <span>[아이디]</span>
+                        <span>님</span><br>
                         <span>환영합니다</span>
                     </div>
                 </div>
@@ -76,7 +77,7 @@
                                         <button type="button">중복확인</button>
                                     </td>
                                 </tr>
-                                <tr class="warning-text">
+                                <tr class="warning-text hidden">
                                     <td></td>
                                     <td><h5>중복된 닉네임입니다</h5></td>
                                     <td></td>
@@ -114,7 +115,7 @@
                                 <tr>
                                     <th><h3>주소</h3></th>
                                     <td class="input-box">
-                                        <input type="text" name="address">
+                                        <input type="text" name="address" readonly>
                                     </td>
                                     <td class="input-btn">
                                         <button type="button">우편번호</button>
@@ -135,7 +136,7 @@
                                                 <option value="1">010</option>
                                                 <option value="2">011</option>
                                             </select>
-                                            <input type="text" maxlength="4" >
+                                            <input type="text" maxlength="4">
                                             <input type="text" maxlength="4">
                                         </div>
                                     </td>
@@ -150,7 +151,7 @@
                                         <button type="button">인증</button>
                                     </td>
                                 </tr>
-                                <tr class="warning-text">
+                                <tr class="warning-text hidden">
                                     <td></td>
                                     <td><h5>잘못된 인증번호입니다</h5></td>
                                     <td></td>
@@ -161,15 +162,15 @@
                                         <div>
                                             <input type="text"> 
                                             <span>@</span>
-                                            <input type="text">
+                                            <input type="text" id="email-back">
                                         </div>
                                     </td>
                                     <td class="input-btn">
-                                        <select name="domain" id="">
+                                        <select name="domain" id="" onchange="emailDomain()">
                                             <option value="self-input">직접입력</option>
-                                            <option value="naver">naver.com</option>
-                                            <option value="google">gmail.com</option>
-                                            <option value="daum">daum.net</option>
+                                            <option value="naver.com">네이버</option>
+                                            <option value="google.com">구글</option>
+                                            <option value="daum.net">다음</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -177,7 +178,7 @@
                                     <th rowspan="2"><h3>관심장르</h3></th>
                                     <td colspan="2" rowspan="2" id="like-genre-input" >
                                         <div>
-                                            <button type="button" class="btn-staez checked"><h4>뮤지컬</h4></button>
+                                            <button type="button" onclick="btnToggle()" class="btn-staez checked"><h4>뮤지컬</h4></button>
                                             <button type="button" class="btn-staez"><h4>클래식</h4></button>    
                                             <button type="button" class="btn-staez"><h4>연극</h4></button>    
                                             <button type="button" class="btn-staez"><h4>국악</h4></button>    
@@ -209,67 +210,38 @@
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h3 class="modal-title">한줄평</h3>
+                    <h3 class="modal-title">비밀번호 변경</h3>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 
-                <form method="POST">
+                <form method="GET"> <!-- 비밀번호 ajax 사용 예정-->
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <div class="concert-tag">
+                        <div class="pwd-tag">
                             <table>
                                 <tr>
-                                    <td rowspan="5"><img src="poster.png" alt=""></td>
-                                    <td>&nbsp;</td>
+                                    <th><h3>현재 비밀번호</h3></th>
+                                    <td><input type="password"></td>
+                                    <td><button type="button" class="btn-staez"><h3>비밀번호 확인</h3></button></td>
                                 </tr>
                                 <tr>
-                                    <td><h3>뮤지컬 〈천개의 파랑〉</h3></td>
+                                    <th><h3>변경할 비밀번호</h3></th>
+                                    <td><input type="password"></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
-                                    <td>예술의전당 콘서트홀</td>
+                                    <th><h3>비밀번호 확인</h3></th>
+                                    <td><input type="password"></td>
+                                    <td></td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        관람일 : 2024.05.12 (월) 14:00 (130분)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>&nbsp;</td>
-                                </tr>
+
                             </table>
-                        </div>
-                        <div class="star-rating">
-                            <h3>별점</h3>
-                            <label class="star-label">
-                                <input type="radio" value="1" class="hidden" onclick="starRating(this);">
-                                <span class="star-icon"><img src="star.png" alt=""></span>
-                            </label>
-                            <label class="star-label">
-                                <input type="radio" value="2" class="hidden" onclick="starRating(this);">
-                                <span class="star-icon"><img src="star.png" alt=""></span>
-                            </label>
-                            <label class="star-label">
-                                <input type="radio" value="3" class="hidden" onclick="starRating(this);">
-                                <span class="star-icon"><img src="star.png" alt=""></span>
-                            </label>
-                            <label class="star-label">
-                                <input type="radio" value="4" class="hidden" onclick="starRating(this);">
-                                <span class="star-icon"><img src="star.png" alt=""></span>
-                            </label>
-                            <label class="star-label">
-                                <input type="radio" value="5" class="hidden" onclick="starRating(this);">
-                                <span class="star-icon"><img src="star.png" alt=""></span>
-                            </label>
-                        </div>
-                        <div class="comment-area">
-                            <h3>한줄평</h3>
-                            <textarea rows="4" placeholder="200자"></textarea>
                         </div>
                     </div>
                     
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">저장</button>
+                        <button type="submit" class="btn btn-primary">변경</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
                     </div>
                 </form>
