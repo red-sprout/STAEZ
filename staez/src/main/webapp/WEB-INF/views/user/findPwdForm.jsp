@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/main.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/user/findPwd.css">
+    <script src="${contextPath}/resources/js/user/findPwdForm.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -82,49 +83,9 @@
         </form>
         <div class="insert-member-div">
             <button type="button" id="backButton">이전</button>
-            <button type="submit">다음</button>
+            <button type="submit" id="loginButton">다음</button>
         </div>
     </main>
- 
-    <script>
-        // 이메일 접미사가 변경될 때마다 호출되는 함수
-        function handleDomainListChange() {
-            const domainList = document.getElementById("domain-list");
-            const emailSuffixInput = document.getElementById("email-suffix");
-
-            domainList.addEventListener("change", function () {
-                const selectedOption = domainList.options[domainList.selectedIndex].value;
-
-                if (selectedOption !== "type") {
-                    emailSuffixInput.value = selectedOption;
-                    emailSuffixInput.placeholder = "";
-                } else {
-                    emailSuffixInput.value = "";
-                    emailSuffixInput.placeholder = "직접 입력";
-                }
-            });
-        }
-
-        // 초기화 함수
-        function init() {
-            handleDomainListChange();
-        }
-
-        init(); // 페이지 로드 시 초기화 함수 호출
-
-        // 이전페이지로 돌아가는
-        document.addEventListener('DOMContentLoaded', function() {
-            var backButton = document.getElementById('backButton');
-            backButton.addEventListener('click', function() {
-                window.history.back();
-            });
-
-            var loginButton = document.getElementById('loginButton');
-            loginButton.addEventListener('click', function() {
-                window.location.href = '${contextPath}/loginForm.jsp';
-            });
-        });
-    </script>
     <footer>
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     </footer>
