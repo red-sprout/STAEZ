@@ -14,9 +14,10 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="${contextPath}/resources/js/user/insertPwdForm.js"></script>
     <title>비밀번호 변경</title>
 </head>
-<body onload="init()">
+<body>
     <main>
         <a href="${contextPath}/index.jsp"><img src="${contextPath}/resources/img/user/STAEZ_logo.png" alt="STAEZ로고"></a>
         <h2>비밀번호 변경</h2>
@@ -87,25 +88,6 @@
             </div>
         </div>
     </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var changeButton = document.getElementById('changeButton');
-            changeButton.addEventListener('click', function() {
-                // 비밀번호 확인
-                var newPassword = document.getElementById('newPassword').value;
-                var confirmNewPassword = document.getElementById('confirmNewPassword').value;
-
-                if (newPassword === confirmNewPassword) {
-                    // 변경 성공 모달 열기
-                    $('#myModal').modal('show');
-                } else {
-                    // 변경 실패 모달 열기
-                    $('#failureModal').modal('show');
-                }
-            });
-        });
-    </script>
     <footer>
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     </footer>
