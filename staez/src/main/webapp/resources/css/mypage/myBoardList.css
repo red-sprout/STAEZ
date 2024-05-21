@@ -1,123 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
 
-html,
-body {
-    height: 100%;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    margin: 0;
-}
-
-main {
-    flex: 1;
-    width: 1300px;
-    margin: auto;
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-* {
-    font-family: "Noto Sans KR", sans-serif;
-    font-optical-sizing: auto;
-    font-size: 15px;
-    font-style: normal;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-ul, 
-ol, 
-li {
-    list-style: none;
-}
-
-h1 {
-    font-size: 30px;
-    font-weight: 500;
-    margin: 15px 0;
-}
-
-h2 {
-    font-size: 20px;
-    font-weight: 500;
-    margin: 10px 0;
-}
-
-h3 {
-    font-size: 17px;
-    font-weight: 500;
-    margin: 5px 0;
-}
-
-h4 {
-    font-size: 15px;
-    font-weight: 500;
-    margin: 5px 0;
-}
-
-h5 {
-    font-size: 12px;
-    font-weight: 500;
-    margin: 5px 0;
-}
-
-.btn-staez {
-    border: none;
-    padding: 0 20px;
-    border-radius: 20px;
-    background-color: #D9D9D9;
-    cursor: pointer;
-}
-
-.checked {
-    background-color: #F8D082;
-}
-
-.purple {
-    background-color: #640D6B;
-    color: white;
-}
-
-.page-list {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.pagination {
-    width: 40px;
-    height: 40px;
-    border: 2px solid #D9D9D9;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.pagination > img {
-    width: 20px;
-    height: 20px;
-}
-
-.current {
-    border: none;
-    background: #B51B75;
-    color: white;
-}
-
-a {
-  text-decoration: none;
-  color: black;
-}
-
-/*내가 한 부분*/
 .title{
     width: 1250px;
     height: 120px;
@@ -231,45 +113,83 @@ a {
     
 }
 
+/*콘텐츠 제목*/
 .main-section>.main-content>.main-title{   
-    width: 820px;
-    height: 80px;
+    width: 860px;
+    height: 40px;
+
+    margin-bottom: 15px;
 }
 
-/*콘텐츠 제목*/
 .main-section>.main-content>.main-title>h2{
     text-align: left;
-    line-height: 80px;
     padding-left: 20px;   
 }
 
 /*나의 게시글 리스트*/
 .main-section>.main-content>table{
     border-collapse: collapse;
-    width: 820px;
+    width: 860px;
     height: auto;
 
     margin: 0 0 40px 0;
+
+    border-top: solid 2px black;
 }
 
-.main-content>table>tr {
-    height: 140px;    
+.main-content>table tr {
+    height: 80px;    
+    border-bottom: solid 1px black;
 }
 
-.tb-title>#board-title{
-    width: 500px;
+.main-content>table .col-name { /*제목 행 th*/
+    height: 50px;    
 }
 
-.tb-title>#enroll-date{
+.main-content>table th {
+    position: relative;
+}
+
+.main-content>table th::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    height: 50%; /* border의 높이를 th의 50%로 설정 */
+    border-right: 1px solid #969696; /* 원하는 border 스타일 설정 */
+}
+
+.main-content>table th:nth-child(4)::after {
+  border-right: none;
+}
+
+.main-content>table td {
+    padding: 0 8px;
+}
+
+.col-name>#board-title{
+    width: 540px;
+}
+
+.col-name>#enroll-date{
     width: 120px;
 }
 
-.tb-title>#views{
+.col-name>#views{
     width: 100px;
 }
-.tb-title>#blikes{
+.col-name>#likes{
     width: 100px;
 }
+
+.tb-content>#btitle{
+    text-align: left;
+    /*텍스트 넘치면 ...표시되도록 해야됨*/
+}
+
+
+
 
 
 

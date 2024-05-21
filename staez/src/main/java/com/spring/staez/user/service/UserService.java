@@ -1,8 +1,8 @@
 package com.spring.staez.user.service;
 
-import org.springframework.stereotype.Service;
+import com.spring.staez.user.model.vo.User;
 
-@Service
-public class UserService {
-
+public interface UserService {
+	
+	public User loginUser(User u);
 }

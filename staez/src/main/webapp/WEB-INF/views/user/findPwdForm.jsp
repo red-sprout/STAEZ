@@ -9,8 +9,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <!-- css -->
     <link rel="stylesheet" href="${contextPath}/resources/css/main.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/user/findPwd.css">
+    <!-- js -->
+    <script src="${contextPath}/resources/js/user/findPwdForm.js"></script>
+    <!-- Bootstrap 4 Tutorial -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -20,7 +24,7 @@
     <main>
         <a href="${contextPath}/index.jsp"><img src="${contextPath}/resources/img/user/STAEZ_logo.png" alt="STAEZ로고"></a>
         <h2>비밀번호 찾기</h2>
-        <form action="">
+        <form action="" method="post">
             <div id="findId-div">
                 <table>
                     <tr>
@@ -39,7 +43,7 @@
                             </div>
                         </td>
                         <td>
-                            <select class="box" id="domain-list">
+                            <select class="box" id="email-domain-list">
                                 <option value="type">직접 입력</option>
                                 <option value="naver.com">naver.com</option>
                                 <option value="google.com">google.com</option>
@@ -47,12 +51,10 @@
                                 <option value="nate.com">nate.com</option>
                                 <option value="kakao.com">kakao.com</option>
                             </select>
-                        </td>                        
+                        </td>                            
                     </tr>
                     <tr>
-                        <th>
-                            휴대 번호
-                        </th>
+                        <th>휴대 번호</th>
                         <td colspan="6" class="email-container">
                             <div style="display: flex;">
                                 <select class="box" id="domain-list">
@@ -85,46 +87,7 @@
             <button type="submit">다음</button>
         </div>
     </main>
- 
-    <script>
-        // 이메일 접미사가 변경될 때마다 호출되는 함수
-        function handleDomainListChange() {
-            const domainList = document.getElementById("domain-list");
-            const emailSuffixInput = document.getElementById("email-suffix");
 
-            domainList.addEventListener("change", function () {
-                const selectedOption = domainList.options[domainList.selectedIndex].value;
-
-                if (selectedOption !== "type") {
-                    emailSuffixInput.value = selectedOption;
-                    emailSuffixInput.placeholder = "";
-                } else {
-                    emailSuffixInput.value = "";
-                    emailSuffixInput.placeholder = "직접 입력";
-                }
-            });
-        }
-
-        // 초기화 함수
-        function init() {
-            handleDomainListChange();
-        }
-
-        init(); // 페이지 로드 시 초기화 함수 호출
-
-        // 이전페이지로 돌아가는
-        document.addEventListener('DOMContentLoaded', function() {
-            var backButton = document.getElementById('backButton');
-            backButton.addEventListener('click', function() {
-                window.history.back();
-            });
-
-            var loginButton = document.getElementById('loginButton');
-            loginButton.addEventListener('click', function() {
-                window.location.href = '${contextPath}/loginForm.jsp';
-            });
-        });
-    </script>
     <footer>
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     </footer>

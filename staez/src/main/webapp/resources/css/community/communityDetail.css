@@ -199,6 +199,10 @@
     cursor: pointer;
 }
 
+.reply-like>img {
+    width: 30px;
+}
+
 .reply-flex {
     display: flex;
 }

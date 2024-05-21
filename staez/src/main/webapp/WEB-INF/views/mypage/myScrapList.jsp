@@ -46,6 +46,7 @@
                         <li><a href="${contextPath}/updateForm.me">회원정보 변경</a></li>
                     </ul>
                     <ul>
+                        <li class="side-menu-title">문의</li>
                         <li><a href="${contextPath}/inquireList.me">1:1 문의 내역</a></li>
                     </ul>
                         
@@ -56,6 +57,9 @@
                     <h2>찜목록</h2>
                 </div>
                 <table>
+                    <tr class="tb-title">
+                        <th colspan="3">공연정보</th>
+                    </tr>
                     <c:forEach var="i" begin="0" end="4">
                     <tr class="tb-content">
                         <td id="concert-img">
@@ -68,7 +72,7 @@
                             <h4>상영기간 : 2024.04.01 ~ 2024.07.15</h4>
                         </td>
                         <td id="age-limit">
-                            <button>X</button>
+                            <button type="button">X</button>
                             <h4>12세 이상 관람가</h4>
                         </td>
                     </tr>

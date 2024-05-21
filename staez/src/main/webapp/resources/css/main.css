@@ -115,9 +115,9 @@ h5 {
     color: white;
 }
 
-a {
-  text-decoration: none;
-  color: black;
+a, a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
+    color: black;
 }
 
 .hidden {

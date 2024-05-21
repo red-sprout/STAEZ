@@ -46,6 +46,7 @@
                         <li><a href="${contextPath}/updateForm.me">회원정보 변경</a></li>
                     </ul>
                     <ul>
+                        <li class="side-menu-title">문의</li>
                         <li><a href="${contextPath}/inquireList.me">1:1 문의 내역</a></li>
                     </ul>
                         

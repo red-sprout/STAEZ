@@ -1,24 +1,40 @@
-    /* 공연 navi */
-    .concert-ul{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 25px;
-        width: 1300px;
-        height: 40px;
-        padding-left: 50px;
-        margin: auto;
+  /* 공통 CSS로 틀어지는 내용 변경 */
+li a:link{text-decoration: none;}
+li a:visited{text-decoration: none;}
+li a:hover{text-decoration: none;}
+li a:active{text-decoration: none;}
+
+div a:link{text-decoration: none;}
+div a:visited{text-decoration: none;}
+div a:hover{text-decoration: none;}
+div a:active{text-decoration: none;}
+
+div p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+html { font-size:62.5%; }
+
+/* 공연 navi */
+.concert-ul{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 25px;
+    width: 1300px;
+    height: 40px;
+    padding-left: 75px;
+    padding-bottom: 15px;
+    margin: auto;
+    text-decoration-line: none;
+}
+
+    .concert-ul li:hover a > span {
+        color: #B51B75;
     }
-    .concert-ul:hover li>a{
-        color: #640D6B
-        /* 나중에 script로 바꾸기 */
-    }
-    
-    
     
     .concert-main-upper-section{
         background-color: #F8D082;
-        margin: auto;
     }
     .concert-main-upper{
         display: flex;
@@ -43,7 +59,12 @@
     }
     
     .concert-main-upper-pic-div img{
-        width: 90%;
+        width: 250px;
+        height: 320px;
+        margin: 10px;
+        display: block;
+        overflow: hidden;
+        border-radius: 5px;
     }
     .concert-main-upper-pic-div{
         padding: 20px 0 20px 0;
@@ -58,7 +79,14 @@
         transform: translate(-50%, -50%);
     }
     .concert-main-upper-sen-div span{
-        font-size: 0.8rem;
+        font-size: 1.2rem;
+    }
+    .concert-main-upper-sen-div p, 
+    .concert-main-upper-sen-div span{
+        line-height: 1.2;
+    }
+    .concert-main-upper-sen-div h2{
+        line-height: 0.3;
     }
     
     .concert-main-hr{
@@ -97,13 +125,16 @@
         opacity : 0.9;
         /* transform: translate(-50%, -50%); */
     }
+    /* li내의 ul요소 숨기기 */
     .concert-main-list-ul>li>ul{
         display: none;
         text-align: center;
     }
+    /* hover로 .area인 곳에 마우스 올리면 ul 요소 보여주기 */
     .concert-main-list-ul>li>.area:hover+ul{
         display: block;
     }
+    /* 호버 하는 동안 ul 요소 계속 보여주기 */
     .concert-main-list-ul>li>ul:hover{
         display:block;
     }
@@ -122,10 +153,9 @@
         height: 40px;
     }
     .concert-main-list-button:hover{
-        background-color: #640D6B;
-        /* 나중에 script로 바꾸기 */
+        background-color: #640D6B;  
+        color: white;
     }
-    
     .concert-main-grid-section{
         margin: auto;
     }
@@ -138,6 +168,7 @@
     }
     .concert-main-grid img{
         width: 200px;
+        border-radius: 5px;
     }
     
     @media(min-width: 485px){

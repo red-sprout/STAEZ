@@ -49,7 +49,7 @@ public class LogginAOP {
 	
 	//@Pointcut - 내가 기능을 사용할 지점을 정의
 	//com.kh.spring패키지 하위 패키지중 controll내에있는 모든 클래스의 모든메서드
-	@Pointcut("execution(* com.kh.spring..controller.*.*(..) )")
+	@Pointcut("execution(* com.spring.staez.*.controller.*.*(..) )")
 	private void cut() {}
 	
 	// cut메서드가 실행되는 지점 이전에 before()메서드를 실행

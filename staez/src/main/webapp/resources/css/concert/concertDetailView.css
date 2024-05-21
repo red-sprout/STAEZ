@@ -1,3 +1,21 @@
+/* 공통 CSS로 틀어지는 내용 변경 */
+li a:link{text-decoration: none;}
+li a:visited{text-decoration: none;}
+li a:hover{text-decoration: none;}
+li a:active{text-decoration: none;}
+
+div a:link{text-decoration: none;}
+div a:visited{text-decoration: none;}
+div a:hover{text-decoration: none;}
+div a:active{text-decoration: none;}
+
+div p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+html { font-size:62.5%; }
+
 /* 공연 navi */
 .concert-ul{
     display: flex;
@@ -6,23 +24,29 @@
     gap: 25px;
     width: 1300px;
     height: 40px;
-    padding-left: 50px;
+    padding-left: 75px;
+    padding-bottom: 15px;
     margin: auto;
+    text-decoration-line: none;
 }
-.concert-ul:hover li>a{
-    color: #640D6B
-    /* 나중에 script로 바꾸기 */
+.concert-ul li:hover a > span {
+    color: #B51B75;
 }
 
 /* 공연상세페이지 노란블럭 */
 .concert-detail-upper-section{
     display: flex;
-    padding: 50px 200px 50px 200px;
+    justify-content: center;
+    align-items: center;
     background-color: #F8D082;
 }
-
 .concert-detail-upper-section > div{
-    margin: auto;
+    margin: 20px;
+}
+.concert-detail-upper-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 
@@ -30,44 +54,52 @@
 .concert-detail-upper-div img{
     width: 300px;
     height: 400px;
+    border-radius: 5px;
 }
 .concert-detail-body-div{
     align-items: center;
-    width: 300px;   
+    width: 420px;
+    position: relative;   
 }
 /* 공연상세페이지 대표사진 아래 찜, 커뮤니티로 가기 */
 .concert-detail-like{
     display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     width: 300px;
 }
 .concert-detail-like>div{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     height: 60px;
 }
-/* 클래스로 안잡혀서 id로 */
-#concert-detail-like-heartImg{
+/* 여기서 relative 들은 띄울려고 */
+.fa-regular, .fa-solid{
     width: 16px;
     height: 16px;
-    position: relative;
     top:3px;
+    color: red;
 }
-#concert-detail-like-heartImg-background{
-    width: 32px;
-    height: 32px;
-    position: absolute;
-}
-.concert-detail-like-jim{
-    width: 50px;
+.concert-detail-like-button{
+    width: 35px;
+    height: 35px;
+    border: none;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .concert-detail-like-commu{
     width: 250px;
     align-items: center;
 }
-.concert-detail-like-jim span{
-    position: relative;
-    font-size: 10px;
+.concert-detail-like-button span{
+    font-size: 1rem;
     font-weight: 700;
 }
 .concert-detail-like-commu span{
@@ -75,6 +107,10 @@
 }
 
 /* 공연상세페이지 별점, 공연안내 */
+/* 클래스로 안잡혀서 id로 */
+#concert-detail-starImg{
+    width: 30%;
+}
 .concert-detail-table{
     margin-top: 30px;
     margin-bottom: 50px;
@@ -83,15 +119,19 @@
 .concert-detail-table td{
     text-align: left;  
 }
+.concert-detail-table span{
+    font-size: 1.6rem;
+    line-height: 2.5;
+}
 
 /* 공연상세페이지 달력, 예매하기 버튼 */
 .reservation-button{
     border: 0;
     border-radius: 5px;
     background-color: #640D6B;
-    width: 300px;
+    width: 250px;
     height: 40px;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 .reservation-button span{
     color: white;
@@ -103,10 +143,145 @@
     flex-direction: row;
     gap: 25px;
     padding: 20px 250px 20px 250px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 .concert-detail-hr{
     align-self: center;
     width: 80%;
     height: 3px;
     background: black;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* 달력 */
+.concert-calendar-container{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.calendar{
+    background-color: whitesmoke;
+    width: 250px;
+    height: 290px;
+    border-radius: 5px;
+}
+
+.calendar-top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.calendar ul{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.calendar ul li{
+    width: calc(100% / 7);
+    margin-top: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+#previous,
+#next{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+#previous::before,
+#next::before{
+    content: '';
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-style: solid;
+    border-width: 0.25em 0.25em 0 0;
+    color: #ccc;
+}
+
+#previous::before{
+    transform: translate(-50%, -50%) rotate(-135deg);
+}
+
+#next::before{
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+#previous:hover::before,
+#next:hover::before{
+    border-color: #B51B75;
+}
+
+.days{
+    font-weight: 600;
+}
+
+.dates li:hover::before{
+    content: '';
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #B51B75;
+    border-radius: 50px;
+    z-index: -1;
+    cursor: pointer;
+}   
+
+.dates li:hover{
+    color: white;
+    cursor: pointer;
+}
+
+.dates li.today{
+    /* color: #ccc */
+}
+
+/* .dates li.today::before{    
+    content: '';
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #B51B75;
+    border-radius: 50px;
+    z-index: -1;
+} */
+
+.dates li.inactive{
+    color: #ccc
+}
+
+.clickDate::before{
+    content: '';
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #B51B75;
+    border-radius: 50px;
+    z-index: -1; 
+}
+
+.dates li.clicked{
+    color: white;
 }

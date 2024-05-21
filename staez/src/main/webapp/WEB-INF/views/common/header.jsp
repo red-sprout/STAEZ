@@ -24,12 +24,18 @@
     <link rel="stylesheet" href="${contextPath}/resources/css/main.css">
 </head>
 <body>
+    <c:if test="${not empty alertMsg}">
+        <script>
+            alert("${alertMsg}");
+        </script>
+        <c:remove var="alertMsg" />
+    </c:if>
     <div align="center">
         <div class="header">
             <div class="header-top">
                 <div id="header-top-flex">
                     <div class="header-logo-area">
-                        <a href=""><img id="header-logo-img" src="${contextPath}/resources/img/common/header/STAEZ_logo.png" alt=""></a>
+                        <a href="${contextPath}"><img id="header-logo-img" src="${contextPath}/resources/img/common/header/STAEZ_logo.png" alt=""></a>
                     </div>
                     <div class="header-search-area">
                         <button onclick="">
@@ -38,42 +44,44 @@
                         <input type="text">
                     </div>
                 </div>
-
-                <!--로그인 X-->
-                <div class="header-other-area">
-                    <a href="loginForm.me"><span id="login">로그인</span></a>
-                    <img class="stick" src="${contextPath}/resources/img/common/header/divide.png" alt="">
-                    <a href="signinForm.me"><span id="join-membership">회원가입</span></a>
-                </div>
-
-                <!--로그인 O-->
-                <!-- <div class="header-other-area">
-                    <a href=""><img id="header-like-img" class="other-img" src="${contextPath}/resources/img/common/header/heart-header.png" alt=""></a>
-                    <img class="stick" src="${contextPath}/resources/img/common/header/divide.png" alt="">
-
-                    <a href=""><img id="header-calendar-img" class="other-img" src="${contextPath}/resources/img/common/header/calendar.png" alt=""></a>
-                    <img class="stick" src="${contextPath}/resources/img/common/header/divide.png" alt="">
-
-                    <a href=""><img id="profile-img" class="other-img" src="${contextPath}/resources/img/common/header/profile.png" alt=""></a>
-                    <img class="stick" src="${contextPath}/resources/img/common/header/divide.png" alt="">
-
-                    <a href=""><span id="logout">로그아웃</span></a>
-                </div>    -->
+                <c:choose>
+	                <c:when test="${empty loginUser}">
+		                <div class="header-other-area">
+		                    <a href="loginForm.me"><span id="login">로그인</span></a>
+		                    <img class="stick" src="${contextPath}/resources/img/common/header/divide.png" alt="">
+		                    <a href="insertForm.me"><span id="join-membership">회원가입</span></a>
+		                </div>
+	                </c:when>
+	                <c:otherwise>
+		                <div class="header-other-area">
+		                    <a href="scrapList.me"><img id="header-like-img" class="other-img" src="${contextPath}/resources/img/common/header/heart-header.png" alt=""></a>
+		                    <img class="stick" src="${contextPath}/resources/img/common/header/divide.png" alt="">
+		
+		                    <a href="calendar.co"><img id="header-calendar-img" class="other-img" src="${contextPath}/resources/img/common/header/calendar.png" alt=""></a>
+		                    <img class="stick" src="${contextPath}/resources/img/common/header/divide.png" alt="">
+		
+		                    <a href="main.me"><img id="profile-img" class="other-img" src="${contextPath}/resources/img/common/header/profile.png" alt=""></a>
+		                    <img class="stick" src="${contextPath}/resources/img/common/header/divide.png" alt="">
+		
+		                    <a href="logout.me"><span id="logout">로그아웃</span></a>
+		                </div>
+	                </c:otherwise>
+                </c:choose>
             </div>
             <div class="header-menu">
                 <!--일반 회원-->
                 <div class="menu-bar-area">
                     <div class="menu-bar">
-                        <a href=""><span>공연</span></a>
+                        <a href="main.co"><span>공연</span></a>
                     </div>
                     <div class="menu-bar">
-                        <a href="main.co"><span>커뮤니티</span></a>
+                        <a href="main.cm"><span>커뮤니티</span></a>
                     </div>
                     <div class="menu-bar">
                         <a href="main.no"><span>공지사항</span></a>
                     </div>
                     <div class="menu-bar">
-                        <a href=""><span>고객센터</span></a>
+                        <a href="main.iq"><span>고객센터</span></a>
                     </div>
                 </div>
                 <!--관리자-->

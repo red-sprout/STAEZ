@@ -1,6 +1,21 @@
+  /* 공통 CSS로 틀어지는 내용 변경 */
+  li a:link{text-decoration: none;}
+  li a:visited{text-decoration: none;}
+  li a:hover{text-decoration: none;}
+  li a:active{text-decoration: none;}
+  
+  div a:link{text-decoration: none;}
+  div a:visited{text-decoration: none;}
+  div a:hover{text-decoration: none;}
+  div a:active{text-decoration: none;}
+  
+  div p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+    html { font-size:62.5%; }
+
 /* 공연상세페이지 아래쪽: ajax(공연상세정보, 판매정보, 한줄평, 관람후기 내용) */
-
-
 /* 공연상세정보 */
 .concert-detail-subject>span>h3{
     text-align: left;
