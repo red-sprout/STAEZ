@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${contextPath}/resources/css/others/concertCalendar.css">
-<script src="${contextPath}/resources/js/others/concertCalendar.js"></script>
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -62,7 +62,7 @@
 					<button class="btn-staez"><h4>기타</h4></button>
 				</div>
 				<div class="concert-day-choice-area">
-					<div class="concert-day"><span>2024-05-20</span></div>
+					<div class="concert-day"><span></span></div>
 					<button class="btn-staez checked"><h4>뮤지컬</h4></button>
 					<button class="concert-day-more">더보기</button>
 				</div>
@@ -190,7 +190,7 @@
 				</div>
 			</div>
 		</div>
-		
+		<script src="${contextPath}/resources/js/others/concertCalendar.js"></script>
 	</main>
 	<footer>
 		<jsp:include page="../common/footer.jsp" />

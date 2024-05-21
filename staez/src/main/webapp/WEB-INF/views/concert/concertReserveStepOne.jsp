@@ -116,11 +116,27 @@
                     </div>
                 </div>
                 <div class="my-reserve-info-area">
-                    <span ></span>
-                    <div></div>
+                    <span class="my-reserve-info-top">My 예매정보</span>
+                    <div class="my-reserve-info">
+                        <div class="my-reserve-time">
+                            <div><span>일시</span></div>
+                            <span class="my-reserve-time-value">
+                                0000-00-00 00시00분
+                            </span>
+                        </div>       
+                    </div>  
                 </div>
-                <div class="total-payment-amount-area"></div>
-                <div class="next-step-area"></div>
+                <div class="total-payment-amount-area">
+                    <span>총 결제금액</span>
+                    <div>
+                        <span id="amount">0</span>
+                        <span>원</span>
+                    </div>
+                </div>
+                <div class="next-step-area" onclick="location.href='selectSeat.co'">
+                    <span>다음단계</span>
+                    <img src="${contextPath}/resources/img/concert/nextArrow.png" alt=""> 
+                </div>
             </div>
         </div>
         <script src="${contextPath}/resources/js/concert/concertReserveStepOne.js"></script>

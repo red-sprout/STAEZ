@@ -11,5 +11,18 @@ public class ConcertReserveController {
 		return "concert/concertReserveStepOne";
 	}
 	
-	// selectSeat.co selectMember.co selectPayment.co
+	@GetMapping("selectSeat.co")
+	public String concertReserveStepTwo() {
+		return "concert/concertReserveStepTwo";
+	}
+	
+	@GetMapping("selectMember.co")
+	public String concertReserveStepThree() {
+		return "concert/concertReserveStepThree";
+	}
+	
+	@GetMapping("selectPayment.co")
+	public String concertReserveLastStep() {
+		return "concert/concertReserveLastStep";
+	}
 }

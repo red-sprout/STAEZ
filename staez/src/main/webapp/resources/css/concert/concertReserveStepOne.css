@@ -323,10 +323,6 @@
     line-height: 1;
 }
 
-.rating-area:hover{
-    border-bottom: 1px solid #B51B75;
-}
-
 .remaining-seat-rating-info .rating-area:nth-child(1)>div{
     width: 20px;
     height: 20px;
@@ -428,7 +424,151 @@
 
 .my-reserve-info-area{
     width: 100%;
-    height: 40%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
 }
+
+.my-reserve-info-top{
+    width: 100%;
+    height: 20%;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.my-reserve-info{
+    width: 100%;
+    height: 80%;
+    border-top: 3px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.my-reserve-info div:nth-child(1){
+    width: 100%;
+    height: 40%;
+    display: flex;
+    align-items: center;
+}
+
+.my-reserve-info div:nth-child(2){
+    width: 100%;
+    height: 60%; 
+    display: flex;
+    align-items: center;
+}
+
+.my-reserve-info div:nth-child(1)>div{
+    width: 30%;
+    height: 100%;
+    background: #d9d9d9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+}
+
+.my-reserve-info div:nth-child(2)>div{
+    width: 30%;
+    height: 100%;
+    background: #d9d9d9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+}
+
+.my-reserve-info div div span{
+    text-align: center;
+}
+
+.my-reserve-time{
+    border-bottom: 1px solid #969696;
+}
+
+.my-reserve-choice-seat{
+    border-bottom: 1px solid #969696;
+}
+
+#rating-color{
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: #640D6B;
+    margin: 0px 5px;
+}
+
+.my-reserve-choice-seat-value span{
+    line-height: 1;
+}    
+
+.my-reserve-choice-seat-value{
+    height: 40%;
+    width: 57%;
+    display: flex;
+    align-items: center;
+}
+
+.total-payment-amount-area{
+    width: 100%;
+    height: 8%;
+    border: 1px solid black;
+    background: #969696;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 0px 10px;
+}
+
+.next-step-area{
+    width: 100%;
+    height: 8%;
+    background: #E65C19;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.next-step-area:hover{
+    opacity: 1;
+}
+
+.total-payment-amount-area span{
+    color: white;
+}
+
+.total-payment-amount-area div{
+    display: flex;
+    align-items: center;
+}
+
+#amount{
+    font-size: 24px;
+    font-weight: 700;
+    color: #F8D082;
+    margin-right: 3px;
+}
+
+.next-step-area>img{
+    width: 20px;
+    position: absolute;
+    top: 25%;
+    right: 5px;
+}
+
+.next-step-area span{
+    font-size: 24px;
+    color: white;
+}
+
+
+
+
 
 
