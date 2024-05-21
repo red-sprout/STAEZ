@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/community/communityMain.css'/>">
+<script src="<c:url value='/resources/js/community/communityMain.js'/>"></script>
 </head>
 <body>
 	<header>
@@ -20,7 +21,7 @@
 				<li onclick=""><h2>질문과 답변</h2></li>
 				<li onclick=""><h2>리뷰</h2></li>
 				<li onclick=""><h2>자유게시판</h2></li>
-				<li id="write-btn" onclick="location.href='incertForm.co'">
+				<li id="write-btn" onclick="location.href='incertForm.cm'">
 					<h2>글쓰기</h2>
 					<img src="<c:url value='/resources/img/community/communityMain/write.png'/>" alt="">
 				</li>
@@ -33,15 +34,15 @@
 					<input type="text" name="" id="">
 				</li>
 				<li id="community-category">
-					<button class="btn-staez checked"><h4>뮤지컬</h4></button>
-					<button class="btn-staez"><h4>클래식</h4></button>
-					<button class="btn-staez"><h4>국악</h4></button>
-					<button class="btn-staez"><h4>대중음악</h4></button>
-					<button class="btn-staez"><h4>연극</h4></button>
-					<button class="btn-staez"><h4>서커스/마술</h4></button>
-					<button class="btn-staez"><h4>기타</h4></button>
+					<button class="btn-staez checked" onclick="btnToggle(this)"><h4>뮤지컬</h4></button>
+					<button class="btn-staez" onclick="btnToggle(this)"><h4>클래식</h4></button>
+					<button class="btn-staez" onclick="btnToggle(this)"><h4>국악</h4></button>
+					<button class="btn-staez" onclick="btnToggle(this)"><h4>대중음악</h4></button>
+					<button class="btn-staez" onclick="btnToggle(this)"><h4>연극</h4></button>
+					<button class="btn-staez" onclick="btnToggle(this)"><h4>서커스/마술</h4></button>
+					<button class="btn-staez" onclick="btnToggle(this)"><h4>기타</h4></button>
 				</li>
-				<li class="community-posting" onclick="location.href='detail.co'">
+				<li class="community-posting" onclick="location.href='detail.cm'">
 					<table>
 						<tbody>
 							<tr class="profile-area">
@@ -67,7 +68,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li class="community-posting" onclick="location.href='detail.co'">
+				<li class="community-posting" onclick="location.href='detail.cm'">
 					<table>
 						<tbody>
 							<tr class="profile-area">
@@ -93,7 +94,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li class="community-posting" onclick="location.href='detail.co'">
+				<li class="community-posting" onclick="location.href='detail.cm'">
 					<table>
 						<tbody>
 							<tr class="profile-area">
@@ -119,7 +120,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li class="community-posting" onclick="location.href='detail.co'">
+				<li class="community-posting" onclick="location.href='detail.cm'">
 					<table>
 						<tbody>
 							<tr class="profile-area">
@@ -145,7 +146,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li class="community-posting" onclick="location.href='detail.co'">
+				<li class="community-posting" onclick="location.href='detail.cm'">
 					<table>
 						<tbody>
 							<tr class="profile-area">
@@ -171,7 +172,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li class="community-posting" onclick="location.href='detail.co'">
+				<li class="community-posting" onclick="location.href='detail.cm'">
 					<table>
 						<tbody>
 							<tr class="profile-area">
@@ -197,7 +198,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li class="community-posting" onclick="location.href='detail.co'">
+				<li class="community-posting" onclick="location.href='detail.cm'">
 					<table>
 						<tbody>
 							<tr class="profile-area">
@@ -223,7 +224,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li class="community-posting" onclick="location.href='detail.co'">
+				<li class="community-posting" onclick="location.href='detail.cm'">
 					<table>
 						<tbody>
 							<tr class="profile-area">
@@ -249,7 +250,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li class="community-posting" onclick="location.href='detail.co'">
+				<li class="community-posting" onclick="location.href='detail.cm'">
 					<table>
 						<tbody>
 							<tr class="profile-area">
@@ -275,7 +276,7 @@
 						</tbody>
 					</table>
 				</li>
-				<li class="community-posting" onclick="location.href='detail.co'">
+				<li class="community-posting" onclick="location.href='detail.cm'">
 					<table>
 						<tbody>
 							<tr class="profile-area">

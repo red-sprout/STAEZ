@@ -15,7 +15,7 @@
     <main>
         <div id="community-wrapper">
             <form id="community-contents" align="left" method="POST" action="">
-                <h1>문의하기</h1>
+                <h1>신고하기</h1>
                 <hr>
                 <li>
                     <h3>제목</h3>
@@ -27,7 +27,7 @@
                 </li>
                 <li>
                     <h3>링크</h3>
-                    <a href="detail.co">www.staez.com</a>
+                    <a href="detail.cm">www.staez.com</a>
                 </li>
                 <li>
                     <textarea name="" id="question-contents" rows="10" readonly>내용입니다.</textarea>

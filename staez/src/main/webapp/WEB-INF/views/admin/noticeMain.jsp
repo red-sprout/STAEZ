@@ -41,7 +41,7 @@
                     <button class="btn-staez purple" onclick="location.href='incertForm.no'"><h3>작성</h3></button>
                 </div>
             </li>
-            <li class="notice-posting">
+            <li class="notice-posting" onclick="location.href='detail.no'">
                 <table>
                     <tbody>
                         <tr class="profile-area">
@@ -66,7 +66,7 @@
                     </tbody>
                 </table>
             </li>
-            <li class="notice-posting">
+            <li class="notice-posting" onclick="location.href='detail.no'">
                 <table>
                     <tbody>
                         <tr class="profile-area">
@@ -91,7 +91,7 @@
                     </tbody>
                 </table>
             </li>
-            <li class="notice-posting">
+            <li class="notice-posting" onclick="location.href='detail.no'">
                 <table>
                     <tbody>
                         <tr class="profile-area">
@@ -116,7 +116,7 @@
                     </tbody>
                 </table>
             </li>
-            <li class="notice-posting">
+            <li class="notice-posting" onclick="location.href='detail.no'">
                 <table>
                     <tbody>
                         <tr class="profile-area">
@@ -141,7 +141,7 @@
                     </tbody>
                 </table>
             </li>
-            <li class="notice-posting">
+            <li class="notice-posting" onclick="location.href='detail.no'">
                 <table>
                     <tbody>
                         <tr class="profile-area">
@@ -166,7 +166,7 @@
                     </tbody>
                 </table>
             </li>
-            <li class="notice-posting">
+            <li class="notice-posting" onclick="location.href='detail.no'">
                 <table>
                     <tbody>
                         <tr class="profile-area">
@@ -191,7 +191,7 @@
                     </tbody>
                 </table>
             </li>
-            <li class="notice-posting">
+            <li class="notice-posting" onclick="location.href='detail.no'">
                 <table>
                     <tbody>
                         <tr class="profile-area">
@@ -216,7 +216,7 @@
                     </tbody>
                 </table>
             </li>
-            <li class="notice-posting">
+            <li class="notice-posting" onclick="location.href='detail.no'">
                 <table>
                     <tbody>
                         <tr class="profile-area">
@@ -241,7 +241,7 @@
                     </tbody>
                 </table>
             </li>
-            <li class="notice-posting">
+            <li class="notice-posting" onclick="location.href='detail.no'">
                 <table>
                     <tbody>
                         <tr class="profile-area">
@@ -266,7 +266,7 @@
                     </tbody>
                 </table>
             </li>
-            <li class="notice-posting">
+            <li class="notice-posting" onclick="location.href='detail.no'">
                 <table>
                     <tbody>
                         <tr class="profile-area">
