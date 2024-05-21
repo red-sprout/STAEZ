@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/main.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/user/insertForm.css">
+    <script src="${contextPath}/resources/js/user/insertForm.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -30,13 +31,16 @@
         <form id="enrollForm" action="">
             <div class="insert-member">
                 <table class="insert-member-table">
-                    <tr>
+                    <<tr>
                         <th>
                             <h2>닉네임</h2>
                         </th>
                         <td colspan="2"><input type="text" placeholder="8~16자" name="nickname" id="nickname"></td>
                         <td><input type="button" class="check_button" value="중복검사" onclick="checkNickname()"></td>
                     </tr>
+                    <tr>
+                        <td colspan="3"><span id="nicknameResult"></span></td> <!-- 중복 검사 결과를 여기에 표시 -->
+                    </tr>                    
                     <tr>
                         <th>
                             <h2>아이디</h2>
@@ -62,7 +66,7 @@
                         </th>
                         <td colspan="6" class="email-container">
                             <div id="td-div">
-                                <select class="box" id="domain-list">
+                                <select class="box" id="domain-list-1">
                                     <option value="010" selected>010</option>
                                     <option value="011">011</option>
                                     <option value="016">016</option>
@@ -71,9 +75,9 @@
                                     <option value="019">019</option>
                                 </select>
                                 <span id="email-prefix-shift2">-</span>
-                                <input type="text" id="email-suffix">
+                                <input type="text" id="email-suffix1">
                                 <span id="email-prefix-shift2">-</span>
-                                <input type="text" id="email-suffix">
+                                <input type="text" id="email-suffix2">
                                 <td colspan="1"><input type="button" class="check_button" value=" 인증번호 전송 "></td>
                             </div>
                         </td>                       
@@ -110,7 +114,7 @@
                             </div>
                         </td>
                         <td>
-                            <select class="box" id="domain-list">
+                            <select class="box" id="domain-list-2">
                                 <option value="type">직접 입력</option>
                                 <option value="naver.com">naver.com</option>
                                 <option value="google.com">google.com</option>
@@ -178,105 +182,6 @@
     </main>
     <footer>
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />
-    </footer>
-    <script>
-       // 아이디 닉네임 중복체크
-        function checkDuplicate(fieldId, resultId) {
-            const fieldInput = document.querySelector(`#${fieldId}`);
-            let eventFlag;
-
-            fieldInput.onkeyup = function () {
-                clearTimeout(eventFlag);
-                const fieldValue = fieldInput.value;
-
-                if (fieldValue.trim().length >= 5) {
-                    eventFlag = setTimeout(function () {
-                        console.log("전송");
-
-                        $.ajax({
-                            url: "checkDuplicate.php",
-                            data: { fieldValue: fieldValue },
-                            success: function (result) {
-                                const resultElement = document.getElementById(resultId);
-                                resultElement.style.display = "block";
-
-                                if (result === "NNNNN") {
-                                    resultElement.style.color = "red";
-                                    resultElement.innerText = "이미 사용 중인 값입니다.";
-                                } else {
-                                    resultElement.style.color = "green";
-                                    resultElement.innerText = "사용 가능한 값입니다.";
-                                }
-                            },
-                            error: function () {
-                                console.log("중복 검사 ajax 요청 실패");
-                            }
-                        });
-                    }, 500);
-                } else {
-                    document.getElementById(resultId).style.display = "none";
-                }
-            };
-        }
-
-        // 이메일 접미사가 변경될 때마다 호출되는 함수
-        function handleDomainListChange() {
-            const domainList = document.getElementById("domain-list");
-            const emailSuffixInput = document.getElementById("email-suffix");
-
-            domainList.addEventListener("change", function () {
-                const selectedOption = domainList.options[domainList.selectedIndex].value;
-
-                if (selectedOption !== "type") {
-                    emailSuffixInput.value = selectedOption;
-                    emailSuffixInput.placeholder = "";
-                } else {
-                    emailSuffixInput.value = "";
-                    emailSuffixInput.placeholder = "직접 입력";
-                }
-            });
-        }
-
-        // 초기화 함수
-        function init() {
-            handleDomainListChange();
-        }
-
-        init(); // 페이지 로드 시 초기화 함수 호출
-
-
-    // 버튼 클릭 이벤트 핸들러 함수
-    function handleButtonClick() {
-        console.log("중복검사 버튼을 클릭했습니다.");
-    }
-
-    // 버튼 잘 눌리나 확인 스크립트
-    // 중복검사 버튼 클릭 이벤트 핸들러
-    function checkNickname() {
-            console.log('닉네임 중복검사 버튼이 클릭되었습니다.');
-            // 닉네임 중복 검사 로직 추가
-        }
-
-    function checkUserId() {
-        console.log('아이디 중복검사 버튼이 클릭되었습니다.');
-        // 아이디 중복 검사 로직 추가
-    }
-
-
-    // 이전페이지로 돌아가는
-    document.addEventListener('DOMContentLoaded', function() {
-        var backButton = document.getElementById('backButton');
-        backButton.addEventListener('click', function() {
-            window.history.back();
-        });
-
-        var loginButton = document.getElementById('loginButton');
-        loginButton.addEventListener('click', function() {
-            window.location.href = '${contextPath}/loginForm.jsp';
-        });
-    });
-
-    </script>    
+    </footer>   
 </body>
-
 </html>
