@@ -1,5 +1,7 @@
 package com.spring.staez.concert.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -24,5 +26,13 @@ public class ConcertReserveController {
 	@GetMapping("selectPayment.co")
 	public String concertReserveLastStep() {
 		return "concert/concertReserveLastStep";
+	}
+	
+	@GetMapping("insertReserve.co")
+	public String insertReserve(HttpSession session) {
+		
+		
+		session.setAttribute("alertMsg", "예매에 성공하셨습니다.");
+		return "redirect:/";
 	}
 }

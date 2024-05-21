@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${contextPath}/resources/css/others/reserveMain.css">
+<script src="${contextPath}/resources/js/others/reserveMain.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
