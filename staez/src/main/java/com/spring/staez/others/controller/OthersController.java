@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class OthersController {
 	
-	@GetMapping("main.me") // 메인페이지, "/"로 대체
+	@GetMapping("/") // 메인페이지, "/"로 대체
 	public String reserveMain() {
 		return "others/reserveMain";
 	}
