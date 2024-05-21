@@ -25,5 +25,23 @@
 		FROM staez_user <!-- db에 user의 테이블 이름이 staez_user니까 주의 -->
 		WHERE user_status = 'Y'
 	</select>
+	
+	<select id="loginUser" resultMap="userResult">
+		SELECT 
+			user_no,
+			user_id,
+			user_pwd,
+			nickname,
+			gender,
+			birth,
+			address,
+			email,
+			genre_like,
+			enroll_date,
+			withdrawal_date
+		FROM staez_user
+		WHERE user_id = #{userId}
+		AND user_status = 'Y'
+	</select>
 </mapper>
 

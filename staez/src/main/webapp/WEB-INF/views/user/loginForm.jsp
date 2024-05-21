@@ -19,7 +19,7 @@
 </head>
 <body>
     <div class="main-div">
-        <form action="login-me" method="post">
+        <form action="login.me" method="post">
             <a href="${contextPath}/index.jsp"><img src="${contextPath}/resources/img/user/STAEZ_logo.png" alt="STAEZ로고"></a>
             <div>
                 <div class="input-ID">
