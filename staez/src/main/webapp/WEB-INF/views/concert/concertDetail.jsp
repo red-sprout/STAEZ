@@ -15,7 +15,7 @@
     <!-- 폰트어썸 -->
     <script src="https://kit.fontawesome.com/65a2de1a44.js" crossorigin="anonymous"></script>
     <!-- 달력 -->
-    <script src="${pageContext.request.contextPath}/resources/js/others/concertCalendar.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/concert/concertDetailCalendar.js"></script>
     <!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script> -->
     <!-- 적용 자바스크립트 -->
     <script src="<c:url value='/resources/js/concert/concertDetail.js'/>"></script>

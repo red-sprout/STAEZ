@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,14 +46,14 @@
         <div class="concert-main-upper-before">
             <img src="${pageContext.request.contextPath}/resources/img/main/before.png">
         </div>
-        <div class="concert-main-upper" onload="slide();">
+        <div class="concert-main-upper">
             <!-- 사진 다음으로 넘기는 버튼 -->
 
             <!-- 사진반복, 슬라이드 -->
             <!-- https://devinus.tistory.com/47
                 https://m.blog.naver.com/ka28/221999891981
                 https://www.inflearn.com/blogs/3749 -->        
-            <div class="concert-main-upper-pic-div">
+            <div class="concert-main-upper-pic-div" onclick="goDetail()">
                 <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2404%2F240425024045_24005737.gif&w=384&q=75"
                     alt="">
                 <div class="concert-main-upper-sen-div">
@@ -62,7 +63,7 @@
                 </div>
             </div>
 
-            <div class="concert-main-upper-pic-div">
+            <div class="concert-main-upper-pic-div" onclick="goDetail()">
                 <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FMusc%2F2402%2F240205031012_24001044.gif&w=384&q=75"
                     alt="">
                 <div class="concert-main-upper-sen-div">
@@ -72,7 +73,7 @@
                 </div>
             </div>
 
-            <div class="concert-main-upper-pic-div">
+            <div class="concert-main-upper-pic-div" onclick="goDetail()">
                 <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FMusc%2F2404%2F240424100536_24005971.gif&w=384&q=75"
                     alt="">
                 <div class="concert-main-upper-sen-div">
@@ -82,7 +83,7 @@
                 </div>
             </div>
 
-            <div class="concert-main-upper-pic-div">
+            <div class="concert-main-upper-pic-div" onclick="goDetail()">
                 <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FMusc%2F2404%2F240412030249_24005266.gif&w=384&q=75"
                     alt="">
                 <div class="concert-main-upper-sen-div">
@@ -92,7 +93,7 @@
                 </div>
             </div>
 
-            <div class="concert-main-upper-pic-div">
+            <div class="concert-main-upper-pic-div" onclick="goDetail()">
                 <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FMusc%2F2403%2F240326022311_24003658.gif&w=384&q=75"
                     alt="">
                 <div class="concert-main-upper-sen-div">
@@ -102,7 +103,7 @@
                 </div>
             </div>
 
-            <div class="concert-main-upper-pic-div">
+            <div class="concert-main-upper-pic-div" onclick="coDetail()">
                 <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FMusc%2F2402%2F240205031012_24001044.gif&w=384&q=75"
                     alt="">
                 <div class="concert-main-upper-sen-div">

@@ -17,7 +17,7 @@ public class ConcertController {
 	
 	@GetMapping("detail.co")
 	public String concertDetail() {
-		return "concert/test";
+		return "concert/concertDetail";
 	}
 	
 //	// 공연세부페이지 ajax
