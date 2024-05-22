@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/main.css">
 <title>Insert title here</title>
 </head>
-<body onload="init()">
+<body>
     <jsp:include page="others/reserveMain.jsp" />
 </body>
 </html>

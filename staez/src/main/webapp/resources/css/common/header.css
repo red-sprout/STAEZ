@@ -59,6 +59,7 @@
     justify-content: center;
     cursor: pointer;
     margin-left: 20px;
+    margin-right: 20px;
 }
 
 .header-search-area button>img{
