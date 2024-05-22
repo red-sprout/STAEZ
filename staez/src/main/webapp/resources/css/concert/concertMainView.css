@@ -33,16 +33,28 @@ html { font-size:62.5%; }
         color: #B51B75;
     }
     
+
+    /* 세부페이지 윗부분 노란색 */
     .concert-main-upper-section{
         background-color: #F8D082;
     }
+    
+    /* 사진감싸는 div */
     .concert-main-upper{
         display: flex;
-        flex-direction: row;
         justify-content: center;
         align-items: center;
+        max-width: 1500px;
+        margin: 0 auto;
+    }
+
+    /* 사진+글 묶은 div */
+    .concert-main-upper-pic-div{
+        padding: 20px 0 20px 0;
+        position: relative;
     }
     
+    /* 옆으로 넘기는 화살표 */
     .concert-main-upper-next{
         border: 2px solid #D9D9D9;
         background-color: #D9D9D9;
@@ -66,10 +78,7 @@ html { font-size:62.5%; }
         overflow: hidden;
         border-radius: 5px;
     }
-    .concert-main-upper-pic-div{
-        padding: 20px 0 20px 0;
-        position: relative;
-    }
+
     
     .concert-main-upper-sen-div{
         position: absolute;
