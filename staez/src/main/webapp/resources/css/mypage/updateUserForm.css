@@ -440,6 +440,18 @@ button{
     justify-content: space-between;
     align-items: center;
 }
+
+.pwd-tag>.pwd-check{
+    position: relative;
+}
+
+.pwd-tag>.pwd-check>h5{
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: red;
+}
+
 .pwd-tag>div>*{
     margin: 0 20px;
 }
