@@ -50,29 +50,62 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// 최대 선택 가능한 버튼 수
-const maxSelection = 3;
-
-// 선택된 버튼 수
-let selectedCount = 0;
-
-// 버튼 클릭 이벤트 처리
-document.querySelectorAll('.btn-staez3').forEach(button => {
-    button.addEventListener('click', function() {
-        // 선택된 버튼인지 확인
-        const isSelected = button.classList.contains('selected');
-        
-        // 최대 선택 개수 이내인 경우
-        if (isSelected || selectedCount < maxSelection) {
+document.addEventListener('DOMContentLoaded', function() {
+    // 버튼 클릭 이벤트 처리
+    document.querySelectorAll('.btn-staez3').forEach(button => {
+        button.addEventListener('click', function() {
             // 버튼의 선택 여부 변경
             button.classList.toggle('selected');
+            
+            // 선택된 버튼 수 확인
+            const selectedButtons = document.querySelectorAll('.btn-staez3.selected');
+            const selectedCount = selectedButtons.length;
 
-            // 선택된 버튼 수 갱신
-            selectedCount += isSelected ? -1 : 1;
-        } else {
-            // 최대 선택 개수를 초과한 경우 선택 불가능하도록 경고 메시지 등을 표시할 수 있음
-            console.log("최대 선택 개수를 초과하였습니다.");
+            // 선택된 버튼이 3개를 초과하는 경우 선택 해제
+            if (selectedCount > 3) {
+                button.classList.remove('selected');
+            }
+        });
+    });
+});
+
+// 아이디 중복 체크
+document.addEventListener('DOMContentLoaded', function() {
+    const idInput = document.querySelector("#enrollForm input[name=userId]");
+    const checkButton = document.getElementById("checkButton");
+    const checkResult = document.getElementById("checkResult");
+    const submitButton = document.querySelector("#enrollForm input[type='button']");
+
+    checkButton.addEventListener('click', function() {
+        const str = idInput.value;
+        if (str.trim().length >= 5) { // 5글자 이상
+            console.log("전송"); // 디버깅용 콘솔 로그
+            $.ajax({
+                url: "idCheck.me",
+                data: { checkId: str },
+                success: function (result) {
+                    checkResult.style.display = "block";
+
+                    if (result === "NNNNN") { // 사용이 불가한 경우
+                        submitButton.disabled = true;
+                        checkResult.style.color = "red";
+                        checkResult.innerText = "이미 사용중인 아이디입니다.";
+                    } else { // 사용이 가능한 경우
+                        submitButton.disabled = false;
+                        checkResult.style.color = "green";
+                        checkResult.innerText = "사용가능한 아이디입니다.";
+                    }
+                },
+                error: function () {
+                    console.log("아이디 중복체크 ajax 실패");
+                }
+            });
+        } else { // 5글자 이하
+            submitButton.disabled = true;
+            checkResult.style.display = "none";
         }
     });
 });
+
+
 
