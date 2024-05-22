@@ -41,71 +41,76 @@
     </div>
 
 
-    <section class="concert-main-upper-section" onload="slide();">
-        <div class="concert-main-upper-next">
+    <section class="concert-main-upper-section">
+        <div class="concert-main-upper-before">
             <img src="${pageContext.request.contextPath}/resources/img/main/before.png">
         </div>
-
-
-
-        <div class="concert-main-upper">
+        <div class="concert-main-upper" onload="slide();">
             <!-- 사진 다음으로 넘기는 버튼 -->
-
 
             <!-- 사진반복, 슬라이드 -->
             <!-- https://devinus.tistory.com/47
                 https://m.blog.naver.com/ka28/221999891981
-                https://www.inflearn.com/blogs/3749 -->
-                
-                <div class="concert-main-upper-pic-div">
-                    <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2404%2F240425024045_24005737.gif&w=384&q=75"
-                        alt="">
-                    <div class="concert-main-upper-sen-div">
-                        <p><span><b><h2>블랙독 BLKDOG</h2></span></b></p>
-                        <p><span>성남아트센터</span></p>
-                        <p><span>2024.06.22 - 2024.06.23</span></p>
-                    </div>
+                https://www.inflearn.com/blogs/3749 -->        
+            <div class="concert-main-upper-pic-div">
+                <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2404%2F240425024045_24005737.gif&w=384&q=75"
+                    alt="">
+                <div class="concert-main-upper-sen-div">
+                    <p><span><b><h2>블랙독 BLKDOG</h2></span></b></p>
+                    <p><span>성남아트센터</span></p>
+                    <p><span>2024.06.22 - 2024.06.23</span></p>
                 </div>
+            </div>
 
-                <div class="concert-main-upper-pic-div">
-                    <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FMusc%2F2402%2F240205031012_24001044.gif&w=384&q=75"
-                        alt="">
-                    <div class="concert-main-upper-sen-div">
-                        <p><span><b><h2>디어 에반 헨슨</h2></span></b></p>
-                        <p><span>충무아트센터 대극장</span></p>
-                        <p><span>2024.06.22 - 2024.06.23</span></p>
-                    </div>
+            <div class="concert-main-upper-pic-div">
+                <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FMusc%2F2402%2F240205031012_24001044.gif&w=384&q=75"
+                    alt="">
+                <div class="concert-main-upper-sen-div">
+                    <p><span><b><h2>디어 에반 헨슨</h2></span></b></p>
+                    <p><span>충무아트센터 대극장</span></p>
+                    <p><span>2024.06.22 - 2024.06.23</span></p>
                 </div>
+            </div>
 
-                <div class="concert-main-upper-pic-div">
-                    <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FMusc%2F2404%2F240424100536_24005971.gif&w=384&q=75"
-                        alt="">
-                    <div class="concert-main-upper-sen-div">
-                        <p><span><b><h2>프랑켄슈타인</h2></span></b></p>
-                        <p><span>블루스퀘어 신한카드홀</span></p>
-                        <p><span>2024.06.22 - 2024.06.23</span></p>
-                    </div>
+            <div class="concert-main-upper-pic-div">
+                <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FMusc%2F2404%2F240424100536_24005971.gif&w=384&q=75"
+                    alt="">
+                <div class="concert-main-upper-sen-div">
+                    <p><span><b><h2>프랑켄슈타인</h2></span></b></p>
+                    <p><span>블루스퀘어 신한카드홀</span></p>
+                    <p><span>2024.06.22 - 2024.06.23</span></p>
                 </div>
+            </div>
 
-                <div class="concert-main-upper-pic-div">
-                    <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FMusc%2F2404%2F240412030249_24005266.gif&w=384&q=75"
-                        alt="">
-                    <div class="concert-main-upper-sen-div">
-                        <p><span><b><h2>시카고</h2></span></b></p>
-                        <p><span>디큐브 링크아트센터</span></p>
-                        <p><span>2024.06.22 - 2024.06.23</span></p>
-                    </div>
+            <div class="concert-main-upper-pic-div">
+                <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FMusc%2F2404%2F240412030249_24005266.gif&w=384&q=75"
+                    alt="">
+                <div class="concert-main-upper-sen-div">
+                    <p><span><b><h2>시카고</h2></span></b></p>
+                    <p><span>디큐브 링크아트센터</span></p>
+                    <p><span>2024.06.22 - 2024.06.23</span></p>
                 </div>
+            </div>
 
-                <div class="concert-main-upper-pic-div">
-                    <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FMusc%2F2403%2F240326022311_24003658.gif&w=384&q=75"
-                        alt="">
-                    <div class="concert-main-upper-sen-div">
-                        <p><span><b><h2>천개의파랑</h2></span></b></p>
-                        <p><span>예술의전당 CJ토월극장</span></p>
-                        <p><span>2024.06.22 - 2024.06.23</span></p>
-                    </div>
+            <div class="concert-main-upper-pic-div">
+                <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FMusc%2F2403%2F240326022311_24003658.gif&w=384&q=75"
+                    alt="">
+                <div class="concert-main-upper-sen-div">
+                    <p><span><b><h2>천개의파랑</h2></span></b></p>
+                    <p><span>예술의전당 CJ토월극장</span></p>
+                    <p><span>2024.06.22 - 2024.06.23</span></p>
                 </div>
+            </div>
+
+            <div class="concert-main-upper-pic-div">
+                <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FMusc%2F2402%2F240205031012_24001044.gif&w=384&q=75"
+                    alt="">
+                <div class="concert-main-upper-sen-div">
+                    <p><span><b><h2>디어 에반 헨슨</h2></span></b></p>
+                    <p><span>충무아트센터 대극장</span></p>
+                    <p><span>2024.06.22 - 2024.06.23</span></p>
+                </div>
+            </div>
         </div>
         <div class="concert-main-upper-next">
             <img src="${pageContext.request.contextPath}/resources/img/main/after.png">
@@ -114,7 +119,7 @@
 
     <section>
         <br><br>
-        <h3>현재 진행중인 <b>뮤지컬</b></h3>
+        <h3>현재 진행중인&nbsp; <b id="concert-genre">뮤지컬</b></h3>
         <br>
     </section>
     <hr class="concert-main-hr">
@@ -126,7 +131,7 @@
             <li><button class="concert-main-list-button" onclick=""><h3><span>인기순위</span></h3></button></li>
             <li><button class="concert-main-list-button" onclick=""><h3><span>최신공연</span></h3></button></li>
             <li><button class="concert-main-list-button" onclick=""><h3><span>별점높은</span></h3></button></li>
-            <li><button class="concert-main-list-button area" onclick=""><h3><span>지역전체▼</span></h3></button>
+            <li id="concert-main-list-area-parent"><button class="concert-main-list-button area" onclick=""><h3><span>지역전체 ▼</span></h3></button>
                 <ul class="concert-main-list-area">
                     <li><a href="">서울</a></li>
                     <li><a href="">경기</a></li>
