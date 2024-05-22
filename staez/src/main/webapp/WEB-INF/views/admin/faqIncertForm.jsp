@@ -27,7 +27,7 @@
                     <input type="hidden" name="userNo" id="" value="${loginUser.userNo}">
                     <input type="hidden" name="boardCode" id="" value="4">
                 </li>
-                <li id="faq-category" onload="init(3)">
+                <li id="faq-category">
                     <h3>카테고리</h3>
                     <!-- <button class="btn-staez checked" type="button" onclick="toggleCategory(this);">
                         <h4>공연</h4>

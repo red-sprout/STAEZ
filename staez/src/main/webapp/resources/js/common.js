@@ -1,4 +1,5 @@
 let contextPath = "";
+
 function init(path) {
     contextPath = path;
     const url = document.location.pathname;
@@ -10,4 +11,16 @@ function init(path) {
             break;
         }
     }
+}
+
+function getAjax(url, data, callback, msg) {
+    $.ajax({
+        url: url,
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log(msg);
+        }
+    });
 }

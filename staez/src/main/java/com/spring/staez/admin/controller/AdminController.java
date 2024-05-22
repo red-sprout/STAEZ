@@ -1,5 +1,7 @@
 package com.spring.staez.admin.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.admin.service.AdminService;
 import com.spring.staez.community.model.vo.Board;
 
@@ -120,12 +124,13 @@ public class AdminController {
 	@ResponseBody
 	@GetMapping(value = "faqCategory.ad", produces="application/json; charset-UTF-8")
 	public String ajaxFaqCategory(String refCategoryNo) {
-		return null;
+		ArrayList<Category> list = adminService.selectFaqCategory(Integer.parseInt(refCategoryNo));
+		return new Gson().toJson(list);
 	}
 	
 	@PostMapping("faqIncert.ad")
-	public String faqIncert(Board b, HttpSession session) {
-		int result = adminService.faqIncert(b);
+	public String faqIncert(Board b, String categoryNo, HttpSession session) {
+		int result = adminService.faqIncert(b, Integer.parseInt(categoryNo));
 		if(result == 0) {
 			session.setAttribute("alertMsg", "FAQ 작성에 실패하였습니다.");
 		} else {
