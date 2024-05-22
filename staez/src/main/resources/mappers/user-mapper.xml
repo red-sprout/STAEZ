@@ -61,5 +61,31 @@
 		  FROM staez_user
 		 WHERE nickname = #{checkNick}
 	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="insertUser">
+		INSERT INTO USER(
+		   nickname,
+		   user_id,
+		   user_pwd,
+		   phone,
+		   birth,
+		   email,
+		   gender,
+		   address,
+		   genreLike
+		)
+		VALUES(
+		   #{nickname},
+		   #{userId},
+		   #{userPwd},
+		   #{phone},
+		   #{birth},
+		   #{email},
+		   #{gender},
+		   #{address},
+		   #{genreLike}
+		)
+	</insert>
 </mapper>
 

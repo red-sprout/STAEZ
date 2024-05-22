@@ -250,3 +250,8 @@ input[type="checkbox"] {
 #td-div{
     display: flex;
 }
+
+/* 택3 값 화면에 안보여주는거 */
+#genreLike{
+    display: none;
+}
