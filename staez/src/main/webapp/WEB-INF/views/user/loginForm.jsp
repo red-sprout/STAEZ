@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="${contextPath}/resources/css/main.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/user/login.css">
     <!-- js -->
-    <link rel="stylesheet" href="${contextPath}/resources/js/user/loginForm.js">
+    <script src="${contextPath}/resources/js/user/loginForm.js"></script>
     <!-- Bootstrap 4 Tutorial -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>

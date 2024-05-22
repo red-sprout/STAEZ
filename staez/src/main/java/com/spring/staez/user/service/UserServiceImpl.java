@@ -25,5 +25,10 @@ public class UserServiceImpl implements UserService{
 	public int idCheck(String checkId) {
 		return userDao.idCheck(sqlSession, checkId);
 	}
+	
+	@Override //회원가입 닉네임 중복체크
+	public int nickCheck(String checkNick) {
+		return userDao.nickCheck(sqlSession, checkNick);
+	}
 
 }

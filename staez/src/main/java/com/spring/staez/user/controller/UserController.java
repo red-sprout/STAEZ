@@ -66,4 +66,19 @@ public class UserController {
 			//return memberService.idCheck(checkId) > 0 ? "NNNNN" : "NNNNY";
 		}
 		
+		//nickCheck ajax요청을 받아줄 controller
+		@ResponseBody
+		@GetMapping("nickCheck.me")
+		public String nickCheck(String checkNick) {
+			int result = userService.nickCheck(checkNick);
+			
+			if (result > 0) {// 이미존재한다면
+				return "NNNNN";
+			} else { //존재하지않는다면
+				return "NNNNY";
+			}
+			
+			//return memberService.idCheck(checkId) > 0 ? "NNNNN" : "NNNNY";
+		}
+		
 }

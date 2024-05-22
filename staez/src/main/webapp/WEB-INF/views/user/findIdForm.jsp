@@ -42,16 +42,7 @@
                     </tr>
                     <tr>
                         <th colspan="4" class="findId-label">휴대 전화</th>
-                        <td colspan="1">
-                            <select name="phone-prefix" id="phone-select">
-                                <option value="010" selected>010</option>
-                                <option value="011">011</option>
-                                <option value="016">016</option>
-                                <option value="017">017</option>
-                                <option value="018">018</option>
-                                <option value="019">019</option>
-                            </select>
-                        </td>
+                        <td colspan="1">010</td>
                         <td colspan="1">-</td>
                         <td colspan="1"><input type="text" id="phone-mid" name="phone-mid"></td>
                         <td colspan="1">-</td>
