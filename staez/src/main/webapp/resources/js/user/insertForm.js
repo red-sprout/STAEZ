@@ -40,42 +40,6 @@ function init() {
 
 init(); // 페이지 로드 시 초기화 함수 호출
 
-
-// 이전페이지로 돌아가는
-document.addEventListener('DOMContentLoaded', function() {
-    var backButton = document.getElementById('backButton');
-    backButton.addEventListener('click', function() {
-        //console.log("작동됨"); // 이 부분이 정상적으로 실행되지 않는다면 문제가 있을 수 있습니다.
-        window.history.back();
-    });
-});
-
-// 3개이상 못고르게하면서 값 출력되도록
-document.addEventListener('DOMContentLoaded', function() {
-    const genreLikeInput = document.querySelector("input[name='genreLike']");
-    const buttons = document.querySelectorAll('.btn-staez3');
-
-    buttons.forEach(button => {
-        button.addEventListener('click', () => {
-            if (button.classList.contains('selected')) {
-                button.classList.remove('selected');
-            } else {
-                const selectedButtons = document.querySelectorAll('.btn-staez3.selected');
-                if (selectedButtons.length < 3) {
-                    button.classList.add('selected');
-                }
-            }
-            updateInput();
-        });
-    });
-    
-    function updateInput() {
-        const selectedButtons = document.querySelectorAll('.btn-staez3.selected');
-        const selectedGenres = Array.from(selectedButtons).map(button => button.getAttribute('data-genre'));
-        genreLikeInput.value = selectedGenres.join(' ');
-    }
-});
-
 // 사용자 아이디 중복 체크
 document.addEventListener('DOMContentLoaded', function() {
     const userIdInput = document.querySelector("#userId");
@@ -203,6 +167,7 @@ function sendPhoneNumber() {
     console.log(phoneNumber); // 번호 확인용, 실제 사용시 주석처리해도 됩니다.
 }
 
+
 // 우편번호 팝업 열기
 function openPostalCodePopup() {
     new daum.Postcode({
@@ -213,13 +178,48 @@ function openPostalCodePopup() {
     }).open();
 }
 
-// 주소 확인
-function checkAddress() {
-    // 주소 입력란 값과 자세한 주소 값을 합침
-    var address = document.getElementById("addressInput").value;
-    var detailAddress = document.getElementById("detailAddressInput").value;
-    var fullAddress = address + " " + detailAddress;
+// // 주소 확인
+// function checkAddress() {
+//     // 주소 입력란 값과 자세한 주소 값을 합침
+//     var address = document.getElementById("addressInput").value;
+//     var detailAddress = document.getElementById("detailAddressInput").value;
+//     var fullAddress = address + " " + detailAddress;
     
-    // 합쳐진 주소를 알림으로 표시 (또는 다른 처리)
-    alert("입력한 주소: " + fullAddress);
-}
+//     // 합쳐진 주소를 알림으로 표시 (또는 다른 처리)
+//     alert(fullAddress);
+// }
+
+// 이전페이지로 돌아가는
+document.addEventListener('DOMContentLoaded', function() {
+    var backButton = document.getElementById('backButton');
+    backButton.addEventListener('click', function() {
+        //console.log("작동됨"); // 이 부분이 정상적으로 실행되지 않는다면 문제가 있을 수 있습니다.
+        window.history.back();
+    });
+});
+
+// 3개이상 못고르게하면서 값 출력되도록
+document.addEventListener('DOMContentLoaded', function() {
+    const genreLikeInput = document.querySelector("input[name='genreLike']");
+    const buttons = document.querySelectorAll('.btn-staez3');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (button.classList.contains('selected')) {
+                button.classList.remove('selected');
+            } else {
+                const selectedButtons = document.querySelectorAll('.btn-staez3.selected');
+                if (selectedButtons.length < 3) {
+                    button.classList.add('selected');
+                }
+            }
+            updateInput();
+        });
+    });
+    
+    function updateInput() {
+        const selectedButtons = document.querySelectorAll('.btn-staez3.selected');
+        const selectedGenres = Array.from(selectedButtons).map(button => button.getAttribute('data-genre'));
+        genreLikeInput.value = selectedGenres.join(' ');
+    }
+});
