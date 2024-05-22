@@ -25,7 +25,8 @@
                 <div class="profile">
                     <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
                     <div id="profile-text">
-                        <span>00님</span><br>
+                        <span>[아이디]</span>
+                        <span>님</span><br>
                         <span>환영합니다</span>
                     </div>
                 </div>
@@ -56,6 +57,7 @@
                 <div class="main-title">
                     <h2>찜목록</h2>
                 </div>
+
                 <table>
                     <tr class="tb-title">
                         <th colspan="3">공연정보</th>
@@ -72,7 +74,7 @@
                             <h4>상영기간 : 2024.04.01 ~ 2024.07.15</h4>
                         </td>
                         <td id="age-limit">
-                            <button type="button">X</button>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4>12세 이상 관람가</h4>
                         </td>
                     </tr>
