@@ -15,5 +15,10 @@ public class UserDao {
 	public int idCheck(SqlSessionTemplate sqlSession, String checkId) {
 		return sqlSession.selectOne("userMapper.idCheck", checkId);
 	}
+	
+	//회원가입 닉네임 중복체크
+	public int nickCheck(SqlSessionTemplate sqlSession, String checkNick) {
+		return sqlSession.selectOne("userMapper.checkNick", checkNick);
+	}
 
 }

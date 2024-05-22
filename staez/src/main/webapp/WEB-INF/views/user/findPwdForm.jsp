@@ -32,6 +32,10 @@
                         <td colspan="6" class="email-container" id="">
                             <input type="text" name="name">
                         </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th></th>
                     </tr>
                     <tr>
                         <th>이메일</th>
@@ -54,17 +58,13 @@
                         </td>                            
                     </tr>
                     <tr>
+                        <th></th>
+                    </tr>
+                    <tr>
                         <th>휴대 번호</th>
                         <td colspan="6" class="email-container">
                             <div style="display: flex;">
-                                <select class="box" id="domain-list">
-                                    <option value="010" selected>010</option>
-                                    <option value="011">011</option>
-                                    <option value="016">016</option>
-                                    <option value="017">017</option>
-                                    <option value="018">018</option>
-                                    <option value="019">019</option>
-                                </select>
+                                <span id="email-prefix-shift2">010</span>
                                 <span id="email-prefix-shift2">-</span>
                                 <input type="text" id="email-suffix">
                                 <span id="email-prefix-shift2">-</span>
@@ -74,8 +74,12 @@
                         </td>                       
                     </tr>
                     <tr>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        
                         <th colspan="1" class="findId-label">인증 번호</th>
-                        <td colspan="4"><input type="text" name="verification"></td>
+                        <td colspan="5"><input type="text" name="verification"></td>
                         <td colspan="1"><input type="button" class="check_button" value="확인"></td>
                         <td colspan="1"><input type="button" class="check_button" value="재발송"></td>
                     </tr>
