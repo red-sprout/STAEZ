@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${contextPath}/resources/css/inquire/inquireInsertForm.css">
 <title>Insert title here</title>
+
 </head>
 <body>
 	<header>
@@ -26,27 +27,24 @@
         <div id="to-inquire-area">
             <span>문의하기</span>
         </div>
-        <form action="">
+        <form action="main.cm" method="post">
+            <input type="hidden" name="userNo" value="${loginUser.userNo}">
             <div class="to-inquire-title-area">
                 <select name="to-inquire-category" id="to-inquire-category">
-                    <option value="concert">공연</option>
-                    <option value="community">커뮤니티</option>
-                    <option value="reservation">예매</option>
-                    <option value="refund">환불/취소</option>
-                    <option value="use-site">사이트이용</option>
-                    <option value="ticket">티켓</option>
+                    <!--ajax로 부르기-->
                 </select>
-                <input type="text" id="to-inquire-title" placeholder="제목">
+                <input type="text" id="to-inquire-title" name="boardTitle" placeholder="제목">
             </div>
             <div class="to-inquire-content-area">
-                <textarea name="to-inquire-content" id="to-inquire-content" placeholder="내용을 입력해주세요"></textarea>
+                <textarea name="boardContent" id="to-inquire-content" placeholder="내용을 입력해주세요"></textarea>
             </div>
             <div class="registering-area">
                 <button type="submit" id="registering-btn">등록하기</button>
             </div> 
         </form> 
-
+     
     </main>
+    <script src="${contextPath}/resources/js/inquire/inquireInsertForm.js"></script>
     <footer>
     	<jsp:include page="../common/footer.jsp" />
     </footer>

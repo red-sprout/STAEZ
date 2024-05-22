@@ -23,7 +23,7 @@
         </div>
         <div class="concert-search-result-area">
             <div class="concert-search-result-info">
-                <a href=""><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
+                <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
                 <div class="concert-search-result-content-info">
                     <span class="concert-search-result-content-span1">뮤지컬</span>
                     <span class="concert-search-result-content-span2">[시카고]</span>
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="concert-search-result-info">
-                <a href=""><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
+                <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
                 <div class="concert-search-result-content-info">
                     <span class="concert-search-result-content-span1">뮤지컬</span>
                     <span class="concert-search-result-content-span2">[시카고]</span>
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="concert-search-result-info">
-                <a href=""><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
+                <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
                 <div class="concert-search-result-content-info">
                     <span class="concert-search-result-content-span1">뮤지컬</span>
                     <span class="concert-search-result-content-span2">[시카고]</span>
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="concert-search-result-info">
-                <a href=""><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
+                <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
                 <div class="concert-search-result-content-info">
                     <span class="concert-search-result-content-span1">뮤지컬</span>
                     <span class="concert-search-result-content-span2">[시카고]</span>
@@ -55,7 +55,7 @@
                 </div>
             </div>
             <div class="concert-search-result-info">
-                <a href=""><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
+                <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
                 <div class="concert-search-result-content-info">
                     <span class="concert-search-result-content-span1">뮤지컬</span>
                     <span class="concert-search-result-content-span2">[시카고]</span>
@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div class="concert-search-result-info">
-                <a href=""><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
+                <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
                 <div class="concert-search-result-content-info">
                     <span class="concert-search-result-content-span1">뮤지컬</span>
                     <span class="concert-search-result-content-span2">[시카고]</span>
@@ -71,7 +71,7 @@
                 </div>
             </div>
             <div class="concert-search-result-info">
-                <a href=""><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
+                <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
                 <div class="concert-search-result-content-info">
                     <span class="concert-search-result-content-span1">뮤지컬</span>
                     <span class="concert-search-result-content-span2">[시카고]</span>
