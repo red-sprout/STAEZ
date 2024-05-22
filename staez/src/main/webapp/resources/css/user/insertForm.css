@@ -85,6 +85,7 @@ select.box option {
     font-size: 16px; /* 글자 크기를 지정합니다. */
 }
 
+/* 테이블 안에 */
 span{
     display: flex; /* Flexbox 레이아웃을 사용합니다. */
     justify-content: center; /* 수평 가운데 정렬합니다. */
@@ -92,14 +93,28 @@ span{
     margin-right: 15px;
 }
 
-/* 체크 버튼 */
-.check_button {
+/* 닉네임 체크 버튼 */
+.check_nickname {
     border: 2px solid black; /* 테두리를 지정합니다. */
     height: 40px; /* 높이를 지정합니다. */
     width: 100%; /* 너비를 120px로 지정합니다. */
     background-color: #ffffff;
     border-radius: 10px;
 }
+
+/* 아이디 체크 버튼 */
+.check_userId {
+    border: 2px solid black; /* 테두리를 지정합니다. */
+    height: 40px; /* 높이를 지정합니다. */
+    width: 100%; /* 너비를 120px로 지정합니다. */
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+/* 중복결과 숨기기 */
+#checkResult{
+    display: none;
+}
+
 /* 모든 input text 필드 */
 input[type="text"] {
     width: 100%; /* 너비를 100%로 설정하여 부모 요소에 맞춥니다. */
@@ -164,6 +179,12 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
+/* 클릭된 버튼의 스타일 */
+.btn-staez3.selected {
+    background-color: #F8D082;
+    color: black;
+}
+
 /* 이전 다음 */
 .insert-member-div{
     display: flex;
@@ -187,12 +208,6 @@ input[type="checkbox"] {
     color: black; /* 텍스트색 */
     border: none; /* 테두리 제거 */
     cursor: pointer; /* 마우스 커서 스타일 */
-}
-
-/* 클릭된 버튼의 스타일 */
-.btn-staez3.selected {
-    background-color: #F8D082;
-    color: black;
 }
 
 #td-div{
