@@ -11,3 +11,8 @@ $(function() {
     nextArrow: $(".concert-main-upper-next")
   });
 });
+
+function goDetail(){
+  window.location.href = 'detail.co';
+}
+
