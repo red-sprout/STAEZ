@@ -23,6 +23,7 @@ public class User {
 	private Date birth; //생년월일(나이)
 	private String address; //주소
 	private String email; //이메일
+	private String phone; // 핸드폰
 	private String genreLike; //관심장르
 	private String grade; //회원등급
 	private Timestamp enrollDate; //가입날짜

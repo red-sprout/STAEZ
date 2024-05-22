@@ -14,7 +14,9 @@
 		<result column="birth" property="birth" />
 		<result column="address" property="address" />
 		<result column="email" property="email" />
+		<result column="phone" property="phone" />
 		<result column="genre_like" property="genreLike" />
+		<result column="grade" property="grade" />
 		<result column="enroll_date" property="enrollDate" />
 		<result column="withdrawal_date" property="withdrawalDate" />
 		<result column="user_status" property="userStatus" />
@@ -36,12 +38,28 @@
 			birth,
 			address,
 			email,
+			phone,
 			genre_like,
+			grade,
 			enroll_date,
 			withdrawal_date
 		FROM staez_user
 		WHERE user_id = #{userId}
 		AND user_status = 'Y'
+	</select>
+	
+	<!-- 아이디중복체크 -->
+	<select id="idCheck" resultType="_int">
+		SELECT COUNT(*)
+		  FROM staez_user
+		 WHERE user_id = #{checkId}
+	</select>
+	
+	<!-- 닉네임중복체크 -->
+	<select id="checkNick" resultType="_int">
+		SELECT COUNT(*)
+		  FROM staez_user
+		 WHERE nickname = #{checkNick}
 	</select>
 </mapper>
 

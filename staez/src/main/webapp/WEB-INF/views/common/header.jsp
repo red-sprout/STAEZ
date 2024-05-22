@@ -22,8 +22,9 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
     <link rel="stylesheet" href="${contextPath}/resources/css/common/header.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/main.css">
+    <script src="<c:url value='/resources/js/common.js'/>"></script>
 </head>
-<body>
+<body onload="init('${contextPath}')">
     <c:if test="${not empty alertMsg}">
         <script>
             alert("${alertMsg}");
@@ -83,25 +84,12 @@
                     <div class="menu-bar">
                         <a href="main.iq"><span>고객센터</span></a>
                     </div>
+                    <c:if test="${loginUser.grade eq 2}">
+                        <div class="menu-bar">
+                            <a href="userList.ad"><span>관리자 페이지</span></a>
+                        </div>
+                    </c:if>
                 </div>
-                <!--관리자-->
-                <!-- <div class="menu-bar-area">
-                    <div class="menu-bar">
-                        <a href=""><span>공연</span></a>
-                    </div>
-                    <div class="menu-bar">
-                        <a href=""><span>커뮤니티</span></a>
-                    </div>
-                    <div class="menu-bar">
-                        <a href=""><span>공지사항</span></a>
-                    </div>
-                    <div class="menu-bar">
-                        <a href=""><span>고객센터</span></a>
-                    </div>
-                    <div class="menu-bar">
-                        <a href=""><span>관리자 페이지</span></a>
-                    </div>
-                </div> -->
                 <div class="menu-bar-small">
                     <div class="menu-bar">
                         <a href=""><span>메뉴</span></a>
