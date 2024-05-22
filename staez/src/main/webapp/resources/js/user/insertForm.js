@@ -1,52 +1,41 @@
-// 이메일
-function handleDomainListChange() {
-    const emailDomainList = document.getElementById("email-domain-list");
-    const emailSuffixInput = document.getElementById("email-suffix");
+// 이메일 관련 기능
+document.addEventListener('DOMContentLoaded', function() {
+    function handleDomainListChange() {
+        const emailDomainList = document.getElementById("email-domain-list");
+        const emailSuffixInput = document.getElementById("email-suffix");
 
-    // 요소가 존재하는지 확인
-    if (emailDomainList && emailSuffixInput) {
-        emailDomainList.addEventListener("change", function () {
-            const selectedOption = emailDomainList.options[emailDomainList.selectedIndex].value;
+        // 요소가 존재하는지 확인
+        if (emailDomainList && emailSuffixInput) {
+            emailDomainList.addEventListener("change", function () {
+                const selectedOption = emailDomainList.options[emailDomainList.selectedIndex].value;
 
-            if (selectedOption !== "type") {
-                emailSuffixInput.value = selectedOption;
-                emailSuffixInput.placeholder = "";
-            } else {
-                emailSuffixInput.value = "";
-                emailSuffixInput.placeholder = "직접 입력";
-            }
-        });
+                if (selectedOption !== "type") {
+                    emailSuffixInput.value = selectedOption;
+                    emailSuffixInput.placeholder = "";
+                } else {
+                    emailSuffixInput.value = "";
+                    emailSuffixInput.placeholder = "직접 입력";
+                }
+            });
+        }
     }
-}
 
-function handlePhonePrefixChange() {
-    const phonePrefix = document.getElementById("phone-prefix");
-    const phoneSuffix1 = document.getElementById("phone-suffix1");
-    const phoneSuffix2 = document.getElementById("phone-suffix2");
-
-    // 요소가 존재하는지 확인
-    if (phonePrefix && phoneSuffix1 && phoneSuffix2) {
-        phonePrefix.addEventListener("change", function () {
-            const selectedPrefix = phonePrefix.value;
-            // Do something with the selected prefix, if needed
-        });
+    function init() {
+        handleDomainListChange();
     }
-}
 
-function init() {
-    handleDomainListChange();
-    handlePhonePrefixChange();
-}
+    init(); // 페이지 로드 시 초기화 함수 호출
+});
 
-init(); // 페이지 로드 시 초기화 함수 호출
 
 // 사용자 아이디 중복 체크
 document.addEventListener('DOMContentLoaded', function() {
     const userIdInput = document.querySelector("#userId");
     const userIdCheckButton = document.getElementById("idcheckButton");
     const userIdCheckResult = document.getElementById("checkResultId");
+    const userIdErrorMessage = document.getElementById("userIdErrorMessage");
 
-    if (userIdInput && userIdCheckButton && userIdCheckResult) {
+    if (userIdInput && userIdCheckButton && userIdCheckResult && userIdErrorMessage) {
         userIdCheckButton.addEventListener('click', function() {
             const str = userIdInput.value;
             if (str.trim().length >= 5) {
@@ -72,20 +61,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 userIdCheckResult.style.display = "none";
             }
         });
+
+        userIdInput.addEventListener('blur', function() {
+            if (userIdInput.value.trim().length === 0) {
+                userIdErrorMessage.innerText = "필수 입력사항입니다.";
+            } else {
+                userIdErrorMessage.innerText = "";
+            }
+        });
+
+        userIdInput.addEventListener('input', function() {
+            if (userIdInput.value.trim().length === 0) {
+                userIdErrorMessage.innerText = "필수 입력사항입니다.";
+            } else {
+                userIdErrorMessage.innerText = "";
+            }
+        });
     } else {
         console.log("아이디 체크 요소 중 하나가 누락되었습니다.");
     }
+});
 
-    // 닉네임 중복 체크
+
+
+// 닉네임 중복 체크
+document.addEventListener('DOMContentLoaded', function() {
     const nicknameInput = document.querySelector("#nickname");
     const nicknameCheckButton = document.getElementById("nickNameCheckButton");
     const nicknameCheckResult = document.getElementById("checkResultNick");
+    const nicknameErrorMessage = document.getElementById("nicknameErrorMessage");
 
     if (nicknameInput && nicknameCheckButton && nicknameCheckResult) {
         nicknameCheckButton.addEventListener('click', function() {
             const str = nicknameInput.value;
             if (str.trim().length >= 1) {
-                //console.log("닉네임 전송"); // 디버깅용 콘솔 로그
                 $.ajax({
                     url: "nickCheck.me",
                     data: { checkNick: str },
@@ -93,10 +102,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         nicknameCheckResult.style.display = "block";
                         if (result === "NNNNN") {
                             nicknameCheckResult.style.color = "red";
-                            nicknameCheckResult.innerText = "이미 사용중인 닉네임입니다.";
+                            nicknameErrorMessage.innerText = "이미 사용중인 닉네임입니다.";
                         } else {
                             nicknameCheckResult.style.color = "green";
-                            nicknameCheckResult.innerText = "사용가능한 닉네임입니다.";
+                            nicknameErrorMessage.innerText = "사용가능한 닉네임입니다.";
                         }
                     },
                     error: function () {
@@ -107,10 +116,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 nicknameCheckResult.style.display = "none";
             }
         });
+
+        nicknameInput.addEventListener('blur', function() {
+            if (nicknameInput.value.trim().length === 0) {
+                nicknameErrorMessage.innerText = "필수 입력사항입니다.";
+            } else {
+                nicknameErrorMessage.innerText = "";
+            }
+        });
+
+        nicknameInput.addEventListener('input', function() {
+            if (nicknameInput.value.trim().length === 0) {
+                nicknameErrorMessage.innerText = "필수 입력사항입니다.";
+            } else {
+                nicknameErrorMessage.innerText = "";
+            }
+        });
     } else {
-        console.log("닉네임 체크 요소 중 하나가 누락되었습니다.");
+        console.log("아이디 체크 요소 중 하나가 누락되었습니다.");
     }
 });
+
 
 var timeout; // 전역 범위에 timeout 변수를 선언합니다.
 
@@ -223,3 +249,38 @@ document.addEventListener('DOMContentLoaded', function() {
         genreLikeInput.value = selectedGenres.join(' ');
     }
 });
+
+// "다음" 버튼 클릭 시 실행되는 함수
+function saveFormDataToDB() {
+    // form 요소 가져오기
+    var form = document.getElementById("enrollForm");
+    
+    // form 안의 모든 input 요소 가져오기
+    var inputsWithName = form.querySelectorAll("input[name]");
+    
+    // DB에 저장할 데이터를 담을 객체 생성
+    var dataToSave = {};
+    
+    // input 요소들을 반복하면서 name 속성이 있는 것들의 값을 객체에 추가
+    for (var i = 0; i < inputsWithName.length; i++) {
+        dataToSave[inputsWithName[i].name] = inputsWithName[i].value;
+    }
+    
+    // Ajax를 사용하여 서버에 데이터를 전송
+    $.ajax({
+        url: "insert.me", // 데이터를 저장할 서버의 URL
+        type: "POST", // HTTP 요청 방식
+        data: dataToSave, // 저장할 데이터
+        success: function (response) {
+            // 성공적으로 저장되었을 때 실행할 코드
+            console.log("데이터가 성공적으로 저장되었습니다.");
+            // 다음 작업 수행
+        },
+        error: function () {
+            // 저장 중 오류가 발생했을 때 실행할 코드
+            console.error("데이터 저장 중 오류가 발생했습니다.");
+            // 오류 처리
+        }
+    });
+}
+
