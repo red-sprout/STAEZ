@@ -1,30 +1,90 @@
-// 이메일 관련 기능
 document.addEventListener('DOMContentLoaded', function() {
-    function handleDomainListChange() {
-        const emailDomainList = document.getElementById("email-domain-list");
-        const emailSuffixInput = document.getElementById("email-suffix");
+    // 필요한 요소들을 가져옵니다.
+    const prefixElement = document.getElementById("email-prefix");
+    const suffixElement = document.getElementById("email-suffix");
+    const domainList = document.getElementById("email-domain-list");
+    const inputValueElement = document.getElementById("input-value");
 
-        // 요소가 존재하는지 확인
-        if (emailDomainList && emailSuffixInput) {
-            emailDomainList.addEventListener("change", function () {
-                const selectedOption = emailDomainList.options[emailDomainList.selectedIndex].value;
+    // 이메일 주소를 업데이트하는 함수를 정의합니다.
+    function updateEmail() {
+        const prefix = prefixElement.value;
+        const suffix = suffixElement.value;
+        const domain = domainList.value;
 
-                if (selectedOption !== "type") {
-                    emailSuffixInput.value = selectedOption;
-                    emailSuffixInput.placeholder = "";
-                } else {
-                    emailSuffixInput.value = "";
-                    emailSuffixInput.placeholder = "직접 입력";
-                }
-            });
+        if (domain !== "type") {
+            inputValueElement.value = prefix + "@" + domain;
+        } else if (prefix && suffix) {
+            inputValueElement.value = prefix + "@" + suffix;
+        } else {
+            inputValueElement.value = "";
         }
     }
 
-    function init() {
-        handleDomainListChange();
+    // 도메인 리스트 변경 시 처리하는 함수를 정의합니다.
+    function handleDomainListChange() {
+        const selectedOption = domainList.options[domainList.selectedIndex].value;
+
+        if (selectedOption !== "type") {
+            suffixElement.value = selectedOption;
+            suffixElement.placeholder = "";
+            suffixElement.disabled = true;
+        } else {
+            suffixElement.value = "";
+            suffixElement.placeholder = "직접 입력";
+            suffixElement.disabled = false;
+        }
+        updateEmail(); // 이메일 업데이트 함수를 호출하여 이메일 값을 업데이트합니다.
     }
 
-    init(); // 페이지 로드 시 초기화 함수 호출
+    // 초기화 함수를 정의합니다.
+    function init() {
+        handleDomainListChange(); // 도메인 리스트 변경 처리 함수를 호출합니다.
+        prefixElement.addEventListener('input', updateEmail); // 프리픽스 입력 시 이메일 업데이트 함수를 호출합니다.
+        suffixElement.addEventListener('input', updateEmail); // 서픽스 입력 시 이메일 업데이트 함수를 호출합니다.
+        domainList.addEventListener('change', handleDomainListChange); // 도메인 리스트 변경 시 처리하는 함수를 호출합니다.
+    }
+
+    init(); // 페이지 로드 시 초기화 함수를 호출합니다.
+});
+
+// 입력 시 2초 후에 콘솔에 이메일 값을 출력하는 기능입니다.
+let typingTimer;
+document.addEventListener('DOMContentLoaded', function() {
+    const emailInput = document.getElementById("email-prefix");
+    const suffixInput = document.getElementById("email-suffix");
+
+    emailInput.addEventListener('input', function() {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(function() {
+            const emailPrefix = emailInput.value;
+            const emailSuffix = suffixInput.value;
+            console.log("입력된 값:", emailPrefix + "@" + emailSuffix);
+        }, 2000);
+    });
+
+    suffixInput.addEventListener('input', function() {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(function() {
+            const emailPrefix = emailInput.value;
+            const emailSuffix = suffixInput.value;
+            console.log("입력된 값:", emailPrefix + "@" + emailSuffix);
+        }, 2000);
+    });
+});
+
+// 이메일 아이디적을때 한글안되고 영어만 가능하게
+document.addEventListener('DOMContentLoaded', function() {
+    const prefixElement = document.getElementById("email-prefix");
+
+    prefixElement.addEventListener('input', function() {
+        const value = prefixElement.value;
+        const regex = /^[a-zA-Z]*$/; // 영어만 허용하는 정규식
+
+        if (!regex.test(value)) {
+            // 입력된 값이 한글인 경우 빈 문자열로 대체하여 입력값을 영문만 포함하도록 합니다.
+            prefixElement.value = value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '');
+        }
+    });
 });
 
 
@@ -173,6 +233,24 @@ function validatePassword() {
 }
 
 // 핸드폰 번호 전송 처리
+document.addEventListener('DOMContentLoaded', function() {
+    const prefixElement = document.getElementById("phone-prefix");
+    const suffix1Element = document.getElementById("phone-suffix1");
+    const suffix2Element = document.getElementById("phone-suffix2");
+    const inputValueElement = document.getElementById("input-value");
+
+    function updatePhoneNumber() {
+        const prefix = prefixElement.innerText;
+        const suffix1 = suffix1Element.value;
+        const suffix2 = suffix2Element.value;
+        const phoneNumber = prefix + suffix1 + suffix2;
+        inputValueElement.value = phoneNumber;
+    }
+
+    suffix1Element.addEventListener('input', updatePhoneNumber);
+    suffix2Element.addEventListener('input', updatePhoneNumber);
+});
+
 function sendPhoneNumber() {
     // phone-prefix 요소가 존재하는지 확인
     var prefixElement = document.getElementById("phone-prefix");
@@ -191,6 +269,9 @@ function sendPhoneNumber() {
     // 전체 번호 조합하여 표시
     var phoneNumber = prefix + suffix1 + suffix2;
     console.log(phoneNumber); // 번호 확인용, 실제 사용시 주석처리해도 됩니다.
+
+    // input-value 필드에 번호 설정
+    document.getElementById("input-value").value = phoneNumber;
 }
 
 
@@ -204,16 +285,28 @@ function openPostalCodePopup() {
     }).open();
 }
 
-// // 주소 확인
-// function checkAddress() {
-//     // 주소 입력란 값과 자세한 주소 값을 합침
-//     var address = document.getElementById("addressInput").value;
-//     var detailAddress = document.getElementById("detailAddressInput").value;
-//     var fullAddress = address + " " + detailAddress;
-    
-//     // 합쳐진 주소를 알림으로 표시 (또는 다른 처리)
-//     alert(fullAddress);
-// }
+// 주소 확인
+function updateAddressDisplay() {
+    const addressInput = document.getElementById("addressInput");
+    const detailAddressInput = document.getElementById("detailAddressInput");
+    const addressDisplay = document.getElementById("input-value");
+
+    if (addressInput && detailAddressInput && addressDisplay) {
+        const addressValue = addressInput.value;
+        const detailAddressValue = detailAddressInput.value;
+
+        // 주소와 자세한 주소를 결합하여 주소 표시 요소에 설정
+        const fullAddress = addressValue + " " + detailAddressValue;
+        addressDisplay.value = fullAddress;
+
+        // 콘솔에 출력
+        console.log("주소 값:", fullAddress);
+    }
+}
+
+function checkAddress() {
+    updateAddressDisplay();
+}
 
 // 이전페이지로 돌아가는
 document.addEventListener('DOMContentLoaded', function() {
@@ -237,11 +330,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 const selectedButtons = document.querySelectorAll('.btn-staez3.selected');
                 if (selectedButtons.length < 3) {
                     button.classList.add('selected');
+                } else {
+                    // 선택 가능한 최대 개수를 초과한 경우 경고 메시지를 표시
+                    alert("최대 갯수입니다.");
                 }
             }
             updateInput();
         });
     });
+
     
     function updateInput() {
         const selectedButtons = document.querySelectorAll('.btn-staez3.selected');

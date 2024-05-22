@@ -1,10 +1,21 @@
 package com.spring.staez.admin.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.spring.staez.admin.service.AdminService;
+import com.spring.staez.community.model.vo.Board;
 
 @Controller
 public class AdminController {
+	
+	@Autowired
+	AdminService adminService;
 	
 	@GetMapping("main.no") 
 	public String noticeMain() {
@@ -104,5 +115,22 @@ public class AdminController {
 	@GetMapping("theaterUpdateForm.ad")
 	public String theaterUpdateForm() {
 		return "admin/theaterUpdateForm";
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "faqCategory.ad", produces="application/json; charset-UTF-8")
+	public String ajaxFaqCategory(String refCategoryNo) {
+		return null;
+	}
+	
+	@PostMapping("faqIncert.ad")
+	public String faqIncert(Board b, HttpSession session) {
+		int result = adminService.faqIncert(b);
+		if(result == 0) {
+			session.setAttribute("alertMsg", "FAQ 작성에 실패하였습니다.");
+		} else {
+			session.setAttribute("alertMsg", "작성 완료하였습니다.");
+		}
+		return "redirect:/faqList.ad";
 	}
 }

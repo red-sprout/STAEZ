@@ -227,6 +227,7 @@ input[type="checkbox"] {
     display: flex;
     justify-content:right;
     margin-bottom: 150px;
+    margin-top: 60px;
 
 }
 /* 버튼 상세 */
@@ -251,7 +252,11 @@ input[type="checkbox"] {
     display: flex;
 }
 
-/* 택3 값 화면에 안보여주는거 */
-#genreLike{
+/* 입력값 합친거 안보여주는거 */
+#input-value{
     display: none;
+}
+
+#phone-suffix1, #phone-suffix2{
+    padding-left: 10px;
 }

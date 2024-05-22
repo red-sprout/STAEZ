@@ -5,13 +5,37 @@
 
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
 <mapper namespace="adminMapper">
-	<!-- 
-		<resultMap type="mybatis-config.xml의 alias값" id="객체명Result 형태">
-			<result column="user_no" property="userNo" />
-		</resultMap>
-	 -->
+		<!-- <resultMap type="Board" id="boardResult">
+		<result column="board_no" property="userNo" />
+		<result column="refBoardNo" property="userId" />
+		<result column="user_pwd" property="userPwd" />
+		<result column="nickname" property="nickname" />
+		<result column="gender" property="gender" />
+		<result column="birth" property="birth" />
+		<result column="address" property="address" />
+		<result column="email" property="email" />
+		<result column="phone" property="phone" />
+		<result column="genre_like" property="genreLike" />
+		<result column="grade" property="grade" />
+		<result column="enroll_date" property="enrollDate" />
+		<result column="withdrawal_date" property="withdrawalDate" />
+		<result column="user_status" property="userStatus" />
+	</resultMap> -->
 
 	<!-- db의 컬럼과 객체의 필드명이 완전히 같다면 resultType사용 가능 -->
-	
+	<insert id="faqIncert">
+		INSERT INTO BOARD
+		(
+			user_no,
+			board_code,
+			board_title,
+			board_content
+		) VALUES (
+			#{userNo},
+			#{boardCode},
+			#{boardTitle},
+			#{boardContent}
+		)
+	</insert>
 </mapper>
 
