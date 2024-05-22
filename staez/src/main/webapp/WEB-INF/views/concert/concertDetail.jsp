@@ -127,7 +127,7 @@
 						</ul>
 					</div>
 				</div>
-                <button class="reservation-button"><span>예매하기</span></button>
+                <button class="reservation-button" onclick="reservePage()"><span>예매하기</span></button>
             </div>
     </section>
 
