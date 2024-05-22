@@ -8,4 +8,7 @@ public interface UserService {
 	
 	//id check를 위한 서비스
 	int idCheck(String checkId);
+	
+	//nick check를 위한 서비스
+	int nickCheck(String checkNick);
 }
