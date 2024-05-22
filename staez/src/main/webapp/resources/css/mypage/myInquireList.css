@@ -150,7 +150,6 @@ button{
 
     border-top: 2px solid black;
 
-    margin-bottom: 50px;
 }
 
 #inq-section>ul>li{
@@ -236,5 +235,22 @@ li>.inq-info>.folding-icon{
     text-align: left;
 }
 
+
+/*문의하기 버튼*/
+#inq-enroll-btn{
+    width: 860px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+#inq-enroll-btn>button{
+    margin-bottom: 50px;
+    margin-right: 10px;
+}
+
+#inq-enroll-btn>button:hover{
+    text-decoration: underline;
+}
 
 

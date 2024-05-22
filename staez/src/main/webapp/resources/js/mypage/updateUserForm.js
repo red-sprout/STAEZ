@@ -62,10 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (button.classList.contains('checked')) {
                 button.classList.toggle('checked');
                 updateInput();
-            } else if (checkedButtons.length < 4) {
+            } else if (checkedButtons.length < 3) {
                 button.classList.toggle('checked');
                 updateInput();
-            } else if((checkedButtons.length >= 4)){
+            } else if((checkedButtons.length >= 3)){
                 alert("최대 개수입니다.");
             }
         });

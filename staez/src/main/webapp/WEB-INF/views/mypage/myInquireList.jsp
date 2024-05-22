@@ -87,8 +87,8 @@
                         </c:forEach>
                     </ul>
                 </div>
-                <div>
-                    <button><h4>문의하기</h4></button>
+                <div id="inq-enroll-btn">
+                    <button><h3>문의하기</h3></button>
                 </div>
 
 

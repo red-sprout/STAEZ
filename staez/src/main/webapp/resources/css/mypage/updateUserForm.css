@@ -163,6 +163,10 @@ button{
     margin: 0 10px 0 0;
 }
 
+.main-content>#profile-update>#password-auth>div>input{
+    padding: 0 5px;
+}
+
 .main-content>#profile-update>#password-auth #auth-fail{
     color: red;
 }
@@ -412,24 +416,32 @@ button{
 
 }
 .main-content>#profile-update #submit-btn>*{
-    margin: 0 10px;
+    margin: 0 5px;
 }
 
 
 
-/*modal*/
+/*비밀번호 변경 modal*/
 .pwd-tag {
-    border: 1px solid #969696;
-    padding: 20px;
-    margin-bottom: 20px;
+    padding: 20px 40px;
     width: 100%;
-}
-.pwd-tag>div{
-    width: 90%;
+
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
+
+}
+.pwd-tag>div{
+    width: 80%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.pwd-tag>div>*{
+    margin: 0 20px;
 }
 
 .pwd-tag h3{
@@ -437,7 +449,7 @@ button{
 }
 
 .pwd-tag input {
-    width: 40%;
+    width: 50%;
     height: 30px;
     border: none;
     border-bottom: 1px solid black;
