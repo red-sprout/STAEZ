@@ -20,17 +20,29 @@
 	</select>	
 	
 	<insert id="insertBoard">
-		insert into board values(
-							default,
-							null,
-							#{userNo}, 
-							default, 3, 
-							default, 
-							#{boardTitle}, 
-							#{boardContent}, 
-							default, 
-							default
+		insert into board (
+							user_no,
+							board_code,
+							board_title,
+							board_content
 							)
+							values(						
+							#{userNo}, 					
+							3, 			
+							#{boardTitle}, 
+							#{boardContent}
+							)
+	</insert>
+	
+	<insert id="insertBoardCategory">
+		insert into board_category (
+									board_no,
+									category_no
+									)
+									values(
+									currval('board_board_no_seq'::regclass),
+									#{cNo}
+									)
 	</insert>
 	
 	

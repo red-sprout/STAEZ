@@ -1,6 +1,7 @@
 package com.spring.staez.inquire.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,5 +18,9 @@ public class InquireDao {
 	
 	public int insertBoard(SqlSessionTemplate sqlSession, Board b) {
 		return sqlSession.insert("inquireMapper.insertBoard", b);
+	}
+	
+	public int insertBoardCategory(SqlSessionTemplate sqlSession, int cNO) {
+		return sqlSession.insert("inquireMapper.insertBoardCategory", cNO);
 	}
 }
