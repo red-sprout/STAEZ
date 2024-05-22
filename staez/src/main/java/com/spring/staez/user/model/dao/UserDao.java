@@ -20,5 +20,10 @@ public class UserDao {
 	public int nickCheck(SqlSessionTemplate sqlSession, String checkNick) {
 		return sqlSession.selectOne("userMapper.checkNick", checkNick);
 	}
+	
+	//회원가입
+	public int insertUser(SqlSessionTemplate sqlSession, User u) {
+		return sqlSession.insert("userMapper.insertUser", u);
+	}
 
 }

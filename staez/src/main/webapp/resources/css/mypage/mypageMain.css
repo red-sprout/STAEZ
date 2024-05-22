@@ -1,12 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
 
+/*공통 css*/
+/*테이블 설정*/
 table{
     border-collapse: collapse;
     border-top: 2px solid black;
     border-bottom: 1px solid black;
 }
 
+button{
+    border: none;
+    background: none;
+}
 
+/*타이틀 설정(마이페이지)*/
 main>.title{
     width: 1250px;
     height: 120px;
@@ -85,6 +92,10 @@ main>.main-section>.side>.side-menu>ul>li{
     width: 250px;
     height: 40px;
     padding-left: 15px;
+}
+
+.main-section>.side>.side-menu>ul>li>a:hover{
+    text-decoration: underline;
 }
 
 main>.main-section>.side>.side-menu>ul>.side-menu-title{

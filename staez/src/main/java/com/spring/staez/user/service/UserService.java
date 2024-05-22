@@ -11,4 +11,7 @@ public interface UserService {
 	
 	//nick check를 위한 서비스
 	int nickCheck(String checkNick);
+	
+	//회원가입
+	int insertUser(User u);
 }
