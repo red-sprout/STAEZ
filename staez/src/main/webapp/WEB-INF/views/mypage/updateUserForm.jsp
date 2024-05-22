@@ -7,8 +7,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="${contextPath}/resources/css/mypage/updateInfoForm.css">
-<script src="${contextPath}/resources/js/mypage/updateInfoForm.js"></script>
+<link rel="stylesheet" href="${contextPath}/resources/css/mypage/updateUserForm.css">
+<script src="${contextPath}/resources/js/mypage/updateUserForm.js"></script>
+
+<!-- 다음 주소 api -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 
 <title>Insert title here</title>
 </head>
@@ -60,9 +64,19 @@
                 
                 <div class="main-title">
                     <h2>회원정보변경</h2>
-                </div>                
+                </div>
                 <div id="profile-update">
-                    <form action="updatezzzzz" method="GET">
+
+                    <div id="password-auth">
+                        <h3>비밀번호 인증</h3>
+                        <div>
+                            <input type="password" id="auth-password" placeholder="비밀번호 입력">
+                            <button type="button" class="btn-staez purple" onclick="checkPassword()">인증</button>
+                        </div>
+                        <p id="auth-fail" hidden>비밀번호가 일치하지 않습니다.</p>
+                    </div>
+
+                    <form action="update.me" method="GET" hidden>
                         <div id="profile-img">
                             <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
                         </div>
@@ -71,7 +85,7 @@
                                 <tr>
                                     <th><h3>닉네임</h3></th>
                                     <td class="input-box">
-                                        <input type="text">
+                                        <input type="text" name="nickname" value="" placeholder="" maxlength="16" >
                                     </td>
                                     <td class="input-btn">
                                         <button type="button">중복확인</button>
@@ -85,14 +99,22 @@
                                 <tr>
                                     <th><h3>아이디</h3></th>
                                     <td class="input-box">
-                                        <input type="text" name="userId">
+                                        <input type="text" name="userId" value="user01" readonly>
                                     </td>
                                     <td class="input-btn"></td>
                                 </tr>
                                 <tr>
+                                    <th><h3>생년월일</h3></th>
+                                    <td class="input-box">
+                                        <input type="date" name="birth" value="1997-04-23" readonly>
+                                    </td>
+                                    <td class="input-btn">
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th><h3>비밀번호</h3></th>
                                     <td id="pwd-btn">
-                                        <button type="button" data-toggle="modal" data-target="#myModal">비밀번호 변경</button>
+                                        <button type="button" data-toggle="modal" data-target="#pwdModal">비밀번호 변경</button>
                                     </td>
                                     <td></td>
                                 </tr>
@@ -101,12 +123,12 @@
                                     <td id="gender-input">
                                         <div>
                                             <div>
-                                                <input type="radio" name="gender" id="male">
-                                                <label for="male">남</label>
+                                                <input type="radio" name="gender" id="male" value="M">
+                                                <label for="male">남자</label>
                                             </div>
                                             <div>
-                                                <input type="radio" name="gender" id="female">
-                                                <label for="female">여</label>
+                                                <input type="radio" name="gender" id="female" value="F">
+                                                <label for="female">여자</label>
                                             </div>
                                         </div>
                                     </td>
@@ -115,33 +137,32 @@
                                 <tr>
                                     <th><h3>주소</h3></th>
                                     <td class="input-box">
-                                        <input type="text" name="address" readonly>
+                                        <input type="text" id="addressNormal" readonly required>
                                     </td>
                                     <td class="input-btn">
-                                        <button type="button">우편번호</button>
+                                        <button type="button" onclick="execDaumPostcode()">우편번호</button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th></th>
                                     <td class="input-box">
-                                        <input type="text" placeholder="상세주소를 입력하세요">
+                                        <input type="text" placeholder="상세주소를 입력하세요" id="addressDetail" onchange="updateCombinedAddress()" readonly required>
                                     </td>
                                     <td></td>
                                 </tr>
+                                <input type="text" name="address" readonly hidden>
                                 <tr>
                                     <th><h3>휴대폰번호</h3></th>
                                     <td id="phone-input">
                                         <div>
-                                            <select name="front-phone-no" id="">
-                                                <option value="1">010</option>
-                                                <option value="2">011</option>
-                                            </select>
-                                            <input type="text" maxlength="4">
-                                            <input type="text" maxlength="4">
+                                            <input id="front-num" type="text" maxlength="3" value="010" readonly>
+                                            <input id="phone1" type="text" value="" minlength="4" maxlength="4" onchange="updateCombinedPhone()">
+                                            <input id="phone2" type="text" value="" minlength="4" maxlength="4" onchange="updateCombinedPhone()">
                                         </div>
                                     </td>
+                                    <input type="text" name="phone" readonly hidden>
                                     <td class="input-btn">
-                                        <button type="button">인증번호</button>
+                                        <button type="button">인증하기</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -160,7 +181,7 @@
                                     <th><h3>이메일</h3></th>
                                     <td id="email-input">
                                         <div>
-                                            <input type="text"> 
+                                            <input type="text" id="email-front"> 
                                             <span>@</span>
                                             <input type="text" id="email-back">
                                         </div>
@@ -175,17 +196,18 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th rowspan="2"><h3>관심장르</h3></th>
+                                    <th rowspan="2"><h3>관심장르(택3)</h3></th>
                                     <td colspan="2" rowspan="2" id="like-genre-input" >
                                         <div>
-                                            <button type="button" onclick="btnToggle()" class="btn-staez checked"><h4>뮤지컬</h4></button>
+                                            <button type="button" class="btn-staez"><h4>뮤지컬</h4></button>
                                             <button type="button" class="btn-staez"><h4>클래식</h4></button>    
                                             <button type="button" class="btn-staez"><h4>연극</h4></button>    
                                             <button type="button" class="btn-staez"><h4>국악</h4></button>    
-                                            <button type="button" class="btn-staez checked full-width"><h4>대중음악</h4></button>    
+                                            <button type="button" class="btn-staez full-width"><h4>대중음악</h4></button>    
                                             <button type="button" class="btn-staez full-width"><h4>서커스/마술</h4></button>    
                                             <button type="button" class="btn-staez full-width"><h4>기타</h4></button>    
                                         </div>
+                                        <input type="text" name="genreLike" hidden> <!--button들 내용 추가-->
                                     </td>
                                 </tr>
                                 <tr>
@@ -204,8 +226,9 @@
             </div>
         </div>
 	</main>
-	 <!-- The Modal -->
-     <div class="modal" id="myModal">
+
+	 <!-- 패스워드 변경 Modal -->
+     <div class="modal" id="pwdModal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <!-- Modal Header -->
@@ -218,24 +241,94 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="pwd-tag">
-                            <table>
-                                <tr>
-                                    <th><h3>현재 비밀번호</h3></th>
-                                    <td><input type="password"></td>
-                                    <td><button type="button" class="btn-staez"><h3>비밀번호 확인</h3></button></td>
-                                </tr>
-                                <tr>
-                                    <th><h3>변경할 비밀번호</h3></th>
-                                    <td><input type="password"></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th><h3>비밀번호 확인</h3></th>
-                                    <td><input type="password"></td>
-                                    <td></td>
-                                </tr>
+                            <div>
+                                <h3>변경할 비밀번호</h3>
+                                <input type="password">
+                            </div>
+                            <div>
+                                <h3>비밀번호 확인</h3>
+                                <input type="password">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">변경</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-                            </table>
+     <!-- 프로필사진 변경 Modal -->
+     <div class="modal" id="imgModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h3 class="modal-title">비밀번호 변경</h3>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <form method="GET"> <!-- 비밀번호 ajax 사용 예정-->
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="pwd-tag">
+                            <div>
+                                <h3>현재 비밀번호</h3>
+                                <input type="password">
+                                <button type="button" class="btn-staez purple"><h3>비밀번호 확인</h3></button>
+                            </div>
+                            <!-- <div>
+                                <h3>변경할 비밀번호</h3>
+                                <input type="password">
+                            </div>
+                            <div>
+                                <h3>비밀번호 확인</h3>
+                                <input type="password">
+                            </div> -->
+                        </div>
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">변경</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 프로필사진 변경 Modal -->
+    <div class="modal" id="imgModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h3 class="modal-title">비밀번호 변경</h3>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <form method="GET"> <!-- 비밀번호 ajax 사용 예정-->
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="pwd-tag">
+                            <div>
+                                <h3>현재 비밀번호</h3>
+                                <input type="password">
+                                <button type="button" class="btn-staez purple"><h3>비밀번호 확인</h3></button>
+                            </div>
+                            <!-- <div>
+                                <h3>변경할 비밀번호</h3>
+                                <input type="password">
+                            </div>
+                            <div>
+                                <h3>비밀번호 확인</h3>
+                                <input type="password">
+                            </div> -->
                         </div>
                     </div>
                     

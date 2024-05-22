@@ -96,12 +96,14 @@ button{
 /*메인 콘텐츠*/
 .main-section>.main-content{
     width: 950px;
-    height: 1400px;
+    height: auto;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: start;
+
+    margin-bottom: 40px;
 }
 
 .main-section>.main-content .section-title{
@@ -130,9 +132,44 @@ button{
     padding-left: 20px;   
 }
 
-.main-section>.main-content>#profile-update>form{
+.main-content>#profile-update{
     width: 820px;
     border-top: 2px solid black;
+}
+
+/*비밀번호 인증*/
+.main-content>#profile-update>#password-auth{
+    width: 100%;
+
+    margin: 20px 0 0 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+}
+
+.main-content>#profile-update>#password-auth>div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    margin: 10px 0;
+}
+
+.main-content>#profile-update>#password-auth>div>*{
+    margin: 0 10px 0 0;
+}
+
+.main-content>#profile-update>#password-auth #auth-fail{
+    color: red;
+}
+
+
+/*회원정보 변경 form*/
+.main-content>#profile-update>form{
 
     display: flex;
     flex-direction: column;
@@ -140,23 +177,22 @@ button{
     align-items: center;
 }
 
-.main-section>.main-content>#profile-update #profile-img{
+.main-content>#profile-update #profile-img{
     margin: 30px 0;
 }
 
-.main-section>.main-content>#profile-update #profile-img>img{
+.main-content>#profile-update #profile-img>img{
     width: 180px;
     height: 180px;
 }
 
-.main-section>.main-content>#profile-update #profile-img>img:hover{
-    width: 182px;
-    height: 182px;
+.main-content>#profile-update #profile-img>img:hover{
     cursor: pointer;
 }
 
-.main-section>.main-content>#profile-update #update-form{
+.main-content>#profile-update #update-form{
     width: 820px;
+    height: auto;
     border-bottom: 1px solid black;
     
     display: flex;
@@ -165,18 +201,19 @@ button{
     padding-bottom: 20px;
 }
 
-.main-section>.main-content>#profile-update #update-form>table{
+.main-content>#profile-update #update-form>table{
     border-collapse: collapse;
-    width: 540px;
+    width: 560px;
+    height: auto;
 }
 
-.main-section>.main-content>#profile-update #update-form tr{
-    height: 60px;
+.main-content>#profile-update #update-form>table td{
+    height: 30px;
 }
 
 /*입력내용 종류(1번째 칸)*/
-.main-section>.main-content>#profile-update #update-form th{
-    width: 100px;
+.main-content>#profile-update #update-form th{
+    width: 120px;
     height: 60px;
     
     display: flex;
@@ -185,14 +222,14 @@ button{
     align-items: center;
 }
 
-.main-section>.main-content>#profile-update #update-form th>h3{
+.main-content>#profile-update #update-form th>h3{
     width: 100%;
     text-align: left;
 }
     
 
 /*입력 박스(2번째 칸)*/
-.main-section>.main-content>#profile-update #update-form .input-box{
+.main-content>#profile-update #update-form .input-box{
     width: 300px;
     height: 60px;
     border-bottom: 1px solid black;
@@ -201,7 +238,7 @@ button{
 
 }
 
-.main-section>.main-content>#profile-update #update-form .input-box>input[type="text"]{
+.main-content>#profile-update #update-form .input-box>input[type="text"], input[type="date"]{
     border: none;
     width: 100%;
     height: 30px;
@@ -215,10 +252,10 @@ button{
     padding-left: 10px;
 }
 
-.main-section>.main-content>#profile-update #update-form #pwd-btn{
+.main-content>#profile-update #update-form #pwd-btn{
    position: relative;
 }
-.main-section>.main-content>#profile-update #update-form #pwd-btn>button{
+.main-content>#profile-update #update-form #pwd-btn>button{
     width: 100px;
     height: 30px;
     
@@ -234,41 +271,39 @@ button{
 
 }
 
-.main-section>.main-content>#profile-update #update-form #phone-input{
+.main-content>#profile-update #update-form #phone-input{
     position: relative;
 }
 
-.main-section>.main-content>#profile-update #update-form #phone-input>div{
+.main-content>#profile-update #update-form #phone-input>div{
     position: absolute;
     left: 0;
     bottom: 0;
 }
 
-.main-section>.main-content>#profile-update #update-form #phone-input select{
-    width: 70px;
-    text-align: center;
-    margin: 0 3px;
-    border-radius: 5px;
-
-}
-.main-section>.main-content>#profile-update #update-form #phone-input input{
-    width: 100px;
+.main-content>#profile-update #update-form #phone-input input{
+    width: 105px;
     text-align: left;
     
-    margin: 0 3px;
-    padding-left: 10px;
+    margin: 0 3px 0 0;
+    padding: 0 10px;
 
     border: 1px solid black;
     border-radius: 5px;
 }
 
+.main-content>#profile-update #update-form #phone-input #front-num{
+    width: 70px;
+    text-align: center;
+    border-radius: 5px;
+}
 
 
-.main-section>.main-content>#profile-update #update-form #gender-input{
+.main-content>#profile-update #update-form #gender-input{
     position: relative;
 }
 
-.main-section>.main-content>#profile-update #update-form #gender-input>div{
+.main-content>#profile-update #update-form #gender-input>div{
     position: absolute;
     left: 0;
     bottom: 0;
@@ -279,21 +314,21 @@ button{
     margin-bottom: 5px;
 }
 
-.main-section>.main-content>#profile-update #update-form #gender-input>div>*{
+.main-content>#profile-update #update-form #gender-input>div>*{
     margin-left: 10px;
     margin-right: 10px;
 }
-.main-section>.main-content>#profile-update #update-form #gender-input>div>div>*{
+.main-content>#profile-update #update-form #gender-input>div>div>*{
     
     margin-bottom: 0;
 
 }
 
-.main-section>.main-content>#profile-update #update-form #email-input{
+.main-content>#profile-update #update-form #email-input{
     position: relative;
 }
 
-.main-section>.main-content>#profile-update #update-form #email-input>div{
+.main-content>#profile-update #update-form #email-input>div{
     bottom: 0;
     left: 0;
     position: absolute;
@@ -301,7 +336,7 @@ button{
     margin-bottom: 5px;
 }
 
-.main-section>.main-content>#profile-update #update-form #email-input>div>input{
+.main-content>#profile-update #update-form #email-input>div>input{
     width: 135px;
     border: 1px solid black;
     border-radius: 5px;
@@ -309,18 +344,26 @@ button{
     padding-left: 10px;
 }
 
-.main-section>.main-content>#profile-update #update-form #like-genre-input>div{
+.main-content>#profile-update #update-form #like-genre-input{
+    position: relative;
+}
+
+.main-content>#profile-update #update-form #like-genre-input>div{
+    position: absolute;
+    top: 35px;
+    left: 0;
+
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 2열로 나누고 각 열의 너비를 동일하게 설정 */
     gap: 10px; /* 버튼 사이의 간격 */
 }
 
-.main-section>.main-content>#profile-update #update-form #like-genre-input>div>button {
+.main-content>#profile-update #update-form #like-genre-input>div>button {
     width: 100%;
 }
 
 /*입력 버튼(3번째 칸)*/
-.main-section>.main-content>#profile-update #update-form .input-btn{
+.main-content>#profile-update #update-form .input-btn{
     width: 130px;
     height: 60px;
     display: flex;
@@ -329,7 +372,7 @@ button{
     align-items: flex-end;
 }
 
-.main-section>.main-content>#profile-update #update-form .input-btn>button{
+.main-content>#profile-update #update-form .input-btn>button{
     width: 90px;
     height: 30px;
 
@@ -340,26 +383,27 @@ button{
     cursor: pointer;
 }
 
-.main-section>.main-content>#profile-update #update-form .input-btn>select{
+
+.main-content>#profile-update #update-form .input-btn>select{
     border: 1px solid black;
     border-radius: 5px;
 }
 
-.main-section>.main-content>#profile-update #update-form .warning-text{
+.main-content>#profile-update #update-form .warning-text{
     height: 17px;
 }
 
 
 
 
-.main-section>.main-content>#profile-update #update-form .warning-text h5{
+.main-content>#profile-update #update-form .warning-text h5{
     text-align: right;
     color: red;
 }
 
 
 
-.main-section>.main-content>#profile-update #submit-btn{
+.main-content>#profile-update #submit-btn{
     width: 100%;
     margin: 20px 0;
 
@@ -367,35 +411,33 @@ button{
     justify-content: flex-end;
 
 }
-.main-section>.main-content>#profile-update #submit-btn>*{
+.main-content>#profile-update #submit-btn>*{
     margin: 0 10px;
 }
 
 
 
-
 /*modal*/
-.-pwd-tag {
+.pwd-tag {
     border: 1px solid #969696;
     padding: 20px;
     margin-bottom: 20px;
-}
-
-.pwd-tag>table {
     width: 100%;
-    margin-right: 20px;
 }
-.pwd-tag>table td{
-    height: 60px;
-    margin: 0 20px;
+.pwd-tag>div{
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 }
 
-.pwd-tag>table th{
+.pwd-tag h3{
     text-align: left;
 }
 
-.pwd-tag>table input {
-    width: 100%;
+.pwd-tag input {
+    width: 40%;
     height: 30px;
     border: none;
     border-bottom: 1px solid black;
