@@ -74,16 +74,15 @@
                         <th>휴대폰 번호</th>
                         <td colspan="6" class="email-container">
                             <div id="td-div">
-                                <span id="phone-prefix-shift2">010</span>
-                                <span id="phone-prefix-shift2">-</span>
-                                <input type="text" id="phone-suffix1" oninput="updatePhoneNumber()">
-                                <span id="phone-prefix-shift2">-</span>
-                                <input type="text" id="phone-suffix2" oninput="updatePhoneNumber()">
+                                <span id="phone-prefix">010</span>
+                                <span>-</span>
+                                <input type="text" id="phone-suffix1">
+                                <span>-</span>
+                                <input type="text" id="phone-suffix2">
                                 <td colspan="1"><input type="button" class="check_button" value="인증번호 전송" onclick="sendPhoneNumber()"></td>
                             </div>
-                        </td>                       
-                    </tr>
-                    
+                        </td>
+                    </tr>                    
                     <tr>
                         <th></th>
                         <td><input type="text"></td>
@@ -92,14 +91,7 @@
                     <tr>
                         <th>생년월일</th>
                         <td class="email-container">
-                            <div id="td-div">
-                                <input type="text" id="birthday-year" placeholder="2024">
-                                <span id="birthday-prefix-shift2">년</span>
-                                <input type="text" id="birthday-month" placeholder="01">
-                                <span id="birthday-prefix-shift2">월</span>
-                                <input type="text" id="birthday-day" placeholder="01">
-                                <span id="birthday-prefix-shift2">일</span>
-                            </div>
+                            <input type="date">
                         </td>   
                     </tr>
                     <tr>
