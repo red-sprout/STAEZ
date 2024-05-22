@@ -142,6 +142,11 @@ span{
     min-width: 68px;
 }
 
+/* 생년월일 */
+input[type="date"]{
+    width: 100%;
+}
+
 /* 중복결과 숨기기 */
 #checkResult{
     display: none;
@@ -244,4 +249,9 @@ input[type="checkbox"] {
 
 #td-div{
     display: flex;
+}
+
+/* 택3 값 화면에 안보여주는거 */
+#genreLike{
+    display: none;
 }

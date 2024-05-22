@@ -31,4 +31,10 @@ public class UserServiceImpl implements UserService{
 		return userDao.nickCheck(sqlSession, checkNick);
 	}
 
+//	회원가입
+	@Override
+	public int insertUser(User u) {
+		return userDao.insertUser(sqlSession, u);
+	}
+
 }
