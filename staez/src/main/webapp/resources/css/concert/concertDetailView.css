@@ -21,14 +21,15 @@ html { font-size:62.5%; }
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 25px;
+    gap: 40px;
     width: 1300px;
-    height: 40px;
+    height: 50px;
     padding-left: 75px;
     padding-bottom: 15px;
     margin: auto;
     text-decoration-line: none;
 }
+
 .concert-ul li:hover a > span {
     color: #B51B75;
 }
