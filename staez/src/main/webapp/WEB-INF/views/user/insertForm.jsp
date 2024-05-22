@@ -36,13 +36,19 @@
                     <tr>
                         <th>닉네임</th>
                         <td colspan="2"><input type="text" placeholder="8~16자" name="nickname" id="nickname"></td>
-                        <td><input type="button" class="check_button" value="중복검사" ></td>
+                        <td><input type="button" class="check_nickname" value="중복검사" ></td>
                     </tr>                  
                     <tr>
                         <th>아이디</th>
                         <td colspan="2"><input type="text" placeholder="8~16자" name="userId" id="userId"></td>
-                        <td><input type="button" class="check_button" value="중복검사" ></td>
+                        <td><input type="button" id="checkButton" class="check_userId" value="중복검사"></td>
                     </tr>
+                    <tr>
+                        <td colspan="4">
+                            <div id="checkResult"></div>
+                        </td>
+                    </tr>
+                    
                     <tr>
                         <th>비밀번호
                         </th>
@@ -114,11 +120,12 @@
                     <tr>
                         <th>성별</th>
                         <td colspan="2">
-                            <input type="checkbox" name="gender" value="남" id="man">
-                            <label for="man" id="label-man">남</label>
-                            <input type="checkbox" name="gender" value="여" id="female">
-                            <label for="female">여</label>
+                            <input type="radio" id="Male" value="M" name="gender" checked>
+                            <label for="Male">남자</label> &nbsp;&nbsp;
+                            <input type="radio" id="Female" value="F" name="gender">
+                            <label for="Female">여자</label> &nbsp;&nbsp;
                         </td>
+                        
                     </tr>
                     <tr>
                         <th>주소</th>
@@ -132,13 +139,13 @@
                     <tr>
                         <th>관심장르(택3)</th>
                         <td colspan="4" id="genre-buttons">
-                            <button class="btn-staez3" data-genre="클래식"><h3>클래식</h3></button>
-                            <button class="btn-staez3" data-genre="국악"><h3>국악</h3></button>
-                            <button class="btn-staez3" data-genre="대중음악"><h3>대중음악</h3></button>
-                            <button class="btn-staez3" data-genre="기타"><h3>기타</h3></button>
-                            <button class="btn-staez3" data-genre="뮤지컬"><h3>뮤지컬</h3></button>
-                            <button class="btn-staez3" data-genre="연극"><h3>연극</h3></button>
-                            <button class="btn-staez3" data-genre="서커스/마술"><h3>서커스/마술</h3></button>
+                            <button type="button" class="btn-staez3" data-genre="클래식"><h3>클래식</h3></button>
+                            <button type="button" class="btn-staez3" data-genre="국악"><h3>국악</h3></button>
+                            <button type="button" class="btn-staez3" data-genre="대중음악"><h3>대중음악</h3></button>
+                            <button type="button" class="btn-staez3" data-genre="기타"><h3>기타</h3></button>
+                            <button type="button" class="btn-staez3" data-genre="뮤지컬"><h3>뮤지컬</h3></button>
+                            <button type="button" class="btn-staez3" data-genre="연극"><h3>연극</h3></button>
+                            <button type="button" class="btn-staez3" data-genre="서커스/마술"><h3>서커스/마술</h3></button>
                         </td>
                     </tr>
                 </table>
