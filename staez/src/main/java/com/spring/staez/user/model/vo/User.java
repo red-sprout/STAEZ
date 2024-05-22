@@ -29,5 +29,4 @@ public class User {
 	private Timestamp enrollDate; //가입날짜
 	private Timestamp withdrawalDate; //탈퇴날짜
 	private String userStatus; //회원상태
-
 }

@@ -85,7 +85,7 @@
                             </span>
                         </div>       
                     </div>  
-                    <div class="my-reserve-info">
+                    <div class="my-reserve-info plus-css">
                         <div class="my-reserve-time">
                             <div><span>선택좌석</span></div>
                             <span class="my-reserve-time-value">
@@ -106,7 +106,7 @@
                         <img src="${contextPath}/resources/img/concert/nextArrow.png" alt=""> 
                         <span>이전단계</span>
                     </div>
-                    <div class="next-step-area"  onclick="location.href='selectMember.co'">
+                    <div class="next-step-area"  onclick="location.href='selectPayment.co'">
                         <span>다음단계</span>
                         <img src="${contextPath}/resources/img/concert/nextArrow.png" alt=""> 
                     </div>

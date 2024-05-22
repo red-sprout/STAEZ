@@ -1,1 +1,500 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+.container{
+    width: 1000px;
+    height: 600px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.reserve-step-area-top{
+    width: 100%;
+    height: 20%;
+    background: #4D4D4D;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.reserve-step-area-top>span{
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    color: white;
+}
+
+.reserve-step-area{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.reserve-step-area div{
+    width: 25%;
+    height: 100%;
+    background: #D9D9D9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.reserve-step-area div>span{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.reserve-step-area div:nth-child(4){
+    background: #E65C19;
+}
+
+.reserve-step-content-area{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.reserve-step-content-area{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.reserve-step-area{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.reserve-step-area div{
+    width: 25%;
+    height: 100%;
+    background: #D9D9D9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.reserve-step-area div>span{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.reserve-step-content-area{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+
+.next-and-back-area{
+    width: 100%;
+    height: 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.next-step-area{
+    width: 48%;
+    height: 100%;
+    background: #E65C19;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.back-step-area{
+    width: 48%;
+    height: 100%;
+    background: #5D5D5D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.back-step-area:hover{
+    opacity: 1;
+}
+
+.next-step-area:hover{
+    opacity: 1;
+}
+
+.next-step-area>img{
+    width: 12px;
+    position: absolute;
+    top: 30%;
+    right: 5px;
+}
+
+.next-step-area span{
+    font-size: 18px;
+    color: white;
+}
+
+.back-step-area>img{
+    width: 12px;
+    position: absolute;
+    top: 30%;
+    left: 5px;
+    transform: rotate(180deg);
+}
+
+.back-step-area span{
+    font-size: 18px;
+    color: white;
+}
+
+.orderer-reserver-area{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.my-reserve-info-area{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.my-reserve-info-top{
+    width: 100%;
+    height: 20%;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 1px;
+}
+
+.my-reserve-info{
+    width: 100%;
+    height: 80%;
+    border-top: 3px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.plus-css{
+    border-top: none;
+}
+
+.my-reserve-info div:nth-child(1){
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.my-reserve-info div:nth-child(2){
+    width: 100%;
+    height: 100%; 
+    display: flex;
+    align-items: center;
+}
+
+.my-reserve-info div:nth-child(1)>div{
+    width: 30%;
+    height: 100%;
+    background: #d9d9d9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+}
+
+.my-reserve-info div:nth-child(2)>div{
+    width: 30%;
+    height: 100%;
+    background: #d9d9d9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+}
+
+.my-reserve-info div div span{
+    text-align: center;
+}
+
+.my-reserve-time{
+    border-bottom: 1px solid #969696;
+}
+
+.my-reserve-choice-seat{
+    border-bottom: 1px solid #969696;
+}
+
+.my-reserve-choice-seat-value span{
+    line-height: 1;
+}    
+
+.my-reserve-choice-seat-value{
+    height: 40%;
+    width: 57%;
+    display: flex;
+    align-items: center;
+}
+
+.total-payment-amount-area{
+    width: 100%;
+    height: 8%;
+    border: 1px solid black;
+    background: #969696;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 0px 10px;
+}
+
+.total-payment-amount-area span{
+    color: white;
+}
+
+.concert-reserve-info-area{
+    width: 100%;
+    height: 35%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.concert-reserve-info-area img{
+    width: 42%;
+}
+
+.concert-reserve-info-content{
+    width: 55%;
+    height: 100%;
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.concert-reserve-info-content span:nth-child(1){
+    font-size: 15px;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.concert-reserve-info-content span:nth-child(2){
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.concert-reserve-info-content span:nth-child(3){
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.concert-reserve-info-content span:nth-child(4){
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.concert-reserve-info-content span:nth-child(5){
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.concert-reserve-area{
+    height: 100%;
+    width: 30%;  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+} 
+
+#amount{
+    font-size: 24px;
+    font-weight: 700;
+    color: #F8D082;
+    margin-right: 3px;
+}
+
+.orderer-reserver-area>div:nth-child(1){
+    width: 30%;
+    height: 100%;
+    padding-right: 15px;
+    padding-top: 10px;
+}
+
+.orderer-reserver-area>div:nth-child(2){
+    width: 1%;   
+    height: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.orderer-reserver-area>div:nth-child(3){
+    width: 69%;
+    height: 100%;
+    padding: 10px;
+    padding-left: 20px;
+}
+
+.receive-way-area>span{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.receive-way-box{
+    width: 100%;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    border-top: 3px solid black;
+    background: #d9d9d9;
+    margin-top: 5px;
+    padding: 0px 10px;
+}
+
+.check-div{
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.check-div>div{
+    width: 10px;
+    height: 10px;
+    border-radius: 50px;
+    background: black;
+}
+
+.line{
+    position: relative;
+}
+
+.line>img{
+    position: absolute;
+    width: 30px;
+    top: 45px;
+    right: -14px;
+    background: white;
+}
+
+.line>div{
+    width: 20%;
+    height: 100%;
+    background: black;
+}
+
+.reservation-check-area>span{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.reservation-input-area{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+
+.reservation-input-area>div{
+    width: 100%;
+    height: 35px;
+    border-bottom: 1px solid #969696;
+    display: flex;
+    align-items: center;
+}
+
+.reservation-input-area>div:nth-child(1){
+    border-top: 3px solid black;
+    background: #d9d9d9;
+    padding: 0px 20px;
+}
+
+.reservation-input-area>div:nth-child(1)>span:nth-child(1){
+    color: red;
+    font-size: 25px;
+    margin-right: 5px;
+    font-weight: 900;
+    padding-bottom: 5px;
+}
+
+.reservation-input-area>div:nth-child(1)>span:nth-child(2){
+    font-size: 17px;
+    padding-bottom: 1px;
+}
+
+.deposit-amount-area>div{
+    width: 120px;
+    height: 100%;
+    background: #E8E8E8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.deposit-bank-area>div{
+    width: 120px;
+    height: 100%;
+    background: #E8E8E8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.deposit-closing-time-area>div{
+    width: 120px;
+    height: 100%;
+    background: #E8E8E8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.deposit-name-area>div{
+    width: 120px;
+    height: 100%;
+    background: #E8E8E8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+
+
+
+

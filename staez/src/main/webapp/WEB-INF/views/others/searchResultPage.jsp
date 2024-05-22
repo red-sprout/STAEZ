@@ -22,7 +22,7 @@
             <span>공연정보(7)</span>
             <div class="paging-area-container">
                 <div id="paging-area">
-                    <a href="" id="paging-tag">
+                    <a onclick="location.href='searchResult.co'" id="paging-tag">
                         <span>더보기 +</span>
                     </a>
                 </div>
@@ -30,7 +30,7 @@
         </div>
         <div class="concert-search-result-area">
             <div class="concert-search-result-info">
-                <a href=""><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
+                <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
                 <div class="concert-search-result-content-info">
                     <span class="concert-search-result-content-span1">뮤지컬</span>
                     <span class="concert-search-result-content-span2">[시카고]</span>
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="concert-search-result-info">
-                <a href=""><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
+                <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
                 <div class="concert-search-result-content-info">
                     <span class="concert-search-result-content-span1">뮤지컬</span>
                     <span class="concert-search-result-content-span2">[시카고]</span>
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="concert-search-result-info">
-                <a href=""><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
+                <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
                 <div class="concert-search-result-content-info">
                     <span class="concert-search-result-content-span1">뮤지컬</span>
                     <span class="concert-search-result-content-span2">[시카고]</span>
@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div class="concert-search-result-info">
-                <a href=""><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
+                <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
                 <div class="concert-search-result-content-info">
                     <span class="concert-search-result-content-span1">뮤지컬</span>
                     <span class="concert-search-result-content-span2">[시카고]</span>
@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="concert-search-result-info">
-                <a href=""><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
+                <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
                 <div class="concert-search-result-content-info">
                     <span class="concert-search-result-content-span1">뮤지컬</span>
                     <span class="concert-search-result-content-span2">[시카고]</span>
@@ -81,7 +81,7 @@
             </div> 
         </div>
         <hr class="hr-line">
-        <a href="" class="community-bulletin-search-result-a-area">
+        <a onclick="location.href='detail.cm'" class="community-bulletin-search-result-a-area">
             <div class="community-bulletin-search-result-area">
                 <div class="user-profile-area">
                     <img class="user-profile-img" src="" alt="">
@@ -104,7 +104,7 @@
             </div>
         </a>
         <hr class="hr-line">
-        <a href="" class="community-bulletin-search-result-a-area">
+        <a onclick="location.href='detail.cm'" class="community-bulletin-search-result-a-area">
             <div class="community-bulletin-search-result-area">
                 <div class="user-profile-area">
                     <img class="user-profile-img" src="" alt="">
@@ -127,7 +127,7 @@
             </div>
         </a>
         <hr class="hr-line">
-        <a href="" class="community-bulletin-search-result-a-area">
+        <a onclick="location.href='detail.cm'" class="community-bulletin-search-result-a-area">
             <div class="community-bulletin-search-result-area">
                 <div class="user-profile-area">
                     <img class="user-profile-img" src="" alt="">
