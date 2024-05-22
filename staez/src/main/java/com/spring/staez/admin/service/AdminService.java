@@ -1,8 +1,9 @@
 package com.spring.staez.admin.service;
 
-import org.springframework.stereotype.Service;
+import com.spring.staez.community.model.vo.Board;
 
-@Service
-public class AdminService {
+public interface AdminService {
+
+	int faqIncert(Board b);
 
 }
