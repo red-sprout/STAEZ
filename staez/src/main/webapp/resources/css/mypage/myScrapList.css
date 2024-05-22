@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
 
+button{
+    border: none;
+    background: none;
+}
+
 main>.title{
     width: 1250px;
     height: 120px;
@@ -80,6 +85,10 @@ main>.main-section>.side>.side-menu>ul>li{
     padding-left: 15px;
 }
 
+.main-section>.side>.side-menu>ul>li>a:hover{
+    text-decoration: underline;
+}
+
 main>.main-section>.side>.side-menu>ul>.side-menu-title{
     font-weight: 600;
 }
@@ -93,6 +102,8 @@ main>.main-section>.main-content{
     flex-direction: column;
     align-items: center;
     justify-content: start;
+
+    position: relative;
 }
 
 /*콘텐츠 제목*/
@@ -115,7 +126,7 @@ main>.main-section>.main-content>table{
     width: 820px;
     height: auto;
 
-    margin: 0 0 40px 0;
+    margin: 0 0 60px 0;
 
     border-top: solid 2px black;
 

@@ -1,5 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
 
+table{
+    border-collapse: collapse;
+    border-top: 2px solid black;
+    border-bottom: 1px solid black;
+}
+
+button{
+    border: none;
+    background: none;
+}
+
 .title{
     width: 1250px;
     height: 120px;
@@ -80,6 +91,10 @@
     width: 250px;
     height: 40px;
     padding-left: 15px;
+}
+
+.main-section>.side>.side-menu>ul>li>a:hover{
+    text-decoration: underline;
 }
 
 .main-section>.side>.side-menu>ul>.side-menu-title{

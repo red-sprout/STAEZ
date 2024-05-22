@@ -26,7 +26,8 @@
                 <div class="profile">
                     <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
                     <div id="profile-text">
-                        <span>00님</span><br>
+                        <span>[아이디]</span>
+                        <span>님</span><br>
                         <span>환영합니다</span>
                     </div>
                 </div>
@@ -71,6 +72,7 @@
                                 <img src="${contextPath}/resources/img/mypage/star-filled.png" alt=""> 
                                 <h4>5</h4>
                             </span>
+                            <button class="hidden" type="button" data-toggle="modal" data-target="#myModal"><h4>수정</h4></button>
                         </td>
                     </tr>
                     <tr>
@@ -85,18 +87,7 @@
                             <button type="button" data-toggle="modal" data-target="#myModal"><h4>후기작성</h4></button>
                         </td>
                     </tr>
-                    <tr>
-                        <td id="concert-img">
-                            <img src="${contextPath}/resources/img/mypage/chicago.gif" alt="">
-                        </td>
-                        <td id="content">
-                            <h3>꽃 별이지나</h3>
-                            <h4>꽃이 왜 별이죠. 공감못하겠으니 5점 드립니다.</h4>
-                        </td>
-                        <td id="review-func">
-                            <button type="button" data-toggle="modal" data-target="#myModal"><h4>수정</h4></button>
-                        </td>
-                    </tr>
+  
                 </table>
 
                 <div class="page-list">

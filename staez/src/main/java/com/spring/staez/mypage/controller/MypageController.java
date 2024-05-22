@@ -49,8 +49,8 @@ public class MypageController {
 	}
 	
 	@RequestMapping("updateForm.me")
-	public String updateInfoForm(Model model) {
-		return "mypage/updateInfoForm";
+	public String updateUserForm(Model model) {
+		return "mypage/updateUserForm";
 	}
 	
 	@RequestMapping("inquireList.me")
