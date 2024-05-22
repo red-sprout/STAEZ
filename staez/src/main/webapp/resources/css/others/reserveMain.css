@@ -32,6 +32,7 @@ main{
 
 .popularity-concert-container{
     width: 1300px;
+    position: relative;
 }
 
 .popularity-concert-head{
@@ -43,14 +44,15 @@ main{
 }
 
 #popularity-concert-category-box{
-    width: 60px;
     height: 24px;
     border: 1px solid black;
     border-radius: 5px;
     font-size: 10px;
+    font-weight: 900;
     position: absolute;
     left: 100px;
     bottom: 4px;
+    text-align: center;
 }
 
 #popularity-concert-category-box:focus{
@@ -61,6 +63,7 @@ main{
     font-size: 23px;
     margin-right: 10px;
     text-align: center;
+    font-weight: 800;
 }
 
 .popularity-concert-category-area{
@@ -102,20 +105,19 @@ main{
 
 .popularity-concert-information-area{
     width: 1300px;
-    height: 330px;
-    position: relative;
+    height: 400px;
     display: flex;
     align-items: center;
+    overflow: hidden; 
 }
 
 .popularity-concert-information-slider{
     display: flex;
     align-items: center;
-    overflow: hidden; 
-    height: 330px;
+    height: 400px;
     gap: 40px;
     padding: 0px 20px;
-    /* transition: transform 0.5s ease; 나중 스크립트 할때 사용할거 */
+    transition: transform 0.5s ease-in-out;
 }
 
 
@@ -137,6 +139,33 @@ main{
     transform: scale(1.1);
 }
 
+.concert-search-result-content-info{
+    width: 220px;
+    height: 43px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.concert-search-result-content-span1{
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.concert-search-result-content-span2{
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.concert-search-result-content-span3{
+    font-weight: 300;
+}
+
+.hidden{
+    display: none;
+}
+
 .slider-btn{
     width: 50px;
     height: 50px;
@@ -147,7 +176,7 @@ main{
 }
 
 .slider-btn>img{
-    -webkit-transition: .3s ease-in-out;
+    -webkit-transition: .5s ease-in-out;
 }
 
 .slider-btn>img:hover{
@@ -158,17 +187,20 @@ main{
     position: absolute;
     top: 50%;
     left: -60px; 
+    z-index: 1;
 }
 
 .right-btn{
     position: absolute;
     top: 50%;
     right: -60px; 
+    z-index: 1;
 }
 
 .latest-concert-container{
     width: 1300px;
     margin-top: 50px;
+    position: relative;
 }
 
 .latest-concert-head{
@@ -180,14 +212,16 @@ main{
 }
 
 #latest-concert-category-box{
-    width: 60px;
     height: 24px;
     border: 1px solid black;
     border-radius: 5px;
     font-size: 10px;
+    font-weight: 900;
     position: absolute;
     left: 100px;
     bottom: 4px;
+    text-align: center;
+    
 }
 
 #latest-concert-category-box:focus{
@@ -198,6 +232,7 @@ main{
     font-size: 23px;
     margin-right: 10px;
     text-align: center;
+    font-weight: 800;
 }
 
 .latest-concert-category-area{
@@ -209,19 +244,20 @@ main{
 
 .latest-concert-information-area{
     width: 1300px;
-    height: 330px;
+    height: 400px;
     position: relative;
     display: flex;
     align-items: center;
+    overflow: hidden; 
 }
 
 .latest-concert-information-slider{
     display: flex;
     align-items: center;
-    overflow-x: hidden; 
-    height: 330px;
+    height: 400px;
     gap: 40px;
     padding: 0px 20px;
+    transition: transform 0.5s ease-in-out;
     /* transition: transform 0.5s ease; 나중 스크립트 할때 사용할거 */
 }
 
@@ -323,6 +359,7 @@ main{
 .popularity-bulletin-hr{
     width: 180px;
     border: 1px solid #969696;
+    margin: 0;
 }
 
 .popularity-bulletin-detail-content>p{
@@ -351,7 +388,7 @@ main{
 }
 
 .heart-count-area>img{
-    width: 23px;
+    width: 20px;
     margin-top: 4px;
 }
 

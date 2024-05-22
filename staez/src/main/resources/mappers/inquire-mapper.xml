@@ -5,13 +5,34 @@
 
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
 <mapper namespace="inquireMapper">
-	<!-- 
-		<resultMap type="mybatis-config.xml의 alias값" id="객체명Result 형태">
-			<result column="user_no" property="userNo" />
-		</resultMap>
-	 -->
+	
+	<resultMap type="Category" id="categoryResult">
+ 		<result column="category_no" property="categoryNo" />
+ 		<result column="ref_category_no" property="refCategoryNo" />
+ 		<result column="category_name" property="categoryName" />
+ 		<result column="category_level" property="categoryLevel" />
+	</resultMap>
 
-	<!-- db의 컬럼과 객체의 필드명이 완전히 같다면 resultType사용 가능 -->
+	<select id="selectCategory" resultMap="categoryResult">
+		select category_no, category_name
+		from category
+		where ref_category_no = 3
+	</select>	
+	
+	<insert id="insertBoard">
+		insert into board values(
+							default,
+							null,
+							#{userNo}, 
+							default, 3, 
+							default, 
+							#{boardTitle}, 
+							#{boardContent}, 
+							default, 
+							default
+							)
+	</insert>
+	
 	
 </mapper>
 
