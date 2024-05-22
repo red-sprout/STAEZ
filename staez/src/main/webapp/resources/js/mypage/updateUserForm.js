@@ -1,6 +1,8 @@
 function init() {
     updateCombinedAddress();
     updateCombinedPhone();
+    emailDomain(); // Initialize email input fields on page load
+
 }
 
 // 회원정보 변경 전 비밀번호 인증
@@ -16,11 +18,6 @@ function checkPassword() {
     }
 }
 
-//닉네임 중복확인 ajax
-
-
-
-
 //비밀번호 변경
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -28,23 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+//닉네임 중복확인 ajax
 
-
-//이메일 도메인 select설정
-const emailDomain = () => {
-    const domain = document.querySelector("select[name='domain']");
-    const emailBack = document.querySelector("#email-back");
-
-    emailBack.value = "";
-    
-    if(domain.value !== 'self-input'){ //'직접입력'이 아닐경우
-        emailBack.value = domain.options[domain.selectedIndex].value;
-        emailBack.readOnly = true;
-    } else{
-        emailBack.readOnly = false;
-        emailBack.focus();        
-    }
-}
 
 //관심장르 선택
 document.addEventListener('DOMContentLoaded', () => {
@@ -144,6 +126,37 @@ function updateCombinedPhone() {
     phone.value = "010" + input1 + input2;
 }
 
+// 이메일 필드 값 변경 시 호출되는 함수
+function updateCombinedEmail() {
+    const emailFront = document.getElementById('email-front').value;
+    const emailBack = document.getElementById('email-back').value;
+    const selectElement = document.querySelector("select[name='domain']");
+    const combinedEmail = document.querySelector("input[name='email']");
+
+    if (selectElement.value === 'self-input') {
+        combinedEmail.value = emailFront + '@' + emailBack;
+    } else {
+        combinedEmail.value = emailFront + '@' + selectElement.value;
+    }
+}
+
+//이메일 도메인 select설정
+function emailDomain() {
+    const selectElement = document.querySelector("select[name='domain']");
+    const emailBack = document.getElementById('email-back');
+
+    if (selectElement.value === 'self-input') {
+        emailBack.removeAttribute('readonly');
+        emailBack.value = '';
+        emailBack.focus();        
+
+    } else {
+        emailBack.setAttribute('readonly', true);
+        emailBack.value = selectElement.value;
+    }
+
+    updateCombinedEmail(); // Update combined email value whenever the domain changes
+}
 
 
 // 페이지가 로드되면 init 함수를 호출하여 초기 값을 설정

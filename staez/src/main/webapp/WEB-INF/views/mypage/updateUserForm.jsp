@@ -152,7 +152,7 @@
                                     <tr>
                                         <th></th>
                                         <td class="input-box">
-                                            <input type="text" placeholder="상세주소를 입력하세요" id="addressDetail" onchange="updateCombinedAddress()" readonly required>
+                                            <input type="text" placeholder="상세주소를 입력하세요" id="addressDetail" oninput="updateCombinedAddress()" readonly required>
                                         </td>
                                         <td></td>
                                     </tr>
@@ -163,8 +163,8 @@
                                         <td id="phone-input">
                                             <div>
                                                 <input id="front-num" type="text" maxlength="3" value="010" readonly>
-                                                <input id="phone1" type="text" value="" minlength="4" maxlength="4" onchange="updateCombinedPhone()">
-                                                <input id="phone2" type="text" value="" minlength="4" maxlength="4" onchange="updateCombinedPhone()">
+                                                <input id="phone1" type="text" value="" minlength="4" maxlength="4" oninput="updateCombinedPhone()">
+                                                <input id="phone2" type="text" value="" minlength="4" maxlength="4" oninput="updateCombinedPhone()">
                                             </div>
                                         </td>
                                         <input type="text" name="phone" readonly hidden>
@@ -189,13 +189,13 @@
                                         <th><h3>이메일</h3></th>
                                         <td id="email-input">
                                             <div>
-                                                <input type="text" id="email-front"> 
+                                                <input type="text" id="email-front" oninput="updateCombinedEmail()" required> 
                                                 <span>@</span>
-                                                <input type="text" id="email-back">
+                                                <input type="text" id="email-back" oninput="updateCombinedEmail()" required>
                                             </div>
                                         </td>
                                         <td class="input-btn">
-                                            <select name="domain" id="" onchange="emailDomain()">
+                                            <select name="domain" onchange="emailDomain()">
                                                 <option value="self-input">직접입력</option>
                                                 <option value="naver.com">네이버</option>
                                                 <option value="google.com">구글</option>
@@ -203,6 +203,7 @@
                                             </select>
                                         </td>
                                     </tr>
+                                    <input type="text" name="email" readonly hidden>
 
                                     <tr>
                                         <th rowspan="2"><h3>관심장르(택3)</h3></th>
@@ -254,14 +255,20 @@
                             <div></div>
                             <div>
                                 <h3>변경할 비밀번호</h3>
-                                <input type="password">
+                                <input type="password" placeholder="영문 숫자 특수문자 포함 16글자 이내 ">
                             </div>
-                            <div class="pwd-check"></div>
+                            <div class="pwd-check">
+                                <span></span>
+                                <h5>올바르지 못한 형식입니다</h5>                                
+                            </div>
                             <div>
                                 <h3>비밀번호 확인</h3>
                                 <input type="password">
                             </div>
-                            <div class="pwd-check"></div>
+                            <div class="pwd-check">
+                                <span></span>
+                                <h5>비밀번호가 일치하지 않습니다</h5>
+                            </div>
                         </div>
                     </div>
                     
