@@ -21,14 +21,15 @@ html { font-size:62.5%; }
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 25px;
+    gap: 40px;
     width: 1300px;
-    height: 40px;
+    height: 50px;
     padding-left: 75px;
     padding-bottom: 15px;
     margin: auto;
     text-decoration-line: none;
 }
+
 .concert-ul li:hover a > span {
     color: #B51B75;
 }
@@ -138,6 +139,7 @@ html { font-size:62.5%; }
 }
 
 /* 공연상세페이지 아래 navi(공연상세정보, 판매정보, 한줄평, 관람후기) */
+
 .concert-down-ul{
     display: flex;
     flex-direction: row;
@@ -149,10 +151,8 @@ html { font-size:62.5%; }
 .concert-detail-hr{
     align-self: center;
     width: 80%;
-    height: 3px;
     background: black;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0 auto;
 }
 
 /* 달력 */

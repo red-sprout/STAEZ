@@ -12,6 +12,23 @@
  		<result column="category_name" property="categoryName" />
  		<result column="category_level" property="categoryLevel" />
 	</resultMap>
+	<resultMap type="Board" id="boardResult">
+		<result column="board_no" property="boardNo" />
+		<result column="ref_board_no" property="refBoardNo" />
+		<result column="user_no" property="userNo" />
+		<result column="board_level" property="boardLevel" />
+		<result column="board_code" property="boardCode" />
+		<result column="board_write_date" property="boardWriteDate" />
+		<result column="board_title" property="boardTitle" />
+		<result column="board_content" property="boardContent" />
+		<result column="board_count" property="boardCount" />
+		<result column="board_status" property="boardStatus" />
+		<result column="category_no" property="categoryNo" />
+		<result column="category_name" property="cateogtName" />
+		<result column="ref_category_no" property="refCategoryNo" />
+		<result column="category_level" property="categoryLevel" />
+		<result column="concert_no" property="concertNo" />
+	</resultMap>
 
 	<select id="selectCategory" resultMap="categoryResult">
 		select category_no, category_name
@@ -20,19 +37,43 @@
 	</select>	
 	
 	<insert id="insertBoard">
-		insert into board values(
-							default,
-							null,
-							#{userNo}, 
-							default, 3, 
-							default, 
+		insert into board (
+							user_no,
+							board_code,
+							board_title,
+							board_content
+							)
+							values(						
+							#{userNo}, 					
+							3, 			
 							#{boardTitle}, 
-							#{boardContent}, 
-							default, 
-							default
+							#{boardContent}
 							)
 	</insert>
 	
+	<insert id="insertBoardCategory">
+		insert into board_category (
+									board_no,
+									category_no
+									)
+									values(
+									currval('board_board_no_seq'::regclass),
+									#{cNo}
+									)
+	</insert>
+	
+	<select id="selectFaq" resultMap="boardResult">
+		select board_no, board_title, board_content, category_name
+		from board, (select category_name  
+						from category 
+						join board_category bc using (category_no)
+						join board b using (board_no)
+						where b.board_code = 4
+						and b.board_Level = 1
+						and b.board_status = 'Y')
+		where board_code = 4
+		and	board_Level = 1;
+	</select>
 	
 </mapper>
 

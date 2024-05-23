@@ -40,12 +40,30 @@ public class InquireController {
 		return  new Gson().toJson(categorys);
 	}
 	
-	@PostMapping
-	public String insertInquire(HttpSession session, Board b, Category c, int categoryNo) {
-		int result = iService.insertInquire(b, c, categoryNo);
+	@PostMapping("insert.iq")
+	public String insertInquire(HttpSession session, Board b, String categoryNo) {
+		int cNo = Integer.parseInt(categoryNo);
 		
-		return null;
+		int result = iService.insertInquire(b, cNo);
+		
+		if(result < 1) {
+			session.setAttribute("alertMsg", "문의등록실패");
+		} else {
+			session.setAttribute("alertMsg", "문의등록완료");
+		}
+		
+		return "redirect:/insertForm.iq";
 	}
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxSelectFaq.iq" , produces="application/json; charset-UTF-8")
+	public String ajaxSelectFaq() {
+		ArrayList<Board> faqs = iService.ajaxSelectFaq();
+		
+		System.out.println(faqs);
+		return  new Gson().toJson(faqs);
+	}
+	
 	
 		
 	
