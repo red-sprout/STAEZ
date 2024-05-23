@@ -5,17 +5,24 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.staez.concert.service.ConcertService;
 
 @Controller
 public class ConcertController {
 	
-	@Autowired
+
 	private ConcertService concertService;
 	
-	@GetMapping("main.co")
-	public String concertMain(String category, HttpSession session) {
+//	private int	categoryNo; //카테고리번호
+//	private int refCategoryNo; //상위카테고리번호
+//	private String categoryName; //카테고리이름
+//	private int categoryLevel; //카테고리레벨
+	
+	@RequestMapping("main.co")
+	public String concertMain(@RequestParam(value="categoryName", defaultValue="뮤지컬") String category, HttpSession session) {
 		
 		
 		// category로 찾으러가서 값 가져와서 출력
