@@ -1,0 +1,48 @@
+function faqCategoryName(callback){
+    $.ajax({
+        url : "ajaxSelectCategory.iq",
+        success : function(result){
+            callback(result);
+        },error : function(){
+            console.log("실패")
+        }
+    })
+}
+
+function selectFaq(callback){
+    $.ajax({
+        url : "ajaxSelectFaq.iq",
+        success : function(result){
+            callback(result)
+        },error : function(){
+            console.log("실패")
+        }
+    })
+}
+
+function drawFaqContent(data, callback){
+    console.log(data)
+    $.ajax({
+        url : "ajaxCategoryFaq.iq",
+        data : data,
+        success : function(result){
+            console.log(result)
+            callback(result);
+        }, error : function(){
+            console.log("실패");
+        }
+    })
+}
+
+function faqSearch(data, callback){
+    console.log(data)
+    $.ajax({
+        url : "ajaxSearchSelectFaq.iq",
+        data : data,
+        success : function(result){
+            callback(result);
+        },error : function(){
+            console.log("실패");
+        }
+    })
+}

@@ -14,4 +14,8 @@ public interface InquireService {
 	int insertInquire(Board b, int categoryNo);
 	
 	ArrayList<Board> ajaxSelectFaq();
+	
+	ArrayList<Board> ajaxSearchSelectFap(String option, String content);
+	
+	ArrayList<Board> ajaxSelectCategoryFaq(String categoryName);
 }

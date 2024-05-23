@@ -14,6 +14,8 @@
 <body>
 	<header>
         <jsp:include page="../common/header.jsp" />
+        <script src="${contextPath}/resources/js/api/inquireapi.js"></script>
+        <script src="${contextPath}/resources/js/inquire/inquireInsertForm.js"></script>
     </header>
     <main>
         <div id="customer-service-content-area">
@@ -44,7 +46,6 @@
         </form> 
      
     </main>
-    <script src="${contextPath}/resources/js/inquire/inquireInsertForm.js"></script>
     <footer>
     	<jsp:include page="../common/footer.jsp" />
     </footer>
