@@ -5,7 +5,7 @@
 
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
 <mapper namespace="adminMapper">
-		<!-- <resultMap type="Board" id="boardResult">
+	<resultMap type="Board" id="boardResult">
 		<result column="board_no" property="userNo" />
 		<result column="refBoardNo" property="userId" />
 		<result column="user_pwd" property="userPwd" />
@@ -20,11 +20,26 @@
 		<result column="enroll_date" property="enrollDate" />
 		<result column="withdrawal_date" property="withdrawalDate" />
 		<result column="user_status" property="userStatus" />
-	</resultMap> -->
+	</resultMap>
+	<resultMap type="Category" id="categoryResult">
+		<result column="category_no" property="categoryNo"/>
+		<result column="ref_category_no" property="refCategoryNo"/>
+		<result column="category_name" property="categoryName"/>
+		<result column="category_level" property="categoryLevel"/>
+	</resultMap>
 
-	<!-- db의 컬럼과 객체의 필드명이 완전히 같다면 resultType사용 가능 -->
+	<select id="selectFaqCategory" resultMap="categoryResult">
+		SELECT
+			category_no,
+			ref_category_no,
+			category_name,
+			category_level
+		FROM category
+		WHERE ref_category_no = #{refCategoryNo}
+	</select>
+	
 	<insert id="faqIncert">
-		INSERT INTO BOARD
+		INSERT INTO board
 		(
 			user_no,
 			board_code,
@@ -35,6 +50,17 @@
 			#{boardCode},
 			#{boardTitle},
 			#{boardContent}
+		)
+	</insert>
+	
+	<insert id="faqCategoryIncert" parameterType="_int">
+		INSERT INTO board_category
+		(
+			board_no,
+			category_no
+		) values (
+			CURRVAL('board_board_no_seq'::regclass),
+			#{categoryNo}
 		)
 	</insert>
 </mapper>
