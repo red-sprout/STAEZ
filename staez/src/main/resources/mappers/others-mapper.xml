@@ -5,13 +5,64 @@
 
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
 <mapper namespace="othersMapper">
-	<!-- 
-		<resultMap type="mybatis-config.xml의 alias값" id="객체명Result 형태">
-			<result column="user_no" property="userNo" />
-		</resultMap>
-	 -->
 
-	<!-- db의 컬럼과 객체의 필드명이 완전히 같다면 resultType사용 가능 -->
+	<resultMap type="Concert" id="concertResult">
+	    <result column="concert_no" property="concertNo"/>
+	    <result column="theater_no" property="theaterNo"/>
+	    <result column="concert_title" property="concertTitle"/>
+	    <result column="concert_plot" property="concertPlot"/>
+	    <result column="concert_runtime" property="concertRuntime"/>
+	    <result column="concert_members" property="concertMembers"/>
+	    <result column="concert_production" property="concertProduction"/>
+	    <result column="age_limit" property="ageLimit"/>
+	    <result column="update_date" property="updateDate"/>
+	    <result column="concert_status" property="concertStatus"/>
+	    <result column="change_name" property="changeName"/>
+	    <result column="file_path" property="filePath"/>
+   </resultMap>
+	
+	<resultMap type="Category" id="categoryResult">
+ 		<result column="category_no" property="categoryNo" />
+ 		<result column="ref_category_no" property="refCategoryNo" />
+ 		<result column="category_name" property="categoryName" />
+ 		<result column="category_level" property="categoryLevel" />
+	</resultMap>
+	
+	
+	<select id="selectCategory" resultMap="categoryResult">
+		select category_no, category_name
+		from category
+		where ref_category_no = 1
+	</select>	
+	
+	<select id="selectCategoryConcert" resultMap="concertResult">
+		select 
+		    c.concert_no, 
+		    c.concert_title, 
+		    cs.start_date, 
+		    cs.end_date, 
+		    cg.category_name, 
+		    ca.file_path, 
+		    ca.change_name
+		from (select 
+				cl.concert_no, 
+				count(cl.concert_no) as countlike
+				from concert_like cl
+				join concert c using (concert_no)
+				where cl.status = 'Y'
+				group by cl.concert_no
+				order by countlike desc) l
+		join concert c on (l.concert_no = c.concert_no)	
+		join concert_schedule cs on (c.concert_no = cs.concert_no)
+		join concert_category cc on (c.concert_no = cc.concert_no)
+		join category cg on (cc.category_no = cg.category_no)
+		join concert_attachment ca on (c.concert_no = ca.concert_no)
+		where c.concert_status = 'Y'
+		and cg.category_no = #{cNo}
+		and ca.file_level = 1
+		and ca.status = 'Y'
+		limit 10;
+	</select>
 	
 </mapper>
 

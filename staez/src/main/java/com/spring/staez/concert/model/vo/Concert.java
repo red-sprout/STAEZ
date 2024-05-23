@@ -25,5 +25,7 @@ public class Concert {
 	private String ageLimit; //관람연령
 	private Timestamp updateDate; //최종수정일
 	private String concertStatus; //공연상태
+	private String changeName; //파일수정명
+	private String filePath; //파일경로
 	
 }
