@@ -11,6 +11,8 @@
 <body>
     <header>
         <jsp:include page="/WEB-INF/views/common/header.jsp" />
+        <script src="<c:url value='/resources/js/api/adminapi.js'/>"></script>
+        <script src="<c:url value='/resources/js/admin/faqIncertForm.js'/>"></script>
     </header>
     <main>
         <div id="community-wrapper">
@@ -65,7 +67,6 @@
                         <h3>목록</h3>
                     </button>
                 </li>
-                <script src="<c:url value='/resources/js/admin/faqIncertForm.js'/>"></script>
             </form>
         </div>
     </main>

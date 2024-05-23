@@ -1,12 +1,5 @@
 $(function(){
-    getAjax(
-        "/staez/faqCategory.ad", 
-        {refCategoryNo: 3}, 
-        function(res){
-            setFaqCategory(res);
-        },
-        "faq ajax요청 실패"
-    );
+    faq({refCategoryNo: 3}, (res) => (setFaqCategory(res)));
 });
 
 function toggleFaqCategory(_this) {

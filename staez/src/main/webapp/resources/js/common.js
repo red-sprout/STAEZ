@@ -1,9 +1,10 @@
-let contextPath = "";
+const pathname = "/" + window.location.pathname.split("/")[1] + "/";
+const origin = window.location.origin;
+const contextPath = origin + pathname;
 
-function init(path) {
-    contextPath = path;
+function init() {
     const url = document.location.pathname;
-    const menubarArr = [path + "/main.co", path + "/main.cm", path + "/main.no", path + "/main.iq", path + "/userList.ad"];
+    const menubarArr = [contextPath + "main.co", contextPath + "main.cm", contextPath + "main.no", contextPath + "main.iq", contextPath + "userList.ad"];
     const menubar = document.querySelectorAll(".menu-bar>a");
     for(let i in menubarArr) {
         if(url == menubarArr[i]) {
@@ -11,16 +12,4 @@ function init(path) {
             break;
         }
     }
-}
-
-function getAjax(url, data, callback, msg) {
-    $.ajax({
-        url: url,
-        data: data,
-        success : function(res) {
-            callback(res);
-        }, error() {
-            console.log(msg);
-        }
-    });
 }
