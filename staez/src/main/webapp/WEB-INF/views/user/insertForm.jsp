@@ -8,25 +8,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- css -->
-    <link rel="stylesheet" href="${contextPath}/resources/css/main.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/user/insertForm.css">
-    <!-- js -->
-    <script src="${contextPath}/resources/js/user/insertForm.js"></script>
     <!-- 주소 카카오 api -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <!-- ajax -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Bootstrap 4 Tutorial -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <title>회원가입</title>
 </head>
 <body onload="init()">
     <header>
-        <jsp:include page="/WEB-INF/views/common/header.jsp" />
+        <!-- js -->
+        <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+        <script src="${contextPath}/resources/js/api/userapi.js"></script>
+        <script src="${contextPath}/resources/js/user/insertForm.js"></script>
     </header>
     <main>
         <div class="image-container">
@@ -40,7 +33,7 @@
                     <tr>
                         <th>닉네임</th>
                         <td colspan="2">
-                            <input type="text" placeholder="한문 영문 16글자 이하" name="nickname" id="nickname" maxlength="16" required>
+                            <input type="text" placeholder="한문 + 영문" name="nickname" id="nickname" maxlength="16" required>
                         </td>
                         <td><input type="button" id="nickNameCheckButton" class="check_nickname" value="중복검사"></td>
                     </tr>
@@ -50,11 +43,11 @@
                                 <span id="nicknameErrorMessage"></span>
                             </div>
                         </td>
-                    </tr>                  
+                    </tr>                 
                     <tr>
                         <th>아이디</th>
                         <td colspan="2">
-                            <input type="text" placeholder="영문 숫자 16글자 이하" name="user_id" id="userId" maxlength="16" required>
+                            <input type="text" placeholder="영문 + 숫자" name="user_id" id="userId" maxlength="16" required>
                         </td>
                         <td><input type="button" id="idcheckButton" class="check_userId" value="중복검사"></td>
                     </tr>

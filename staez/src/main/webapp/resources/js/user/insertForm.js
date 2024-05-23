@@ -1,5 +1,16 @@
-// 닉네임 중복 체크
 document.addEventListener('DOMContentLoaded', function() {
+    // 닉네임 중복 체크
+    nicknameCheck();
+    // 사용자 아이디 중복 체크
+    signinIdCheck();
+    // 핸드폰 번호 전송 처리
+    signinPhoneNumber();
+    // 비밀번호 본인확인 버튼
+    signinPwdCheck()
+});
+
+// 닉네임 중복체크
+function nicknameCheck() {
     const nicknameInput = document.querySelector("#nickname");
     const nicknameCheckButton = document.getElementById("nickNameCheckButton");
     const nicknameCheckResult = document.getElementById("checkResultNick");
@@ -9,25 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         nicknameCheckButton.addEventListener('click', function() {
             const str = nicknameInput.value;
             if (str.trim().length >= 1) {
-                $.ajax({
-                    url: "nickCheck.me",
-                    data: { checkNick: str },
-                    success: function (result) {
-                        nicknameCheckResult.style.display = "block";
-                        if (result === "NNNNN") {
-                            nicknameCheckResult.style.color = "red";
-                            nicknameCheckResult.innerText = "이미 사용중인 닉네임입니다.";
-                            // 닉네임 입력 필드의 값을 없애기
-                            nicknameInput.value = "";
-                        } else {
-                            nicknameCheckResult.style.color = "green";
-                            nicknameCheckResult.innerText = "사용가능한 닉네임입니다.";
-                        }
-                    },
-                    error: function () {
-                        console.log("닉네임 중복체크 ajax 실패");
-                    }
-                });
+                nickCheck({"checkNick" : str}, (result) => callbackNickCheck(result, nicknameCheckResult, nicknameInput))
             } else {
                 nicknameCheckResult.style.display = "none";
             }
@@ -35,11 +28,30 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.log("닉네임 체크 요소 중 하나가 누락되었습니다.");
     }
-});
+}
 
+// 닉네임 중복체크 콜백
+function callbackNickCheck(result, nicknameCheckResult, nicknameInput) {
+    nicknameCheckResult.style.display = "block";
+    if (result === "NNNNN") {
+        nicknameCheckResult.style.color = "red";
+        nicknameCheckResult.innerText = "이미 사용중인 닉네임입니다.";
+        // 닉네임 입력 필드의 값을 없애기
+        nicknameInput.value = "";
+    } else {
+        var regex = /^[a-zA-Z0-9가-힣]{2,16}$/;
+        if (!regex.test(nicknameInput.value)) {
+            nicknameCheckResult.style.color = "red";
+            nicknameCheckResult.innerText = "닉네임은 2 ~ 16글자의 영문, 한글, 숫자로 이루어져야 합니다.";
+        } else {
+            nicknameCheckResult.style.color = "green";
+            nicknameCheckResult.innerText = "사용가능한 닉네임입니다.";
+        }
+    }
+}
 
-// 사용자 아이디 중복 체크
-document.addEventListener('DOMContentLoaded', function() {
+// 아이디체크
+function signinIdCheck() {
     const userIdInput = document.querySelector("#userId");
     const userIdCheckButton = document.getElementById("idcheckButton");
     const userIdCheckResult = document.getElementById("checkResultId");
@@ -47,35 +59,45 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (userIdInput && userIdCheckButton && userIdCheckResult && userIdErrorMessage) {
         userIdCheckButton.addEventListener('click', function() {
-            const str = userIdInput.value;
-            if (str.trim().length >= 5) {
-                $.ajax({
-                    url: "idCheck.me",
-                    data: { checkId: str },
-                    success: function (result) {
-                        userIdCheckResult.style.display = "block";
-                        if (result === "NNNNN") {
-                            userIdCheckResult.style.color = "red";
-                            userIdCheckResult.innerText = "이미 사용중인 아이디입니다.";
-                            // 닉네임 입력 필드의 값을 없애기
-                            userIdInput.value = "";
-                        } else {
-                            userIdCheckResult.style.color = "green";
-                            userIdCheckResult.innerText = "사용가능한 아이디입니다.";
-                        }
-                    },
-                    error: function () {
-                        console.log("아이디 중복체크 ajax 실패");
-                    }
-                });
+            const str = userIdInput.value.trim(); // 입력된 아이디의 공백을 제거합니다.
+            if (str.length >= 1) { // 길이가 5 이상인지 확인합니다.
+                idCheck({"idCheck" : str}, (result) => callbackIdCheck(result, userIdCheckResult, userIdInput))
             } else {
                 userIdCheckResult.style.display = "none";
+                userIdErrorMessage.innerText = "아이디는 5글자 이상이어야 합니다.";
             }
         });
     } else {
         console.log("아이디 체크 요소 중 하나가 누락되었습니다.");
     }
-});
+}
+
+// 아이디체크 콜백
+function callbackIdCheck(result, userIdCheckResult, userIdInput) {
+    userIdCheckResult.style.display = "block";
+    if (result === "NNNNN") {
+        userIdCheckResult.style.color = "red";
+        userIdCheckResult.innerText = "이미 사용중인 아이디입니다.";
+        // 닉네임 입력 필드의 값을 없애기
+        userIdInput.value = "";
+    } else {
+        const idLength = userIdInput.value.length;
+        if (idLength < 6 || idLength > 20) {
+            userIdCheckResult.style.color = "red";
+            userIdCheckResult.innerText = "아이디는 6 ~ 20글자의 영문+숫자 이루어져야 합니다.";
+        } else {
+            var regex = /^[a-zA-Z0-9]{6,20}$/;
+            if (!regex.test(userIdInput.value)) {
+                userIdCheckResult.style.color = "red";
+                userIdCheckResult.innerText = "아이디는 6 ~ 20글자의 영문+숫자 이루어져야 합니다.";
+            } else {
+                userIdCheckResult.style.color = "green";
+                userIdCheckResult.innerText = "사용가능한 아이디입니다.";
+            }
+        }
+    }
+}
+
 
 
 // 비밀번호 관련 
@@ -116,48 +138,35 @@ function validatePassword() {
         }
     });
 }
-
-// 비밀번호 본인확인 버튼
-// 비밀번호 클릭시 보이도록 (마우스가 눌린 상태에서만)
-document.addEventListener("DOMContentLoaded", function() {
-    let isMouseDown = false;
     
-    // 비밀번호 클릭시 보이도록 (마우스가 눌린 상태에서만)
-    function togglePasswordVisibility(inputId) {
-        const inputField = document.getElementById(inputId);
-
-        if (isMouseDown) {
-            if (inputField.type === "password") {
-                inputField.type = "text";
-            } else {
-                inputField.type = "password";
-            }
-        }
+// 비밀번호 클릭시 보이도록 (마우스가 눌린 상태에서만)
+function togglePasswordVisibility(inputField, isMouseDown) {
+    if (isMouseDown && inputField.type === "password") {
+        inputField.type = "text";
+    } else {
+        inputField.type = "password";
     }
+}
+function signinPwdCheck(){
+    let isMouseDown = false;
+    const pwdImgElement = document.getElementById("pwdImg");
+    const inputField = document.getElementById("password1");
 
     // 마우스 버튼이 눌린 상태인지 여부를 확인하여 상태 업데이트
-    const pwdImgElement = document.getElementById("pwdImg");
-    if (pwdImgElement) {
-        pwdImgElement.addEventListener("mousedown", function() {
-            isMouseDown = true;
-            togglePasswordVisibility('password1');
-        });
-    } else {
-        console.error("Element with id 'pwdImg' not found.");
-    }
+    pwdImgElement.addEventListener("mousedown", function() {
+        isMouseDown = true;
+        togglePasswordVisibility(inputField, isMouseDown);
+    });
 
     // 마우스 버튼이 떼어진 상태인지 여부를 확인하여 상태 업데이트 및 비밀번호 가리기
-    document.addEventListener("mouseup", function() {
+    pwdImgElement.addEventListener("mouseup", function() {
         isMouseDown = false;
-        const inputField = document.getElementById("password1");
-        inputField.type = "password";
+        togglePasswordVisibility(inputField, isMouseDown);
     });
-});
-
-
+}
 
 // 핸드폰 번호 전송 처리
-document.addEventListener('DOMContentLoaded', function() {
+function signinPhoneNumber (){
     const prefixElement = document.getElementById("phone-prefix");
     const suffix1Element = document.getElementById("phone-suffix1");
     const suffix2Element = document.getElementById("phone-suffix2");
@@ -173,8 +182,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     suffix1Element.addEventListener('input', updatePhoneNumber);
     suffix2Element.addEventListener('input', updatePhoneNumber);
-});
-
+}
+// 핸드폰 번호 전송 처리
 function sendPhoneNumber() {
     // input-value-phone 요소를 가져옵니다.
     var inputValueElement = document.getElementById("input-value-phone");
