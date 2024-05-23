@@ -247,3 +247,11 @@
 #search-button img{
     width: 25px;
 }
+
+.choice-background{
+    background: #B51B75;  
+}
+
+.choice-color-span{
+    color: white !important;
+}

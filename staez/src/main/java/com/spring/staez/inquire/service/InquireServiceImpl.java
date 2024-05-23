@@ -1,11 +1,17 @@
 package com.spring.staez.inquire.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.community.model.vo.Board;
@@ -19,6 +25,9 @@ public class InquireServiceImpl implements InquireService{
 	
 	@Autowired
 	InquireDao iDao;
+	
+	@Autowired
+    private PlatformTransactionManager transactionManager;
 
 	@Override
 	public ArrayList<Category> selectCategory() {
@@ -27,11 +36,16 @@ public class InquireServiceImpl implements InquireService{
 	
 	@Transactional
 	@Override
-	public int insertInquire(Board b, Category c, int categoryNo) {
+	public int insertInquire(Board b,  int categoryNo) {
+		int result1 = iDao.insertBoard(sqlSession, b);
+		int result2 = iDao.insertBoardCategory(sqlSession, categoryNo);
 		
-		int result = iDao.insertBoard(sqlSession, b);
-		
-		return 0;
+		return result1 * result2;	
+	}
+
+	@Override
+	public ArrayList<Board> ajaxSelectFaq() {
+		return iDao.ajaxSelectFaq(sqlSession);
 	}	
 
 }
