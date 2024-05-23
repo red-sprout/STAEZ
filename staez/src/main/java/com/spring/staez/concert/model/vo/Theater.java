@@ -16,7 +16,7 @@ import lombok.ToString;
 @ToString
 public class Theater {
 	private int theaterNo; //공연시설번호
-	private int theaterName; //공연장명
+	private String theaterName; //공연장명
 	private int theaterRow; //총행수
 	private int theaterCol; //총열수
 	private String address; //주소

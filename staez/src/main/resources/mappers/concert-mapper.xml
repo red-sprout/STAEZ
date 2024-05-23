@@ -13,5 +13,114 @@
 
 	<!-- db의 컬럼과 객체의 필드명이 완전히 같다면 resultType사용 가능 -->
 	
+	<resultMap type="Concert" id="concertResult">
+		<result column="concert_no" property="concertNo"/>
+		<result column="theater_no" property="theaterNo"/>
+		<result column="concert_title" property="concertTitle"/>
+		<result column="concert_plot" property="concertPlot"/>
+		<result column="concert_runtime" property="concertRuntime"/>
+		<result column="concert_members" property="concertMembers"/>
+		<result column="concert_production" property="concertProduction"/>
+		<result column="age_limit" property="ageLimit"/>
+		<result column="update_date" property="updateDate"/>
+		<result column="theater_name" property="theaterName"/>
+		<result column="start_date" property="startDate"/>
+		<result column="end_date" property="endDate"/>
+	</resultMap>
+		
+	<resultMap type="Category" id="categoryResult">
+		<result column="category_no" property="categoryNo"/>
+		<result column="ref_category_no" property="refCategoryNo"/>
+		<result column="category_name" property="categoryName"/>
+		<result column="category_level" property="categoryLevel"/>
+	</resultMap>
+	
+	<resultMap type="ConcertAttachment" id="concertAttachmentResult">
+		<result column="file_no" property="fileNo"/>
+		<result column="board_no" property="concertNo"/>
+		<result column="origin_name" property="originName"/>
+		<result column="change_name" property="changeName"/>
+		<result column="file_path" property="filePath"/>
+		<result column="upload_date" property="uploadDate"/>
+		<result column="file_level" property="fileLevel"/>
+		<result column="status" property="status"/>
+	</resultMap>
+	
+	<resultMap type="Theater" id="theaterResult">
+		<result column="theater_no" property="theaterNo"/>
+		<result column="theater_name" property="theaterName"/>
+		<result column="theater_row" property="theaterRow"/>
+		<result column="theater_col" property="theaterCol"/>
+		<result column="address" property="address"/>
+		<result column="telno" property="telno"/>
+	</resultMap>
+	
+	<resultMap type="ConcertLike" id="concertLikeResult">
+		<result column="concert_like_no" property="concertLikeNo"/>
+		<result column="user_no" property="userNo"/>
+		<result column="concert_no" property="concertNo"/>
+		<result column="concert_like_date" property="updateDate"/>
+		<result column="status" property="status"/>
+	</resultMap>
+
+	<resultMap type="ConcertReview" id="concertReviewResult">
+		<result column="review_no" property="reviewNo"/>
+		<result column="user_no" property="userNo"/>
+		<result column="concert_no" property="concertNo"/>
+		<result column="review_content" property="reviewContent"/>
+		<result column="score" property="score"/>
+		<result column="review_status" property="reviewStatus"/>
+		<result column="review_date" property="reviewDate"/>
+	</resultMap>
+	
+	<resultMap type="ConcertSchedule" id="concertScheduleResult">
+		<result column="schedule_no" property="scheduleNo"/>
+		<result column="concert_no" property="concertNo"/>
+		<result column="schedule" property="schedule"/>
+		<result column="start_date" property="startDate"/>
+		<result column="end_date" property="endDate"/>
+		<result column="concert_times" property="concertTimes"/>
+		<result column="status" property="status"/>
+	</resultMap>
+	
+	
+	<!-- 공연메인페이지 설명 -->
+	<select id="concertList" resultType="Concert">
+		SELECT concert_title,
+	           theater_name,
+	           start_date,
+	           end_date
+	    FROM concert
+	    JOIN theater USING (theater_no)
+	    JOIN concert_schedule USING (concert_no)
+	    WHERE concert_no in (
+			SELECT concert_no
+			FROM concert_category
+			WHERE category_no = 4
+		)
+	</select>
+	
+	<!-- 공연메인페이지 사진 -->
+	<select id="" resultMap="concertResult">
+		SELECT change_name,
+	           file_path
+	    FROM concertAttachment
+	    WHERE categoryNo = #{categoryNo}
+	</select>
+	
+	<!--  <select id="concertList" resultMap="concertResult">
+		SELECT concert_title,
+	           theater_name,
+	           start_date,
+	           end_date,
+	           change_name,
+	           file_path
+	    FROM concert
+	    JOIN theater USING (theater_no)
+	    JOIN concertSchedule USING (concert_no)
+	    JOIN concertAttachment USING (concert_no)
+	    WHERE categoryNo = #{categoryNo}
+	</select> -->
+	
 </mapper>
 

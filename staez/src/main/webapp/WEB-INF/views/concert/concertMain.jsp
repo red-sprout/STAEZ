@@ -31,7 +31,7 @@
     <!-- 공연 navi -->
     <div>
         <ul class="concert-ul">
-            <li><a href="main.co?category=musical"><span><h2>뮤지컬</h2></span></a></li>
+            <li><a href="#" onclick="loadPage()" ><span><h2>뮤지컬</h2></span></a></li>
             <li><a href="main.co?category=classic"><span><h2>클래식</h2></span></a></li>
             <li><a href="main.co?category=kclassic"><span><h2>국악</h2></span></a></li>
             <li><a href="main.co?category=pop"><span><h2>대중음악</h2></span></a></li>

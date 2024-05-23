@@ -1,5 +1,11 @@
 package com.spring.staez.concert.service;
 
-public class ConcertService {
+import java.util.ArrayList;
+
+import com.spring.staez.concert.model.vo.Concert;
+
+public interface ConcertService {
+
+	ArrayList<Concert> concertList(int categoryNo);
 
 }

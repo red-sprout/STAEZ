@@ -1,19 +1,22 @@
 package com.spring.staez.concert.controller;
 
-import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.service.ConcertService;
 
 @Controller
 public class ConcertController {
 	
-
+	@Autowired
 	private ConcertService concertService;
 	
 //	private int	categoryNo; //카테고리번호
@@ -21,11 +24,24 @@ public class ConcertController {
 //	private String categoryName; //카테고리이름
 //	private int categoryLevel; //카테고리레벨
 	
-	@RequestMapping("main.co")
-	public String concertMain(@RequestParam(value="categoryName", defaultValue="뮤지컬") String category, HttpSession session) {
-		
-		
+	// 공연 네비: 뮤지컬, 클래식, 국악...
+	@ResponseBody
+	@RequestMapping(value = "main.co", produces="application/json; charset-UTF-8")
+	public String concertMain(@RequestParam(value="categoryNo", defaultValue="4") String categoryNo, Model model) {
 		// category로 찾으러가서 값 가져와서 출력
+		
+		ArrayList<Concert> list = concertService.concertList(Integer.parseInt(categoryNo));
+		model.addAttribute("list", list);
+		
+		
+		return "concert/concertMain";
+	}
+	
+	
+	
+	// 공연 누르면 보여주는 공연 메인 페이지
+	@GetMapping("main.co")
+	public String concertMain() {
 		return "concert/concertMain";
 	}
 	
