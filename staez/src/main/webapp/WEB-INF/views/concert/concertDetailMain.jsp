@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,12 +10,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>concert</title>
 
-    <!-- 적용css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertDetailView.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertDetailInformationViewAjax.css">
-
+    <!-- 제이쿼리 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <!-- 적용 css -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertDetailMain.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertDetail.css">
+    <!-- 폰트어썸 -->
+    <script src="https://kit.fontawesome.com/65a2de1a44.js" crossorigin="anonymous"></script>
     <!-- 달력 -->
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <script src="${pageContext.request.contextPath}/resources/js/concert/concertDetailCalendar.js"></script>
+    <!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script> -->
+    <!-- 적용 자바스크립트 -->
+    <script src="<c:url value='/resources/js/concert/concertDetail.js'/>"></script>
+
 </head>
 
 <body>
@@ -24,13 +33,13 @@
     <!-- 공연 navi -->
     <div>
         <ul class="concert-ul">
-            <li><a href=""><span><h2>뮤지컬</h2></span></a></li>
-            <li><a href=""><span><h2>클래식</h2></span></a></li>
-            <li><a href=""><span><h2>국악</h2></span></a></li>
-            <li><a href=""><span><h2>대중음악</h2></span></a></li>
-            <li><a href=""><span><h2>연극</h2></span></a></li>
-            <li><a href=""><span><h2>서커스/마술</h2></span></a></li>
-            <li><a href=""><span><h2>기타</h2></span></a></li>
+            <li><a href="main.co?category=musical"><span><h2>뮤지컬</h2></span></a></li>
+            <li><a href="main.co?category=classic"><span><h2>클래식</h2></span></a></li>
+            <li><a href="main.co?category=kclassic"><span><h2>국악</h2></span></a></li>
+            <li><a href="main.co?category=pop"><span><h2>대중음악</h2></span></a></li>
+            <li><a href="main.co?category=play"><span><h2>연극</h2></span></a></li>
+            <li><a href="main.co?category=circus"><span><h2>서커스/마술</h2></span></a></li>
+            <li><a href="main.co?category=etc"><span><h2>기타</h2></span></a></li>
         </ul>
     </div>
 
@@ -40,19 +49,17 @@
             <div>
                 <img src="${pageContext.request.contextPath}/resources/img/concert/공연상세페이지임시.png" alt="">
             </div>
-            <!-- 좋아요 버튼 구현하기
-                 https://velog.io/@parkheeyeun/%EC%A2%8B%EC%95%84%EC%9A%94-%EB%B2%84%ED%8A%BC-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0 -->
+            <!-- 좋아요 버튼 -->
             <div class="concert-detail-like">
-                <div class="concert-detail-like-jim">
-                    <img id="concert-detail-like-heartImg-background" src="${pageContext.request.contextPath}/resources/img/concert/heart-background.png" alt="">
-                    <img id="concert-detail-like-heartImg" src="${pageContext.request.contextPath}/resources/img/concert/heart-header.png" alt="">
+                <button class="concert-detail-like-button" onclick="likeToggle(this)">
+                    <i class="fa-regular fa-heart"></i>
+                    <input type="checkbox" class="hidden">
+                    <!-- <i class="fa-solid fa-heart" style="color: #ff0000;"></i> -->
                     <span>127</span>
-                </div>
+                </button>
                 <div class="concert-detail-like-commu"><a href=""><span><b>천개의 파랑 커뮤니티로 가기</b></span></a></div>
             </div>
         </div>
-
-
         <div class="concert-detail-body-div">
             <table class="concert-detail-table">
                 <tr>
@@ -120,60 +127,24 @@
 							<li>토</li>
 						</ul>
 						<ul class="dates">
-							<!-- 스크립트 이용해서 넣을 것 -->
+							<!-- 스크립트 이용해서 넣음 -->
 						</ul>
 					</div>
 				</div>
-			
-                    <!-- <div class="concert-detail-body-div">
-                        <div id='calendar'></div>
-                            <script>
-                                document.addEventListener('DOMContentLoaded', function() {
-                                var calendarEl = document.getElementById('calendar');
-                                var calendar = new FullCalendar.Calendar(calendarEl, {
-                                    initialView: 'dayGridMonth'
-                                });
-                                calendar.render();
-                                });
-                            </script>
-                        </div> -->
-
-                <button class="reservation-button"><span>예매하기</span></button>
+                <button class="reservation-button" onclick="reservePage()"><span>예매하기</span></button>
             </div>
     </section>
 
         <!-- 공연상세페이지 아래쪽 navi-->
     <section class="concert-detail-down-section">
         <ul class="concert-down-ul">
-            <li><a href=""><h3>공연상세정보</h3></a></li>
-            <li><a href=""><h3>판매정보</h3></a></li>
-            <li><a href=""><h3>한줄평(35)</h3></a></li>
-            <li><a href=""><h3>관람후기(10)</h3></a></li>
+            <li><a href="detail.co"><h3>공연상세정보</h3></a></li>
+            <li><a href="sellInfo.co"><h3>판매정보</h3></a></li>
+            <li><a href="comment.co"><h3>한줄평(35)</h3></a></li>
+            <li><a href="detailReview.co"><h3>관람후기(10)</h3></a></li>
         </ul>
     </section>
     <hr class="concert-detail-hr">
-
-
-<!-- 공연상세페이지 아래쪽: ajax(공연상세정보, 판매정보, 한줄평, 관람후기 내용) -->
-<!-- 공연상세정보 -->
-    <section>
-        <div class="concert-detail-subject">
-            <span><h3>공지사항</h3></span>
-            <br>
-            <img src="./천개의파랑 공지사항.png" alt="">
-        </div>
-        <br><br>
-        <div class="concert-detail-subject">
-            <span><h3>작품소개</h3></span>
-            <br>
-            <img src="./천개의파랑 작품소개.png" alt="">
-        </div>
-    </section>
-
-	<div>
-		<jsp:include page="../common/footer.jsp" />
-	</div>
-
-    
+    <br>
 </body>
 </html>
