@@ -322,7 +322,7 @@ function openPostalCodePopup() {
 function updateAddressDisplay() {
     const addressInput = document.getElementById("addressInput");
     const detailAddressInput = document.getElementById("detailAddressInput");
-    const addressDisplay = document.getElementById("input-value");
+    const addressDisplay = document.getElementById("input-value-address");
 
     if (addressInput && detailAddressInput && addressDisplay) {
         const addressValue = addressInput.value;
@@ -371,7 +371,6 @@ document.addEventListener('DOMContentLoaded', function() {
             updateInput();
         });
     });
-
     
     function updateInput() {
         const selectedButtons = document.querySelectorAll('.btn-staez3.selected');
@@ -412,44 +411,4 @@ function saveFormDataToDB() {
             // 오류 처리
         }
     });
-}
-
-
-function showErrorMessage(inputElement, errorMessage) {
-    // 입력 필드가 포함된 부모 요소를 찾습니다.
-    const parentElement = inputElement.parentElement;
-
-    // 에러 메시지 요소를 생성합니다.
-    const errorElement = document.createElement("div");
-    errorElement.classList.add("error-message");
-    errorElement.innerText = errorMessage;
-
-    // 이미 에러 메시지가 존재하는 경우에는 삭제합니다.
-    const existingError = parentElement.querySelector(".error-message");
-    if (existingError) {
-        parentElement.removeChild(existingError);
-    }
-
-    // 에러 메시지를 추가합니다.
-    parentElement.appendChild(errorElement);
-
-    // 입력 필드에 포커스를 맞춥니다.
-    inputElement.focus();
-}
-
-// 예시: 중복 확인 결과 메시지를 표시하는 함수
-function showNicknameCheckResultMessage(result) {
-    const nicknameInput = document.querySelector("#nickname");
-    const nicknameCheckResult = document.getElementById("checkResultNick");
-
-    if (result === "NNNNN") {
-        // 중복된 닉네임인 경우 에러 메시지를 표시합니다.
-        showErrorMessage(nicknameInput, "이미 사용중인 닉네임입니다.");
-    } else {
-        // 사용 가능한 닉네임인 경우 에러 메시지를 숨깁니다.
-        const existingError = nicknameInput.parentElement.querySelector(".error-message");
-        if (existingError) {
-            nicknameInput.parentElement.removeChild(existingError);
-        }
-    }
 }

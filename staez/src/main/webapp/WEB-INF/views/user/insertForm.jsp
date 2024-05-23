@@ -148,7 +148,7 @@
                     </tr>
                     <tr>
                         <th>주소</th>
-                        <td colspan="2"><input type="text" id="addressInput"></td>
+                        <td colspan="2"><input type="text" id="addressInput" readonly></td>
                         <td><input type="button" class="check_button" value="우편번호" onclick="openPostalCodePopup()" required></td>
                     </tr>
                     <tr>
@@ -157,8 +157,8 @@
                         <td><input type="button" class="check_button" value="확인" onclick="checkAddress()"></td>
                     </tr>
                     <tr>
-                        <input type="text" name="address" id="input-value-address" readonly>
-                    </tr>                    
+                        <td colspan="4"><input type="text" name="address" id="input-value-address" readonly></td>
+                    </tr>                  
                     <tr>
                         <th>관심장르(택3)</th>
                         <td colspan="4" id="genre-buttons">
