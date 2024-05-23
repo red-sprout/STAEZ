@@ -81,14 +81,16 @@
                         <td colspan="6" class="email-container">
                             <div id="td-div">
                                 <span id="phone-prefix">010</span>
-                                <span>-</span>
-                                <input type="text" id="phone-suffix1" name="phone-middle">
-                                <span>-</span>
-                                <input type="text" id="phone-suffix2" name="phone-end">
-                                <td colspan="1"><input type="button" class="check_button" value="인증번호 전송" onclick="sendPhoneNumber()"></td>
+                                <span></span>
+                                <input type="text" id="phone-suffix1" maxlength="4">
+                                <span></span>
+                                <input type="text" id="phone-suffix2" maxlength="4">
+                                <input type="text" name="phone" id="input-value">
                             </div>
+                            <td colspan="1"><input type="button" class="check_button" value="인증번호 전송" onclick="sendPhoneNumber()"></td>
+                            
                         </td>
-                    </tr>                    
+                    </tr>                   
                     <tr>
                         <th></th>
                         <td><input type="text"></td>
@@ -97,16 +99,17 @@
                     <tr>
                         <th>생년월일</th>
                         <td class="email-container">
-                            <input type="date" name="userDate">
+                            <input type="date" name="birth">
                         </td>   
                     </tr>
                     <tr>
                         <th>이메일</th>
                         <td colspan="6" class="email-container">
                             <div style="display: flex;">
-                                <input type="text" id="email-prefix" name="email-input">
+                                <input type="text" id="email-prefix" placeholder="이메일 아이디 입력">
                                 <span id="email-prefix-shift2">@</span>
-                                <input type="text" id="email-suffix" placeholder="직접 입력" name="email-text">
+                                <input type="text" id="email-suffix" placeholder="직접 입력">
+                                <input type="text" name="email" id="input-value" readonly>
                             </div>
                         </td>
                         <td>
@@ -118,9 +121,8 @@
                                 <option value="nate.com">nate.com</option>
                                 <option value="kakao.com">kakao.com</option>
                             </select>
-                        </td>                            
+                        </td>
                     </tr>
-                                      
                     <tr>
                         <th>성별</th>
                         <td colspan="2">
@@ -133,14 +135,17 @@
                     </tr>
                     <tr>
                         <th>주소</th>
-                        <td colspan="2"><input type="text" id="addressInput" name="address-input"></td><!-- 주소 입력란 -->
-                        <td><input type="button" class="check_button" value="우편번호" onclick="openPostalCodePopup()"></td> <!-- 우편번호 버튼 -->
+                        <td colspan="2"><input type="text" id="addressInput"></td>
+                        <td><input type="button" class="check_button" value="우편번호" onclick="openPostalCodePopup()"></td>
                     </tr>
                     <tr>
                         <th></th>
-                        <td colspan="1"><input type="text" id="detailAddressInput" placeholder="자세한주소" name="address-detail"></td>
-                        <td><input type="button" class="check_button" value="확인" onclick="checkAddress()"></td><!--확인용-->
+                        <td colspan="1"><input type="text" id="detailAddressInput" placeholder="동 / 호수" name="address-detail"></td>
+                        <td><input type="button" class="check_button" value="확인" onclick="checkAddress()"></td>
                     </tr>
+                    <tr>
+                        <input type="text" name="address" id="input-value" readonly>
+                    </tr>                    
                     <tr>
                         <th>관심장르(택3)</th>
                         <td colspan="4" id="genre-buttons">
@@ -151,14 +156,18 @@
                             <button type="button" class="btn-staez3" data-genre="뮤지컬"><h3>뮤지컬</h3></button>
                             <button type="button" class="btn-staez3" data-genre="연극"><h3>연극</h3></button>
                             <button type="button" class="btn-staez3" data-genre="서커스/마술"><h3>서커스/마술</h3></button>
-                            <input type="text" name="genreLike" id="genreLike"> <!--button들 내용 추가-->
+                            <input type="text" name="genreLike" id="input-value"> <!--button들 내용 추가-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <div class="insert-member-div">
+                                <button type="button" id="backButton">이전</button>
+                                <button type="submit">다음</button>
+                            </div>
                         </td>
                     </tr>
                 </table>
-            </div>
-            <div class="insert-member-div">
-                <button type="button" id="backButton">이전</button>
-                <button type="submit">다음</button>
             </div>
         </form>
     </main>
