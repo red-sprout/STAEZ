@@ -11,5 +11,11 @@ public interface InquireService {
 	ArrayList<Category> selectCategory();
 	
 	//문의 작성하기
-	int insertInquire(Board b, Category c, int categoryNo);
+	int insertInquire(Board b, int categoryNo);
+	
+	ArrayList<Board> ajaxSelectFaq();
+	
+	ArrayList<Board> ajaxSearchSelectFap(String option, String content);
+	
+	ArrayList<Board> ajaxSelectCategoryFaq(String categoryName);
 }

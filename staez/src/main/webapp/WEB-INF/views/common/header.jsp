@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="${contextPath}/resources/css/main.css">
     <script src="<c:url value='/resources/js/common.js'/>"></script>
 </head>
-<body onload="init('${contextPath}')">
+<body onload="init()">
     <c:if test="${not empty alertMsg}">
         <script>
             alert("${alertMsg}");

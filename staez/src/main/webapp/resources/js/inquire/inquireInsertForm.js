@@ -1,18 +1,10 @@
 window.onload = function(){
-    $.ajax({
-        url : "ajaxSelectCategory.iq",
-        success : function(categorys){
-            console.log(categorys)
-            drawOption(categorys)
-        },error : function(){
-            console.log("실패")
-        }
-    })
+    faqCategoryName((category) => (drawOption(category)));
 }
-function drawOption(categorys){
+function drawOption(category){
     const select = document.getElementById("to-inquire-category");
 
-    for (let c of categorys){
+    for (let c of category){
         select.innerHTML += `<option value="`+c.categoryNo+`">`+c.categoryName+`</option>`
     }
 }

@@ -65,25 +65,25 @@
 	<!-- 회원가입 -->
 	<insert id="insertUser">
 		INSERT INTO USER(
-		   nickname,
 		   user_id,
 		   user_pwd,
-		   phone,
-		   birth,
-		   email,
+		   nickname,
 		   gender,
+		   birth,
 		   address,
+		   email,
+		   phone,
 		   genreLike
 		)
 		VALUES(
-		   #{nickname},
 		   #{userId},
 		   #{userPwd},
-		   #{phone},
-		   #{birth},
-		   #{email},
+		   #{nickname},
 		   #{gender},
+		   #{birth},
 		   #{address},
+		   #{email},
+		   #{phone},
 		   #{genreLike}
 		)
 	</insert>

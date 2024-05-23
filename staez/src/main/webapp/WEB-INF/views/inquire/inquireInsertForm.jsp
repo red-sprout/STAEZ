@@ -14,10 +14,12 @@
 <body>
 	<header>
         <jsp:include page="../common/header.jsp" />
+        <script src="${contextPath}/resources/js/api/inquireapi.js"></script>
+        <script src="${contextPath}/resources/js/inquire/inquireInsertForm.js"></script>
     </header>
     <main>
         <div id="customer-service-content-area">
-            <div id="customer-service-faq-choice">
+            <div id="customer-service-faq-choice" onclick="location.href='main.iq'">
                 <span>FAQ</span>
             </div>
             <div id="customer-service-insert-from-choice">
@@ -27,10 +29,10 @@
         <div id="to-inquire-area">
             <span>문의하기</span>
         </div>
-        <form action="main.cm" method="post">
+        <form action="insert.iq" method="post">
             <input type="hidden" name="userNo" value="${loginUser.userNo}">
             <div class="to-inquire-title-area">
-                <select name="to-inquire-category" id="to-inquire-category">
+                <select name="categoryNo" id="to-inquire-category">
                     <!--ajax로 부르기-->
                 </select>
                 <input type="text" id="to-inquire-title" name="boardTitle" placeholder="제목">
@@ -44,7 +46,6 @@
         </form> 
      
     </main>
-    <script src="${contextPath}/resources/js/inquire/inquireInsertForm.js"></script>
     <footer>
     	<jsp:include page="../common/footer.jsp" />
     </footer>

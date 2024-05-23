@@ -24,4 +24,10 @@ public class Board {
 	private String boardContent; //내용
 	private int boardCount; //조회수
 	private String boardStatus; //게시글활성화여부
+	private int categoryNo; //카테고리번호
+	private String categoryName; //카테고리이름
+	private int refCategoryNo; //상위카테고리번호
+	private int categoryLevel; //카테고리레벨
+	private int concertNo; //공연번호
 }
+

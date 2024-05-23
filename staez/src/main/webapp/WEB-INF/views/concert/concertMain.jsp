@@ -21,7 +21,7 @@
     <!-- 적용 자바스크립트 -->
     <script src="<c:url value='/resources/js/concert/concertMain.js'/>"></script>
     <!-- 적용 css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertMainView.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertMain.css">
 </head>
 
 <body>
