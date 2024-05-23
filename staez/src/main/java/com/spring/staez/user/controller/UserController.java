@@ -59,7 +59,7 @@ public class UserController {
 		 * 기본적인 세팅이 jsp응답으로 되어있기 때문에 @ResponseBody을작성해주면
 		 * 반환값을 http응답 객체에 직접 작성하겠다라는 의미를 가지고있다.
 		 */
-//idCheck ajax요청을 받아줄 controller
+		//idCheck ajax요청을 받아줄 controller
 		@ResponseBody
 		@GetMapping("idCheck.me")
 		public String idCheck(String checkId) {

@@ -1,9 +1,217 @@
+// 닉네임 중복 체크
+document.addEventListener('DOMContentLoaded', function() {
+    const nicknameInput = document.querySelector("#nickname");
+    const nicknameCheckButton = document.getElementById("nickNameCheckButton");
+    const nicknameCheckResult = document.getElementById("checkResultNick");
+    const nicknameErrorMessage = document.getElementById("nicknameErrorMessage");
+
+    if (nicknameInput && nicknameCheckButton && nicknameCheckResult && nicknameErrorMessage) {
+        nicknameCheckButton.addEventListener('click', function() {
+            const str = nicknameInput.value;
+            if (str.trim().length >= 1) {
+                $.ajax({
+                    url: "nickCheck.me",
+                    data: { checkNick: str },
+                    success: function (result) {
+                        nicknameCheckResult.style.display = "block";
+                        if (result === "NNNNN") {
+                            nicknameCheckResult.style.color = "red";
+                            nicknameCheckResult.innerText = "이미 사용중인 닉네임입니다.";
+                            // 닉네임 입력 필드의 값을 없애기
+                            nicknameInput.value = "";
+                        } else {
+                            nicknameCheckResult.style.color = "green";
+                            nicknameCheckResult.innerText = "사용가능한 닉네임입니다.";
+                        }
+                    },
+                    error: function () {
+                        console.log("닉네임 중복체크 ajax 실패");
+                    }
+                });
+            } else {
+                nicknameCheckResult.style.display = "none";
+            }
+        });
+    } else {
+        console.log("닉네임 체크 요소 중 하나가 누락되었습니다.");
+    }
+});
+
+
+// 사용자 아이디 중복 체크
+document.addEventListener('DOMContentLoaded', function() {
+    const userIdInput = document.querySelector("#userId");
+    const userIdCheckButton = document.getElementById("idcheckButton");
+    const userIdCheckResult = document.getElementById("checkResultId");
+    const userIdErrorMessage = document.getElementById("userIdErrorMessage");
+
+    if (userIdInput && userIdCheckButton && userIdCheckResult && userIdErrorMessage) {
+        userIdCheckButton.addEventListener('click', function() {
+            const str = userIdInput.value;
+            if (str.trim().length >= 5) {
+                $.ajax({
+                    url: "idCheck.me",
+                    data: { checkId: str },
+                    success: function (result) {
+                        userIdCheckResult.style.display = "block";
+                        if (result === "NNNNN") {
+                            userIdCheckResult.style.color = "red";
+                            userIdCheckResult.innerText = "이미 사용중인 아이디입니다.";
+                            // 닉네임 입력 필드의 값을 없애기
+                            userIdInput.value = "";
+                        } else {
+                            userIdCheckResult.style.color = "green";
+                            userIdCheckResult.innerText = "사용가능한 아이디입니다.";
+                        }
+                    },
+                    error: function () {
+                        console.log("아이디 중복체크 ajax 실패");
+                    }
+                });
+            } else {
+                userIdCheckResult.style.display = "none";
+            }
+        });
+    } else {
+        console.log("아이디 체크 요소 중 하나가 누락되었습니다.");
+    }
+});
+
+
+// 비밀번호 관련 
+var timeout; // 전역 범위에 timeout 변수를 선언합니다.
+
+// 비밀번호 / 비밀번호 확인이 서로 틀릴 경우를 처리하는 함수
+function validatePassword() {
+    clearTimeout(timeout); // 이전에 예약된 작업이 있다면 취소합니다.
+
+    timeout = setTimeout(function() {
+        var password1 = document.getElementById("password1").value;
+        var password2 = document.getElementById("password2").value;
+
+        // 입력값이 모두 비어있으면 메시지를 숨깁니다.
+        if (password1 === "" && password2 === "") {
+            document.getElementById("passwordMessage").innerHTML = "";
+            return;
+        }
+
+        // 비밀번호가 서로 다른 경우
+        if (password1 !== password2) {
+            document.getElementById("passwordMessage").innerHTML = "비밀번호가 다릅니다.";
+            document.getElementById("passwordMessage").classList.remove("passwordCorrect");
+            document.getElementById("passwordMessage").classList.add("passwordIncorrect");
+        } else {
+            // 비밀번호가 일치하는 경우
+            // 비밀번호 유효성 검사: 영문, 숫자, 특수문자 포함, 8글자 이상
+            var regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+            if (!regex.test(password1)) {
+                document.getElementById("passwordMessage").innerHTML = "비밀번호는 영문, 숫자, 특수문자를 모두 포함하여 8글자 이상이어야 합니다.";
+                document.getElementById("passwordMessage").classList.remove("passwordCorrect");
+                document.getElementById("passwordMessage").classList.add("passwordIncorrect");
+            } else {
+                document.getElementById("passwordMessage").innerHTML = "비밀번호가 일치합니다.";
+                document.getElementById("passwordMessage").classList.remove("passwordIncorrect");
+                document.getElementById("passwordMessage").classList.add("passwordCorrect");
+            }
+        }
+    });
+}
+
+// 비밀번호 본인확인 버튼
+// 비밀번호 클릭시 보이도록 (마우스가 눌린 상태에서만)
+document.addEventListener("DOMContentLoaded", function() {
+    let isMouseDown = false;
+    
+    // 비밀번호 클릭시 보이도록 (마우스가 눌린 상태에서만)
+    function togglePasswordVisibility(inputId) {
+        const inputField = document.getElementById(inputId);
+
+        if (isMouseDown) {
+            if (inputField.type === "password") {
+                inputField.type = "text";
+            } else {
+                inputField.type = "password";
+            }
+        }
+    }
+
+    // 마우스 버튼이 눌린 상태인지 여부를 확인하여 상태 업데이트
+    const pwdImgElement = document.getElementById("pwdImg");
+    if (pwdImgElement) {
+        pwdImgElement.addEventListener("mousedown", function() {
+            isMouseDown = true;
+            togglePasswordVisibility('password1');
+        });
+    } else {
+        console.error("Element with id 'pwdImg' not found.");
+    }
+
+    // 마우스 버튼이 떼어진 상태인지 여부를 확인하여 상태 업데이트 및 비밀번호 가리기
+    document.addEventListener("mouseup", function() {
+        isMouseDown = false;
+        const inputField = document.getElementById("password1");
+        inputField.type = "password";
+    });
+});
+
+
+
+// 핸드폰 번호 전송 처리
+document.addEventListener('DOMContentLoaded', function() {
+    const prefixElement = document.getElementById("phone-prefix");
+    const suffix1Element = document.getElementById("phone-suffix1");
+    const suffix2Element = document.getElementById("phone-suffix2");
+    const inputValueElement = document.getElementById("input-value-phone");
+
+    function updatePhoneNumber() {
+        const prefix = prefixElement.innerText;
+        const suffix1 = suffix1Element.value;
+        const suffix2 = suffix2Element.value;
+        const phoneNumber = prefix + suffix1 + suffix2;
+        inputValueElement.value = phoneNumber;
+    }
+
+    suffix1Element.addEventListener('input', updatePhoneNumber);
+    suffix2Element.addEventListener('input', updatePhoneNumber);
+});
+
+function sendPhoneNumber() {
+    // input-value-phone 요소를 가져옵니다.
+    var inputValueElement = document.getElementById("input-value-phone");
+    if (!inputValueElement) {
+        console.error("input-value-phone 요소를 찾을 수 없습니다.");
+        return;
+    }
+
+    // phone-prefix 요소가 존재하는지 확인
+    var prefixElement = document.getElementById("phone-prefix");
+    if (!prefixElement) {
+        console.error("phone-prefix 요소를 찾을 수 없습니다.");
+        return;
+    }
+
+    // 010 부분 가져오기
+    var prefix = prefixElement.innerText;
+
+    // 각 번호 입력란의 값 가져오기
+    var suffix1 = document.getElementById("phone-suffix1").value;
+    var suffix2 = document.getElementById("phone-suffix2").value;
+
+    // 전체 번호 조합하여 표시
+    var phoneNumber = prefix + suffix1 + suffix2;
+    console.log(phoneNumber); // 번호 확인용, 실제 사용시 주석처리해도 됩니다.
+
+    // input-value-phone 필드에 번호 설정
+    inputValueElement.value = phoneNumber;
+}
+
+// 이메일
 document.addEventListener('DOMContentLoaded', function() {
     // 필요한 요소들을 가져옵니다.
     const prefixElement = document.getElementById("email-prefix");
     const suffixElement = document.getElementById("email-suffix");
     const domainList = document.getElementById("email-domain-list");
-    const inputValueElement = document.getElementById("input-value");
+    const inputValueElement = document.getElementById("input-value-email"); // 수정된 부분
 
     // 이메일 주소를 업데이트하는 함수를 정의합니다.
     function updateEmail() {
@@ -18,6 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             inputValueElement.value = "";
         }
+        console.log( prefix + "@" + domain)
     }
 
     // 도메인 리스트 변경 시 처리하는 함수를 정의합니다.
@@ -58,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {
         typingTimer = setTimeout(function() {
             const emailPrefix = emailInput.value;
             const emailSuffix = suffixInput.value;
-            console.log("입력된 값:", emailPrefix + "@" + emailSuffix);
+            console.log("입력된 이메일 아이디 값:", emailPrefix + "@" );
         }, 2000);
     });
 
@@ -67,213 +276,37 @@ document.addEventListener('DOMContentLoaded', function() {
         typingTimer = setTimeout(function() {
             const emailPrefix = emailInput.value;
             const emailSuffix = suffixInput.value;
-            console.log("입력된 값:", emailPrefix + "@" + emailSuffix);
-        }, 2000);
+            console.log("입력된 이메일 주소 값:", emailPrefix + "@" + emailSuffix);
+        });
     });
 });
 
 // 이메일 아이디적을때 한글안되고 영어만 가능하게
 document.addEventListener('DOMContentLoaded', function() {
     const prefixElement = document.getElementById("email-prefix");
+    const userEmailErrorMessage = document.getElementById("userEmailErrorMessage");
 
     prefixElement.addEventListener('input', function() {
         const value = prefixElement.value;
-        const regex = /^[a-zA-Z]*$/; // 영어만 허용하는 정규식
+        const regex = /^[a-zA-Z0-9]*$/; // 영문자와 숫자만 허용하는 정규식
 
         if (!regex.test(value)) {
             // 입력된 값이 한글인 경우 빈 문자열로 대체하여 입력값을 영문만 포함하도록 합니다.
             prefixElement.value = value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '');
+
+            // userEmailErrorMessage에 영어 입력만 가능합니다 메시지 추가
+            if (userEmailErrorMessage) {
+                userEmailErrorMessage.innerText = "영어 입력만 가능합니다.";
+                userEmailErrorMessage.style.color = "red";
+            }
+        } else {
+            // 한글 입력이 아닐 때 에러 메시지를 초기화합니다.
+            if (userEmailErrorMessage) {
+                userEmailErrorMessage.innerText = "";
+            }
         }
     });
 });
-
-
-// 사용자 아이디 중복 체크
-document.addEventListener('DOMContentLoaded', function() {
-    const userIdInput = document.querySelector("#userId");
-    const userIdCheckButton = document.getElementById("idcheckButton");
-    const userIdCheckResult = document.getElementById("checkResultId");
-    const userIdErrorMessage = document.getElementById("userIdErrorMessage");
-
-    if (userIdInput && userIdCheckButton && userIdCheckResult && userIdErrorMessage) {
-        userIdCheckButton.addEventListener('click', function() {
-            const str = userIdInput.value;
-            if (str.trim().length >= 5) {
-                //console.log("아이디 전송"); // 디버깅용 콘솔 로그
-                $.ajax({
-                    url: "idCheck.me",
-                    data: { checkId: str },
-                    success: function (result) {
-                        userIdCheckResult.style.display = "block";
-                        if (result === "NNNNN") {
-                            userIdCheckResult.style.color = "red";
-                            userIdCheckResult.innerText = "이미 사용중인 아이디입니다.";
-                        } else {
-                            userIdCheckResult.style.color = "green";
-                            userIdCheckResult.innerText = "사용가능한 아이디입니다.";
-                        }
-                    },
-                    error: function () {
-                        console.log("아이디 중복체크 ajax 실패");
-                    }
-                });
-            } else {
-                userIdCheckResult.style.display = "none";
-            }
-        });
-
-        userIdInput.addEventListener('blur', function() {
-            if (userIdInput.value.trim().length === 0) {
-                userIdErrorMessage.innerText = "필수 입력사항입니다.";
-            } else {
-                userIdErrorMessage.innerText = "";
-            }
-        });
-
-        userIdInput.addEventListener('input', function() {
-            if (userIdInput.value.trim().length === 0) {
-                userIdErrorMessage.innerText = "필수 입력사항입니다.";
-            } else {
-                userIdErrorMessage.innerText = "";
-            }
-        });
-    } else {
-        console.log("아이디 체크 요소 중 하나가 누락되었습니다.");
-    }
-});
-
-
-
-// 닉네임 중복 체크
-document.addEventListener('DOMContentLoaded', function() {
-    const nicknameInput = document.querySelector("#nickname");
-    const nicknameCheckButton = document.getElementById("nickNameCheckButton");
-    const nicknameCheckResult = document.getElementById("checkResultNick");
-    const nicknameErrorMessage = document.getElementById("nicknameErrorMessage");
-
-    if (nicknameInput && nicknameCheckButton && nicknameCheckResult) {
-        nicknameCheckButton.addEventListener('click', function() {
-            const str = nicknameInput.value;
-            if (str.trim().length >= 1) {
-                $.ajax({
-                    url: "nickCheck.me",
-                    data: { checkNick: str },
-                    success: function (result) {
-                        nicknameCheckResult.style.display = "block";
-                        if (result === "NNNNN") {
-                            nicknameCheckResult.style.color = "red";
-                            nicknameErrorMessage.innerText = "이미 사용중인 닉네임입니다.";
-                        } else {
-                            nicknameCheckResult.style.color = "green";
-                            nicknameErrorMessage.innerText = "사용가능한 닉네임입니다.";
-                        }
-                    },
-                    error: function () {
-                        console.log("닉네임 중복체크 ajax 실패");
-                    }
-                });
-            } else {
-                nicknameCheckResult.style.display = "none";
-            }
-        });
-
-        nicknameInput.addEventListener('blur', function() {
-            if (nicknameInput.value.trim().length === 0) {
-                nicknameErrorMessage.innerText = "필수 입력사항입니다.";
-            } else {
-                nicknameErrorMessage.innerText = "";
-            }
-        });
-
-        nicknameInput.addEventListener('input', function() {
-            if (nicknameInput.value.trim().length === 0) {
-                nicknameErrorMessage.innerText = "필수 입력사항입니다.";
-            } else {
-                nicknameErrorMessage.innerText = "";
-            }
-        });
-    } else {
-        console.log("아이디 체크 요소 중 하나가 누락되었습니다.");
-    }
-});
-
-
-var timeout; // 전역 범위에 timeout 변수를 선언합니다.
-
-// 비밀번호 / 비밀번호 확인이 서로 틀릴 경우를 처리하는 함수
-function validatePassword() {
-    clearTimeout(timeout); // 이전에 예약된 작업이 있다면 취소합니다.
-
-    timeout = setTimeout(function() {
-        var password1 = document.getElementById("password1").value;
-        var password2 = document.getElementById("password2").value;
-
-        // 입력값이 모두 비어있으면 메시지를 숨깁니다.
-        if (password1 === "" && password2 === "") {
-            document.getElementById("passwordMessage").innerHTML = "";
-            return;
-        }
-
-        // 비밀번호가 서로 다른 경우
-        if (password1 !== password2) {
-            document.getElementById("passwordMessage").innerHTML = "비밀번호가 다릅니다.";
-            document.getElementById("passwordMessage").classList.remove("passwordCorrect");
-            document.getElementById("passwordMessage").classList.add("passwordIncorrect");
-            
-            // 비밀번호가 다를 경우 입력값을 모두 지웁니다.
-            document.getElementById("password1").value = "";
-            document.getElementById("password2").value = "";
-        } else {
-            // 비밀번호가 일치하는 경우
-            document.getElementById("passwordMessage").innerHTML = "비밀번호가 일치합니다.";
-            document.getElementById("passwordMessage").classList.remove("passwordIncorrect");
-            document.getElementById("passwordMessage").classList.add("passwordCorrect");
-        }
-    }, 2000); // 2초 뒤에 실행합니다.
-}
-
-// 핸드폰 번호 전송 처리
-document.addEventListener('DOMContentLoaded', function() {
-    const prefixElement = document.getElementById("phone-prefix");
-    const suffix1Element = document.getElementById("phone-suffix1");
-    const suffix2Element = document.getElementById("phone-suffix2");
-    const inputValueElement = document.getElementById("input-value");
-
-    function updatePhoneNumber() {
-        const prefix = prefixElement.innerText;
-        const suffix1 = suffix1Element.value;
-        const suffix2 = suffix2Element.value;
-        const phoneNumber = prefix + suffix1 + suffix2;
-        inputValueElement.value = phoneNumber;
-    }
-
-    suffix1Element.addEventListener('input', updatePhoneNumber);
-    suffix2Element.addEventListener('input', updatePhoneNumber);
-});
-
-function sendPhoneNumber() {
-    // phone-prefix 요소가 존재하는지 확인
-    var prefixElement = document.getElementById("phone-prefix");
-    if (!prefixElement) {
-        console.error("phone-prefix 요소를 찾을 수 없습니다.");
-        return;
-    }
-
-    // 010 부분 가져오기
-    var prefix = prefixElement.innerText;
-
-    // 각 번호 입력란의 값 가져오기
-    var suffix1 = document.getElementById("phone-suffix1").value;
-    var suffix2 = document.getElementById("phone-suffix2").value;
-
-    // 전체 번호 조합하여 표시
-    var phoneNumber = prefix + suffix1 + suffix2;
-    console.log(phoneNumber); // 번호 확인용, 실제 사용시 주석처리해도 됩니다.
-
-    // input-value 필드에 번호 설정
-    document.getElementById("input-value").value = phoneNumber;
-}
-
 
 // 우편번호 팝업 열기
 function openPostalCodePopup() {
@@ -381,3 +414,42 @@ function saveFormDataToDB() {
     });
 }
 
+
+function showErrorMessage(inputElement, errorMessage) {
+    // 입력 필드가 포함된 부모 요소를 찾습니다.
+    const parentElement = inputElement.parentElement;
+
+    // 에러 메시지 요소를 생성합니다.
+    const errorElement = document.createElement("div");
+    errorElement.classList.add("error-message");
+    errorElement.innerText = errorMessage;
+
+    // 이미 에러 메시지가 존재하는 경우에는 삭제합니다.
+    const existingError = parentElement.querySelector(".error-message");
+    if (existingError) {
+        parentElement.removeChild(existingError);
+    }
+
+    // 에러 메시지를 추가합니다.
+    parentElement.appendChild(errorElement);
+
+    // 입력 필드에 포커스를 맞춥니다.
+    inputElement.focus();
+}
+
+// 예시: 중복 확인 결과 메시지를 표시하는 함수
+function showNicknameCheckResultMessage(result) {
+    const nicknameInput = document.querySelector("#nickname");
+    const nicknameCheckResult = document.getElementById("checkResultNick");
+
+    if (result === "NNNNN") {
+        // 중복된 닉네임인 경우 에러 메시지를 표시합니다.
+        showErrorMessage(nicknameInput, "이미 사용중인 닉네임입니다.");
+    } else {
+        // 사용 가능한 닉네임인 경우 에러 메시지를 숨깁니다.
+        const existingError = nicknameInput.parentElement.querySelector(".error-message");
+        if (existingError) {
+            nicknameInput.parentElement.removeChild(existingError);
+        }
+    }
+}

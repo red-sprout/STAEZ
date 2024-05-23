@@ -16,6 +16,8 @@
     <script src="${contextPath}/resources/js/user/insertForm.js"></script>
     <!-- 주소 카카오 api -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <!-- ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Bootstrap 4 Tutorial -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -40,41 +42,45 @@
                         <td colspan="2">
                             <input type="text" placeholder="한문 영문 16글자 이하" name="nickname" id="nickname" maxlength="16" required>
                         </td>
-                        <td>
-                            <input type="button" id="nickNameCheckButton" class="check_nickname" value="중복검사">
-                        </td>
+                        <td><input type="button" id="nickNameCheckButton" class="check_nickname" value="중복검사"></td>
                     </tr>
                     <tr>
                         <td colspan="4">
-                            <div id="checkResultNick">
-                                <span id="nicknameErrorMessage" style="color: red;"></span>
+                            <div id="checkResultNick" class="checkResult">
+                                <span id="nicknameErrorMessage"></span>
                             </div>
                         </td>
-                    </tr>                    
+                    </tr>                  
                     <tr>
                         <th>아이디</th>
                         <td colspan="2">
-                            <input type="text" placeholder="영문 숫자 16글자 이하" name="user_id" id="userId" required>
+                            <input type="text" placeholder="영문 숫자 16글자 이하" name="user_id" id="userId" maxlength="16" required>
                         </td>
                         <td><input type="button" id="idcheckButton" class="check_userId" value="중복검사"></td>
                     </tr>
                     <tr>
                         <td colspan="4">
-                            <div id="checkResultId">
-                                <span id="userIdErrorMessage" style="color: red;"></span>
+                            <div id="checkResultId" class="checkResult">
+                                <span id="userIdErrorMessage"></span>
                             </div>
                         </td>
-                    </tr>                                                     
+                    </tr>                                                  
                     <tr>
                         <th>비밀번호</th>
-                        <td colspan="2"><input type="password" id="password1" placeholder="영문 숫자 특수문자 포함 16글자 이내" name="user_pwd"></td>
-                    </tr>
+                        <td colspan="2">
+                            <div style="position: relative;">
+                                <input type="password" id="password1" placeholder="영문 숫자 특수문자 포함 8글자 이상" required name="user_pwd">
+                                <img src="${contextPath}/resources/img/user/pwd.png" id="pwdImg" alt="비밀번호 보기">
+                            </div>
+                        </td>
+                    </tr>                    
                     <tr>
                         <th>비밀번호 확인</th>
-                        <td colspan="2"><input type="password" id="password2" onkeyup="validatePassword()"></td>
+                        <td colspan="1"><input type="password" id="password2" placeholder="똑같이 입력하셔야 합니다." required></td>
+                        <td colspan="1"><input type="button" class="check_button" value="확인" required onclick="validatePassword()"></td>
                     </tr>
                     <tr>
-                        <td colspan="3" id="passwordMessage"></td>
+                        <td colspan="4" id="passwordMessage"></td>
                     </tr>
                     <tr>
                         <th>휴대폰 번호</th>
@@ -82,15 +88,15 @@
                             <div id="td-div">
                                 <span id="phone-prefix">010</span>
                                 <span></span>
-                                <input type="text" id="phone-suffix1" maxlength="4">
+                                <input type="text" id="phone-suffix1" maxlength="4" >
                                 <span></span>
                                 <input type="text" id="phone-suffix2" maxlength="4">
-                                <input type="text" name="phone" id="input-value">
+                                <input type="text" name="phone" id="input-value-phone" required>
                             </div>
                             <td colspan="1"><input type="button" class="check_button" value="인증번호 전송" onclick="sendPhoneNumber()"></td>
                             
                         </td>
-                    </tr>                   
+                    </tr>
                     <tr>
                         <th></th>
                         <td><input type="text"></td>
@@ -99,7 +105,7 @@
                     <tr>
                         <th>생년월일</th>
                         <td class="email-container">
-                            <input type="date" name="birth">
+                            <input type="date" name="birth" required>
                         </td>   
                     </tr>
                     <tr>
@@ -109,7 +115,7 @@
                                 <input type="text" id="email-prefix" placeholder="이메일 아이디 입력">
                                 <span id="email-prefix-shift2">@</span>
                                 <input type="text" id="email-suffix" placeholder="직접 입력">
-                                <input type="text" name="email" id="input-value" readonly>
+                                <input type="text" name="email" id="input-value-email" readonly>
                             </div>
                         </td>
                         <td>
@@ -121,6 +127,13 @@
                                 <option value="nate.com">nate.com</option>
                                 <option value="kakao.com">kakao.com</option>
                             </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <div id="checkResultEamil" class="checkResult">
+                                <span id="userEmailErrorMessage"></span>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -136,15 +149,15 @@
                     <tr>
                         <th>주소</th>
                         <td colspan="2"><input type="text" id="addressInput"></td>
-                        <td><input type="button" class="check_button" value="우편번호" onclick="openPostalCodePopup()"></td>
+                        <td><input type="button" class="check_button" value="우편번호" onclick="openPostalCodePopup()" required></td>
                     </tr>
                     <tr>
                         <th></th>
-                        <td colspan="1"><input type="text" id="detailAddressInput" placeholder="동 / 호수" name="address-detail"></td>
+                        <td colspan="1"><input type="text" id="detailAddressInput" placeholder="자세한 주소 : 동 / 호수" name="address-detail"></td>
                         <td><input type="button" class="check_button" value="확인" onclick="checkAddress()"></td>
                     </tr>
                     <tr>
-                        <input type="text" name="address" id="input-value" readonly>
+                        <input type="text" name="address" id="input-value-address" readonly>
                     </tr>                    
                     <tr>
                         <th>관심장르(택3)</th>
@@ -156,14 +169,14 @@
                             <button type="button" class="btn-staez3" data-genre="뮤지컬"><h3>뮤지컬</h3></button>
                             <button type="button" class="btn-staez3" data-genre="연극"><h3>연극</h3></button>
                             <button type="button" class="btn-staez3" data-genre="서커스/마술"><h3>서커스/마술</h3></button>
-                            <input type="text" name="genreLike" id="input-value"> <!--button들 내용 추가-->
+                            <input type="text" name="genreLike" id="input-value-genreLike"> <!--button들 내용 추가-->
                         </td>
                     </tr>
                     <tr>
                         <td colspan="4">
                             <div class="insert-member-div">
                                 <button type="button" id="backButton">이전</button>
-                                <button type="submit">다음</button>
+                                <button type="submit" disabled>다음</button>
                             </div>
                         </td>
                     </tr>
