@@ -1,3 +1,4 @@
+// 찜버튼(하트)눌러서 색 채우기
 function likeToggle(_this) {
     // const check = _this.children[1];
     // check.checked = !check.checked;
@@ -5,25 +6,35 @@ function likeToggle(_this) {
     _this.children[0].classList.toggle("fa-solid");
     _this.children[0].classList.toggle("fa-regular");
 }
-
+// 예매버튼 클릭
 function reservePage(){
     window.open('/staez/selectDate.co' , "_blank", "width=1001, height=601, scrollbars=no");
 }
 
-function test() {
-    $.ajax({
-        url: "http://localhost:8888/staez/sellInfo.co",
-        type: "GET" // 또는 POST 등 적절한 HTTP 메서드 선택
-        // 필요한 경우 요청 데이터도 포함하여 전달
-        // data: { key1: value1, key2: value2, ... }
-        ,
-        data: 1,
-        success: function(){
-            console.log("성공")
-        },
-        error : function(){
-            console.log("실패")
-        }
-    });
-}
+// 누르면 다른 페이지로
 
+
+
+
+
+
+
+// 누르면 다른 페이지로 가는 자스는 틀이 같아야
+// function openTab(pageName, elmnt) {
+//     var i, dPageContent, dNaviLink;
+//     dPageContent = document.getElementsByClassName("dPageContent");
+//     for (i = 0; i < dPageContent.length; i++) {
+//         dPageContent[i].style.display = "none";
+//     }
+//     dNaviLink = document.getElementsByClassName("dNaviLink");
+//     for (i = 0; i < dNaviLink.length; i++) {
+//         dNaviLink[i].classList.remove("active");
+//     }
+//     document.getElementById(pageName).style.display = 'block';
+//     elmnt.classList.add("active");
+// }
+
+// // 페이지 로드 시 기본으로 열릴 콘텐츠 설정
+// window.onload = function() {
+//     document.getElementById("defaultOpen").click();
+// }
