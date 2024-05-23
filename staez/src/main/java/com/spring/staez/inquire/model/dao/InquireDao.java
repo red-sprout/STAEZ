@@ -23,4 +23,8 @@ public class InquireDao {
 	public int insertBoardCategory(SqlSessionTemplate sqlSession, int cNO) {
 		return sqlSession.insert("inquireMapper.insertBoardCategory", cNO);
 	}
+	
+	public ArrayList<Board> ajaxSelectFaq(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("inquireMapper.selectFaq");
+	}
 }

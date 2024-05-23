@@ -8,13 +8,43 @@ function categoryChange(_this){
     }
     _this.classList.add("choice-background");
     _this.querySelector("span").classList.add("choice-color-span");
+    drawFaqContent();
 }
 
 window.onload = function(){
     $.ajax({
-        url : "ajaxSelectFaq",
-        data : {
-                
+        url : "ajaxSelectCategory.iq",
+        success : function(categorys){
+            console.log(categorys)
+            drawCategory(categorys)
+        },error : function(){
+            console.log("실패")
         }
     })
+
+    function drawCategory(categorys){
+        const categorySpen = document.querySelectorAll(".categoryName");
+        console.log(categorySpen)
+        for (let i= 0; i < categorySpen.length; i++){
+            categorySpen[i].innerHTML = categorys[i].categoryName;
+            categorySpen[i].id = categorys[i].categoryNo;
+        }       
+    }
+
+    $.ajax({
+        url : "ajaxSelectFaq.iq",
+        success : function(faqs){
+            console.log(faqs)
+            drawFaq(faqs)
+        },error : function(){
+            console.log("실패")
+        }
+    })
+
+    function drawFaq(faqs){
+        const faqCount = document.querySelector(".faq-count");
+        const faqContent = document.querySelector(".faq-content-container");
+        faqCount.innerHTML = `전체 ` + faqs.length; 
+        faqContent.innerHTML = 
+    }
 }

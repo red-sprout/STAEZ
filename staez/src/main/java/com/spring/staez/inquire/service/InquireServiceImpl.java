@@ -41,6 +41,11 @@ public class InquireServiceImpl implements InquireService{
 		int result2 = iDao.insertBoardCategory(sqlSession, categoryNo);
 		
 		return result1 * result2;	
+	}
+
+	@Override
+	public ArrayList<Board> ajaxSelectFaq() {
+		return iDao.ajaxSelectFaq(sqlSession);
 	}	
 
 }

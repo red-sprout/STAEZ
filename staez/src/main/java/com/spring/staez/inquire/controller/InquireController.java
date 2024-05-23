@@ -55,6 +55,16 @@ public class InquireController {
 		return "redirect:/insertForm.iq";
 	}
 	
+	@ResponseBody
+	@GetMapping(value = "ajaxSelectFaq.iq" , produces="application/json; charset-UTF-8")
+	public String ajaxSelectFaq() {
+		ArrayList<Board> faqs = iService.ajaxSelectFaq();
+		
+		System.out.println(faqs);
+		return  new Gson().toJson(faqs);
+	}
+	
+	
 		
 	
 }
