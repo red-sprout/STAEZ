@@ -192,6 +192,8 @@ button{
 
 .main-content>#profile-update #profile-img>img:hover{
     cursor: pointer;
+    filter: brightness(0.8);
+
 }
 
 .main-content>#profile-update #update-form{
@@ -314,19 +316,36 @@ button{
 
     display: flex;
     flex-direction: row;
-
-    margin-bottom: 5px;
 }
 
-.main-content>#profile-update #update-form #gender-input>div>*{
-    margin-left: 10px;
+.main-content>#profile-update #update-form #gender-input label{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    
+    align-items: center;
+
+    margin-right: 20px;
+    margin-bottom: 0;
+}
+
+.main-content>#profile-update #update-form #gender-input label>*{
     margin-right: 10px;
 }
-.main-content>#profile-update #update-form #gender-input>div>div>*{
-    
-    margin-bottom: 0;
 
+
+.main-content>#profile-update #update-form #gender-input input[type='radio']{
+    width: 20px;
+    height: 20px;
+
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
+
+
+
 
 .main-content>#profile-update #update-form #email-input{
     position: relative;
@@ -421,6 +440,9 @@ button{
 
 
 
+/*모달 공통*/
+
+
 /*비밀번호 변경 modal*/
 .pwd-tag {
     padding: 20px 40px;
@@ -469,8 +491,49 @@ button{
     padding: 0 10px;
 }
 
-.pwd-tag>table button{
-    
+.pwd-tag i::before{
+    width: 40px;
+    height: 40px;
+}
+
+/*프로필 사진 변경*/
+.img-tag {
+    padding: 20px 40px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-tag>*{
+    margin: 0 20px;
+}
+
+.img-tag img{
+    width: 140px;
+    height: 140px;
+}
+
+.img-tag .options{
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.img-tag label{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.img-tag label>*{
+    margin-right: 10px;
+}
+
+.img-tag input[type='file']{
 }
 
 .comment-area {
@@ -494,7 +557,10 @@ button{
 
 
 
-
+div>img{
+    border: 3px solid #D9D9D9;
+    border-radius: 50%;
+}
 
 
 

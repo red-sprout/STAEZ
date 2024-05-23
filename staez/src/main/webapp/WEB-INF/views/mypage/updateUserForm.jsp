@@ -9,9 +9,12 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${contextPath}/resources/css/mypage/updateUserForm.css">
 <script src="${contextPath}/resources/js/mypage/updateUserForm.js"></script>
+<script src="${contextPath}/resources/js/api/mypageapi.js"></script>
+
 
 <!-- 다음 주소 api -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 
 
 <title>Insert title here</title>
@@ -78,23 +81,16 @@
 
                     <form action="update.me" method="GET" >
                         <div id="profile-img">
-                            <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
+                            <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="" data-toggle="modal" data-target="#imgModal">
                         </div>
                         <div id="update-form">
                             <table>
                                 <tbody>
                                     <tr>
-                                        <th><h3>닉네임</h3></th>
-                                        <td class="input-box">
-                                            <input type="text" name="nickname" value="" placeholder="" maxlength="16" >
+                                        <th><h3>비밀번호</h3></th>
+                                        <td id="pwd-btn">
+                                            <button type="button" data-toggle="modal" data-target="#pwdModal">비밀번호 변경</button>
                                         </td>
-                                        <td class="input-btn">
-                                            <button type="button">중복확인</button>
-                                        </td>
-                                    </tr>
-                                    <tr class="warning-text hidden">
-                                        <td></td>
-                                        <td><h5>중복된 닉네임입니다</h5></td>
                                         <td></td>
                                     </tr>
 
@@ -116,10 +112,17 @@
                                     </tr>
 
                                     <tr>
-                                        <th><h3>비밀번호</h3></th>
-                                        <td id="pwd-btn">
-                                            <button type="button" data-toggle="modal" data-target="#pwdModal">비밀번호 변경</button>
+                                        <th><h3>닉네임</h3></th>
+                                        <td class="input-box">
+                                            <input type="text" name="nickname" value="" placeholder="" maxlength="16">
                                         </td>
+                                        <td class="input-btn">
+                                            <button type="button" onclick="checkNickname()">중복확인</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="warning-text">
+                                        <td></td>
+                                        <td><h5></h5></td>
                                         <td></td>
                                     </tr>
 
@@ -127,14 +130,14 @@
                                         <th><h3>성별</h3></th>
                                         <td id="gender-input">
                                             <div>
-                                                <div>
+                                                <label for="male">
                                                     <input type="radio" name="gender" id="male" value="M">
-                                                    <label for="male">남자</label>
-                                                </div>
-                                                <div>
+                                                    <h4>남자</h4>
+                                                </label>
+                                                <label for="female">
                                                     <input type="radio" name="gender" id="female" value="F">
-                                                    <label for="female">여자</label>
-                                                </div>
+                                                    <h4>여자</h4>
+                                                </label>
                                             </div>
                                         </td>
                                         <td></td>
@@ -248,26 +251,24 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 
-                <form method="GET"> <!-- 비밀번호 ajax 사용 예정-->
+                <form action="updatePwd.me" method="POST">
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="pwd-tag">
                             <div></div>
                             <div>
                                 <h3>변경할 비밀번호</h3>
-                                <input type="password" placeholder="영문 숫자 특수문자 포함 16글자 이내 ">
+                                <input id="changePwd" type="password" name="newPwd" placeholder="영문 숫자 특수문자 포함 8글자 이상" oninput="checkPassword()" required>
                             </div>
                             <div class="pwd-check">
-                                <span></span>
-                                <h5>올바르지 못한 형식입니다</h5>                                
+                                <h5></h5>                                
                             </div>
                             <div>
                                 <h3>비밀번호 확인</h3>
-                                <input type="password">
+                                <input id="checkPwd" type="password" oninput="checkPassword()" required>
                             </div>
                             <div class="pwd-check">
-                                <span></span>
-                                <h5>비밀번호가 일치하지 않습니다</h5>
+                                <h5></h5>
                             </div>
                         </div>
                     </div>
@@ -282,33 +283,38 @@
         </div>
     </div>
 
-     <!-- 프로필사진 변경 Modal -->
-     <div class="modal" id="imgModal">
-        <div class="modal-dialog">
+     <!-- 프로필 이미지 변경 Modal -->
+     <div class="modal fade" id="imgModal">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h3 class="modal-title">비밀번호 변경</h3>
+                    <h3 class="modal-title">프로필 이미지 변경</h3>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 
-                <form method="GET"> <!-- 비밀번호 ajax 사용 예정-->
+                <form method="POST">
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <div class="pwd-tag">
+                        <div class="img-tag">
                             <div>
-                                <h3>현재 비밀번호</h3>
-                                <input type="password">
-                                <button type="button" class="btn-staez purple"><h3>비밀번호 확인</h3></button>
+                                <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
                             </div>
-                            <!-- <div>
-                                <h3>변경할 비밀번호</h3>
-                                <input type="password">
+                            <div class="options">
+                                <label>
+                                    <input type="radio" name="profile-option" value="current" checked>
+                                    <h4>현재 프로필 이미지</h4> 
+                                </label>
+                                <label>
+                                    <input type="radio" name="profile-option" value="default">
+                                    <h4>기본 이미지</h4>
+                                </label>
+                                <label>
+                                    <input type="radio" name="profile-option" value="new">
+                                    <h4>변경할 이미지 선택</h4>
+                                </label>
+                                <input type="file" id="new-image-input" accept="image/*" >
                             </div>
-                            <div>
-                                <h3>비밀번호 확인</h3>
-                                <input type="password">
-                            </div> -->
                         </div>
                     </div>
                     
@@ -323,8 +329,8 @@
     </div>
 
     <!-- 회원탈퇴 Modal -->
-    <div class="modal" id="withdrawalModal">
-        <div class="modal-dialog">
+    <div class="modal fade" id="withdrawalModal">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
@@ -332,7 +338,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 
-                <form method="GET"> <!-- 비밀번호 ajax 사용 예정-->
+                <form method="GET">
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="withdrawal-tag">

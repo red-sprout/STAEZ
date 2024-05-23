@@ -1,7 +1,11 @@
+
+
 function init() {
     updateCombinedAddress();
     updateCombinedPhone();
     emailDomain(); // Initialize email input fields on page load
+
+
 
 }
 
@@ -18,15 +22,84 @@ function checkPassword() {
     }
 }
 
-//비밀번호 변경
-document.addEventListener('DOMContentLoaded', () => {
+// 비밀번호 변경
+function checkPassword(){
+    const newPwd = document.getElementById('changePwd'); // 변경할 비밀번호 input
+    const checkPwd = document.getElementById('checkPwd'); //비밀번호 확인 input
+    const warning1 = document.querySelectorAll('.pwd-check>h5')[0]; //비밀번호 조합 확인 div
+    const warning2 = document.querySelectorAll('.pwd-check>h5')[1]; //비밀번호 일치 체크 div                             
+
+    const combineCheck = combinePwd(newPwd, warning1);
+    const differCheck = differPwd(newPwd, checkPwd, warning2);
+
+    console.log(newPwd.value);
+    console.log(checkPwd.value);
+
+    console.log(combineCheck, differCheck)
+}
+
+function combinePwd(targetInput, warning1){ //새로운 비밀번호 조합 확인
+    const reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,30}$/;
     
+    if(reg.test(targetInput.value) || targetInput.value === ""){ //비밀번호의 조합조건이 맞거나 빈칸일 경우
+        warning1.innerText = '';
+        return targetInput.value !== ""; //값이 비어있는 것은 combinePwd조건에 만족은 아니다
+        //값이 비어있을 경우 false, 값이 있으면 true
+
+    } else {
+        warning1.innerText = '올바르지 못한 형식입니다';
+        return false;
+    } 
+}
+
+function differPwd(originInput, checkInput, warning2){ //비밀번호 일치 체크
+    if(originInput.value === checkInput.value || checkInput.value === ""){ //비밀번호가 일치하거나 빈칸일 경우
+        warning2.innerText = '';
+        return checkInput.value !== ""; //값이 비어있는 것은 differPwd조건에 만족은 아니다
+       
+    } else{
+        warning2.innerText = '비밀번호가 일치하지 않습니다';
+        return false;
+    }
+}
+
+//(비밀번호 변경) 닫기, 취소 버튼누르면 input들 초기화
+document.addEventListener('DOMContentLoaded', () => {
+    const cancelBtns = document.querySelectorAll("#pwdModal button[type='button']"); //닫기, 취소 버튼
+    const pwdForm = document.querySelector("#pwdModal form"); //pwd변경 form
+    const warnings = document.querySelectorAll("#pwdModal h5");
+
+    cancelBtns.forEach(button => {
+        button.addEventListener('click', function(){
+            warnings.forEach(warning => {
+                warning.innerText = '';
+            });
+            pwdForm.reset();
+        });
+    });
 });
 
-
-
 //닉네임 중복확인 ajax
+function checkNickname(){
+    const nickname = document.querySelector("input[name='nickname']");
+    const warningText = document.querySelectorAll('.warning-text h5')[0];
+    
+    dupliCheck({nickname: nickname.value}, (res) => {
+        console.log(warningText);
+        console.log(nickname.value);
+        //중복닉네임이 있을 경우
+        if(res === 'NNNNN'){
+            warningText.innerText = '중복된 닉네임이 존재합니다';
+            warningText.style.color = 'red';
+            nickname.focus();
+        } else {
+            //닉네임 사용이 가능할 경우
+            warningText.innerText = "사용가능한 닉네임입니다.";
+            warningText.style.color = 'green';
+        }
+    });
 
+}
 
 //관심장르 선택
 document.addEventListener('DOMContentLoaded', () => {
@@ -95,10 +168,10 @@ function execDaumPostcode() {
                 }
                 // 조합된 참고항목을 해당 필드에 넣는다.
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById("addressNormal").value = addr + extraAddr;
+                document.getElementById("addressNormal").value = '[' + data.zonecode + '] ' + addr + extraAddr;
 
             } else {
-                document.getElementById("addressNormal").value = addr;
+                document.getElementById("addressNormal").value = '[' + data.zonecode + '] ' + addr;
             }
 
             // 상세주소 필드의 readonly옵션을 없애고, 커서를 상세주소 필드로 이동한다.
@@ -157,6 +230,61 @@ function emailDomain() {
 
     updateCombinedEmail(); // Update combined email value whenever the domain changes
 }
+
+
+
+
+
+/*
+//프로필 사진 변경
+const profilePic = document.getElementById('profile-pic');
+const newImageInput = document.getElementById('new-image-input');
+const saveButton = document.getElementById('save-button');
+
+const currentProfilePicSrc = 'current-profile.jpg';
+const defaultProfilePicSrc = 'default-profile.jpg';
+let newProfilePicSrc = '';
+
+document.querySelectorAll('input[name="profile-option"]').forEach((input) => {
+    input.addEventListener('change', (event) => {
+        const value = event.target.value;
+        if (value === 'current') {
+            profilePic.src = currentProfilePicSrc;
+        } else if (value === 'default') {
+            profilePic.src = defaultProfilePicSrc;
+        } else if (value === 'new') {
+            newImageInput.click();
+        }
+    });
+});
+
+newImageInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            newProfilePicSrc = e.target.result;
+            profilePic.src = newProfilePicSrc;
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+saveButton.addEventListener('click', () => {
+    const selectedOption = document.querySelector('input[name="profile-option"]:checked').value;
+    if (selectedOption === 'current') {
+        alert('현재 프로필 이미지로 설정되었습니다.');
+    } else if (selectedOption === 'default') {
+        alert('기본 이미지로 설정되었습니다.');
+    } else if (selectedOption === 'new' && newProfilePicSrc) {
+        alert('새로운 이미지로 설정되었습니다.');
+    } else {
+        alert('이미지가 선택되지 않았습니다.');
+    }
+});
+
+*/
+
 
 
 // 페이지가 로드되면 init 함수를 호출하여 초기 값을 설정
