@@ -64,6 +64,24 @@ public class InquireController {
 		return  new Gson().toJson(faqs);
 	}
 	
+	@ResponseBody
+	@GetMapping(value = "ajaxSearchSelectFaq.iq" , produces="application/json; charset-UTF-8")
+	public String ajaxSearchSelectFaq(String option, String content) {
+		ArrayList<Board> faqs = iService.ajaxSearchSelectFap(option, content);
+		
+		System.out.println(faqs);
+		return  new Gson().toJson(faqs);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxCategoryFaq.iq" , produces="application/json; charset-UTF-8")
+	public String ajaxSelectCategoryFaq(String categoryName) {
+		ArrayList<Board> faqs = iService.ajaxSelectCategoryFaq(categoryName);
+		
+		System.out.println(faqs);
+		return  new Gson().toJson(faqs);
+	}
+	
 	
 		
 	
