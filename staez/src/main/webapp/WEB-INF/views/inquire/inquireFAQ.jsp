@@ -19,21 +19,21 @@
             <div id="customer-service-faq-choice">
                 <span style="color: #B51B75;">FAQ</span>
             </div>
-            <div id="customer-service-insert-from-choice">
+            <div id="customer-service-insert-from-choice" onclick="location.href='insertForm.iq'">
                 <span>1대1 문의</span>
             </div>
         </div>
         <div id="customer-service-content-category-area">
-            <div id="all-category" class="category-choice" style="background: #B51B75;"><span style="color: white;">전체</span></div>
-            <div id="concert-category" class="category-choice"><span>공연</span></div>
-            <div id="community-category" class="category-choice"><span>커뮤니티</span></div>
-            <div id="reservation-category" class="category-choice"><span>예매</span></div>
-            <div id="refund-category" class="category-choice"><span>환불/취소</span></div>
-            <div id="use-site-category" class="category-choice"><span>사이트 이용</span></div>
-            <div id="ticket-category" class="category-choice"><span>티켓</span></div>
+            <div id="all-category" onclick="categoryChange(this)" class="category-choice choice-background"><span class="choice-color-span">전체</span></div>
+            <div id="concert-category" onclick="categoryChange(this)" class="category-choice"><span class="categoryName"></span></div>
+            <div id="community-category" onclick="categoryChange(this)" class="category-choice"><span class="categoryName"></span></div>
+            <div id="reservation-category" onclick="categoryChange(this)" class="category-choice"><span class="categoryName"></span></div>
+            <div id="refund-category" onclick="categoryChange(this)" class="category-choice"><span class="categoryName"></span></div>
+            <div id="use-site-category" onclick="categoryChange(this)" class="category-choice"><span class="categoryName"></span></div>
+            <div id="ticket-category" onclick="categoryChange(this)" class="category-choice"><span class="categoryName"></span></div>
         </div>
         <div id="faq-count-area">
-            <span>전체 50건</span>
+            <span class="faq-count"></span>
         </div>
         <div class="faq-content-container">
             <div class="faq-content-area">
@@ -113,6 +113,7 @@
             </button>
         </div>
    </main>
+   <script src="${contextPath}/resources/js/inquire/inquireFAQ.js"></script>
     <footer>
         <jsp:include page="../common/footer.jsp" />
     </footer>
