@@ -46,6 +46,30 @@ public class InquireServiceImpl implements InquireService{
 	@Override
 	public ArrayList<Board> ajaxSelectFaq() {
 		return iDao.ajaxSelectFaq(sqlSession);
-	}	
+	}
+
+	@Override
+	public ArrayList<Board> ajaxSearchSelectFap(String option, String content) {
+		ArrayList<Board> faqs;
+
+		if(option.equals("title")) { //옵션이 title일때
+			faqs = iDao.titleSearchFaq(sqlSession ,content);
+		} else { //옵션이 content일때
+			faqs = iDao.contentSearchFaq(sqlSession ,content);
+		}
+		
+		return faqs;
+	}
+
+	@Override
+	public ArrayList<Board> ajaxSelectCategoryFaq(String categoryName) {
+		ArrayList<Board> faqs;
+		if(categoryName.equals("전체")) {
+			faqs = iDao.ajaxSelectFaq(sqlSession);
+		} else {
+			faqs = iDao.ajaxSelectCategoryFaq(sqlSession, categoryName);
+		}
+		return faqs;
+	}	 
 
 }
