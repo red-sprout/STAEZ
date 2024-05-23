@@ -1,7 +1,11 @@
+
+
 function init() {
     updateCombinedAddress();
     updateCombinedPhone();
     emailDomain(); // Initialize email input fields on page load
+
+
 
 }
 
@@ -33,7 +37,6 @@ function checkPassword(){
 
     console.log(combineCheck, differCheck)
 }
-
 
 function combinePwd(targetInput, warning1){ //새로운 비밀번호 조합 확인
     const reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,30}$/;
@@ -76,21 +79,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-
 //닉네임 중복확인 ajax
-function checkNickname() {
-    $.ajax({
-        url : 'checkNickname.me',
-        success : (data) => {
-            
-        },
-        error : () => {
-            alert('중복체크에 실패하였습니다.');
+function checkNickname(){
+    const nickname = document.querySelector("input[name='nickname']");
+    const warningText = document.querySelectorAll('.warning-text h5')[0];
+    
+    dupliCheck({nickname: nickname.value}, (res) => {
+        console.log(warningText);
+        console.log(nickname.value);
+        //중복닉네임이 있을 경우
+        if(res === 'NNNNN'){
+            warningText.innerText = '중복된 닉네임이 존재합니다';
+            warningText.style.color = 'red';
+            nickname.focus();
+        } else {
+            //닉네임 사용이 가능할 경우
+            warningText.innerText = "사용가능한 닉네임입니다.";
+            warningText.style.color = 'green';
         }
-    })
+    });
+
 }
-
-
 
 //관심장르 선택
 document.addEventListener('DOMContentLoaded', () => {
@@ -226,7 +235,7 @@ function emailDomain() {
 
 
 
-
+/*
 //프로필 사진 변경
 const profilePic = document.getElementById('profile-pic');
 const newImageInput = document.getElementById('new-image-input');
@@ -274,7 +283,7 @@ saveButton.addEventListener('click', () => {
     }
 });
 
-
+*/
 
 
 

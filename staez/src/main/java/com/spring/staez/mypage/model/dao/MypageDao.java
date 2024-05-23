@@ -14,4 +14,17 @@ public class MypageDao {
 		
 		return m ;
 	}
+	
+	public int duplicateCheck(SqlSessionTemplate sqlSession, String nickname) {
+		int result = sqlSession.selectOne("mypageMapper.duplicateCheck", nickname);
+		System.out.println(result);
+		return result;
+	}
+	
+	public int updatePassword(SqlSessionTemplate sqlSession, User user) {
+		int result = sqlSession.update("mypageMapper.updatePassword", user);
+		System.out.println(result);
+		return result;
+		
+	}
 }

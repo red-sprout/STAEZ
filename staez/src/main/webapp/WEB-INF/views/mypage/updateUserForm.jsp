@@ -9,6 +9,8 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${contextPath}/resources/css/mypage/updateUserForm.css">
 <script src="${contextPath}/resources/js/mypage/updateUserForm.js"></script>
+<script src="${contextPath}/resources/js/api/mypageapi.js"></script>
+
 
 <!-- 다음 주소 api -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -120,7 +122,7 @@
                                     </tr>
                                     <tr class="warning-text">
                                         <td></td>
-                                        <td><h5>중복된 닉네임입니다</h5></td>
+                                        <td><h5></h5></td>
                                         <td></td>
                                     </tr>
 
@@ -249,14 +251,14 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 
-                <form method="GET"> <!-- 비밀번호 ajax 사용 예정-->
+                <form action="updatePwd.me" method="POST">
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="pwd-tag">
                             <div></div>
                             <div>
                                 <h3>변경할 비밀번호</h3>
-                                <input id="changePwd" type="password" placeholder="영문 숫자 특수문자 포함 8글자 이상" oninput="checkPassword()" required>
+                                <input id="changePwd" type="password" name="newPwd" placeholder="영문 숫자 특수문자 포함 8글자 이상" oninput="checkPassword()" required>
                             </div>
                             <div class="pwd-check">
                                 <h5></h5>                                
@@ -287,7 +289,7 @@
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h3 class="modal-title"></h3>프로필 이미지 변경</h3>
+                    <h3 class="modal-title">프로필 이미지 변경</h3>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 
