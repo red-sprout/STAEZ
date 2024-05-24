@@ -13,7 +13,7 @@
     <header>
         <jsp:include page="/WEB-INF/views/common/header.jsp" />
         <script src="<c:url value='/resources/js/api/adminapi.js'/>"></script>
-        <script src="<c:url value='/resources/js/admin/theaterUpdateForm.js'/>"></script>
+        <script src="<c:url value='/resources/js/admin/theaterIncertForm.js'/>"></script>
     </header>
     <main>
         <div id="community-wrapper">
