@@ -999,18 +999,3 @@ REFERENCES concert;
 
 ALTER TABLE concert_category ADD FOREIGN KEY(category_no)
 REFERENCES category;
-
-
-
-
-
-
--------------------------더미 데이터 생성-----------------------------
-INSERT INTO staez_user
-VALUES (DEFAULT, 'user01', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', 'lwg', 'M', '2000-01-01', '서울 관악구', 'user@gmail.com', '01012345678','뮤지컬', 2, DEFAULT, NULL, 'Y');
-
-
-
-COMMIT;
-
-SELECT * FROM staez_user;

@@ -176,6 +176,7 @@ function execDaumPostcode() {
             }
 
             // 상세주소 필드의 readonly옵션을 없애고, 커서를 상세주소 필드로 이동한다.
+            document.getElementById("addressDetail").value = '';
             document.getElementById("addressDetail").readOnly = false;
             document.getElementById("addressDetail").focus();
         }
@@ -188,7 +189,7 @@ function updateCombinedAddress() {
     const input2 = document.getElementById("addressDetail").value;
     const address = document.querySelector("input[name='address']");
 
-    address.value = input1 + " " + input2;
+    address.value = input1 + "/" + input2;
 }
 
 // 휴대폰번호 필드 값 변경 시 호출되는 함수

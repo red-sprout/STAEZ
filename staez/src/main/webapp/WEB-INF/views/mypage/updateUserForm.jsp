@@ -154,10 +154,11 @@
                                         <td></td>
                                     </tr>
 
+                                    <c:set var="address" value="${loginUser.address}"  />
                                     <tr>
                                         <th><h3>주소</h3></th>
                                         <td class="input-box">
-                                            <input type="text" id="addressNormal" readonly required>
+                                            <input type="text" id="addressNormal" value="${fn:split(address, '/')[0]}" onchange="resetAddressDetail()" readonly required>
                                         </td>
                                         <td class="input-btn">
                                             <button type="button" onclick="execDaumPostcode()">우편번호</button>
@@ -166,24 +167,21 @@
                                     <tr>
                                         <th></th>
                                         <td class="input-box">
-                                            <input type="text" placeholder="상세주소를 입력하세요" id="addressDetail" oninput="updateCombinedAddress()" readonly required>
+                                            <input type="text" placeholder="상세주소를 입력하세요" id="addressDetail" value="${fn:split(address, '/')[1]}" readonly required>
                                         </td>
                                         <td></td>
                                     </tr>
                                     <input type="text" name="address" readonly hidden>
+                                    <c:remove var="address" />
                                     
                                     <c:set var="phone" value="${loginUser.phone}"  />
-
-                                    ${fn:substring(${phone}, 0, 2)}
-                                    ${fn:substring(${phone}, 3, 6)}
-                                    ${fn:substring(${phone}, 7, 11)}
                                     <tr>
                                         <th><h3>휴대폰번호</h3></th>
                                         <td id="phone-input">
                                             <div>
                                                 <input id="front-num" type="text" maxlength="3" value="010" readonly>
-                                                <input id="phone1" type="text" value="" minlength="4" maxlength="4" oninput="updateCombinedPhone()">
-                                                <input id="phone2" type="text" value="" minlength="4" maxlength="4" oninput="updateCombinedPhone()">
+                                                <input id="phone1" type="text" value="${fn:substring(phone, 3, 7)}" minlength="4" maxlength="4" oninput="updateCombinedPhone()">
+                                                <input id="phone2" type="text" value="${fn:substring(phone, 7, 11)}" minlength="4" maxlength="4" oninput="updateCombinedPhone()">
                                             </div>
                                         </td>
                                         <input type="text" name="phone" readonly hidden>
@@ -203,14 +201,16 @@
                                         <td><h5>잘못된 인증번호입니다</h5></td>
                                         <td></td>
                                     </tr>
-                                    
+                                    <c:remove var="phone" />
+
+                                    <c:set var="email" value="${loginUser.email}"  />
                                     <tr>
                                         <th><h3>이메일</h3></th>
                                         <td id="email-input">
                                             <div>
-                                                <input type="text" id="email-front" oninput="updateCombinedEmail()" required> 
+                                                <input type="text" id="email-front" oninput="updateCombinedEmail()" value="${fn:split(email, '@')[0]}" required> 
                                                 <span>@</span>
-                                                <input type="text" id="email-back" oninput="updateCombinedEmail()" required>
+                                                <input type="text" id="email-back" oninput="updateCombinedEmail()" value="${fn:split(email, '@')[1]}" required>
                                             </div>
                                         </td>
                                         <td class="input-btn">
@@ -223,7 +223,10 @@
                                         </td>
                                     </tr>
                                     <input type="text" name="email" readonly hidden>
+                                    <c:remove var="email" />
 
+                                    <c:set var="genreLike" value="${loginUser.genreLike}" />
+                                    ${genreLike}
                                     <tr>
                                         <th rowspan="2"><h3>관심장르(택3)</h3></th>
                                         <td colspan="2" rowspan="2" id="like-genre-input" >
@@ -239,6 +242,7 @@
                                             <input type="text" name="genreLike" hidden> <!--button들 내용 추가-->
                                         </td>
                                     </tr>
+                                    <c:remove var="genreLike" />
                                     <tr> <!--크기 맞추기 위한 빈공간-->
                                         <th></th>
                                         <td></td>
