@@ -6,7 +6,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // 핸드폰 번호 전송 처리
     signinPhoneNumber();
     // 비밀번호 본인확인 버튼
-    signinPwdCheck()
+    signinPwdCheck();
+    // SubmitButton 제출
+    signinSubmitButton();
+    // 이메일
+    sgininemail();
+    // 이메일 아이디적을때 한글안되고 영어만 가능하게
+    sgininemailEng();
+    // 입력 시 2초 후에 콘솔에 이메일 값을 출력하는 기능입니다.
+    emailTimeTwo()
+    // 이전페이지로 돌아가는
+    backPage();
+    // 관심장르 3개이상 못고르게하면서 값 출력되도록
+    sginingenreLike();
 });
 
 // 닉네임 중복체크
@@ -46,13 +58,14 @@ function callbackNickCheck(result, nicknameCheckResult, nicknameInput) {
         } else {
             nicknameCheckResult.style.color = "green";
             nicknameCheckResult.innerText = "사용가능한 닉네임입니다.";
+            console.log("닉네임 확인 : " + nicknameInput.value);
         }
     }
 }
 
 // 아이디체크
 function signinIdCheck() {
-    const userIdInput = document.querySelector("#userId");
+    const userIdInput = document.getElementById("user_Id");
     const userIdCheckButton = document.getElementById("idcheckButton");
     const userIdCheckResult = document.getElementById("checkResultId");
     const userIdErrorMessage = document.getElementById("userIdErrorMessage");
@@ -60,8 +73,9 @@ function signinIdCheck() {
     if (userIdInput && userIdCheckButton && userIdCheckResult && userIdErrorMessage) {
         userIdCheckButton.addEventListener('click', function() {
             const str = userIdInput.value.trim(); // 입력된 아이디의 공백을 제거합니다.
-            if (str.length >= 1) { // 길이가 5 이상인지 확인합니다.
-                idCheck({"idCheck" : str}, (result) => callbackIdCheck(result, userIdCheckResult, userIdInput))
+            if (str.length >= 1) { // 길이가 1 이상인지 확인합니다.
+                console.log("Sending checkId: " + str); // 디버깅을 위한 로그 추가
+                idCheck({"checkId" : str}, (result) => callbackIdCheck(result, userIdCheckResult, userIdInput));
             } else {
                 userIdCheckResult.style.display = "none";
                 userIdErrorMessage.innerText = "아이디는 5글자 이상이어야 합니다.";
@@ -78,21 +92,22 @@ function callbackIdCheck(result, userIdCheckResult, userIdInput) {
     if (result === "NNNNN") {
         userIdCheckResult.style.color = "red";
         userIdCheckResult.innerText = "이미 사용중인 아이디입니다.";
-        // 닉네임 입력 필드의 값을 없애기
+        // 아이디 입력 필드의 값을 없애기
         userIdInput.value = "";
     } else {
         const idLength = userIdInput.value.length;
         if (idLength < 6 || idLength > 20) {
             userIdCheckResult.style.color = "red";
-            userIdCheckResult.innerText = "아이디는 6 ~ 20글자의 영문+숫자 이루어져야 합니다.";
+            userIdCheckResult.innerText = "아이디는 6 ~ 20글자의 영문+숫자로 이루어져야 합니다.";
         } else {
             var regex = /^[a-zA-Z0-9]{6,20}$/;
             if (!regex.test(userIdInput.value)) {
                 userIdCheckResult.style.color = "red";
-                userIdCheckResult.innerText = "아이디는 6 ~ 20글자의 영문+숫자 이루어져야 합니다.";
+                userIdCheckResult.innerText = "아이디는 6 ~ 20글자의 영문+숫자로 이루어져야 합니다.";
             } else {
                 userIdCheckResult.style.color = "green";
                 userIdCheckResult.innerText = "사용가능한 아이디입니다.";
+                console.log("아이디 확인 : " + userIdInput.value);
             }
         }
     }
@@ -215,7 +230,7 @@ function sendPhoneNumber() {
 }
 
 // 이메일
-document.addEventListener('DOMContentLoaded', function() {
+function sgininemail(){
     // 필요한 요소들을 가져옵니다.
     const prefixElement = document.getElementById("email-prefix");
     const suffixElement = document.getElementById("email-suffix");
@@ -263,11 +278,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     init(); // 페이지 로드 시 초기화 함수를 호출합니다.
-});
+}
 
 // 입력 시 2초 후에 콘솔에 이메일 값을 출력하는 기능입니다.
 let typingTimer;
-document.addEventListener('DOMContentLoaded', function() {
+
+function emailTimeTwo() {
     const emailInput = document.getElementById("email-prefix");
     const suffixInput = document.getElementById("email-suffix");
 
@@ -276,22 +292,26 @@ document.addEventListener('DOMContentLoaded', function() {
         typingTimer = setTimeout(function() {
             const emailPrefix = emailInput.value;
             const emailSuffix = suffixInput.value;
-            console.log("입력된 이메일 아이디 값:", emailPrefix + "@" );
+            console.log("입력된 이메일 아이디 값:", emailPrefix + "@");
         }, 2000);
     });
 
+    // 이메일 입력 상자에 대한 이벤트 리스너
     suffixInput.addEventListener('input', function() {
+        // 이전에 설정된 타이머를 지웁니다.
         clearTimeout(typingTimer);
+        // 500ms 후에 실행되는 타이머 설정
         typingTimer = setTimeout(function() {
+            // 이메일 프리픽스와 서픽스 값을 가져와서 이메일 주소로 결합합니다.
             const emailPrefix = emailInput.value;
             const emailSuffix = suffixInput.value;
             console.log("입력된 이메일 주소 값:", emailPrefix + "@" + emailSuffix);
         });
     });
-});
+}
 
 // 이메일 아이디적을때 한글안되고 영어만 가능하게
-document.addEventListener('DOMContentLoaded', function() {
+function sgininemailEng(){
     const prefixElement = document.getElementById("email-prefix");
     const userEmailErrorMessage = document.getElementById("userEmailErrorMessage");
 
@@ -315,30 +335,79 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-});
+}
 
-// 우편번호 팝업 열기
-function openPostalCodePopup() {
+//주소 불러오기 - kakao 우편번호 서비스 api (https://postcode.map.daum.net/guide)
+function sample6_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
-            // 주소 입력란에 우편번호와 주소 채우기
-            document.getElementById("addressInput").value = data.address;
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var addr = ''; // 주소 변수
+            var extraAddr = ''; // (건물이름 건물 동) 변수
+
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                addr = data.roadAddress;
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                addr = data.jibunAddress;
+            }
+
+            // sample6_postcode = 우편번호 > 04766
+            // sample6_execDaumPostcode = 우편번호 찾기 > (버튼)
+            // sample6_address = 주소 > 서울숲길 17
+            // sample6_detailAddress = 상세주소 > 동/호수
+            // sample6_extraAddress =  참고사항 > 성수동1가(지번), 성수파크빌(건물이름)
+
+            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+            if(data.userSelectedType === 'R'){
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraAddr !== ''){
+                    extraAddr = ' (' + extraAddr + ')';
+                }
+
+                // // 조합된 참고항목을 해당 필드에 넣는다.
+                // document.getElementById("sample6_extraAddress").value = extraAddr;
+                document.getElementById("sample6_address").value = addr + extraAddr;
+            } else {
+                // document.getElementById("sample6_extraAddress").value = '';
+                document.getElementById("sample6_address").value = addr;
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('sample6_postcode').value = data.zonecode;
+            // document.getElementById("sample6_address").value = addr + extraAddr;
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById("sample6_detailAddress").focus();
         }
     }).open();
 }
 
 // 주소 확인
 function updateAddressDisplay() {
-    const addressInput = document.getElementById("addressInput");
-    const detailAddressInput = document.getElementById("detailAddressInput");
+    const addressInput = document.getElementsByClassName("addressInput")[0];
+    const detailAddressInput = document.getElementsByClassName("detailAddressInput")[0];
+    const sample6_postcode = document.getElementById("sample6_postcode");
     const addressDisplay = document.getElementById("input-value-address");
 
     if (addressInput && detailAddressInput && addressDisplay) {
         const addressValue = addressInput.value;
         const detailAddressValue = detailAddressInput.value;
+        const sample6Value = sample6_postcode.value;
 
         // 주소와 자세한 주소를 결합하여 주소 표시 요소에 설정
-        const fullAddress = addressValue + " " + detailAddressValue;
+        const fullAddress = "[" + sample6Value + "] " + addressValue + " " + detailAddressValue;
         addressDisplay.value = fullAddress;
 
         // 콘솔에 출력
@@ -351,16 +420,16 @@ function checkAddress() {
 }
 
 // 이전페이지로 돌아가는
-document.addEventListener('DOMContentLoaded', function() {
+function backPage(){
     var backButton = document.getElementById('backButton');
     backButton.addEventListener('click', function() {
         //console.log("작동됨"); // 이 부분이 정상적으로 실행되지 않는다면 문제가 있을 수 있습니다.
         window.history.back();
     });
-});
+}
 
 // 3개이상 못고르게하면서 값 출력되도록
-document.addEventListener('DOMContentLoaded', function() {
+function sginingenreLike(){
     const genreLikeInput = document.querySelector("input[name='genreLike']");
     const buttons = document.querySelectorAll('.btn-staez3');
 
@@ -386,38 +455,43 @@ document.addEventListener('DOMContentLoaded', function() {
         const selectedGenres = Array.from(selectedButtons).map(button => button.getAttribute('data-genre'));
         genreLikeInput.value = selectedGenres.join(' ');
     }
-});
+}
 
-// "다음" 버튼 클릭 시 실행되는 함수
-function saveFormDataToDB() {
-    // form 요소 가져오기
-    var form = document.getElementById("enrollForm");
-    
-    // form 안의 모든 input 요소 가져오기
-    var inputsWithName = form.querySelectorAll("input[name]");
-    
-    // DB에 저장할 데이터를 담을 객체 생성
-    var dataToSave = {};
-    
-    // input 요소들을 반복하면서 name 속성이 있는 것들의 값을 객체에 추가
-    for (var i = 0; i < inputsWithName.length; i++) {
-        dataToSave[inputsWithName[i].name] = inputsWithName[i].value;
-    }
-    
-    // Ajax를 사용하여 서버에 데이터를 전송
-    $.ajax({
-        url: "insert.me", // 데이터를 저장할 서버의 URL
-        type: "POST", // HTTP 요청 방식
-        data: dataToSave, // 저장할 데이터
-        success: function (response) {
-            // 성공적으로 저장되었을 때 실행할 코드
-            console.log("데이터가 성공적으로 저장되었습니다.");
-            // 다음 작업 수행
-        },
-        error: function () {
-            // 저장 중 오류가 발생했을 때 실행할 코드
-            console.error("데이터 저장 중 오류가 발생했습니다.");
-            // 오류 처리
+
+
+// 모든정보가 저장되야 다음버튼 활성화
+function signinSubmitButton(){
+    // 다음 버튼 클릭 이벤트
+    const submitButton = document.getElementById('submitButton'); // 버튼 요소 가져오기
+    const form = document.getElementById('enrollForm'); // 폼 요소 가져오기
+
+    submitButton.addEventListener('click', function(event) {
+        event.preventDefault(); // 폼 제출을 막음
+        const isValid = validateForm();
+        if (isValid) {
+            form.submit(); // 폼을 수동으로 제출
+        } else {
+            console.log("입력값이 올바르지 않습니다. 모든 필수 입력란을 작성해주세요.");
         }
     });
+
+        
+    function validateForm() {
+        var nickname = document.getElementById("nickname").value; //닉네임
+        var userId = document.getElementById("user_Id").value; // 아이디
+        var password1 = document.getElementById("password1").value; // 비밀번호
+        var password2 = document.getElementById("password2").value; // 비밀번호 확인
+        var phone = document.getElementById("input-value-phone").value; // 핸드폰
+        var email = document.getElementById("input-value-email").value; // 이멜
+        var birth = document.getElementsByName("birth")[0].value; // 생일
+        var address = document.getElementById("input-value-address").value; // 주소
+    
+        if (nickname === "" || userId === "" || password1 === "" || password2 === "" || 
+            phone === "" || email === "" || birth === "" || address === "") {
+            alert("입력값이 올바르지 않습니다. 모든 필수 입력란을 작성해주세요.");
+            return false; // 폼 제출을 막음
+        }
+        return true; // 폼 제출을 허용
+    }
+
 }
