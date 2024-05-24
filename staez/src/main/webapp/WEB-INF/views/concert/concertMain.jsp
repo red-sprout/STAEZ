@@ -18,31 +18,32 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 
-    <!-- 적용 자바스크립트 -->
-    <script src="<c:url value='/resources/js/concert/concertMain.js'/>"></script>
+    
     <!-- 적용 css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertMain.css">
 </head>
-
 <body>
     <div>
         <jsp:include page="../common/header.jsp" />
+        <!-- 적용 자바스크립트 -->
+        <script src="<c:url value='/resources/js/api/concertapi.js'/>"></script>
+        <script src="<c:url value='/resources/js/concert/concertMain.js'/>"></script>   
     </div>
     <!-- 공연 navi -->
     <div>
         <ul class="concert-ul">
-            <li><a href="main.co?category=musical"><span><h2>뮤지컬</h2></span></a></li>
-            <li><a href="main.co?category=classic"><span><h2>클래식</h2></span></a></li>
-            <li><a href="main.co?category=kclassic"><span><h2>국악</h2></span></a></li>
-            <li><a href="main.co?category=pop"><span><h2>대중음악</h2></span></a></li>
-            <li><a href="main.co?category=play"><span><h2>연극</h2></span></a></li>
-            <li><a href="main.co?category=circus"><span><h2>서커스/마술</h2></span></a></li>
-            <li><a href="main.co?category=etc"><span><h2>기타</h2></span></a></li>
+            <li onclick="pageLoad()"><a href="main.co?category="><span><h2>뮤지컬</h2></span></a></li>
+            <li onclick="pageLoad()"><a href="main.co?category="><span><h2>클래식</h2></span></a></li>
+            <li onclick="pageLoad()"><a href="main.co?category="><span><h2>국악</h2></span></a></li>
+            <li onclick="pageLoad()"><a href="main.co?category="><span><h2>대중음악</h2></span></a></li>
+            <li onclick="pageLoad()"><a href="main.co?category="><span><h2>연극</h2></span></a></li>
+            <li onclick="pageLoad()"><a href="main.co?category="><span><h2>서커스/마술</h2></span></a></li>
+            <li onclick="pageLoad()"><a href="main.co?category="><span><h2>기타</h2></span></a></li>
         </ul>
     </div>
 
-
     <section class="concert-main-upper-section">
+
         <div class="concert-main-upper-before">
             <img src="${pageContext.request.contextPath}/resources/img/main/before.png">
         </div>
@@ -52,12 +53,24 @@
             <!-- 사진반복, 슬라이드 -->
             <!-- https://devinus.tistory.com/47
                 https://m.blog.naver.com/ka28/221999891981
-                https://www.inflearn.com/blogs/3749 -->        
+                https://www.inflearn.com/blogs/3749 -->
+            <!-- <c:forEach var="co" items="${list }">
+                <div class="concert-main-upper-pic-div" onclick="goDetail('${co.concertNo}')">
+                    <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2404%2F240425024045_24005737.gif&w=384&q=75"
+                        alt="">
+                    <div class="concert-main-upper-sen-div">
+                        <p><span><b><h2>${co.concertTitle}</h2></span></b></p>
+                        <p><span>${co.theaterName}</span></p>
+                        <p><span>${co.startDate} - ${co.endDate}</span></p>
+                    </div>
+                </div>
+            </c:forEach> -->
+<!--              
             <div class="concert-main-upper-pic-div" onclick="goDetail()">
                 <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2404%2F240425024045_24005737.gif&w=384&q=75"
                     alt="">
                 <div class="concert-main-upper-sen-div">
-                    <p><span><b><h2>블랙독 BLKDOG</h2></span></b></p>
+                    <p><span><b><h2>${list.size()}</h2></span></b></p>
                     <p><span>성남아트센터</span></p>
                     <p><span>2024.06.22 - 2024.06.23</span></p>
                 </div>
@@ -111,7 +124,7 @@
                     <p><span>충무아트센터 대극장</span></p>
                     <p><span>2024.06.22 - 2024.06.23</span></p>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="concert-main-upper-next">
             <img src="${pageContext.request.contextPath}/resources/img/main/after.png">
