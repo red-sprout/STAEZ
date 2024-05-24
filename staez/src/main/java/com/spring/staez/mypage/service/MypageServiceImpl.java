@@ -37,5 +37,10 @@ public class MypageServiceImpl implements MypageService{
 		return mpd.updatePassword(sqlSession, user);
 	}
 
+	@Override
+	public int updateUserInfo(User user) {
+		return mpd.updateUserInfo(sqlSession, user);
+	}
+
 	
 }

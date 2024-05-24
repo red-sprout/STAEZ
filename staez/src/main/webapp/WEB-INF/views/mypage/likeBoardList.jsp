@@ -31,7 +31,7 @@
                         <c:otherwise>
                             <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
                             <div id="profile-text">
-                                <span>[아이디]</span>
+                                <span>[${loginUser.nickname}]</span>
                                 <span>님</span><br>
                                 <span>환영합니다</span>
                             </div>

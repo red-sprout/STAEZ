@@ -88,7 +88,7 @@
                         <p id="auth-fail" hidden>비밀번호가 일치하지 않습니다.</p>
                     </div>
 
-                    <form action="update.me" method="GET" >
+                    <form action="update.me" method="POST" >
                         <div id="profile-img">
                             <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="" data-toggle="modal" data-target="#imgModal">
                         </div>
@@ -171,7 +171,7 @@
                                         </td>
                                         <td></td>
                                     </tr>
-                                    <input type="text" name="address" readonly hidden>
+                                    <input type="hidden" name="address" readonly>
                                     <c:remove var="address" />
                                     
                                     <c:set var="phone" value="${loginUser.phone}"  />
@@ -184,22 +184,10 @@
                                                 <input id="phone2" type="text" value="${fn:substring(phone, 7, 11)}" minlength="4" maxlength="4" oninput="updateCombinedPhone()">
                                             </div>
                                         </td>
-                                        <input type="text" name="phone" readonly hidden>
-                                        <td class="input-btn">
-                                            <button type="button">인증하기</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th></th>
-                                        <td class="input-box"><input type="text" placeholder="6자리 입력"></td>
+                                        <input type="hidden" name="phone" readonly>
                                         <td class="input-btn">
                                             <button type="button">인증</button>
                                         </td>
-                                    </tr>
-                                    <tr class="warning-text hidden">
-                                        <td></td>
-                                        <td><h5>잘못된 인증번호입니다</h5></td>
-                                        <td></td>
                                     </tr>
                                     <c:remove var="phone" />
 
@@ -217,16 +205,26 @@
                                             <select name="domain" onchange="emailDomain()">
                                                 <option value="self-input">직접입력</option>
                                                 <option value="naver.com">네이버</option>
-                                                <option value="google.com">구글</option>
+                                                <option value="gmail.com">구글</option>
                                                 <option value="daum.net">다음</option>
                                             </select>
                                         </td>
                                     </tr>
-                                    <input type="text" name="email" readonly hidden>
+                                    <tr>
+                                        <th></th>
+                                        <td class="input-box"><input type="text" placeholder="6자리 입력"></td>
+                                        <td class="input-btn">
+                                            <button type="button">인증</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="warning-text hidden">
+                                        <td></td>
+                                        <td><h5>잘못된 인증번호입니다</h5></td>
+                                        <td></td>
+                                    </tr>
+                                    <input type="hidden" name="email" readonly>
                                     <c:remove var="email" />
 
-                                    <c:set var="genreLike" value="${loginUser.genreLike}" />
-                                    ${genreLike}
                                     <tr>
                                         <th rowspan="2"><h3>관심장르(택3)</h3></th>
                                         <td colspan="2" rowspan="2" id="like-genre-input" >
@@ -239,10 +237,9 @@
                                                 <button type="button" class="btn-staez genre-btn full-width"><h4>서커스/마술</h4></button>    
                                                 <button type="button" class="btn-staez genre-btn full-width"><h4>기타</h4></button>    
                                             </div>
-                                            <input type="text" name="genreLike" hidden> <!--button들 내용 추가-->
+                                            <input type="text" name="genreLike" value="${loginUser.genreLike}" hidden> <!--button들 내용 추가-->
                                         </td>
                                     </tr>
-                                    <c:remove var="genreLike" />
                                     <tr> <!--크기 맞추기 위한 빈공간-->
                                         <th></th>
                                         <td></td>
@@ -268,7 +265,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h3 class="modal-title">비밀번호 변경</h3>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal" onclick="cancelUpdate()">&times;</button>
                 </div>
                 
                 <form action="updatePwd.me" method="POST">
@@ -295,8 +292,8 @@
                     
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">변경</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                        <button type="submit" class="btn btn-primary" disabled>변경</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="cancelUpdate()">취소</button>
                     </div>
                 </form>
             </div>
@@ -340,7 +337,7 @@
                     
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">변경</button>
+                        <button type="submit" class="btn btn-primary">저장</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
                     </div>
                 </form>
@@ -373,7 +370,7 @@
                     
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">변경</button>
+                        <button type="submit" class="btn btn-primary">탈퇴</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
                     </div>
                 </form>
