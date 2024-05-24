@@ -59,22 +59,22 @@ public class UserController {
 		 * 기본적인 세팅이 jsp응답으로 되어있기 때문에 @ResponseBody을작성해주면
 		 * 반환값을 http응답 객체에 직접 작성하겠다라는 의미를 가지고있다.
 		 */
-		//idCheck ajax요청을 받아줄 controller
-		@ResponseBody
-		@GetMapping("idCheck.me")
-		public String idCheck(String checkId) {
-			int result = userService.idCheck(checkId);
-			
-			if (result > 0) {// 이미존재한다면
-				return "NNNNN";
-			} else { //존재하지않는다면
-				return "NNNNY";
-			}
-			
-			//return memberService.idCheck(checkId) > 0 ? "NNNNN" : "NNNNY";
-		}
 		
-		//nickCheck ajax요청을 받아줄 controller
+		// idCheck
+	    @ResponseBody
+	    @GetMapping("idCheck.me")
+	    public String idCheck(String checkId) {
+	        System.out.println("Check ID: " + checkId); // 디버깅을 위한 로그 추가
+	        int result = userService.idCheck(checkId);
+
+	        if (result > 0) { // 이미 존재한다면
+	            return "NNNNN";
+	        } else { // 존재하지 않는다면
+	            return "NNNNY";
+	        }
+	    }
+		
+		//nickCheck
 		@ResponseBody
 		@GetMapping("nickCheck.me")
 		public String nickCheck(String checkNick) {
@@ -101,19 +101,27 @@ public class UserController {
 			 * => 스프링시큐리티에서 제공하는 모듈을 이용<pom.xml에 라이브러리 추가>
 			 */
 			
-			//암호화작업
-			String encPwd = bcryptPasswordEncoder.encode(u.getUserPwd());
-			
-			u.setUserPwd(encPwd);
-			
-			int result = userService.insertUser(u);
-			
-			if (result > 0) {
-				session.setAttribute("alertMsg", "성공적으로 회원가입이 완료되었습니다.");
-				return "redirect:/";
-			} else {
-				model.addAttribute("alertMsg", "회원가입 실패");
-				return "redirect:/";
-			}
+		    // 디버깅 추가
+		    System.out.println("Received password: " + u.getUserPwd());
+
+		    // 비밀번호가 null인지 확인
+		    if (u.getUserPwd() == null) {
+		        model.addAttribute("alertMsg", "비밀번호가 입력되지 않았습니다.");
+		        return "redirect:/";
+		    }
+
+		    // 암호화 작업
+		    String encPwd = bcryptPasswordEncoder.encode(u.getUserPwd());
+		    u.setUserPwd(encPwd);
+
+		    int result = userService.insertUser(u);
+
+		    if (result > 0) {
+		        session.setAttribute("alertMsg", "성공적으로 회원가입이 완료되었습니다.");
+		        return "redirect:/";
+		    } else {
+		        model.addAttribute("alertMsg", "회원가입 실패");
+		        return "redirect:/";
+		    }
 		}
 }
