@@ -125,8 +125,8 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value = "faqCategory.ad", produces="application/json; charset-UTF-8")
-	public String ajaxFaqCategory(String refCategoryNo) {
+	@GetMapping(value = "category.ad", produces="application/json; charset-UTF-8")
+	public String ajaxCategory(String refCategoryNo) {
 		ArrayList<Category> list = adminService.selectFaqCategory(Integer.parseInt(refCategoryNo));
 		return new Gson().toJson(list);
 	}
