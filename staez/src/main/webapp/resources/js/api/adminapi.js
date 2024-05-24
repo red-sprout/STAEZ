@@ -9,3 +9,15 @@ function faq(data, callback){
         }
     });
 }
+
+function ajaxToggleSeat(data, callback) {
+    $.ajax({
+        url: contextPath + "toggleSeat.ad",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("toggleSeat 요청 실패");
+        }
+    });
+}

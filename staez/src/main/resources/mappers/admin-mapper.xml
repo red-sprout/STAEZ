@@ -27,6 +27,20 @@
 		<result column="category_name" property="categoryName"/>
 		<result column="category_level" property="categoryLevel"/>
 	</resultMap>
+	<resultMap type="Theater" id="theaterResult">
+		<result column="theater_no" property="theaterNo"/>
+		<result column="theater_name" property="theaterName"/>
+		<result column="theater_row" property="theaterRow"/>
+		<result column="theater_col" property="theaterCol"/>
+		<result column="address" property="address"/>
+		<result column="telno" property="telno"/>
+	</resultMap>
+	<resultMap type="ImpossibleSeat" id="impossibleSeatResult">
+		<result column="impossible_seat_no" property="impossibleSeatNo"/>
+		<result column="theater_no" property="theaterNo"/>
+		<result column="impossible_seat_row" property="impossibleSeatRow"/>
+		<result column="impossible_seat_col" property="impossibleSeatCol"/>
+	</resultMap>
 
 	<select id="selectFaqCategory" resultMap="categoryResult">
 		SELECT
@@ -53,7 +67,7 @@
 		)
 	</insert>
 	
-	<insert id="faqCategoryIncert" parameterType="_int">
+	<insert id="faqCategoryIncert">
 		INSERT INTO board_category
 		(
 			board_no,
@@ -61,6 +75,36 @@
 		) values (
 			CURRVAL('board_board_no_seq'::regclass),
 			#{categoryNo}
+		)
+	</insert>
+	
+	<insert id="incertTheater">
+		INSERT INTO theater
+		(
+			theater_name,
+			theater_row,
+			theater_col,
+			address,
+			telno
+		) VALUES (
+			#{theaterName},
+			${theaterRow},
+			${theaterCol},
+			#{address},
+			#{telno}
+		)
+	</insert>
+	
+	<insert id="incertImpossibleSeat">
+		INSERT INTO impossible_seat
+		(
+			theater_no,
+			impossible_seat_row,
+			impossible_seat_col
+		) VALUES (
+			CURRVAL('theater_theater_no_seq'::regclass),
+			${impossibleSeatRow},
+			${impossibleSeatCol}
 		)
 	</insert>
 </mapper>

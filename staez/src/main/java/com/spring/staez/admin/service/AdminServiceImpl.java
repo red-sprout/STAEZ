@@ -9,7 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.staez.admin.model.dao.AdminDao;
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.admin.model.vo.ImpossibleSeat;
+import com.spring.staez.common.template.ImpossibleSeatList;
 import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.concert.model.vo.Theater;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -26,11 +29,27 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.selectFaqCategory(sqlSession, refCategoryNo);
 	}
 
-	@Transactional
+	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public int faqIncert(Board b, int categoryNo) {
-		int t1 = adminDao.faqIncert(sqlSession, b);
-		int t2 = adminDao.faqCategoryIncert(sqlSession, categoryNo);
-		return t1 * t2;
+		int result1 = adminDao.faqIncert(sqlSession, b);
+		int result2 = adminDao.faqCategoryIncert(sqlSession, categoryNo);
+		return result1 * result2;
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int incertTheater(Theater t) {
+		int result1 = adminDao.incertTheater(sqlSession, t);
+		int result2 = adminDao.incertImpossibleSeat(sqlSession);
+		ImpossibleSeatList.clear();
+		return result1 * result2;
+	}
+
+	@Override
+	public int toggleSeat(ImpossibleSeat seat, String status) {			
+		return status.equals("Y") 
+				? ImpossibleSeatList.add(seat) 
+				: ImpossibleSeatList.remove(seat);
 	}
 }
