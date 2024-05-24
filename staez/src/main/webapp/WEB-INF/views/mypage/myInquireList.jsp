@@ -95,7 +95,7 @@
                     </ul>
                 </div>
                 <div id="inq-enroll-btn">
-                    <button><h3>문의하기</h3></button>
+                    <a href="${contextPath}/insertForm.iq"><h3>문의하기</h3></a>
                 </div>
 
 

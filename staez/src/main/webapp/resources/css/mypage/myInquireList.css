@@ -244,12 +244,12 @@ li>.inq-info>.folding-icon{
     justify-content: flex-end;
 }
 
-#inq-enroll-btn>button{
+#inq-enroll-btn>a{
     margin-bottom: 50px;
     margin-right: 10px;
 }
 
-#inq-enroll-btn>button:hover{
+#inq-enroll-btn>a:hover{
     text-decoration: underline;
 }
 
