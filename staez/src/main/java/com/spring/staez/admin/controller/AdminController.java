@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.admin.model.vo.ImpossibleSeat;
 import com.spring.staez.admin.service.AdminService;
+import com.spring.staez.common.template.ImpossibleSeatList;
 import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.concert.model.vo.Theater;
 
 @Controller
 public class AdminController {
@@ -122,8 +125,8 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value = "faqCategory.ad", produces="application/json; charset-UTF-8")
-	public String ajaxFaqCategory(String refCategoryNo) {
+	@GetMapping(value = "category.ad", produces="application/json; charset-UTF-8")
+	public String ajaxCategory(String refCategoryNo) {
 		ArrayList<Category> list = adminService.selectFaqCategory(Integer.parseInt(refCategoryNo));
 		return new Gson().toJson(list);
 	}
@@ -137,5 +140,23 @@ public class AdminController {
 			session.setAttribute("alertMsg", "작성 완료하였습니다.");
 		}
 		return "redirect:/faqList.ad";
+	}
+	
+	@PostMapping("theaterIncert.ad")
+	public String theaterIncert(Theater t, HttpSession session) {
+		int result = adminService.incertTheater(t);
+		if(result == 0) {
+			session.setAttribute("alertMsg", "공연장 등록 에 실패하였습니다.");
+		} else {
+			session.setAttribute("alertMsg", "등록 완료하였습니다.");
+		}
+		return "redirect:/theaterList.ad";
+	}
+	
+	@ResponseBody
+	@GetMapping("toggleSeat.ad")
+	public String ajaxToggleSeat(ImpossibleSeat seat, String status) {
+		int result = adminService.toggleSeat(seat, status);
+		return result > 0 ? "SUCCESS" : "FAIL";
 	}
 }
