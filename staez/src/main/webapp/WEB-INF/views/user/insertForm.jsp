@@ -33,7 +33,7 @@
                     <tr>
                         <th>닉네임</th>
                         <td colspan="2">
-                            <input type="text" placeholder="한문 + 영문" name="nickname" id="nickname" maxlength="16" required>
+                            <input type="text" placeholder="한문 + 영문" name="nickname" id="nickname" maxlength="16" >
                         </td>
                         <td><input type="button" id="nickNameCheckButton" class="check_nickname" value="중복검사"></td>
                     </tr>
@@ -47,7 +47,7 @@
                     <tr>
                         <th>아이디</th>
                         <td colspan="2">
-                            <input type="text" placeholder="영문 + 숫자" name="user_id" id="userId" maxlength="16" required>
+                            <input type="text" placeholder="영문 + 숫자" name="userId" id="user_Id" maxlength="16">
                         </td>
                         <td><input type="button" id="idcheckButton" class="check_userId" value="중복검사"></td>
                     </tr>
@@ -62,14 +62,14 @@
                         <th>비밀번호</th>
                         <td colspan="2">
                             <div style="position: relative;">
-                                <input type="password" id="password1" placeholder="영문 숫자 특수문자 포함 8글자 이상" required name="user_pwd">
+                                <input type="password" id="password1" name="userPwd" placeholder="영문 숫자 특수문자 포함 8글자 이상">
                                 <img src="${contextPath}/resources/img/user/pwd.png" id="pwdImg" alt="비밀번호 보기">
                             </div>
                         </td>
                     </tr>                    
                     <tr>
                         <th>비밀번호 확인</th>
-                        <td colspan="1"><input type="password" id="password2" placeholder="똑같이 입력하셔야 합니다." required></td>
+                        <td colspan="1"><input type="password" id="password2" name="user_pwdCheck" placeholder="똑같이 입력하셔야 합니다."></td>
                         <td colspan="1"><input type="button" class="check_button" value="확인" required onclick="validatePassword()"></td>
                     </tr>
                     <tr>
@@ -81,9 +81,9 @@
                             <div id="td-div">
                                 <span id="phone-prefix">010</span>
                                 <span></span>
-                                <input type="text" id="phone-suffix1" maxlength="4" >
+                                <input type="text" id="phone-suffix1" name="phone-suffix1" maxlength="4" >
                                 <span></span>
-                                <input type="text" id="phone-suffix2" maxlength="4">
+                                <input type="text" id="phone-suffix2" name="phone-suffix2" maxlength="4">
                                 <input type="text" name="phone" id="input-value-phone" required>
                             </div>
                             <td colspan="1"><input type="button" class="check_button" value="인증번호 전송" onclick="sendPhoneNumber()"></td>
@@ -115,7 +115,7 @@
                             <select class="box" id="email-domain-list">
                                 <option value="type">직접 입력</option>
                                 <option value="naver.com">naver.com</option>
-                                <option value="google.com">google.com</option>
+                                <option value="google.com">gmail.com</option>
                                 <option value="hanmail.net">hanmail.net</option>
                                 <option value="nate.com">nate.com</option>
                                 <option value="kakao.com">kakao.com</option>
@@ -141,17 +141,18 @@
                     </tr>
                     <tr>
                         <th>주소</th>
-                        <td colspan="2"><input type="text" id="addressInput" readonly></td>
-                        <td><input type="button" class="check_button" value="우편번호" onclick="openPostalCodePopup()" required></td>
+                        <td colspan="2"><input type="text" class="addressInput" id="sample6_address" readonly></td>
+                        <td><input type="button" class="check_button" value="우편번호 찾기" onclick="sample6_execDaumPostcode()" required></td>
                     </tr>
                     <tr>
                         <th></th>
-                        <td colspan="1"><input type="text" id="detailAddressInput" placeholder="자세한 주소 : 동 / 호수" name="address-detail"></td>
+                        <td colspan="1"><input type="text" class="detailAddressInput" id="sample6_detailAddress" placeholder="자세한 주소 : 동 / 호수" name="address-detail"></td>
+                        <td colspan="1"><input type="text" id="sample6_postcode" placeholder="우편번호"></td>
                         <td><input type="button" class="check_button" value="확인" onclick="checkAddress()"></td>
                     </tr>
                     <tr>
                         <td colspan="4"><input type="text" name="address" id="input-value-address" readonly></td>
-                    </tr>                  
+                    </tr> 
                     <tr>
                         <th>관심장르(택3)</th>
                         <td colspan="4" id="genre-buttons">
@@ -169,7 +170,7 @@
                         <td colspan="4">
                             <div class="insert-member-div">
                                 <button type="button" id="backButton">이전</button>
-                                <button type="submit" disabled>다음</button>
+                                <button type="submit" id="submitButton" onsubmit="return validateForm()">다음</button>
                             </div>
                         </td>
                     </tr>

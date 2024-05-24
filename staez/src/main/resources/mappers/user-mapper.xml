@@ -48,11 +48,11 @@
 		AND user_status = 'Y'
 	</select>
 	
-	<!-- 아이디중복체크 -->
-	<select id="idCheck" resultType="_int">
+	<!-- 아이디 중복체크 -->
+	<select id="idCheck" resultType="int" parameterType="String">
 		SELECT COUNT(*)
-		  FROM staez_user
-		 WHERE user_id = #{checkId}
+		FROM staez_user
+		WHERE user_id = #{checkId}
 	</select>
 	
 	<!-- 닉네임중복체크 -->
@@ -64,7 +64,7 @@
 	
 	<!-- 회원가입 -->
 	<insert id="insertUser">
-		INSERT INTO USER(
+		INSERT INTO staez_user(
 		   user_id,
 		   user_pwd,
 		   nickname,
@@ -73,7 +73,8 @@
 		   address,
 		   email,
 		   phone,
-		   genreLike
+		   genre_like,
+		   grade
 		)
 		VALUES(
 		   #{userId},
@@ -84,7 +85,8 @@
 		   #{address},
 		   #{email},
 		   #{phone},
-		   #{genreLike}
+		   #{genreLike},
+		   2
 		)
 	</insert>
 </mapper>
