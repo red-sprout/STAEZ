@@ -19,6 +19,11 @@
 	    <result column="concert_status" property="concertStatus"/>
 	    <result column="change_name" property="changeName"/>
 	    <result column="file_path" property="filePath"/>
+	    <result column="start_date" property="startDate"/>
+	    <result column="end_date" property="endDate"/>
+	    <result column="category_no" property="categoryNo"/>
+	    <result column="category_name" property="categoryName"/>
+	    <result column="theater_name" property="theaterName"/>
    </resultMap>
 	
 	<resultMap type="Category" id="categoryResult">
@@ -35,15 +40,40 @@
 		where ref_category_no = 1
 	</select>	
 	
-	<select id="selectCategoryConcert" resultMap="concertResult">
+	<select id="selectCategoryLikeConcert" resultMap="concertResult">
 		select 
-		    c.concert_no, 
-		    c.concert_title, 
-		    cs.start_date, 
-		    cs.end_date, 
-		    cg.category_name, 
-		    ca.file_path, 
-		    ca.change_name
+			c.concert_no, 
+			c.concert_title, 
+			l.start_date, 
+			l.end_date, 
+			cg.category_name
+		from (select 
+				cl.concert_no, 
+				min(cs.start_date) as start_date,
+				max(cs.end_date) as end_date,
+				count(cl.concert_no) as countlike
+				from concert_like cl
+				join concert c using (concert_no)
+				join concert_schedule cs on (c.concert_no = cs.concert_no)
+				where cl.status = 'Y'
+				group by cl.concert_no
+				order by countlike desc) l
+		join concert c on (l.concert_no = c.concert_no)	
+		join concert_category cc on (c.concert_no = cc.concert_no)
+		join category cg on (cc.category_no = cg.category_no)
+		join concert_attachment ca on (c.concert_no = ca.concert_no)
+		where c.concert_status = 'Y'
+		and cg.category_no = #{cNo}
+		and ca.file_level = 1
+		and ca.status = 'Y'
+		limit 10;
+	</select>
+	
+	<select id="selectCategoryConcertImg" resultMap="concertResult">
+		select 
+			c.concert_no, 
+			ca.file_path, 
+			ca.change_name
 		from (select 
 				cl.concert_no, 
 				count(cl.concert_no) as countlike
@@ -53,7 +83,6 @@
 				group by cl.concert_no
 				order by countlike desc) l
 		join concert c on (l.concert_no = c.concert_no)	
-		join concert_schedule cs on (c.concert_no = cs.concert_no)
 		join concert_category cc on (c.concert_no = cc.concert_no)
 		join category cg on (cc.category_no = cg.category_no)
 		join concert_attachment ca on (c.concert_no = ca.concert_no)
@@ -62,6 +91,83 @@
 		and ca.file_level = 1
 		and ca.status = 'Y'
 		limit 10;
+	</select>
+	
+	<select id="selectLatestCategoryConcert" resultMap="concertResult">
+		select 
+		   c.concert_no, 
+		   c.concert_title, 
+		   start_date,
+		   end_date,
+		   cg.category_name
+		from (select 
+		      c.concert_no,
+		      min(cs.start_date) as start_date,
+		          max(cs.start_date) as latest,
+		      max(cs.end_date) as end_date
+		      from concert c
+		      join concert_schedule cs using (concert_no)
+		      group by c.concert_no
+		      order by latest desc) l
+		join concert c on (l.concert_no = c.concert_no)   
+		join concert_category cc on (c.concert_no = cc.concert_no)
+		join category cg on (cc.category_no = cg.category_no)
+		join concert_attachment ca on (c.concert_no = ca.concert_no)
+		where c.concert_status = 'Y'
+		and cg.category_no = #{cNo}
+		and ca.file_level = 1
+		and ca.status = 'Y'
+		limit 10;
+	</select>
+	
+	<select id="selectLatestCategoryConcertImg" resultMap="concertResult">
+		select 
+			c.concert_no, 
+			ca.file_path, 
+			ca.change_name
+		from (select 
+				c.concert_no,
+			 	max(cs.start_date) latest
+				from concert c
+				join concert_schedule cs using (concert_no)
+				group by c.concert_no
+				order by latest desc) l
+		join concert c on (l.concert_no = c.concert_no)	
+		join concert_category cc on (c.concert_no = cc.concert_no)
+		join category cg on (cc.category_no = cg.category_no)
+		join concert_attachment ca on (c.concert_no = ca.concert_no)
+		where c.concert_status = 'Y'
+		and cg.category_no = #{cNo}
+		and ca.file_level = 1
+		and ca.status = 'Y'
+		limit 10;
+	</select>
+	
+	<select id="selectDateCategoryConcert" resultMap="concertResult" parameterType="Map">
+	select 
+		c.concert_no, 
+		c.concert_title, 
+		t.theater_name, 
+		min(s.start_date) start_Date, 
+		min(s.end_date) end_date, 
+		c.concert_runtime, 
+		ca.file_path, 
+		ca.change_name, 
+		cg.category_no 
+	from (select concert_no, start_date, end_Date
+			from concert_schedule 
+			where #{date}::date between start_date and end_date
+			and status = 'Y'
+			and schedule != 'N') s
+	join concert c on (s.concert_no = c.concert_no)
+	join theater t on (c.theater_no = t.theater_no)
+	join concert_attachment ca on (c.concert_no = ca.concert_no)
+	join concert_category cc on (c.concert_no = cc.concert_no)
+	join category cg on (cc.category_no = cg.category_no)
+	where ca.file_level = 1
+	and cg.category_no = #{cNo}
+	and ca.status = 'Y'
+	GROUP BY c.concert_no, c.concert_title, t.theater_name, c.concert_runtime, ca.file_path, ca.change_name, cg.category_no;
 	</select>
 	
 </mapper>

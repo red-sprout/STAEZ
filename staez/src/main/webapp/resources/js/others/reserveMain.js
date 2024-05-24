@@ -2,42 +2,135 @@ window.onload = function(){
     const body = document.querySelector("body");
     body.classList.add("noScroll");
     mainCategoryName((category) => drawOption(category));
+}
 
+function drawOption(category){
+    const select1 = document.getElementById("popularity-concert-category-box");
+    const select2 = document.getElementById("latest-concert-category-box");
+    
+    for (let c of category){
+        select1.innerHTML += `<option value="`+c.categoryNo+`">`+c.categoryName+`</option>`;
+        select2.innerHTML += `<option value="`+c.categoryNo+`">`+c.categoryName+`</option>`;
+    }
 
-    function drawOption(category){
-        const select1 = document.getElementById("popularity-concert-category-box");
-        const select2 = document.getElementById("latest-concert-category-box");
-        
-        for (let c of category){
-            select1.innerHTML += `<option value="`+c.categoryNo+`">`+c.categoryName+`</option>`;
-            select2.innerHTML += `<option value="`+c.categoryNo+`">`+c.categoryName+`</option>`;
-        }
-
-        const categoryNo1 = document.getElementById("popularity-concert-category-box").value;
+    select1.onchange = function() {
+        const categoryNo1 = this.value;
+        console.log(categoryNo1)
         selectPopularConcert({
             categoryNo1
-        },(pcConserts) => drawPopularConcert(pcConserts));
-    }
-}
+        },(pcConcerts) => drawPopularConcert(pcConcerts, categoryNo1));
+    };
 
-function drawPopularConcert(pcConserts){
-    console.log(pcConserts)
+    select2.onchange = function() {
+        const categoryNo2 = this.value;
+        console.log(categoryNo2)
+        selectLatestConcert({
+            categoryNo2
+        },(lcConcerts) => drawLatestConcert(lcConcerts, categoryNo2));
+    };
+
+    const categoryNo1 = document.getElementById("popularity-concert-category-box").value;
+    const categoryNo2 = document.getElementById("latest-concert-category-box").value;
+    selectPopularConcert({
+        categoryNo1
+    },(pcConcerts) => drawPopularConcert(pcConcerts, categoryNo1));
+
+    selectLatestConcert({
+        categoryNo2
+    },(lcConcerts) => drawLatestConcert(lcConcerts, categoryNo2))
+}
+function drawPopularConcert(pcConcerts, categoryNo1){
+    console.log(pcConcerts)
     const pcConsertsArea = document.querySelector(".popularity-concert-information-slider");
     pcConsertsArea.innerHTML = ``;
-    for (let c of pcConserts){
-        pcConsertsArea.innerHTML += `<div class="popularity-concert-information">
-                                        <a class="popularity-concert-information-a" href="${contextPath}/detail.co"><img class="popularity-concert-information-img" src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
-                                        <div class="concert-search-result-content-info">
-                                            <span class="concert-search-result-content-span1">뮤지컬</span>
-                                            <span class="concert-search-result-content-span2">[시카고]</span>
-                                            <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
-                                        </div>
-                                    </div>`
+    if(pcConcerts.length != 0){
+        for (let c of pcConcerts){
+            pcConsertsArea.innerHTML += `<div class="popularity-concert-information">
+                                            <a class="popularity-concert-information-a" href="/staez/detail.co?concertNo=`+ c.concertNo +`"><img class="popularity-concert-information-img" src="" alt=""></a>
+                                            <div class="concert-search-result-content-info">
+                                                <span class="concert-search-result-content-span1">`+ c.categoryName+`</span>
+                                                <span class="concert-search-result-content-span2">[`+ c.concertTitle +`]</span>
+                                                <span class="concert-search-result-content-span3">`+ c.startDate + ` ~ ` + c.endDate +`</span>
+                                            </div>
+                                        </div>`
+        } 
+        popularConcertImg(categoryNo1)
+    } else{
+        pcConsertsArea.innerHTML += `<span style="width: 1000px; text-align: center; font-size: 35px;">준비된 공연이 없습니다</span>`
     }
 }
 
+function popularConcertImg(categoryNo1){
+    selectPopularConcertImg({
+        categoryNo1
+    },(concertImgs) => drawPopularConcertImg(concertImgs));
+}
+
+function drawPopularConcertImg(concertImgs){
+    console.log(concertImgs)
+    const imgArea = document.querySelectorAll(".popularity-concert-information-img");
+    console.log(imgArea)
+    for(let i = 0; i < imgArea.length; i++){
+        imgArea[i].src="/staez" + concertImgs[i].filePath + concertImgs[i].changeName;
+    }
+}
+
+function drawLatestConcert(lcConcerts, categoryNo2){
+    console.log(lcConcerts)
+    const pcConsertsArea = document.querySelector(".latest-concert-information-slider");
+    pcConsertsArea.innerHTML = ``;
+    if(lcConcerts != 0){
+        for (let c of lcConcerts){
+            pcConsertsArea.innerHTML += `<div class="latest-concert-information">
+                                            <a class="latest-concert-information-a" href="/staez/detail.co?concertNo=`+ c.concertNo +`"><img class="latest-concert-information-img" src="" alt=""></a>
+                                            <div class="concert-search-result-content-info">
+                                                <span class="concert-search-result-content-span1">`+ c.categoryName+`</span>
+                                                <span class="concert-search-result-content-span2">[`+ c.concertTitle +`]</span>
+                                                <span class="concert-search-result-content-span3">`+ c.startDate + ` ~ ` + c.endDate +`</span>
+                                            </div>
+                                        </div>`
+        }
+        latestConcertImg(categoryNo2)
+    } else{
+        pcConsertsArea.innerHTML += `<span style="width: 1000px; text-align: center; font-size: 35px;">준비된 공연이 없습니다</span>`
+    }
+    
+}
+
+function latestConcertImg(categoryNo2){
+    selectlatestConcertImg({
+        categoryNo2
+    },(concertImgs) => drawlatestConcertImg(concertImgs));
+}
+
+function drawlatestConcertImg(concertImgs){
+    console.log(concertImgs)
+    const imgArea = document.querySelectorAll(".latest-concert-information-img");
+    console.log("latest : " + imgArea)
+    for(let i = 0; i < imgArea.length; i++){
+        imgArea[i].src="/staez" + concertImgs[i].filePath + concertImgs[i].changeName;
+    }
+    checkedButtonHidden();
+}
 
 /* 공연 리스트 슬라이드 하기 */
+
+function checkedButtonHidden(){
+    const pbutton = document.querySelector(".popularity-concert-information-area").querySelectorAll(".slider-btn");
+    console.log(pbutton)
+    const lbutton = document.querySelector(".latest-concert-information-area").querySelectorAll(".slider-btn");
+    console.log(lbutton)
+    const pCount = document.querySelectorAll(".popularity-concert-information");
+    const lCount = document.querySelectorAll(".latest-concert-information");
+    if(pCount.length < 6){
+        pbutton[0].classList.add("hidden")
+        pbutton[1].classList.add("hidden")
+    }
+    if(lCount.length < 6){
+        lbutton[0].classList.add("hidden")
+        lbutton[1].classList.add("hidden")
+    }
+}   
 
 let currentIndex1 = 0;
 const totalImg1 = 10;

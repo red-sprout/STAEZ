@@ -10,4 +10,12 @@ public interface OthersService {
 	ArrayList<Category> selectCategory();
 	
 	ArrayList<Concert> selectCategoryConcert(int cNo);
+	
+	ArrayList<Concert> selectCategoryConcertImg(int cNo);
+	
+	ArrayList<Concert> selectLatestCategoryConcert(int cNo);
+	
+	ArrayList<Concert> selectLatestCategoryConcertImg(int cNo);
+	
+	ArrayList<Concert> selectDateCategoryConcert(String categoryNo, String concertDate);
 }

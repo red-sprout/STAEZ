@@ -69,90 +69,18 @@
             </div>
             <div class="latest-concert-information-area">
                 <div class="latest-concert-information-slider">
-                    <div class="latest-concert-information">
+                    <!-- <div class="latest-concert-information">
                         <a class="latest-concert-information-a" href="${contextPath}/detail.co"><img class="latest-concert-information-img" src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
                         <div class="concert-search-result-content-info">
                             <span class="concert-search-result-content-span1">뮤지컬</span>
                             <span class="concert-search-result-content-span2">[시카고]</span>
                             <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
                         </div>
-                    </div>
-                    <div class="latest-concert-information">
-                        <a class="latest-concert-information-a" href="${contextPath}/detail.co"><img class="latest-concert-information-img" src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
-                        <div class="concert-search-result-content-info">
-                            <span class="concert-search-result-content-span1">뮤지컬</span>
-                            <span class="concert-search-result-content-span2">[시카고]</span>
-                            <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
-                        </div>
-                    </div>
-                    <div class="latest-concert-information">
-                        <a class="latest-concert-information-a" href="${contextPath}/detail.co"><img class="latest-concert-information-img" src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
-                        <div class="concert-search-result-content-info">
-                            <span class="concert-search-result-content-span1">뮤지컬</span>
-                            <span class="concert-search-result-content-span2">[시카고]</span>
-                            <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
-                        </div>
-                    </div>
-                    <div class="latest-concert-information">
-                        <a class="latest-concert-information-a" href="${contextPath}/detail.co"><img class="latest-concert-information-img" src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
-                        <div class="concert-search-result-content-info">
-                            <span class="concert-search-result-content-span1">뮤지컬</span>
-                            <span class="concert-search-result-content-span2">[시카고]</span>
-                            <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
-                        </div>
-                    </div>
-                    <div class="latest-concert-information">
-                        <a class="latest-concert-information-a" href="${contextPath}/detail.co"><img class="latest-concert-information-img" src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
-                        <div class="concert-search-result-content-info">
-                            <span class="concert-search-result-content-span1">뮤지컬</span>
-                            <span class="concert-search-result-content-span2">[시카고]</span>
-                            <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
-                        </div>
-                    </div>
-                    <div class="latest-concert-information">
-                        <a class="latest-concert-information-a" href="${contextPath}/detail.co"><img class="latest-concert-information-img" src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
-                        <div class="concert-search-result-content-info">
-                            <span class="concert-search-result-content-span1">뮤지컬</span>
-                            <span class="concert-search-result-content-span2">[시카고]</span>
-                            <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
-                        </div>
-                    </div>
-                    <div class="latest-concert-information">
-                        <a class="latest-concert-information-a" href="${contextPath}/detail.co"><img class="latest-concert-information-img" src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
-                        <div class="concert-search-result-content-info">
-                            <span class="concert-search-result-content-span1">뮤지컬</span>
-                            <span class="concert-search-result-content-span2">[시카고]</span>
-                            <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
-                        </div>
-                    </div>
-                    <div class="latest-concert-information">
-                        <a class="latest-concert-information-a" href="${contextPath}/detail.co"><img class="latest-concert-information-img" src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
-                        <div class="concert-search-result-content-info">
-                            <span class="concert-search-result-content-span1">뮤지컬</span>
-                            <span class="concert-search-result-content-span2">[시카고]</span>
-                            <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
-                        </div>
-                    </div>
-                    <div class="latest-concert-information">
-                        <a class="latest-concert-information-a" href="${contextPath}/detail.co"><img class="latest-concert-information-img" src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
-                        <div class="concert-search-result-content-info">
-                            <span class="concert-search-result-content-span1">뮤지컬</span>
-                            <span class="concert-search-result-content-span2">[시카고]</span>
-                            <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
-                        </div>
-                    </div>
-                    <div class="latest-concert-information">
-                        <a class="latest-concert-information-a" href="${contextPath}/detail.co"><img class="latest-concert-information-img" src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
-                        <div class="concert-search-result-content-info">
-                            <span class="concert-search-result-content-span1">뮤지컬</span>
-                            <span class="concert-search-result-content-span2">[시카고]</span>
-                            <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
-                        </div>
-                    </div>
+                    </div> -->
                 </div>
+                <button class="slider-btn left-btn" onclick="slideLeft2()"><img src="${contextPath}/resources/img/others/leftSliderBTN.png" alt=""></button>
+                <button class="slider-btn right-btn" onclick="slideRight2()"><img src="${contextPath}/resources/img/others/rightSliderBTN.png" alt=""></button>
             </div>
-            <button class="slider-btn left-btn" onclick="slideLeft2()"><img src="${contextPath}/resources/img/others/leftSliderBTN.png" alt=""></button>
-            <button class="slider-btn right-btn" onclick="slideRight2()"><img src="${contextPath}/resources/img/others/rightSliderBTN.png" alt=""></button>
         </div>
         <div class="popularity-bulletin-container">
             <div class="popularity-bulletin-head">

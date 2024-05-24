@@ -59,4 +59,40 @@ public class OthersController {
 		ArrayList<Concert> ccList = oService.selectCategoryConcert(cNo);
 		return  new Gson().toJson(ccList);
 	}
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxSelectCategoryConcertImg.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxSelectCategoryConcertImg(String categoryNo1) {
+		int cNo = Integer.parseInt(categoryNo1);
+		
+		ArrayList<Concert> cciList = oService.selectCategoryConcertImg(cNo);
+		return  new Gson().toJson(cciList);
+	}
+
+	@ResponseBody
+	@GetMapping(value = "ajaxSelectLatestCategoryConcert.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxSelectLatestCategoryConcert(String categoryNo2) {
+		int cNo = Integer.parseInt(categoryNo2);
+		
+		ArrayList<Concert> clList = oService.selectLatestCategoryConcert(cNo);
+		return  new Gson().toJson(clList);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxSelectLatestCategoryConcertImg.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxSelectLatestCategoryConcertImg(String categoryNo2) {
+		int cNo = Integer.parseInt(categoryNo2);
+		
+		ArrayList<Concert> cliList = oService.selectLatestCategoryConcertImg(cNo);
+		return  new Gson().toJson(cliList);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxSelectDateCategoryConcert.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxSelectDateCategoryConcert(String categoryNo, String concertDate) {
+		
+		ArrayList<Concert> dcList = oService.selectDateCategoryConcert(categoryNo, concertDate);
+
+		return  new Gson().toJson(dcList);
+	}
 }

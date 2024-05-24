@@ -244,7 +244,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    position: relative;
+    position: relative; 
 }
 
 .concert-day-choice-area>div{
@@ -255,7 +255,7 @@
 }
 
 .concert-day-choice-area>div>span{
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 500;
     margin: 5px 0;
 }
@@ -319,6 +319,7 @@
 
 .concert-day-img-description-area>img{
     width: 90px;
+    margin-right: 3px;
 }
 
 .concert-day-description-area{
@@ -341,12 +342,16 @@
 
 .concert-day-description-area div :nth-child(1){
     font-weight: 500;
-    width: 65px;
+    width: 52px;
     text-align: left;
 }
 
 .concert-day-description-area div :nth-child(2){
     font-weight: 400;
-    width: 115px;
+    width: 110px;
     text-align: left;
+}
+
+.hidden{
+    display: none;
 }

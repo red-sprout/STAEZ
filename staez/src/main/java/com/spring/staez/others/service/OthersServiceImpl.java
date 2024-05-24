@@ -1,6 +1,8 @@
 package com.spring.staez.others.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,34 @@ public class OthersServiceImpl implements OthersService{
 
 	@Override
 	public ArrayList<Concert> selectCategoryConcert(int cNo) {
-		return oDao.selectCategoryConcert(sqlSession, cNo);
+		return oDao.selectCategoryLikeConcert(sqlSession, cNo);
+	}
+
+	@Override
+	public ArrayList<Concert> selectCategoryConcertImg(int cNo) {
+		return oDao.selectCategoryConcertImg(sqlSession, cNo);
+	}
+
+	@Override
+	public ArrayList<Concert> selectLatestCategoryConcert(int cNo) {
+		return oDao.selectLatestCategoryConcert(sqlSession, cNo);
+	}
+
+	@Override
+	public ArrayList<Concert> selectLatestCategoryConcertImg(int cNo) {
+		return oDao.selectLatestCategoryConcertImg(sqlSession, cNo);
+	}
+
+	@Override
+	public ArrayList<Concert> selectDateCategoryConcert(String categoryNo, String concertDate) {
+		int cNo = Integer.parseInt(categoryNo);
+		Map data = new HashMap();
+		data.put("cNo", cNo);
+		data.put("date", concertDate);
+
+		ArrayList<Concert> dcList = oDao.selectDateCategoryConcert(sqlSession, data);
+		
+		return dcList;
 	}
 	
 	
