@@ -1,62 +1,118 @@
 function init() {
     updateCombinedAddress();
     updateCombinedPhone();
+    emailDomain(); // Initialize email input fields on page load
 }
 
 // 회원정보 변경 전 비밀번호 인증
-function checkPassword() {
-    const inputPassword = document.getElementById('auth-password').value;
-    const correctPassword = 'pass01'; // 실제 비밀번호 확인 로직으로 대체해야 함
+function authPassword() {
+    const inputPwd = document.getElementById('auth-password').value;
 
-    if (inputPassword === correctPassword) {
-        document.querySelector('form').hidden = false;
-        document.getElementById('password-auth').hidden = true;
+    console.log(inputPwd);
+
+    authPwdAjax({inputPwd}, (res) => {
+        if (res === 'NNNNY') { //비밀번호 인증 성공
+            alert('인증에 성공하였습니다');
+            document.querySelector('form').hidden = false;
+            document.getElementById('password-auth').hidden = true;
+        } else {
+            document.getElementById('auth-fail').hidden = false;
+        }
+
+    });
+
+}
+
+// 비밀번호 변경
+function checkPassword(){
+    const newPwd = document.getElementById('changePwd'); // 변경할 비밀번호 input
+    const checkPwd = document.getElementById('checkPwd'); //비밀번호 확인 input
+    const warning1 = document.querySelectorAll('.pwd-check>h5')[0]; //비밀번호 조합 확인 div
+    const warning2 = document.querySelectorAll('.pwd-check>h5')[1]; //비밀번호 일치 체크 div                             
+
+    const combineCheck = combinePwd(newPwd, warning1);
+    const differCheck = differPwd(newPwd, checkPwd, warning2);
+
+    console.log(newPwd.value);
+    console.log(checkPwd.value);
+
+    console.log(combineCheck, differCheck)
+}
+
+function combinePwd(targetInput, warning1){ //새로운 비밀번호 조합 확인
+    const reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,30}$/;
+    
+    if(reg.test(targetInput.value) || targetInput.value === ""){ //비밀번호의 조합조건이 맞거나 빈칸일 경우
+        warning1.innerText = '';
+        return targetInput.value !== ""; //값이 비어있는 것은 combinePwd조건에 만족은 아니다
+        //값이 비어있을 경우 false, 값이 있으면 true
+
     } else {
-        document.getElementById('auth-fail').hidden = false;
+        warning1.innerText = '올바르지 못한 형식입니다';
+        return false;
+    } 
+}
+
+function differPwd(originInput, checkInput, warning2){ //비밀번호 일치 체크
+    if(originInput.value === checkInput.value || checkInput.value === ""){ //비밀번호가 일치하거나 빈칸일 경우
+        warning2.innerText = '';
+        return checkInput.value !== ""; //값이 비어있는 것은 differPwd조건에 만족은 아니다
+       
+    } else{
+        warning2.innerText = '비밀번호가 일치하지 않습니다';
+        return false;
     }
 }
 
-//닉네임 중복확인 ajax
-
-
-
-
-//비밀번호 변경
+//(비밀번호 변경) 닫기, 취소 버튼누르면 input들 초기화
 document.addEventListener('DOMContentLoaded', () => {
-    
+    const cancelBtns = document.querySelectorAll("#pwdModal button[type='button']"); //닫기, 취소 버튼
+    const pwdForm = document.querySelector("#pwdModal form"); //pwd변경 form
+    const warnings = document.querySelectorAll("#pwdModal h5");
+
+    cancelBtns.forEach(button => {
+        button.addEventListener('click', function(){
+            warnings.forEach(warning => {
+                warning.innerText = '';
+            });
+            pwdForm.reset();
+        });
+    });
 });
 
-
-
-
-
-//이메일 도메인 select설정
-const emailDomain = () => {
-    const domain = document.querySelector("select[name='domain']");
-    const emailBack = document.querySelector("#email-back");
-
-    emailBack.value = "";
+//닉네임 중복확인 ajax
+function checkNickname(){
+    const nickname = document.querySelector("input[name='nickname']");
+    const warningText = document.querySelectorAll('.warning-text h5')[0];
     
-    if(domain.value !== 'self-input'){ //'직접입력'이 아닐경우
-        emailBack.value = domain.options[domain.selectedIndex].value;
-        emailBack.readOnly = true;
-    } else{
-        emailBack.readOnly = false;
-        emailBack.focus();        
-    }
+    dupliCheck({nickname: nickname.value}, (res) => {
+        console.log(warningText);
+        console.log(nickname.value);
+        //중복닉네임이 있을 경우
+        if(res === 'NNNNN'){
+            warningText.innerText = '중복된 닉네임이 존재합니다';
+            warningText.style.color = 'red';
+            nickname.focus();
+        } else {
+            //닉네임 사용이 가능할 경우
+            warningText.innerText = "사용가능한 닉네임입니다.";
+            warningText.style.color = 'green';
+        }
+    });
+
 }
 
 //관심장르 선택
 document.addEventListener('DOMContentLoaded', () => {
     const genreLike = document.querySelector("input[name='genreLike']");
-    const buttons = document.querySelectorAll('.btn-staez');
+    const buttons = document.querySelectorAll('.genre-btn');
 
     updateInput();
     
     buttons.forEach(button => {
         button.addEventListener('click', (event) => {
             const button = event.currentTarget;
-            const checkedButtons = document.querySelectorAll('.btn-staez.checked');
+            const checkedButtons = document.querySelectorAll('.genre-btn.checked');
             console.log(checkedButtons.length);
 
             if (button.classList.contains('checked')) {
@@ -113,13 +169,14 @@ function execDaumPostcode() {
                 }
                 // 조합된 참고항목을 해당 필드에 넣는다.
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById("addressNormal").value = addr + extraAddr;
+                document.getElementById("addressNormal").value = '[' + data.zonecode + '] ' + addr + extraAddr;
 
             } else {
-                document.getElementById("addressNormal").value = addr;
+                document.getElementById("addressNormal").value = '[' + data.zonecode + '] ' + addr;
             }
 
             // 상세주소 필드의 readonly옵션을 없애고, 커서를 상세주소 필드로 이동한다.
+            document.getElementById("addressDetail").value = '';
             document.getElementById("addressDetail").readOnly = false;
             document.getElementById("addressDetail").focus();
         }
@@ -132,7 +189,7 @@ function updateCombinedAddress() {
     const input2 = document.getElementById("addressDetail").value;
     const address = document.querySelector("input[name='address']");
 
-    address.value = input1 + " " + input2;
+    address.value = input1 + "/" + input2;
 }
 
 // 휴대폰번호 필드 값 변경 시 호출되는 함수
@@ -143,6 +200,92 @@ function updateCombinedPhone() {
 
     phone.value = "010" + input1 + input2;
 }
+
+// 이메일 필드 값 변경 시 호출되는 함수
+function updateCombinedEmail() {
+    const emailFront = document.getElementById('email-front').value;
+    const emailBack = document.getElementById('email-back').value;
+    const selectElement = document.querySelector("select[name='domain']");
+    const combinedEmail = document.querySelector("input[name='email']");
+
+    if (selectElement.value === 'self-input') {
+        combinedEmail.value = emailFront + '@' + emailBack;
+    } else {
+        combinedEmail.value = emailFront + '@' + selectElement.value;
+    }
+}
+
+//이메일 도메인 select설정
+function emailDomain() {
+    const selectElement = document.querySelector("select[name='domain']");
+    const emailBack = document.getElementById('email-back');
+
+    if (selectElement.value === 'self-input') {
+        emailBack.removeAttribute('readonly');
+        emailBack.value = '';
+        emailBack.focus();        
+
+    } else {
+        emailBack.setAttribute('readonly', true);
+        emailBack.value = selectElement.value;
+    }
+
+    updateCombinedEmail(); // Update combined email value whenever the domain changes
+}
+
+
+
+
+
+/*
+//프로필 사진 변경
+const profilePic = document.getElementById('profile-pic');
+const newImageInput = document.getElementById('new-image-input');
+const saveButton = document.getElementById('save-button');
+
+const currentProfilePicSrc = 'current-profile.jpg';
+const defaultProfilePicSrc = 'default-profile.jpg';
+let newProfilePicSrc = '';
+
+document.querySelectorAll('input[name="profile-option"]').forEach((input) => {
+    input.addEventListener('change', (event) => {
+        const value = event.target.value;
+        if (value === 'current') {
+            profilePic.src = currentProfilePicSrc;
+        } else if (value === 'default') {
+            profilePic.src = defaultProfilePicSrc;
+        } else if (value === 'new') {
+            newImageInput.click();
+        }
+    });
+});
+
+newImageInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            newProfilePicSrc = e.target.result;
+            profilePic.src = newProfilePicSrc;
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+saveButton.addEventListener('click', () => {
+    const selectedOption = document.querySelector('input[name="profile-option"]:checked').value;
+    if (selectedOption === 'current') {
+        alert('현재 프로필 이미지로 설정되었습니다.');
+    } else if (selectedOption === 'default') {
+        alert('기본 이미지로 설정되었습니다.');
+    } else if (selectedOption === 'new' && newProfilePicSrc) {
+        alert('새로운 이미지로 설정되었습니다.');
+    } else {
+        alert('이미지가 선택되지 않았습니다.');
+    }
+});
+
+*/
 
 
 

@@ -23,12 +23,19 @@
         <div class="main-section">
             <div class="side">
                 <div class="profile">
-                    <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
-                    <div id="profile-text">
-                        <span>[아이디]</span>
-                        <span>님</span><br>
-                        <span>환영합니다</span>
-                    </div>
+                    <c:choose>
+	            	    <c:when test="${empty loginUser}">
+                            <span>로그인 해주세요</span>
+                        </c:when>
+                        <c:otherwise>
+                            <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
+                            <div id="profile-text">
+                                <span>[아이디]</span>
+                                <span>님</span><br>
+                                <span>환영합니다</span>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div class="side-menu">
                     <div class="small-title">마이페이지</div>
