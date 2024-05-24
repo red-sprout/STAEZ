@@ -1,6 +1,5 @@
 package com.spring.staez.concert.model.vo;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
@@ -26,7 +25,11 @@ public class Concert {
 	private String ageLimit; //관람연령
 	private Timestamp updateDate; //최종수정일
 	private String concertStatus; //공연상태
-	private String theaterName;
-	private Date startDate;
-	private Date endDate;
+	private String changeName; //파일수정명
+	private String filePath; //파일경로
+	private String startDate; //시작날짜
+	private String endDate; //종료날짜
+	private int categoryNo; //카테고리번호
+	private String categoryName; //카테고리이름
+	private String theaterName; //공영장명
 }
