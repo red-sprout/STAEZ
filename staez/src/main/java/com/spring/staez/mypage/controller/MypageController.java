@@ -132,9 +132,7 @@ public class MypageController {
 	
 	// 비밀번호 변경
 	@RequestMapping("updatePwd.me")
-	public String updatePassword(@RequestParam("newPwd") String newPwd, HttpSession session) {
-	    System.out.println("New Password: " + newPwd);
-
+	public String updatePassword(String newPwd, HttpSession session) {
 	    User updateUser = null;
 	    updateUser = (User) session.getAttribute("loginUser");
 	    if (updateUser == null) {
@@ -157,4 +155,24 @@ public class MypageController {
 	    session.setAttribute("alertMsg", "비밀번호 변경에 실패하였습니다");
 	    return "mypage/updateUserForm";
 	}
+	
+	//회원 정보 변경
+	@RequestMapping("update.me")
+	public String updateUserInfo(User user, HttpSession session) {
+		
+	    int result = mps.updateUserInfo(user);
+
+		if(result > 0) {
+			session.setAttribute("loginUser", userService.loginUser(user));
+			session.setAttribute("alertMsg", "수정되었습니다");
+			return "redirect:/updateForm.me";
+		} else {
+			session.setAttribute("alertMsg", "수정에 실패하였습니다");
+			return "updateForm.me";
+		}
+	}
+	
+	
+	
+
 }
