@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -9,9 +11,12 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${contextPath}/resources/css/mypage/updateUserForm.css">
 <script src="${contextPath}/resources/js/mypage/updateUserForm.js"></script>
+<script src="${contextPath}/resources/js/api/mypageapi.js"></script>
+
 
 <!-- 다음 주소 api -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 
 
 <title>Insert title here</title>
@@ -29,12 +34,19 @@
         <div class="main-section">
             <div class="side">
                 <div class="profile">
-                    <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
-                    <div id="profile-text">
-                        <span>[아이디]</span>
-                        <span>님</span><br>
-                        <span>환영합니다</span>
-                    </div>
+                    <c:choose>
+	            	    <c:when test="${empty loginUser}">
+                            <span>로그인 해주세요</span>
+                        </c:when>
+                        <c:otherwise>
+                            <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
+                            <div id="profile-text">
+                                <span>[아이디]</span>
+                                <span>님</span><br>
+                                <span>환영합니다</span>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div class="side-menu">
                     <div class="small-title">마이페이지</div>
@@ -71,50 +83,18 @@
                         <h3>비밀번호 인증</h3>
                         <div>
                             <input type="password" id="auth-password" placeholder="비밀번호 입력">
-                            <button type="button" class="btn-staez purple" onclick="checkPassword()">인증</button>
+                            <button type="button" class="btn-staez purple" onclick="authPassword()">인증</button>
                         </div>
                         <p id="auth-fail" hidden>비밀번호가 일치하지 않습니다.</p>
                     </div>
 
                     <form action="update.me" method="GET" >
                         <div id="profile-img">
-                            <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
+                            <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="" data-toggle="modal" data-target="#imgModal">
                         </div>
                         <div id="update-form">
                             <table>
                                 <tbody>
-                                    <tr>
-                                        <th><h3>닉네임</h3></th>
-                                        <td class="input-box">
-                                            <input type="text" name="nickname" value="" placeholder="" maxlength="16" >
-                                        </td>
-                                        <td class="input-btn">
-                                            <button type="button">중복확인</button>
-                                        </td>
-                                    </tr>
-                                    <tr class="warning-text hidden">
-                                        <td></td>
-                                        <td><h5>중복된 닉네임입니다</h5></td>
-                                        <td></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th><h3>아이디</h3></th>
-                                        <td class="input-box">
-                                            <input type="text" name="userId" value="user01" readonly>
-                                        </td>
-                                        <td class="input-btn"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th><h3>생년월일</h3></th>
-                                        <td class="input-box">
-                                            <input type="date" name="birth" value="1997-04-23" readonly>
-                                        </td>
-                                        <td class="input-btn">
-                                        </td>
-                                    </tr>
-
                                     <tr>
                                         <th><h3>비밀번호</h3></th>
                                         <td id="pwd-btn">
@@ -124,26 +104,61 @@
                                     </tr>
 
                                     <tr>
+                                        <th><h3>아이디</h3></th>
+                                        <td class="input-box">
+                                            <input type="text" name="userId" value="${loginUser.userId}" readonly>
+                                        </td>
+                                        <td class="input-btn"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th><h3>생년월일</h3></th>
+                                        <td class="input-box">
+                                            <input type="date" name="birth" value="${loginUser.birth}" readonly>
+                                        </td>
+                                        <td class="input-btn">
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th><h3>닉네임</h3></th>
+                                        <td class="input-box">
+                                            <input type="text" name="nickname" value="${loginUser.nickname}" placeholder="" maxlength="16">
+                                        </td>
+                                        <td class="input-btn">
+                                            <button type="button" onclick="checkNickname()">중복확인</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="warning-text">
+                                        <td></td>
+                                        <td><h5></h5></td>
+                                        <td></td>
+                                    </tr>
+
+                                    <tr>
                                         <th><h3>성별</h3></th>
                                         <td id="gender-input">
                                             <div>
-                                                <div>
-                                                    <input type="radio" name="gender" id="male" value="M">
-                                                    <label for="male">남자</label>
-                                                </div>
-                                                <div>
-                                                    <input type="radio" name="gender" id="female" value="F">
-                                                    <label for="female">여자</label>
-                                                </div>
+                                                <label for="male">
+                                                    <input type="radio" name="gender" id="male" value="M" 
+                                                        <c:if test="${loginUser.gender == 'M'}">checked</c:if>>
+                                                    <h4>남자</h4>
+                                                </label>
+                                                <label for="female">
+                                                    <input type="radio" name="gender" id="female" value="F" 
+                                                        <c:if test="${loginUser.gender == 'F'}">checked</c:if>>
+                                                    <h4>여자</h4>
+                                                </label>
                                             </div>
                                         </td>
                                         <td></td>
                                     </tr>
 
+                                    <c:set var="address" value="${loginUser.address}"  />
                                     <tr>
                                         <th><h3>주소</h3></th>
                                         <td class="input-box">
-                                            <input type="text" id="addressNormal" readonly required>
+                                            <input type="text" id="addressNormal" value="${fn:split(address, '/')[0]}" onchange="resetAddressDetail()" readonly required>
                                         </td>
                                         <td class="input-btn">
                                             <button type="button" onclick="execDaumPostcode()">우편번호</button>
@@ -152,19 +167,21 @@
                                     <tr>
                                         <th></th>
                                         <td class="input-box">
-                                            <input type="text" placeholder="상세주소를 입력하세요" id="addressDetail" onchange="updateCombinedAddress()" readonly required>
+                                            <input type="text" placeholder="상세주소를 입력하세요" id="addressDetail" value="${fn:split(address, '/')[1]}" readonly required>
                                         </td>
                                         <td></td>
                                     </tr>
                                     <input type="text" name="address" readonly hidden>
-
+                                    <c:remove var="address" />
+                                    
+                                    <c:set var="phone" value="${loginUser.phone}"  />
                                     <tr>
                                         <th><h3>휴대폰번호</h3></th>
                                         <td id="phone-input">
                                             <div>
                                                 <input id="front-num" type="text" maxlength="3" value="010" readonly>
-                                                <input id="phone1" type="text" value="" minlength="4" maxlength="4" onchange="updateCombinedPhone()">
-                                                <input id="phone2" type="text" value="" minlength="4" maxlength="4" onchange="updateCombinedPhone()">
+                                                <input id="phone1" type="text" value="${fn:substring(phone, 3, 7)}" minlength="4" maxlength="4" oninput="updateCombinedPhone()">
+                                                <input id="phone2" type="text" value="${fn:substring(phone, 7, 11)}" minlength="4" maxlength="4" oninput="updateCombinedPhone()">
                                             </div>
                                         </td>
                                         <input type="text" name="phone" readonly hidden>
@@ -184,18 +201,20 @@
                                         <td><h5>잘못된 인증번호입니다</h5></td>
                                         <td></td>
                                     </tr>
-                                    
+                                    <c:remove var="phone" />
+
+                                    <c:set var="email" value="${loginUser.email}"  />
                                     <tr>
                                         <th><h3>이메일</h3></th>
                                         <td id="email-input">
                                             <div>
-                                                <input type="text" id="email-front"> 
+                                                <input type="text" id="email-front" oninput="updateCombinedEmail()" value="${fn:split(email, '@')[0]}" required> 
                                                 <span>@</span>
-                                                <input type="text" id="email-back">
+                                                <input type="text" id="email-back" oninput="updateCombinedEmail()" value="${fn:split(email, '@')[1]}" required>
                                             </div>
                                         </td>
                                         <td class="input-btn">
-                                            <select name="domain" id="" onchange="emailDomain()">
+                                            <select name="domain" onchange="emailDomain()">
                                                 <option value="self-input">직접입력</option>
                                                 <option value="naver.com">네이버</option>
                                                 <option value="google.com">구글</option>
@@ -203,22 +222,27 @@
                                             </select>
                                         </td>
                                     </tr>
+                                    <input type="text" name="email" readonly hidden>
+                                    <c:remove var="email" />
 
+                                    <c:set var="genreLike" value="${loginUser.genreLike}" />
+                                    ${genreLike}
                                     <tr>
                                         <th rowspan="2"><h3>관심장르(택3)</h3></th>
                                         <td colspan="2" rowspan="2" id="like-genre-input" >
                                             <div>
-                                                <button type="button" class="btn-staez"><h4>뮤지컬</h4></button>
-                                                <button type="button" class="btn-staez"><h4>클래식</h4></button>    
-                                                <button type="button" class="btn-staez"><h4>연극</h4></button>    
-                                                <button type="button" class="btn-staez"><h4>국악</h4></button>    
-                                                <button type="button" class="btn-staez full-width"><h4>대중음악</h4></button>    
-                                                <button type="button" class="btn-staez full-width"><h4>서커스/마술</h4></button>    
-                                                <button type="button" class="btn-staez full-width"><h4>기타</h4></button>    
+                                                <button type="button" class="btn-staez genre-btn"><h4>뮤지컬</h4></button>
+                                                <button type="button" class="btn-staez genre-btn"><h4>클래식</h4></button>    
+                                                <button type="button" class="btn-staez genre-btn"><h4>연극</h4></button>    
+                                                <button type="button" class="btn-staez genre-btn"><h4>국악</h4></button>    
+                                                <button type="button" class="btn-staez genre-btn full-width"><h4>대중음악</h4></button>    
+                                                <button type="button" class="btn-staez genre-btn full-width"><h4>서커스/마술</h4></button>    
+                                                <button type="button" class="btn-staez genre-btn full-width"><h4>기타</h4></button>    
                                             </div>
                                             <input type="text" name="genreLike" hidden> <!--button들 내용 추가-->
                                         </td>
                                     </tr>
+                                    <c:remove var="genreLike" />
                                     <tr> <!--크기 맞추기 위한 빈공간-->
                                         <th></th>
                                         <td></td>
@@ -247,21 +271,25 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 
-                <form method="GET"> <!-- 비밀번호 ajax 사용 예정-->
+                <form action="updatePwd.me" method="POST">
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="pwd-tag">
                             <div></div>
                             <div>
                                 <h3>변경할 비밀번호</h3>
-                                <input type="password">
+                                <input id="changePwd" type="password" name="newPwd" placeholder="영문 숫자 특수문자 포함 8글자 이상" oninput="checkPassword()" required>
                             </div>
-                            <div class="pwd-check"></div>
+                            <div class="pwd-check">
+                                <h5></h5>                                
+                            </div>
                             <div>
                                 <h3>비밀번호 확인</h3>
-                                <input type="password">
+                                <input id="checkPwd" type="password" oninput="checkPassword()" required>
                             </div>
-                            <div class="pwd-check"></div>
+                            <div class="pwd-check">
+                                <h5></h5>
+                            </div>
                         </div>
                     </div>
                     
@@ -275,33 +303,38 @@
         </div>
     </div>
 
-     <!-- 프로필사진 변경 Modal -->
-     <div class="modal" id="imgModal">
-        <div class="modal-dialog">
+     <!-- 프로필 이미지 변경 Modal -->
+     <div class="modal fade" id="imgModal">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h3 class="modal-title">비밀번호 변경</h3>
+                    <h3 class="modal-title">프로필 이미지 변경</h3>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 
-                <form method="GET"> <!-- 비밀번호 ajax 사용 예정-->
+                <form method="POST">
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <div class="pwd-tag">
+                        <div class="img-tag">
                             <div>
-                                <h3>현재 비밀번호</h3>
-                                <input type="password">
-                                <button type="button" class="btn-staez purple"><h3>비밀번호 확인</h3></button>
+                                <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
                             </div>
-                            <!-- <div>
-                                <h3>변경할 비밀번호</h3>
-                                <input type="password">
+                            <div class="options">
+                                <label>
+                                    <input type="radio" name="profile-option" value="current" checked>
+                                    <h4>현재 프로필 이미지</h4> 
+                                </label>
+                                <label>
+                                    <input type="radio" name="profile-option" value="default">
+                                    <h4>기본 이미지</h4>
+                                </label>
+                                <label>
+                                    <input type="radio" name="profile-option" value="new">
+                                    <h4>변경할 이미지 선택</h4>
+                                </label>
+                                <input type="file" id="new-image-input" accept="image/*" >
                             </div>
-                            <div>
-                                <h3>비밀번호 확인</h3>
-                                <input type="password">
-                            </div> -->
                         </div>
                     </div>
                     
@@ -316,8 +349,8 @@
     </div>
 
     <!-- 회원탈퇴 Modal -->
-    <div class="modal" id="withdrawalModal">
-        <div class="modal-dialog">
+    <div class="modal fade" id="withdrawalModal">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
@@ -325,7 +358,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 
-                <form method="GET"> <!-- 비밀번호 ajax 사용 예정-->
+                <form method="GET">
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="withdrawal-tag">
