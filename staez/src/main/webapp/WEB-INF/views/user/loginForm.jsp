@@ -21,6 +21,12 @@
     <title>login</title>
 </head>
 <body onload="init()">
+    <c:if test="${not empty alertMsg}">
+        <script>
+            alert("${alertMsg}");
+        </script>
+        <c:remove var="alertMsg" />
+    </c:if>
     <div class="main-div">
         <form action="login.me" method="post">
             <a href="${contextPath}/index.jsp"><img src="${contextPath}/resources/img/user/STAEZ_logo.png" alt="STAEZ로고"></a>

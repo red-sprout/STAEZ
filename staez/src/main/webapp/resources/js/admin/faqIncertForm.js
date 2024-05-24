@@ -1,31 +1,3 @@
 $(function(){
-    faq({refCategoryNo: 3}, (res) => (setFaqCategory(res)));
+    category({refCategoryNo: 3}, (res) => (setCategory(res, 'faq-category')));
 });
-
-function toggleFaqCategory(_this) {
-    const categoryBtn = document.querySelectorAll("#faq-category>.btn-staez");
-    const categoryRadio = document.querySelectorAll("#faq-category input[name='categoryNo']");
-    for(let i in categoryBtn) {
-        try {
-            categoryBtn[i].classList.remove("checked");
-            if(categoryBtn[i] === _this) {
-                _this.classList.add("checked");
-                categoryRadio[i].setAttribute("checked", true);
-            }
-        } catch (error) {
-            continue;
-        }
-    }
-}
-
-function setFaqCategory(result) {
-    const li = document.querySelector('#faq-category');
-    for(let ele of result) {
-        let btn = `<button class="btn-staez" type="button" onclick="toggleFaqCategory(this);">
-                        <h4>${ele.categoryName}</h4>
-                    </button>`
-        let input = `<input type="radio" name="categoryNo" class="hidden" value="${ele.categoryNo}">`
-        li.innerHTML += btn;
-        li.innerHTML += input;
-    }
-}
