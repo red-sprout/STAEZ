@@ -32,4 +32,11 @@ public class MypageDao {
 		return result;
 		
 	}
+
+	public int updateUserInfo(SqlSessionTemplate sqlSession, User user) {
+		int result = sqlSession.update("mypageMapper.updateUserInfo", user);
+		return result;
+		
+	}
+	
 }

@@ -1,8 +1,11 @@
-function init() {
-    updateCombinedAddress();
-    updateCombinedPhone();
-    emailDomain(); // Initialize email input fields on page load
-}
+document.addEventListener('DOMContentLoaded', function() {
+    updateCombinedAddress()
+    updateCombinedPhone()
+    updateCombinedEmail()
+    firstEmailDomain();
+    firstLikeGenre();
+});
+
 
 // 회원정보 변경 전 비밀번호 인증
 function authPassword() {
@@ -24,6 +27,7 @@ function authPassword() {
 }
 
 // 비밀번호 변경
+// 비밀번호 입력때마다 유효성 확인
 function checkPassword(){
     const newPwd = document.getElementById('changePwd'); // 변경할 비밀번호 input
     const checkPwd = document.getElementById('checkPwd'); //비밀번호 확인 input
@@ -37,6 +41,13 @@ function checkPassword(){
     console.log(checkPwd.value);
 
     console.log(combineCheck, differCheck)
+
+    const submit = document.querySelector("#pwdModal button[type='submit']");
+    if(combineCheck * differCheck){
+        submit.disabled = false;
+        return;
+    }
+    submit.disabled = true;
 }
 
 function combinePwd(targetInput, warning1){ //새로운 비밀번호 조합 확인
@@ -65,42 +76,53 @@ function differPwd(originInput, checkInput, warning2){ //비밀번호 일치 체
 }
 
 //(비밀번호 변경) 닫기, 취소 버튼누르면 input들 초기화
-document.addEventListener('DOMContentLoaded', () => {
-    const cancelBtns = document.querySelectorAll("#pwdModal button[type='button']"); //닫기, 취소 버튼
-    const pwdForm = document.querySelector("#pwdModal form"); //pwd변경 form
-    const warnings = document.querySelectorAll("#pwdModal h5");
-
-    cancelBtns.forEach(button => {
-        button.addEventListener('click', function(){
-            warnings.forEach(warning => {
-                warning.innerText = '';
-            });
-            pwdForm.reset();
+function cancelUpdate() {
+        const pwdForm = document.querySelector("#pwdModal form"); //pwd변경 form
+        const warnings = document.querySelectorAll("#pwdModal h5");
+    
+        warnings.forEach(warning => {
+            warning.innerText = '';
         });
-    });
-});
+        pwdForm.reset();
+}
+
 
 //닉네임 중복확인 ajax
 function checkNickname(){
     const nickname = document.querySelector("input[name='nickname']");
     const warningText = document.querySelectorAll('.warning-text h5')[0];
-    
+
+    const reg = /^[a-zA-Z가-힣0-9]{2,16}$/;
+
+    if(nickname.value.length < 2){
+        inputAlert(warningText, '2글자 이상 입력해주세요', 'red');
+        nickname.focus();
+        return;
+    } else if(!reg.test(nickname.value)){
+        inputAlert(warningText, '유효한 닉네임이 아닙니다', 'red');
+        nickname.focus();
+        return;
+    }
+
     dupliCheck({nickname: nickname.value}, (res) => {
         console.log(warningText);
         console.log(nickname.value);
         //중복닉네임이 있을 경우
         if(res === 'NNNNN'){
-            warningText.innerText = '중복된 닉네임이 존재합니다';
-            warningText.style.color = 'red';
+            inputAlert(warningText, '중복된 닉네임이 존재합니다', 'red');
             nickname.focus();
         } else {
             //닉네임 사용이 가능할 경우
-            warningText.innerText = "사용가능한 닉네임입니다.";
-            warningText.style.color = 'green';
+            inputAlert(warningText, '사용가능한 닉네임입니다', 'green');
         }
     });
-
 }
+//닉네임 유효성 확인 텍스트
+function inputAlert(input, text, color){
+    input.innerText = text;
+    input.style.color = color;
+}
+
 
 //관심장르 선택
 document.addEventListener('DOMContentLoaded', () => {
@@ -230,7 +252,34 @@ function emailDomain() {
         emailBack.value = selectElement.value;
     }
 
-    updateCombinedEmail(); // Update combined email value whenever the domain changes
+    updateCombinedEmail(); //언제든 이메일 도메인이 수정되면 업데이트됨
+}
+
+//처음 페이지 로드됐을 때 이메일 도메인 선택
+function firstEmailDomain(){
+    const options = Array.from(document.querySelector("select[name='domain']").options);
+    const emailBack = document.getElementById('email-back');
+
+    options.forEach((option) => {
+        if(emailBack.value === option.value){
+            option.selected = true;
+            return;
+        }
+    })
+}
+
+//처음 페이지 로드됐을 때 관심장르 체크
+function firstLikeGenre(){
+    const input = document.querySelector("input[name='genreLike']");
+    const buttons = Array.from(document.querySelectorAll('.genre-btn'));
+    
+    buttons.forEach(button => {
+        console.log(input.value);
+        console.log(button.innerText);
+        if(input.value.includes(button.innerText)){
+            button.classList.toggle('checked')     
+        }
+    });
 }
 
 
@@ -286,8 +335,6 @@ saveButton.addEventListener('click', () => {
 });
 
 */
-
-
 
 // 페이지가 로드되면 init 함수를 호출하여 초기 값을 설정
 window.onload = init;
