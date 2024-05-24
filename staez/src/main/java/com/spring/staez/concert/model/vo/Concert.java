@@ -26,7 +26,7 @@ public class Concert {
 	private String ageLimit; //관람연령
 	private Timestamp updateDate; //최종수정일
 	private String concertStatus; //공연상태
-	private int theaterName;
+	private String theaterName;
 	private Date startDate;
 	private Date endDate;
 }

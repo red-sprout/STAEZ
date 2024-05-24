@@ -6,10 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.spring.staez.common.model.vo.PageInfo;
+import com.spring.staez.common.template.Pagination;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.service.ConcertService;
 
@@ -24,31 +28,58 @@ public class ConcertController {
 //	private String categoryName; //카테고리이름
 //	private int categoryLevel; //카테고리레벨
 	
+	
 	// 공연 네비: 뮤지컬, 클래식, 국악...
-	@ResponseBody
-	@RequestMapping(value = "main.co", produces="application/json; charset-UTF-8")
-	public String concertMain(@RequestParam(value="categoryNo", defaultValue="4") String categoryNo, Model model) {
+	@RequestMapping(value = "main.co") // currentPage임
+	public String concertMain(@RequestParam(value="category", defaultValue="1")String currentPage, Model model) {
 		// category로 찾으러가서 값 가져와서 출력
 		
-		ArrayList<Concert> list = concertService.concertList(Integer.parseInt(categoryNo));
+		int conCount = concertService.selectConCount(); //콘서트 총 몇개냐
+		ArrayList<Concert> list = concertService.concertList(); //콘서트 내용 페이지네이션해서 가져와라
 		model.addAttribute("list", list);
 		
-		
 		return "concert/concertMain";
 	}
 	
 	
-	
-	// 공연 누르면 보여주는 공연 메인 페이지
-	@GetMapping("main.co")
-	public String concertMain() {
-		return "concert/concertMain";
+	@ResponseBody // 리턴할 응답 바디를 직접 입력할꺼야
+	@RequestMapping(value = "mainSlider.co", produces="application/json; charset=UTF-8")
+	public String mainSliderAjax() {
+		return new Gson().toJson(concertService.selectconSliderList());
 	}
 	
-	@GetMapping("detail.co")
-	public String concertDetail() {
-		return "concert/concertDetail";
-	}
+	
+	
+	
+	
+	
+	
+	
+//	// concertNo로 콘서트 가져오기
+//	@RequestMapping(value = "detail.co")
+//	public String selectCon(String concertNo, Model model) {
+//		
+//			Concert con = concertService.selectCon(Integer.parseInt(concertNo));
+//			model.addAttribute("con", con);
+//			
+//			return "concert/concertDetail";
+//	}
+	
+	
+	
+	
+//	// 공연 누르면 보여주는 공연 메인 페이지
+//	@GetMapping("main.co")
+//	public String concertMain() {
+//		return "concert/concertMain";
+//	}
+//	
+//	@GetMapping("detail.co")
+//	public String concertDetail() {
+//		return "concert/concertDetail";
+//	}
+	
+	
 	
 	// 보드넘버로 찾을 보드 가지러 가서
 	// 찾아서 가져와서 보드 상세 페이지로 보내주기

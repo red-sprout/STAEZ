@@ -23,6 +23,7 @@
 		<result column="concert_production" property="concertProduction"/>
 		<result column="age_limit" property="ageLimit"/>
 		<result column="update_date" property="updateDate"/>
+		<result column="concert_status" property="concertStatus"/>
 		<result column="theater_name" property="theaterName"/>
 		<result column="start_date" property="startDate"/>
 		<result column="end_date" property="endDate"/>
@@ -83,10 +84,19 @@
 		<result column="status" property="status"/>
 	</resultMap>
 	
+		
+	<!-- 공연이 총 몇개냐  -->
+	<select id="selectConCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM concert
+		WHERE concert_status = 'Y'
+	</select> 
+	<!-- AND cc.category_no = #{category} -->
 	
-	<!-- 공연메인페이지 설명 -->
-	<select id="concertList" resultType="Concert">
-		SELECT concert_title,
+	<!-- 콘서트 내용가져와라 -->
+	<select id="concertList" resultMap="concertResult" >
+		SELECT concert_no,
+			   concert_title,
 	           theater_name,
 	           start_date,
 	           end_date
@@ -96,9 +106,48 @@
 	    WHERE concert_no in (
 			SELECT concert_no
 			FROM concert_category
-			WHERE category_no = 4
 		)
+		AND concert_status = 'Y'
 	</select>
+	
+	<select id="selectconSliderList" resultMap="concertResult" >
+		SELECT concert_no,
+		concert_title,
+	    	    theater_name,
+	            start_date,
+	            end_date
+	    FROM concert
+	    JOIN theater USING (theater_no)
+	    JOIN concert_schedule USING (concert_no)
+	    WHERE concert_no in (
+			SELECT concert_no
+			FROM concert_category
+		)
+		AND concert_status = 'Y'
+	</select>
+	
+	<!-- WHERE category_no = #{categoryNo} -->
+
+	<!-- 공연을 공연번호로 가져오기 -->
+<!-- 	<select id="selectCon" resultType="Concert">
+		SELECT concert_title,
+	           theater_name,
+	           start_date,
+	           end_date,
+	           concert_title
+	    FROM concert
+	    JOIN theater USING (theater_no)
+	    JOIN concert_schedule USING (concert_no)
+	    WHERE concert_status = 'Y'
+	      AND concert_no = #{concertNo}
+	</select> -->
+	
+	
+
+	
+
+
+
 	
 	<!-- 공연메인페이지 사진 -->
 	<select id="" resultMap="concertResult">

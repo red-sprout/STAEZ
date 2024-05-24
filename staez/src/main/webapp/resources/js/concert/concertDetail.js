@@ -16,9 +16,6 @@ function reservePage(){
 
 
 
-
-
-
 // 누르면 다른 페이지로 가는 자스는 틀이 같아야
 // function openTab(pageName, elmnt) {
 //     var i, dPageContent, dNaviLink;
