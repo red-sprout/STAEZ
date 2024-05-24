@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -32,12 +34,19 @@
         <div class="main-section">
             <div class="side">
                 <div class="profile">
-                    <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
-                    <div id="profile-text">
-                        <span>[아이디]</span>
-                        <span>님</span><br>
-                        <span>환영합니다</span>
-                    </div>
+                    <c:choose>
+	            	    <c:when test="${empty loginUser}">
+                            <span>로그인 해주세요</span>
+                        </c:when>
+                        <c:otherwise>
+                            <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
+                            <div id="profile-text">
+                                <span>[아이디]</span>
+                                <span>님</span><br>
+                                <span>환영합니다</span>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div class="side-menu">
                     <div class="small-title">마이페이지</div>
@@ -74,7 +83,7 @@
                         <h3>비밀번호 인증</h3>
                         <div>
                             <input type="password" id="auth-password" placeholder="비밀번호 입력">
-                            <button type="button" class="btn-staez purple" onclick="checkPassword()">인증</button>
+                            <button type="button" class="btn-staez purple" onclick="authPassword()">인증</button>
                         </div>
                         <p id="auth-fail" hidden>비밀번호가 일치하지 않습니다.</p>
                     </div>
@@ -97,7 +106,7 @@
                                     <tr>
                                         <th><h3>아이디</h3></th>
                                         <td class="input-box">
-                                            <input type="text" name="userId" value="user01" readonly>
+                                            <input type="text" name="userId" value="${loginUser.userId}" readonly>
                                         </td>
                                         <td class="input-btn"></td>
                                     </tr>
@@ -105,7 +114,7 @@
                                     <tr>
                                         <th><h3>생년월일</h3></th>
                                         <td class="input-box">
-                                            <input type="date" name="birth" value="1997-04-23" readonly>
+                                            <input type="date" name="birth" value="${loginUser.birth}" readonly>
                                         </td>
                                         <td class="input-btn">
                                         </td>
@@ -114,7 +123,7 @@
                                     <tr>
                                         <th><h3>닉네임</h3></th>
                                         <td class="input-box">
-                                            <input type="text" name="nickname" value="" placeholder="" maxlength="16">
+                                            <input type="text" name="nickname" value="${loginUser.nickname}" placeholder="" maxlength="16">
                                         </td>
                                         <td class="input-btn">
                                             <button type="button" onclick="checkNickname()">중복확인</button>
@@ -131,11 +140,13 @@
                                         <td id="gender-input">
                                             <div>
                                                 <label for="male">
-                                                    <input type="radio" name="gender" id="male" value="M">
+                                                    <input type="radio" name="gender" id="male" value="M" 
+                                                        <c:if test="${loginUser.gender == 'M'}">checked</c:if>>
                                                     <h4>남자</h4>
                                                 </label>
                                                 <label for="female">
-                                                    <input type="radio" name="gender" id="female" value="F">
+                                                    <input type="radio" name="gender" id="female" value="F" 
+                                                        <c:if test="${loginUser.gender == 'F'}">checked</c:if>>
                                                     <h4>여자</h4>
                                                 </label>
                                             </div>
@@ -160,7 +171,12 @@
                                         <td></td>
                                     </tr>
                                     <input type="text" name="address" readonly hidden>
+                                    
+                                    <c:set var="phone" value="${loginUser.phone}"  />
 
+                                    ${fn:substring(${phone}, 0, 2)}
+                                    ${fn:substring(${phone}, 3, 6)}
+                                    ${fn:substring(${phone}, 7, 11)}
                                     <tr>
                                         <th><h3>휴대폰번호</h3></th>
                                         <td id="phone-input">
@@ -212,13 +228,13 @@
                                         <th rowspan="2"><h3>관심장르(택3)</h3></th>
                                         <td colspan="2" rowspan="2" id="like-genre-input" >
                                             <div>
-                                                <button type="button" class="btn-staez"><h4>뮤지컬</h4></button>
-                                                <button type="button" class="btn-staez"><h4>클래식</h4></button>    
-                                                <button type="button" class="btn-staez"><h4>연극</h4></button>    
-                                                <button type="button" class="btn-staez"><h4>국악</h4></button>    
-                                                <button type="button" class="btn-staez full-width"><h4>대중음악</h4></button>    
-                                                <button type="button" class="btn-staez full-width"><h4>서커스/마술</h4></button>    
-                                                <button type="button" class="btn-staez full-width"><h4>기타</h4></button>    
+                                                <button type="button" class="btn-staez genre-btn"><h4>뮤지컬</h4></button>
+                                                <button type="button" class="btn-staez genre-btn"><h4>클래식</h4></button>    
+                                                <button type="button" class="btn-staez genre-btn"><h4>연극</h4></button>    
+                                                <button type="button" class="btn-staez genre-btn"><h4>국악</h4></button>    
+                                                <button type="button" class="btn-staez genre-btn full-width"><h4>대중음악</h4></button>    
+                                                <button type="button" class="btn-staez genre-btn full-width"><h4>서커스/마술</h4></button>    
+                                                <button type="button" class="btn-staez genre-btn full-width"><h4>기타</h4></button>    
                                             </div>
                                             <input type="text" name="genreLike" hidden> <!--button들 내용 추가-->
                                         </td>

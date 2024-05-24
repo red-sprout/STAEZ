@@ -27,8 +27,15 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
+	public int passwordCheck(String inputPwd) {
+		return mpd.passwordCheck(sqlSession, inputPwd);
+
+	}
+
+	@Override
 	public int updatePassword(User user) {
 		return mpd.updatePassword(sqlSession, user);
 	}
+
 	
 }

@@ -1,25 +1,26 @@
-
-
 function init() {
     updateCombinedAddress();
     updateCombinedPhone();
     emailDomain(); // Initialize email input fields on page load
-
-
-
 }
 
 // 회원정보 변경 전 비밀번호 인증
-function checkPassword() {
-    const inputPassword = document.getElementById('auth-password').value;
-    const correctPassword = 'pass01'; // 실제 비밀번호 확인 로직으로 대체해야 함
+function authPassword() {
+    const inputPwd = document.getElementById('auth-password').value;
 
-    if (inputPassword === correctPassword) {
-        document.querySelector('form').hidden = false;
-        document.getElementById('password-auth').hidden = true;
-    } else {
-        document.getElementById('auth-fail').hidden = false;
-    }
+    console.log(inputPwd);
+
+    authPwdAjax({inputPwd}, (res) => {
+        if (res === 'NNNNY') { //비밀번호 인증 성공
+            alert('인증에 성공하였습니다');
+            document.querySelector('form').hidden = false;
+            document.getElementById('password-auth').hidden = true;
+        } else {
+            document.getElementById('auth-fail').hidden = false;
+        }
+
+    });
+
 }
 
 // 비밀번호 변경
@@ -104,14 +105,14 @@ function checkNickname(){
 //관심장르 선택
 document.addEventListener('DOMContentLoaded', () => {
     const genreLike = document.querySelector("input[name='genreLike']");
-    const buttons = document.querySelectorAll('.btn-staez');
+    const buttons = document.querySelectorAll('.genre-btn');
 
     updateInput();
     
     buttons.forEach(button => {
         button.addEventListener('click', (event) => {
             const button = event.currentTarget;
-            const checkedButtons = document.querySelectorAll('.btn-staez.checked');
+            const checkedButtons = document.querySelectorAll('.genre-btn.checked');
             console.log(checkedButtons.length);
 
             if (button.classList.contains('checked')) {

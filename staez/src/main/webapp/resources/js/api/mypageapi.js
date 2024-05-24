@@ -8,3 +8,14 @@ function dupliCheck(data, callback) {
         }
     })
 }
+
+function authPwdAjax(data, callback) {
+    $.ajax({
+        url: contextPath + 'authPwd.me',
+        data,
+        success: res => callback(res),
+        error: () => {
+            alert('비밀번호 확인에 실패하였습니다');
+        }
+    });
+}

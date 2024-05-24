@@ -14,10 +14,17 @@
 	<!-- db의 컬럼과 객체의 필드명이 완전히 같다면 resultType사용 가능 -->
 	
 	<select id="duplicateCheck" resultType="_int">
-		SELECT COUNT(*)
+		SELECT COUNT(userNo)
 		FROM staez_user
 		WHERE nickname = #{nickname}
 	</select>
+	
+	<select id="passwordCheck" resultType="_int">
+		SELECT COUNT(userNo)
+		FROM staez_user
+		WHERE nickname = #{inputPwd}
+	</select>
+	
 	
 	<update id="updatePassword">
 		UPDATE staez_user
