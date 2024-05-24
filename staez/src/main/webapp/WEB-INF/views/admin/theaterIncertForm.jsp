@@ -12,31 +12,33 @@
 <body>
     <header>
         <jsp:include page="/WEB-INF/views/common/header.jsp" />
+        <script src="<c:url value='/resources/js/api/adminapi.js'/>"></script>
+        <script src="<c:url value='/resources/js/admin/theaterIncertForm.js'/>"></script>
     </header>
     <main>
         <div id="community-wrapper">
-            <form id="community-contents" align="left">
+            <form id="community-contents" align="left" method="post" action="theaterIncert.ad">
                 <h1>공연장</h1>
                 <hr>
                 <li>
                     <h3>공연장명</h3>
-                    <input type="text" name="" id="" class="input">
+                    <input type="text" name="theaterName" id="" class="input">
                 </li>
                 <li id="period">
                     <h3>크기</h3>
                     <div class="range-form">
-                        <input type="text" name="" id="" class="short-input" placeholder="좌석 첫 행">
+                        <input type="number" name="theaterRow" id="" class="short-input" placeholder="좌석 행 수" onkeyup="updateRow(this)">
                         <span><h3>~</h3></span>
-                        <input type="text" name="" id="" class="short-input" placeholder="좌석 끝 행">
+                        <input type="number" name="theaterCol" id="" class="short-input" placeholder="좌석 열 수" onkeyup="updateCol(this)">
                     </div>
                 </li>
                 <li>
                     <h3>지역</h3>
-                    <input type="text" name="" class="short-input" placeholder="">
+                    <input type="text" name="address" class="short-input" placeholder="">
                 </li>
                 <li>
                     <h3>전화번호</h3>
-                    <input type="text" name="" class="short-input" placeholder="">
+                    <input type="text" name="telno" class="short-input" placeholder="">
                 </li>
                 <li>
                     <h3>좌석 미리보기</h3>
@@ -162,7 +164,7 @@
                     <button class="btn-staez purple" type="submit">
                         <h3>등록</h3>
                     </button>
-                    <button class="btn-staez purple">
+                    <button class="btn-staez purple" type="button" onclick="history.back()">
                         <h3>목록</h3>
                     </button>
                 </li>

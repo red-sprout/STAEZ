@@ -84,7 +84,7 @@
                     <div class="menu-bar">
                         <a href="main.iq"><span>고객센터</span></a>
                     </div>
-                    <c:if test="${loginUser.grade eq 2}">
+                    <c:if test="${loginUser.grade eq 1}">
                         <div class="menu-bar">
                             <a href="userList.ad"><span>관리자 페이지</span></a>
                         </div>

@@ -1,3 +1,4 @@
+// 닉네임 체크
 function nickCheck(data, callback) {
     $.ajax({
         url: "nickCheck.me",
@@ -10,7 +11,7 @@ function nickCheck(data, callback) {
         }
     });
 }
-
+// 아이디체크 함수
 function idCheck(data, callback) {
     $.ajax({
         url: "idCheck.me",
