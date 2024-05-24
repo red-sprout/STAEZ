@@ -1,6 +1,7 @@
 package com.spring.staez.admin.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.admin.model.vo.ImpossibleSeat;
 import com.spring.staez.admin.service.AdminService;
-import com.spring.staez.common.template.ImpossibleSeatList;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Theater;
 
@@ -158,5 +159,15 @@ public class AdminController {
 	public String ajaxToggleSeat(ImpossibleSeat seat, String status) {
 		int result = adminService.toggleSeat(seat, status);
 		return result > 0 ? "SUCCESS" : "FAIL";
+	}
+	
+	@PostMapping("concertIncert.ad")
+	public String concertIncert(@RequestParam(value="seatStartRow") String[] startRowArr,
+								@RequestParam(value="seatEndRow") String[] endRowArr,
+								@RequestParam(value="seatStartCol") String[] startColArr,
+								@RequestParam(value="seatEndCol") String[] endColArr,
+								@RequestParam(value="grade") String[] gradeArr,
+								@RequestParam(value="price") String[] priceArr) {
+		return null;
 	}
 }

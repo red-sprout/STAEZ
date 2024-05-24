@@ -17,7 +17,7 @@ import lombok.ToString;
 public class Seat {
 	private int seatId; //좌석아이디
 	private int concertNo; //공연번호
-	private int grade; //좌석등급
+	private String grade; //좌석등급
 	private int price; //가격
 	private Date concertDate; //공연날짜
 	private int seatStartRow; //좌석시작행
