@@ -9,4 +9,6 @@ public interface MypageService {
 
 	public int passwordCheck(String inputPwd); //비밀번호 체크
 	public int updatePassword(User user); //비밀번호 변경
+	
+	public int updateUserInfo(User user);//회원정보 변경
 }

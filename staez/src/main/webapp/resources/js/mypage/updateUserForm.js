@@ -1,11 +1,10 @@
-function init() {
-    updateCombinedAddress();
-    updateCombinedPhone();
-
-    // emailDomain(); // Initialize email input fields on page load
-
+document.addEventListener('DOMContentLoaded', function() {
+    updateCombinedAddress()
+    updateCombinedPhone()
+    updateCombinedEmail()
     firstEmailDomain();
-}
+    firstLikeGenre();
+});
 
 
 // 회원정보 변경 전 비밀번호 인증
@@ -258,14 +257,10 @@ function emailDomain() {
 
 //처음 페이지 로드됐을 때 이메일 도메인 선택
 function firstEmailDomain(){
-    const options = document.querySelectorAll("select[name='domain']").options;
+    const options = Array.from(document.querySelector("select[name='domain']").options);
     const emailBack = document.getElementById('email-back');
 
-    var email = '<c:out value="${email}" />';
-
-    console.log(email);
-
-    options.forEach(option => {
+    options.forEach((option) => {
         if(emailBack.value === option.value){
             option.selected = true;
             return;
@@ -273,6 +268,19 @@ function firstEmailDomain(){
     })
 }
 
+//처음 페이지 로드됐을 때 관심장르 체크
+function firstLikeGenre(){
+    const input = document.querySelector("input[name='genreLike']");
+    const buttons = Array.from(document.querySelectorAll('.genre-btn'));
+    
+    buttons.forEach(button => {
+        console.log(input.value);
+        console.log(button.innerText);
+        if(input.value.includes(button.innerText)){
+            button.classList.toggle('checked')     
+        }
+    });
+}
 
 
 
@@ -327,3 +335,6 @@ saveButton.addEventListener('click', () => {
 });
 
 */
+
+// 페이지가 로드되면 init 함수를 호출하여 초기 값을 설정
+window.onload = init;

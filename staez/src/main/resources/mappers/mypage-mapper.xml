@@ -31,5 +31,17 @@
 		SET user_pwd = #{userPwd}
 		WHERE user_id = #{userId}
 	</update>
+
+	<update id="updateUserInfo">
+		UPDATE staez_user
+		SET nickname = #{nickname},
+			gender = #{gender},
+			birth = #{birth},
+			address = #{address},
+			email = #{email},
+			phone = #{phone},
+			genre_like = #{genreLike}
+		WHERE user_id = #{userId}
+	</update>
 </mapper>
 
