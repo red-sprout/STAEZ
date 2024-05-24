@@ -7,6 +7,7 @@ function faqCategoryName(callback){
             console.log("실패")
         }
     })
+
 }
 
 function selectFaq(callback){
