@@ -268,7 +268,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h3 class="modal-title">비밀번호 변경</h3>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal" onclick="cancelUpdate()">&times;</button>
                 </div>
                 
                 <form action="updatePwd.me" method="POST">
@@ -295,8 +295,8 @@
                     
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">변경</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                        <button type="submit" class="btn btn-primary" disabled>변경</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="cancelUpdate()">취소</button>
                     </div>
                 </form>
             </div>
