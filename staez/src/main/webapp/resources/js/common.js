@@ -7,7 +7,6 @@ function init() {
     const menubarArr = ["main.co", "main.cm", "main.no", "main.iq", "userList.ad"];
     const menubar = document.querySelectorAll(".menu-bar>a");
     for(let i in menubarArr) {
-        console.log(menubarArr[i] + " " + url);
         if(menubarArr[i] === url) {
             menubar[i].style = "color: #B51B75";
             break;
