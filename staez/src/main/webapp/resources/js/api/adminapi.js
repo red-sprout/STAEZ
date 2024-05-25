@@ -31,7 +31,7 @@ function summernote() {
     });
 }
 
-function ajaxConcertSchedule() {
+function ajaxConcertSchedule(data, callback) {
     $.ajax({
         url: contextPath + "concertScheduleIncert.ad",
         data: data,
@@ -39,6 +39,18 @@ function ajaxConcertSchedule() {
             callback(res);
         }, error() {
             console.log("스케줄 요청 실패");
+        }
+    });
+}
+
+function ajaxSearchTheaterList(data, callback) {
+    $.ajax({
+        url: contextPath + "searchTheaterList.ad",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("공연 검색 실패");
         }
     });
 }

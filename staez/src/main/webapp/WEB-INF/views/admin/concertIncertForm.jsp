@@ -17,15 +17,19 @@
     </header>
     <main>
         <div id="community-wrapper">
-            <form id="community-contents" align="left" method="post" action="concertIncert.ad">
+            <form id="community-contents" align="left" method="post" action="concertIncert.ad" enctype="multipart/form-data">
                 <h1>공연</h1>
                 <hr>
                 <li>
                     <h3>공연명</h3>
-                    <input type="text" name="concertTitle" id="" class="input">
+                    <input type="text" name="concertTitle" class="input">
                 </li>
                 <li id="concert-category">
                     <h3>장르</h3>
+                </li>
+                <li>
+                    <h3>런타임</h3>
+                    <input type="num" name="concertRuntime" class="short-input">
                 </li>
                 <li id="period">
                     <h3>공연기간</h3>
@@ -41,12 +45,15 @@
                 <li id="theater">
                     <h3>공연장소</h3>
                     <div class="form-search">
-                        <button>
+                        <button type="button">
                             <img src="<c:url value='/resources/img/community/communityMain/search-icon.png'/>" alt="">
                         </button>
-                        <input type="text" name="" id="">
+                        <input type="text" name="theaterName" onkeydown="searchResult(this)" onkeyup="searchResult(this)">
+                        <input type="hidden" name="theaterNo">
                     </div>
-                    <button class="btn-staez"><h4>좌석 미리보기</h4></button>
+                    <ul class="search-list">
+                    </ul>
+                    <button class="btn-staez" type="button" onclick="seatSample()"><h4>좌석 미리보기</h4></button>
                 </li>
                 <li>
                     <h3>좌석등급</h3>

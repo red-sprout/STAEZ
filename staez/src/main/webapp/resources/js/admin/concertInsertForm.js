@@ -3,6 +3,12 @@ $(function() {
     category({refCategoryNo: 1}, (res) => (setCategory(res, 'concert-category')));
 });
 
+document.addEventListener('keydown', function (event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+    };
+}, true);
+
 function addConcertSchedule() {
     const condition = document.getElementById("additional-schedule");
     const div = document.createElement("div");
@@ -61,7 +67,7 @@ function addGrade(_this) {
 
     del.setAttribute("class", "btn-staez");
     del.setAttribute("type", "button");
-    del.addEventListener("click", (ev) => deleteGrade(ev.target.parentElement));
+    del.addEventListener("click", (ev) => deleteGrade(ev.currentTarget.parentElement));
     del.innerHTML += `<h4>삭제</h4>`
 
     col.appendChild(grade);
@@ -107,6 +113,47 @@ function inputAttribute(ele, type, name, className, msg) {
 
 function deleteGrade(_this) {
     const grade = document.getElementById("additional-grade");
-    console.log(_this.parentElement);
     grade.removeChild(_this.parentElement);
+}
+
+function searchResult(_this) {
+    const keyword = _this.value;
+    ajaxSearchTheaterList({ "keyword": keyword }, res => drawResultList(res));
+}
+
+function drawResultList(result) {
+    const ul = document.querySelector("#theater .search-list");
+    ul.innerHTML = "";
+
+    for(let ele of result) {
+        const li = document.createElement("li");
+        const btn = document.createElement("button");
+        const img = document.createElement("img");
+        const input = document.createElement("input");
+        const span = document.createElement("span");
+
+        btn.setAttribute("type", "button");
+        img.setAttribute("src", contextPath + "/resources/img/community/communityMain/search-icon.png");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("value", ele.theaterNo + "-" + ele.theaterRow + "-" + ele.theaterCol);
+        span.innerHTML = ele.theaterName;
+
+        btn.appendChild(img);
+        li.appendChild(btn);
+        li.appendChild(input);
+        li.appendChild(span);
+        ul.appendChild(li);
+
+        li.addEventListener("click", (ev) => {
+            const theaterName = document.querySelector("#theater input[name='theaterName']")
+            const theaterNo = document.querySelector("#theater input[name='theaterNo']");
+            theaterNo.value = ev.currentTarget.children[1].value;
+            theaterName.value = ev.currentTarget.children[2].innerHTML;
+            ul.innerHTML = "";
+        });
+    }
+}
+
+function sampleSeat(){
+    
 }

@@ -17,4 +17,6 @@ public interface AdminService {
 
 	int toggleSeat(ImpossibleSeat seat, String status);
 
+	ArrayList<Theater> selectTheaterList(String keyword);
+
 }

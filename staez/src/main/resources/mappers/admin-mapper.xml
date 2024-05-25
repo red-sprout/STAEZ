@@ -107,5 +107,16 @@
 			${impossibleSeatCol}
 		)
 	</insert>
+	
+	<select id="selectTheacterList" resultMap="theaterResult">
+		SELECT
+			theater_no,
+			theater_name,
+			theater_row,
+			theater_col
+		FROM theater
+		WHERE theater_name LIKE '%${keyword}%'
+		LIMIT 5
+	</select>
 </mapper>
 

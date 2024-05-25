@@ -38,4 +38,8 @@ public class AdminDao {
 		return result;
 	}
 
+	public ArrayList<Theater> selectTheacterList(SqlSessionTemplate sqlSession, String keyword) {
+		return (ArrayList)sqlSession.selectList("adminMapper.selectTheacterList", keyword);
+	}
+
 }

@@ -52,4 +52,10 @@ public class AdminServiceImpl implements AdminService {
 				? ImpossibleSeatList.add(seat) 
 				: ImpossibleSeatList.remove(seat);
 	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public ArrayList<Theater> selectTheaterList(String keyword) {
+		return adminDao.selectTheacterList(sqlSession, keyword);
+	}
 }

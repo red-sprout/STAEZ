@@ -1,7 +1,6 @@
 package com.spring.staez.admin.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.servlet.http.HttpSession;
 
@@ -126,7 +125,7 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value = "category.ad", produces="application/json; charset-UTF-8")
+	@GetMapping(value = "category.ad", produces = "application/json; charset-UTF-8")
 	public String ajaxCategory(String refCategoryNo) {
 		ArrayList<Category> list = adminService.selectFaqCategory(Integer.parseInt(refCategoryNo));
 		return new Gson().toJson(list);
@@ -169,5 +168,12 @@ public class AdminController {
 								@RequestParam(value="grade") String[] gradeArr,
 								@RequestParam(value="price") String[] priceArr) {
 		return null;
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "searchTheaterList.ad", produces = "application/json; charset-UTF-8")
+	public String ajaxSearchTheaterList(String keyword) {
+		ArrayList<Theater> list = adminService.selectTheaterList(keyword);
+		return new Gson().toJson(list);
 	}
 }
