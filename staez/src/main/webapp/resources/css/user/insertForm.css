@@ -70,7 +70,7 @@ form {
 .insert-member-table th{
     padding: 10px; /* 셀 내부에 패딩을 추가합니다. */
     text-align: left; /* 텍스트를 왼쪽 정렬합니다. */
-    min-width: 160px; 
+    min-width: 120px; 
 }
 
 /* 입력창 내용 */
