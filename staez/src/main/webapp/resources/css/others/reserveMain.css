@@ -129,6 +129,8 @@ main{
 
 .popularity-concert-information-img{
     width: 220px;
+    height: 275px;
+    object-fit: cover;
     cursor: pointer;
     -webkit-transition: .3s ease-in-out;
     transition: .3s ease-in-out;
@@ -245,7 +247,6 @@ main{
 .latest-concert-information-area{
     width: 1300px;
     height: 400px;
-    position: relative;
     display: flex;
     align-items: center;
     overflow: hidden; 
@@ -269,6 +270,8 @@ main{
 
 .latest-concert-information-img{
     width: 220px;
+    height: 275px;
+    object-fit: cover;
     cursor: pointer;
     -webkit-transition: .3s ease-in-out;
     transition: .3s ease-in-out;
@@ -385,6 +388,7 @@ main{
     align-items: center;
     bottom: 10px;
     left: 150px;
+    cursor: pointer;
 }
 
 .heart-count-area>img{

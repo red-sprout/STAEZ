@@ -1,5 +1,5 @@
 window.onload = function(){
-    faqCategoryName((category) => (drawCategory(category)));
+    faqCategoryName((category) => drawCategory(category));
     selectFaq((faqs) => drawFaq(faqs));
 }
 

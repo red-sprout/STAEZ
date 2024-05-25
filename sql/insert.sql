@@ -187,13 +187,13 @@ VALUES (DEFAULT
 INSERT INTO concert_attachment
 VALUES (DEFAULT, 1, 'thumbnail1.png', 'thumbnail1.png', '/resources/uploadfiles/concert/', '2024-05-23', 1, DEFAULT);
 INSERT INTO concert_attachment
-VALUES (DEFAULT, 1, 'thumbnail2.png', 'thumbnail2.png', '/resources/uploadfiles/concert/', '2024-05-23', 1, DEFAULT);
+VALUES (DEFAULT, 2, 'thumbnail2.png', 'thumbnail2.png', '/resources/uploadfiles/concert/', '2024-05-23', 1, DEFAULT);
 INSERT INTO concert_attachment
-VALUES (DEFAULT, 1, 'thumbnail3.png', 'thumbnail3.png', '/resources/uploadfiles/concert/', '2024-05-23', 1, DEFAULT);
+VALUES (DEFAULT, 3, 'thumbnail3.png', 'thumbnail3.png', '/resources/uploadfiles/concert/', '2024-05-23', 1, DEFAULT);
 INSERT INTO concert_attachment
-VALUES (DEFAULT, 1, 'thumbnail4.png', 'thumbnail4.png', '/resources/uploadfiles/concert/', '2024-05-23', 1, DEFAULT);
+VALUES (DEFAULT, 4, 'thumbnail4.png', 'thumbnail4.png', '/resources/uploadfiles/concert/', '2024-05-23', 1, DEFAULT);
 INSERT INTO concert_attachment
-VALUES (DEFAULT, 1, 'thumbnail5.png', 'thumbnail5.png', '/resources/uploadfiles/concert/', '2024-05-23', 1, DEFAULT);
+VALUES (DEFAULT, 5, 'thumbnail5.png', 'thumbnail5.png', '/resources/uploadfiles/concert/', '2024-05-23', 1, DEFAULT);
 
 /*concert_category*/
 INSERT INTO concert_category VALUES (1, 5);
