@@ -70,3 +70,29 @@ function dateCategoryConcert(data, callback){
         }
     })
 }
+
+function clickDateConcert(data, callback){
+    $.ajax({
+        url : "ajaxSelectDateCategoryConcert.ot",
+        data : data,
+        success : function(result){
+            console.log(result);
+            callback(result);
+        }, error : function(){
+            console.log("실패")
+        }
+    })
+}
+
+function clickCategoryConcert(data, callback){
+    $.ajax({
+        url : "ajaxSelectDateCategoryConcert.ot",
+        data : data,
+        success : function(result){
+            console.log(result);
+            callback(result);
+        }, error : function(){
+            console.log("실패")
+        }
+    })
+}

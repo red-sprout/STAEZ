@@ -22,7 +22,7 @@ pageEncoding="UTF-8"%>
 			<div id="concert-calendar-choice">
 				<span style="color: #B51B75;">공연 캘린더</span>
             </div>
-            <div id="reservation-calendar-choice">
+            <div id="reservation-calendar-choice" onclick="location.href='calendar.me'">
 				<span>나의 예매 캘린더</span>
             </div>
         </div>

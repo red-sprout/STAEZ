@@ -89,22 +89,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
 function drawCategory(category){
     
     const cbtnArea = document.querySelector(".concert-day-list-category");
     cbtnArea.innerHTML = ``
     for (let c of category){
-        cbtnArea.innerHTML += `<button class="btn-staez" onclick="choiceCategory()"><h4 class="bs" id="`+ c.categoryNo +`">`+ c.categoryName +`</h4></button>`    
+        cbtnArea.innerHTML += `<button class="btn-staez" onclick="choiceCategory(this)"><h4 class="bs" id="`+ c.categoryNo +`">`+ c.categoryName +`</h4></button>`    
     } 
     cbtnArea.children[0].classList.add("checked");
     const choiceCbs = document.querySelector('.cbs');
     choiceCbs.innerHTML = ``;
-    choiceCbs.innerHTML =  cbtnArea.children[0].innerHTML;
-    choiceCbs.id = cbtnArea.children[0].id;
+    choiceCbs.innerHTML =  cbtnArea.children[0].querySelector(".bs").innerHTML;
+    choiceCbs.id = cbtnArea.children[0].querySelector(".bs").id;
    
 
 
-    const categoryNo = choiceCbs.querySelector('h4').id;
+    const categoryNo = choiceCbs.id;
     const concertDate = document.querySelector('.concert-day').querySelector('span').innerHTML;
     console.log(categoryNo)
     console.log(concertDate)
@@ -115,10 +116,35 @@ function drawCategory(category){
     },(concertList) => drawDateCategoryConcert(concertList))
 }
 
+function choiceCategory(_this){
+    const categoryBtn = document.querySelector(".concert-day-list-category").querySelectorAll(".btn-staez");
+
+    for(let i = 0; i < categoryBtn.length; i++){
+        categoryBtn[i].classList.remove("checked")
+    }
+
+    _this.classList.add("checked");
+    const choiceCbs = document.querySelector('.cbs');
+    choiceCbs.innerHTML = ``;
+    choiceCbs.innerHTML = _this.querySelector(".bs").innerHTML;
+    choiceCbs.id =_this.querySelector(".bs").id;
+    
+
+    const concertDate = document.querySelector('.concert-day').querySelector('span').innerHTML;
+    const categoryNo  = choiceCbs.id;
+    clickCategoryConcert({
+        categoryNo  ,
+        concertDate
+    },(concertList) => drawDateCategoryConcert(concertList))
+}
+
 function drawDateCategoryConcert(concertList){
     const concertArea = document.querySelector(".concert-day-info-area");
 
     concertArea.innerHTML = ``;
+    if(concertList.length === 0){
+        concertArea.innerHTML += `<span style="width: 100%;margin-top: 100px;font-size: 30px;">준비된 공연이 없습니다</span>`
+    }
     for(let c of concertList){
         concertArea.innerHTML += `<div class="concert-day-info">
                                         <div class="concert-day-title-area"><span>`+ c.concertTitle +`</span></div>
@@ -173,6 +199,16 @@ function spanDayChange2(y, m, d){
     clickedDate.innerHTML = ``; 
     clickedDate.innerHTML += `${y}-${months[m]}-${String(d).padStart(2, '0')}`; 
     
+    
+    const concertDate = document.querySelector('.concert-day').querySelector('span').innerHTML;
+    const categoryNo  = document.querySelector('.cbs').id;
+    console.log(concertDate)
+    console.log(categoryNo)
+    clickDateConcert({
+        categoryNo  ,
+        concertDate
+    },(concertList) => drawDateCategoryConcert(concertList))
+
 }
 
 function spanDayChange3(y, m){
