@@ -517,7 +517,7 @@ button{
 }
 
 .img-tag .options{
-    width: 400px;
+    width: 420px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -529,7 +529,7 @@ button{
     justify-content: flex-start;
 }
 
-.img-tag label>*{
+.img-tag label>input[type='radio'], h4{
     margin-right: 10px;
 }
 

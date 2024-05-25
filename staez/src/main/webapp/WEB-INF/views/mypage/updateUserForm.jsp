@@ -265,7 +265,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h3 class="modal-title">비밀번호 변경</h3>
-                    <button type="button" class="close" data-dismiss="modal" onclick="cancelUpdate()">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal" onclick="cancelUpdatePwd()">&times;</button>
                 </div>
                 
                 <form action="updatePwd.me" method="POST">
@@ -293,7 +293,7 @@
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary" disabled>변경</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="cancelUpdate()">취소</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="cancelUpdatePwd()">취소</button>
                     </div>
                 </form>
             </div>
@@ -315,7 +315,7 @@
                     <div class="modal-body">
                         <div class="img-tag">
                             <div>
-                                <img src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
+                                <img id="profile-preview" src="${contextPath}/resources/img/mypage/profile_img_temp.png" alt="">
                             </div>
                             <div class="options">
                                 <label>
@@ -325,16 +325,18 @@
                                 <label>
                                     <input type="radio" name="profile-option" value="default">
                                     <h4>기본 이미지</h4>
+                                    <input type="hidden" value="${contextPath}/resources/img/mypage/profile_img_default.png">
                                 </label>
                                 <label>
                                     <input type="radio" name="profile-option" value="new">
                                     <h4>변경할 이미지 선택</h4>
                                 </label>
                                 <input type="file" id="new-image-input" accept="image/*" >
+
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">저장</button>

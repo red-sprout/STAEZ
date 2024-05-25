@@ -26,6 +26,55 @@ function authPassword() {
 
 }
 
+
+// 프로필 이미지 변경
+document.addEventListener('DOMContentLoaded', function() {
+    const profilePreview = document.querySelector('.img-tag img');
+    const currentImageSrc = profilePreview.src;
+    console.log(currentImageSrc);
+    const defaultImageSrc = document.querySelector(".img-tag input[type='hidden']").value; // 기본 이미지 경로 hidden으로 숨겨서 스크립트에 넘겨줌
+    const newImageInput = document.getElementById('new-image-input');
+    const radioButtons = document.querySelectorAll(".img-tag input[type='radio']");
+
+    // 라디오 버튼 변경 시 이미지 미리보기 업데이트
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.value === 'current') {
+                profilePreview.src = currentImageSrc;
+            } else if (this.value === 'default') {
+                profilePreview.src = defaultImageSrc;
+            } else if (this.value === 'new') {
+                newImageInput.click();
+            }
+        });
+    });
+
+    // 새 이미지 선택 시 이미지 미리보기 업데이트
+    newImageInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                profilePreview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+});
+
+//(프로필이미지 변경) 닫기, 취소 버튼누르면 input들 초기화
+function cancelUpdatePwd() {
+    const pwdForm = document.querySelector("#pwdModal form"); //pwd변경 form
+    const warnings = document.querySelectorAll("#pwdModal h5");
+
+    warnings.forEach(warning => {
+        warning.innerText = '';
+    });
+    pwdForm.reset();
+}
+
+
+
 // 비밀번호 변경
 // 비밀번호 입력때마다 유효성 확인
 function checkPassword(){
@@ -76,7 +125,7 @@ function differPwd(originInput, checkInput, warning2){ //비밀번호 일치 체
 }
 
 //(비밀번호 변경) 닫기, 취소 버튼누르면 input들 초기화
-function cancelUpdate() {
+function cancelUpdatePwd() {
         const pwdForm = document.querySelector("#pwdModal form"); //pwd변경 form
         const warnings = document.querySelectorAll("#pwdModal h5");
     
@@ -283,58 +332,6 @@ function firstLikeGenre(){
 }
 
 
-
-
-
-/*
-//프로필 사진 변경
-const profilePic = document.getElementById('profile-pic');
-const newImageInput = document.getElementById('new-image-input');
-const saveButton = document.getElementById('save-button');
-
-const currentProfilePicSrc = 'current-profile.jpg';
-const defaultProfilePicSrc = 'default-profile.jpg';
-let newProfilePicSrc = '';
-
-document.querySelectorAll('input[name="profile-option"]').forEach((input) => {
-    input.addEventListener('change', (event) => {
-        const value = event.target.value;
-        if (value === 'current') {
-            profilePic.src = currentProfilePicSrc;
-        } else if (value === 'default') {
-            profilePic.src = defaultProfilePicSrc;
-        } else if (value === 'new') {
-            newImageInput.click();
-        }
-    });
-});
-
-newImageInput.addEventListener('change', (event) => {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            newProfilePicSrc = e.target.result;
-            profilePic.src = newProfilePicSrc;
-        };
-        reader.readAsDataURL(file);
-    }
-});
-
-saveButton.addEventListener('click', () => {
-    const selectedOption = document.querySelector('input[name="profile-option"]:checked').value;
-    if (selectedOption === 'current') {
-        alert('현재 프로필 이미지로 설정되었습니다.');
-    } else if (selectedOption === 'default') {
-        alert('기본 이미지로 설정되었습니다.');
-    } else if (selectedOption === 'new' && newProfilePicSrc) {
-        alert('새로운 이미지로 설정되었습니다.');
-    } else {
-        alert('이미지가 선택되지 않았습니다.');
-    }
-});
-
-*/
 
 // 페이지가 로드되면 init 함수를 호출하여 초기 값을 설정
 window.onload = init;
