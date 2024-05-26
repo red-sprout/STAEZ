@@ -89,6 +89,25 @@ pageEncoding="UTF-8"%>
 						</div>
 					</div> -->
 				</div>
+
+				<div class="page-list">
+                    <!-- <div class="pagination">
+                        <img src="<c:url value='/resources/img/main/before.png'/>">
+                    </div>
+                    <div class="pagination current"><h4>1</h4></div>
+                    <div class="pagination "><h4>2</h4></div>
+                    <div class="pagination"><h4>3</h4></div>
+                    <div class="pagination"><h4>4</h4></div>
+                    <div class="pagination"><h4>5</h4></div>
+                    <div class="pagination"><h4>6</h4></div>
+                    <div class="pagination"><h4>7</h4></div>
+                    <div class="pagination"><h4>8</h4></div>
+                    <div class="pagination"><h4>9</h4></div>
+                    <div class="pagination"><h4>10</h4></div>
+                    <div class="pagination">
+                        <img src="<c:url value='/resources/img/main/after.png'/>">
+                    </div> -->
+                </div>
 			</div>
 		</div>
 		<script src="${contextPath}/resources/js/others/concertCalendar.js"></script>

@@ -104,7 +104,7 @@ function drawCategory(category){
     choiceCbs.id = cbtnArea.children[0].querySelector(".bs").id;
    
 
-
+    const cPage = 1;
     const categoryNo = choiceCbs.id;
     const concertDate = document.querySelector('.concert-day').querySelector('span').innerHTML;
     console.log(categoryNo)
@@ -112,7 +112,8 @@ function drawCategory(category){
 
     dateCategoryConcert({
         categoryNo  ,
-        concertDate
+        concertDate ,
+        cPage
     },(concertList) => drawDateCategoryConcert(concertList))
 }
 
@@ -129,12 +130,13 @@ function choiceCategory(_this){
     choiceCbs.innerHTML = _this.querySelector(".bs").innerHTML;
     choiceCbs.id =_this.querySelector(".bs").id;
     
-
+    const cPage = 1;
     const concertDate = document.querySelector('.concert-day').querySelector('span').innerHTML;
     const categoryNo  = choiceCbs.id;
     clickCategoryConcert({
         categoryNo  ,
-        concertDate
+        concertDate ,
+        cPage
     },(concertList) => drawDateCategoryConcert(concertList))
 }
 
@@ -167,6 +169,7 @@ function drawDateCategoryConcert(concertList){
                                         </div>
                                     </div>`
     }
+    
 }
 
 function clickDate(_this){
@@ -202,11 +205,13 @@ function spanDayChange2(y, m, d){
     
     const concertDate = document.querySelector('.concert-day').querySelector('span').innerHTML;
     const categoryNo  = document.querySelector('.cbs').id;
+    const cPage = 1;
     console.log(concertDate)
     console.log(categoryNo)
     clickDateConcert({
         categoryNo  ,
-        concertDate
+        concertDate ,
+        cPage
     },(concertList) => drawDateCategoryConcert(concertList))
 
 }

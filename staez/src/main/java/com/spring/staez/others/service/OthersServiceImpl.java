@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.others.model.dao.OthersDao;
 
@@ -53,6 +54,18 @@ public class OthersServiceImpl implements OthersService{
 		data.put("date", concertDate);
 
 		ArrayList<Concert> dcList = oDao.selectDateCategoryConcert(sqlSession, data);
+		
+		return dcList;
+	}
+
+	@Override
+	public ArrayList<Concert> selectPageConcert(String categoryNo, String concertDate, PageInfo pi) {
+		int cNo = Integer.parseInt(categoryNo);
+		Map data = new HashMap();
+		data.put("cNo", cNo);
+		data.put("date", concertDate);
+		
+		ArrayList<Concert> dcList = oDao.selectPageConcert(sqlSession, data, pi);
 		
 		return dcList;
 	}
