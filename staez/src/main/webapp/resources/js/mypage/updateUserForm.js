@@ -35,6 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const defaultImageSrc = document.querySelector(".img-tag input[type='hidden']").value; // 기본 이미지 경로 hidden으로 숨겨서 스크립트에 넘겨줌
     const newImageInput = document.getElementById('new-image-input');
     const radioButtons = document.querySelectorAll(".img-tag input[type='radio']");
+    const closeButtons = document.querySelectorAll("#imgModal input[type='button']");
+
 
     // 라디오 버튼 변경 시 이미지 미리보기 업데이트
     radioButtons.forEach(radio => {
@@ -60,17 +62,28 @@ document.addEventListener('DOMContentLoaded', function() {
             reader.readAsDataURL(file);
         }
     });
+
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function(){
+            radioButtons[0].checked = true;
+            profilePreview.src = currentImageSrc; //미리보기 이미지 선택값에 따라 변경
+
+        });
+    });
+
 });
 
 //(프로필이미지 변경) 닫기, 취소 버튼누르면 input들 초기화
-function cancelUpdatePwd() {
-    const pwdForm = document.querySelector("#pwdModal form"); //pwd변경 form
-    const warnings = document.querySelectorAll("#pwdModal h5");
+function cancelUpdateImg() {
+    const profilePreview = document.querySelector('.img-tag img');
+    const currentImageSrc = profilePreview.src;
 
-    warnings.forEach(warning => {
-        warning.innerText = '';
-    });
-    pwdForm.reset();
+    const defaultImg = document.querySelectorAll(".img-tag input[type='radio']")[0];
+    console.log(defaultImg.checked);
+    defaultImg.checked = true;
+
+    
+    
 }
 
 
@@ -323,8 +336,6 @@ function firstLikeGenre(){
     const buttons = Array.from(document.querySelectorAll('.genre-btn'));
     
     buttons.forEach(button => {
-        console.log(input.value);
-        console.log(button.innerText);
         if(input.value.includes(button.innerText)){
             button.classList.toggle('checked')     
         }
