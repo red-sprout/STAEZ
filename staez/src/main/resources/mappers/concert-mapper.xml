@@ -27,6 +27,8 @@
 		<result column="theater_name" property="theaterName"/>
 		<result column="start_date" property="startDate"/>
 		<result column="end_date" property="endDate"/>
+		<result column="origin_name" property="originName"/>
+		<result column="change_name" property="changeName"/>
 	</resultMap>
 		
 	<resultMap type="Category" id="categoryResult">
@@ -38,7 +40,7 @@
 	
 	<resultMap type="ConcertAttachment" id="concertAttachmentResult">
 		<result column="file_no" property="fileNo"/>
-		<result column="board_no" property="concertNo"/>
+		<result column="concert_no" property="concertNo"/>
 		<result column="origin_name" property="originName"/>
 		<result column="change_name" property="changeName"/>
 		<result column="file_path" property="filePath"/>
@@ -86,15 +88,15 @@
 	
 		
 	<!-- 공연이 총 몇개냐  -->
-	<select id="selectConCount" resultType="_int">
+	<!-- <select id="selectConCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM concert
 		WHERE concert_status = 'Y'
-	</select> 
+	</select>  -->
 	<!-- AND cc.category_no = #{category} -->
 	
 	<!-- 콘서트 내용가져와라 -->
-	<select id="concertList" resultMap="concertResult" >
+	<!-- <select id="concertList" resultMap="concertResult" >
 		SELECT concert_no,
 			   concert_title,
 	           theater_name,
@@ -108,22 +110,33 @@
 			FROM concert_category
 		)
 		AND concert_status = 'Y'
-	</select>
+	</select> -->
 	
 	<select id="selectconSliderList" resultMap="concertResult" >
+		SELECT c.concert_no,
+		       c.concert_title,
+		       t.theater_name,
+		       cs.start_date,
+		       cs.end_date,
+		       ca.change_name,
+		       ca.file_path
+		FROM concert c
+		JOIN theater t ON c.theater_no = t.theater_no
+		JOIN concert_schedule cs ON c.concert_no = cs.concert_no
+		JOIN concert_attachment ca ON c.concert_no = ca.concert_no
+		WHERE c.concert_no IN (
+		        SELECT concert_no
+		        FROM concert_category
+		    )
+	    AND c.concert_status = 'Y';
+	</select>
+	
+	<select id="selectconPicList" resultMap="concertAttachmentResult" >
 		SELECT concert_no,
-		concert_title,
-	    	    theater_name,
-	            start_date,
-	            end_date
-	    FROM concert
-	    JOIN theater USING (theater_no)
-	    JOIN concert_schedule USING (concert_no)
-	    WHERE concert_no in (
-			SELECT concert_no
-			FROM concert_category
-		)
-		AND concert_status = 'Y'
+				change_name,
+	    	    file_path
+	    FROM concertAttachment
+	    WHERE status = 'Y'
 	</select>
 	
 	<!-- WHERE category_no = #{categoryNo} -->

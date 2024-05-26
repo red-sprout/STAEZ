@@ -162,7 +162,7 @@
 
     <section class="concert-main-grid-section">
         <div class="concert-main-grid">
-            <div onclick="">
+            <!-- <div onclick="">
                 <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2404%2F240425024045_24005737.gif&w=384&q=75"
                  alt="">
                 <div>
@@ -297,7 +297,7 @@
                     <p><span><b>[시카고]</b></span></p>
                     <p><span>2024.06.22 - 2024.06.23</span></p>
                 </div>
-            </div>
+            </div> -->
         </div>
         
     </section>

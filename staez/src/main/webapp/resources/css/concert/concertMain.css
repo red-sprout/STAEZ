@@ -39,6 +39,7 @@
         background-color: #F8D082;
         display: flex;
         align-items: center;
+        width: 100%;
     }
 
     /* 옆으로 넘기는 화살표 */
@@ -64,8 +65,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        max-width: 1500px;
-        margin: 0 auto;
+        width: 100%;
+        /* margin: 0 auto; */
     }
 
     /* 사진+글 묶은 div */
@@ -74,6 +75,14 @@
         padding: 20px 0 20px 0;
         position: relative;
     }
+    /* .slick-list {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        width: 1000px;
+    } */
     
     /* 옆으로 넘기는 화살표 */
     .concert-main-upper-next{

@@ -1,8 +1,8 @@
 // 공연메인페이지 슬라이더 slick sliker api
-$(function() {
-  conMainSlider((list) => (drawConMainSlider(list)));
-  conMainSliderPic((res) => (drawConMainSliderPic(res)));
+$(function() { // list는 컨트롤러에서 받아온 것
+  conMainSlider(list => (drawConMainSlider(list)));
 });
+
 
 // 임시, 공연세부페이지로
 function goDetail(concertNo) {
@@ -10,23 +10,46 @@ function goDetail(concertNo) {
 }
 
 
+
+// 슬라이더 그려주기
 function drawConMainSlider(list){
   const sliderContent = document.querySelector(".concert-main-upper");
+  const gridContent = document.querySelector(".concert-main-grid");
   
-  // sliderContent.innerHTML = ``;
-  for(let c of list){
+
+  for (let c of list) {
+    // sliderContent에 HTML 추가
     sliderContent.innerHTML += `<div class="concert-main-upper-pic-div">`
-                              + `<img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2404%2F240425024045_24005737.gif&w=384&q=75" alt="">`
+                              + `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
                               + `<div class="concert-main-upper-sen-div">
                                     <p><span><b><h2>` + c.concertTitle + `</h2></span></b></p>
                                     <p><span>` + c.theaterName + `</span></p>
-                                    <p><span>` + c. theaterName + `-` + c.endDate + `</span></p>`
+                                    <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
                               + `</div>`
-                            + `</div>`
+                            + `</div>`;
+}
+  // grid 부분
+  for(let c of list){
+    gridContent.innerHTML += 
+                            `<div onclick="">`
+                            + `<img src="` + contextPath + c.changeName + c.filePath + `"alt="">`
+                            + `<div>`
+                            + `<p><span>뮤지컬</span></p>`
+                            + `<p><span><b>[` + c.concertTitle + `]</b></span></p>
+                                <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
+                            + `</div>
+                            </div>`
   }
 
-  drawConMainSliderPic
+
+  }
+
+
+
+
+
   
+  // 슬릭 슬라이더 api 설정
   $.noConflict();
   $(".concert-main-upper").slick({
     infinite: true,
@@ -35,10 +58,39 @@ function drawConMainSlider(list){
     arrows: true,
     autoplay: true,
     autoplaySpeed: 1250,
+    // variableWidth: true,
     prevArrow: $(".concert-main-upper-before"),
-    nextArrow: $(".concert-main-upper-next")
+    nextArrow: $(".concert-main-upper-next"),
+    responsive: [ // 반응형 웹 구현 옵션
+    {  
+      breakpoint: 1000, //화면 사이즈 960px
+      settings: {
+        //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+        slidesToShow:3
+      } 
+    },
+    { 
+      breakpoint: 750, //화면 사이즈 768px
+      settings: {	
+        //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+        slidesToShow: 2
+
+      }
+     } ,
+      {
+        breakpoint: 485,
+        settings: {
+          slidesToShow: 1
+        }
+    }
+  ]
   });
-}
+
+
+  
+
+
+
 
 
 // // 뮤지컬 누르면 화면 뜨게
