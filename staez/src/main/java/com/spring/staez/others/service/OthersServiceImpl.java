@@ -81,7 +81,8 @@ public class OthersServiceImpl implements OthersService{
 		Map data = new HashMap();
 		data.put("uNo", uNo);
 		data.put("date", date);
-		
+		System.out.println(data.get("uNo"));
+		System.out.println(date);
 		return oDao.selectChoiceReserveConcertList(sqlSession, data);
 	}
 	

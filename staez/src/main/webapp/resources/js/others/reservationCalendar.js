@@ -274,7 +274,7 @@ function spanDayChange2(y, m, d){
 function drawDateCategoryConcert(result){
     const concertArea = document.querySelector(".reservation-day-info-area");
     const concertList = result.concertList;
-    
+    console.log(result)
 
     concertArea.innerHTML = ``;
     if(concertList.length === 0){
