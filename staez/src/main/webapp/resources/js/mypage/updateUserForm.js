@@ -29,23 +29,24 @@ function authPassword() {
 
 // 프로필 이미지 변경
 document.addEventListener('DOMContentLoaded', function() {
-    const profilePreview = document.querySelector('.img-tag img');
-    const currentImageSrc = profilePreview.src;
-    console.log(currentImageSrc);
+    const profilePreview = document.querySelector('#profile-preview'); //프로필이미지 미리보기
+    const currentImageSrc = profilePreview.src; //현재 적용되어 있던 이미지 담기
     const defaultImageSrc = document.querySelector(".img-tag input[type='hidden']").value; // 기본 이미지 경로 hidden으로 숨겨서 스크립트에 넘겨줌
-    const newImageInput = document.getElementById('new-image-input');
     const radioButtons = document.querySelectorAll(".img-tag input[type='radio']");
-    const closeButtons = document.querySelectorAll("#imgModal input[type='button']");
-
+    const closeButtons = document.querySelectorAll("#imgModal button[type='button']");
+    const newImageInput = document.querySelector("input[name='upfile']"); // 추가: 파일 인풋 요소 선택
+    const newImageRadio = document.querySelector(".img-tag input[value='new-img']");
 
     // 라디오 버튼 변경 시 이미지 미리보기 업데이트
     radioButtons.forEach(radio => {
         radio.addEventListener('change', function() {
-            if (this.value === 'current') {
+            if (this.value === 'current-img') {
                 profilePreview.src = currentImageSrc;
-            } else if (this.value === 'default') {
+                newImageInput.value = '';
+            } else if (this.value === 'default-img') {
                 profilePreview.src = defaultImageSrc;
-            } else if (this.value === 'new') {
+                newImageInput.value = '';
+            } else if (this.value === 'new-img') {
                 newImageInput.click();
             }
         });
@@ -60,32 +61,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 profilePreview.src = e.target.result;
             };
             reader.readAsDataURL(file);
+            newImageRadio.checked = true;
         }
     });
 
+    //(프로필이미지 변경) 닫기, 취소 버튼누르면 input들 초기화
     closeButtons.forEach(button => {
         button.addEventListener('click', function(){
             radioButtons[0].checked = true;
             profilePreview.src = currentImageSrc; //미리보기 이미지 선택값에 따라 변경
-
+            newImageInput.value = '';
         });
     });
-
 });
-
-//(프로필이미지 변경) 닫기, 취소 버튼누르면 input들 초기화
-function cancelUpdateImg() {
-    const profilePreview = document.querySelector('.img-tag img');
-    const currentImageSrc = profilePreview.src;
-
-    const defaultImg = document.querySelectorAll(".img-tag input[type='radio']")[0];
-    console.log(defaultImg.checked);
-    defaultImg.checked = true;
-
-    
-    
-}
-
 
 
 // 비밀번호 변경
@@ -147,6 +135,25 @@ function cancelUpdatePwd() {
         });
         pwdForm.reset();
 }
+
+
+//회원탈퇴 기능
+function withdrawalAuth() {
+    const submitBtn = document.querySelector("#withdrawalModal button[type='submit']");
+    const inputPwd = document.querySelector(".withdrawal-tag input[type='password']").value;
+
+    authPwdAjax({inputPwd}, (res) => {
+        if (res === 'NNNNY') { //비밀번호 인증 성공
+            
+            submitBtn.disabled = false;
+            
+        } else {
+            alert("비밀번호가 일치하지 않습니다");
+        }
+    
+    });
+}
+
 
 
 //닉네임 중복확인 ajax
@@ -272,8 +279,9 @@ function updateCombinedAddress() {
     const input1 =  document.getElementById("addressNormal").value;
     const input2 = document.getElementById("addressDetail").value;
     const address = document.querySelector("input[name='address']");
-
+    
     address.value = input1 + "/" + input2;
+    console.log(address.value);
 }
 
 // 휴대폰번호 필드 값 변경 시 호출되는 함수
@@ -341,6 +349,9 @@ function firstLikeGenre(){
         }
     });
 }
+
+
+
 
 
 
