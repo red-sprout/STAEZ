@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.staez.mypage.model.dao.MypageDao;
+import com.spring.staez.user.model.vo.ProfileImg;
 import com.spring.staez.user.model.vo.User;
 
 @Service
@@ -40,6 +41,16 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public int updateUserInfo(User user) {
 		return mpd.updateUserInfo(sqlSession, user);
+	}
+
+	@Override
+	public int updateProfileImg(ProfileImg profileImg) {
+		return mpd.updateProfileImg(sqlSession, profileImg);
+	}
+
+	@Override
+	public int insertProfileImg(ProfileImg profileImg) {
+		return mpd.insertProfileImg(sqlSession, profileImg);
 	}
 
 	
