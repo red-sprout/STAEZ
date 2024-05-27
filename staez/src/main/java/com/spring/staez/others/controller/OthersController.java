@@ -1,6 +1,8 @@
 package com.spring.staez.others.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -100,7 +102,11 @@ public class OthersController {
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 6);
 		ArrayList<Concert> pdcList = oService.selectPageConcert(categoryNo, concertDate, pi);
 		
-		return  new Gson().toJson(pdcList);
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put("concertList", pdcList);
+		resMap.put("pi", pi);
+		
+		return  new Gson().toJson(resMap);
 	}
 	
 	

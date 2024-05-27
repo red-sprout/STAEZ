@@ -114,7 +114,7 @@ function drawCategory(category){
         categoryNo  ,
         concertDate ,
         cPage
-    },(concertList) => drawDateCategoryConcert(concertList))
+    },(result) => drawDateCategoryConcert(result))
 }
 
 function choiceCategory(_this){
@@ -140,8 +140,10 @@ function choiceCategory(_this){
     },(concertList) => drawDateCategoryConcert(concertList))
 }
 
-function drawDateCategoryConcert(concertList){
+function drawDateCategoryConcert(result){
     const concertArea = document.querySelector(".concert-day-info-area");
+    const concertList = result.concertList;
+    
 
     concertArea.innerHTML = ``;
     if(concertList.length === 0){
@@ -169,7 +171,31 @@ function drawDateCategoryConcert(concertList){
                                         </div>
                                     </div>`
     }
+
+    const pi = result.pi;
+    const pageArea = document.querySelector(".page-list");
     
+    pageArea.innerHTML = ``
+    if(pi.currentPage !== 1){
+        pageArea.innerHTML += ` <div class="pagination">
+                                    <img src="/staez/resources/img/main/before.png" />
+                                </div>`
+    }
+
+    for(let i = pi.startPage; i <= pi.endPage; i++){
+        pageArea.innerHTML += `<div class="pagination current"><h4>1</h4></div>`
+    }
+
+    if(pi.currentPage === pi.maxPage){
+        pageArea.innerHTML += `<div class="pagination">
+                                    <img src="/staez/resources/img/main/after.png"/>
+                                </div>`
+    }
+    const clickPage =  document.querySelectorAll(".num");
+    for(let i = 0; i < clickPage; i++){
+        clickPage[i].classList.remove("current")
+    }
+    clickPage[pi.currentPage].classList.add("current")
 }
 
 function clickDate(_this){
