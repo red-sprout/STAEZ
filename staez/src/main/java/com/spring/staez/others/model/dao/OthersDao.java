@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.user.model.vo.Reserve;
 
 @Repository
 public class OthersDao {
@@ -46,5 +47,13 @@ public class OthersDao {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
 		return (ArrayList)sqlSession.selectList("othersMapper.selectDateCategoryConcert", data, rowBounds);
+	}
+	
+	public ArrayList<Reserve> selectReserveConcertList(SqlSessionTemplate sqlSession, int uNo){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectReserveConcert", uNo);
+	}
+	
+	public ArrayList<Concert> selectChoiceReserveConcertList(SqlSessionTemplate sqlSession, Map data){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectChoiceReserveConcert", data);
 	}
 }

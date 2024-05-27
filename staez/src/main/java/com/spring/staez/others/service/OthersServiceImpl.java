@@ -12,6 +12,7 @@ import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.others.model.dao.OthersDao;
+import com.spring.staez.user.model.vo.Reserve;
 
 @Service
 public class OthersServiceImpl implements OthersService{
@@ -68,6 +69,20 @@ public class OthersServiceImpl implements OthersService{
 		ArrayList<Concert> dcList = oDao.selectPageConcert(sqlSession, data, pi);
 		
 		return dcList;
+	}
+
+	@Override
+	public ArrayList<Reserve> selectReserveConcertList(int uNo) {
+		return oDao.selectReserveConcertList(sqlSession, uNo);
+	}
+
+	@Override
+	public ArrayList<Concert> selectChoiceReserveConcertList(int uNo, String date) {
+		Map data = new HashMap();
+		data.put("uNo", uNo);
+		data.put("date", date);
+		
+		return oDao.selectChoiceReserveConcertList(sqlSession, data);
 	}
 	
 	

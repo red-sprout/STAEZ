@@ -33,6 +33,19 @@
  		<result column="category_level" property="categoryLevel" />
 	</resultMap>
 	
+	<resultMap type="Reserve" id="reserveResult">
+		<result column="reserve_no" property="reserveNo" />
+		<result column="concert_no" property="concertNo" />
+		<result column="user_no" property="userNo" />
+		<result column="reserve_row" property="reserveRow" />
+		<result column="reserve_col	" property="reserveCol" />
+		<result column="reserve_date" property="reserveDate" />
+		<result column="pay_method" property="payMethod" />
+		<result column="concert_date" property="concertDate" />
+		<result column="concert_times" property="concertTimes" />
+		<result column="reserve_status" property="reserveStatus" />
+	</resultMap>
+	
 	
 	<select id="selectCategory" resultMap="categoryResult">
 		select category_no, category_name
@@ -64,7 +77,6 @@
 		join concert_attachment ca on (c.concert_no = ca.concert_no)
 		where c.concert_status = 'Y'
 		and cg.category_no = #{cNo}
-		and ca.file_level = 1
 		and ca.status = 'Y'
 		limit 10;
 	</select>
@@ -88,7 +100,6 @@
 		join concert_attachment ca on (c.concert_no = ca.concert_no)
 		where c.concert_status = 'Y'
 		and cg.category_no = #{cNo}
-		and ca.file_level = 1
 		and ca.status = 'Y'
 		limit 10;
 	</select>
@@ -115,7 +126,6 @@
 		join concert_attachment ca on (c.concert_no = ca.concert_no)
 		where c.concert_status = 'Y'
 		and cg.category_no = #{cNo}
-		and ca.file_level = 1
 		and ca.status = 'Y'
 		limit 10;
 	</select>
@@ -138,7 +148,6 @@
 		join concert_attachment ca on (c.concert_no = ca.concert_no)
 		where c.concert_status = 'Y'
 		and cg.category_no = #{cNo}
-		and ca.file_level = 1
 		and ca.status = 'Y'
 		limit 10;
 	</select>
@@ -164,11 +173,20 @@
 	join concert_attachment ca on (c.concert_no = ca.concert_no)
 	join concert_category cc on (c.concert_no = cc.concert_no)
 	join category cg on (cc.category_no = cg.category_no)
-	where ca.file_level = 1
-	and cg.category_no = #{cNo}
+	where cg.category_no = #{cNo}
 	and ca.status = 'Y'
 	GROUP BY c.concert_no, c.concert_title, t.theater_name, c.concert_runtime, ca.file_path, ca.change_name, cg.category_no;
 	</select>
 	
+	<select id="selectReserveConcert" resultMap="reserveResult">
+		select concert_no, concert_date
+		from reserve
+		where reserve_status = 'Y'
+		and user_no = #{uNo}
+	</select>
+	
+	<select id="selectChoiceReserveConcert" resultMap="concertResult" parameterType="Map">
+	
+	</select>
 </mapper>
 

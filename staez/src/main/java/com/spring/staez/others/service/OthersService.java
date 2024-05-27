@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.user.model.vo.Reserve;
 
 public interface OthersService {
 	
@@ -21,4 +22,8 @@ public interface OthersService {
 	ArrayList<Concert> selectDateCategoryConcert(String categoryNo, String concertDate);
 	
 	ArrayList<Concert> selectPageConcert(String categoryNo, String concertDate, PageInfo pi);
+	
+	ArrayList<Reserve> selectReserveConcertList(int uNo);
+	
+	ArrayList<Concert> selectChoiceReserveConcertList(int uNo, String date);
 }

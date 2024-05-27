@@ -96,3 +96,43 @@ function clickCategoryConcert(data, callback){
         }
     })
 }
+
+function pageConcert(data, callback){
+    $.ajax({
+        url : "ajaxSelectDateCategoryConcert.ot",
+        data : data,
+        success : function(result){
+            console.log(result);
+            callback(result);
+        }, error : function(){
+            console.log("실패")
+        }
+    })
+}
+
+
+function reserveConcertList(data, callback){
+    $.ajax({
+        url : "ajaxReserveConcertList.ot",
+        data : data,
+        success : function(result){
+            console.log(result);
+            callback(result)
+        }, error : function(){
+            console.log("실패")
+        }
+    })
+}
+
+function reserveChoiceConcertList(data, callback){
+    $.ajax({
+        url : "ajaxChoiceReserveConcertList.ot",
+        data : data,
+        success : function(result){
+            console.log(result);
+            callback(result)
+        }, error : function(){
+            console.log("실패")
+        }
+    })
+}

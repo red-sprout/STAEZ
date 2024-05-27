@@ -15,6 +15,7 @@ import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.common.template.Pagination;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.others.service.OthersService;
+import com.spring.staez.user.model.vo.Reserve;
 
 @Controller
 public class OthersController {
@@ -99,7 +100,7 @@ public class OthersController {
 		int currentPage = Integer.parseInt(cPage);
 		int listCount = dcList.size();
 		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 6);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 2);
 		ArrayList<Concert> pdcList = oService.selectPageConcert(categoryNo, concertDate, pi);
 		
 		Map<String, Object> resMap = new HashMap<String, Object>();
@@ -109,6 +110,28 @@ public class OthersController {
 		return  new Gson().toJson(resMap);
 	}
 	
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxReserveConcertList.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxSelectReserveConcertList(String userNo) {
+		int uNo = Integer.parseInt(userNo);
+		
+		ArrayList<Reserve> rList = oService.selectReserveConcertList(uNo);
+		
+		
+		return  new Gson().toJson(rList);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxChoiceReserveConcertList.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxChoiceReserveConcertList(String userNo, String date) {
+		int uNo = Integer.parseInt(userNo);
+		System.out.println(date);
+		ArrayList<Concert> crList = oService.selectChoiceReserveConcertList(uNo, date);
+		
+		
+		return  new Gson().toJson(crList);
+	}
 	
 	
 	
