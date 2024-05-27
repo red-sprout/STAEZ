@@ -1,19 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>   
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="${contextPath}/resources/css/others/concertCalendar.css">
-
-<title>Insert title here</title>
-</head>
-<body>
-	<header>
-        <jsp:include page="../common/header.jsp" />
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="${contextPath}/resources/css/others/concertCalendar.css">
+		
+		<title>Insert title here</title>
+	</head>
+	<body>
+		<header>
+			<jsp:include page="../common/header.jsp" />
+			<script src="${contextPath}/resources/js/api/othersapi.js"></script>
     </header>
 	<main>
 		
@@ -21,7 +22,7 @@
 			<div id="concert-calendar-choice">
 				<span style="color: #B51B75;">공연 캘린더</span>
             </div>
-            <div id="reservation-calendar-choice">
+            <div id="reservation-calendar-choice" onclick="location.href='calendar.me'">
 				<span>나의 예매 캘린더</span>
             </div>
         </div>
@@ -53,21 +54,21 @@
 			<div class="concert-day-list-area">
 				<div class="concert-list-title-area"><h1>공연 목록</h1></div>
 				<div class="concert-day-list-category">
-					<button class="btn-staez checked"><h4>뮤지컬</h4></button>
-					<button class="btn-staez"><h4>클래식</h4></button>
-					<button class="btn-staez"><h4>국악</h4></button>
-					<button class="btn-staez"><h4>대중음악</h4></button>
-					<button class="btn-staez"><h4>연극</h4></button>
-					<button class="btn-staez"><h4>서커스/마술</h4></button>
-					<button class="btn-staez"><h4>기타</h4></button>
+					<!-- <button class="btn-staez checked"><h4 class="bs"></h4></button>
+					<button class="btn-staez"><h4 class="bs"></h4></button>
+					<button class="btn-staez"><h4 class="bs"></h4></button>
+					<button class="btn-staez"><h4 class="bs"></h4></button>
+					<button class="btn-staez"><h4 class="bs"></h4></button>
+					<button class="btn-staez"><h4 class="bs"></h4></button>
+					<button class="btn-staez"><h4 class="bs"></h4></button> -->
 				</div>
 				<div class="concert-day-choice-area">
 					<div class="concert-day"><span></span></div>
-					<button class="btn-staez checked"><h4>뮤지컬</h4></button>
+					<button class="btn-staez checked"><h4 class="cbs"></h4></button>
 					<button class="concert-day-more">더보기</button>
 				</div>
 				<div class="concert-day-info-area">
-					<div class="concert-day-info">
+					<!-- <div class="concert-day-info">
 						<div class="concert-day-title-area"><span>음악극 〈섬:1933~2019〉</span></div>
 						<div class="concert-day-img-description-area">
 							<img src="${contextPath}/resources/img/others/calendarConcert1.png" alt="">
@@ -86,108 +87,27 @@
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="concert-day-info">
-						<div class="concert-day-title-area"><span>음악극 〈섬:1933~2019〉</span></div>
-						<div class="concert-day-img-description-area">
-							<img src="${contextPath}/resources/img/others/calendarConcert1.png" alt="">
-							<div class="concert-day-description-area">
-								<div class="concert-day-description-place">
-									<span>장소</span>
-									<span>국립정동극장</span>
-								</div>
-								<div class="concert-day-description-period">
-									<span>공연 기간</span>
-									<span>2024.05.22 ~ 07.07</span>
-								</div>
-								<div class="concert-day-description-time">
-									<span>공연 시간</span>
-									<span>115분</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="concert-day-info">
-						<div class="concert-day-title-area"><span>음악극 〈섬:1933~2019〉</span></div>
-						<div class="concert-day-img-description-area">
-							<img src="${contextPath}/resources/img/others/calendarConcert1.png" alt="">
-							<div class="concert-day-description-area">
-								<div class="concert-day-description-place">
-									<span>장소</span>
-									<span>국립정동극장</span>
-								</div>
-								<div class="concert-day-description-period">
-									<span>공연 기간</span>
-									<span>2024.05.22 ~ 07.07</span>
-								</div>
-								<div class="concert-day-description-time">
-									<span>공연 시간</span>
-									<span>115분</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="concert-day-info">
-						<div class="concert-day-title-area"><span>음악극 〈섬:1933~2019〉</span></div>
-						<div class="concert-day-img-description-area">
-							<img src="${contextPath}/resources/img/others/calendarConcert1.png" alt="">
-							<div class="concert-day-description-area">
-								<div class="concert-day-description-place">
-									<span>장소</span>
-									<span>국립정동극장</span>
-								</div>
-								<div class="concert-day-description-period">
-									<span>공연 기간</span>
-									<span>2024.05.22 ~ 07.07</span>
-								</div>
-								<div class="concert-day-description-time">
-									<span>공연 시간</span>
-									<span>115분</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="concert-day-info">
-						<div class="concert-day-title-area"><span>음악극 〈섬:1933~2019〉</span></div>
-						<div class="concert-day-img-description-area">
-							<img src="${contextPath}/resources/img/others/calendarConcert1.png" alt="">
-							<div class="concert-day-description-area">
-								<div class="concert-day-description-place">
-									<span>장소</span>
-									<span>국립정동극장</span>
-								</div>
-								<div class="concert-day-description-period">
-									<span>공연 기간</span>
-									<span>2024.05.22 ~ 07.07</span>
-								</div>
-								<div class="concert-day-description-time">
-									<span>공연 시간</span>
-									<span>115분</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="concert-day-info">
-						<div class="concert-day-title-area"><span>음악극 〈섬:1933~2019〉</span></div>
-						<div class="concert-day-img-description-area">
-							<img src="${contextPath}/resources/img/others/calendarConcert1.png" alt="">
-							<div class="concert-day-description-area">
-								<div class="concert-day-description-place">
-									<span>장소</span>
-									<span>국립정동극장</span>
-								</div>
-								<div class="concert-day-description-period">
-									<span>공연 기간</span>
-									<span>2024.05.22 ~ 07.07</span>
-								</div>
-								<div class="concert-day-description-time">
-									<span>공연 시간</span>
-									<span>115분</span>
-								</div>
-							</div>
-						</div>
-					</div>
+					</div> -->
 				</div>
+
+				<div class="page-list">
+                    <!-- <div class="pagination">
+                        <img src="<c:url value='/resources/img/main/before.png'/>">
+                    </div>
+                    <div class="pagination num current"><h4>1</h4></div>
+                    <div class="pagination num"><h4>2</h4></div>
+                    <div class="pagination num"><h4>3</h4></div>
+                    <div class="pagination num"><h4>4</h4></div>
+                    <div class="pagination num"><h4>5</h4></div>
+                    <div class="pagination num"><h4>6</h4></div>
+                    <div class="pagination num"><h4>7</h4></div>
+                    <div class="pagination num"><h4>8</h4></div>
+                    <div class="pagination num"><h4>9</h4></div>
+                    <div class="pagination num"><h4>10</h4></div>
+                    <div class="pagination">
+                        <img src="<c:url value='/resources/img/main/after.png'/>">
+                    </div> -->
+                </div>
 			</div>
 		</div>
 		<script src="${contextPath}/resources/js/others/concertCalendar.js"></script>

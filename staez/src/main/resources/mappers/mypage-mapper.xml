@@ -43,5 +43,27 @@
 			genre_like = #{genreLike}
 		WHERE user_id = #{userId}
 	</update>
+	
+	<insert id="insertProfileImg">
+		INSERT INTO staez_user
+		VALUES (DEFAULT, 
+				#{userNo}, 
+				#{originName}, 
+				#{changeName}, 
+				#{filePath}, 
+				DEFAULT, 
+				DEFAULT)
+	</insert>
+	
+	<update id="updateProfileImg">
+		UPDATE staez_user 
+		SET (origin_name = #{originName},
+			 change_name = #{changeName},
+			 file_path = #{filePath},
+			 upload_date = DEFAULT)
+		WHERE user_no = #{userNo}
+		AND status = 'Y'
+	</update>
+	
 </mapper>
 

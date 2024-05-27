@@ -1,6 +1,7 @@
 package com.spring.staez.admin.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,14 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.admin.model.vo.ConcertSchedule;
 import com.spring.staez.admin.model.vo.ImpossibleSeat;
+import com.spring.staez.admin.model.vo.Seat;
 import com.spring.staez.admin.service.AdminService;
-import com.spring.staez.common.template.ImpossibleSeatList;
+import com.spring.staez.common.template.MyFileRenamePolicy;
 import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.Theater;
 
 @Controller
@@ -124,13 +132,15 @@ public class AdminController {
 		return "admin/theaterUpdateForm";
 	}
 	
+	// 카테고리 정보 불러오기
 	@ResponseBody
-	@GetMapping(value = "category.ad", produces="application/json; charset-UTF-8")
+	@GetMapping(value = "category.ad", produces = "application/json; charset-UTF-8")
 	public String ajaxCategory(String refCategoryNo) {
 		ArrayList<Category> list = adminService.selectFaqCategory(Integer.parseInt(refCategoryNo));
 		return new Gson().toJson(list);
 	}
 	
+	// FAQ 등록
 	@PostMapping("faqIncert.ad")
 	public String faqIncert(Board b, String categoryNo, HttpSession session) {
 		int result = adminService.faqIncert(b, Integer.parseInt(categoryNo));
@@ -142,6 +152,7 @@ public class AdminController {
 		return "redirect:/faqList.ad";
 	}
 	
+	// 공연장 등록
 	@PostMapping("theaterIncert.ad")
 	public String theaterIncert(Theater t, HttpSession session) {
 		int result = adminService.incertTheater(t);
@@ -153,10 +164,65 @@ public class AdminController {
 		return "redirect:/theaterList.ad";
 	}
 	
+	// 착석 불가능/가능 좌석 표기
 	@ResponseBody
 	@GetMapping("toggleSeat.ad")
 	public String ajaxToggleSeat(ImpossibleSeat seat, String status) {
 		int result = adminService.toggleSeat(seat, status);
 		return result > 0 ? "SUCCESS" : "FAIL";
+	}
+	
+	// summernote 이미지 표기
+	@ResponseBody
+	@PostMapping(value = "concertImgUpload.ad", produces = "application/json; charset-UTF-8")
+	public String concertImgUpload(List<MultipartFile> fileList, HttpSession session) {
+		List<String> changeNameList = new ArrayList<String>();
+		for(MultipartFile f : fileList) {
+			String path = "/resources/uploadfiles/concert/";
+			String changeName = MyFileRenamePolicy.saveFile(f, session, path);
+			changeNameList.add(path + changeName);
+		}
+		
+		return new Gson().toJson(changeNameList);
+	}
+	
+	// 공연장 정보 검색
+	@ResponseBody
+	@GetMapping(value = "searchTheaterList.ad", produces = "application/json; charset-UTF-8")
+	public String ajaxSearchTheaterList(String keyword) {
+		ArrayList<Theater> list = adminService.selectTheaterList(keyword);
+		return new Gson().toJson(list);
+	}
+	
+	// 공연장 데이터 입력
+	@ResponseBody
+	@PostMapping(value = "concertInsert.ad")
+	public String concertInsert(String schedule, String seat, String concert, 
+								@RequestPart MultipartFile upfile, HttpSession session) {
+		// Unparseable date Exception 발생하지 않게 하기 위한 포매팅
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		// Gson으로 JSON을 string으로 바꾼 것을 객체 형태로 변환
+		List<ConcertSchedule> scheduleList = gson.fromJson(schedule, new TypeToken<List<ConcertSchedule>>(){}.getType());
+		List<Seat> seatList = gson.fromJson(seat, new TypeToken<List<Seat>>(){}.getType());
+		Concert c = gson.fromJson(concert, new TypeToken<Concert>(){}.getType());
+		
+		if(!upfile.getOriginalFilename().equals("")) {
+			String path = "/resources/uploadfiles/concert/";
+			String changeName = MyFileRenamePolicy.saveFile(upfile, session, path);
+			
+			c.setFilePath(path);
+			c.setOriginName(upfile.getOriginalFilename());
+			c.setChangeName(changeName);
+		}
+		
+		int result = adminService.concertInsert(scheduleList, seatList, c);
+		
+		if(result == 0) {
+			session.setAttribute("alertMsg", "공연 등록에 실패 하였습니다.");
+		} else {
+			session.setAttribute("alertMsg", "성공적으로 등록하였습니다.");
+		}
+		
+		return "concertList.ad";
 	}
 }

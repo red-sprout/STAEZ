@@ -17,7 +17,7 @@
     </header>
     <main>
         <div id="concert-reservation-calendar-area">
-			<div id="concert-calendar-choice">
+			<div id="concert-calendar-choice" onclick="location.href='calendar.co'">
 				<span>공연 캘린더</span>
             </div>
             <div id="reservation-calendar-choice">

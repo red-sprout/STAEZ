@@ -4,7 +4,7 @@ function dupliCheck(data, callback) {
         data,
         success : res => callback(res),
         error : () => {
-            alert('중복체크에 실패하였습니다.');
+            alert('중복체크에 실패하였습니다');
         }
     })
 }

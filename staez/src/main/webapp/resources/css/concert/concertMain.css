@@ -70,6 +70,7 @@
 
     /* 사진+글 묶은 div */
     .concert-main-upper-pic-div{
+        width: fit-content !important;
         padding: 20px 0 20px 0;
         position: relative;
     }
@@ -106,7 +107,8 @@
         position: absolute;
         color: white;
         top: 70%;
-        left: 25%;
+        width: 100%;
+        text-align: center;
     }
     .concert-main-upper-sen-div span{
         font-size: 1.2rem;
