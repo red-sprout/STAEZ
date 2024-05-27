@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -143,13 +142,13 @@ public class AdminController {
 	
 	// FAQ 등록
 	@PostMapping("faqIncert.ad")
-	public String faqIncert(Board b, String categoryNo, HttpSession session) {
-		int result = adminService.faqIncert(b, Integer.parseInt(categoryNo));
-		if(result == 0) {
-			session.setAttribute("alertMsg", "FAQ 작성에 실패하였습니다.");
-		} else {
-			session.setAttribute("alertMsg", "작성 완료하였습니다.");
-		}
+	public String faqIncert(Board b, String cNo, HttpSession session) {
+//		int result = adminService.faqIncert(b, Integer.parseInt(categoryNo));
+//		if(result == 0) {
+//			session.setAttribute("alertMsg", "FAQ 작성에 실패하였습니다.");
+//		} else {
+//			session.setAttribute("alertMsg", "작성 완료하였습니다.");
+//		}
 		return "redirect:/faqList.ad";
 	}
 	
@@ -195,7 +194,7 @@ public class AdminController {
 		return new Gson().toJson(list);
 	}
 	
-	// 공연장 데이터 입력
+	// 공연 데이터 입력 
 	@ResponseBody
 	@PostMapping(value = "concertInsert.ad")
 	public String concertInsert(String schedule, String seat, String concert, 
