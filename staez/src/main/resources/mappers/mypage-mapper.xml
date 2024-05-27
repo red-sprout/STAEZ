@@ -5,13 +5,20 @@
 
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
 <mapper namespace="mypageMapper">
-	<!-- 
-		<resultMap type="mybatis-config.xml의 alias값" id="객체명Result 형태">
-			<result column="user_no" property="userNo" />
-		</resultMap>
-	 -->
-
-	<!-- db의 컬럼과 객체의 필드명이 완전히 같다면 resultType사용 가능 -->
+	<resultMap type="Board" id="boardResult">
+		<result column="board_no" property="boardNo" />
+		<result column="ref_board_no" property="refBoardNo" />
+		<result column="user_no" property="userNo" />
+		<result column="board_level" property="boardLevel" />
+		<result column="board_code" property="boardCode" />
+		<result column="board_write_date" property="boardWriteDate" />
+		<result column="board_title" property="boardTitle" />
+		<result column="board_content" property="boardContent" />
+		<result column="board_count" property="boardCount" />
+		<result column="board_status" property="boardStatus" />
+		<result column="like_count" property="likeCount" />
+		
+	</resultMap>
 	
 	<select id="duplicateCheck" resultType="_int">
 		SELECT COUNT(user_no)
@@ -62,8 +69,39 @@
 			 file_path = #{filePath},
 			 upload_date = DEFAULT)
 		WHERE user_no = #{userNo}
-		AND status = 'Y'
+		AND user_status = 'Y'
 	</update>
+	
+	<update id="withdrawalUser">
+		UPDATE staez_user 
+		SET user_status = 'N',
+			withdrawal_date = now()
+		WHERE user_no = #{userNo}
+		AND user_status = 'Y'
+	</update>
+	
+	<select id="selectMyBoardListCount" resultType="_int">
+		SELECT COUNT(board_no) 
+		FROM board
+		WHERE user_no = #{userNo}
+		AND board_code = 1
+		AND board_status = 'Y'
+	</select>
+	
+	<select id="selectMyBoardList" resultMap="boardResult">
+		SELECT b.board_no, 
+			   b.user_no, 
+			   COUNT(bl.board_no) AS like_count, 
+			   b.board_title, 
+			   b.board_count, 
+			   b.board_write_date 
+		FROM board b
+		LEFT OUTER JOIN board_like bl ON b.board_no = bl.board_no
+		WHERE b.user_no = #{userNo}
+		AND b.board_code = 1
+		AND b.board_status = 'Y'
+		GROUP BY b.board_no, b.board_title, b.board_count, b.board_write_date;
+	</select>
 	
 </mapper>
 

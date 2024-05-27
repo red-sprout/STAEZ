@@ -144,7 +144,7 @@ CREATE TABLE public.board
     ref_board_no integer,
     user_no integer NOT NULL,
     board_level integer NOT NULL DEFAULT 1,
-    board_code integer NOT NULL DEFAULT 2,
+    board_code integer NOT NULL DEFAULT 2, /*공지사항(1), 일반게시글(2), 문의(3), FAQ(4), 신고(5)*/
     board_write_date timestamp with time zone NOT NULL DEFAULT now(),
     board_title character varying(150) NOT NULL,
     board_content text NOT NULL,
@@ -197,7 +197,7 @@ COMMENT ON COLUMN public.board.board_status
 CREATE TABLE public.board_attachment
 (
     file_no serial PRIMARY KEY,
-	board_no integer NOT NULL,
+    board_no integer NOT NULL,
     origin_name character varying(255) NOT NULL,
     change_name character varying(255) NOT NULL UNIQUE,
     file_path character varying(1000) NOT NULL,
@@ -246,7 +246,7 @@ COMMENT ON COLUMN public.board_attachment.status
 /*게시글좋아요 테이블*/
 CREATE TABLE public.board_like
 (
-    board_like_no integer PRIMARY KEY,
+    board_like_no serial PRIMARY KEY,
     user_no integer NOT NULL,
     board_no integer NOT NULL,
     status character varying(1) NOT NULL CHECK(status IN('Y', 'N')) DEFAULT 'Y', /*눌러진상태(Y), 취소(N)*/

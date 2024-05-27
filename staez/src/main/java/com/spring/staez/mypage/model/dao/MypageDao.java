@@ -1,8 +1,11 @@
 package com.spring.staez.mypage.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.user.model.vo.ProfileImg;
 import com.spring.staez.user.model.vo.User;
 
@@ -49,7 +52,21 @@ public class MypageDao {
 		return result;
 	}
 	
+	public int withdrawalUser(SqlSessionTemplate sqlSession, User user) {
+		int result = sqlSession.update("mypageMapper.withdrawalUser", user);
+		return result;
+	}
+	
+	public int selectMyBoardListCount(SqlSessionTemplate sqlSession, int userNo) {
+		int count = sqlSession.selectOne("mypageMapper.selectMyBoardListCount", userNo);
+		return count;
+	}
 
+	public ArrayList<Board> selectMyBoardList(SqlSessionTemplate sqlSession, int userNo) {
+		ArrayList<Board> list = (ArrayList)sqlSession.selectList("mypageMapper.selectMyBoardList", userNo);
+		return list;
+		
+	}
 	
 	
 	

@@ -1,5 +1,7 @@
 package com.spring.staez.mypage.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.common.template.MyFileRenamePolicy;
+import com.spring.staez.common.template.Pagination;
+import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.mypage.service.MypageService;
 import com.spring.staez.user.model.vo.ProfileImg;
 import com.spring.staez.user.model.vo.User;
@@ -77,12 +82,26 @@ public class MypageController {
 	
 	//나의 작성 게시글 리스트 페이지 출력
 	@RequestMapping("boardList.me")
-	public String myBoardList(HttpSession session, Model model) {
-		if(session.getAttribute("loginUser") == null) { //로그인 되어있지 않을 경우
+	public String myBoardList(int cpage, HttpSession session, Model model) {
+		User loginUser = userService.loginUser((User)session.getAttribute("loginUser"));
+		if(loginUser == null) { //로그인 되어있지 않을 경우
 	        session.setAttribute("alertMsg", "로그인이 필요합니다.");
 	        return "redirect:/loginForm.me";
 		}
+		
+		int userNo = loginUser.getUserNo();
+		int currentPage = cpage;
+		int listCount = mypageService.selectMyBoardListCount(userNo);
+		
+		ArrayList<Board> list = mypageService.selectMyBoardList(userNo);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		
+		System.out.println(list.get(0).getLikeCount());
+		
 		model.addAttribute("contentPage", "myBoardList");
+		model.addAttribute("list",list);
+		model.addAttribute("pi", pi);
+		
 		return "mypage/mypageLayout";
 	}
 	
@@ -168,8 +187,10 @@ public class MypageController {
 	
 	//프로필 이미지 변경
 	@RequestMapping("updateImg.me")
-	public String updateProfileImg(MultipartFile upfile, ProfileImg profileImg, HttpSession session, Model model) {
+	public String updateProfileImg(MultipartFile upfile, HttpSession session, Model model) {
 		String filePath = session.getServletContext().getRealPath("/resources/img/mypage/profile/");
+		
+		ProfileImg profileImg = new ProfileImg();
 		profileImg.setFilePath(filePath);
 		
 		profileImg.setUserNo(((User)session.getAttribute("loginUser")).getUserNo()); //로그인 된 유저의 고유번호 불러오기
@@ -219,19 +240,21 @@ public class MypageController {
 	
 	//회원탈퇴
 	@RequestMapping("delete.me")
-	public String withdrawalUser(User user, HttpSession session) {
+	public String withdrawalUser(HttpSession session) {
+		User user = (User)session.getAttribute("loginUser"); 
 		
-	    int result = mypageService.updateUserInfo(user);
-
+	    int result = mypageService.withdrawalUser(user);
+		
 		if(result > 0) {
-			session.setAttribute("loginUser", userService.loginUser(user));
-			session.setAttribute("alertMsg", "수정되었습니다");
-			return "redirect:/updateForm.me";
+			session.removeAttribute("loginUser");
+			session.setAttribute("alertMsg", "회원탈퇴가 완료되었습니다");
+			return "redirect:/";
 		} else {
-			session.setAttribute("alertMsg", "수정에 실패하였습니다");
+			session.setAttribute("alertMsg", "회원탈퇴 실패하였습니다");
 			return "updateForm.me";
 		}
 	}
+	
 	
 
 }

@@ -25,10 +25,11 @@ public class LoginController {
 		User loginUser = userService.loginUser(u);
 		if(loginUser == null || !bcryptPasswordEncoder.matches(u.getUserPwd(), loginUser.getUserPwd())) {
 			session.setAttribute("alertMsg", "아이디 또는 패스워드가 일치하지 않습니다.");
+			return "user/loginForm";
 		} else {
 			session.setAttribute("loginUser", loginUser);			
+			return "redirect:/";
 		}
-		return "redirect:/";
 	}
 	
 	@GetMapping("logout.me")
