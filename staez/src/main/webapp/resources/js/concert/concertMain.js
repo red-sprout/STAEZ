@@ -13,12 +13,26 @@ function drawConNavi(conList){
   const concertNaviArea = document.querySelector(".concert-ul");
   
   concertNaviArea.innerHTML = ``;
-  for(let c of conList){
-  
-      concertNaviArea.innerHTML += `<li onclick="categoryConcertList(this)"><span><h2 id="`+ c.categoryNo +`">`+ c.categoryName +`</h2></span></li>`
-      
-
+  for(let c of conList){  
+      concertNaviArea.innerHTML += `<li onclick="categoryConNavi(this)"><h2 id="`+ c.categoryNo +`"><button>`+ c.categoryName +`</button></h2></li>`
   }
+
+  const naviButton = document.querySelector(button);
+}
+
+function categoryConNavi(_this){
+  const categoryId = element.querySelector('h2').id;
+  
+  
+
+  for(let i = 0; i < categoryId.length; i++){
+      categoryBtn[i].classList.remove("choice-background");
+      categoryText[i].classList.remove("choice-color-span");
+  }
+  _this.classList.add("choice-background");
+  _this.querySelector("span").classList.add("choice-color-span");
+  categoryName = _this.querySelector("span").innerHTML;
+  drawFaqContent({"categoryName": categoryName}, (cfaq) => (drawCategoryFaq(cfaq)));
 }
 
 
@@ -26,7 +40,7 @@ function drawConNavi(conList){
 function drawConMain(list, sliderContent, gridContent){
 
   for (let c of list) {
-    if(c.categoryNo == 4){
+
     // sliderContent에 HTML 추가
     const sliderContentDiv = document.createElement('div');
     sliderContentDiv.className = 'concert-main-upper-pic-div';
@@ -59,7 +73,7 @@ function drawConMain(list, sliderContent, gridContent){
     gridContentDiv.onclick = function goDetail(){
       location.href = 'detail.co?concertNo=' + c.concertNo;
     }
-  }
+  
   }
 
   
