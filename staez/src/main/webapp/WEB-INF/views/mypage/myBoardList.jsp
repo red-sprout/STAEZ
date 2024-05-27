@@ -19,34 +19,47 @@
                 <th id="views">조회수</th>
                 <th id="likes">좋아요</th>
             </tr>
-            <c:forEach var="i" begin="0" end="9">
-            <tr class="tb-content">
-                <td id="btitle">가나다라마바사아자차카타파하거너더러머버서어저처커터퍼허고노도로모보소오조초코토포호구누두루무부수우주추쿠투푸후</td>
-                <td>24.02.28</td>
-                <td>8000</td>
-                <td>65</td>
+            <c:forEach var="b" items="${list}">
+            <tr class="tb-content" onclick="location.href='detail.bo?bno=${b.boardNo}'">
+                <td id="btitle">${b.boardTitle}</td>
+                <td>
+                    <fmt:parseDate value="${b.boardWriteDate}" var="date" pattern="yyyy-MM-dd HH:mm:ss" />
+                    <fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
+                </td>
+                <td>${b.boardCount}</td>
+                <td>${b.likeCount}</td>
             </tr>
             </c:forEach>
         </tbody>
     </table>
 
     <div class="page-list">
-        <div class="pagination">
-            <img src="${contextPath}/resources/img/main/before.png">
-        </div>
-        <div class="pagination current"><h4>1</h4></div>
-        <div class="pagination"><h4>2</h4></div>
-        <div class="pagination"><h4>3</h4></div>
-        <div class="pagination"><h4>4</h4></div>
-        <div class="pagination"><h4>5</h4></div>
-        <div class="pagination"><h4>6</h4></div>
-        <div class="pagination"><h4>7</h4></div>
-        <div class="pagination"><h4>8</h4></div>
-        <div class="pagination"><h4>9</h4></div>
-        <div class="pagination"><h4>10</h4></div>
-        <div class="pagination">
-            <img src="${contextPath}/resources/img/main/after.png">
-        </div>
+        <c:if test="${pi.listCount != 0}">
+            <c:if test="${pi.currentPage != 1}">
+                <div class="pagination">
+                    <img src="${contextPath}/resources/img/main/before.png" 
+                         onclick=`location.href="${contextPath}/boardList.me?cpage=${pi.currentPage - 1}"`>
+                </div>
+            </c:if>
+            
+            <c:forEach var="i" begin="${pi.startPage}" end="${pi.endPage}">
+                <c:choose>
+                    <c:when test="${cpage eq i}">
+                        <div class="pagination current" onclick="location.href='${contextPath}/boardList.me?cpage=${i}'"><h4>${i}</h4></div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="pagination" onclick="location.href='${contextPath}/boardList.me?cpage=${i}'"><h4>${i}</h4></div>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+            
+            <c:if test="${pi.currentPage ne pi.maxPage}">
+                <div class="pagination">
+                    <img src="${contextPath}/resources/img/main/after.png" 
+                         onclick=`location.href="${contextPath}/boardList.me?cpage=${pi.currentPage + 1}"`>
+                </div>
+            </c:if>
+        </c:if>
     </div>
 
 </div>
