@@ -61,7 +61,8 @@
     margin-right: 10px;
 }
 
-.form-search>button {
+#theater>.form-search button,
+#theater>ul button {
     border: none;
     background: none;
     cursor: pointer;
@@ -69,7 +70,7 @@
     height: 35px;
 }
 
-.form-search>button>img {
+#theater button>img {
     width: 20px;
 }
 
@@ -126,4 +127,26 @@
 
 .note-editor {
     width: 100% !important;
+}
+
+#theater {
+    position: relative;
+}
+
+#theater>ul {
+    position: absolute;
+    left: 95px;
+    top: 39px;
+    width: 40%;
+}
+
+#theater>ul>li {
+    background-color: white;
+    border: 1px solid #969696;
+    border-top: none;
+    cursor: pointer;
+}
+
+#theater>ul>li:hover {
+    background-color: #d9d9d9;
 }

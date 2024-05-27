@@ -107,5 +107,53 @@
 			${impossibleSeatCol}
 		)
 	</insert>
+	
+	<select id="selectTheaterList" resultMap="theaterResult">
+		SELECT
+			theater_no,
+			theater_name,
+			theater_row,
+			theater_col
+		FROM theater
+		WHERE theater_name LIKE '%${keyword}%'
+		LIMIT 5
+	</select>
+	
+	<insert id="insertConcert">
+		INSERT INTO concert
+		( 
+			theater_no,
+			concert_title,
+			concert_plot
+			concert_runtime,
+			concert_members,
+			concert_production,
+			age_limit
+		) VALUES (
+			#{theaterNo},
+			#{concertTitle},
+			#{concertPlot},
+			#{concertRuntime},
+			#{concertMembers},
+			#{concertProduction}
+			#{ageLimit}
+		)
+	</insert>
+	
+	<insert id="insertConcertCategory">
+
+	</insert>
+	
+	<insert id="insertConcertAttachment">
+
+	</insert>
+	
+	<insert id="insertScheduleList">
+
+	</insert>
+	
+	<insert id="insertSeatList">
+
+	</insert>
 </mapper>
 

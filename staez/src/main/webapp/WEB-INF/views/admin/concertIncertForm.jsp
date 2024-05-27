@@ -17,22 +17,30 @@
     </header>
     <main>
         <div id="community-wrapper">
-            <form id="community-contents" align="left" method="post" action="concertIncert.ad">
+            <form id="community-contents" align="left" method="post" action="concertIncert.ad" enctype="multipart/form-data">
                 <h1>공연</h1>
                 <hr>
                 <li>
                     <h3>공연명</h3>
-                    <input type="text" name="concertTitle" id="" class="input">
+                    <input type="text" name="concertTitle" class="input">
                 </li>
                 <li id="concert-category">
                     <h3>장르</h3>
                 </li>
+                <li>
+                    <h3>런타임</h3>
+                    <input type="number" name="concertRuntime" class="short-input" placeholder="단위 : 분">
+                </li>
+                <li>
+                    <h3>연령제한</h3>
+                    <input type="text" name="ageLimit" class="short-input">
+                </li>
                 <li id="period">
                     <h3>공연기간</h3>
                     <div class="range-form">
-                        <input type="text" name="startDate" class="short-input" placeholder="시작일">
+                        <input type="date" name="startDate" class="short-input" placeholder="시작일">
                         <span><h3>~</h3></span>
-                        <input type="text" name="endDate" class="short-input" placeholder="종료일">
+                        <input type="date" name="endDate" class="short-input" placeholder="종료일">
                     </div>
                     <input type="text" name="schedule" class="time-input" placeholder="(예시)12:00-14:00">
                     <button class="btn-staez" type="button" onclick="addConcertSchedule()"><h4>추가</h4></button>
@@ -41,22 +49,26 @@
                 <li id="theater">
                     <h3>공연장소</h3>
                     <div class="form-search">
-                        <button>
+                        <button type="button">
                             <img src="<c:url value='/resources/img/community/communityMain/search-icon.png'/>" alt="">
                         </button>
-                        <input type="text" name="" id="">
+                        <input type="text" name="theaterName" onkeydown="searchResult(this)" onkeyup="searchResult(this)">
+                        <input type="hidden" name="theaterNo">
                     </div>
-                    <button class="btn-staez"><h4>좌석 미리보기</h4></button>
+                    <ul class="search-list">
+                    </ul>
+                    <button class="btn-staez" type="button" onclick="seatSample()"><h4>좌석 미리보기</h4></button>
                 </li>
-                <li>
+                <li class="seat-grade">
                     <h3>좌석등급</h3>
                     <div class="range-form">
                         <input type="number" name="seatStartRow" class="short-input" placeholder="좌석 첫 행">
                         <span><h3>~</h3></span>
                         <input type="number" name="seatEndRow" class="short-input" placeholder="좌석 끝 행">
                     </div>
+                    <input type="date" name="concertDate" class="short-short-input">
                 </li>
-                <li>
+                <li class="seat-grade">
                     <h3></h3>
                     <div class="range-form">
                         <input type="number" name="seatStartCol" class="short-input" placeholder="좌석 첫 열">
@@ -84,10 +96,10 @@
                     <div id="summernote"></div>
                 </li>
                 <li id="community-submit">
-                    <button class="btn-staez purple" type="submit">
+                    <button class="btn-staez purple" type="button">
                         <h3>등록</h3>
                     </button>
-                    <button class="btn-staez purple">
+                    <button class="btn-staez purple" type="button">
                         <h3>목록</h3>
                     </button>
                 </li>
