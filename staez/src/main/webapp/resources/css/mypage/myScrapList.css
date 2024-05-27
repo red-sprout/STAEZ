@@ -1,100 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
 
-button{
-    border: none;
-    background: none;
-}
-
-main>.title{
-    width: 1250px;
-    height: 120px;
-    text-align: left;
-    line-height: 160px;
-    border-bottom: solid 1px black;
-    font-size: 31px;
-    padding-left: 20px;
-
-}
-
-main>.main-section{
-    width: 95%;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-main>.main-section>.side{
-    width: 250px;
-    height: 1000px;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-}
-
-main>.main-section>.side>.profile{
-    width: 95%;
-    height: 260px;
-    border: solid 1px black;
-    border-radius: 10px;
-
-    margin-top: 50px;
-    margin-bottom: 40px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-main>.main-section>.side>.profile>img{
-    width: 150px;
-    height: 150px;
-
-    margin-bottom: 20px;
-}
-
-main>.main-section>.side>.side-menu{
-    width: 100%;
-}
-
-main>.main-section>.side>.side-menu>.small-title{
-    font-size: 23px;
-    font-weight: 800;
-    text-align: left;
-
-    border-bottom: solid 2px black;
-    padding: 0 0 10px 10px;
-    margin-bottom: 20px;
-}
-
-main>.main-section>.side>.side-menu>ul{
-    margin: 10px 0;
-}
-
-main>.main-section>.side>.side-menu>ul *{
-    font-size: 20px;
-    text-align: left;
-    line-height: 40px;
-}
-
-main>.main-section>.side>.side-menu>ul>li{
-    width: 250px;
-    height: 40px;
-    padding-left: 15px;
-}
-
-.main-section>.side>.side-menu>ul>li>a:hover{
-    text-decoration: underline;
-}
-
-main>.main-section>.side>.side-menu>ul>.side-menu-title{
-    font-weight: 600;
-}
-
 /*메인 콘텐츠*/
-main>.main-section>.main-content{
+.main-content{
     width: 950px;
     height: 1300px;
 
@@ -107,21 +14,21 @@ main>.main-section>.main-content{
 }
 
 /*콘텐츠 제목*/
-main>.main-section>.main-content>.main-title{   
+.main-content>.main-title{   
     width: 820px;
     height: 80px;
 
     margin-top: 40px;
 }
 
-main>.main-section>.main-content>.main-title>h2{
+.main-content>.main-title>h2{
     text-align: left;
     line-height: 80px;
     padding-left: 20px;   
 }
 
 /*찜목록 리스트 테이블*/
-main>.main-section>.main-content>table{
+.main-content>table{
     border-collapse: collapse;
     width: 820px;
     height: auto;
@@ -132,42 +39,42 @@ main>.main-section>.main-content>table{
 
 }
 
-main>.main-section>.main-content>table tr{
+.main-content>table tr{
     height: 140px;
     border-bottom: solid 1px black;
 }
 
 
-main>.main-section>.main-content>table .tb-title{
+.main-content>table .tb-title{
     border-top: solid 2px black;
     height: 50px;
 }
 
 
 /*공연 포스터 이미지*/
-main>.main-section>.main-content>table #concert-img{
+.main-content>table #concert-img{
     width: 140px;
 }
 
-main>.main-section>.main-content>table img{
+.main-content>table img{
     width: 90px;
     height: 120px;
 }
 
-main>.main-section>.main-content>table #content{
+.main-content>table #content{
     width: 520px;
     padding: 0 10px;
 }
 
-main>.main-section>.main-content>table #content>*{
+.main-content>table #content>*{
     text-align: left;
 }
 
-main>.main-section>.main-content>table #content>h5{
+.main-content>table #content>h5{
     margin: 10px 0;
 }
 
-main>.main-section>.main-content>table #age-limit{
+.main-content>table #age-limit{
     width: 160px;
     height: 140px;
 
@@ -179,7 +86,7 @@ main>.main-section>.main-content>table #age-limit{
     justify-content: space-between;   
 }
 
-main>.main-section>.main-content>table #age-limit>button{
+.main-content>table #age-limit>button{
     width: 25px;
     height: 25px;
 

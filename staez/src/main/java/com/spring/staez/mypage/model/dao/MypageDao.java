@@ -3,6 +3,7 @@ package com.spring.staez.mypage.model.dao;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.spring.staez.user.model.vo.ProfileImg;
 import com.spring.staez.user.model.vo.User;
 
 @Repository
@@ -36,7 +37,21 @@ public class MypageDao {
 	public int updateUserInfo(SqlSessionTemplate sqlSession, User user) {
 		int result = sqlSession.update("mypageMapper.updateUserInfo", user);
 		return result;
-		
 	}
+
+	public int insertProfileImg(SqlSessionTemplate sqlSession, ProfileImg profileImg) {
+		int result = sqlSession.insert("mypageMapper.insertProfileImg", profileImg);
+		return result;
+	}
+
+	public int updateProfileImg(SqlSessionTemplate sqlSession, ProfileImg profileImg) {
+		int result = sqlSession.update("mypageMapper.updateProfileImg", profileImg);
+		return result;
+	}
+	
+
+	
+	
+	
 	
 }
