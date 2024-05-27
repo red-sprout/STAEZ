@@ -1,6 +1,8 @@
 package com.spring.staez.others.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.common.model.vo.PageInfo;
+import com.spring.staez.common.template.Pagination;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.others.service.OthersService;
 
@@ -89,10 +93,26 @@ public class OthersController {
 	
 	@ResponseBody
 	@GetMapping(value = "ajaxSelectDateCategoryConcert.ot" , produces="application/json; charset-UTF-8")
-	public String ajaxSelectDateCategoryConcert(String categoryNo, String concertDate) {
+	public String ajaxSelectDateCategoryConcert(String categoryNo, String concertDate, String cPage) {
 		
 		ArrayList<Concert> dcList = oService.selectDateCategoryConcert(categoryNo, concertDate);
-
-		return  new Gson().toJson(dcList);
+		int currentPage = Integer.parseInt(cPage);
+		int listCount = dcList.size();
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 6);
+		ArrayList<Concert> pdcList = oService.selectPageConcert(categoryNo, concertDate, pi);
+		
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put("concertList", pdcList);
+		resMap.put("pi", pi);
+		
+		return  new Gson().toJson(resMap);
 	}
+	
+	
+	
+	
+	
+	
+	
 }
