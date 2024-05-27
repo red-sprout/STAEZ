@@ -2,8 +2,8 @@ package com.spring.staez.concert.service;
 
 import java.util.ArrayList;
 
+import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.concert.model.vo.Concert;
-import com.spring.staez.concert.model.vo.ConcertAttachment;
 
 public interface ConcertService {
 
@@ -14,15 +14,13 @@ public interface ConcertService {
 //	//콘서트 내용 페이지네이션해서 가져와라
 //	ArrayList<Concert> concertList();
 
-	ArrayList<Concert> selectconSliderList();
+	ArrayList<Concert> selectconList();
 
-	ArrayList<ConcertAttachment> selectconPicList();
+	Concert selectCon(int concertNo);
 
-//	ArrayList<ConcertAttachment> concertAtList();
+	ArrayList<Category> selectCateCon();
 	
-//	// concertNo로 콘서트 가져오기
-//	Concert selectCon(int concertNo);
-//	
+	
 
 
 

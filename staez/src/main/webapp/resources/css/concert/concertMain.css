@@ -65,7 +65,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100%;
+        width: 85%;
         /* margin: 0 auto; */
     }
 
@@ -110,8 +110,6 @@
         overflow: hidden;
         border-radius: 5px;
     }
-
-    
     .concert-main-upper-sen-div{
         position: absolute;
         color: white;
@@ -209,6 +207,7 @@
     }
     .concert-main-grid img{
         width: 200px;
+        height: 280px;
         border-radius: 5px;
     }
     

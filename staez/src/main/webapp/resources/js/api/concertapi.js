@@ -1,7 +1,19 @@
-function conMainSlider(callback){
+function conNaviDraw(callback){
     $.ajax({
-        url: contextPath + "mainSlider.co",
+        url: contextPath + "connavi.co",
+        success : function(conList) {
+            callback(conList);
+        }, error() {
+            console.log("실패");
+        }
+    });
+}
+
+function conMainDraw(callback){
+    $.ajax({
+        url: contextPath + "maincon.co",
         success : function(list) {
+            console.log(list);
             callback(list);
         }, error() {
             console.log("실패");
@@ -9,15 +21,4 @@ function conMainSlider(callback){
     });
 }
 
-
-// function conMainSliderPic(callback){
-//     $.ajax({
-//         url: contextPath + "mainSliderPic.co",
-//         success : function(res) {
-//             callback(res);
-//         }, error() {
-//             console.log("슬라이더 사진 실패");
-//         }
-//     });
-// }
 

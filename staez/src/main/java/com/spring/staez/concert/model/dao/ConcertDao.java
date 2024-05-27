@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.ConcertAttachment;
 
@@ -21,11 +25,14 @@ public class ConcertDao {
 //		return (ArrayList)sqlSession.selectList("concertMapper.concertList");
 //	}
 
-	public ArrayList<Concert> selectconSliderList(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("concertMapper.selectconSliderList");
+	public ArrayList<Concert> selectconList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("concertMapper.selectconList");
 	}
-	public ArrayList<ConcertAttachment> selectconPicList(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("concertMapper.selectconPicList");
+	public Concert selectCon(SqlSessionTemplate sqlSession, int concertNo) {
+		return sqlSession.selectOne("concertMapper.selectCon", concertNo);
+	}
+	public ArrayList<Category> selectCateCon(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("concertMapper.selectCateCon");
 	}
 	
 	// concertNo로 콘서트 가져오기
