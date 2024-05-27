@@ -84,7 +84,8 @@ function consertInsert(data, callback) {
         data: data,
         success: function(res) {
             callback(res);
-        }, error() {
+        }, 
+        error: function () {
             console.log("삽입 실패");
         }
     })
