@@ -44,11 +44,11 @@
             
             <c:forEach var="i" begin="${pi.startPage}" end="${pi.endPage}">
                 <c:choose>
-                    <c:when test="${capge eq i}">
-                        <div class="pagination current" onclick=`location.href='${contextPath}/boardList.me?cpage=${i}'`><h4>${i}</h4></div>
+                    <c:when test="${cpage eq i}">
+                        <div class="pagination current" onclick="location.href='${contextPath}/boardList.me?cpage=${i}'"><h4>${i}</h4></div>
                     </c:when>
                     <c:otherwise>
-                        <div class="pagination" onclick=`location.href='${contextPath}/boardList.me?cpage=${i}'`><h4>${i}</h4></div>
+                        <div class="pagination" onclick="location.href='${contextPath}/boardList.me?cpage=${i}'"><h4>${i}</h4></div>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>

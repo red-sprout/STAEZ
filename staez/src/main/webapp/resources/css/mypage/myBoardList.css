@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
 
 /*메인 콘텐츠*/
+.pagination{
+    cursor: pointer;
+}
+
 .main-content{
     width: 950px;
     height: 1300px;

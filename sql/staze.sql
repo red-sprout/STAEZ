@@ -202,7 +202,7 @@ CREATE TABLE public.board_attachment
     change_name character varying(255) NOT NULL UNIQUE,
     file_path character varying(1000) NOT NULL,
     upload_date timestamp with time zone NOT NULL,
-    file_level integer NOT NULL CHECK(file_level IN (1, 2)) DEFAULT 2, /*썸네일사진(1), 그외(2)*/
+    file_level integer NOT NULL CHECK(file_level IN (1, 2)) DEFAULT 1, /*썸네일사진(1), 그외(2)*/
     status character varying(1) NOT NULL CHECK(status IN ('Y', 'N')) DEFAULT 'Y'
 	/*첨부파일 있음(Y), 없음(N)*/
 );
@@ -250,7 +250,8 @@ CREATE TABLE public.board_like
     user_no integer NOT NULL,
     board_no integer NOT NULL,
     status character varying(1) NOT NULL CHECK(status IN('Y', 'N')) DEFAULT 'Y', /*눌러진상태(Y), 취소(N)*/
-    like_date timestamp with time zone NOT NULL DEFAULT now()
+    like_date timestamp with time zone NOT NULL DEFAULT now(),
+    UNIQUE(user_no, board_no)
 );
 
 ALTER TABLE IF EXISTS public.board_like
@@ -329,8 +330,8 @@ CREATE TABLE public.reply_like
     reply_no integer,
     user_no integer NOT NULL,
     like_date timestamp with time zone NOT NULL DEFAULT now(),
-    status character varying(1) NOT NULL CHECK(status IN('Y', 'N')) DEFAULT 'Y'
-	/*눌러진상태(Y), 취소(N)*/
+    status character varying(1) NOT NULL CHECK(status IN('Y', 'N')) DEFAULT 'Y', /*눌러진상태(Y), 취소(N)*/
+    UNIQUE(reply_no, user_no)
 );
 
 ALTER TABLE IF EXISTS public.reply_like
@@ -515,7 +516,7 @@ CREATE TABLE public.concert_attachment
     change_name character varying(255) NOT NULL UNIQUE,
     file_path character varying(1000) NOT NULL,
     upload_date timestamp with time zone NOT NULL DEFAULT now(),
-    file_level integer NOT NULL CHECK(file_level IN (1, 2)) DEFAULT 2, /*썸네일사진(1), 그외(2)*/
+    file_level integer NOT NULL CHECK(file_level IN (1, 2)) DEFAULT 1, /*썸네일사진(1), 그외(2)*/
     status character varying(1) NOT NULL CHECK(status IN ('Y', 'N')) DEFAULT 'Y' 
 	/*첨부파일 있음(Y), 없음(N)*/    
 );

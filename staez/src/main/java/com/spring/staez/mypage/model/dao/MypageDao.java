@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.community.model.vo.BoardLike;
 import com.spring.staez.user.model.vo.ProfileImg;
 import com.spring.staez.user.model.vo.User;
 
@@ -66,6 +67,16 @@ public class MypageDao {
 		ArrayList<Board> list = (ArrayList)sqlSession.selectList("mypageMapper.selectMyBoardList", userNo);
 		return list;
 		
+	}
+
+	public int selectLikeBoardListCount(SqlSessionTemplate sqlSession, int userNo) {
+		int count = sqlSession.selectOne("mypageMapper.selectLikeBoardListCount", userNo);
+		return count;
+	}
+	
+	public ArrayList<Board> selectLikeBoardList(SqlSessionTemplate sqlSession, int userNo) {
+		ArrayList<Board> list = (ArrayList)sqlSession.selectList("mypageMapper.selectLikeBoardList", userNo);
+		return list;
 	}
 	
 	

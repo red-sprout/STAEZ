@@ -3,6 +3,7 @@ package com.spring.staez.mypage.service;
 import java.util.ArrayList;
 
 import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.community.model.vo.BoardLike;
 import com.spring.staez.user.model.vo.ProfileImg;
 import com.spring.staez.user.model.vo.User;
 
@@ -23,4 +24,7 @@ public interface MypageService {
 	
 	public int selectMyBoardListCount(int userNo); //나의 작성 게시글 개수
 	public ArrayList<Board> selectMyBoardList(int userNo); //나의 작성 게시글 리스트
+
+	public int selectLikeBoardListCount(int userNo); //나의 좋아요 누른 게시글 개수
+	public ArrayList<Board> selectLikeBoardList(int userNo); //나의 좋아요 누른 게시글 리스트
 }

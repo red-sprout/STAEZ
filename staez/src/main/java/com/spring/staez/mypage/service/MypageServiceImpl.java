@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.community.model.vo.BoardLike;
 import com.spring.staez.mypage.model.dao.MypageDao;
 import com.spring.staez.user.model.vo.ProfileImg;
 import com.spring.staez.user.model.vo.User;
@@ -69,6 +70,16 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public ArrayList<Board> selectMyBoardList(int userNo) {
 		return mpd.selectMyBoardList(sqlSession, userNo);
+	}
+
+	@Override
+	public int selectLikeBoardListCount(int userNo) {
+		return mpd.selectLikeBoardListCount(sqlSession, userNo);
+	}
+
+	@Override
+	public ArrayList<Board> selectLikeBoardList(int userNo) {
+		return mpd.selectLikeBoardList(sqlSession, userNo);
 	}
 
 	

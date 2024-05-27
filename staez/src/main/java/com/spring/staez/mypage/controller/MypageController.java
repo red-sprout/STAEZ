@@ -16,6 +16,7 @@ import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.common.template.MyFileRenamePolicy;
 import com.spring.staez.common.template.Pagination;
 import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.community.model.vo.BoardLike;
 import com.spring.staez.mypage.service.MypageService;
 import com.spring.staez.user.model.vo.ProfileImg;
 import com.spring.staez.user.model.vo.User;
@@ -92,11 +93,9 @@ public class MypageController {
 		int userNo = loginUser.getUserNo();
 		int currentPage = cpage;
 		int listCount = mypageService.selectMyBoardListCount(userNo);
-		
+		System.out.println(listCount);
 		ArrayList<Board> list = mypageService.selectMyBoardList(userNo);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
-		
-		System.out.println(list.get(0).getLikeCount());
 		
 		model.addAttribute("contentPage", "myBoardList");
 		model.addAttribute("list",list);
@@ -105,14 +104,26 @@ public class MypageController {
 		return "mypage/mypageLayout";
 	}
 	
-	//나의 찜목록 게시글 리스트 페이지 출력
+	//나의 좋아요 게시글 리스트 페이지 출력
 	@RequestMapping("likeList.me")
-	public String likeBoardList(HttpSession session, Model model) {
-		if(session.getAttribute("loginUser") == null) { //로그인 되어있지 않을 경우
+	public String likeBoardList(int cpage, HttpSession session, Model model) {
+		User loginUser = userService.loginUser((User)session.getAttribute("loginUser"));
+		if(loginUser == null) { //로그인 되어있지 않을 경우
 	        session.setAttribute("alertMsg", "로그인이 필요합니다.");
 	        return "redirect:/loginForm.me";
 		}
+		
+		int userNo = loginUser.getUserNo();
+		int currentPage = cpage;
+		int listCount = mypageService.selectLikeBoardListCount(userNo);
+		
+		ArrayList<Board> list = mypageService.selectLikeBoardList(userNo);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		
 		model.addAttribute("contentPage", "likeBoardList");
+		model.addAttribute("list",list);
+		model.addAttribute("pi", pi);
+		
 		return "mypage/mypageLayout";
 	}
 	
