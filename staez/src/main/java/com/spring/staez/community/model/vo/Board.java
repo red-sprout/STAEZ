@@ -2,6 +2,8 @@ package com.spring.staez.community.model.vo;
 
 import java.sql.Timestamp;
 
+import com.spring.staez.user.model.vo.User;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,5 +32,7 @@ public class Board {
 	private int categoryLevel; //카테고리레벨
 	private int concertNo; //공연번호
 	private int likeCount; //좋아요 개수
+	private User user;
+	private BoardAttachment boardAttachment;
 }
 
