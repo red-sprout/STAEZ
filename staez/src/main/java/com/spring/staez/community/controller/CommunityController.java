@@ -32,7 +32,6 @@ public class CommunityController {
 	public String communityMainList(CategoryDto categoryDto, Model model) {
 		ArrayList<Board> list = communityService.selectBoard(categoryDto);
 		model.addAttribute("boardList", list);
-		System.out.println(list.get(0));
 		return "community/communityMain";
 	}
 	
