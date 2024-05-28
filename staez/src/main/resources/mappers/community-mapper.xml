@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace: 해당 mapper파일의 고유한 별칭 -->
+<mapper namespace="communityMapper">
+	<resultMap type="Board" id="boardResult">
+		<result column="board_no" property="userNo" />
+		<result column="refBoardNo" property="userId" />
+		<result column="user_pwd" property="userPwd" />
+		<result column="nickname" property="nickname" />
+		<result column="gender" property="gender" />
+		<result column="birth" property="birth" />
+		<result column="address" property="address" />
+		<result column="email" property="email" />
+		<result column="phone" property="phone" />
+		<result column="genre_like" property="genreLike" />
+		<result column="grade" property="grade" />
+		<result column="enroll_date" property="enrollDate" />
+		<result column="withdrawal_date" property="withdrawalDate" />
+		<result column="user_status" property="userStatus" />
+	</resultMap>
+	<resultMap type="Category" id="categoryResult">
+		<result column="category_no" property="categoryNo"/>
+		<result column="ref_category_no" property="refCategoryNo"/>
+		<result column="category_name" property="categoryName"/>
+		<result column="category_level" property="categoryLevel"/>
+	</resultMap>
+		<resultMap type="Concert" id="concertResult">
+		<result column="concert_no" property="concertNo"/>
+		<result column="theater_no" property="theaterNo"/>
+		<result column="concert_title" property="concertTitle"/>
+		<result column="concert_plot" property="concertPlot"/>
+		<result column="concert_runtime" property="concertRuntime"/>
+		<result column="concert_members" property="concertMembers"/>
+		<result column="concert_production" property="concertProduction"/>
+		<result column="age_limit" property="ageLimit"/>
+		<result column="update_date" property="updateDate"/>
+		<result column="concert_status" property="concertStatus"/>
+		<result column="theater_name" property="theaterName"/>
+		<result column="start_date" property="startDate"/>
+		<result column="end_date" property="endDate"/>
+		<result column="file_path" property="filePath" />
+		<result column="change_name" property="changeName" />
+	</resultMap>
+	<select id="selectCategory" resultMap="categoryResult">
+		SELECT 
+			category_no,
+			category_name
+		FROM category
+		WHERE
+			ref_category_no = #{refCategoryNo}
+			AND category_level = #{categoryLevel}
+	</select>
+	<select id="selectConcertList" resultMap="concertResult">
+		SELECT
+			c.concert_no,
+			c.concert_title,
+			ca.file_path,
+			ca.change_name
+		FROM concert c
+		JOIN concert_attachment ca ON (c.concert_no = ca.concert_no)
+		WHERE concert_title LIKE '%${keyword}%'
+		LIMIT 5
+	</select>
+	<insert id="insertBoard">
+		INSERT INTO board 
+		(
+			user_no,
+			board_title,
+			board_content
+		) VALUES (
+			#{userNo},
+			#{boardTitle},
+			#{boardContent}
+		)
+	</insert>
+	<insert id="insertCategory">
+		INSERT INTO board_category
+		(
+			board_no,
+			category_no
+		) values (
+			CURRVAL('board_board_no_seq'::regclass),
+			#{categoryNo}
+		)
+	</insert>
+	<insert id="insertTag">
+		INSERT INTO tag
+		(
+			board_no,
+			concert_no
+		) values (
+			CURRVAL('board_board_no_seq'::regclass),
+			#{concertNo}
+		)
+	</insert>
+</mapper>
+

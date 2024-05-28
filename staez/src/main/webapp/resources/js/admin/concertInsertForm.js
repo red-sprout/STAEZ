@@ -18,7 +18,9 @@ $(function() {
         formData.append("concert", concertForm());
         formData.append("upfile", inputFile[0].files[0]);
 
-        consertInsert(formData, res => console.log(res));
+        consertInsert(formData, res => {
+            location.href = contextPath + res;
+        });
     })
 });
 
@@ -218,9 +220,9 @@ function gradeForm() {
 
         seat.seatStartRow = grade[i].value;
         seat.seatEndRow = grade[i + 1].value;
-        seat.seatStartCol = grade[i + 2].value;
-        seat.seatEndCol = grade[i + 3].value;
-        seat.concertDate = grade[i + 4].value;
+        seat.concertDate = grade[i + 2].value;
+        seat.seatStartCol = grade[i + 3].value;
+        seat.seatEndCol = grade[i + 4].value;
         seat.grade = grade[i + 5].value;
         seat.price = grade[i + 6].value;
 
@@ -233,10 +235,10 @@ function gradeForm() {
 function concertForm() {
     const concert = {};
 
-    const category = document.querySelectorAll("#concert-category input[tpye='radio']");
+    const category = document.querySelectorAll("#concert-category input[type='radio']");
     concert.categoryNo = 0;
     for(let ele of category) {
-        if(ele.getAttribute("checked") === true) {
+        if(ele.checked === true) {
             concert.categoryNo = ele.value;
             break;
         }
@@ -249,7 +251,6 @@ function concertForm() {
     concert.concertMembers = $("input[name='concertMembers']").val();
     concert.concertProduction = $("input[name='concertProduction']").val();
     concert.concertPlot = $(".note-editing-area>.note-editable").html();
-    console.log(concert.concertPlot);
 
     return JSON.stringify(concert);
 }
