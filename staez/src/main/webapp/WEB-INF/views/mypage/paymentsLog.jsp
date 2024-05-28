@@ -15,6 +15,8 @@
                 <th colspan="2" id="concert-info">공연정보</th>
                 <th id="reserve-info">예약정보</th>
             </tr>
+
+
             <c:forEach var="i" begin="0" end="4">
             <tr class="tb-content">
                 <td>
@@ -27,7 +29,7 @@
                 </td>
                 <td>
                     <h5>
-                        예약번호: 22222222 <br>
+                        예약번호: 123124 <br>
                         2024.04.01 <br>
                         2매 200,000￦
                     </h5>
@@ -38,22 +40,32 @@
     </table>
 
     <div class="page-list">
-        <div class="pagination">
-            <img src="${contextPath}/resources/img/main/before.png">
-        </div>
-        <div class="pagination current"><h4>1</h4></div>
-        <div class="pagination"><h4>2</h4></div>
-        <div class="pagination"><h4>3</h4></div>
-        <div class="pagination"><h4>4</h4></div>
-        <div class="pagination"><h4>5</h4></div>
-        <div class="pagination"><h4>6</h4></div>
-        <div class="pagination"><h4>7</h4></div>
-        <div class="pagination"><h4>8</h4></div>
-        <div class="pagination"><h4>9</h4></div>
-        <div class="pagination"><h4>10</h4></div>
-        <div class="pagination">
-            <img src="${contextPath}/resources/img/main/after.png">
-        </div>
+        <c:if test="${pi.listCount != 0}">
+            <c:if test="${pi.currentPage != 1}">
+                <div class="pagination">
+                    <img src="${contextPath}/resources/img/main/before.png" 
+                         onclick=`location.href="${contextPath}/paymentList.me?cpage=${pi.currentPage - 1}"`>
+                </div>
+            </c:if>
+            
+            <c:forEach var="i" begin="${pi.startPage}" end="${pi.endPage}">
+                <c:choose>
+                    <c:when test="${capge eq i}">
+                        <div class="pagination current" onclick="location.href='${contextPath}/paymentList.me?cpage=${i}'"><h4>${i}</h4></div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="pagination" onclick="location.href='${contextPath}/paymentList.me?cpage=${i}'"><h4>${i}</h4></div>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+            
+            <c:if test="${pi.currentPage ne pi.maxPage}">
+                <div class="pagination">
+                    <img src="${contextPath}/resources/img/main/after.png" 
+                         onclick=`location.href="${contextPath}/paymentList.me?cpage=${pi.currentPage + 1}"`>
+                </div>
+            </c:if>
+        </c:if>
     </div>
 
 </div>

@@ -15,43 +15,54 @@
             <tr class="tb-title">
                 <th colspan="3">공연정보</th>
             </tr>
-            <c:forEach var="i" begin="0" end="4">
+
+            <c:forEach var="c" items="${clist}">
             <tr class="tb-content">
                 <td id="concert-img">
-                    <img src="${contextPath}/resources/img/mypage/chicago.gif" alt="">
+                    <img src="${contextPath}${c.filePath}${c.changeName}" alt="">
                 </td>
                 <td id="content">
-                    <h3>꽃 별이지나</h3>
-                    <h5>서경대학교 공연예술센터 스콘 1관</h5>
-                    <h4>캐스팅 : 김지현, 정연, 조혜원 등</h4>
-                    <h4>상영기간 : 2024.04.01 ~ 2024.07.15</h4>
+                    <h3>${c.concertTitle}</h3>
+                    <h5>${c.theaterName}</h5>
+                    <h4>캐스팅 : ${c.concertMembers}</h4>
+                    <h4>상영기간 : ${c.startDate} ~ ${c.endDate}</h4>
                 </td>
                 <td id="age-limit">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4>12세 이상 관람가</h4>
+                    <h4>${c.ageLimit}</h4>
                 </td>
             </tr>
             </c:forEach>
-        </tbody>
+    </tbody>
     </table>
 
     <div class="page-list">
-        <div class="pagination">
-            <img src="${contextPath}/resources/img/main/before.png">
-        </div>
-        <div class="pagination current"><h4>1</h4></div>
-        <div class="pagination"><h4>2</h4></div>
-        <div class="pagination"><h4>3</h4></div>
-        <div class="pagination"><h4>4</h4></div>
-        <div class="pagination"><h4>5</h4></div>
-        <div class="pagination"><h4>6</h4></div>
-        <div class="pagination"><h4>7</h4></div>
-        <div class="pagination"><h4>8</h4></div>
-        <div class="pagination"><h4>9</h4></div>
-        <div class="pagination"><h4>10</h4></div>
-        <div class="pagination">
-            <img src="${contextPath}/resources/img/main/after.png">
-        </div>
+        <c:if test="${pi.listCount != 0}">
+            <c:if test="${pi.currentPage != 1}">
+                <div class="pagination">
+                    <img src="${contextPath}/resources/img/main/before.png" 
+                         onclick=`location.href="${contextPath}/scrapList.me?cpage=${pi.currentPage - 1}"`>
+                </div>
+            </c:if>
+            
+            <c:forEach var="i" begin="${pi.startPage}" end="${pi.endPage}">
+                <c:choose>
+                    <c:when test="${capge eq i}">
+                        <div class="pagination current" onclick="location.href='${contextPath}/scrapList.me?cpage=${i}'"><h4>${i}</h4></div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="pagination" onclick="location.href='${contextPath}/scrapList.me?cpage=${i}'"><h4>${i}</h4></div>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+            
+            <c:if test="${pi.currentPage ne pi.maxPage}">
+                <div class="pagination">
+                    <img src="${contextPath}/resources/img/main/after.png" 
+                         onclick=`location.href="${contextPath}/scrapList.me?cpage=${pi.currentPage + 1}"`>
+                </div>
+            </c:if>
+        </c:if>
     </div>
 
 </div>

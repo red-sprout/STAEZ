@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.staez.community.model.vo.Board;
-import com.spring.staez.community.model.vo.BoardLike;
+import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.mypage.model.dao.MypageDao;
 import com.spring.staez.user.model.vo.ProfileImg;
 import com.spring.staez.user.model.vo.User;
@@ -80,6 +81,36 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public ArrayList<Board> selectLikeBoardList(int userNo) {
 		return mpd.selectLikeBoardList(sqlSession, userNo);
+	}
+
+	@Override
+	public int selectPaymentsCount(int userNo) {
+		return mpd.selectPaymentsCount(sqlSession, userNo);
+	}
+
+	@Override
+	public ArrayList<Concert> selectPaymentsList(int userNo) {
+		return mpd.selectPaymentsList(sqlSession, userNo);
+	}
+
+	@Override
+	public int selectScrapCount(int userNo) {
+		return mpd.selectScrapCount(sqlSession, userNo);
+	}
+
+	@Override
+	public ArrayList<Concert> selectScrapList(int userNo) {
+		return mpd.selectScrapList(sqlSession, userNo);
+	}
+
+	@Override
+	public int selectReviewCount(int userNo) {
+		return mpd.selectReviewCount(sqlSession, userNo);
+	}
+
+	@Override
+	public ArrayList<Concert> selectReviewList(int userNo) {
+		return mpd.selectReviewList(sqlSession, userNo);
 	}
 
 	
