@@ -124,10 +124,10 @@ public class OthersController {
 	
 	@ResponseBody
 	@GetMapping(value = "ajaxChoiceReserveConcertList.ot" , produces="application/json; charset-UTF-8")
-	public String ajaxChoiceReserveConcertList(String userNo, String date) {
-		int uNo = Integer.parseInt(userNo);
+	public String ajaxChoiceReserveConcertList(String userNo, String todate) {
+		
 
-		ArrayList<Concert> crList = oService.selectChoiceReserveConcertList(uNo, date);
+		ArrayList<Concert> crList = oService.selectChoiceReserveConcertList(userNo, todate);
 		
 		
 		return  new Gson().toJson(crList);

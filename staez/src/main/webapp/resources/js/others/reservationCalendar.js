@@ -18,79 +18,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
     function spanDayChange(d){
-        
+        console.log(d)
         clickedDate.innerHTML = ``; 
-        clickedDate.innerHTML = `${year}-${months[month]}-${String(d).padStart(2, '0')}일`;
+        clickedDate.innerHTML = `${year}-${months[month]}-${String(d).padStart(2, '0')}`;
     }
 
     
     spanDayChange(date.getDate());
     
-    // function renderCalendar(reserveDate) {
-        
-    //     function getConcertDates(reserveDates) {
-    //         return reserveDates.map(reservation => reservation.concertDate);
-    //     }
-        
-    //     const concertDates = getConcertDates(reserveDate)
-
-    //     function parseKoreanDate(concertDates) {
-    //         const [monthDay, year] = concertDates.split(", ");
-    //         const [month, day] = monthDay.split("월 ");
-    //         return [parseInt(year), parseInt(month), parseInt(day)];
-    //     }
-
-    //     const parseDates = concertDates.map(parseKoreanDate);
-        
-    //     console.log(parseDates)
-    //     const startDay = new Date(year, month, 1).getDay(); // 월의 시작 요일
-        
-    //     const endDate = new Date(year, month + 1, 0).getDate(); // 월의 마지막 날짜
-        
-    //     // const endDay = new Date(year, month, endDate).getDay(); // 월의 마지막 요일
-        
-    //     const endDatePrev = new Date(year, month, 0).getDate(); // 이전 달의 마지막 날짜
-        
-    //     let datesHtml = '';
-        
-    //     // 이전 달의 날짜들
-    //     for (let i = startDay; i > 0; i--) {
-    //         datesHtml += `<li class="inactive">${endDatePrev - i + 1}</li>`;
-    //     }
-        
-    //     recalendar();
-    //     // 현재 달의 날짜들
-    //     function recalendar(){
-    //         for (let i = 1; i <= endDate; i++) {
-    //             let className;
-    //             if(i === 12 || i === 22 || i === 23 || i === 25 || i === 20){
-    //                 if( i === date.getDate() &&
-    //                 month === new Date().getMonth() &&
-    //                 year === new Date().getFullYear()){
-    //                     className ='class="today clickDate clicked "';
-    //                     datesHtml += `<li ${className} onclick="clickDate(this)">${i}</li>`;
-    //                 }
-    //                 className = 'class="reservation"';
-    //                 datesHtml += `<li ${className} onclick="clickDate(this)">${i}</li>`;
-    //             } else {
-    //                 className =
-    //                 '';
-    //                 datesHtml += `<li ${className} onclick="clickDate(this)">${i}</li>`;
-    //             }
-    //         }
-    //     }
-        
-    //     // 다음 달의 날짜들
-    //     const totalDays = startDay + endDate;
-    //     const nextDays = (totalDays % 7 === 0) ? 0 : 7 - (totalDays % 7);
-    //     for (let i = 1; i <= nextDays; i++) {
-    //         datesHtml += `<li class="inactive">${i}</li>`;
-    //     }
-        
-    //     dates.innerHTML = datesHtml;
-    //     tophtml.textContent = `${year}년 ${months[month]}`;
-    // }reserveConcertList
-
+    
     function renderCalendar(reserveDate) {
         
         function getConcertDates(reserveDates) {
@@ -98,8 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         const concertDates = getConcertDates(reserveDate);
-        console.log(concertDates);
-    
+        
         function parseKoreanDate(concertDates) {
             const [monthDay, year] = concertDates.split(", ");
             const [month, day] = monthDay.split("월 ");
@@ -107,13 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         const parseDates = concertDates.map(parseKoreanDate);
+        console.log("parseDates : " + parseDates)
 
-        console.log(parseDates);
         const startDay = new Date(year, month, 1).getDay(); // 월의 시작 요일
         
         const endDate = new Date(year, month + 1, 0).getDate(); // 월의 마지막 날짜
-        
-        // const endDay = new Date(year, month, endDate).getDay(); // 월의 마지막 요일
         
         const endDatePrev = new Date(year, month, 0).getDate(); // 이전 달의 마지막 날짜
         
@@ -124,24 +57,24 @@ document.addEventListener('DOMContentLoaded', () => {
             datesHtml += `<li class="inactive">${endDatePrev - i + 1}</li>`;
         }
         const daysInMonthString = parseDates.map(date => date[2]).join(", ");
-
+        
         // 현재 달의 날짜들
         for (let i = 1; i <= endDate; i++) {
-            let className = '';
-            const currentDate = new Date(year, month, i);
-            
-        
+            let className = 'class="inactive"';
+            let clickEv = '';
             const isReservedDate = parseDates.some(date => {
                 return date[0] === year && date[1] === month + 1 && date[2] === i;
             });
             
             if (isReservedDate) {
                 className = 'class="reservation"';
-            } else if (i === date.getDate() && month === new Date().getMonth() && year === new Date().getFullYear()) {
-                className = 'class="today clickDate clicked "';
-            }
+                clickEv = `onclick="clickDate(this, '${daysInMonthString}')"`
+            } 
+            // if (i === date.getDate() && month === new Date().getMonth() && year === new Date().getFullYear()) {
+            //     className = 'class="today clickDate clicked "';
+            // }
             
-            datesHtml += `<li ${className} onclick="clickDate(this, '${daysInMonthString}')">${i}</li>`;
+            datesHtml += `<li ${className} " ${clickEv}>${i}</li>`;
         }
         
         // 다음 달의 날짜들
@@ -152,7 +85,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         dates.innerHTML = datesHtml;
-        tophtml.textContent = `${year}년 ${months[month]}`;
+        tophtml.textContent = `${year}년 ${months[month]}월`;
+
+        const todate = document.querySelector(".reservation-day-span").innerHTML;
+        console.log(todate)
+        console.log(userNo)
+        reserveChoiceConcertList({
+            userNo,
+            todate
+        },(rConcertList) => drawDateCategoryConcert(rConcertList))
     }
     
     navs.forEach(nav => {
@@ -171,10 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             
             date = new Date(year, month, new Date().getDate());
-            
-          
+
             const userNo = userInfo.value;
-            console.log(userNo)
             reserveConcertList({
                 userNo
             },(reserveDate) => renderCalendar(reserveDate))
@@ -189,45 +128,25 @@ document.addEventListener('DOMContentLoaded', () => {
         userNo
     },(reserveDate) => renderCalendar(reserveDate))
     
-    
 });
-
-// function clickDate(_this){
-    //     var liList = document.querySelectorAll(".dates li")
-    //     for(let i = 0; i < liList.length; i++){
-        //         if(liList[i].classList.contains('inactive')){
-
-//         } else if(liList[i].classList.contains('reservation')){
-//             _this.classList.add("clickDate");
-//             _this.classList.add("clicked");
-//             _this.classList.remove("reservation")
-//         } else{
-//             liList[i].classList.remove("clickDate")
-//             liList[i].classList.remove("clicked")
-//         }
-//         // recalendar();
-//     }
-//     // _this.classList.add("clickDate");
-//     // _this.classList.add("clicked");
-    
-    
-// }
-
 
 function clickDate(_this, daysInMonth) {  
     var liList = document.querySelectorAll(".dates li");
-    var specialDates = daysInMonth;
-  
-    console.log(daysInMonth)
+    var specialDatesArr = daysInMonth.split(',').map(date => date.trim());
+    const todate = document.querySelector(".reservation-day-span").innerHTML;
+    const tomonth = todate.substring(5, 7);
+    const thisMonth = _this.id;
+    console.log(thisMonth)
+    console.log("클릭시 현제 월 : " + tomonth)
     for (let i = 0; i < liList.length; i++) {
-
         if (liList[i] !== _this) {
             if (liList[i].classList.contains('clickDate') || liList[i].classList.contains('clicked')) {            
-                if (specialDates.includes(liList[i].textContent)) {
+                if (specialDatesArr.includes(liList[i].textContent)  ) {
+                    
                     liList[i].classList.remove("clickDate");
                     liList[i].classList.remove("clicked");
                     liList[i].classList.add("reservation");
-                } else {
+                } else {    
                     liList[i].classList.remove("clickDate");
                     liList[i].classList.remove("clicked");
                 }
@@ -263,25 +182,23 @@ function spanDayChange2(y, m, d){
 
     const userInfo = document.querySelector("input[name = 'userNo']");
     const userNo = userInfo.value;
-    console.log(userNo)
-    const date = document.querySelector(".reservation-day-span").innerHTML;
-    console.log(date)
+
+    const todate = document.querySelector(".reservation-day-span").innerHTML;
+    
     reserveChoiceConcertList({
         userNo,
-        date
+        todate
     },(rConcertList) => drawDateCategoryConcert(rConcertList))
 }
 function drawDateCategoryConcert(result){
     const concertArea = document.querySelector(".reservation-day-info-area");
-    const concertList = result.concertList;
-    console.log(result)
 
     concertArea.innerHTML = ``;
-    if(concertList.length === 0){
+    if(result.length === 0){
         concertArea.innerHTML += `<span style="width: 100%;margin-top: 100px;font-size: 30px;">예매하신 공연이 없습니다</span>`
     }
-    for(let c of concertList){
-        concertArea.innerHTML += `<div class="concert-day-info">
+    for(let c of result){
+        concertArea.innerHTML += `<div class="concert-day-info" onclick="location.href='detail.co?concertNo=`+ c.concertNo +`'">
                                         <div class="concert-day-title-area"><span>`+ c.concertTitle +`</span></div>
                                         <div class="concert-day-img-description-area">
                                             <img src="/staez`+ c.filePath + c.changeName +`" alt="">
@@ -310,7 +227,7 @@ function spanDayChange3(y, m){
 
     
     clickedDate.innerHTML = ``; 
-    clickedDate.innerHTML += `${y}년 ${months[m]}`; 
+    clickedDate.innerHTML += `${y}년 ${months[m]}월`; 
     
 }
 

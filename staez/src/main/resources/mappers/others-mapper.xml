@@ -186,7 +186,28 @@
 	</select>
 	
 	<select id="selectChoiceReserveConcert" resultMap="concertResult" parameterType="Map">
-	
+		select 
+				c.concert_no, 
+				c.concert_title, 
+				t.theater_name, 
+				min(cs.start_date) start_Date, 
+				min(cs.end_date) end_date, 
+				c.concert_runtime, 
+				ca.file_path, 
+				ca.change_name, 
+				cg.category_no
+		from concert c
+		join reserve r on (c.concert_no = r.concert_no)
+		join theater t on (c.theater_no = t.theater_no)
+		join concert_schedule cs on (c.concert_no = cs.concert_no)
+		join concert_attachment ca on (c.concert_no = ca.concert_no)
+		join concert_category cc on (c.concert_no = cc.concert_no)
+		join category cg on (cc.category_no = cg.category_no)
+		where r.user_no = #{uNo}
+		and r.reserve_status = 'Y'
+		and r.concert_date = #{date}::date
+		group by c.concert_no, c.concert_title, t.theater_name,
+				c.concert_runtime, ca.file_path, ca.change_name, cg.category_no
 	</select>
 </mapper>
 

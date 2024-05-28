@@ -68,7 +68,7 @@ pageEncoding="UTF-8"%>
 					
 				</div>
 				<div class="concert-day-info-area">
-					<!-- <div class="concert-day-info">
+					<div class="concert-day-info" >
 						<div class="concert-day-title-area"><span>음악극 〈섬:1933~2019〉</span></div>
 						<div class="concert-day-img-description-area">
 							<img src="${contextPath}/resources/img/others/calendarConcert1.png" alt="">
@@ -87,7 +87,7 @@ pageEncoding="UTF-8"%>
 								</div>
 							</div>
 						</div>
-					</div> -->
+					</div>
 				</div>
 
 				<div class="page-list">

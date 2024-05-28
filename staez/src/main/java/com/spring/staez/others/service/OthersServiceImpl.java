@@ -77,12 +77,11 @@ public class OthersServiceImpl implements OthersService{
 	}
 
 	@Override
-	public ArrayList<Concert> selectChoiceReserveConcertList(int uNo, String date) {
+	public ArrayList<Concert> selectChoiceReserveConcertList(String userNo, String date) {
+		int uNo = Integer.parseInt(userNo);
 		Map data = new HashMap();
 		data.put("uNo", uNo);
 		data.put("date", date);
-		System.out.println(data.get("uNo"));
-		System.out.println(date);
 		return oDao.selectChoiceReserveConcertList(sqlSession, data);
 	}
 	

@@ -150,7 +150,7 @@ function drawDateCategoryConcert(result){
         concertArea.innerHTML += `<span style="width: 100%;margin-top: 100px;font-size: 30px;">준비된 공연이 없습니다</span>`
     }
     for(let c of concertList){
-        concertArea.innerHTML += `<div class="concert-day-info">
+        concertArea.innerHTML += `<div class="concert-day-info" onclick="location.href='detail.co?concertNo=`+ c.concertNo +`'">
                                         <div class="concert-day-title-area"><span>`+ c.concertTitle +`</span></div>
                                         <div class="concert-day-img-description-area">
                                             <img src="/staez`+ c.filePath + c.changeName +`" alt="">

@@ -25,5 +25,5 @@ public interface OthersService {
 	
 	ArrayList<Reserve> selectReserveConcertList(int uNo);
 	
-	ArrayList<Concert> selectChoiceReserveConcertList(int uNo, String date);
+	ArrayList<Concert> selectChoiceReserveConcertList(String userNo, String date);
 }
