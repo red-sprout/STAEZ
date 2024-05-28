@@ -124,7 +124,7 @@
 		( 
 			theater_no,
 			concert_title,
-			concert_plot
+			concert_plot,
 			concert_runtime,
 			concert_members,
 			concert_production,
@@ -135,25 +135,73 @@
 			#{concertPlot},
 			#{concertRuntime},
 			#{concertMembers},
-			#{concertProduction}
+			#{concertProduction},
 			#{ageLimit}
 		)
 	</insert>
 	
 	<insert id="insertConcertCategory">
-
+		INSERT INTO concert_category
+		(
+			concert_no,
+			category_no
+		) VALUES (
+			CURRVAL('concert_concert_no_seq'::regclass),
+			#{categoryNo}
+		)
 	</insert>
 	
 	<insert id="insertConcertAttachment">
-
+		INSERT INTO concert_attachment
+		(
+			concert_no,
+			origin_name,
+			change_name,
+			file_path
+		) VALUES (
+			CURRVAL('concert_concert_no_seq'::regclass),
+			#{originName},
+			#{changeName},
+			#{filePath}
+		)
 	</insert>
 	
 	<insert id="insertScheduleList">
-
+		INSERT INTO concert_schedule
+		(
+			concert_no,
+			schedule,
+			start_date,
+			end_date
+		) VALUES (
+			CURRVAL('concert_concert_no_seq'::regclass),
+			#{schedule},
+			#{startDate},
+			#{endDate}
+		)
 	</insert>
 	
 	<insert id="insertSeatList">
-
+		INSERT INTO seat
+		(
+			concert_no,
+			grade,
+			price,
+			concert_date,
+			seat_start_row,
+			seat_end_row,
+			seat_start_col,
+			seat_end_col
+		) VALUES (
+			CURRVAL('concert_concert_no_seq'::regclass),
+			#{grade},
+			#{price},
+			#{concertDate},
+			#{seatStartRow},
+			#{seatEndRow},
+			#{seatStartCol},
+			#{seatEndCol}
+		)
 	</insert>
 </mapper>
 

@@ -35,6 +35,8 @@ function toggleCategory(_this, id) {
             if(categoryBtn[i] === _this) {
                 _this.classList.add("checked");
                 categoryRadio[i].setAttribute("checked", true);
+            } else {
+                categoryRadio[i].removeAttribute("checked");
             }
         } catch (error) {
             continue;

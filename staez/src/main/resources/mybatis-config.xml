@@ -51,6 +51,7 @@
  		<mapper resource="/mappers/mypage-mapper.xml"/>
  		<mapper resource="/mappers/others-mapper.xml"/>
  		<mapper resource="/mappers/user-mapper.xml"/>
+ 		<mapper resource="/mappers/community-mapper.xml"/>
  	</mappers> 
 
 
