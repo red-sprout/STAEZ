@@ -12,54 +12,74 @@
     </div>
     <table>
         <tbody>
-            <tr>
-                <td id="concert-img">
-                    <img src="${contextPath}/resources/img/mypage/chicago.gif" alt="">
-                </td>
-                <td id="content">
-                    <h3>꽃 별이지나</h3>
-                    <h4>꽃이 왜 별이죠. 공감못하겠으니 5점 드립니다.</h4>
-                </td>
-                <td id="review-func">
-                    <span>
-                        <img src="${contextPath}/resources/img/mypage/star-filled.png" alt=""> 
-                        <h4>5</h4>
-                    </span>
-                    <button class="hidden" type="button" data-toggle="modal" data-target="#myModal"><h4>수정</h4></button>
-                </td>
-            </tr>
-            <tr>
-                <td id="concert-img">
-                    <img src="${contextPath}/resources/img/mypage/chicago.gif" alt="">
-                </td>
-                <td id="content">
-                    <h3>꽃 별이지나</h3>
-                    <h4>꽃이 왜 별이죠. 공감못하겠으니 5점 드립니다.</h4>
-                </td>
-                <td id="review-func">
-                    <button type="button" data-toggle="modal" data-target="#myModal"><h4>후기작성</h4></button>
-                </td>
-            </tr>
+            <c:forEach var="c" items="${clist}">
+            <c:choose>
+                <c:when test="${not empty c.reviewContent}">
+                    <tr>
+                        <td id="concert-img">
+                            <img src="${contextPath}${c.filePath}${c.changeName}" alt="">
+                        </td>
+                        <td id="content">
+                            <h3>${c.concertTitle}</h3>
+                            <h4>${c.reviewContent}</h4>
+                        </td>
+                        <td id="review-func">
+                            <span>
+                                <img src="${contextPath}/resources/img/mypage/star-filled.png" alt=""> 
+                                <h4>5</h4>
+                            </span>
+                            <button class="hidden" type="button" data-toggle="modal" data-target="#myModal"><h4>수정</h4></button>
+                        </td>
+                    </tr>
+                </c:when>
+                <c:otherwise>
+                    <tr>
+                        <td id="concert-img">
+                            <img src="${contextPath}${c.filePath}${c.changeName}" alt="">
+                        </td>
+                        <td id="content">
+                            <h3>${c.concertTitle}</h3>
+                            <h4>리뷰를 작성해주세요</h4>
+                        </td>
+                        <td id="review-func">
+                            <button type="button" data-toggle="modal" data-target="#myModal"><h4>후기작성</h4></button>
+                        </td>
+                    </tr>
+                </c:otherwise>
+            </c:choose>
+            </c:forEach>
+            
+
         </tbody>
     </table>
 
     <div class="page-list">
-        <div class="pagination">
-            <img src="${contextPath}/resources/img/main/before.png">
-        </div>
-        <div class="pagination current"><h4>1</h4></div>
-        <div class="pagination"><h4>2</h4></div>
-        <div class="pagination"><h4>3</h4></div>
-        <div class="pagination"><h4>4</h4></div>
-        <div class="pagination"><h4>5</h4></div>
-        <div class="pagination"><h4>6</h4></div>
-        <div class="pagination"><h4>7</h4></div>
-        <div class="pagination"><h4>8</h4></div>
-        <div class="pagination"><h4>9</h4></div>
-        <div class="pagination"><h4>10</h4></div>
-        <div class="pagination">
-            <img src="${contextPath}/resources/img/main/after.png">
-        </div>
+        <c:if test="${pi.listCount != 0}">
+            <c:if test="${pi.currentPage != 1}">
+                <div class="pagination">
+                    <img src="${contextPath}/resources/img/main/before.png" 
+                         onclick=`location.href="${contextPath}/reviewList.me?cpage=${pi.currentPage - 1}"`>
+                </div>
+            </c:if>
+            
+            <c:forEach var="i" begin="${pi.startPage}" end="${pi.endPage}">
+                <c:choose>
+                    <c:when test="${capge eq i}">
+                        <div class="pagination current" onclick="location.href='${contextPath}/reviewList.me?cpage=${i}'"><h4>${i}</h4></div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="pagination" onclick="location.href='${contextPath}/reviewList.me?cpage=${i}'"><h4>${i}</h4></div>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+            
+            <c:if test="${pi.currentPage ne pi.maxPage}">
+                <div class="pagination">
+                    <img src="${contextPath}/resources/img/main/after.png" 
+                         onclick=`location.href="${contextPath}/reviewList.me?cpage=${pi.currentPage + 1}"`>
+                </div>
+            </c:if>
+        </c:if>
     </div>
 
 </div>
