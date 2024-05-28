@@ -63,3 +63,15 @@ function insertBoard(data, callback) {
         }
     });
 }
+
+function selectBoard(data, callback) {
+    $.ajax({
+        url: contextPath + "main.cm",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("게시글 조회 실패");
+        }
+    })
+}

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.common.template.MyFileRenamePolicy;
+import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
+import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.community.service.CommunityService;
 import com.spring.staez.concert.model.vo.Concert;
 
@@ -26,7 +29,10 @@ public class CommunityController {
 	CommunityService communityService;
 	
 	@GetMapping("main.cm")
-	public String communityMain() {
+	public String communityMainList(CategoryDto categoryDto, Model model) {
+		ArrayList<Board> list = communityService.selectBoard(categoryDto);
+		model.addAttribute("boardList", list);
+		System.out.println(list.get(0));
 		return "community/communityMain";
 	}
 	

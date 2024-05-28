@@ -17,6 +17,7 @@ public class Board {
 	private int	boardNo; //게시글번호
 	private int refBoardNo; //참조게시글
 	private int userNo; //작성회원번호
+	private String nickname; //작성자명
 	private int boardLevel; //게시글레벨
 	private int boardCode; //게시글코드
 	private Timestamp boardWriteDate; //작성날짜

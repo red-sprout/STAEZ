@@ -96,5 +96,24 @@
 			#{concertNo}
 		)
 	</insert>
+	<select id="selectBoard" resultMap="boardResult">
+		SELECT
+			b.board_no,
+			u.user_no,
+			u.nickname,
+			b.board_level,
+			b.board_write_date,
+			b.board_title,
+			b.board_content,
+			b.board_count
+		FROM board b
+		JOIN staez_user u on (b.user_no = u.user_no)
+		JOIN board_category bc on (b.board_no = bc.board_no)
+		WHERE b.board_status = 'Y'
+		and category_no IN
+		<foreach collection="categoryNo" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
 </mapper>
 

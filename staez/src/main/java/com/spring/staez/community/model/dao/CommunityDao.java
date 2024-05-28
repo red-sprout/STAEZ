@@ -2,12 +2,15 @@ package com.spring.staez.community.model.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
+import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 
 @Repository
@@ -35,6 +38,10 @@ public class CommunityDao {
 
 	public int insertTag(SqlSessionTemplate sqlSession, int concertNo) {
 		return sqlSession.insert("communityMapper.insertTag", concertNo);
+	}
+
+	public ArrayList<Board> selectBoard(SqlSessionTemplate sqlSession, CategoryDto categoryDto) {
+		return (ArrayList)sqlSession.selectList("communityMapper.selectBoard", categoryDto);
 	}
 
 }
