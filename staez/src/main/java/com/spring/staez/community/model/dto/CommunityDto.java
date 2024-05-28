@@ -1,4 +1,4 @@
-package com.spring.staez.community.model.vo;
+package com.spring.staez.community.model.dto;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import lombok.ToString;
 public class CommunityDto {
 	private int userNo;
 	private String boardTitle;
-	private List<String> categoryNo;
+	private List<Integer> categoryNo;
 	private int concertNo;
 	private String boardContent;
 }

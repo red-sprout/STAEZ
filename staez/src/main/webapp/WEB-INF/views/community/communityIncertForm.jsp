@@ -56,7 +56,7 @@
                             <img src="<c:url value='/resources/img/community/communityMain/search-icon.png'/>" alt="">
                         </button>
                         <input type="text" name="concertTitle" onkeydown="searchResult(this)" onkeyup="searchResult(this)">
-                        <input type="hidden" name="concertNo">
+                        <input type="hidden" name="concertNo" value="0">
                     </div>
                     <ul class="search-list">
                     </ul>

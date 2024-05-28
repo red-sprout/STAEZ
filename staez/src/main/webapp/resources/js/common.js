@@ -36,7 +36,7 @@ function toggleCategory(_this, id) {
                 _this.classList.add("checked");
                 categoryRadio[i].setAttribute("checked", true);
             } else {
-                categoryRadio[i].setAttribute("checked", false);
+                categoryRadio[i].removeAttribute("checked");
             }
         } catch (error) {
             continue;

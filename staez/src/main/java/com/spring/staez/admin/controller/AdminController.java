@@ -142,13 +142,13 @@ public class AdminController {
 	
 	// FAQ 등록
 	@PostMapping("faqIncert.ad")
-	public String faqIncert(Board b, String cNo, HttpSession session) {
-//		int result = adminService.faqIncert(b, Integer.parseInt(categoryNo));
-//		if(result == 0) {
-//			session.setAttribute("alertMsg", "FAQ 작성에 실패하였습니다.");
-//		} else {
-//			session.setAttribute("alertMsg", "작성 완료하였습니다.");
-//		}
+	public String faqIncert(Board b, int categoryNo, HttpSession session) {
+		int result = adminService.faqIncert(b, categoryNo);
+		if(result == 0) {
+			session.setAttribute("alertMsg", "FAQ 작성에 실패하였습니다.");
+		} else {
+			session.setAttribute("alertMsg", "작성 완료하였습니다.");
+		}
 		return "redirect:/faqList.ad";
 	}
 	

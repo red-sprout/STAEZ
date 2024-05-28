@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.common.template.MyFileRenamePolicy;
-import com.spring.staez.community.model.vo.CommunityDto;
+import com.spring.staez.community.model.dto.CommunityDto;
 import com.spring.staez.community.service.CommunityService;
 import com.spring.staez.concert.model.vo.Concert;
 
@@ -78,7 +78,14 @@ public class CommunityController {
 	// 게시글 입력
 	@ResponseBody
 	@PostMapping(value = "insert.cm")
-	public String insertBoard(CommunityDto cd, HttpSession session) {
-		return null;
+	public String insertBoard(CommunityDto communityDto, HttpSession session) {
+		int result = communityService.insertBoard(communityDto);
+		if(result == 0) {
+			session.setAttribute("alertMsg", "게시글 등록 실패");
+		} else {
+			session.setAttribute("alertMsg", "성공적으로 등록하였습니다.");
+		}
+		
+		return "main.cm";
 	}
 }

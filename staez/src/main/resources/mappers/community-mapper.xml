@@ -64,5 +64,37 @@
 		WHERE concert_title LIKE '%${keyword}%'
 		LIMIT 5
 	</select>
+	<insert id="insertBoard">
+		INSERT INTO board 
+		(
+			user_no,
+			board_title,
+			board_content
+		) VALUES (
+			#{userNo},
+			#{boardTitle},
+			#{boardContent}
+		)
+	</insert>
+	<insert id="insertCategory">
+		INSERT INTO board_category
+		(
+			board_no,
+			category_no
+		) values (
+			CURRVAL('board_board_no_seq'::regclass),
+			#{categoryNo}
+		)
+	</insert>
+	<insert id="insertTag">
+		INSERT INTO tag
+		(
+			board_no,
+			concert_no
+		) values (
+			CURRVAL('board_board_no_seq'::regclass),
+			#{concertNo}
+		)
+	</insert>
 </mapper>
 

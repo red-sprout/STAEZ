@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.community.model.dao.CommunityDao;
+import com.spring.staez.community.model.dto.CommunityDto;
 import com.spring.staez.concert.model.vo.Concert;
 
 @Service
@@ -30,6 +31,20 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public ArrayList<Concert> selectConcertList(String keyword) {
 		return communityDao.selectConcertList(sqlSession, keyword);
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int insertBoard(CommunityDto communityDto) {
+		int insertBoardResult = communityDao.insertBoard(sqlSession, communityDto);
+		int insertCategoryResult = communityDao.insertCategory(sqlSession, communityDto.getCategoryNo());
+		int insertTagResult = 1;
+		
+		if(communityDto.getConcertNo() > 0) {
+			insertTagResult = communityDao.insertTag(sqlSession, communityDto.getConcertNo());
+		}
+		
+		return insertBoardResult * insertCategoryResult * insertTagResult;
 	}
 
 }

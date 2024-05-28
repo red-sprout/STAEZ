@@ -18,9 +18,12 @@ $(function() {
         data.categoryNo = categoryForm();
         data.concertNo = $("input[name='concertNo']").val();
         data.boardContent = $(".note-editing-area>.note-editable").html();
-        insertBoard(data, res => console.log(res));
+        insertBoard(data, res => {
+            location.href = contextPath + res;
+        });
     });
 
+    $("#community-submit button:nth-child(2)").on("click", ev => history.back());
 });
 
 // 썸머노트에 이미지업로드가 발생하였을 때 동작하는 함수
@@ -87,10 +90,10 @@ function drawResultList(result) {
 
 function categoryForm() {
     const category = document.querySelectorAll("input[name='categoryNo']");
-    const arr = [];
+    let arr = [];
     
     for(let ele of category) {
-        if(ele.getAttribute("checked") === true) {
+        if(ele.getAttribute("checked")) {
             arr.push(ele.value);
         }
     }
