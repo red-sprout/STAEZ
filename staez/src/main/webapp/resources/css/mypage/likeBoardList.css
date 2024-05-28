@@ -58,6 +58,10 @@
     border-bottom: solid 1px black;
 }
 
+.main-content>table tr:hover {
+    cursor: pointer;
+}
+
 .main-content>table .col-name { /*제목 행 th*/
     height: 50px;    
 }
@@ -81,7 +85,7 @@
 }
 
 .main-content>table td {
-    padding: 0 8px;
+    padding: 0 14px;
 }
 
 .col-name>#board-title{

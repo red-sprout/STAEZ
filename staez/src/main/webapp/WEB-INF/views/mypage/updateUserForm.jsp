@@ -99,7 +99,7 @@
                         <tr>
                             <th><h3>주소</h3></th>
                             <td class="input-box">
-                                <input type="text" id="addressNormal" value="${fn:split(address, '/')[0]}" onchange="resetAddressDetail()" readonly required>
+                                <input type="text" id="addressNormal" value="${fn:split(address, '/')[0]}" readonly required>
                             </td>
                             <td class="input-btn">
                                 <button type="button" onclick="execDaumPostcode()">우편번호</button>
@@ -108,7 +108,7 @@
                         <tr>
                             <th></th>
                             <td class="input-box">
-                                <input type="text" placeholder="상세주소를 입력하세요" id="addressDetail" value="${fn:split(address, '/')[1]}" readonly required>
+                                <input type="text" placeholder="상세주소를 입력하세요" id="addressDetail" value="${fn:split(address, '/')[1]}" readonly required onchange="updateCombinedAddress()">
                             </td>
                             <td></td>
                         </tr>
@@ -239,7 +239,6 @@
         </div>
     </div>
 </div>
-
 <!-- 프로필 이미지 변경 Modal -->
 <div class="modal fade" id="imgModal">
     <div class="modal-dialog modal-lg">
@@ -250,28 +249,28 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             
-            <form action="updateImg.me" method="POST">
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div class="img-tag">
-                        <div>
-                            <img id="profile-preview" src="${contextPath}/resources/img/mypage/profile/profile_img_temp.png" alt="">
-                        </div>
-                        <div class="options">
-                            <label>
-                                <input type="radio" name="profile-option" value="current" checked>
-                                <h4>현재 프로필 이미지</h4> 
-                            </label>
-                            <label>
-                                <input type="radio" name="profile-option" value="default">
-                                <h4>기본 이미지</h4>
-                                <input type="hidden" value="${contextPath}/resources/img/mypage/profile/profile_img_default.png">
-                            </label>
-                            <label>
-                                <input type="radio" name="profile-option" value="new">
-                                <h4>변경할 이미지 선택</h4>
-                            </label>
-                            <input type="file" id="upfile" accept="image/*" >
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="img-tag">
+                    <div>
+                        <img id="profile-preview" src="${contextPath}/resources/img/mypage/profile/profile_img_temp.png" alt="">
+                    </div>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="profile-option" value="current-img" checked>
+                            <h4>현재 프로필 이미지</h4> 
+                        </label>
+                        <label>
+                            <input type="radio" name="profile-option" value="default-img">
+                            <h4>기본 이미지</h4>
+                            <input type="hidden" value="${contextPath}/resources/img/mypage/profile/profile_img_default.png">
+                        </label>
+                        <label>
+                            <input type="radio" name="profile-option" value="new-img">
+                            <h4>변경할 이미지 선택</h4>
+                        </label>
+                        <form action="updateImg.me" method="POST">
+                            <input type="file" name="upfile" accept="image/*">
                         </div>
                     </div>
                 </div>
@@ -296,22 +295,26 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             
-            <form action="delete.me" method="POST">
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div class="withdrawal-tag">
-                        <h2>정말 탈퇴하시겠습니까?</h2>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="withdrawal-tag">
+                    <h2>정말 탈퇴하시겠습니까?</h2>
+                    <div>
+                        <h3>비밀번호 확인</h3>
                         <div>
-                            <h3>비밀번호 확인</h3>
                             <input type="password">
-                            <button type="button" class="btn-staez purple"><h3>확인</h3></button>
+                            <button type="button" class="btn-staez purple" onclick="withdrawalAuth()">
+                                <h3>확인</h3>
+                            </button>
                         </div>
                     </div>
                 </div>
-                
+            </div>
+            
+            <form action="delete.me" method="POST">
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">탈퇴</button>
+                    <button type="submit" class="btn btn-primary" disabled>탈퇴</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
                 </div>
             </form>
