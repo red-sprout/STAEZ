@@ -20,44 +20,43 @@
     <!-- 달력 -->
     <script src="${pageContext.request.contextPath}/resources/js/concert/concertDetailCalendar.js"></script>
     <!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script> -->
-    <!-- 적용 자바스크립트 -->
-    <script src="<c:url value='/resources/js/concert/concertDetail.js'/>"></script>
-
+    
 </head>
 
 <body>
     <div>
         <jsp:include page="../common/header.jsp" />
+
+        <!-- 적용 자바스크립트 -->
+        <script src="<c:url value='/resources/js/api/concertapi.js'/>"></script>
+        <script src="<c:url value='/resources/js/concert/concertDetail.js'/>"></script>
     </div>
 
     <!-- 공연 navi -->
     <div>
         <ul class="concert-ul">
-            <li><a href="main.co?category=musical"><span><h2>뮤지컬</h2></span></a></li>
-            <li><a href="main.co?category=classic"><span><h2>클래식</h2></span></a></li>
-            <li><a href="main.co?category=kclassic"><span><h2>국악</h2></span></a></li>
-            <li><a href="main.co?category=pop"><span><h2>대중음악</h2></span></a></li>
-            <li><a href="main.co?category=play"><span><h2>연극</h2></span></a></li>
-            <li><a href="main.co?category=circus"><span><h2>서커스/마술</h2></span></a></li>
-            <li><a href="main.co?category=etc"><span><h2>기타</h2></span></a></li>
+            <!-- 자스로 그려줌 -->
         </ul>
     </div>
 
     <!-- 공연상세페이지 위쪽(노란 블럭 안쪽) -->
     <section class="concert-detail-upper-section">
         <div class="concert-detail-upper-div concert-detail-body-div">
-            <div>
-                <img src="${pageContext.request.contextPath}/resources/img/concert/공연상세페이지임시.png" alt="">
+            <div class="concert-detail-pic">
+                <!-- 악 수정하고싶어 -->
+                <img src="${pageContext.request.contextPath}${con.filePath}${con.changeName}" alt="">
             </div>
             <!-- 좋아요 버튼 -->
             <div class="concert-detail-like">
                 <button class="concert-detail-like-button" onclick="likeToggle(this)">
                     <i class="fa-regular fa-heart"></i>
-                    <input type="checkbox" class="hidden">
+                    <input type="checkbox" class="hidden" name="conHeart">
+                    <input type="hidden" name="userNo" value="${loginUser.userNo}">
+                    <input type="hidden" name="concertNo" value="${con.concertNo}">
                     <!-- <i class="fa-solid fa-heart" style="color: #ff0000;"></i> -->
                     <span>127</span>
-                </button>
-                <div class="concert-detail-like-commu"><a href=""><span><b>천개의 파랑 커뮤니티로 가기</b></span></a></div>
+                </button> <!-- 길이조절 -->
+                <div class="concert-detail-like-commu"><a href="main.cm"><span><b>${con.concertTitle} 커뮤니티로 가기</b></span></a></div>
             </div>
         </div>
         <div class="concert-detail-body-div">
@@ -66,23 +65,23 @@
                     <td><img id="concert-detail-starImg" src="${pageContext.request.contextPath}/resources/img/concert/tempStar.png" alt=""></td>
                 </tr>
                 <tr>                    
-                    <td><h2>&lt;천개의 파랑&gt;</h2></td>
+                    <td><h2>&lt;${con.concertTitle}&gt;</h2></td>
                 <tr>
                 <tr>                    
                     <td></td>
                 <tr>
-                    <td><b><span>공연기간&nbsp&nbsp</span></b><span>2024.05.12 ~ 2024.05.26</span></td>
+                    <td><b><span>공연기간&nbsp&nbsp</span></b><span>${con.startDate} ~ ${con.endDate}</span></td>
                 </tr>
                 <tr>
-                    <td><b><span>공연장소&nbsp&nbsp</span></b><span>예술의전당 CJ토월극장</span></td>
+                    <td><b><span>공연장소&nbsp&nbsp</span></b><span>${con.theaterName}</span></td>
                 </tr>
                 <tr>
-                    <td><b><span>공연시간&nbsp&nbsp</span></b><span>140분</span></td>
+                    <td><b><span>공연시간&nbsp&nbsp</span></b><span>${con.concertRuntime}</span></td>
                 </tr>
                 <tr>
-                    <td><b><span>관람연령&nbsp&nbsp</span></b><span>초등학생 이상</span></td>
+                    <td><b><span>관람연령&nbsp&nbsp</span></b><span>${con.ageLimit}</span></td>
                 </tr>
-                <tr>
+                <tr><!-- 가격??? -->
                     <td><b><span>가격&nbsp&nbsp</span></b><span>R석 90,000원 | S석 60,000원 | A석 30,000원</span></td>
                     <!-- 가격을세로로 적고싶을 때 -->
                     <!-- <td colspan="2">
@@ -103,7 +102,7 @@
                     </td> -->
                 </tr>
 
-                    <td><b><span>주최&nbsp&nbsp</span></b><span>서울예술단</span></td>
+                    <td><b><span>주최&nbsp&nbsp</span></b><span>${con.concertProduction}</span></td>
                 </tr>
             </table>
         </div>

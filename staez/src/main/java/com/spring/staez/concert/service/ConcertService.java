@@ -13,12 +13,15 @@ public interface ConcertService {
 //
 //	//콘서트 내용 페이지네이션해서 가져와라
 //	ArrayList<Concert> concertList();
+	
+	// category를 가져와라 콘서트 네비에 뿌려주기
+	ArrayList<Category> selectCateCon();
 
 	ArrayList<Concert> selectconList();
 
 	Concert selectCon(int concertNo);
 
-	ArrayList<Category> selectCateCon();
+
 	
 	
 

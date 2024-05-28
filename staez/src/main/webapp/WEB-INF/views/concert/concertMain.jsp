@@ -32,7 +32,7 @@
     <!-- 공연 navi -->
     <div class="concert-navi-div">
         <ul class="concert-ul">
-          
+          <!-- 자스로 그려줌 -->
         </ul>
     </div>
 

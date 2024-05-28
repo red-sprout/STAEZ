@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -26,16 +27,26 @@ public class ConcertController {
 		return "concert/concertMain";
 	}
 	
+	// category를 가져와라 콘서트 네비에 뿌려주기
+	@ResponseBody
+	@RequestMapping(value = "connavi.co", produces="application/json; charset=UTF-8")
+	public String selectCateCon() {
+		ArrayList<Category> conList =  concertService.selectCateCon();
+		return new Gson().toJson(conList);
+	}
+	
 	// 공연리스트 다가져와(ajax로)
 	@ResponseBody // 리턴할 응답 바디를 직접 입력할꺼야
 	@RequestMapping(value = "maincon.co", produces="application/json; charset=UTF-8")
 	public String mainDrawAjax() {
-		return new Gson().toJson(concertService.selectconList());
+		ArrayList<Concert> list =  concertService.selectconList();
+		return new Gson().toJson(list);
 	}
 		
-	// 공연 concertNo로 가져와
+		
+	// 공연을 concertNo로 가져와서 공연세부페이지로
 	@RequestMapping(value = "detail.co", produces="application/json; charset=UTF-8")
-	public String selectCon(String concertNo, Model model) {
+	public String selectCon(@RequestParam(value = "concertNo") String concertNo, Model model) {
 		
 		Concert con = concertService.selectCon(Integer.parseInt(concertNo));
 		model.addAttribute("con", con);
@@ -43,13 +54,16 @@ public class ConcertController {
 		return "concert/concertDetail";
 	}
 	
-	// 공연을 categoryNo로 가져와
 	@ResponseBody
-	@RequestMapping(value = "connavi.co", produces="application/json; charset=UTF-8")
-	public String selectCateCon() {
-		ArrayList<Category> conList =  concertService.selectCateCon();
-		return new Gson().toJson(conList);
+	@RequestMapping(value = "conheart.co", produces="application/json; charset=UTF-8")
+	public String conHeart(@RequestParam(value = "concertNo") String concertNo, Model model) {
+		
+		Concert con = concertService.selectCon(Integer.parseInt(concertNo));
+		model.addAttribute("con", con);
+		
+		return "concert/concertDetail";
 	}
+	
 	
 
 	

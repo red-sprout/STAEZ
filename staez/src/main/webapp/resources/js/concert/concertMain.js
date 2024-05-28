@@ -8,32 +8,23 @@ $(function() { // list는 컨트롤러에서 받아온 것
 
 });
 
+// ajax로 콘서트 navi 그려
 function drawConNavi(conList){
-  console.log(conList)
+
   const concertNaviArea = document.querySelector(".concert-ul");
-  
   concertNaviArea.innerHTML = ``;
-  for(let c of conList){  
-      concertNaviArea.innerHTML += `<li onclick="categoryConNavi(this)"><h2 id="`+ c.categoryNo +`"><button>`+ c.categoryName +`</button></h2></li>`
-  }
 
-  const naviButton = document.querySelector(button);
+  for(let c of conList){
+    let naviLi = document.createElement('li');
+    naviLi.innerHTML = `<h2 id="`+ c.categoryNo +`">`+ c.categoryName +`</h2>`;
+
+    naviLi.setAttribute("onclick", `location.href ='main.co?categoryNo=${c.categoryNo}'`)
+
+    concertNaviArea.appendChild(naviLi);
+  }
+  
 }
 
-function categoryConNavi(_this){
-  const categoryId = element.querySelector('h2').id;
-  
-  
-
-  for(let i = 0; i < categoryId.length; i++){
-      categoryBtn[i].classList.remove("choice-background");
-      categoryText[i].classList.remove("choice-color-span");
-  }
-  _this.classList.add("choice-background");
-  _this.querySelector("span").classList.add("choice-color-span");
-  categoryName = _this.querySelector("span").innerHTML;
-  drawFaqContent({"categoryName": categoryName}, (cfaq) => (drawCategoryFaq(cfaq)));
-}
 
 
 // 슬라이더 그려주기
@@ -119,135 +110,3 @@ function drawConMain(list, sliderContent, gridContent){
 
 
 
-
-
-// // 뮤지컬 누르면 화면 뜨게
-// document.addEventListener('DOMContentLoaded', function() {
-//   console.log("페이지 로드 완료");
-  
-//   let category = "classic"; // 원하는 카테고리를 여기에 넣으세요
-//   let url = `main.co?category=${category}`;
-
-
-//   // 버튼 클릭 이벤트 처리
-//   let musical = document.querySelector('.concert-ul').children[0];
-//   musical.addEventListener('click', function() {
-//       console.log("버튼 클릭됨");
-//       // 페이지 로드 함수 호출
-//       loadPage(url); // 로드할 페이지 URL을 넣으세요
-//   });
-// });
-
-// // 페이지 로드 함수 정의
-// function loadPage(url) {
-//   console.log("페이지 로드 시작: " + url);
-//   window.location.href = url; // 페이지 로드
-// }
-
-
-
-
-
-
-// $(function(){
-//   getReplyList({bno : ${b.boardNo}}, function(result){
-
-//       setReplyCount(result.length)
-//       const list = getTdDataFormatToReply(result)
-
-//       const replyBody = document.querySelector("#replyArea tbody");
-//       drawTableList(result, replyBody);
-//   })
-// })
-
-// //댓글 등록
-// function addReply(){
-//   //boardNo
-//   //userId
-//   //댓글내용
-
-//   const boardNo = ${b.boardNo};
-//   const userId = "${loginUser.userId}";
-//   const content = document.querySelector("#content").value;
-
-
-//   addReplyAjax({
-//       refBno: boardNo,
-//       replyWriter: userId,
-//       replyContent: content
-//   }, function(res){
-//       getReplyList({bno : ${b.boardNo}}, function(result){
-//           setReplyCount(result.length);
-//           drawTableList(result, document.querySelector("#replyArea tbody"));
-//       })
-      
-//   })
-// }
-
-// //댓글 데이터 포맷변경
-// function getTdDataFormatToReply(replyList){
-//   const list = [];
-//   for (let r of replyList) {
-//       list.push({ 
-//           tdData1: r.replyWriter,
-//           tdData2: r.replyContent,
-//           tdData3: r.createDate,
-//           rowEvent: function(){
-//               console.log("클릭됨")
-//           }
-//       })
-//   }
-
-//   return list;
-// }
-// //댓글 카운트 넣기
-// function setReplyCount(count){
-//   const rCount = document.querySelector("#rcount");
-//   rCount.innerHTML = count;
-// }
-
-// function addReplyAjax(data, callback){
-//   $.ajax({
-//       url: "rinsert.bo",
-//       data : data,
-//       success : function(res){
-//           callback(res)
-//       }, error(){
-//           console.log("댓글 생성 ajax실패");
-//       }
-//   })
-// }
-
-// // 댓글 목록 가져오기
-// function getReplyList(data, callback){
-//   $.ajax({
-//       url: 'rlist.bo',
-//       data : data,
-//       success: function(result){
-//           callback(result)
-//       },
-//       error: function(item){
-//           console.log(item);
-//           console.log("댓글요청 ajax 실패");
-//       }
-//   })
-// }
-
-// function drawTableList(itemList, parent){
-//   $(parent).empty();
-
-
-//   //이벤트를 넣는 뷰를 작성하고 싶을 때               
-//   for (let reply of itemList) {
-//       const replyRow = document.createElement('tr');
-//       replyRow.innerHTML = `<th>` + reply.replyWriter + `</th>
-//                             <td>` + reply.replyContent + `</td>
-//                             <td>` + reply.createDate + `</td>`;
-//       parent.appendChild(replyRow);
-      
-//       replyRow.onclick = function(){
-//           console.log(reply);
-//       }
-//   }
- 
-// }

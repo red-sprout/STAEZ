@@ -86,6 +86,13 @@
 		<result column="concert_times" property="concertTimes"/>
 		<result column="status" property="status"/>
 	</resultMap>
+	
+	
+	<select id="selectCateCon" resultMap="categoryResult" > 
+ 	    select category_no, category_name
+		from category
+		where ref_category_no = 1
+	</select>
 
 	<select id="selectconList" resultMap="concertResult" >
 		SELECT c.concert_no,
@@ -106,7 +113,7 @@
 	</select> 
 	
 	<select id="selectCon" resultMap="concertResult" >
-		SELECT *
+	    		SELECT *
 		FROM (
 		    SELECT c.concert_no,
 		           c.concert_title,
@@ -116,7 +123,10 @@
 		           ca.change_name,
 		           ca.file_path,
 		           ct.category_no,
-		           c.concert_status
+		           c.concert_status,
+		           c.concert_runtime,
+		           c.age_limit,
+		           c.concert_production
 		    FROM concert c
 		    JOIN theater t ON c.theater_no = t.theater_no
 		    JOIN concert_schedule cs ON c.concert_no = cs.concert_no
@@ -125,16 +135,38 @@
 		    JOIN category ct ON cc.category_no = ct.category_no
 			) sub
 		WHERE sub.concert_status = 'Y'
-		  AND sub.concert_no = 4
+		  AND sub.concert_no = #{concertNo}
 		ORDER BY sub.start_date
 		LIMIT 1 OFFSET 0;
 	</select>
 	
-	<select id="selectCateCon" resultMap="categoryResult" > 
-	   select category_no, category_name
-		from category
-		where ref_category_no = 1
-	</select>
+	<insert id="conHeartLike">
+			INSERT INTO
+			concert_like(
+					user_no,
+					concert_no
+					)
+			VALUES(
+					#{userNo}
+					#{concertNo}
+				   )	
+	</insert>
+
+	<update id="conHeartLikeDel">
+		UPDATE concert_like
+		   SET status = 'N'
+		 WHERE user_no = #{userNo}
+			   concert_no = #{concertNo}
+	</update>
+	
+	<update id="reConHeartLike">
+		UPDATE concert_like
+		   SET status = 'Y'
+		 WHERE user_no = #{userNo}
+			   concert_no = #{concertNo}
+	</update>
+	
+
 	
 	
 		<!-- selectconList
@@ -153,7 +185,9 @@
 		        SELECT concert_no
 		        FROM concert_category
 		    )
-	    AND c.concert_status = 'Y'; -->
+	    AND c.concert_status = 'Y';
+	    
+	  -->
 
 </mapper>
 

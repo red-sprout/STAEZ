@@ -20,6 +20,11 @@ public class ConcertServiceImpl implements ConcertService {
 	@Autowired
 	private ConcertDao concertDao;
 
+	
+	@Override
+	public ArrayList<Category> selectCateCon() {
+		return concertDao.selectCateCon(sqlSession);
+	}
 
 	@Override
 	public ArrayList<Concert> selectconList() {
@@ -31,10 +36,6 @@ public class ConcertServiceImpl implements ConcertService {
 		return concertDao.selectCon(sqlSession, concertNo);
 	}
 
-	@Override
-	public ArrayList<Category> selectCateCon() {
-		return concertDao.selectCateCon(sqlSession);
-	}
 
 	
 
