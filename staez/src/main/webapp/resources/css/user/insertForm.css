@@ -190,6 +190,11 @@ input[type="password"] {
     align-items: center;
 }
 
+/* 비밀번호 div */
+#insert-pwd-div{
+    position: relative;
+}
+
 /* 이메일 컨테이너 */
 .email-container {
     display: flex;
