@@ -24,3 +24,17 @@ function idCheck(data, callback) {
         }
     });
 }
+
+// 이메일 체크
+function nickCheck(data, callback) {
+    $.ajax({
+        url: "emailCheck.me",
+        data: data,
+        success: function (result) {
+            callback(result);
+        },
+        error: function () {
+            console.log("이메일 체크 ajax 실패");
+        }
+    });
+}

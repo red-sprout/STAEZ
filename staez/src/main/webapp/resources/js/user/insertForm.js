@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 이메일 아이디적을때 한글안되고 영어만 가능하게
     sgininemailEng();
     // 입력 시 2초 후에 콘솔에 이메일 값을 출력하는 기능입니다.
-    emailTimeTwo()
+    emailTimeTwo();
     // 이전페이지로 돌아가는
     backPage();
     // 관심장르 3개이상 못고르게하면서 값 출력되도록
@@ -335,6 +335,48 @@ function sgininemailEng(){
             }
         }
     });
+}
+
+// 이메일 인증체크
+function emailCheck() {
+    const emailInput = document.querySelector("#insertEmail");
+    const emailCheckButton = document.getElementById("emailCheckButton");
+    const emailCheckResult = document.getElementById("checkResultEamil");
+    const emailErrorMessage = document.getElementById("userEmailErrorMessage");
+
+    if (emailInput && emailCheckButton && emailCheckResult && emailErrorMessage) {
+        emailCheckButton.addEventListener('click', function() {
+            const str = emailInput.value;
+            if (str.trim().length >= 1) {
+                nickCheck({"checkNick" : str}, (result) => callbackNickCheck(result, emailCheckResult, emailInput))
+            } else {
+                emailCheckResult.style.display = "none";
+            }
+        });
+    } else {
+        console.log("닉네임 체크 요소 중 하나가 누락되었습니다.");
+    }
+}
+
+// 이메일 체크 콜백
+function callbackEmailCheck(result, emailCheckResult, emailInput) {
+    emailCheckResult.style.display = "block";
+    if (result === "NNNNN") {
+        emailCheckResult.style.color = "red";
+        emailCheckResult.innerText = "이미 사용중인 닉네임입니다.";
+        // 닉네임 입력 필드의 값을 없애기
+        emailInput.value = "";
+    } else {
+        var regex = /^[a-zA-Z0-9가-힣]{2,16}$/;
+        if (!regex.test(emailInput.value)) {
+            emailCheckResult.style.color = "red";
+            emailCheckResult.innerText = "닉네임은 2 ~ 16글자의 영문, 한글, 숫자로 이루어져야 합니다.";
+        } else {
+            emailCheckResult.style.color = "green";
+            emailCheckResult.innerText = "사용가능한 닉네임입니다.";
+            console.log("닉네임 확인 : " + emailInput.value);
+        }
+    }
 }
 
 //주소 불러오기 - kakao 우편번호 서비스 api (https://postcode.map.daum.net/guide)

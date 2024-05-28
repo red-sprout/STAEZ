@@ -32,7 +32,7 @@
                 <table class="insert-member-table">
                     <tr>
                         <th>닉네임</th>
-                        <td colspan="2">
+                        <td colspan="1">
                             <input type="text" placeholder="한문 + 영문" name="nickname" id="nickname" maxlength="16" >
                         </td>
                         <td><input type="button" id="nickNameCheckButton" class="check_nickname" value="중복검사"></td>
@@ -46,7 +46,7 @@
                     </tr>                 
                     <tr>
                         <th>아이디</th>
-                        <td colspan="2">
+                        <td colspan="1">
                             <input type="text" placeholder="영문 + 숫자" name="userId" id="user_Id" maxlength="16">
                         </td>
                         <td><input type="button" id="idcheckButton" class="check_userId" value="중복검사"></td>
@@ -77,51 +77,50 @@
                     </tr>
                     <tr>
                         <th>휴대폰 번호</th>
-                        <td colspan="6" class="email-container">
+                        <td class="email-container" colspan="5" >
                             <div id="td-div">
                                 <span id="phone-prefix">010</span>
-                                <span></span>
+                                <span>-</span>
                                 <input type="text" id="phone-suffix1" name="phone-suffix1" maxlength="4" >
-                                <span></span>
+                                <span>-</span>
                                 <input type="text" id="phone-suffix2" name="phone-suffix2" maxlength="4">
                                 <input type="text" name="phone" id="input-value-phone" required>
                             </div>
-                            <td colspan="1"><input type="button" class="check_button" value="인증번호 전송" onclick="sendPhoneNumber()"></td>
-                            
                         </td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td><input type="text"></td>
-                        <td><input type="button" class="check_button" value="인증확인"></td>
-                    </tr>
-                    <tr>
-                        <th>생년월일</th>
-                        <td class="email-container">
-                            <input type="date" name="birth" required>
-                        </td>   
-                    </tr>
-                    <tr>
-                        <th>이메일</th>
-                        <td colspan="6" class="email-container">
-                            <div style="display: flex;">
-                                <input type="text" id="email-prefix" placeholder="이메일 아이디 입력">
-                                <span id="email-prefix-shift2">@</span>
-                                <input type="text" id="email-suffix" placeholder="직접 입력">
-                                <input type="text" name="email" id="input-value-email" readonly>
-                            </div>
-                        </td>
-                        <td>
-                            <select class="box" id="email-domain-list">
-                                <option value="type">직접 입력</option>
-                                <option value="naver.com">naver.com</option>
-                                <option value="google.com">gmail.com</option>
-                                <option value="hanmail.net">hanmail.net</option>
-                                <option value="nate.com">nate.com</option>
-                                <option value="kakao.com">kakao.com</option>
-                            </select>
-                        </td>
-                    </tr>
+                        <tr>
+                            <th>생년월일</th>
+                            <td colspan="5" class="email-container">
+                                <input type="date" name="birth" required>
+                            </td>   
+                        </tr>
+                        <tr>
+                            <th>이메일</th>
+                            <td colspan="6" class="email-container" id="insertEmail" name="insertEmail">
+                                <div style="display: flex;">
+                                    <input type="text" id="email-prefix" placeholder="이메일 아이디">
+                                    <span id="email-prefix-shift2">@</span>
+                                    <input type="text" id="email-suffix" placeholder="직접 입력">
+                                    <input type="text" name="email" id="input-value-email" readonly>
+                                </div>
+                            </td>
+                            <td>
+                                <select class="box" id="email-domain-list">
+                                    <option value="type">직접 입력</option>
+                                    <option value="naver.com">naver.com</option>
+                                    <option value="gmail.com">gmail.com</option>
+                                    <option value="hanmail.net">hanmail.net</option>
+                                    <option value="nate.com">nate.com</option>
+                                    <option value="kakao.com">kakao.com</option>
+                                </select>
+                            </td>
+                            <td colspan=""><input type="button" id="emailCheckButton" class="check_button" value="인증번호 전송" onclick="sendVerificationCode()"></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td><input type="text" id="verification-code"></td>
+                            <td><input type="button" class="check_button" value="인증확인" onclick="verifyCode()"></td>
+                        </tr>
+                        </tr>                        
                     <tr>
                         <td colspan="4">
                             <div id="checkResultEamil" class="checkResult">

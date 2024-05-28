@@ -142,8 +142,8 @@ public class AdminController {
 	
 	// FAQ 등록
 	@PostMapping("faqIncert.ad")
-	public String faqIncert(Board b, String categoryNo, HttpSession session) {
-		int result = adminService.faqIncert(b, Integer.parseInt(categoryNo));
+	public String faqIncert(Board b, int categoryNo, HttpSession session) {
+		int result = adminService.faqIncert(b, categoryNo);
 		if(result == 0) {
 			session.setAttribute("alertMsg", "FAQ 작성에 실패하였습니다.");
 		} else {
@@ -194,7 +194,7 @@ public class AdminController {
 		return new Gson().toJson(list);
 	}
 	
-	// 공연장 데이터 입력
+	// 공연 데이터 입력 
 	@ResponseBody
 	@PostMapping(value = "concertInsert.ad")
 	public String concertInsert(String schedule, String seat, String concert, 

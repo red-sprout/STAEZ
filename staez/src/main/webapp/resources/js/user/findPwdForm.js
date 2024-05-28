@@ -1,3 +1,4 @@
+
 //이메일
 function handleDomainListChange() {
     const emailDomainList = document.getElementById("email-domain-list");

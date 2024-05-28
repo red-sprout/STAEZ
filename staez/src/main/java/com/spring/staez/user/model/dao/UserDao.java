@@ -25,5 +25,15 @@ public class UserDao {
 	public int insertUser(SqlSessionTemplate sqlSession, User u) {
 		return sqlSession.insert("userMapper.insertUser", u);
 	}
+	
+	//회원가입 이메일 체크
+	public int emailCheck(SqlSessionTemplate sqlSession, String checkEmail) {
+		return sqlSession.selectOne("userMapper.checkNick", checkEmail);
+	}
+	
+	// 네이버로그인 이메일 유무 확인
+    public User findUserByEmail(SqlSessionTemplate sqlSession, String email) {
+        return sqlSession.selectOne("userMapper.findUserByEmail", email);
+    }
 
 }

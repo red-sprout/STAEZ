@@ -74,6 +74,58 @@
     margin-right: 5px;
 }
 
+#community-tag {
+    position: relative;
+}
+
+#community-tag>ul {
+    position: absolute;
+    z-index: 1000;
+    left: 70px;
+    top: 42px;
+    width: 87%;
+}
+
+#community-tag>ul>li {
+    background-color: white;
+    border: 1px solid #969696;
+    border-top: none;
+    cursor: pointer;
+    position: relative;
+    line-height: 120px;
+}
+
+#community-tag>ul>li:hover {
+    background-color: #d9d9d9;
+}
+
+#community-tag>ul>li>span {
+    width: 80%;
+}
+
+#community-tag>#community-search button,
+#community-tag>ul button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    width: 60px;
+    height: 35px;
+}
+
+#community-tag button>img {
+    width: 20px;
+}
+
+.poster {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 100px;
+    width: 70px;
+    object-fit: cover;
+    margin: 10px;
+}
+
 #community-search {
     border: 1px solid #969696;
     border-radius: 20px;

@@ -168,6 +168,8 @@ table td {
     text-align: left;
 }
 
+
+
 hr{
     border: 0.8px solid rgb(124, 124, 124);
     width: 100%;
@@ -200,3 +202,12 @@ hr{
     background-color: #640D6B;
     color: white;
 }
+
+/* 입력값 합친거 안보여주는거 */
+#input-value-address,
+#input-value-phone,
+#input-value-email,
+#input-value-genreLike {
+    display: none;
+}
+

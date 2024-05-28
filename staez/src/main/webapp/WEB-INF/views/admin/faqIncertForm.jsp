@@ -31,33 +31,9 @@
                 </li>
                 <li id="faq-category">
                     <h3>카테고리</h3>
-                    <!-- <button class="btn-staez checked" type="button" onclick="toggleCategory(this);">
-                        <h4>공연</h4>
-                    </button>
-                    <input type="radio" name="categoryNo" class="hidden" id="">
-                    <button class="btn-staez" type="button" onclick="toggleCategory(this);">
-                        <h4>커뮤니티</h4>
-                    </button>
-                    <input type="radio" name="categoryNo" class="hidden" id="">
-                    <button class="btn-staez" type="button" onclick="toggleCategory(this);">
-                        <h4>예매</h4>
-                    </button>
-                    <input type="radio" name="categoryNo" class="hidden" id="">
-                    <button class="btn-staez" type="button" onclick="toggleCategory(this);">
-                        <h4>환불/취소</h4>
-                    </button>
-                    <input type="radio" name="categoryNo" class="hidden" id="">
-                    <button class="btn-staez" type="button" onclick="toggleCategory(this);">
-                        <h4>사이트 이용</h4>
-                    </button>
-                    <input type="radio" name="categoryNo" class="hidden" id="">
-                    <button class="btn-staez" type="button" onclick="toggleCategory(this);">
-                        <h4>티켓</h4>
-                    </button>
-                    <input type="radio" name="categoryNo" class="hidden" id=""> -->
                 </li>
                 <li>
-                    <textarea name="boardContent" id="" rows="10" ></textarea>
+                    <textarea name="boardContent" rows="10" ></textarea>
                 </li>
                 <li id="community-submit">
                     <button class="btn-staez purple" type="submit">

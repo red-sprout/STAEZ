@@ -43,19 +43,19 @@ public class AdminDao {
 	}
 
 	public ArrayList<Theater> selectTheaterList(SqlSessionTemplate sqlSession, String keyword) {
-		return (ArrayList)sqlSession.selectList("adminMapper.selectTheacterList", keyword);
+		return (ArrayList)sqlSession.selectList("adminMapper.selectTheaterList", keyword);
 	}
 
 	public int insertConcert(SqlSessionTemplate sqlSession, Concert c) {
-		return sqlSession.insert("adminMapper.incertConcert", c);
+		return sqlSession.insert("adminMapper.insertConcert", c);
 	}
 
 	public int insertConcertCategory(SqlSessionTemplate sqlSession, Concert c) {
-		return sqlSession.insert("adminMapper.incertConcertCategory", c);
+		return sqlSession.insert("adminMapper.insertConcertCategory", c);
 	}
 
 	public int insertConcertAttachment(SqlSessionTemplate sqlSession, Concert c) {
-		return sqlSession.insert("adminMapper.incertConcertAttachment", c);
+		return sqlSession.insert("adminMapper.insertConcertAttachment", c);
 	}
 
 	public int insertScheduleList(SqlSessionTemplate sqlSession, List<ConcertSchedule> scheduleList) {
