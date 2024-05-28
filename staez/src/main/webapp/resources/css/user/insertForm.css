@@ -70,7 +70,7 @@ form {
 .insert-member-table th{
     padding: 10px; /* 셀 내부에 패딩을 추가합니다. */
     text-align: left; /* 텍스트를 왼쪽 정렬합니다. */
-    min-width: 160px; 
+    min-width: 120px; 
 }
 
 /* 입력창 내용 */
@@ -188,6 +188,11 @@ input[type="password"] {
 .birthdate-container {
     display: flex;
     align-items: center;
+}
+
+/* 비밀번호 div */
+#insert-pwd-div{
+    position: relative;
 }
 
 /* 이메일 컨테이너 */

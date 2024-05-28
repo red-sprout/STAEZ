@@ -31,7 +31,8 @@
         <c:forEach var="userId" items="${userIdList}">
             <div class="findId-div">
                 <input type="checkbox" class="idListCheckbox" id="${userId.id}"> 
-                <label for="${userId.id}"><h3>${userId.name}</h3></label>
+                <label for="${userId.id}"><h3>아이디 : ${userId}</h3></label>
+                <label for="${userId.id}"><h3>가입일 : ${enroll_date}</h3></label>
             </div>
         </c:forEach>
         

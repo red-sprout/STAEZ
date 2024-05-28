@@ -37,4 +37,15 @@ public class UserServiceImpl implements UserService{
 		return userDao.insertUser(sqlSession, u);
 	}
 
+	@Override
+	public int emailCheck(String checkEmail) {
+		return userDao.emailCheck(sqlSession, checkEmail);
+	}
+
+	// 네이버로그인 이메일 유무 확인
+	@Override
+	public User findUserByEmail(String email) {
+        return userDao.findUserByEmail(sqlSession,email);
+    }
+
 }
