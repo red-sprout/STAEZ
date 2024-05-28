@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="${contextPath}/resources/css/user/login.css">
     <!-- js -->
     <script src="${contextPath}/resources/js/user/loginForm.js"></script>
+    <!-- 네이버로그인 -->
+    <script src="${contextPath}/resources/js/user/naver_login.js"></script>
     <!-- Bootstrap 4 Tutorial -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -55,7 +57,7 @@
         </form>
         <div id="External-login">
             <a href=""><img src="${contextPath}/resources/img/user/kakao_login_large_narrow 1.png" alt="카카오 로그인"></a>
-            <a href=""><img src="${contextPath}/resources/img/user/btnG_icon_square 1.png" alt="네이버 로그인"></a>
+            <a id="naverLoginLink">네이버로그인</a>
             <a href=""><img src="${contextPath}/resources/img/user/web_neutral_sq_na@3x 1.png" alt="구글 로그인"></a>
         </div>
         

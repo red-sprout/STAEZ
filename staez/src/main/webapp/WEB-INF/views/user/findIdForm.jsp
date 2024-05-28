@@ -37,10 +37,6 @@
             <div id="findphone-div">
                 <table>
                     <tr>
-                        <th colspan="4" class="findId-label">이름</th>
-                        <td colspan="5"><input type="text" name="name"></td>
-                    </tr>
-                    <tr>
                         <th colspan="4" class="findId-label">휴대 전화</th>
                         <td colspan="1">010</td>
                         <td colspan="1">-</td>
@@ -67,21 +63,18 @@
             <div id="findemail-div">
                 <table>
                     <tr>
-                        <th colspan="4" class="findId-label">이름</th>
-                        <td colspan="3"><input type="text" name="name"></td>
-                    </tr>
-                    <tr>
-                        <th colspan="4" class="findId-label">이메일</th>
-                        <td colspan="1"><input type="text" placeholder=""></td>
-                        <td colspan="1">@</td>
-                        <td colspan="1"><input type="text"></td>
-                        <td colspan="1"><input type="button" class="check_button" value=" 인증번호 전송 "></td>
+                        <th colspan="4" class="findId-label email-container">이메일</th>
+                        <td colspan="1"><input type="text" id="email-prefix" placeholder=""></td>
+                        <td colspan="1"><span id="email-prefix-shift2">@</span></td>
+                        <td colspan="1"><input type="text" id="email-suffix" placeholder="직접 입력"></td>
+                        <input type="text" name="email" id="input-value-email" readonly>
+                        <td colspan=""><input type="button" class="check_button" value="인증번호 전송" onclick="sgininemail();"></td>
                     </tr>
                     <tr>
                         <th colspan="4" class="findId-label">인증 번호 </th>
-                        <td colspan="2"><input type="text" name="verification"></td>
-                        <td colspan="1"><input type="button" class="check_button" value="확인"></td>
-                        <td colspan="1"><input type="button" class="check_button" value="재발송"></td>
+                        <td colspan="2"><input type="text"></td>
+                        <td><input type="button" class="check_button" value="인증확인"></td>
+                        <td colspan="2"><input type="button" class="check_button" value="재발송"></td>
                     </tr>
                 </table>
             </div>
