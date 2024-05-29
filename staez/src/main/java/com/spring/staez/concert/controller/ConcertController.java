@@ -1,19 +1,21 @@
 package com.spring.staez.concert.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.spring.staez.common.model.vo.PageInfo;
-import com.spring.staez.common.template.Pagination;
+import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.service.ConcertService;
 
@@ -23,61 +25,61 @@ public class ConcertController {
 	@Autowired
 	private ConcertService concertService;
 	
-//	private int	categoryNo; //카테고리번호
-//	private int refCategoryNo; //상위카테고리번호
-//	private String categoryName; //카테고리이름
-//	private int categoryLevel; //카테고리레벨
-	
-	
-	// 공연 네비: 뮤지컬, 클래식, 국악...
-	@RequestMapping(value = "main.co") // currentPage임
-	public String concertMain(@RequestParam(value="category", defaultValue="1")String currentPage, Model model) {
-		// category로 찾으러가서 값 가져와서 출력
-		
-		int conCount = concertService.selectConCount(); //콘서트 총 몇개냐
-		ArrayList<Concert> list = concertService.concertList(); //콘서트 내용 페이지네이션해서 가져와라
-		model.addAttribute("list", list);
-		
+	// 공연 누르면 보여주는 공연 메인 페이지
+	@GetMapping("main.co")
+	public String concertMain() {
 		return "concert/concertMain";
 	}
 	
+	// category를 가져와라 콘서트 네비에 뿌려주기
+	@ResponseBody
+	@RequestMapping(value = "connavi.co", produces="application/json; charset=UTF-8")
+	public String selectCateCon() {
+		ArrayList<Category> conList =  concertService.selectCateCon();
+		return new Gson().toJson(conList);
+	}
 	
+	// 공연리스트 다가져와(ajax로)
 	@ResponseBody // 리턴할 응답 바디를 직접 입력할꺼야
-	@RequestMapping(value = "mainSlider.co", produces="application/json; charset=UTF-8")
-	public String mainSliderAjax() {
-		return new Gson().toJson(concertService.selectconSliderList());
+	@RequestMapping(value = "maincon.co", produces="application/json; charset=UTF-8")
+	public String mainDrawAjax() {
+		ArrayList<Concert> list =  concertService.selectconList();
+		return new Gson().toJson(list);
+	}
+		
+		
+	// 공연을 concertNo로 가져와서 공연세부페이지로
+	@RequestMapping(value = "detail.co", produces="application/json; charset=UTF-8")
+	public String selectCon(@RequestParam(value = "concertNo") String concertNo, Model model) {
+		
+		Concert con = concertService.selectCon(Integer.parseInt(concertNo));
+		model.addAttribute("con", con);
+		
+		return "concert/concertDetail";
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-//	// concertNo로 콘서트 가져오기
-//	@RequestMapping(value = "detail.co")
-//	public String selectCon(String concertNo, Model model) {
-//		
-//			Concert con = concertService.selectCon(Integer.parseInt(concertNo));
-//			model.addAttribute("con", con);
-//			
-//			return "concert/concertDetail";
-//	}
-	
-	
-	
-	
-//	// 공연 누르면 보여주는 공연 메인 페이지
-//	@GetMapping("main.co")
-//	public String concertMain() {
-//		return "concert/concertMain";
-//	}
-//	
-//	@GetMapping("detail.co")
-//	public String concertDetail() {
-//		return "concert/concertDetail";
-//	}
+	@ResponseBody
+	@RequestMapping(value = "conheart.co", produces="application/json; charset=UTF-8")
+	public String insertConLike(@RequestParam("userNo") String userNo,
+						   @RequestParam("concertNo") String concertNo, HttpSession session, Model model) {
+		
+		// 좋아요 버튼 체크, 만약 좋아요 버튼을 (그 전에 한번도) 클릭하지 않았으면 : checkLike null 반환 -> 좋아요 버튼 insert
+		//  checkLike !null 반환 -> 좋아요 버튼 update(status n)
+		
+        Map<String, Integer> conL = new HashMap<>();
+        conL.put("userNo", Integer.parseInt(userNo));
+        conL.put("concertNo", Integer.parseInt(concertNo));
+        int checkConLike = concertService.checkConLike(conL);
+        
+		if(checkConLike > 0) { //성공 => list 페이지로 이동
+			session.setAttribute("alertMsg", "좋아요 성공");
+			return "redirect:/";
+		} else { // 실패 => 에러페이지
+			session.setAttribute("alertMsg", "좋아요 실패");
+			return "redirect:/";
+		}
+	}	
 	
 	
 	

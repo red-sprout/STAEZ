@@ -5,6 +5,20 @@
 
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
 <mapper namespace="mypageMapper">
+	<resultMap type="User" id="userResult">
+		<result column="user_no" property="userNo" />
+		<result column="user_id" property="userId" />
+	</resultMap>
+
+	<resultMap type="BoardAttachment" id="boardAttachmentResult">
+		<result column="file_no" property="fileNo" />
+		<result column="board_no" property="boardNo" />
+		<result column="origin_name" property="originName" />
+		<result column="change_name" property="changeName" />
+		<result column="file_path" property="filePath" />
+		<result column="file_level" property="fileLevel" />
+	</resultMap>
+
 	<resultMap type="Board" id="boardResult">
 		<result column="board_no" property="boardNo" />
 		<result column="ref_board_no" property="refBoardNo" />
@@ -17,6 +31,9 @@
 		<result column="board_count" property="boardCount" />
 		<result column="board_status" property="boardStatus" />
 		<result column="like_count" property="likeCount" />
+		
+    	<association property="user" resultMap="userResult" />
+    	<collection property="boardAttachment" resultMap="boardAttachmentResult" />
 	</resultMap>
 	
 	<resultMap type="BoardLike" id="boardLikeResult">
@@ -118,23 +135,122 @@
 		AND status = 'Y'
 	</select>
 	
-	<select id="selectLikeBoardList" resultType="Board">
-		SELECT bl.board_like_no AS boardLikeNo,
-		       b.board_no AS boardNo,
-		       u.user_id AS userId,
-		       b.board_title AS boardTitle,
-		       b.board_count AS boardCount,
-		       b.board_write_date AS boarWriteDate,
+	<select id="selectLikeBoardList" resultMap="boardResult">
+		SELECT bl.board_like_no,
+		       b.board_no,
+		       u.user_id,
+		       b.board_title,
+		       b.board_count,
+		       b.board_write_date,
 		       (SELECT COUNT(*) 
 		        FROM board_like bl2 
 		        WHERE bl2.board_no = b.board_no 
-		        AND bl2.status = 'Y') AS likeCount
+		        AND bl2.status = 'Y') AS like_count
 		FROM board_like bl
 		JOIN board b ON b.board_no = bl.board_no
 		JOIN staez_user u ON b.user_no = u.user_no 
 		WHERE bl.user_no = #{userNo}
         AND b.board_code = 1 <!-- 2(일반게시글)로 변경 해야됨 -->
-        AND bl.status = 'Y';
+        AND bl.status = 'Y'
+        ORDER BY bl.board_like_no;
+	</select>
+
+	<select id="selectPaymentsCount" resultType="_int">
+		SELECT COUNT(*) 
+		FROM (SELECT user_no, 
+					 concert_no, 
+					 concert_date, 
+					 concert_times
+			  FROM reserve
+			  WHERE user_no = #{user_no}
+			  AND reserve_status = 'Y'
+			  GROUP BY user_no, concert_no, concert_date, concert_times);
+	</select>
+	
+	<select id="selectPaymentsList" resultType="Concert">
+		SELECT *
+		FROM concert
+		JOIN reserve ON concert_no
+		JOIN staez_user ON user_no
+		WHERE user_no = #{userNo}
+	</select>
+
+	<select id="selectScrapCount" resultType="_int">
+		SELECT COUNT(concert_like_no) 
+		FROM concert_like
+		JOIN concert USING (concert_no)
+		WHERE user_no = #{userNo}
+		AND status = 'Y'
+	</select>
+	
+	<select id="selectScrapList" resultType="Concert">
+		SELECT cl.concert_like_no AS concertLikeNo, 
+		       cl.user_no AS userNo,
+		       c.concert_no AS concertNo, 
+		       c.concert_title AS concertTitle, 
+		       c.concert_members AS concertMembers,
+		       c.age_limit AS ageLimit,
+		       t.theater_name AS theaterName,
+		       ca.origin_name AS originName,
+		       ca.change_name AS changeName,
+		       ca.file_path AS filePath, 
+		       cs_min_max.start_date AS startDate,
+		       cs_min_max.end_date AS endDate		       
+		FROM concert_like cl
+		
+		JOIN concert c 
+		ON cl.concert_no = c.concert_no
+		
+		JOIN concert_attachment ca
+		ON c.concert_no = ca.concert_no
+		
+		JOIN theater t 
+		ON c.theater_no = t.theater_no
+		
+		JOIN (SELECT concert_no, 
+			         MIN(start_date) AS start_date, 
+			         MAX(end_date) AS end_date
+		      FROM concert_schedule
+		      GROUP BY concert_no) cs_min_max 
+		ON cl.concert_no = cs_min_max.concert_no
+		
+		WHERE cl.user_no = #{userNo}		
+		AND cl.status = 'Y'
+		AND ca.file_level = 1
+	</select>
+	
+	<select id="selectReviewCount" resultType="_int">
+		SELECT COUNT(concert_no) 
+		FROM (SELECT DISTINCT concert_no
+			  FROM reserve
+			  WHERE user_no = #{userNo}
+			  AND reserve_status = 'Y') 
+	</select>
+	
+	<select id="selectReviewList" resultType="Concert">
+		SELECT r.concert_date AS concertDate, 
+			   r.concert_times AS concertTimes,
+			   cr.review_content AS reviewContent,
+			   c.concert_title AS concertTitle,
+			   ca.origin_name AS originName,
+			   ca.change_name AS changeName,
+			   ca.file_path AS filePath
+			
+		FROM (SELECT DISTINCT concert_date, concert_times, concert_no, user_no
+				FROM reserve
+				WHERE user_no = #{userNo}
+				AND reserve_status = 'Y') r
+		
+		JOIN concert c 
+		ON r.concert_no = c.concert_no
+		
+		JOIN concert_attachment ca
+		ON c.concert_no = ca.concert_no
+		
+		LEFT JOIN concert_review cr
+		ON r.concert_no = cr.concert_no
+		
+		ORDER BY r.concert_date DESC, r.concert_times ASC;
 	</select>
 	
 </mapper>
