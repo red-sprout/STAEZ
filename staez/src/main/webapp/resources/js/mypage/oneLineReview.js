@@ -8,31 +8,4 @@ const starRating = _this => {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const hoverTarget = document.querySelector('#review-func>span');
-    const hoverButton = document.querySelector('#review-func>button');
 
-    const showButton = () => {
-        hoverButton.style.display = 'inline-block';
-        hoverTarget.style.display = 'none';
-    };
-
-    const hideButton = () => {
-        hoverButton.style.display = 'none';
-        hoverTarget.style.display = 'flex';
-    };
-
-    hoverTarget.addEventListener('mouseenter', showButton);
-    hoverTarget.addEventListener('mouseleave', (event) => {
-        if (!hoverButton.contains(event.relatedTarget)) {
-            hideButton();
-        }
-    });
-
-    hoverButton.addEventListener('mouseenter', showButton);
-    hoverButton.addEventListener('mouseleave', (event) => {
-        if (!hoverTarget.contains(event.relatedTarget)) {
-            hideButton();
-        }
-    });
-});

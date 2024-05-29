@@ -35,4 +35,7 @@ public class Concert {
 	private String theaterName; //공영장명
 	
 	private String reviewContent; //한줄평 내용
+	private String concertDate; //예약한 공연날짜
+	private int score; //별점
+	
 }

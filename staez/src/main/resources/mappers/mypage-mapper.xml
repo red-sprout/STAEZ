@@ -108,21 +108,21 @@
 		SELECT COUNT(board_no) 
 		FROM board
 		WHERE user_no = #{userNo}
-		AND board_code = 1
+		AND board_code = 2
 		AND board_status = 'Y'
 	</select>
 	
-	<select id="selectMyBoardList" resultMap="boardResult">
-		SELECT b.board_no, 
-			   b.user_no, 
-			   COUNT(bl.board_no) AS like_count, 
-			   b.board_title, 
-			   b.board_count, 
-			   b.board_write_date 
+	<select id="selectMyBoardList" resultType="Board">
+		SELECT b.board_no AS boardNo, 
+			   b.user_no AS userNo, 
+			   COUNT(bl.board_no) AS likeCount, 
+			   b.board_title AS boardTitle, 
+			   b.board_count AS boardCount, 
+			   b.board_write_date AS boardWriteDate 
 		FROM board b
 		LEFT JOIN board_like bl ON b.board_no = bl.board_no
 		WHERE b.user_no = #{userNo}
-		AND b.board_code = 1 <!-- 2(일반게시글)로 변경 해야됨 -->
+		AND b.board_code = 2 <!-- 2(일반게시글)로 변경 해야됨 -->
 		AND b.board_status = 'Y'
 		GROUP BY b.board_no, b.board_title, b.board_count, b.board_write_date
 		ORDER BY b.board_no DESC		
@@ -135,22 +135,22 @@
 		AND status = 'Y'
 	</select>
 	
-	<select id="selectLikeBoardList" resultMap="boardResult">
-		SELECT bl.board_like_no,
-		       b.board_no,
-		       u.user_id,
-		       b.board_title,
-		       b.board_count,
-		       b.board_write_date,
+	<select id="selectLikeBoardList" resultType="com.spring.staez.community.model.dto.BoardListDto">
+		SELECT bl.board_like_no AS boardLikeNo,
+		       b.board_no AS boardNo,
+		       u.user_id AS userId,
+		       b.board_title AS boardTitle,
+		       b.board_count AS boardCount,
+		       b.board_write_date AS boardWriteDate,
 		       (SELECT COUNT(*) 
 		        FROM board_like bl2 
 		        WHERE bl2.board_no = b.board_no 
-		        AND bl2.status = 'Y') AS like_count
+		        AND bl2.status = 'Y') AS likeCount
 		FROM board_like bl
 		JOIN board b ON b.board_no = bl.board_no
 		JOIN staez_user u ON b.user_no = u.user_no 
 		WHERE bl.user_no = #{userNo}
-        AND b.board_code = 1 <!-- 2(일반게시글)로 변경 해야됨 -->
+        AND b.board_code = 2 <!-- 2(일반게시글)로 변경 해야됨 -->
         AND bl.status = 'Y'
         ORDER BY bl.board_like_no;
 	</select>
@@ -168,11 +168,7 @@
 	</select>
 	
 	<select id="selectPaymentsList" resultType="Concert">
-		SELECT *
-		FROM concert
-		JOIN reserve ON concert_no
-		JOIN staez_user ON user_no
-		WHERE user_no = #{userNo}
+
 	</select>
 
 	<select id="selectScrapCount" resultType="_int">
@@ -221,7 +217,7 @@
 	
 	<select id="selectReviewCount" resultType="_int">
 		SELECT COUNT(concert_no) 
-		FROM (SELECT DISTINCT concert_no
+		FROM (SELECT concert_no
 			  FROM reserve
 			  WHERE user_no = #{userNo}
 			  AND reserve_status = 'Y') 
@@ -230,8 +226,11 @@
 	<select id="selectReviewList" resultType="Concert">
 		SELECT r.concert_date AS concertDate, 
 			   r.concert_times AS concertTimes,
+			   cr.score AS score,
 			   cr.review_content AS reviewContent,
 			   c.concert_title AS concertTitle,
+			   c.concert_runtime AS concertRuntime,
+			   t.theater_name AS theaterName,
 			   ca.origin_name AS originName,
 			   ca.change_name AS changeName,
 			   ca.file_path AS filePath
@@ -243,6 +242,9 @@
 		
 		JOIN concert c 
 		ON r.concert_no = c.concert_no
+		
+		JOIN theater t 
+		ON c.theater_no = t.theater_no
 		
 		JOIN concert_attachment ca
 		ON c.concert_no = ca.concert_no

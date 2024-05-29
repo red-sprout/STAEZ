@@ -26,7 +26,7 @@
                         <td id="review-func">
                             <span>
                                 <img src="${contextPath}/resources/img/mypage/star-filled.png" alt=""> 
-                                <h4>5</h4>
+                                <h4>${c.score}</h4>
                             </span>
                             <button class="hidden" type="button" data-toggle="modal" data-target="#myModal"><h4>수정</h4></button>
                         </td>
@@ -45,11 +45,10 @@
                             <button type="button" data-toggle="modal" data-target="#myModal"><h4>후기작성</h4></button>
                         </td>
                     </tr>
-                </c:otherwise>
-            </c:choose>
-            </c:forEach>
-            
-
+                    
+                </c:otherwise>                
+            </c:choose>            
+        </c:forEach>
         </tbody>
     </table>
 
@@ -58,13 +57,12 @@
             <c:if test="${pi.currentPage != 1}">
                 <div class="pagination">
                     <img src="${contextPath}/resources/img/main/before.png" 
-                         onclick=`location.href="${contextPath}/reviewList.me?cpage=${pi.currentPage - 1}"`>
+                         onclick='location.href="${contextPath}/reviewList.me?cpage=${pi.currentPage - 1}"'>
                 </div>
             </c:if>
-            
             <c:forEach var="i" begin="${pi.startPage}" end="${pi.endPage}">
                 <c:choose>
-                    <c:when test="${capge eq i}">
+                    <c:when test="${pi.currentPage eq i}">
                         <div class="pagination current" onclick="location.href='${contextPath}/reviewList.me?cpage=${i}'"><h4>${i}</h4></div>
                     </c:when>
                     <c:otherwise>
@@ -76,24 +74,23 @@
             <c:if test="${pi.currentPage ne pi.maxPage}">
                 <div class="pagination">
                     <img src="${contextPath}/resources/img/main/after.png" 
-                         onclick=`location.href="${contextPath}/reviewList.me?cpage=${pi.currentPage + 1}"`>
+                         onclick='location.href="${contextPath}/reviewList.me?cpage=${pi.currentPage + 1}"'>
                 </div>
             </c:if>
         </c:if>
     </div>
-
 </div>
 
 <!-- The Modal -->
 <div class="modal" id="myModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
                 <h3 class="modal-title">한줄평</h3>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            
+                
             <form method="POST">
                 <!-- Modal body -->
                 <div class="modal-body">
@@ -101,19 +98,22 @@
                         <table>
                             <tr>
                                 <td rowspan="5">
-                                    <img src="${contextPath}/resources/img/mypage/chicago.gif" alt="">
+                                    <img src="${contextPath}${c.filePath}${c.changeName}" alt="">
                                 </td>
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
-                                <td><h3>꽃 별이지나</h3></td>
+                                <td><h3>${c.concertTitle}</h3></td>
                             </tr>
                             <tr>
-                                <td>서경대학교 공연예술센터 스콘 1관</td>
+                                <td>${c.theaterName}</td>
                             </tr>
                             <tr>
                                 <td>
-                                    관람일 : 2024.05.12 (월) 14:00 (130분)
+                                    관람일 : 
+                                    <fmt:parseDate value="${c.concertDate}" var="date" pattern="yyyy-MM-dd" />
+                                    <fmt:formatDate value="${date}" pattern="yyyy-MM-dd (E)" />
+                                    14:00 (${c.concertRuntime}분)
                                 </td>
                             </tr>
                             <tr>
@@ -146,7 +146,9 @@
                     </div>
                     <div class="comment-area">
                         <h3>한줄평</h3>
-                        <textarea rows="4" placeholder="200자"></textarea>
+                        <textarea rows="4" placeholder="200자" maxlength="200">
+                            ${c.reviewContent}
+                        </textarea>
                     </div>
                 </div>
                 

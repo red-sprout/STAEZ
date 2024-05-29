@@ -23,7 +23,7 @@
             <c:forEach var="b" items="${blist}">
             <tr class="tb-content" onclick="location.href='detail.bo?bno=${b.boardNo}'">
                 <td id="btitle">${b.boardTitle}</td>
-                <td>${b.user.userId}</td>
+                <td>${b.userId}</td>
                 <td>
                     <fmt:parseDate value="${b.boardWriteDate}" var="date" pattern="yyyy-MM-dd HH:mm:ss" />
                     <fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
@@ -40,13 +40,13 @@
             <c:if test="${pi.currentPage != 1}">
                 <div class="pagination">
                     <img src="${contextPath}/resources/img/main/before.png" 
-                         onclick=`location.href="${contextPath}/likeList.me?cpage=${pi.currentPage - 1}"`>
+                         onclick='location.href="${contextPath}/likeList.me?cpage=${pi.currentPage - 1}"'>
                 </div>
             </c:if>
             
             <c:forEach var="i" begin="${pi.startPage}" end="${pi.endPage}">
                 <c:choose>
-                    <c:when test="${capge eq i}">
+                    <c:when test="${pi.currentPage eq i}">
                         <div class="pagination current" onclick="location.href='${contextPath}/likeList.me?cpage=${i}'"><h4>${i}</h4></div>
                     </c:when>
                     <c:otherwise>
@@ -58,7 +58,7 @@
             <c:if test="${pi.currentPage ne pi.maxPage}">
                 <div class="pagination">
                     <img src="${contextPath}/resources/img/main/after.png" 
-                         onclick=`location.href="${contextPath}/likeList.me?cpage=${pi.currentPage + 1}"`>
+                         onclick='location.href="${contextPath}/likeList.me?cpage=${pi.currentPage + 1}"'>
                 </div>
             </c:if>
         </c:if>

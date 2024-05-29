@@ -2,12 +2,13 @@ package com.spring.staez.mypage.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.common.model.vo.PageInfo;
+import com.spring.staez.community.model.dto.BoardListDto;
 import com.spring.staez.concert.model.vo.Concert;
-import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.user.model.vo.ProfileImg;
 import com.spring.staez.user.model.vo.User;
 
@@ -64,8 +65,10 @@ public class MypageDao {
 		return count;
 	}
 
-	public ArrayList<Board> selectMyBoardList(SqlSessionTemplate sqlSession, int userNo) {
-		ArrayList<Board> list = (ArrayList)sqlSession.selectList("mypageMapper.selectMyBoardList", userNo);
+	public ArrayList<BoardListDto> selectMyBoardList(SqlSessionTemplate sqlSession, int userNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		ArrayList<BoardListDto> list = (ArrayList)sqlSession.selectList("mypageMapper.selectMyBoardList", userNo);
 		return list;
 		
 	}
@@ -75,8 +78,10 @@ public class MypageDao {
 		return count;
 	}
 	
-	public ArrayList<Board> selectLikeBoardList(SqlSessionTemplate sqlSession, int userNo) {
-		ArrayList<Board> list = (ArrayList)sqlSession.selectList("mypageMapper.selectLikeBoardList", userNo);
+	public ArrayList<BoardListDto> selectLikeBoardList(SqlSessionTemplate sqlSession, int userNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		ArrayList<BoardListDto> list = (ArrayList)sqlSession.selectList("mypageMapper.selectLikeBoardList", userNo);
 		return list;
 	}
 	
@@ -86,7 +91,9 @@ public class MypageDao {
 		return count;
 	}
 	
-	public ArrayList<Concert> selectPaymentsList(SqlSessionTemplate sqlSession, int userNo) {
+	public ArrayList<Concert> selectPaymentsList(SqlSessionTemplate sqlSession, int userNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		ArrayList<Concert> list = (ArrayList)sqlSession.selectList("mypageMapper.selectPaymentsList", userNo);
 		return list;
 	}
@@ -96,7 +103,9 @@ public class MypageDao {
 		return count;
 	}
 	
-	public ArrayList<Concert> selectScrapList(SqlSessionTemplate sqlSession, int userNo) {
+	public ArrayList<Concert> selectScrapList(SqlSessionTemplate sqlSession, int userNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		ArrayList<Concert> list = (ArrayList)sqlSession.selectList("mypageMapper.selectScrapList", userNo);
 		return list;
 	}
@@ -106,8 +115,10 @@ public class MypageDao {
 		return count;
 	}
 	
-	public ArrayList<Concert> selectReviewList(SqlSessionTemplate sqlSession, int userNo) {
-		ArrayList<Concert> list = (ArrayList)sqlSession.selectList("mypageMapper.selectReviewList", userNo);
+	public ArrayList<Concert> selectReviewList(SqlSessionTemplate sqlSession, int userNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		ArrayList<Concert> list = (ArrayList)sqlSession.selectList("mypageMapper.selectReviewList", userNo, rowBounds);
 		return list;
 	}
 	

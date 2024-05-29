@@ -6,9 +6,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.common.model.vo.PageInfo;
+import com.spring.staez.community.model.dto.BoardListDto;
 import com.spring.staez.concert.model.vo.Concert;
-import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.mypage.model.dao.MypageDao;
 import com.spring.staez.user.model.vo.ProfileImg;
 import com.spring.staez.user.model.vo.User;
@@ -69,8 +69,8 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public ArrayList<Board> selectMyBoardList(int userNo) {
-		return mpd.selectMyBoardList(sqlSession, userNo);
+	public ArrayList<BoardListDto> selectMyBoardList(int userNo, PageInfo pi) {
+		return mpd.selectMyBoardList(sqlSession, userNo, pi);
 	}
 
 	@Override
@@ -79,8 +79,8 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public ArrayList<Board> selectLikeBoardList(int userNo) {
-		return mpd.selectLikeBoardList(sqlSession, userNo);
+	public ArrayList<BoardListDto> selectLikeBoardList(int userNo, PageInfo pi) {
+		return mpd.selectLikeBoardList(sqlSession, userNo, pi);
 	}
 
 	@Override
@@ -89,8 +89,8 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public ArrayList<Concert> selectPaymentsList(int userNo) {
-		return mpd.selectPaymentsList(sqlSession, userNo);
+	public ArrayList<Concert> selectPaymentsList(int userNo, PageInfo pi) {
+		return mpd.selectPaymentsList(sqlSession, userNo, pi);
 	}
 
 	@Override
@@ -99,8 +99,8 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public ArrayList<Concert> selectScrapList(int userNo) {
-		return mpd.selectScrapList(sqlSession, userNo);
+	public ArrayList<Concert> selectScrapList(int userNo, PageInfo pi) {
+		return mpd.selectScrapList(sqlSession, userNo, pi);
 	}
 
 	@Override
@@ -109,8 +109,8 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public ArrayList<Concert> selectReviewList(int userNo) {
-		return mpd.selectReviewList(sqlSession, userNo);
+	public ArrayList<Concert> selectReviewList(int userNo, PageInfo pi) {
+		return mpd.selectReviewList(sqlSession, userNo, pi);
 	}
 
 	
