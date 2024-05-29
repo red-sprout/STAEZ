@@ -6,7 +6,7 @@ $(function() {
     conHeart({
         "userNo" : userNo,
         "concertNo" : concertNo
-    }, (like) => insertLike(like, userNo, concertNo)) 
+    }, (conL) => insertLike(conL, userNo, concertNo)) 
 });
 
 // let heartClick = document.getElementsByClassName("concert-detail-like-button");
@@ -17,7 +17,7 @@ $(function() {
 
 
 function insertLike(like, userNo, concertNo){
-    
+  console.log("alertMsg");    
 
 
 }
@@ -25,7 +25,6 @@ function insertLike(like, userNo, concertNo){
  
 // ajax로 콘서트 navi 그려
 function drawConNavi(conList){
-  console.log(conList)
   
   const concertNaviArea = document.querySelector(".concert-ul");
   concertNaviArea.innerHTML = ``;
@@ -49,6 +48,8 @@ function likeToggle(_this) {
     // fa-solid && fa-regular
     _this.children[0].classList.toggle("fa-solid");
     _this.children[0].classList.toggle("fa-regular");
+
+
 }
 
 

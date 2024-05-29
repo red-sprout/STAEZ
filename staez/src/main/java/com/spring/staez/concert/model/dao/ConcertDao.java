@@ -1,18 +1,13 @@
 package com.spring.staez.concert.model.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.concert.model.vo.Concert;
-import com.spring.staez.concert.model.vo.ConcertAttachment;
-import com.spring.staez.concert.model.vo.ConcertLike;
 
 @Repository
 public class ConcertDao {
@@ -41,21 +36,23 @@ public class ConcertDao {
 
 	
 	
-	public ConcertLike checkConLike(SqlSessionTemplate sqlSession, ConcertLike conL) {
+	public int checkConLike(SqlSessionTemplate sqlSession, Map<String, Integer> conL) {
 		return sqlSession.selectOne("concertMapper.checkLike", conL);
 	}
 
-	public int insertConLike(SqlSessionTemplate sqlSession, ConcertLike conL) {
-		return sqlSession.insert("concertMapper.insertConLike", conL);
-	}
+//	public int insertConLike(SqlSessionTemplate sqlSession, ConcertLike conL) {
+//		return sqlSession.insert("concertMapper.insertConLike", conL);
+//	}
+//
+//	public int updateLikeYtoN(SqlSessionTemplate sqlSession, ConcertLike conL) {
+//		return sqlSession.update("concertMapper.updateLikeYtoN", conL);
+//	}
+//
+//	public int updateLikeNtoY(SqlSessionTemplate sqlSession, ConcertLike conL) {
+//		return sqlSession.update("concertMapper.updateLikeNtoY", conL);
+//	}
 
-	public int updateLikeYtoN(SqlSessionTemplate sqlSession, ConcertLike conL) {
-		return sqlSession.update("concertMapper.updateLikeYtoN", conL);
-	}
 
-	public int updateLikeNtoY(SqlSessionTemplate sqlSession, ConcertLike conL) {
-		return sqlSession.update("concertMapper.updateLikeNtoY", conL);
-	}
 	
 
 

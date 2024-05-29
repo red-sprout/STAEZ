@@ -142,7 +142,7 @@
 	
 	
 	<!-- 좋아요 구현 -->
-	<select id="checkLike" resultMap="concertLikeResult">
+	<select id="checkLike" resultMap="concertLikeResult" parameterType="Map">
 			SELECT user_no,
 				   concert_no,
 				   status
@@ -152,30 +152,28 @@
 	</select>
 	
 	<insert id="insertConLike">
-			update INTO
-			concert_like(
-					user_no,
-					concert_no
-					)
-			VALUES(
-					#{userNo},
-					#{concertNo}
-				   )	
+	        INSERT INTO concert_like (
+	            user_no,
+	            concert_no
+	        ) VALUES (
+	            #{userNo},
+	            #{concertNo}
+	        )
 	</insert>
 
-	<update id="updateLikeYtoN">
-		UPDATE concert_like
-		   SET status = 'N'
-		 WHERE user_no = #{userNo}
-		   AND concert_no = #{concertNo}
-	</update>
-	
-	<update id="updateLikeNtoY">
-		UPDATE concert_like
-		   SET status = 'Y'
-		 WHERE user_no = #{userNo}
-		   AND  concert_no = #{concertNo}
-	</update>
+    <update id="updateLikeYtoN">
+        UPDATE concert_like
+           SET status = 'N'
+         WHERE user_no = #{userNo}
+           AND concert_no = #{concertNo}
+    </update>
+    
+    <update id="updateLikeNtoY">
+        UPDATE concert_like
+           SET status = 'Y'
+         WHERE user_no = #{userNo}
+           AND concert_no = #{concertNo}
+    </update>
 	<!-- 좋아요 구현 끝 -->
 
 	
