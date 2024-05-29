@@ -14,6 +14,7 @@
 <body>
 	<header>
         <jsp:include page="../common/header.jsp" />
+		<script src="${contextPath}/resources/js/api/othersapi.js"></script>
     </header>
     <main>
         <div id="concert-reservation-calendar-area">
@@ -25,6 +26,7 @@
             </div>
         </div>
 		<div id="calendar-container">
+			<input type="hidden" value="${loginUser.userNo}" name="userNo">
 			<div class="concert-calendar-area">
 				<div class="concert-calendar-title-area"><h1>예매 날짜</h1></div>
 				<div class="calendar">  
@@ -55,46 +57,7 @@
                     <div class="reservation-day"><span class="reservation-day-span"></span></div>
 				</div>
 				<div class="reservation-day-info-area">
-					<div class="concert-day-info">
-						<div class="concert-day-title-area"><span>음악극 〈섬:1933~2019〉</span></div>
-						<div class="concert-day-img-description-area">
-							<img src="${contextPath}/resources/img/others/calendarConcert1.png" alt="">
-							<div class="concert-day-description-area">
-								<div class="concert-day-description-place">
-									<span>장소</span>
-									<span>국립정동극장</span>
-								</div>
-								<div class="concert-day-description-period">
-									<span>공연 기간</span>
-									<span>2024.05.22 ~ 07.07</span>
-								</div>
-								<div class="concert-day-description-time">
-									<span>공연 시간</span>
-									<span>115분</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="concert-day-info">
-						<div class="concert-day-title-area"><span>음악극 〈섬:1933~2019〉</span></div>
-						<div class="concert-day-img-description-area">
-							<img src="${contextPath}/resources/img/others/calendarConcert1.png" alt="">
-							<div class="concert-day-description-area">
-								<div class="concert-day-description-place">
-									<span>장소</span>
-									<span>국립정동극장</span>
-								</div>
-								<div class="concert-day-description-period">
-									<span>공연 기간</span>
-									<span>2024.05.22 ~ 07.07</span>
-								</div>
-								<div class="concert-day-description-time">
-									<span>공연 시간</span>
-									<span>115분</span>
-								</div>
-							</div>
-						</div>
-					</div>
+					
 				</div>
 			</div>
         </div>
