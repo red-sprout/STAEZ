@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
@@ -20,6 +20,11 @@
 		<result column="enroll_date" property="enrollDate" />
 		<result column="withdrawal_date" property="withdrawalDate" />
 		<result column="user_status" property="userStatus" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="emailResult">
+	    <result column="email" property="email"/>
+	    <result column="authno" property="authNo"/>
+	    <result column="send_time" property="sendTime"/>
 	</resultMap>
 
 	<select id="test" resultMap="userResult"> <!-- db의 컬럼과 객체의 필드명이 완전히 같다면 resultType사용 가능 -->
@@ -90,18 +95,35 @@
 		)
 	</insert>
 	
-	<!-- 이메일체크 -->
-	<select id="emailCheck" resultType="_int">
-		SELECT COUNT(*)
-		  FROM staez_user
-		 WHERE email_auth = #{checkEmail}
-	</select>
-	
 	<!-- 네이버 로그인유무 이메일 체크 -->
 	<select id="findUserByEmail" parameterType="string" resultType="com.spring.staez.user.model.vo.User">
 	    SELECT * 
 	    FROM staez_user 
 	    WHERE email = #{email}
 	</select>
+	
+	<!-- 이메일 인증번호 저장을 위한 서비스 -->
+	<insert id="registerUser" parameterType="com.spring.staez.user.model.vo.User">
+    INSERT INTO 
+           email_auth(
+                      email, 
+                      authNo, 
+                      send_time
+                     )
+           VALUES (
+                   #{email}, 
+                   #{authNo}, 
+                   #{send_time})
+	</insert>
+	
+	<!-- uuid 체크 -->
+	<select id="emailSecretCodeCheck" resultType="_int">
+		SELECT COUNT(*)
+		  FROM email_auth
+		 WHERE authNo = #{authNo}
+		   AND email = #{email}
+		   AND send_time >= CURRENT_TIMESTAMP - INTERVAL '5 minutes';
+	</select>
+
 </mapper>
 

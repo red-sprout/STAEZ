@@ -1,15 +1,14 @@
 package com.spring.staez.user.controller;
 
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.spring.staez.user.model.vo.User;
 import com.spring.staez.user.service.UserService;
@@ -68,7 +66,7 @@ public class UserController {
         return "user/insertPwdForm";
     }
 
-    // idCheck
+    // 아이디체크
     @ResponseBody
     @GetMapping("idCheck.me")
     public String idCheck(String checkId) {
@@ -82,7 +80,7 @@ public class UserController {
         }
     }
 
-    // nickCheck
+    // 닉네임체크
     @ResponseBody
     @GetMapping("nickCheck.me")
     public String nickCheck(String checkNick) {
@@ -122,12 +120,52 @@ public class UserController {
         }
     }
     
-    //이메일 체크
+    //이메일 체크 (이메일/UUID/등록날짜 등록해야댐)
     @ResponseBody
     @GetMapping("emailCheck.me")
-    public String emailCheck(String checkEmail) {
-        System.out.println("Check ID: " + checkEmail); // 디버깅을 위한 로그 추가
-        int result = userService.idCheck(checkEmail);
+    public String emailCheck(String email) {
+        System.out.println("이메일 : " + email);
+
+        // UUID 생성
+        String shortenedAuthNo = UUID.randomUUID().toString();
+        System.out.println("원래 암호이메일 : " + shortenedAuthNo);
+
+        // UUID를 6자로 축소
+        String authNo = shortenedAuthNo.substring(0, 6);
+        System.out.println("6글자 암호 이메일 : " + authNo);
+
+        // 현재 날짜 및 시간 가져오기
+        LocalDateTime send_time = LocalDateTime.now();
+        System.out.println("send_time : " + send_time);
+
+        // 메일 전송
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("STAEZ 이메일 인증 번호");
+        message.setText("STAEZ 인증 번호: " + authNo);
+        
+        try {
+            sender.send(message); // 이메일 전송 시도
+            // 이메일 전송이 성공한 경우에만 데이터 저장
+            int result = userService.registerUser(email, authNo, send_time);
+            if (result > 0) { // 저장완료
+                return "Yes";
+            } else { // 저장이 실패한 경우
+                return "No";
+            }
+        } catch (MailException e) {
+            System.out.println("이메일 전송 실패: " + e.getMessage());
+            return "No";
+        }
+    }
+    
+    // 이메일 UUID체크
+    @ResponseBody
+    @GetMapping("emailSecretCodeCheck.me")
+    public String uuidCheck(@RequestParam("emailcheck") String uuidCheck, String email) {
+        System.out.println("uuidCheck : " + uuidCheck); // 디버깅을 위한 로그 추가
+        System.out.println("email : " + email);
+        int result = userService.emailSecretCodeCheck(uuidCheck,email);
 
         if (result > 0) { // 이미 존재한다면
             return "NNNNN";
@@ -135,5 +173,4 @@ public class UserController {
             return "NNNNY";
         }
     }
-    
 }
