@@ -314,7 +314,7 @@
 	</update>
 	
 	<select id="selectUserLikeBoardNo" resultMap="boardLikeResult">
-		select board_no, user_no, status
+		select board_no
 		from board_like
 		where user_no = #{userNo}
 		and status = 'Y'
