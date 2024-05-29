@@ -153,15 +153,14 @@ span{
     border-radius: 10px;
     min-width: 68px;
 }
+.check_button.clicked {
+background-color: rgb(219, 219, 219); /* 클릭한 경우의 배경색 */
+}
+  
 
 /* 생년월일 */
 input[type="date"]{
     width: 100%;
-}
-
-/* 중복결과 숨기기 */
-#checkResult{
-    display: none;
 }
 
 /* 모든 input text 필드 */
@@ -284,6 +283,7 @@ input[type="checkbox"] {
 /* 중복체크 */
 .checkResult {
     text-align: left; /* 원하는 정렬 방법으로 변경 가능 */
-    margin-left: 15px; /* 동일한 위치 정렬을 위한 간격 추가 */
+    /* margin-left: 15px; 동일한 위치 정렬을 위한 간격 추가 */
     width: 100%; /* 부모 요소의 너비에 맞춥니다 */
+    display: none;
 }

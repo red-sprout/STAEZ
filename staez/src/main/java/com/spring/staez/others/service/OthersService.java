@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.common.model.vo.PageInfo;
+import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.community.model.vo.BoardLike;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.user.model.vo.ProfileImg;
+import com.spring.staez.user.model.vo.Reserve;
 
 public interface OthersService {
 	
@@ -21,4 +25,18 @@ public interface OthersService {
 	ArrayList<Concert> selectDateCategoryConcert(String categoryNo, String concertDate);
 	
 	ArrayList<Concert> selectPageConcert(String categoryNo, String concertDate, PageInfo pi);
+	
+	ArrayList<Reserve> selectReserveConcertList(int uNo);
+	
+	ArrayList<Concert> selectChoiceReserveConcertList(String userNo, String date);
+
+	ArrayList<Board> selectPopularBoardList();
+	
+	ArrayList<Board> selectPopularBoardCategory();
+	
+	ArrayList<ProfileImg> selectpopularBoardUserProfile();
+	
+	ArrayList<BoardLike> insertUpdatelike(int userNo, int boardNo);
+	
+	ArrayList<BoardLike> updateNoLike(int userNo, int boardNo);
 }

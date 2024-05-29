@@ -156,3 +156,7 @@
 #community-submit {
     justify-content: center !important;
 }
+
+input[name=boardTitle] {
+    padding: 10px;
+}

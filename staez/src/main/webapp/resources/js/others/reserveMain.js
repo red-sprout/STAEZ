@@ -2,6 +2,7 @@ window.onload = function(){
     const body = document.querySelector("body");
     body.classList.add("noScroll");
     mainCategoryName((category) => drawOption(category));
+    mainPopularBoardList((bList) => drawBoardListContent(bList));
 }
 
 function drawOption(category){
@@ -15,7 +16,6 @@ function drawOption(category){
 
     select1.onchange = function() {
         const categoryNo1 = this.value;
-        console.log(categoryNo1)
         selectPopularConcert({
             categoryNo1
         },(pcConcerts) => drawPopularConcert(pcConcerts, categoryNo1));
@@ -23,7 +23,6 @@ function drawOption(category){
 
     select2.onchange = function() {
         const categoryNo2 = this.value;
-        console.log(categoryNo2)
         selectLatestConcert({
             categoryNo2
         },(lcConcerts) => drawLatestConcert(lcConcerts, categoryNo2));
@@ -40,7 +39,6 @@ function drawOption(category){
     },(lcConcerts) => drawLatestConcert(lcConcerts, categoryNo2))
 }
 function drawPopularConcert(pcConcerts, categoryNo1){
-    console.log(pcConcerts)
     const pcConsertsArea = document.querySelector(".popularity-concert-information-slider");
     pcConsertsArea.innerHTML = ``;
     if(pcConcerts.length != 0){
@@ -67,16 +65,16 @@ function popularConcertImg(categoryNo1){
 }
 
 function drawPopularConcertImg(concertImgs){
-    console.log(concertImgs)
+
     const imgArea = document.querySelectorAll(".popularity-concert-information-img");
-    console.log(imgArea)
+
     for(let i = 0; i < imgArea.length; i++){
         imgArea[i].src="/staez" + concertImgs[i].filePath + concertImgs[i].changeName;
     }
 }
 
 function drawLatestConcert(lcConcerts, categoryNo2){
-    console.log(lcConcerts)
+
     const pcConsertsArea = document.querySelector(".latest-concert-information-slider");
     pcConsertsArea.innerHTML = ``;
     if(lcConcerts != 0){
@@ -104,14 +102,67 @@ function latestConcertImg(categoryNo2){
 }
 
 function drawlatestConcertImg(concertImgs){
-    console.log(concertImgs)
+
     const imgArea = document.querySelectorAll(".latest-concert-information-img");
-    console.log("latest : " + imgArea)
+
     for(let i = 0; i < imgArea.length; i++){
         imgArea[i].src="/staez" + concertImgs[i].filePath + concertImgs[i].changeName;
     }
     checkedButtonHidden();
 }
+
+function drawBoardListContent(bList){
+   
+    const boardArea = document.querySelector(".popularity-bulletin-information-area");
+    boardArea.innerHTML = ``
+    for(let b of bList){
+        boardArea.innerHTML += `<div class="popularity-bulletin-information">
+                                    <div class="popularity-bulletin-information-a" onclick="location.href='detail.cm?boardNo=`+ b.boardNo +`'">
+                                        <div class="popularity-bulletin-content-area">
+                                            <div class="popularity-bulletin-title">
+                                                <span>`+ b.boardTitle +`</span>
+                                            </div>
+                                            <hr class="popularity-bulletin-hr">
+                                            <div class="popularity-bulletin-detail-content">
+                                                <div class="content-box">`+ b.boardContent +`</div>
+                                                <div class="heart-count-area" onclick="changeLike(this, event, `+ b.boardNo +`)">
+                                                    <img class="heart" src="/staez/resources/img/others/like-no.png" alt="">
+                                                    <span class="heart-count">`+ b.likeCount +`</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="user-and-category-tag-area">
+                                            <div class="user-profile"><img class="user-profile-img" src="" alt=""></div>
+                                            <button class="btn-staez checked" style="padding: 0px 10px"><h5 class="tag"></h5></button>
+                                            <button class="btn-staez checked" style="padding: 0px 10px"><h5 class="tag"></h5></button>
+                                        </div>  
+                                    </div>
+                                </div>`
+    }
+
+    popularBoardCategory((boardCategory) => drawBoardListContentCategory(boardCategory));
+}
+
+function drawBoardListContentCategory(boardCategory){
+    const  categoryTag = document.querySelectorAll(".tag");
+    console.log(categoryTag)
+   for(let i = 0; i < boardCategory.length; i++){
+    categoryTag[i].innerHTML = boardCategory[i].categoryName;
+    categoryTag[i+1].innerHTML = boardCategory[i+1].categoryName;
+    i++;
+   }
+
+   popularBoardUserProfile((profiles) => drawBoardListUserProFile(profiles));
+}
+
+function drawBoardListUserProFile(profiles){
+    const imgArea = document.querySelectorAll(".user-profile-img");
+    for(let p of profiles){
+        imgArea[i].src="/staez" + p[i].filePath + p[i].changeName;
+    }
+}
+
+
 
 /* 공연 리스트 슬라이드 하기 */
 
@@ -193,15 +244,39 @@ function updateSlider2() {
 
 /*따봉 누르기 */
 
-function changeLike(_this, event) {
+function changeLike(_this, event, bNo) {
     event.stopPropagation(); 
     const likeNo = "/staez/resources/img/others/like-no.png";
     const likeYes = "/staez/resources/img/others/like-yes.png"; 
     let img = _this.querySelector('img')
     let src = img.src;
+    const uNo = document.querySelector("input[name = 'userNo']").value;
     if(src.includes("no")){
         img.src = likeYes
+        likeYesEv(uNo ,bNo, _this);
     } else {
         img.src = likeNo
+        likeNoEv(uNo ,bNo, _this);
     } 
 }
+
+function likeYesEv(uNo ,bNo, countArea){
+    insertUpdatelike({
+        uNo,
+        bNo
+    },(likeCount) => drawLikeCount(likeCount, countArea))
+}
+
+function likeNoEv(uNo, bNo, countArea){
+    updateNolike({
+        uNo,
+        bNo
+    },(likeCount) => drawLikeCount(likeCount, countArea))
+}
+
+function drawLikeCount(likeCount, countArea){
+    const countSpan = countArea.querySelector("span")
+    countSpan.innerHTML = ``;
+    countSpan.innerHTML = likeCount.length;
+}
+

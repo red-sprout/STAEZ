@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const navs = document.querySelectorAll("#previous, #next");
 
     const months = [
-        "1", "2", "3", "4", "5", "6",
-        "7", "8", "9", "10", "11", "12"
+        "01", "02", "03", "04", "05", "06",
+        "07", "08", "09", "10", "11", "12"
     ];
 
     let date = new Date();
@@ -137,7 +137,7 @@ function choiceCategory(_this){
         categoryNo  ,
         concertDate ,
         cPage
-    },(concertList) => drawDateCategoryConcert(concertList))
+    },(result) => drawDateCategoryConcert(result))
 }
 
 function drawDateCategoryConcert(result){
@@ -150,7 +150,7 @@ function drawDateCategoryConcert(result){
         concertArea.innerHTML += `<span style="width: 100%;margin-top: 100px;font-size: 30px;">준비된 공연이 없습니다</span>`
     }
     for(let c of concertList){
-        concertArea.innerHTML += `<div class="concert-day-info">
+        concertArea.innerHTML += `<div class="concert-day-info" onclick="location.href='detail.co?concertNo=`+ c.concertNo +`'">
                                         <div class="concert-day-title-area"><span>`+ c.concertTitle +`</span></div>
                                         <div class="concert-day-img-description-area">
                                             <img src="/staez`+ c.filePath + c.changeName +`" alt="">
@@ -171,31 +171,73 @@ function drawDateCategoryConcert(result){
                                         </div>
                                     </div>`
     }
-
-    const pi = result.pi;
-    const pageArea = document.querySelector(".page-list");
     
-    pageArea.innerHTML = ``
-    if(pi.currentPage !== 1){
-        pageArea.innerHTML += ` <div class="pagination">
-                                    <img src="/staez/resources/img/main/before.png" />
-                                </div>`
-    }
+    if(concertList !== 0){
+        const pi = result.pi;
+        const pageArea = document.querySelector(".page-list");
+        
+        pageArea.innerHTML = ``
+        if(pi.currentPage == 1){
+            
+            pageArea.innerHTML += ` <div class="pagination" style="opacity: 0.5;">
+                                        <img src="/staez/resources/img/main/before.png" />
+                                    </div>`
+        } else {
+           
+            pageArea.innerHTML += `
+            <div class="pagination" onclick="pageArrowConcert(` + (pi.currentPage-1) + `)">
+                <img src="/staez/resources/img/main/before.png" />
+            </div>`;
+        }
 
-    for(let i = pi.startPage; i <= pi.endPage; i++){
-        pageArea.innerHTML += `<div class="pagination current"><h4>1</h4></div>`
-    }
+        for(let i = pi.startPage; i <= pi.endPage; i++){
+            pageArea.innerHTML += `<div class="pagination num" onclick="clickpageConcert(this)" style="cursor: pointer;"><h4>`+ i +`</h4></div>`
+        }
 
-    if(pi.currentPage === pi.maxPage){
-        pageArea.innerHTML += `<div class="pagination">
-                                    <img src="/staez/resources/img/main/after.png"/>
-                                </div>`
+        if(pi.currentPage === pi.maxPage){
+            pageArea.innerHTML += `<div class="pagination" style="opacity: 0.5;">
+                                        <img src="/staez/resources/img/main/after.png"/>
+                                    </div>`
+        } else {
+            pageArea.innerHTML += `<div class="pagination" onclick="pageArrowConcert(` + (pi.currentPage+1) + `)">
+                                        <img src="/staez/resources/img/main/after.png"/>
+                                    </div>`
+        }
+        const clickPage =  document.querySelectorAll(".num");
+        console.log(clickPage)
+        for(let i = 0; i < clickPage; i++){
+            clickPage[i].classList.remove("current")
+        }
+        clickPage[pi.currentPage - 1].classList.add("current")
+    } else {
+        pageArea.innerHTML = ``;
     }
-    const clickPage =  document.querySelectorAll(".num");
-    for(let i = 0; i < clickPage; i++){
-        clickPage[i].classList.remove("current")
-    }
-    clickPage[pi.currentPage].classList.add("current")
+}
+
+function clickpageConcert(_this){
+
+    console.log(_this)
+    const concertDate = document.querySelector('.concert-day').querySelector('span').innerHTML;
+    const categoryNo  = document.querySelector('.cbs').id;
+    const cPage = _this.querySelector("h4").innerHTML;
+
+    pageConcert({
+        categoryNo  ,
+        concertDate ,
+        cPage 
+    },(result) => drawDateCategoryConcert(result))
+
+}
+
+function pageArrowConcert(cPage){
+    console.log("cPage : " + cPage)
+    const concertDate = document.querySelector('.concert-day').querySelector('span').innerHTML;
+    const categoryNo  = document.querySelector('.cbs').id;
+    pageConcert({
+        categoryNo  ,
+        concertDate ,
+        cPage 
+    },(result) => drawDateCategoryConcert(result))
 }
 
 function clickDate(_this){
@@ -218,8 +260,8 @@ let date = new Date();
 let month = date.getMonth();
 let year = date.getFullYear();
 const months = [
-    "1", "2", "3", "4", "5", "6",
-    "7", "8", "9", "10", "11", "12"
+    "01", "02", "03", "04", "05", "06",
+        "07", "08", "09", "10", "11", "12"
 ];
 function spanDayChange2(y, m, d){
     console.log(clickedDate);
@@ -238,7 +280,7 @@ function spanDayChange2(y, m, d){
         categoryNo  ,
         concertDate ,
         cPage
-    },(concertList) => drawDateCategoryConcert(concertList))
+    },(result) => drawDateCategoryConcert(result))
 
 }
 

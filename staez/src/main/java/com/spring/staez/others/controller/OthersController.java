@@ -13,8 +13,12 @@ import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.common.template.Pagination;
+import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.community.model.vo.BoardLike;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.others.service.OthersService;
+import com.spring.staez.user.model.vo.ProfileImg;
+import com.spring.staez.user.model.vo.Reserve;
 
 @Controller
 public class OthersController {
@@ -99,7 +103,7 @@ public class OthersController {
 		int currentPage = Integer.parseInt(cPage);
 		int listCount = dcList.size();
 		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 6);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 2);
 		ArrayList<Concert> pdcList = oService.selectPageConcert(categoryNo, concertDate, pi);
 		
 		Map<String, Object> resMap = new HashMap<String, Object>();
@@ -110,9 +114,83 @@ public class OthersController {
 	}
 	
 	
+	@ResponseBody
+	@GetMapping(value = "ajaxReserveConcertList.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxSelectReserveConcertList(String userNo) {
+		int uNo = Integer.parseInt(userNo);
+		
+		ArrayList<Reserve> rList = oService.selectReserveConcertList(uNo);
+		
+		
+		return  new Gson().toJson(rList);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxChoiceReserveConcertList.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxChoiceReserveConcertList(String userNo, String todate) {
+		
+
+		ArrayList<Concert> crList = oService.selectChoiceReserveConcertList(userNo, todate);
+		
+		
+		return  new Gson().toJson(crList);
+	}
 	
 	
+	@ResponseBody
+	@GetMapping(value = "ajaxSelectPopularBoardList.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxSelectPopularBoardList() {
+		
+
+		ArrayList<Board> bList = oService.selectPopularBoardList();
+		
+		
+		return  new Gson().toJson(bList);
+	}
 	
+	@ResponseBody
+	@GetMapping(value = "ajaxSelectpopularBoardCategory.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxSelectpopularBoardCategory() {
+		
+
+		ArrayList<Board> bcList = oService.selectPopularBoardCategory();
+		
+		
+		return  new Gson().toJson(bcList);
+	}
 	
+	@ResponseBody
+	@GetMapping(value = "ajaxSelectpopularBoardUserProfile.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxSelectpopularBoardUserProfile() {
+		
+
+		ArrayList<ProfileImg> profileList = oService.selectpopularBoardUserProfile();
+		
+		
+		return  new Gson().toJson(profileList);
+	}
+
+	@ResponseBody
+	@GetMapping(value = "ajaxInsertUpdatelike.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxInsertUpdatelike(String uNo, String bNo) {
+		int userNo = Integer.parseInt(uNo);
+		int boardNo = Integer.parseInt(bNo);
+		
+		ArrayList<BoardLike> likeCount = oService.insertUpdatelike(userNo, boardNo);
+		
+		
+		return  new Gson().toJson(likeCount);
+	}
 	
+	@ResponseBody
+	@GetMapping(value = "ajaxUpdateNoLike.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxUpdateNoLike(String uNo, String bNo) {
+		int userNo = Integer.parseInt(uNo);
+		int boardNo = Integer.parseInt(bNo);
+		
+		ArrayList<BoardLike> likeCount = oService.updateNoLike(userNo, boardNo);
+		
+		
+		return  new Gson().toJson(likeCount);
+	}
 }

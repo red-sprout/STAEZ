@@ -1,7 +1,6 @@
 package com.spring.staez.others.model.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
@@ -10,7 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.common.model.vo.PageInfo;
+import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.community.model.vo.BoardLike;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.user.model.vo.ProfileImg;
+import com.spring.staez.user.model.vo.Reserve;
 
 @Repository
 public class OthersDao {
@@ -47,4 +50,46 @@ public class OthersDao {
 		
 		return (ArrayList)sqlSession.selectList("othersMapper.selectDateCategoryConcert", data, rowBounds);
 	}
+	
+	public ArrayList<Reserve> selectReserveConcertList(SqlSessionTemplate sqlSession, int uNo){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectReserveConcert", uNo);
+	}
+	
+	public ArrayList<Concert> selectChoiceReserveConcertList(SqlSessionTemplate sqlSession, Map data){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectChoiceReserveConcert", data);
+	}
+	
+	public ArrayList<Board> selectPopularBoardList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectPopularBoard");
+	}
+	
+	public ArrayList<Board> selectPopularBoardCategory(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectPopularBoardCategory");
+	}
+	
+	public ArrayList<ProfileImg> selectpopularBoardUserProfile(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectpopularBoardUserProfile");
+	}
+	
+	public int checkLikeStatus(SqlSessionTemplate sqlSession, Map data) {
+		return sqlSession.selectOne("othersMapper.checkLikeStatus", data);
+	}
+	
+	public int insertBoardLike(SqlSessionTemplate sqlSession, Map data) {
+		return sqlSession.insert("othersMapper.insertBoardLike", data);
+	}
+	
+	public int updateBoardLike(SqlSessionTemplate sqlSession, Map data) {
+		return sqlSession.insert("othersMapper.updateBoardLike", data);
+	}
+	
+	public ArrayList<BoardLike> selectLikeCount(SqlSessionTemplate sqlSession, Map data) {
+		return (ArrayList)sqlSession.selectList("othersMapper.selectLikeCount", data);
+	}
+	
+	public int updateNoLike(SqlSessionTemplate sqlSession, Map data) {
+		return sqlSession.insert("othersMapper.updateNoLike", data);
+	}
+	
+
 }

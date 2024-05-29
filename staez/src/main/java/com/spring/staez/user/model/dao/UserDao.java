@@ -1,12 +1,20 @@
 package com.spring.staez.user.model.dao;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.staez.user.model.vo.User;
 
 @Repository
 public class UserDao {
+	
+	@Autowired
+    private SqlSessionTemplate sqlSession;
 
 	public User loginUser(SqlSessionTemplate sqlSession, User u) {
 		return sqlSession.selectOne("userMapper.loginUser", u);
@@ -26,14 +34,25 @@ public class UserDao {
 		return sqlSession.insert("userMapper.insertUser", u);
 	}
 	
-	//회원가입 이메일 체크
-	public int emailCheck(SqlSessionTemplate sqlSession, String checkEmail) {
-		return sqlSession.selectOne("userMapper.checkNick", checkEmail);
-	}
-	
 	// 네이버로그인 이메일 유무 확인
     public User findUserByEmail(SqlSessionTemplate sqlSession, String email) {
         return sqlSession.selectOne("userMapper.findUserByEmail", email);
     }
 
+ // 이메일 인증번호 저장을 위한 서비스
+    public int registerUser(String email, String authNo, LocalDateTime send_time) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("email", email);
+        params.put("authNo", authNo);
+        params.put("send_time", send_time);
+        return sqlSession.insert("userMapper.registerUser", params);
+    }
+    
+  //암호키 인증체크
+	public int emailSecretCodeCheck(SqlSessionTemplate sqlSession,String uuidCheck, String email) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("email", email);
+        params.put("uuidCheck", uuidCheck);
+        return sqlSession.selectOne("userMapper.emailSecretCodeCheck", params);
+	}
 }

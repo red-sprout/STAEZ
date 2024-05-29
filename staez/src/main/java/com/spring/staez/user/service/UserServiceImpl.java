@@ -1,5 +1,7 @@
 package com.spring.staez.user.service;
 
+import java.time.LocalDateTime;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,15 +39,22 @@ public class UserServiceImpl implements UserService{
 		return userDao.insertUser(sqlSession, u);
 	}
 
-	@Override
-	public int emailCheck(String checkEmail) {
-		return userDao.emailCheck(sqlSession, checkEmail);
-	}
-
 	// 네이버로그인 이메일 유무 확인
 	@Override
 	public User findUserByEmail(String email) {
         return userDao.findUserByEmail(sqlSession,email);
     }
+
+	// 이메일 인증번호 저장을 위한 서비스
+	@Override
+	public int registerUser(String email, String authNo, LocalDateTime send_time) {
+        return userDao.registerUser(email, authNo, send_time);
+    }
+	
+	//암호키 인증체크
+	@Override
+	public int emailSecretCodeCheck(String uuidCheck, String email) {
+		return userDao.emailSecretCodeCheck(sqlSession, uuidCheck, email);
+	}
 
 }
