@@ -46,6 +46,10 @@
     width: 140px;
 }
 
+.main-content>table #concert-img:hover{
+    cursor: pointer;
+}
+
 .main-content>table #concert-img>img{
     width: 90px;
     height: 120px;
