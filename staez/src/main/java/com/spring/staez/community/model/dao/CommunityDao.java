@@ -51,4 +51,8 @@ public class CommunityDao {
 		return (ArrayList)sqlSession.selectList("communityMapper.selectBoardCategory", boardNo);
 	}
 
+	public Board boardDetail(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("communityMapper.boardDetail", boardNo);
+	}
+
 }
