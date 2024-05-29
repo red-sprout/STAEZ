@@ -20,6 +20,16 @@ DROP TABLE public.board CASCADE;
 DROP TABLE public.profile_img CASCADE;
 DROP TABLE public.staez_user CASCADE;
 
+------------------------------시퀀스 삭제------------------------------------
+DROP SEQUENCE seq_board;
+DROP SEQUENCE seq_user;
+DROP SEQUENCE seq_concert;
+
+------------------------------시퀀스 생성------------------------------------
+CREATE SEQUENCE seq_concert START 1;
+CREATE SEQUENCE seq_user START 1;
+CREATE SEQUENCE seq_board START 1;
+
 ------------------------------테이블 생성------------------------------------
 /*회원 테이블*/
 CREATE TABLE public.staez_user
@@ -143,7 +153,7 @@ CREATE TABLE public.board
     board_no serial PRIMARY KEY,
     ref_board_no integer,
     user_no integer NOT NULL,
-    board_level integer NOT NULL DEFAULT 1,
+    board_level integer NOT NULL DEFAULT 1, /*원글/문의/신고(1), 답변(2)*/
     board_code integer NOT NULL DEFAULT 2, /*공지사항(1), 일반게시글(2), 문의(3), FAQ(4), 신고(5)*/
     board_write_date timestamp with time zone NOT NULL DEFAULT now(),
     board_title character varying(150) NOT NULL,
@@ -680,9 +690,9 @@ CREATE TABLE public.concert_review
     concert_no integer NOT NULL,
     review_content text,
     score integer NOT NULL CHECK(score BETWEEN 1 AND 5),
-    review_status character varying(1) NOT NULL CHECK(review_status IN ('Y', 'N')) DEFAULT 'Y',
+    review_date timestamp with time zone NOT NULL DEFAULT now(),
+    review_status character varying(1) NOT NULL CHECK(review_status IN ('Y', 'N')) DEFAULT 'Y'
 	/*일반상태(Y), 삭제된상태(N)*/
-    review_date timestamp with time zone NOT NULL DEFAULT now()
 );
 
 ALTER TABLE IF EXISTS public.concert_review
@@ -706,11 +716,13 @@ COMMENT ON COLUMN public.concert_review.review_content
 COMMENT ON COLUMN public.concert_review.score
     IS '별점(1~5)';
 
+COMMENT ON COLUMN public.concert_review.review_date
+    IS '작성날짜';
+
 COMMENT ON COLUMN public.concert_review.review_status
     IS '한줄평활성화여부';
 
-COMMENT ON COLUMN public.concert_review.review_date
-    IS '작성날짜';
+
 
 
 
@@ -719,7 +731,8 @@ COMMENT ON COLUMN public.concert_review.review_date
 /*예매내역 테이블*/
 CREATE TABLE public.reserve
 (
-    reserve_no serial PRIMARY KEY,
+    reserve_seat_no serial PRIMARY KEY,
+	reserve_no integer NOT NULL,
     concert_no integer NOT NULL,
     user_no integer NOT NULL,
     reserve_row integer NOT NULL,
@@ -734,6 +747,9 @@ CREATE TABLE public.reserve
 
 ALTER TABLE IF EXISTS public.reserve
     OWNER to postgres;
+
+COMMENT ON COLUMN public.reserve.reserve_seat_no
+    IS '예약좌석번호';
 
 COMMENT ON TABLE public.reserve
     IS '예매내역';
@@ -809,7 +825,7 @@ COMMENT ON COLUMN public.category.category_level
 /*게시글카테고리 테이블*/
 CREATE TABLE public.board_category
 (
-    board_no integer NOT NULL,
+    board_no integer NOT NULL UNIQUE,
     category_no integer NOT NULL
 );
 
@@ -834,7 +850,7 @@ COMMENT ON COLUMN public.board_category.category_no
 /*태그 테이블*/
 CREATE TABLE public.tag
 (
-    board_no integer NOT NULL,
+    board_no integer NOT NULL UNIQUE,
     concert_no integer NOT NULL
 );
 
@@ -858,7 +874,7 @@ COMMENT ON COLUMN public.tag.concert_no
 /*공연카테고리 테이블*/
 CREATE TABLE public.concert_category
 (
-    concert_no integer NOT NULL,
+    concert_no integer NOT NULL UNIQUE,
     category_no integer NOT NULL
 );
 
@@ -1000,3 +1016,8 @@ REFERENCES concert;
 
 ALTER TABLE concert_category ADD FOREIGN KEY(category_no)
 REFERENCES category;
+
+
+
+
+

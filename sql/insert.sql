@@ -1,7 +1,134 @@
 -------------------------더미 데이터 생성-----------------------------
 /*staez_user*/
 INSERT INTO staez_user
-VALUES (DEFAULT, 'user01', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', 'lwg', 'M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user@gmail.com', '01012345678','뮤지컬', 1, DEFAULT, NULL, 'Y');
+VALUES (DEFAULT, 'admin', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '관리자', 'M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user@gmail.com', '01011111111','', 1, DEFAULT, NULL, 'Y');
+INSERT INTO staez_user
+VALUES (DEFAULT, 'user01', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', 'lwg', 'F', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'admin@gmail.com', '01012345678','뮤지컬', 2, DEFAULT, NULL, 'Y');
+INSERT INTO staez_user
+VALUES (DEFAULT, 'missjj23', '$2a$10$86mSdcCkui2Imx3GZqLLFux4RFHjkgrQsAWkL3nWs/hb7mp26HGLG', 'Joon', 'M', '1998-08-31', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'missjj312@naver.com', '01023860434','뮤지컬', 2, DEFAULT, NULL, 'Y');
+INSERT INTO staez_user
+VALUES (DEFAULT, 'user00', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '탈퇴한놈', 'M', '1998-08-31', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'withdrawal@gmail.com', '01099999999','', 2, DEFAULT, NULL, 'Y');
+
+/*profile_img*/
+INSERT INTO profile_img
+VALUES (DEFAULT, 1, '원래이름.png', '2024.png', '/resources/uploadfiles/profile/', DEFAULT, 'Y');
+INSERT INTO profile_img
+VALUES (DEFAULT, 2, '원래이름.png', '바뀐이름.png', '/resources/uploadfiles/profile/', DEFAULT, 'Y');
+INSERT INTO profile_img
+VALUES (DEFAULT, 4, '원래이름.png', '바뀐이름.png', '/resources/uploadfiles/profile/', DEFAULT, 'N');
+
+/*board*/
+/*일반게시글*/
+INSERT INTO board
+VALUES (DEFAULT, NULL, 2, 1, 2, '2024-05-27 13:41:40.193236+09', '김덕수 사물놀이 리뷰', '<p>신명나네요</p><p>김덕수 선생님의 장구는 명불허전이시고 다른 사물놀이 패들 역시 대단하시더라고요!</p><p>&nbsp;<a href="https://namu.wiki/w/%EC%82%AC%EB%AC%BC%EB%86%80%EC%9D%B4" target="_blank">사물놀이</a>라는게 알고보니 기원이 1978년으로 생각보단 오래되지 않았다는게 놀랐습니다</p>', 0, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, NULL, 3, 1, 2, '2024-05-27 19:51:40.193236+09', '조금은 긴 글을 작성하고자 합니다... 다름이 아니라 테스트용입니다.', '<p>조금은 긴 글을 작성하고자 합니다... 다름이 아니라 테스트용입니다.&nbsp;조금은 긴 글을 작성하고자 합니다... 다름이 아니라 테스트용입니다.&nbsp;조금은 긴 글을 작성하고자 합니다... 다름이 아니라 테스트용입니다.&nbsp;조금은 긴 글을 작성하고자 합니다... 다름이 아니라 테스트용입니다.&nbsp;조금은 긴 글을 작성하고자 합니다... 다름이 아니라 테스트용입니다.&nbsp;조금은 긴 글을 작성하고자 합니다... 다름이 아니라 테스트용입니다.&nbsp;조금은 긴 글을 작성하고자 합니다... 다름이 아니라 테스트용입니다.<br></p>', 0, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, NULL, 2, 1, 2, '2024-05-27 18:08:32.248193+09', '게시글제목1', '게시글내용1', 3, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, NULL, 1, 1, 2, '2024-05-27 11:18:56.955458+09', '게시글제목2', '게시글내용2', 0, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, NULL, 2, 1, 2, '2024-05-27 19:01:40.193236+09', '게시글제목3', '게시글내용3', 12, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, NULL, 2, 1, 2, '2024-05-27 05:01:42.193236+09', '게시글제목4', '게시글내용4', 0, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, NULL, 1, 1, 2, '2024-05-27 13:01:40.193236+09', '게시글제목5', '게시글내용5', 0, 'Y');
+
+/*공지사항*/
+INSERT INTO board
+VALUES (DEFAULT, NULL, 1, 1, 1, '2024-05-27 18:08:32.248193+09', '테스트 공지사항입니다1', '공지사항 내용입니다1', 3, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, NULL, 1, 1, 1, '2024-05-27 18:08:32.248193+09', '테스트 공지사항입니다2', '공지사항 내용입니다2', 0, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, NULL, 1, 1, 1, '2024-05-27 18:08:32.248193+09', '테스트 공지사항입니다3', '공지사항 내용입니다3', 11, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, NULL, 1, 1, 1, '2024-05-27 18:08:32.248193+09', '테스트 공지사항입니다4', '공지사항 내용입니다4', 2, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, NULL, 1, 1, 1, '2024-05-27 18:08:32.248193+09', '테스트 공지사항입니다5', '공지사항 내용입니다5', 4, 'Y');
+
+/*문의(질문)*/
+INSERT INTO board
+VALUES (DEFAULT, NULL, 2, 1, 3, '2024-05-27 18:08:32.248193+09', '환불해줘요', '환불해달라고', 3, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, NULL, 3, 1, 3, '2024-05-27 18:18:56.955458+09', '환불정책', '환불 안됩니다', 0, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, NULL, 2, 1, 3, '2024-05-27 19:01:40.193236+09', '문의입니다1', '문의내용입니다1', 0, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, NULL, 2, 1, 3, '2024-05-27 19:01:40.193236+09', '문의입니다2', '문의내용입니다2', 0, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, NULL, 2, 1, 3, '2024-05-27 19:01:40.193236+09', '문의입니다3', '문의내용입니다3', 0, 'Y');
+
+/*문의(답변)*/
+INSERT INTO board
+VALUES (DEFAULT, 1, 1, 2, 3, '2024-05-27 18:08:32.248193+09', '환불정책', '환불 안됩니다', 3, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, 2, 1, 2, 3, '2024-05-27 18:18:56.955458+09', '관리자사칭은', '밴사유입니다', 0, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, 3, 1, 2, 3, '2024-05-27 19:01:40.193236+09', '문의답변입니다1', '문의답변내용입니다1', 0, 'Y');
+
+/*FAQ*/
+INSERT INTO board
+VALUES (DEFAULT, NULL, 1, 1, 4, '2024-05-27 18:08:32.248193+09', 'FAQ입니다1', 'FAQ내용입니다1', 3, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, NULL, 1, 1, 4, '2024-05-27 18:18:56.955458+09', 'FAQ입니다2', 'FAQ내용입니다2', 0, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, NULL, 1, 1, 4, '2024-05-27 19:01:40.193236+09', 'FAQ입니다3', 'FAQ내용입니다3', 0, 'Y');
+
+/*신고 (나중에 추가)*/ 
+INSERT INTO board
+VALUES (DEFAULT, NULL, 2, 1, 5, '2024-05-27 18:08:32.248193+09', '신고입니다1', '신고내용입니다1', 3, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, NULL, 3, 1, 5, '2024-05-27 18:18:56.955458+09', '신고입니다2', '신고내용입니다2', 0, 'Y');
+INSERT INTO board
+VALUES (DEFAULT, NULL, 5, 1, 5, '2024-05-27 19:01:40.193236+09', '신고입니다3', '신고내용입니다3', 0, 'Y');
+
+
+/*board_attachment*/
+INSERT INTO board_attachment
+VALUES (DEFAULT, 1, '원래이름.png', '바뀐이름.png', '/resources/uploadfiles/community/', DEFAULT, 1, 'Y');
+INSERT INTO board_attachment
+VALUES (DEFAULT, 2, '원래이름.png', '바뀐이름.png', '/resources/uploadfiles/community/', DEFAULT, 1, 'Y');
+INSERT INTO board_attachment
+VALUES (DEFAULT, 3, '원래이름.png', '바뀐이름.png', '/resources/uploadfiles/community/', DEFAULT, 1, 'Y');
+INSERT INTO board_attachment
+VALUES (DEFAULT, 4, '원래이름.png', '바뀐이름.png', '/resources/uploadfiles/community/', DEFAULT, 1, 'Y');
+INSERT INTO board_attachment
+VALUES (DEFAULT, 5, '원래이름.png', '바뀐이름.png', '/resources/uploadfiles/community/', DEFAULT, 1, 'Y');
+INSERT INTO board_attachment
+VALUES (DEFAULT, 6, '원래이름.png', '2024052809480898527.webp', '/resources/uploadfiles/community/', DEFAULT, 1, 'Y');
+INSERT INTO board_attachment
+VALUES (DEFAULT, 7, '원래이름.png', '바뀐이름.png', '/resources/uploadfiles/community/', DEFAULT, 1, 'Y');
+
+
+
+/*board_like*/
+INSERT INTO board_like
+VALUES (DEFAULT, 2, 1, DEFAULT, 'Y');
+INSERT INTO board_like
+VALUES (DEFAULT, 1, 1, DEFAULT, 'Y');
+INSERT INTO board_like
+VALUES (DEFAULT, 3, 1, DEFAULT, 'Y');
+INSERT INTO board_like
+VALUES (DEFAULT, 2, 2, DEFAULT, 'Y');
+
+/*reply*/
+INSERT INTO reply
+VALUES (DEFAULT, NULL, 1, 2, '잘보고 갑니다', '2024-05-29 09:45:52.783686+09', 'Y');
+
+/*reply_like*/
+INSERT INTO reply_like
+VALUES (DEFAULT, 1, 3, '2024-05-29 09:45:52.783686+09', 'Y');
+
+/*board_category*/
+INSERT INTO reply_like
+VALUES (1, 2);
+INSERT INTO reply_like
+VALUES (2, 3);
+INSERT INTO reply_like
+VALUES (4, 1);
+INSERT INTO reply_like
+VALUES (3, 4);
+
 
 /*category*/
 INSERT INTO category
@@ -194,6 +321,19 @@ INSERT INTO concert_attachment
 VALUES (DEFAULT, 4, 'thumbnail4.png', 'thumbnail4.png', '/resources/uploadfiles/concert/', '2024-05-23', 1, DEFAULT);
 INSERT INTO concert_attachment
 VALUES (DEFAULT, 5, 'thumbnail5.png', 'thumbnail5.png', '/resources/uploadfiles/concert/', '2024-05-23', 1, DEFAULT);
+INSERT INTO concert_attachment
+VALUES (DEFAULT, 10, 'kbs교향악단.png', '2024052710000411523.jpg', '/resources/uploadfiles/concert/', '2024-05-23', 1, DEFAULT);
+INSERT INTO concert_attachment
+VALUES (DEFAULT, 11, '천개의파랑.png', '2024052710180233177.webp', '/resources/uploadfiles/concert/', '2024-05-23', 1, DEFAULT);
+INSERT INTO concert_attachment
+VALUES (DEFAULT, 13, '효영선생.png', '2024052710243667567.png', '/resources/uploadfiles/concert/', '2024-05-23', 1, DEFAULT);
+INSERT INTO concert_attachment
+VALUES (DEFAULT, 14, '정은지이쁘다.png', '2024052718271133380.webp', '/resources/uploadfiles/concert/', '2024-05-23', 1, DEFAULT);
+INSERT INTO concert_attachment
+VALUES (DEFAULT, 15, '김덕수사물놀이.png', '2024052809053615113.webp', '/resources/uploadfiles/concert/', '2024-05-23', 1, DEFAULT);
+
+
+
 
 /*concert_category*/
 INSERT INTO concert_category VALUES (1, 5);
@@ -305,6 +445,34 @@ INSERT INTO concert_schedule
 VALUES (DEFAULT, 4, '20:00-22:30', '2024-07-07', '2024-07-08', 1, DEFAULT);
 INSERT INTO concert_schedule
 VALUES (DEFAULT, 5, '20:00-23:00', '2024-07-07', '2024-07-08', 1, DEFAULT);
+
+
+/*concert_like*/
+INSERT INTO concert_like
+VALUES (DEFAULT, 2, 1, '2024-05-27 19:01:40.193236+09', 'Y');
+
+
+/*concert_review*/
+INSERT INTO concert_review
+VALUES (DEFAULT, 2, 1, '기대안했는데 재밌었습니다', 5, 'Y');
+INSERT INTO concert_review
+VALUES (DEFAULT, 2, 2, '조금 아쉬웠어요', 4, 'Y');
+INSERT INTO concert_review
+VALUES (DEFAULT, 2, 4, '졸려서 잤어요', 2, 'Y');
+
+/*reserve*/
+INSERT INTO reserve
+VALUES (DEFAULT, '24041322', 1, 4, 10, '2024-05-27 19:01:40.193236+09','무통장입금', '2024-05-29', 1, 'Y');
+
+/*tag*/
+INSERT INTO tag
+VALUES (1,3);
+INSERT INTO tag
+VALUES (2,4);
+INSERT INTO tag
+VALUES (4,1);
+
+
 
 COMMIT;
 

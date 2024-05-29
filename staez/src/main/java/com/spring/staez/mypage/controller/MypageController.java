@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.common.template.MyFileRenamePolicy;
 import com.spring.staez.common.template.Pagination;
-import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.community.model.dto.BoardListDto;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.mypage.service.MypageService;
 import com.spring.staez.user.model.vo.ProfileImg;
@@ -61,8 +61,8 @@ public class MypageController {
 		int currentPage = cpage;
 		int listCount = mypageService.selectPaymentsCount(userNo);
 		
-		ArrayList<Concert> list = mypageService.selectPaymentsList(userNo);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		ArrayList<Concert> list = mypageService.selectPaymentsList(userNo, pi);
 		
 		model.addAttribute("contentPage", "paymentsLog");
 		model.addAttribute("clist", list);
@@ -84,8 +84,8 @@ public class MypageController {
 		int currentPage = cpage;
 		int listCount = mypageService.selectScrapCount(userNo);
 		
-		ArrayList<Concert> list = mypageService.selectScrapList(userNo);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		ArrayList<Concert> list = mypageService.selectScrapList(userNo, pi);
 		
 		model.addAttribute("contentPage", "myScrapList");
 		model.addAttribute("clist", list);
@@ -106,9 +106,9 @@ public class MypageController {
 		int userNo = loginUser.getUserNo();
 		int currentPage = cpage;
 		int listCount = mypageService.selectReviewCount(userNo);
-		
-		ArrayList<Concert> list = mypageService.selectReviewList(userNo);
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		ArrayList<Concert> list = mypageService.selectReviewList(userNo, pi);
 		
 		model.addAttribute("contentPage", "oneLineReview");
 		model.addAttribute("clist", list);
@@ -129,9 +129,8 @@ public class MypageController {
 		int currentPage = cpage;
 		int listCount = mypageService.selectMyBoardListCount(userNo);
 		
-		ArrayList<Board> list = mypageService.selectMyBoardList(userNo);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
-		
+		ArrayList<BoardListDto> list = mypageService.selectMyBoardList(userNo, pi);
 		model.addAttribute("contentPage", "myBoardList");
 		model.addAttribute("blist", list);
 		model.addAttribute("pi", pi);
@@ -152,8 +151,8 @@ public class MypageController {
 		int currentPage = cpage;
 		int listCount = mypageService.selectLikeBoardListCount(userNo);
 		
-		ArrayList<Board> list = mypageService.selectLikeBoardList(userNo);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		ArrayList<BoardListDto> list = mypageService.selectLikeBoardList(userNo, pi);
 		
 		model.addAttribute("contentPage", "likeBoardList");
 		model.addAttribute("blist", list);

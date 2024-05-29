@@ -38,13 +38,13 @@
             <c:if test="${pi.currentPage != 1}">
                 <div class="pagination">
                     <img src="${contextPath}/resources/img/main/before.png" 
-                         onclick=`location.href="${contextPath}/boardList.me?cpage=${pi.currentPage - 1}"`>
+                         onclick='location.href="${contextPath}/boardList.me?cpage=${pi.currentPage - 1}"'>
                 </div>
             </c:if>
             
             <c:forEach var="i" begin="${pi.startPage}" end="${pi.endPage}">
                 <c:choose>
-                    <c:when test="${cpage eq i}">
+                    <c:when test="${pi.currentPage eq i}">
                         <div class="pagination current" onclick="location.href='${contextPath}/boardList.me?cpage=${i}'"><h4>${i}</h4></div>
                     </c:when>
                     <c:otherwise>
@@ -56,7 +56,7 @@
             <c:if test="${pi.currentPage ne pi.maxPage}">
                 <div class="pagination">
                     <img src="${contextPath}/resources/img/main/after.png" 
-                         onclick=`location.href="${contextPath}/boardList.me?cpage=${pi.currentPage + 1}"`>
+                         onclick='location.href="${contextPath}/boardList.me?cpage=${pi.currentPage + 1}"'>
                 </div>
             </c:if>
         </c:if>
