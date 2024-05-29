@@ -115,3 +115,8 @@
         display: none;
     }
 }
+
+#category-div>button {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}

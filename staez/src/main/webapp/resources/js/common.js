@@ -2,6 +2,20 @@ const pathname = "/" + window.location.pathname.split("/")[1] + "/";
 const origin = window.location.origin;
 const contextPath = origin + pathname;
 
+const refCategoryMap = {
+    concert: 1,
+    community: 2,
+    others: 3
+}
+
+const boardCodeMap = {
+    notice: 1,
+    community: 2,
+    inquire: 3,
+    faq: 4,
+    report: 5
+}
+
 function init() {
     const url = window.location.pathname.split("/")[2];
     const menubarArr = ["main.co", "main.cm", "main.no", "main.iq", "userList.ad"];
@@ -42,4 +56,32 @@ function toggleCategory(_this, id) {
             continue;
         }
     }
+}
+
+function commonMakeUrl(url, param) {
+    Object.keys(param).forEach((key, index) => {
+        url = url + (index === 0 ? "?" : "&") + key + "=" + param[key];
+    });
+    return url;
+}
+
+function getUrlParams() {
+    const params = {};
+    location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, (str, key, value) => { params[key] = value; });
+    return params;
+};
+
+function getCategoryNo(_this, id) {
+    let result = 0;
+    const categoryBtn = document.querySelectorAll(`#${id}>.btn-staez`);
+    const categoryRadio = document.querySelectorAll(`#${id} input[name='categoryNo']`);
+
+    for (let i in categoryBtn) {
+        if (categoryBtn[i] === _this) {
+            result = categoryRadio[i].value;
+            break;
+        }
+    }
+
+    return result;
 }

@@ -90,3 +90,28 @@ function consertInsert(data, callback) {
         }
     })
 }
+
+function insertNotice(data, callback) {
+    $.ajax({
+        url: contextPath + "insert.cm",
+        type: "POST",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("게시글 등록 실패");
+        }
+    });
+}
+
+function selectNotice(data, callback) {
+    $.ajax({
+        url: contextPath + "main.no",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("게시글 조회 실패");
+        }
+    })
+}

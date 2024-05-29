@@ -11,6 +11,8 @@
 <body>
 	<header>
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
+        <script src="<c:url value='/resources/js/api/adminapi.js'/>"></script>
+        <script src="<c:url value='/resources/js/admin/noticeMain.js'/>"></script>
 	</header>
     <main>
         <ul id="notice-contents" align="left">
@@ -29,14 +31,7 @@
                 </div>
             </li>
             <li id="notice-category">
-                <div>
-                    <button class="btn-staez checked"><h3>공연</h3></button>
-                    <button class="btn-staez"><h3>커뮤니티</h3></button>
-                    <button class="btn-staez"><h3>예매</h3></button>
-                    <button class="btn-staez"><h3>환불/취소</h3></button>
-                    <button class="btn-staez"><h3>사이트 이용</h3></button>
-                    <button class="btn-staez"><h3>티켓</h3></button>
-                </div>
+                <div id="category-div"></div>
                 <div class="">
                     <button class="btn-staez purple" onclick="location.href='incertForm.no'"><h3>작성</h3></button>
                 </div>

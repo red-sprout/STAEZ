@@ -22,7 +22,7 @@
 					<button>
 						<img src="<c:url value='/resources/img/community/communityMain/search-icon.png'/>" alt="">
 					</button>
-					<input type="text" name="" id="">
+					<input type="text" name="keyword">
 				</li>
 				<li id="community-category"></li>
 				<c:forEach var="b" items="${boardList}">
