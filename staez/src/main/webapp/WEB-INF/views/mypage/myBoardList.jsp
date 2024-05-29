@@ -20,7 +20,7 @@
                 <th id="likes">좋아요</th>
             </tr>
             <c:forEach var="b" items="${blist}">
-            <tr class="tb-content" onclick="location.href='detail.bo?bno=${b.boardNo}'">
+            <tr class="tb-content" onclick="location.href='detail.cm?boardNo=${b.boardNo}'">
                 <td id="btitle">${b.boardTitle}</td>
                 <td>
                     <fmt:parseDate value="${b.boardWriteDate}" var="date" pattern="yyyy-MM-dd HH:mm:ss" />

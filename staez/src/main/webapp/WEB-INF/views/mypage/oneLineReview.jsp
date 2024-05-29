@@ -16,11 +16,12 @@
             <c:choose>
                 <c:when test="${not empty c.reviewContent}">
                     <tr>
-                        <td id="concert-img">
+                        <td id="concert-img"  onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
                             <img src="${contextPath}${c.filePath}${c.changeName}" alt="">
                         </td>
                         <td id="content">
                             <h3>${c.concertTitle}</h3>
+                            <h4>관람일 : ${c.concertDate}</h4>
                             <h4>${c.reviewContent}</h4>
                         </td>
                         <td id="review-func">
@@ -34,11 +35,12 @@
                 </c:when>
                 <c:otherwise>
                     <tr>
-                        <td id="concert-img">
+                        <td id="concert-img" onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
                             <img src="${contextPath}${c.filePath}${c.changeName}" alt="">
                         </td>
                         <td id="content">
                             <h3>${c.concertTitle}</h3>
+                            <h4>관람일 : ${c.concertDate}</h4>
                             <h4>리뷰를 작성해주세요</h4>
                         </td>
                         <td id="review-func">

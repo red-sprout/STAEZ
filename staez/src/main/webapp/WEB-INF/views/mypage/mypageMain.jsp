@@ -30,7 +30,7 @@
                 </tr>
             </c:forEach>
         </table>
-        <div class="more-btn"><a href="#">더보기</a></div> 
+        <div class="more-btn"><a href="${contextPath}/paymentList.me?cpage=1">더보기</a></div> 
     </div>
 
     <div id="like-and-review">
@@ -44,7 +44,7 @@
                 </tr>
                 </c:forEach>
             </table>
-            <div class="more-btn"><a href="#">더보기</a></div> 
+            <div class="more-btn"><a href="${contextPath}/scrapList.me?cpage=1">더보기</a></div> 
         </div>
         <div id="review">
             <div class="table-title">한줄평</div>
@@ -56,7 +56,7 @@
                 </tr>
                 </c:forEach>
             </table>
-            <div class="more-btn"><a href="#">더보기</a></div> 
+            <div class="more-btn"><a href="${contextPath}/reviewList.me?cpage=1">더보기</a></div> 
         </div>
         
     </div>
@@ -66,7 +66,7 @@
             <div id="my-board">
                 <div class="table-title">
                     나의 게시글
-                    <button>+</button>
+                    <button onclick="location.href='${contextPath}/incertForm.cm'">+</button>
                 </div>
                 <table>
                     <c:forEach var="i" begin="0" end="4">      
@@ -76,12 +76,12 @@
                     </tr>
                     </c:forEach>
                 </table>
-                <div class="more-btn"><a href="#">더보기</a></div> 
+                <div class="more-btn"><a href="${contextPath}/boardList.me?cpage=1">더보기</a></div> 
             </div>
             <div id="my-inquire">
                 <div class="table-title">
                     문의내역
-                    <button>+</button>
+                    <button onclick="location.href='${contextPath}/insertForm.iq'">+</button>
                 </div>
                 <table>
                     <c:forEach var="i" begin="0" end="4">      
@@ -91,7 +91,7 @@
                     </tr>
                     </c:forEach>
                 </table>
-                <div class="more-btn"><a href="#">더보기</a></div> 
+                <div class="more-btn"><a href="${contextPath}/inquireList.me?cpage=1">더보기</a></div> 
             </div>
         </div>
 

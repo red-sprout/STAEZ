@@ -8,6 +8,7 @@
 <div class="main-content">
     <div class="main-title">
         <h2>찜목록</h2>
+        <button><h3>삭제</h3></button>
     </div>
 
     <table>
@@ -18,17 +19,19 @@
 
             <c:forEach var="c" items="${clist}">
             <tr class="tb-content">
-                <td id="concert-img">
+                <td id="concert-img" onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
                     <img src="${contextPath}${c.filePath}${c.changeName}" alt="">
                 </td>
-                <td id="content">
+                <td id="content" onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
                     <h3>${c.concertTitle}</h3>
                     <h5>${c.theaterName}</h5>
                     <h4>캐스팅 : ${c.concertMembers}</h4>
                     <h4>상영기간 : ${c.startDate} ~ ${c.endDate}</h4>
                 </td>
                 <td id="age-limit">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div>
+                        <button type="button" hidden></button>
+                    </div>
                     <h4>${c.ageLimit}</h4>
                 </td>
             </tr>
