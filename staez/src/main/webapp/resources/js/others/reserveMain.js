@@ -116,32 +116,6 @@ function drawBoardListContent(bList){
     const userInput = document.querySelector("input[name = 'userNo']");
     const uNo = userInput.value;
     const boardArea = document.querySelector(".popularity-bulletin-information-area");
-    boardArea.innerHTML = ``
-    for(let b of bList){
-        boardArea.innerHTML += `<div class="popularity-bulletin-information">
-                                    <div class="popularity-bulletin-information-a" onclick="location.href='detail.cm?boardNo=`+ b.boardNo +`'">
-                                        <div class="popularity-bulletin-content-area">
-                                            <div class="popularity-bulletin-title">
-                                                <span>`+ b.boardTitle +`</span>
-                                            </div>
-                                            <hr class="popularity-bulletin-hr">
-                                            <div class="popularity-bulletin-detail-content">
-                                                <div class="content-box">`+ b.boardContent +`</div>
-                                                <div class="heart-count-area" onclick="changeLike(this, event, `+ b.boardNo +`)">
-                                                    <img class="heart" src="/staez/resources/img/others/like-no.png" alt="">
-                                                    <input type="hidden" value="`+ b.boardNo +`" class="imgLike">
-                                                    <span class="heart-count">`+ b.likeCount +`</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="user-and-category-tag-area">
-                                            <div class="user-profile"><img class="user-profile-img" src="" alt=""></div>
-                                            <button class="btn-staez checked" style="padding: 0px 10px"><h5 class="tag"></h5></button>
-                                            <button class="btn-staez checked" style="padding: 0px 10px"><h5 class="tag"></h5></button>
-                                        </div>  
-                                    </div>
-                                </div>`
-    }
 
     if(!uNo){
         boardArea.innerHTML = ``
@@ -170,6 +144,33 @@ function drawBoardListContent(bList){
                                         </div>
                                     </div>`
         } 
+    } else {
+        boardArea.innerHTML = ``
+        for(let b of bList){
+            boardArea.innerHTML += `<div class="popularity-bulletin-information">
+                                        <div class="popularity-bulletin-information-a" onclick="location.href='detail.cm?boardNo=`+ b.boardNo +`'">
+                                            <div class="popularity-bulletin-content-area">
+                                                <div class="popularity-bulletin-title">
+                                                    <span>`+ b.boardTitle +`</span>
+                                                </div>
+                                                <hr class="popularity-bulletin-hr">
+                                                <div class="popularity-bulletin-detail-content">
+                                                    <div class="content-box">`+ b.boardContent +`</div>
+                                                    <div class="heart-count-area" onclick="changeLike(this, event, `+ b.boardNo +`)">
+                                                        <img class="heart" src="/staez/resources/img/others/like-no.png" alt="">
+                                                        <input type="hidden" value="`+ b.boardNo +`" class="imgLike">
+                                                        <span class="heart-count">`+ b.likeCount +`</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="user-and-category-tag-area">
+                                                <div class="user-profile"><img class="user-profile-img" src="" alt=""></div>
+                                                <button class="btn-staez checked" style="padding: 0px 10px"><h5 class="tag"></h5></button>
+                                                <button class="btn-staez checked" style="padding: 0px 10px"><h5 class="tag"></h5></button>
+                                            </div>  
+                                        </div>
+                                    </div>`
+        }
     }
    
     selectUserLikeBoardNo({
