@@ -25,16 +25,32 @@ function idCheck(data, callback) {
     });
 }
 
-// 이메일 체크
-function nickCheck(data, callback) {
+// 이메일 인증 요청을 서버로 보내는 함수
+function sendEmailVerificationRequest(emailInput) {
     $.ajax({
         url: "emailCheck.me",
+        data: { email: emailInput },
+        success: function(response) {
+            console.log(response);
+            handleEmailCheckResponse(response);
+        },
+        error: function() {
+            console.log("이메일 인증 코드 전송 실패");
+        }
+    });
+}
+
+//암호키 체크
+function emailCheckCode(data, callback) {
+    $.ajax({
+        url: "emailSecretCodeCheck.me",
         data: data,
-        success: function (result) {
+        success: function(result) {
+            //console.log("AJAX success result: ", result); // 결과를 로그에 출력하여 확인
             callback(result);
         },
-        error: function () {
-            console.log("이메일 체크 ajax 실패");
+        error: function() {
+            console.log("이메일 UUID 체크 ajax 실패");
         }
     });
 }
