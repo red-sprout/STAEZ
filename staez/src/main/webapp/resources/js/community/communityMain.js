@@ -4,9 +4,24 @@ $(function() {
         setNav(navArr);
         setColor();
     });
+    
     communityCategory({refCategoryNo: 2, categoryLevel: 2}, (res) => {
         setCategory(res, 'community-category');
     });
+
+    const btnArea = [...document.querySelectorAll(".posting-category>td")];
+    const boardNoInput = document.querySelectorAll("input[name=boardNo]");
+    const boardNoList = [];
+
+    for(let ele of boardNoInput) {
+        boardNoList.push(ele.value);
+    }
+
+    console.log(boardNoList);
+
+    for(let i = 0; i < boardNoList.length; i++) {
+        drawBtn(btnArea[i], boardNoList[i]);
+    }
 })
 
 function setNav(result) {
@@ -22,6 +37,7 @@ function setNav(result) {
         h2.innerHTML += ele.categoryName;
         input.value = ele.categoryNo;
         input.setAttribute("class", "community-hidden-input");
+        input.type = "hidden"
 
         li.appendChild(h2);
         li.appendChild(input)
@@ -65,5 +81,14 @@ function generateUrls() {
         const urlElement = document.createElement('p');
         urlElement.textContent = url;
         outputDiv.appendChild(urlElement);
+    });
+}
+
+function drawBtn(_this, bNo) {
+    boardCategory({boardNo: bNo}, (result) => {
+        console.log(result);
+        for(let c of result) {
+            _this.innerHTML += `<button class="btn-staez checked"><h4>${c.categoryName}</h4></button>`
+        }
     });
 }

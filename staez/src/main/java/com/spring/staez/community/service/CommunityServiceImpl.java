@@ -55,4 +55,16 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDao.selectBoard(sqlSession, categoryDto);
 	}
 
+	@Transactional(readOnly = true)
+	@Override
+	public ArrayList<Board> selectBoard() {
+		return communityDao.selectBoard(sqlSession);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public ArrayList<Category> selectCategory(int boardNo) {
+		return communityDao.selectCategory(sqlSession, boardNo);
+	}
+
 }

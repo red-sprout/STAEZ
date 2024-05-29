@@ -115,3 +115,16 @@ function selectNotice(data, callback) {
         }
     })
 }
+
+function insertNotice(data, callback) {
+    $.ajax({
+        url: contextPath + "insert.no",
+        type: "POST",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("게시글 등록 실패");
+        }
+    });
+}

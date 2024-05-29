@@ -6,8 +6,8 @@
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
 <mapper namespace="adminMapper">
 	<resultMap type="Board" id="boardResult">
-		<result column="board_no" property="userNo" />
-		<result column="refBoardNo" property="userId" />
+		<result column="board_no" property="boardNo" />
+		<result column="user_no" property="userNo" />
 		<result column="user_pwd" property="userPwd" />
 		<result column="nickname" property="nickname" />
 		<result column="gender" property="gender" />
@@ -20,6 +20,11 @@
 		<result column="enroll_date" property="enrollDate" />
 		<result column="withdrawal_date" property="withdrawalDate" />
 		<result column="user_status" property="userStatus" />
+		<result column="board_title" property="boardTitle" />
+		<result column="board_write_date" property="boardWriteDate" />
+		<result column="board_content" property="boardContent" />
+		<result column="category_no" property="categoryNo"/>
+		<result column="category_name" property="categoryName"/>
 	</resultMap>
 	<resultMap type="Category" id="categoryResult">
 		<result column="category_no" property="categoryNo"/>
@@ -203,5 +208,92 @@
 			#{seatEndCol}
 		)
 	</insert>
+	
+	<select id="selectNotice" resultMap="boardResult">
+		SELECT
+			b.board_no,
+			u.user_no,
+			u.nickname,
+			b.board_level,
+			b.board_write_date,
+			b.board_title,
+			b.board_content,
+			b.board_count,
+			bc.category_no,
+			c.category_name
+		FROM board b
+		JOIN staez_user u on (b.user_no = u.user_no)
+		JOIN board_category bc on (b.board_no = bc.board_no)
+		JOIN category c on (bc.category_no = c.category_no)
+		WHERE b.board_status = 'Y'
+		and b.board_code = 1
+		ORDER BY b.board_no DESC
+	</select>
+	
+	<select id="selectNoticeByCategory" resultMap="boardResult">
+		SELECT
+			b.board_no,
+			u.user_no,
+			u.nickname,
+			b.board_level,
+			b.board_write_date,
+			b.board_title,
+			b.board_content,
+			b.board_count,
+			bc.category_no,
+			c.category_name
+		FROM board b
+		JOIN staez_user u on (b.user_no = u.user_no)
+		JOIN board_category bc on (b.board_no = bc.board_no)
+		JOIN category c on (bc.category_no = c.category_no)
+		WHERE b.board_status = 'Y'
+		and b.board_code = 1
+		and c.category_no = ${categoryNo}
+		ORDER BY b.board_no DESC
+	</select>
+	
+	<insert id="insertNotice">
+		INSERT INTO board
+		(
+			user_no,
+			board_title,
+			board_content,
+			board_code
+		) VALUES (
+			#{userNo},
+			#{boardTitle},
+			#{boardContent},
+			1
+		)
+	</insert>
+	
+	<insert id="insertNoticeCategory">
+		INSERT INTO board_category
+		(
+			board_no,
+			category_no
+		) VALUES (
+			CURRVAL('board_board_no_seq'::regclass),
+			#{categoryNo}
+		)
+	</insert>
+	
+	<select id="noticeDetail" resultMap="boardResult">
+		SELECT
+			b.board_no,
+			u.user_no,
+			u.nickname,
+			b.board_write_date,
+			b.board_title,
+			b.board_content,
+			b.board_count,
+			bc.category_no,
+			c.category_name
+		FROM board b
+		JOIN staez_user u on (b.user_no = u.user_no)
+		JOIN board_category bc on (b.board_no = bc.board_no)
+		JOIN category c on (bc.category_no = c.category_no)
+		WHERE b.board_no = ${boardNo}
+	</select>
 </mapper>
 

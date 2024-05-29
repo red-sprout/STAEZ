@@ -32,6 +32,8 @@ function updateSearchUrl(url, id) {
 
 function setColor(id) {
     const categoryNo = getUrlParams().categoryNo;
+
+    if(!categoryNo) return;
     const categoryBtn = document.querySelectorAll(`#${id}>.btn-staez`);
     const categoryRadio = document.querySelectorAll(`#${id} input[name='categoryNo']`);
 

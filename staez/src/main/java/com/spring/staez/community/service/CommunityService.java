@@ -18,4 +18,8 @@ public interface CommunityService {
 
 	ArrayList<Board> selectBoard(CategoryDto categoryDto);
 
+	ArrayList<Board> selectBoard();
+
+	ArrayList<Category> selectCategory(int boardNo);
+
 }

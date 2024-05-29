@@ -75,3 +75,15 @@ function selectBoard(data, callback) {
         }
     })
 }
+
+function boardCategory(data, callback) {
+    $.ajax({
+        url: contextPath + "boardCategory.cm",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("카테고리 요청 실패");
+        }
+    });
+}

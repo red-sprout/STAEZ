@@ -2,7 +2,6 @@ package com.spring.staez.community.model.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -42,6 +41,14 @@ public class CommunityDao {
 
 	public ArrayList<Board> selectBoard(SqlSessionTemplate sqlSession, CategoryDto categoryDto) {
 		return (ArrayList)sqlSession.selectList("communityMapper.selectBoard", categoryDto);
+	}
+
+	public ArrayList<Board> selectBoard(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("communityMapper.selectBoardAll");
+	}
+
+	public ArrayList<Category> selectCategory(SqlSessionTemplate sqlSession, int boardNo) {
+		return (ArrayList)sqlSession.selectList("communityMapper.selectBoardCategory", boardNo);
 	}
 
 }

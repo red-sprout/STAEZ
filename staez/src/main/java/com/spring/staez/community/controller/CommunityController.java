@@ -30,7 +30,12 @@ public class CommunityController {
 	
 	@GetMapping("main.cm")
 	public String communityMainList(CategoryDto categoryDto, Model model) {
-		ArrayList<Board> list = communityService.selectBoard(categoryDto);
+		ArrayList<Board> list = null;
+		if(categoryDto.getCategoryNo() != null) {			
+			list = communityService.selectBoard(categoryDto);
+		} else {
+			list = communityService.selectBoard();
+		}
 		model.addAttribute("boardList", list);
 		return "community/communityMain";
 	}
@@ -55,6 +60,14 @@ public class CommunityController {
 	@GetMapping(value = "category.cm", produces = "application/json; charset-UTF-8")
 	public String ajaxCategory(Category c) {
 		ArrayList<Category> list = communityService.selectCategory(c);
+		return new Gson().toJson(list);
+	}
+	
+	// 게시글 카테고리 조회
+	@ResponseBody
+	@GetMapping(value = "boardCategory.cm", produces = "application/json; charset-UTF-8")
+	public String boardCategory(int boardNo) {
+		ArrayList<Category> list = communityService.selectCategory(boardNo);
 		return new Gson().toJson(list);
 	}
 	
