@@ -33,6 +33,48 @@
  		<result column="category_level" property="categoryLevel" />
 	</resultMap>
 	
+	<resultMap type="Reserve" id="reserveResult">
+		<result column="reserve_no" property="reserveNo" />
+		<result column="concert_no" property="concertNo" />
+		<result column="user_no" property="userNo" />
+		<result column="reserve_row" property="reserveRow" />
+		<result column="reserve_col	" property="reserveCol" />
+		<result column="reserve_date" property="reserveDate" />
+		<result column="pay_method" property="payMethod" />
+		<result column="concert_date" property="concertDate" />
+		<result column="concert_times" property="concertTimes" />
+		<result column="reserve_status" property="reserveStatus" />
+	</resultMap>
+	
+	<resultMap type="Board" id="boardResult">
+		<result column="board_no" property="boardNo" />
+		<result column="board_title" property="boardTitle" />
+		<result column="board_content" property="boardContent" />
+		<result column="withdrawal_date" property="withdrawalDate" />
+		<result column="user_no" property="userNo" />
+		<result column="like_count" property="likeCount" />
+		<result column="category_no" property="categoryNo" />
+		<result column="category_name" property="categoryName" />
+	</resultMap>
+	
+	<resultMap type="ProfileImg" id="profileImgResult">
+		<result column="file_no" property="fileNo" />
+		<result column="user_no" property="userNo" />
+		<result column="origin_name" property="originName" />
+		<result column="change_name" property="changeName" />
+		<result column="file_path" property="filePath" />
+		<result column="upload_date" property="uploadDate" />
+		<result column="status" property="status" />
+	</resultMap>
+	
+	<resultMap type="BoardLike" id="boardLikeResult">
+		<result column="board_like_no" property="boardLikeNo" />
+		<result column="user_no" property="userNo" />
+		<result column="board_no" property="boardNo" />
+		<result column="status" property="likeDate" />
+		<result column="like_date" property="status" />
+	</resultMap>
+	
 	
 	<select id="selectCategory" resultMap="categoryResult">
 		select category_no, category_name
@@ -64,7 +106,6 @@
 		join concert_attachment ca on (c.concert_no = ca.concert_no)
 		where c.concert_status = 'Y'
 		and cg.category_no = #{cNo}
-		and ca.file_level = 1
 		and ca.status = 'Y'
 		limit 10;
 	</select>
@@ -88,7 +129,6 @@
 		join concert_attachment ca on (c.concert_no = ca.concert_no)
 		where c.concert_status = 'Y'
 		and cg.category_no = #{cNo}
-		and ca.file_level = 1
 		and ca.status = 'Y'
 		limit 10;
 	</select>
@@ -115,7 +155,6 @@
 		join concert_attachment ca on (c.concert_no = ca.concert_no)
 		where c.concert_status = 'Y'
 		and cg.category_no = #{cNo}
-		and ca.file_level = 1
 		and ca.status = 'Y'
 		limit 10;
 	</select>
@@ -138,7 +177,6 @@
 		join concert_attachment ca on (c.concert_no = ca.concert_no)
 		where c.concert_status = 'Y'
 		and cg.category_no = #{cNo}
-		and ca.file_level = 1
 		and ca.status = 'Y'
 		limit 10;
 	</select>
@@ -149,7 +187,7 @@
 		c.concert_title, 
 		t.theater_name, 
 		min(s.start_date) start_Date, 
-		min(s.end_date) end_date, 
+		max(s.end_date) end_date, 
 		c.concert_runtime, 
 		ca.file_path, 
 		ca.change_name, 
@@ -164,11 +202,115 @@
 	join concert_attachment ca on (c.concert_no = ca.concert_no)
 	join concert_category cc on (c.concert_no = cc.concert_no)
 	join category cg on (cc.category_no = cg.category_no)
-	where ca.file_level = 1
-	and cg.category_no = #{cNo}
+	where cg.category_no = #{cNo}
 	and ca.status = 'Y'
 	GROUP BY c.concert_no, c.concert_title, t.theater_name, c.concert_runtime, ca.file_path, ca.change_name, cg.category_no;
 	</select>
 	
+	<select id="selectReserveConcert" resultMap="reserveResult">
+		select concert_no, concert_date
+		from reserve
+		where reserve_status = 'Y'
+		and user_no = #{uNo}
+	</select>
+	
+	<select id="selectChoiceReserveConcert" resultMap="concertResult" parameterType="Map">
+		select 
+				c.concert_no, 
+				c.concert_title, 
+				t.theater_name, 
+				min(cs.start_date) start_Date, 
+				max(cs.end_date) end_date, 
+				c.concert_runtime, 
+				ca.file_path, 
+				ca.change_name, 
+				cg.category_no
+		from concert c
+		join reserve r on (c.concert_no = r.concert_no)
+		join theater t on (c.theater_no = t.theater_no)
+		join concert_schedule cs on (c.concert_no = cs.concert_no)
+		join concert_attachment ca on (c.concert_no = ca.concert_no)
+		join concert_category cc on (c.concert_no = cc.concert_no)
+		join category cg on (cc.category_no = cg.category_no)
+		where r.user_no = #{uNo}
+		and r.reserve_status = 'Y'
+		and r.concert_date = #{date}::date
+		group by c.concert_no, c.concert_title, t.theater_name,
+				c.concert_runtime, ca.file_path, ca.change_name, cg.category_no
+	</select>
+	
+	<select id="selectPopularBoard" resultMap="boardResult">
+		select b.board_no, b.user_no, b.board_title, b.board_content, bl.like_count "like_count"
+		from (select board_no, count(board_no) like_count
+			  from board_like
+			  where status = 'Y'
+			  group by board_no
+			  order by like_count desc
+			 ) bl
+		join board b on (b.board_no = bl.board_no)
+		where b.board_code = 2
+		order by like_count desc
+		limit 5
+	</select>
+	
+	<select id="selectPopularBoardCategory" resultMap="boardResult">
+		select bl.board_no, cg.category_no, cg.category_name
+		from (select board_no, count(board_no) likeCount
+			  from board_like
+			  where status = 'Y'
+			  group by board_no
+			  order by likeCount desc
+			 ) bl
+		join board_category bc on (bc.board_no = bl.board_no)
+		join category cg on (bc.category_no = cg.category_no)
+		order by likeCount desc
+		limit 10
+	</select>
+	
+	<select id="selectpopularBoardUserProfile" resultMap="profileImgResult">
+		select pi.file_path, pi.change_name
+		from (select board_no, count(board_no) likeCount
+			  from board_like
+			  where status = 'Y'
+			  group by board_no
+			  order by likeCount desc
+			 ) bl
+		join board b on (b.board_no = bl.board_no)
+		join profile_img pi on (b.user_no = pi.user_no) 
+		where b.board_code = 2
+		order by likeCount desc
+		limit 5
+	</select>
+	
+	<select id="checkLikeStatus" resultType="_int" parameterType="Map">
+		select board_like_no
+		from board_like
+		where user_no = #{uNo}
+		and board_no = #{bNo}
+	</select>
+	
+	<insert id="insertBoardLike" parameterType="Map">
+		insert into board_like 
+		values(default, #{uNo}, #{bNo}, default, default)
+	</insert>
+	
+	<update id="updateBoardLike" parameterType="Map">
+	update board_like set status = 'Y', like_date = 'now'
+	where user_no = #{uNo}
+	and board_no = #{bNo}
+	</update>
+	
+	<select id="selectLikeCount" parameterType="Map" resultMap="boardLikeResult">
+		select board_like_no
+		from board_like
+		where board_no = #{bNo}
+		and status='Y'
+	</select>
+	
+	<update id="updateNoLike" parameterType="Map">
+		update board_like set status = 'N', like_date = 'now'
+		where user_no = #{uNo}
+		and board_no = #{bNo}
+	</update>
 </mapper>
 

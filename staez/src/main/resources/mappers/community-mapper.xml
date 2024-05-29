@@ -6,7 +6,8 @@
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
 <mapper namespace="communityMapper">
 	<resultMap type="Board" id="boardResult">
-		<result column="board_no" property="userNo" />
+		<result column="board_no" property="boardNo" />
+		<result column="user_no" property="userNo" />
 		<result column="refBoardNo" property="userId" />
 		<result column="user_pwd" property="userPwd" />
 		<result column="nickname" property="nickname" />
@@ -20,6 +21,9 @@
 		<result column="enroll_date" property="enrollDate" />
 		<result column="withdrawal_date" property="withdrawalDate" />
 		<result column="user_status" property="userStatus" />
+		<result column="board_write_date" property="boardWriteDate" />
+		<result column="board_title" property="boardTitle" />
+		<result column="board_content" property="boardContent" />
 	</resultMap>
 	<resultMap type="Category" id="categoryResult">
 		<result column="category_no" property="categoryNo"/>
@@ -96,5 +100,47 @@
 			#{concertNo}
 		)
 	</insert>
+	<select id="selectBoard" resultMap="boardResult">
+		SELECT
+			b.board_no,
+			u.user_no,
+			u.nickname,
+			b.board_level,
+			b.board_write_date,
+			b.board_title,
+			b.board_content,
+			b.board_count
+		FROM board b
+		JOIN staez_user u on (b.user_no = u.user_no)
+		JOIN board_category bc on (b.board_no = bc.board_no)
+		WHERE b.board_status = 'Y'
+		and category_no IN
+		<foreach collection="categoryNo" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+	<select id="selectBoardAll" resultMap="boardResult">
+		SELECT
+			b.board_no,
+			u.user_no,
+			u.nickname,
+			b.board_level,
+			b.board_write_date,
+			b.board_title,
+			b.board_content,
+			b.board_count
+		FROM board b
+		JOIN staez_user u on (b.user_no = u.user_no)
+		WHERE b.board_status = 'Y'
+		and b.board_code = 2;
+	</select>
+	<select id="selectBoardCategory" resultMap="categoryResult">
+		SELECT
+			c.category_no,
+			c.category_name
+		FROM board_category bc
+		JOIN category c ON (bc.category_no = c.category_no)
+		WHERE bc.board_no = #{boardNo}
+	</select>
 </mapper>
 

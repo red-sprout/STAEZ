@@ -7,302 +7,53 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/community/communityMain.css'/>">
-<script src="<c:url value='/resources/js/community/communityMain.js'/>"></script>
 </head>
 <body>
 	<header>
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
+		<script src="<c:url value='/resources/js/api/communityapi.js'/>"></script>
+		<script src="<c:url value='/resources/js/community/communityMain.js'/>"></script>
 	</header>
 	<main>
 		<div id="community-wrapper">
-			<ul id="community-nav" align="left">
-				<li onclick=""><h2 class="selected">커뮤니티 메인</h2></li>
-				<li onclick=""><h2>입문 가이드</h2></li>
-				<li onclick=""><h2>질문과 답변</h2></li>
-				<li onclick=""><h2>리뷰</h2></li>
-				<li onclick=""><h2>자유게시판</h2></li>
-				<li id="write-btn" onclick="location.href='incertForm.cm'">
-					<h2>글쓰기</h2>
-					<img src="<c:url value='/resources/img/community/communityMain/write.png'/>" alt="">
-				</li>
-			</ul>
+			<ul id="community-nav" align="left"></ul>
 			<ul id="community-contents" align="left">
 				<li id="community-search">
 					<button>
 						<img src="<c:url value='/resources/img/community/communityMain/search-icon.png'/>" alt="">
 					</button>
-					<input type="text" name="" id="">
+					<input type="text" name="keyword">
 				</li>
-				<li id="community-category">
-					<button class="btn-staez checked" onclick="btnToggle(this)"><h4>뮤지컬</h4></button>
-					<button class="btn-staez" onclick="btnToggle(this)"><h4>클래식</h4></button>
-					<button class="btn-staez" onclick="btnToggle(this)"><h4>국악</h4></button>
-					<button class="btn-staez" onclick="btnToggle(this)"><h4>대중음악</h4></button>
-					<button class="btn-staez" onclick="btnToggle(this)"><h4>연극</h4></button>
-					<button class="btn-staez" onclick="btnToggle(this)"><h4>서커스/마술</h4></button>
-					<button class="btn-staez" onclick="btnToggle(this)"><h4>기타</h4></button>
-				</li>
-				<li class="community-posting" onclick="location.href='detail.cm'">
-					<table>
-						<tbody>
-							<tr class="profile-area">
-								<td rowspan="2"><img src="<c:url value='/resources/img/community/communityMain/profile-example.png'/>" alt=""></td>
-								<td><h4>뮤덕이</h4></td>
-								<td rowspan="5"><img src="<c:url value='/resources/img/community/communityMain/posting-img-example.png'/>" alt=""></td>
-							</tr>
-							<tr>
-								<td>2024.05.01 00:00</td>
-							</tr>
-							<tr>
-								<td colspan="2"><h3>웃는남자 리뷰</h3></td>
-							</tr>
-							<tr>
-								<td colspan="2">연뮤덕입장 솔직하게 작성했습니다...</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<button class="btn-staez checked"><h4>뮤지컬</h4></button>
-									<button class="btn-staez"><h4>리뷰</h4></button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</li>
-				<li class="community-posting" onclick="location.href='detail.cm'">
-					<table>
-						<tbody>
-							<tr class="profile-area">
-								<td rowspan="2"><img src="<c:url value='/resources/img/community/communityMain/profile-example.png'/>" alt=""></td>
-								<td><h4>뮤덕이</h4></td>
-								<td rowspan="5"><img src="<c:url value='/resources/img/community/communityMain/posting-img-example.png'/>" alt=""></td>
-							</tr>
-							<tr>
-								<td>2024.05.01 00:00</td>
-							</tr>
-							<tr>
-								<td colspan="2"><h3>웃는남자 리뷰</h3></td>
-							</tr>
-							<tr>
-								<td colspan="2">연뮤덕입장 솔직하게 작성했습니다...</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<button class="btn-staez checked"><h4>뮤지컬</h4></button>
-									<button class="btn-staez"><h4>리뷰</h4></button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</li>
-				<li class="community-posting" onclick="location.href='detail.cm'">
-					<table>
-						<tbody>
-							<tr class="profile-area">
-								<td rowspan="2"><img src="<c:url value='/resources/img/community/communityMain/profile-example.png'/>" alt=""></td>
-								<td><h4>뮤덕이</h4></td>
-								<td rowspan="5"><img src="<c:url value='/resources/img/community/communityMain/posting-img-example.png'/>" alt=""></td>
-							</tr>
-							<tr>
-								<td>2024.05.01 00:00</td>
-							</tr>
-							<tr>
-								<td colspan="2"><h3>웃는남자 리뷰</h3></td>
-							</tr>
-							<tr>
-								<td colspan="2">연뮤덕입장 솔직하게 작성했습니다...</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<button class="btn-staez checked"><h4>뮤지컬</h4></button>
-									<button class="btn-staez"><h4>리뷰</h4></button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</li>
-				<li class="community-posting" onclick="location.href='detail.cm'">
-					<table>
-						<tbody>
-							<tr class="profile-area">
-								<td rowspan="2"><img src="<c:url value='/resources/img/community/communityMain/profile-example.png'/>" alt=""></td>
-								<td><h4>뮤덕이</h4></td>
-								<td rowspan="5"><img src="<c:url value='/resources/img/community/communityMain/posting-img-example.png'/>" alt=""></td>
-							</tr>
-							<tr>
-								<td>2024.05.01 00:00</td>
-							</tr>
-							<tr>
-								<td colspan="2"><h3>웃는남자 리뷰</h3></td>
-							</tr>
-							<tr>
-								<td colspan="2">연뮤덕입장 솔직하게 작성했습니다...</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<button class="btn-staez checked"><h4>뮤지컬</h4></button>
-									<button class="btn-staez"><h4>리뷰</h4></button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</li>
-				<li class="community-posting" onclick="location.href='detail.cm'">
-					<table>
-						<tbody>
-							<tr class="profile-area">
-								<td rowspan="2"><img src="<c:url value='/resources/img/community/communityMain/profile-example.png'/>" alt=""></td>
-								<td><h4>뮤덕이</h4></td>
-								<td rowspan="5"><img src="<c:url value='/resources/img/community/communityMain/posting-img-example.png'/>" alt=""></td>
-							</tr>
-							<tr>
-								<td>2024.05.01 00:00</td>
-							</tr>
-							<tr>
-								<td colspan="2"><h3>웃는남자 리뷰</h3></td>
-							</tr>
-							<tr>
-								<td colspan="2">연뮤덕입장 솔직하게 작성했습니다...</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<button class="btn-staez checked"><h4>뮤지컬</h4></button>
-									<button class="btn-staez"><h4>리뷰</h4></button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</li>
-				<li class="community-posting" onclick="location.href='detail.cm'">
-					<table>
-						<tbody>
-							<tr class="profile-area">
-								<td rowspan="2"><img src="<c:url value='/resources/img/community/communityMain/profile-example.png'/>" alt=""></td>
-								<td><h4>뮤덕이</h4></td>
-								<td rowspan="5"><img src="<c:url value='/resources/img/community/communityMain/posting-img-example.png'/>" alt=""></td>
-							</tr>
-							<tr>
-								<td>2024.05.01 00:00</td>
-							</tr>
-							<tr>
-								<td colspan="2"><h3>웃는남자 리뷰</h3></td>
-							</tr>
-							<tr>
-								<td colspan="2">연뮤덕입장 솔직하게 작성했습니다...</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<button class="btn-staez checked"><h4>뮤지컬</h4></button>
-									<button class="btn-staez"><h4>리뷰</h4></button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</li>
-				<li class="community-posting" onclick="location.href='detail.cm'">
-					<table>
-						<tbody>
-							<tr class="profile-area">
-								<td rowspan="2"><img src="<c:url value='/resources/img/community/communityMain/profile-example.png'/>" alt=""></td>
-								<td><h4>뮤덕이</h4></td>
-								<td rowspan="5"><img src="<c:url value='/resources/img/community/communityMain/posting-img-example.png'/>" alt=""></td>
-							</tr>
-							<tr>
-								<td>2024.05.01 00:00</td>
-							</tr>
-							<tr>
-								<td colspan="2"><h3>웃는남자 리뷰</h3></td>
-							</tr>
-							<tr>
-								<td colspan="2">연뮤덕입장 솔직하게 작성했습니다...</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<button class="btn-staez checked"><h4>뮤지컬</h4></button>
-									<button class="btn-staez"><h4>리뷰</h4></button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</li>
-				<li class="community-posting" onclick="location.href='detail.cm'">
-					<table>
-						<tbody>
-							<tr class="profile-area">
-								<td rowspan="2"><img src="<c:url value='/resources/img/community/communityMain/profile-example.png'/>" alt=""></td>
-								<td><h4>뮤덕이</h4></td>
-								<td rowspan="5"><img src="<c:url value='/resources/img/community/communityMain/posting-img-example.png'/>" alt=""></td>
-							</tr>
-							<tr>
-								<td>2024.05.01 00:00</td>
-							</tr>
-							<tr>
-								<td colspan="2"><h3>웃는남자 리뷰</h3></td>
-							</tr>
-							<tr>
-								<td colspan="2">연뮤덕입장 솔직하게 작성했습니다...</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<button class="btn-staez checked"><h4>뮤지컬</h4></button>
-									<button class="btn-staez"><h4>리뷰</h4></button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</li>
-				<li class="community-posting" onclick="location.href='detail.cm'">
-					<table>
-						<tbody>
-							<tr class="profile-area">
-								<td rowspan="2"><img src="<c:url value='/resources/img/community/communityMain/profile-example.png'/>" alt=""></td>
-								<td><h4>뮤덕이</h4></td>
-								<td rowspan="5"><img src="<c:url value='/resources/img/community/communityMain/posting-img-example.png'/>" alt=""></td>
-							</tr>
-							<tr>
-								<td>2024.05.01 00:00</td>
-							</tr>
-							<tr>
-								<td colspan="2"><h3>웃는남자 리뷰</h3></td>
-							</tr>
-							<tr>
-								<td colspan="2">연뮤덕입장 솔직하게 작성했습니다...</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<button class="btn-staez checked"><h4>뮤지컬</h4></button>
-									<button class="btn-staez"><h4>리뷰</h4></button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</li>
-				<li class="community-posting" onclick="location.href='detail.cm'">
-					<table>
-						<tbody>
-							<tr class="profile-area">
-								<td rowspan="2"><img src="<c:url value='/resources/img/community/communityMain/profile-example.png'/>" alt=""></td>
-								<td><h4>뮤덕이</h4></td>
-								<td rowspan="5"><img src="<c:url value='/resources/img/community/communityMain/posting-img-example.png'/>" alt=""></td>
-							</tr>
-							<tr>
-								<td>2024.05.01 00:00</td>
-							</tr>
-							<tr>
-								<td colspan="2"><h3>웃는남자 리뷰</h3></td>
-							</tr>
-							<tr>
-								<td colspan="2">연뮤덕입장 솔직하게 작성했습니다...</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<button class="btn-staez checked"><h4>뮤지컬</h4></button>
-									<button class="btn-staez"><h4>리뷰</h4></button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</li>
-				<li id="community-pagination">
+				<li id="community-category"></li>
+				<c:forEach var="b" items="${boardList}">
+					<li class="community-posting" onclick="location.href='detail.cm?boardNo=${b.boardNo}'">
+						<table>
+							<tbody>
+								<tr class="profile-area">
+									<td rowspan="2"><img src="<c:url value='/resources/img/community/communityMain/profile-example.png'/>" alt=""></td>
+									<td><h4>${b.nickname}</h4></td>
+									<td rowspan="5">
+										<input type="hidden" name="boardNo" value="${b.boardNo}" class="boardNo">
+										<input type="hidden" name="userNo" value="${b.userNo}" class="userNo">
+									</td>
+								</tr>
+								<tr>
+									<td>${b.boardWriteDate}</td>
+								</tr>
+								<tr>
+									<td colspan="2"><h3>${b.boardTitle}</h3></td>
+								</tr>
+								<tr>
+									<td colspan="2" class="boardContent">${b.boardContent}</td>
+								</tr>
+								<tr class="posting-category">
+									<td colspan="2"></td>
+								</tr>
+							</tbody>
+						</table>
+					</li>
+				</c:forEach>
+				<!-- <li id="community-pagination">
 					<div class="page-list">
 						<div class="pagination">
 							<img src="<c:url value='/resources/img/main/before.png'/>">
@@ -321,7 +72,7 @@
 							<img src="<c:url value='/resources/img/main/after.png'/>">
 						</div>
 					</div>
-				</li>
+				</li> -->
 			</ul>
 		</div>
 	</main>

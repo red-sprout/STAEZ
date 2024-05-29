@@ -335,8 +335,7 @@ main{
     border-radius: 15px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    
+    align-items: center;  
 }
 
 .user-and-category-tag-area{
@@ -365,9 +364,11 @@ main{
     margin: 0;
 }
 
-.popularity-bulletin-detail-content>p{
+.popularity-bulletin-detail-content>div>p{
     text-align: left;
     font-weight: 500;
+    margin: 0rem;  
+  
 }
 
 .popularity-bulletin-detail-content{
@@ -375,7 +376,23 @@ main{
     height: 195px;
     padding: 10px 20px;
     position: relative;
+    overflow: hidden;
 }
+
+.popularity-bulletin-detail-content>div>p>img {
+    display: none;
+}
+
+.content-box{
+    height: 115px;
+    white-space: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical
+}
+
 
 .heart-count-area{
     width: 50px;

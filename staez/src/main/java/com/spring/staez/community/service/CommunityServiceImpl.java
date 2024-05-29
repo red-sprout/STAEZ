@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.community.model.dao.CommunityDao;
+import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
+import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 
 @Service
@@ -45,6 +47,24 @@ public class CommunityServiceImpl implements CommunityService {
 		}
 		
 		return insertBoardResult * insertCategoryResult * insertTagResult;
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public ArrayList<Board> selectBoard(CategoryDto categoryDto) {
+		return communityDao.selectBoard(sqlSession, categoryDto);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public ArrayList<Board> selectBoard() {
+		return communityDao.selectBoard(sqlSession);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public ArrayList<Category> selectCategory(int boardNo) {
+		return communityDao.selectCategory(sqlSession, boardNo);
 	}
 
 }

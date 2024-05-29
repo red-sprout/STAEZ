@@ -115,3 +115,22 @@
         display: none;
     }
 }
+
+#category-div>button {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.boardContent>p {
+    display: none;
+}
+
+.boardContent>p:nth-child(1) {
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: keep-all;
+}

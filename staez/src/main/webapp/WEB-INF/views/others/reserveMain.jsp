@@ -20,6 +20,7 @@
         <img id="main-advertisement" src="${contextPath}/resources/img/others/mainAdvertisement.png" alt="">
     </div>
     <main>
+        <input type="hidden" value="${loginUser.userNo}" name="userNo">
         <div class="popularity-concert-container">
             <div class="popularity-concert-head">
                 <div class="popularity-concert-category-area">
@@ -96,7 +97,7 @@
                 </div> 
             </div>
             <div class="popularity-bulletin-information-area">
-                <div class="popularity-bulletin-information">
+                <!-- <div class="popularity-bulletin-information">
                     <div class="popularity-bulletin-information-a" onclick="location.href='detail.cm'">
                         <div class="popularity-bulletin-content-area">
                             <div class="popularity-bulletin-title">
@@ -120,107 +121,8 @@
                             <button class="btn-staez checked " style="padding: 0px 10px"><h5>리뷰</h5></button>
                         </div>  
                     </div>
-                </div>
-                <div class="popularity-bulletin-information">
-                    <div class="popularity-bulletin-information-a" onclick="location.href='detail.cm'">
-                        <div class="popularity-bulletin-content-area">
-                            <div class="popularity-bulletin-title">
-                                <span>시카고 후기 쓴다</span>
-                            </div>
-                            <hr class="popularity-bulletin-hr">
-                            <div class="popularity-bulletin-detail-content">
-                                <p>묵찌빠로 유학다녀오신<br>
-                                분이 시카고에서도 활동<br>
-                                하시는거보고 깜짝 놀랐<br>
-                                어요</p>
-                                <div class="heart-count-area" onclick="changeLike(this, event)">
-                                    <img class="heart" src="${contextPath}/resources/img/others/like-no.png" alt="">
-                                    <span class="heart-count">27</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="user-and-category-tag-area">
-                            <div class="user-profile"><img src="${contextPath}/resources/img/others/userProfile1.png" alt=""></div>
-                            <button class="btn-staez checked " style="padding: 0px 10px"><h5>뮤지컬</h5></button>
-                            <button class="btn-staez checked " style="padding: 0px 10px"><h5>리뷰</h5></button>
-                        </div>  
-                    </div>
-                </div>
-                <div class="popularity-bulletin-information">
-                    <div class="popularity-bulletin-information-a" onclick="location.href='detail.cm'">
-                        <div class="popularity-bulletin-content-area">
-                            <div class="popularity-bulletin-title">
-                                <span>시카고 후기 쓴다</span>
-                            </div>
-                            <hr class="popularity-bulletin-hr">
-                            <div class="popularity-bulletin-detail-content">
-                            <p>묵찌빠로 유학다녀오신<br>
-                            분이 시카고에서도 활동<br>
-                            하시는거보고 깜짝 놀랐<br>
-                            어요</p>
-                            <div class="heart-count-area" onclick="changeLike(this, event)">
-                                <img class="heart" src="${contextPath}/resources/img/others/like-no.png" alt="">
-                                <span class="heart-count">27</span>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="user-and-category-tag-area">
-                            <div class="user-profile"><img src="${contextPath}/resources/img/others/userProfile1.png" alt=""></div>
-                            <button class="btn-staez checked " style="padding: 0px 10px"><h5>뮤지컬</h5></button>
-                            <button class="btn-staez checked " style="padding: 0px 10px"><h5>리뷰</h5></button>
-                        </div>  
-                    </div>
-                </div>
-                <div class="popularity-bulletin-information">
-                    <div class="popularity-bulletin-information-a" onclick="location.href='detail.cm'">
-                        <div class="popularity-bulletin-content-area">
-                            <div class="popularity-bulletin-title">
-                                <span>시카고 후기 쓴다</span>
-                            </div>
-                            <hr class="popularity-bulletin-hr">
-                            <div class="popularity-bulletin-detail-content">
-                                <p>묵찌빠로 유학다녀오신<br>
-                                분이 시카고에서도 활동<br>
-                                하시는거보고 깜짝 놀랐<br>
-                                어요</p>
-                                <div class="heart-count-area" onclick="changeLike(this, event)">
-                                    <img class="heart" src="${contextPath}/resources/img/others/like-no.png" alt="">
-                                    <span class="heart-count">27</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="user-and-category-tag-area">
-                            <div class="user-profile"><img src="${contextPath}/resources/img/others/userProfile1.png" alt=""></div>
-                            <button class="btn-staez checked " style="padding: 0px 10px"><h5>뮤지컬</h5></button>
-                            <button class="btn-staez checked " style="padding: 0px 10px"><h5>리뷰</h5></button>
-                        </div>  
-                    </div>
-                </div>
-                <div class="popularity-bulletin-information">
-                    <div class="popularity-bulletin-information-a" onclick="location.href='detail.cm'">
-                        <div class="popularity-bulletin-content-area">
-                            <div class="popularity-bulletin-title">
-                                <span>시카고 후기 쓴다</span>
-                            </div>
-                            <hr class="popularity-bulletin-hr">
-                            <div class="popularity-bulletin-detail-content">
-                                <p>묵찌빠로 유학다녀오신<br>
-                                    분이 시카고에서도 활동<br>
-                                    하시는거보고 깜짝 놀랐<br>
-                                    어요</p>
-                                <div class="heart-count-area" onclick="changeLike(this, event)">
-                                    <img class="heart" src="${contextPath}/resources/img/others/like-no.png" alt="">
-                                    <span class="heart-count">27</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="user-and-category-tag-area">
-                            <div class="user-profile"><img src="${contextPath}/resources/img/others/userProfile1.png" alt=""></div>
-                            <button class="btn-staez checked " style="padding: 0px 10px"><h5>뮤지컬</h5></button>
-                            <button class="btn-staez checked " style="padding: 0px 10px"><h5>리뷰</h5></button>
-                        </div>  
-                    </div>
-                </div>
+                </div> -->
+    
             </div>
         </div>
     </main>
