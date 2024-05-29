@@ -113,7 +113,7 @@
 	</select> 
 	
 	<select id="selectCon" resultMap="concertResult" >
-	    		SELECT *
+	    SELECT *
 		FROM (
 		    SELECT c.concert_no,
 		           c.concert_title,
@@ -140,33 +140,47 @@
 		LIMIT 1 OFFSET 0;
 	</select>
 	
-	<insert id="conHeartLike">
-			INSERT INTO
+	
+	<!-- 좋아요 구현 -->
+	<select id="checkLike" resultMap="concertLikeResult">
+			SELECT user_no,
+				   concert_no,
+				   status
+			FROM concert_like
+			WHERE user_no = #{userNo}
+			  AND concert_no = #{concertNo}
+	</select>
+	
+	<insert id="insertConLike">
+			update INTO
 			concert_like(
 					user_no,
 					concert_no
 					)
 			VALUES(
-					#{userNo}
+					#{userNo},
 					#{concertNo}
 				   )	
 	</insert>
 
-	<update id="conHeartLikeDel">
+	<update id="updateLikeYtoN">
 		UPDATE concert_like
 		   SET status = 'N'
 		 WHERE user_no = #{userNo}
-			   concert_no = #{concertNo}
+		   AND concert_no = #{concertNo}
 	</update>
 	
-	<update id="reConHeartLike">
+	<update id="updateLikeNtoY">
 		UPDATE concert_like
 		   SET status = 'Y'
 		 WHERE user_no = #{userNo}
-			   concert_no = #{concertNo}
+		   AND  concert_no = #{concertNo}
 	</update>
-	
+	<!-- 좋아요 구현 끝 -->
 
+	
+	
+	
 	
 	
 		<!-- selectconList

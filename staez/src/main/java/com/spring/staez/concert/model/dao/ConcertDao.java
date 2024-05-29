@@ -1,6 +1,7 @@
 package com.spring.staez.concert.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,7 @@ import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.ConcertAttachment;
+import com.spring.staez.concert.model.vo.ConcertLike;
 
 @Repository
 public class ConcertDao {
@@ -29,13 +31,33 @@ public class ConcertDao {
 		return (ArrayList)sqlSession.selectList("concertMapper.selectCateCon");
 	}
 	
-
 	public ArrayList<Concert> selectconList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("concertMapper.selectconList");
 	}
+	
 	public Concert selectCon(SqlSessionTemplate sqlSession, int concertNo) {
 		return sqlSession.selectOne("concertMapper.selectCon", concertNo);
 	}
+
+	
+	
+	public ConcertLike checkConLike(SqlSessionTemplate sqlSession, ConcertLike conL) {
+		return sqlSession.selectOne("concertMapper.checkLike", conL);
+	}
+
+	public int insertConLike(SqlSessionTemplate sqlSession, ConcertLike conL) {
+		return sqlSession.insert("concertMapper.insertConLike", conL);
+	}
+
+	public int updateLikeYtoN(SqlSessionTemplate sqlSession, ConcertLike conL) {
+		return sqlSession.update("concertMapper.updateLikeYtoN", conL);
+	}
+
+	public int updateLikeNtoY(SqlSessionTemplate sqlSession, ConcertLike conL) {
+		return sqlSession.update("concertMapper.updateLikeNtoY", conL);
+	}
+	
+
 
 	// concertNo로 콘서트 가져오기
 //	public Concert selectCon(SqlSessionTemplate sqlSession, int concertNo) {

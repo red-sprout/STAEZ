@@ -1,6 +1,9 @@
 package com.spring.staez.concert.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.service.ConcertService;
 
 @Controller
@@ -54,14 +58,33 @@ public class ConcertController {
 		return "concert/concertDetail";
 	}
 	
+	
+	
+	
+	
 	@ResponseBody
 	@RequestMapping(value = "conheart.co", produces="application/json; charset=UTF-8")
-	public String conHeart(@RequestParam(value = "concertNo") String concertNo, Model model) {
+	public String insertConLike(@RequestParam("userNo") String userNo,
+						   @RequestParam("concertNo") String concertNo,
+						   HttpSession session, Model model) {
 		
-		Concert con = concertService.selectCon(Integer.parseInt(concertNo));
-		model.addAttribute("con", con);
+		// 좋아요 버튼 체크, 만약 좋아요 버튼을 (그 전에 한번도) 클릭하지 않았으면 : checkLike null 반환 -> 좋아요 버튼 insert
+		//  checkLike !null 반환 -> 좋아요 버튼 update(status n)
+		ConcertLike conL = new ConcertLike();
+		conL.setConcertNo(Integer.parseInt(concertNo));
+		conL.setUserNo(Integer.parseInt(userNo));
+		ConcertLike checkConLike = concertService.checkConLike(conL);
 		
-		return "concert/concertDetail";
+		
+		//  (처음으로 누른) 좋아요 insert : 1반환 성공, 0반환 실패
+		int insertConLike = concertService.insertConLike(conL);
+		int updateConlike = concertService.updateConLike(conL);
+		
+		// 좋아요 버튼은 한번만 누를 수 있게 해야: insert or update(status n)
+		// 좋아요 버튼 한번 더 누르면 좋아요 취소 status N
+		// A라는 콘서트에 얼마나 좋아요 갯수 몇개인가?
+			return "redirect:/";
+
 	}
 	
 	

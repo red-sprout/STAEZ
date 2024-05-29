@@ -1,9 +1,11 @@
 package com.spring.staez.concert.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertLike;
 
 public interface ConcertService {
 
@@ -17,9 +19,27 @@ public interface ConcertService {
 	// category를 가져와라 콘서트 네비에 뿌려주기
 	ArrayList<Category> selectCateCon();
 
+	// 콘서트 왕창 가져와라
 	ArrayList<Concert> selectconList();
 
+	// 콘서트 no로 콘서트 하나 가져와라: 세부페이지 열기
 	Concert selectCon(int concertNo);
+	
+	
+	// 좋아요 버튼 SET
+	// 콘서트 좋아요 버튼 확인
+	ConcertLike checkConLike(ConcertLike conL);
+
+	// 좋아요 insert
+	int insertConLike(ConcertLike conL);
+
+	// 좋아요 update
+	int updateConLike(ConcertLike conL);
+
+
+
+
+
 
 
 	
