@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -22,6 +23,7 @@ import com.spring.staez.admin.model.vo.ImpossibleSeat;
 import com.spring.staez.admin.model.vo.Seat;
 import com.spring.staez.admin.service.AdminService;
 import com.spring.staez.common.template.MyFileRenamePolicy;
+import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.Theater;
@@ -31,26 +33,6 @@ public class AdminController {
 	
 	@Autowired
 	AdminService adminService;
-	
-	@GetMapping("main.no") 
-	public String noticeMain() {
-		return "admin/noticeMain";
-	}
-	
-	@GetMapping("detail.no")
-	public String noticeDetail() {
-		return "admin/noticeDetail";
-	}
-	
-	@GetMapping("incertForm.no")
-	public String noticeIncertForm() {
-		return "admin/noticeIncertForm";
-	}
-	
-	@GetMapping("updateForm.no")
-	public String noticeUpdateForm() {
-		return "admin/noticeUpdateForm";
-	}
 	
 	@GetMapping("userList.ad")
 	public String userMain() {

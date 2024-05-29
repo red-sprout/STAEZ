@@ -63,3 +63,27 @@ function insertBoard(data, callback) {
         }
     });
 }
+
+function selectBoard(data, callback) {
+    $.ajax({
+        url: contextPath + "main.cm",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("게시글 조회 실패");
+        }
+    })
+}
+
+function boardCategory(data, callback) {
+    $.ajax({
+        url: contextPath + "boardCategory.cm",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("카테고리 요청 실패");
+        }
+    });
+}

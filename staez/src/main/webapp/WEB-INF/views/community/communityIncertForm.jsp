@@ -16,27 +16,7 @@
     </header>
     <main>
         <div id="community-wrapper">
-            <ul id="community-nav" align="left">
-                <li onclick="">
-                    <h2 class="selected">커뮤니티 메인</h2>
-                </li>
-                <li onclick="">
-                    <h2>입문 가이드</h2>
-                </li>
-                <li onclick="">
-                    <h2>질문과 답변</h2>
-                </li>
-                <li onclick="">
-                    <h2>리뷰</h2>
-                </li>
-                <li onclick="">
-                    <h2>자유게시판</h2>
-                </li>
-                <li id="write-btn" onclick="location.href='incertForm.cm'">
-                    <h2>글쓰기</h2>
-                    <img src="<c:url value='/resources/img/community/communityMain/write.png'/>" alt="">
-                </li>
-            </ul>
+            <ul id="community-nav" align="left"></ul>
             <form id="community-contents"  align="left" method="post">
                 <input type="hidden" name="userNo" value="${loginUser.userNo}">
                 <li>
