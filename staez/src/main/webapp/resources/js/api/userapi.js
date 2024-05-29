@@ -35,22 +35,25 @@ function sendEmailVerificationRequest(emailInput) {
             handleEmailCheckResponse(response);
         },
         error: function() {
-            console.log("이메일 인증 코드 전송 실패");
+            alert("이미 전송 처리했습니다 재전송을 누른 후 조금만 기다려주세요.");
         }
     });
 }
 
-//암호키 체크
+// 암호키 체크
 function emailCheckCode(data, callback) {
     $.ajax({
         url: "emailSecretCodeCheck.me",
         data: data,
         success: function(result) {
-            //console.log("AJAX success result: ", result); // 결과를 로그에 출력하여 확인
+            console.log("Server response:", result); // 서버 응답 확인
             callback(result);
         },
-        error: function() {
+        error: function(jqXHR, textStatus, errorThrown) {
             console.log("이메일 UUID 체크 ajax 실패");
+            console.log("Status: " + textStatus);
+            console.log("Error: " + errorThrown);
+            console.log("Response Text: " + jqXHR.responseText);
         }
     });
 }

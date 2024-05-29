@@ -287,3 +287,16 @@ input[type="checkbox"] {
     width: 100%; /* 부모 요소의 너비에 맞춥니다 */
     display: none;
 }
+
+/* 인증번호 에러 메시지 */
+#userEmailErrorMessage {
+    color: red;
+    font-size: 14px;
+    display: none; /* 기본적으로 숨김 */
+}
+
+/* 이메일 인증 확인 */
+#checkResultEamil {
+    font-size: 14px;
+    display: none; /* 기본적으로 숨김 */
+}

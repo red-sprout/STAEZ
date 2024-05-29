@@ -24,6 +24,6 @@ public interface UserService {
 	 int registerUser(String email, String authNo, LocalDateTime send_time);
 
 	 // 이메일 UUID체크
-	int emailSecretCodeCheck(String uuidCheck, String email);
+	int emailSecretCodeCheck(String authNo, String email);
 	
 }
