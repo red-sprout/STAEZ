@@ -1,11 +1,10 @@
 package com.spring.staez.concert.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.concert.model.vo.Concert;
-import com.spring.staez.concert.model.vo.ConcertLike;
 
 public interface ConcertService {
 
@@ -28,13 +27,15 @@ public interface ConcertService {
 	
 	// 좋아요 버튼 SET
 	// 콘서트 좋아요 버튼 확인
-	ConcertLike checkConLike(ConcertLike conL);
+	int checkConLike(Map<String, Integer> conL);
 
-	// 좋아요 insert
-	int insertConLike(ConcertLike conL);
+//	// 좋아요 insert, 
+//    int insertConLike(ConcertLike conL);
+//    int updateLikeYtoN(ConcertLike conL);
+//    int updateLikeNtoY(ConcertLike conL);
 
-	// 좋아요 update
-	int updateConLike(ConcertLike conL);
+
+
 
 
 

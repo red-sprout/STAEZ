@@ -3,7 +3,6 @@ function conNaviDraw(callback){
     $.ajax({
         url: contextPath + "connavi.co",
         success : function(conList) {
-            console.log(conList);
             callback(conList);
         }, error() {
             console.log("실패");
@@ -16,7 +15,6 @@ function conMainDraw(callback){
     $.ajax({
         url: contextPath + "maincon.co",
         success : function(list){
-            console.log(list);
             callback(list);
         }, error(){
             console.log("실패");
@@ -24,26 +22,15 @@ function conMainDraw(callback){
     });
 }
 
-//콘서트 내용 그려주는
-function conMainDraw(callback){
-    $.ajax({
-        url: contextPath + "maincon.co",
-        success : function(list){
-            console.log(list);
-            callback(list);
-        }, error(){
-            console.log("실패");
-        }
-    });
-}
-
+// 좋아요 버튼
 function conHeart(data, callback){
     $.ajax({
         url: contextPath + "conheart.co",
         data: data,
-        success : function(like){
-            console.log(like);
-            callback(like);
+        type :'POST',
+        success : function(conL){
+            console.log(conL);
+            callback(conL);
         }, error(){
             console.log("실패");
         }

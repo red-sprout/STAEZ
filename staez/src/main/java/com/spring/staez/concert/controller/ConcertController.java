@@ -2,6 +2,7 @@ package com.spring.staez.concert.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.concert.model.vo.Concert;
-import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.service.ConcertService;
 
 @Controller
@@ -59,36 +59,28 @@ public class ConcertController {
 	}
 	
 	
-	
-	
-	
 	@ResponseBody
 	@RequestMapping(value = "conheart.co", produces="application/json; charset=UTF-8")
 	public String insertConLike(@RequestParam("userNo") String userNo,
-						   @RequestParam("concertNo") String concertNo,
-						   HttpSession session, Model model) {
+						   @RequestParam("concertNo") String concertNo, HttpSession session, Model model) {
 		
 		// 좋아요 버튼 체크, 만약 좋아요 버튼을 (그 전에 한번도) 클릭하지 않았으면 : checkLike null 반환 -> 좋아요 버튼 insert
 		//  checkLike !null 반환 -> 좋아요 버튼 update(status n)
-		ConcertLike conL = new ConcertLike();
-		conL.setConcertNo(Integer.parseInt(concertNo));
-		conL.setUserNo(Integer.parseInt(userNo));
-		ConcertLike checkConLike = concertService.checkConLike(conL);
 		
-		
-		//  (처음으로 누른) 좋아요 insert : 1반환 성공, 0반환 실패
-		int insertConLike = concertService.insertConLike(conL);
-		int updateConlike = concertService.updateConLike(conL);
-		
-		// 좋아요 버튼은 한번만 누를 수 있게 해야: insert or update(status n)
-		// 좋아요 버튼 한번 더 누르면 좋아요 취소 status N
-		// A라는 콘서트에 얼마나 좋아요 갯수 몇개인가?
+        Map<String, Integer> conL = new HashMap<>();
+        conL.put("userNo", Integer.parseInt(userNo));
+        conL.put("concertNo", Integer.parseInt(concertNo));
+        int checkConLike = concertService.checkConLike(conL);
+        
+		if(checkConLike > 0) { //성공 => list 페이지로 이동
+			session.setAttribute("alertMsg", "좋아요 성공");
 			return "redirect:/";
-
-	}
+		} else { // 실패 => 에러페이지
+			session.setAttribute("alertMsg", "좋아요 실패");
+			return "redirect:/";
+		}
+	}	
 	
-	
-
 	
 	
 	// 보드넘버로 찾을 보드 가지러 가서
