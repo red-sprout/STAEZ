@@ -123,7 +123,7 @@
                     <tr>
                         <th></th>
                         <td>
-                            <input type="text" id="verification-code" required >
+                            <input type="text" id="verification-code" required>
                         </td>
                         <td>
                             <input type="button" class="check_button" id="check_emailSecretBtn" value="인증확인">

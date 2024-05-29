@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserService{
 	
 	//암호키 인증체크
 	@Override
-	public int emailSecretCodeCheck(String uuidCheck, String email) {
-		return userDao.emailSecretCodeCheck(sqlSession, uuidCheck, email);
+	public int emailSecretCodeCheck(String authNo, String email) {
+		return userDao.emailSecretCodeCheck(sqlSession, authNo, email);
 	}
 
 }

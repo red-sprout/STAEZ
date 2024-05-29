@@ -228,6 +228,7 @@
 			   r.concert_times AS concertTimes,
 			   cr.score AS score,
 			   cr.review_content AS reviewContent,
+			   c.concert_no AS concertNo,
 			   c.concert_title AS concertTitle,
 			   c.concert_runtime AS concertRuntime,
 			   t.theater_name AS theaterName,
