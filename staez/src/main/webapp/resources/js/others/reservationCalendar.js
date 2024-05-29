@@ -69,10 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isReservedDate) {
                 className = 'class="reservation"';
                 clickEv = `onclick="clickDate(this, '${daysInMonthString}')"`
+                if (i === date.getDate() && month === new Date().getMonth() && year === new Date().getFullYear()) {
+                    className = 'class="today clickDate clicked "';
+                }
             } 
-            // if (i === date.getDate() && month === new Date().getMonth() && year === new Date().getFullYear()) {
-            //     className = 'class="today clickDate clicked "';
-            // }
             
             datesHtml += `<li ${className} " ${clickEv}>${i}</li>`;
         }
