@@ -21,4 +21,10 @@ public class ConcertReview {
 	private int score; //별점(1~5)
 	private String reviewStatus; //한줄평활성화여부
 	private Timestamp reviewDate; //작성날짜
+	
+	private String concertTitle; //공연명
+	
+	private String originName; //파일원래명칭
+	private String changeName; //파일수정명
+	private String filePath; //파일경로
 }

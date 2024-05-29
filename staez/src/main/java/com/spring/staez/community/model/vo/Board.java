@@ -2,6 +2,8 @@ package com.spring.staez.community.model.vo;
 
 import java.sql.Timestamp;
 
+import com.spring.staez.user.model.vo.User;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

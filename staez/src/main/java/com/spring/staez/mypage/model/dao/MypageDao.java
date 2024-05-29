@@ -6,7 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.spring.staez.community.model.vo.Board;
-import com.spring.staez.community.model.vo.BoardLike;
+import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.user.model.vo.ProfileImg;
 import com.spring.staez.user.model.vo.User;
 
@@ -80,6 +81,35 @@ public class MypageDao {
 	}
 	
 	
+	public int selectPaymentsCount(SqlSessionTemplate sqlSession, int userNo) {
+		int count = sqlSession.selectOne("mypageMapper.selectPaymentsCount", userNo);
+		return count;
+	}
+	
+	public ArrayList<Concert> selectPaymentsList(SqlSessionTemplate sqlSession, int userNo) {
+		ArrayList<Concert> list = (ArrayList)sqlSession.selectList("mypageMapper.selectPaymentsList", userNo);
+		return list;
+	}
+	
+	public int selectScrapCount(SqlSessionTemplate sqlSession, int userNo) {
+		int count = sqlSession.selectOne("mypageMapper.selectScrapCount", userNo);
+		return count;
+	}
+	
+	public ArrayList<Concert> selectScrapList(SqlSessionTemplate sqlSession, int userNo) {
+		ArrayList<Concert> list = (ArrayList)sqlSession.selectList("mypageMapper.selectScrapList", userNo);
+		return list;
+	}
+
+	public int selectReviewCount(SqlSessionTemplate sqlSession, int userNo) {
+		int count = sqlSession.selectOne("mypageMapper.selectReviewCount", userNo);
+		return count;
+	}
+	
+	public ArrayList<Concert> selectReviewList(SqlSessionTemplate sqlSession, int userNo) {
+		ArrayList<Concert> list = (ArrayList)sqlSession.selectList("mypageMapper.selectReviewList", userNo);
+		return list;
+	}
 	
 	
 }

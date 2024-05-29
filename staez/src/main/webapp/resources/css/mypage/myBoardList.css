@@ -43,7 +43,7 @@
 
 .main-content>.main-title>h2{
     text-align: left;
-    padding-left: 20px;   
+    padding: 0 20px;   
 }
 
 /*나의 게시글 리스트*/
@@ -62,8 +62,13 @@
     border-bottom: solid 1px black;
 }
 
-.main-content>table tr:hover {
+.main-content>table .tb-content:hover {
     cursor: pointer;
+    background: rgb(245, 245, 245);
+}
+
+.main-content>table #btitle:hover {
+    text-decoration: underline;
 }
 
 .main-content>table .col-name { /*제목 행 th*/
@@ -89,7 +94,6 @@
 }
 
 .main-content>table td {
-    padding: 0 14px;
 }
 
 .col-name>#board-title{
@@ -109,8 +113,10 @@
 
 .tb-content>#btitle{
     text-align: left;
+    padding-left: 20px;
     /*텍스트 넘치면 ...표시되도록 해야됨*/
 }
+
 
 
 

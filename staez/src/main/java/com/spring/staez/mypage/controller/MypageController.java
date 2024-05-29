@@ -16,7 +16,7 @@ import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.common.template.MyFileRenamePolicy;
 import com.spring.staez.common.template.Pagination;
 import com.spring.staez.community.model.vo.Board;
-import com.spring.staez.community.model.vo.BoardLike;
+import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.mypage.service.MypageService;
 import com.spring.staez.user.model.vo.ProfileImg;
 import com.spring.staez.user.model.vo.User;
@@ -49,35 +49,70 @@ public class MypageController {
 	
 	//결제내역 리스트 페이지 출력
 	@RequestMapping("paymentList.me")
-	public String paymentsLog(HttpSession session, Model model) {
-		if(session.getAttribute("loginUser") == null) { //로그인 되어있지 않을 경우
-	        session.setAttribute("alertMsg", "로그인이 필요합니다.");
-	        return "redirect:/loginForm.me";
-		}
-		model.addAttribute("contentPage", "paymentsLog");
-		return "mypage/mypageLayout";
-	}
-	
-	//찜목록 리스트 페이지 출력
-	@RequestMapping("scrapList.me")
-	public String myScrapList(HttpSession session, Model model) {
+	public String paymentsLog(int cpage, HttpSession session, Model model) {
+		User loginUser = userService.loginUser((User)session.getAttribute("loginUser"));
+		
 		if(session.getAttribute("loginUser") == null) { //로그인 되어있지 않을 경우
 	        session.setAttribute("alertMsg", "로그인이 필요합니다.");
 	        return "redirect:/loginForm.me";
 		}
 		
+		int userNo = loginUser.getUserNo();
+		int currentPage = cpage;
+		int listCount = mypageService.selectPaymentsCount(userNo);
+		
+		ArrayList<Concert> list = mypageService.selectPaymentsList(userNo);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		model.addAttribute("contentPage", "paymentsLog");
+		model.addAttribute("clist", list);
+		model.addAttribute("pi", pi);
+		return "mypage/mypageLayout";
+	}
+	
+	//찜목록 리스트 페이지 출력
+	@RequestMapping("scrapList.me")
+	public String myScrapList(int cpage, HttpSession session, Model model) {
+		User loginUser = userService.loginUser((User)session.getAttribute("loginUser"));
+		
+		if(session.getAttribute("loginUser") == null) { //로그인 되어있지 않을 경우
+	        session.setAttribute("alertMsg", "로그인이 필요합니다.");
+	        return "redirect:/loginForm.me";
+		}
+		
+		int userNo = loginUser.getUserNo();
+		int currentPage = cpage;
+		int listCount = mypageService.selectScrapCount(userNo);
+		
+		ArrayList<Concert> list = mypageService.selectScrapList(userNo);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
 		model.addAttribute("contentPage", "myScrapList");
+		model.addAttribute("clist", list);
+		model.addAttribute("pi", pi);
 		return "mypage/mypageLayout";
 	}
 
 	//한줄평 리스트 페이지 출력
 	@RequestMapping("reviewList.me")
-	public String oneLineReview(HttpSession session, Model model) {
+	public String oneLineReview(int cpage, HttpSession session, Model model) {
+		User loginUser = userService.loginUser((User)session.getAttribute("loginUser"));
+		
 		if(session.getAttribute("loginUser") == null) { //로그인 되어있지 않을 경우
 	        session.setAttribute("alertMsg", "로그인이 필요합니다.");
 	        return "redirect:/loginForm.me";
 		}
+		
+		int userNo = loginUser.getUserNo();
+		int currentPage = cpage;
+		int listCount = mypageService.selectReviewCount(userNo);
+		
+		ArrayList<Concert> list = mypageService.selectReviewList(userNo);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		
 		model.addAttribute("contentPage", "oneLineReview");
+		model.addAttribute("clist", list);
+		model.addAttribute("pi", pi);
 		return "mypage/mypageLayout";
 	}
 	
@@ -93,12 +128,12 @@ public class MypageController {
 		int userNo = loginUser.getUserNo();
 		int currentPage = cpage;
 		int listCount = mypageService.selectMyBoardListCount(userNo);
-		System.out.println(listCount);
+		
 		ArrayList<Board> list = mypageService.selectMyBoardList(userNo);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 		
 		model.addAttribute("contentPage", "myBoardList");
-		model.addAttribute("list",list);
+		model.addAttribute("blist", list);
 		model.addAttribute("pi", pi);
 		
 		return "mypage/mypageLayout";
@@ -121,7 +156,7 @@ public class MypageController {
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 		
 		model.addAttribute("contentPage", "likeBoardList");
-		model.addAttribute("list",list);
+		model.addAttribute("blist", list);
 		model.addAttribute("pi", pi);
 		
 		return "mypage/mypageLayout";
