@@ -81,6 +81,44 @@ public class ConcertController {
 		}
 	}	
 	
+		
+	
+	
+	
+	
+	
+	// 공연을 concertNo로 가져와서 공연세부페이지로
+	@RequestMapping(value = "sellInfo.co", produces="application/json; charset=UTF-8")
+	public String selectSellInfoCon(@RequestParam(value = "concertNo") String concertNo, Model model) {
+		
+		Concert con = concertService.selectCon(Integer.parseInt(concertNo));
+		model.addAttribute("con", con);
+		
+		return "concert/sellInfo";
+	}
+	
+	
+	// 공연을 concertNo로 가져와서 공연세부페이지로
+	@RequestMapping(value = "comment.co", produces="application/json; charset=UTF-8")
+	public String selectCommentCon(@RequestParam(value = "concertNo") String concertNo, Model model) {
+		
+		Concert con = concertService.selectCon(Integer.parseInt(concertNo));
+		model.addAttribute("con", con);
+		
+		return "concert/comment";
+	}
+	
+	
+	// 공연을 concertNo로 가져와서 공연세부페이지로
+	@RequestMapping(value = "detailReview.co", produces="application/json; charset=UTF-8")
+	public String selectDetailReviewCon(@RequestParam(value = "concertNo") String concertNo, Model model) {
+		
+		Concert con = concertService.selectCon(Integer.parseInt(concertNo));
+		model.addAttribute("con", con);
+		
+		return "concert/detailReview";
+	}
+	
 	
 	
 	// 보드넘버로 찾을 보드 가지러 가서

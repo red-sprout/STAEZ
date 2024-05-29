@@ -36,3 +36,16 @@ function conHeart(data, callback){
         }
     });
 }
+
+function conDetailTab(data, callback){
+    $.ajax({
+        url: contextPath + "conDetailTab.co",
+        data: data,
+        success : function(result){
+            console.log(result);
+            callback(result);
+        }, error(){
+            console.log("실패");
+        }
+    });
+}

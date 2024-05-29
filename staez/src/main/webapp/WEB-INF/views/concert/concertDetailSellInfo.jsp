@@ -13,22 +13,25 @@
     <!-- 제이쿼리 -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <!-- 적용 css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertDetailView.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertDetailInformationViewAjax.css">
+   
     <!-- 폰트어썸 -->
     <script src="https://kit.fontawesome.com/65a2de1a44.js" crossorigin="anonymous"></script>
     <!-- 달력 -->
     <script src="${pageContext.request.contextPath}/resources/js/concert/concertDetailCalendar.js"></script>
     <!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script> -->
     <!-- 적용 자바스크립트 -->
-    <script src="<c:url value='/resources/js/concert/concertDetail.js'/>"></script>
+
 
 </head>
 
 <body>
 
     <div>
+        <script src="<c:url value='/resources/js/api/concertapi.js'/>"></script>
+        <script src="<c:url value='/resources/js/concert/concertDetailMain.js'/>"></script>
         <jsp:include page="./concertDetailMain.jsp"/>
+        <script src="<c:url value='/resources/js/concert/concertDetail.js'/>"></script>
+
     </div>
 
 <!-- 공연상세페이지 아래쪽: ajax(공연상세정보, 판매정보, 한줄평, 관람후기 내용) -->
@@ -46,7 +49,7 @@
                         <tbody>
                             <tr>
                                 <th>공연명</th>
-                                <td>천개의 파랑</td>
+                                <td>${con.concertTitle}</td>
                             </tr>
                             <tr>
                                 <th>공연기간</th>

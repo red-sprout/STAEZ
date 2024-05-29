@@ -126,7 +126,8 @@
 		           c.concert_status,
 		           c.concert_runtime,
 		           c.age_limit,
-		           c.concert_production
+		           c.concert_production,
+		           c.concert_plot
 		    FROM concert c
 		    JOIN theater t ON c.theater_no = t.theater_no
 		    JOIN concert_schedule cs ON c.concert_no = cs.concert_no
