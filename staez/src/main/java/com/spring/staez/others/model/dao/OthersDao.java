@@ -91,5 +91,9 @@ public class OthersDao {
 		return sqlSession.insert("othersMapper.updateNoLike", data);
 	}
 	
+	public ArrayList<BoardLike> selectUserLikeBoardNo(SqlSessionTemplate sqlSession, int userNo){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectUserLikeBoardNo", userNo);
+	}
+	
 
 }

@@ -3,6 +3,7 @@ window.onload = function(){
     body.classList.add("noScroll");
     mainCategoryName((category) => drawOption(category));
     mainPopularBoardList((bList) => drawBoardListContent(bList));
+   
 }
 
 function drawOption(category){
@@ -112,7 +113,8 @@ function drawlatestConcertImg(concertImgs){
 }
 
 function drawBoardListContent(bList){
-   
+    const userInput = document.querySelector("input[name = 'userNo']");
+    
     const boardArea = document.querySelector(".popularity-bulletin-information-area");
     boardArea.innerHTML = ``
     for(let b of bList){
@@ -126,7 +128,7 @@ function drawBoardListContent(bList){
                                             <div class="popularity-bulletin-detail-content">
                                                 <div class="content-box">`+ b.boardContent +`</div>
                                                 <div class="heart-count-area" onclick="changeLike(this, event, `+ b.boardNo +`)">
-                                                    <img class="heart" src="/staez/resources/img/others/like-no.png" alt="">
+                                                    <img class="heart `+`img`+b.boardNo +`" src="" alt="">
                                                     <span class="heart-count">`+ b.likeCount +`</span>
                                                 </div>
                                             </div>
@@ -139,6 +141,22 @@ function drawBoardListContent(bList){
                                     </div>
                                 </div>`
     }
+
+    // for(let b of bList){
+    //     const imgSrc = document.querySelector(`img${b.boardNo}`)
+    //     if(userInput){
+            
+    //         const uNo = userInput.value
+    //         const likeList = selectUserLikeBoardNo(uNo)
+    //         if(likeList.contains(`${b.boardNo}`)){
+    //         imgSrc.src="/staez/resources/img/others/like-Yes.png"
+    //         } else {
+    //         imgSrc.src="/staez/resources/img/others/like-no.png"
+    //         }
+    //     } else {
+    //         imgSrc.src="/staez/resources/img/others/like-no.png"
+    //     }
+    // }
 
     popularBoardCategory((boardCategory) => drawBoardListContentCategory(boardCategory));
 }

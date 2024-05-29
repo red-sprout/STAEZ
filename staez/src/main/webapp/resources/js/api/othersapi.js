@@ -72,6 +72,18 @@ function mainPopularBoardList(callback){
     }) 
 }
 
+function selectUserLikeBoardNo(uNo){
+    $.ajax({
+        url : "ajaxSelectUserLikeBoardNo.ot",
+        data : uNo,
+        success : function(result){
+            return result;
+        }, error : function(){
+            console.log("실패");
+        }
+    }) 
+}
+
 function popularBoardCategory(callback){
     $.ajax({
         url : "ajaxSelectpopularBoardCategory.ot",

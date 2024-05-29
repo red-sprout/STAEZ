@@ -312,5 +312,12 @@
 		where user_no = #{uNo}
 		and board_no = #{bNo}
 	</update>
+	
+	<select id="selectUserLikeBoardNo" resultMap="boardLikeResult">
+		select board_no, user_no, status
+		from board_like
+		where user_no = #{userNo}
+		and status = 'Y'
+	</select>
 </mapper>
 
