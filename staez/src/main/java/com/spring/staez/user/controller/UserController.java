@@ -162,15 +162,15 @@ public class UserController {
     // 이메일 UUID체크
     @ResponseBody
     @GetMapping("emailSecretCodeCheck.me")
-    public String uuidCheck(@RequestParam("emailcheck") String uuidCheck, String email) {
-        System.out.println("uuidCheck : " + uuidCheck); // 디버깅을 위한 로그 추가
+    public String uuidCheck(@RequestParam("authNo") String authNo, @RequestParam("email") String email) {
+        System.out.println("authNo : " + authNo); // 디버깅을 위한 로그 추가
         System.out.println("email : " + email);
-        int result = userService.emailSecretCodeCheck(uuidCheck,email);
-
-        if (result > 0) { // 이미 존재한다면
-            return "NNNNN";
-        } else { // 존재하지 않는다면
-            return "NNNNY";
+        int result = userService.emailSecretCodeCheck(authNo, email);
+        System.out.println(result);
+        if (result > 0) { // 일치하다면 
+            return "Yes"; // 수정된 부분
+        } else { // 일치하지 않다면
+            return "No"; // 수정된 부분
         }
     }
 }

@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     sgininemail();
     // 이메일 아이디적을때 한글안되고 영어만 가능하게
     sgininemailEng();
-    // 입력 시 2초 후에 콘솔에 이메일 값을 출력하는 기능입니다.
+    // 이메일 다 입력됬나 콘솔
     emailTimeTwo();
     // 이전페이지로 돌아가는
     backPage();
@@ -232,61 +232,71 @@ function sendVerificationCode() {
         sendEmailVerificationRequest(emailInput); // AJAX 호출 함수 호출
     }
 }
-//서버로부터의 이메일 인증 응답을 처리
+
+// 서버로부터의 이메일 인증 응답을 처리
 function handleEmailCheckResponse(response) {
     const emailCheckResult = document.getElementById("checkResultEamil");
     emailCheckResult.style.display = "block";
     if (response === "No") {
-        // emailCheckResult.style.color = "red";
-        // emailCheckResult.innerText = "이메일 인증 코드 전송에 실패했습니다.";
         alert("인증번호 전송이 실패했습니다 다시 입력해주세요!");
     } else if (response === "Yes") {
-        // emailCheckResult.style.color = "green";
-        // emailCheckResult.innerText = "인증번호가 전송되었습니다!";
         alert("인증번호가 성공적으로 전송되었습니다!");
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    var checkButton = document.getElementById("check_emailSecretBtn");
-    var verificationCodeInput = document.getElementById("verification-code");
-    
-    // "인증확인" 버튼에 클릭 이벤트 리스너 추가
-    checkButton.addEventListener("click", function() {
-      // "#verification-code" 입력 요소의 값 확인
-      var verificationCodeValue = verificationCodeInput.value;
-      
-      // 값이 있으면 콘솔에 출력
-      if (verificationCodeValue) {
-        console.log("사용자가 입력한 UUID 코드 : ", verificationCodeValue);
-      } else {
-        console.log("인증코드를 입력하세요.");
-      }
-    });
-  });
-  
+// UUID 이메일 체크 콜백
+function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput, emailSecretErrorMessage) {
+    console.log("Callback result:", result);
+    emailSecretCheckResult.style.display = "block";
+
+    if (result === "No") { // 입력값이 데이터베이스 값과 일치하지 않을 때
+        emailSecretCheckResult.style.color = "red";
+        emailSecretCheckResult.innerText = "인증 코드가 일치하지 않습니다.";
+    } else if (result === "Yes") { // 입력값이 데이터베이스 값과 일치할 때
+        emailSecretCheckResult.style.color = "green";
+        emailSecretCheckResult.innerText = "인증이 확인되었습니다.";
+        console.log("이메일 확인:", emailSecretInput.value);
+    } else { // 그 외의 경우 (예: 서버 오류 등)
+        emailSecretCheckResult.style.color = "red";
+        emailSecretCheckResult.innerText = "인증을 확인할 수 없습니다.";
+    }
+    emailSecretErrorMessage.style.display = "none"; // 에러 메시지 숨기기
+}
+
 // UUID 이메일 체크
 function emailSecretCode() {
-    var checkButton = document.getElementById("check_emailSecretBtn");
-    var verificationCodeInput = document.getElementById("verification-code");
-    
-    // "인증확인" 버튼에 클릭 이벤트 리스너 추가
+    const checkButton = document.getElementById("check_emailSecretBtn");
+    const checkEmail = document.getElementById("input-value-email");
+    const verificationCodeInput = document.getElementById("verification-code");
+    const emailSecretCheckResult = document.getElementById("checkResultEamil");
+    const emailSecretErrorMessage = document.getElementById("userEmailErrorMessage");
+
     checkButton.addEventListener("click", function() {
-        // "#verification-code" 입력 요소의 값 확인
-        var verificationCodeValue = verificationCodeInput.value;
+        const verificationCodeValue = verificationCodeInput.value.trim();
         
-        // 값이 있으면 콘솔에 출력
-        if (verificationCodeValue) {
-        console.log("Verification Code :", verificationCodeValue);
-        // emailCheckCode 함수 호출
-        emailCheckCode({"emailcheck" : verificationCodeValue}, callbackEmailSecret);
+        if (verificationCodeValue.length >= 6) {
+            // 입력된 이메일과 입력된 값을 서버로 보냄
+            const emailValue = checkEmail.value;
+            console.log("Email: " + emailValue);
+            console.log("Verification Code: " + verificationCodeValue);
+            emailCheckCode({ "authNo": verificationCodeValue, "email": emailValue }, function(result) {
+                callbackEmailSecret(result, emailSecretCheckResult, verificationCodeInput, emailSecretErrorMessage);
+            });
         } else {
-        console.log("인증코드를 입력하세요.");
+            console.log("인증코드는 6자리 이상이어야 합니다.");
+            emailSecretErrorMessage.innerText = "인증코드는 6자리 이상이어야 합니다.";
+            emailSecretErrorMessage.style.display = "block"; // 에러 메시지 표시
+            emailSecretCheckResult.style.display = "none";
         }
     });
 }
+
+
+
+
+
 // 이메일
-function sgininemail(){
+function sgininemail() {
     // 필요한 요소들을 가져옵니다.
     const prefixElement = document.getElementById("email-prefix");
     const suffixElement = document.getElementById("email-suffix");
@@ -332,32 +342,26 @@ function sgininemail(){
     }
     init(); // 페이지 로드 시 초기화 함수를 호출합니다.
 }
+
 function emailTimeTwo() {
-    let typingTimer;
     const emailInput = document.getElementById("email-prefix");
     const suffixInput = document.getElementById("email-suffix");
 
     emailInput.addEventListener('input', function() {
-        clearTimeout(typingTimer);
-        typingTimer = setTimeout(function() {
-            const emailPrefix = emailInput.value;
-            const emailSuffix = suffixInput.value;
-        });
+        const emailPrefix = emailInput.value;
+        const emailSuffix = suffixInput.value;
+        console.log(emailPrefix + "@" + emailSuffix);
     });
-    // 이메일 입력 상자에 대한 이벤트 리스너
+
     suffixInput.addEventListener('input', function() {
-        // 이전에 설정된 타이머를 지웁니다.
-        clearTimeout(typingTimer);
-        // 500ms 후에 실행되는 타이머 설정
-        typingTimer = setTimeout(function() {
-            // 이메일 프리픽스와 서픽스 값을 가져와서 이메일 주소로 결합합니다.
-            const emailPrefix = emailInput.value;
-            const emailSuffix = suffixInput.value;
-        });
+        const emailPrefix = emailInput.value;
+        const emailSuffix = suffixInput.value;
+        console.log(emailPrefix + "@" + emailSuffix);
     });
 }
-// 이메일 아이디적을때 한글안되고 영어만 가능하게
-function sgininemailEng(){
+
+// 이메일 아이디 적을 때 한글 안 되고 영어만 가능하게
+function sgininemailEng() {
     const prefixElement = document.getElementById("email-prefix");
     const userEmailErrorMessage = document.getElementById("userEmailErrorMessage");
 
@@ -366,16 +370,13 @@ function sgininemailEng(){
         const regex = /^[a-zA-Z0-9]*$/; // 영문자와 숫자만 허용하는 정규식
 
         if (!regex.test(value)) {
-            // 입력된 값이 한글인 경우 빈 문자열로 대체하여 입력값을 영문만 포함하도록 합니다.
             prefixElement.value = value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '');
 
-            // userEmailErrorMessage에 영어 입력만 가능합니다 메시지 추가
             if (userEmailErrorMessage) {
                 userEmailErrorMessage.innerText = "영어 입력만 가능합니다.";
                 userEmailErrorMessage.style.color = "red";
             }
         } else {
-            // 한글 입력이 아닐 때 에러 메시지를 초기화합니다.
             if (userEmailErrorMessage) {
                 userEmailErrorMessage.innerText = "";
             }

@@ -49,10 +49,13 @@ public class UserDao {
     }
     
   //암호키 인증체크
-	public int emailSecretCodeCheck(SqlSessionTemplate sqlSession,String uuidCheck, String email) {
+    public int emailSecretCodeCheck(SqlSessionTemplate sqlSession, String authNo, String email) {
+        System.out.println("UUID Check: " + authNo);
+        System.out.println("Email: " + email);
         Map<String, Object> params = new HashMap<>();
         params.put("email", email);
-        params.put("uuidCheck", uuidCheck);
+        params.put("authNo", authNo);
         return sqlSession.selectOne("userMapper.emailSecretCodeCheck", params);
-	}
+    }
+
 }
