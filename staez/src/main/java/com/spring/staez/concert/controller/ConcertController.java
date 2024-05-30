@@ -1,10 +1,6 @@
 package com.spring.staez.concert.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.concert.service.ConcertService;
 
 @Controller
@@ -102,28 +99,27 @@ public class ConcertController {
 	public String conSellDetail(@RequestParam(value = "concertNo") String concertNo) {
 		
 		ArrayList<Concert> conDlist =  concertService.selectConDetail(Integer.parseInt(concertNo));
-		System.out.println(conDlist);
 		return new Gson().toJson(conDlist);
 	}
 	
-	// 공연을 concertNo로 가져와서 공연 판매정보 페이지로
+	// 공연을 concertNo로 가져와서 한줄평 페이지로
 	@ResponseBody
 	@RequestMapping(value = "commentDetail.co", produces="application/json; charset=UTF-8")
 	public String commentDetail(@RequestParam(value = "concertNo") String concertNo) {
 		
-		ArrayList<Concert> conDlist =  concertService.selectConDetail(Integer.parseInt(concertNo));
-		System.out.println(conDlist);
-		return new Gson().toJson(conDlist);
+		ArrayList<ConcertReview> conComDlist =  concertService.selectComDetail(Integer.parseInt(concertNo));
+		System.out.println(conComDlist);
+		return new Gson().toJson(conComDlist);
 	}
 	
-	// 공연을 concertNo로 가져와서 공연 판매정보 페이지로
+	// 공연을 concertNo로 가져와서 리뷰 페이지로
 	@ResponseBody
 	@RequestMapping(value = "reviewDetail.co", produces="application/json; charset=UTF-8")
 	public String reviewDetail(@RequestParam(value = "concertNo") String concertNo) {
 		
-		ArrayList<Concert> conDlist =  concertService.selectConDetail(Integer.parseInt(concertNo));
-		System.out.println(conDlist);
-		return new Gson().toJson(conDlist);
+		ArrayList<ConcertReview> conRevDlist =  concertService.selectRevDetail(Integer.parseInt(concertNo));
+		System.out.println(conRevDlist);
+		return new Gson().toJson(conRevDlist);
 	}
 	
 

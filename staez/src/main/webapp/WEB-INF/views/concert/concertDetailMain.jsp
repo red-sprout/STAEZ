@@ -78,7 +78,7 @@
                     <td><b><span>공연장소&nbsp&nbsp</span></b><span>${con.theaterName}</span></td>
                 </tr>
                 <tr>
-                    <td><b><span>공연시간&nbsp&nbsp</span></b><span>${con.concertRuntime}</span></td>
+                    <td><b><span>공연시간&nbsp&nbsp</span></b><span>${con.concertRuntime}분</span></td>
                 </tr>
                 <tr>
                     <td><b><span>관람연령&nbsp&nbsp</span></b><span>${con.ageLimit}</span></td>
