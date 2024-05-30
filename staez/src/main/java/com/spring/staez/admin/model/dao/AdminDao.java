@@ -3,6 +3,7 @@ package com.spring.staez.admin.model.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +11,7 @@ import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.admin.model.vo.ConcertSchedule;
 import com.spring.staez.admin.model.vo.ImpossibleSeat;
 import com.spring.staez.admin.model.vo.Seat;
+import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.common.template.ImpossibleSeatList;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
@@ -74,4 +76,37 @@ public class AdminDao {
 		return result;
 	}
 
+	public ArrayList<Concert> selectConcertContentList(SqlSessionTemplate sqlSession, PageInfo pi){
+		int offset = (pi.getCurrentPage()-1)* pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("adminMapper.selectConcertContentList", null, rowBounds);
+	}
+	
+	public ArrayList<Concert> selectConcertImgList(SqlSessionTemplate sqlSession, PageInfo pi){
+		int offset = (pi.getCurrentPage()-1)* pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("adminMapper.selectConcertImgList", null, rowBounds);
+	}
+	
+	public int selectConcertContentListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("adminMapper.selectConcertContentListCount");
+	}
+	
+	public int selectTheaterListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("adminMapper.selectTheaterListCount");
+	}
+	
+	public ArrayList<Theater> selectTheaterList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1)* pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("adminMapper.selectMainTheaterList", null, rowBounds);
+	}
+	
 }

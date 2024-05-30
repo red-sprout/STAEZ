@@ -72,6 +72,18 @@ function mainPopularBoardList(callback){
     }) 
 }
 
+function selectUserLikeBoardNo(data, callback){
+    $.ajax({
+        url : "ajaxSelectUserLikeBoardNo.ot",
+        data : data,
+        success : function(result){
+            callback(result)
+        }, error : function(){
+            console.log("실패");
+        }
+    }) 
+}
+
 function popularBoardCategory(callback){
     $.ajax({
         url : "ajaxSelectpopularBoardCategory.ot",
@@ -87,7 +99,6 @@ function popularBoardUserProfile(callback){
     $.ajax({
         url : "ajaxSelectpopularBoardUserProfile.ot",
         success : function(result){
-            console.log("나 여깄어")
             callback(result);
         }, error : function(){
             console.log("실패");
@@ -178,7 +189,6 @@ function insertUpdatelike(data, callback){
         url : "ajaxInsertUpdatelike.ot",
         data : data,
         success : function(result){
-            console.log(result)
             callback(result)
         }, error : function(){
             console.log("실패")
@@ -191,6 +201,7 @@ function updateNolike(data, callback){
         url : "ajaxUpdateNoLike.ot",
         data : data,
         success : function(result){
+            console.log("취소")
             callback(result)
         }, error : function(){
             console.log("실패")
