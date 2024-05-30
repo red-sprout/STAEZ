@@ -118,7 +118,8 @@
                             </select>
                         </td>
                         <td colspan="">
-                            <input type="button" id="emailCheckButton" class="check_button" value="인증번호 전송"></td>
+                            <input type="button" id="emailCheckButton" class="check_button" value="인증번호 전송">
+                        </td>
                     </tr>
                     <tr>
                         <th></th>

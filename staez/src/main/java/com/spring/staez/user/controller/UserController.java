@@ -53,6 +53,8 @@ public class UserController {
     public String idListForm() {
         return "user/idListForm";
     }
+    
+    
 
     // 비밀번호 찾기
     @GetMapping("findPwdForm.me")
@@ -124,19 +126,19 @@ public class UserController {
     @ResponseBody
     @GetMapping("emailCheck.me")
     public String emailCheck(String email) {
-        System.out.println("이메일 : " + email);
+        //System.out.println("이메일 : " + email);
 
         // UUID 생성
         String shortenedAuthNo = UUID.randomUUID().toString();
-        System.out.println("원래 암호이메일 : " + shortenedAuthNo);
+        //System.out.println("원래 암호이메일 : " + shortenedAuthNo);
 
         // UUID를 6자로 축소
         String authNo = shortenedAuthNo.substring(0, 6);
-        System.out.println("6글자 암호 이메일 : " + authNo);
+        //System.out.println("6글자 암호 이메일 : " + authNo);
 
         // 현재 날짜 및 시간 가져오기
         LocalDateTime send_time = LocalDateTime.now();
-        System.out.println("send_time : " + send_time);
+        //System.out.println("send_time : " + send_time);
 
         // 메일 전송
         SimpleMailMessage message = new SimpleMailMessage();
@@ -159,7 +161,7 @@ public class UserController {
         }
     }
     
-    // 이메일 UUID체크
+    // 이메일 암호키 인증체크
     @ResponseBody
     @GetMapping("emailSecretCodeCheck.me")
     public String uuidCheck(@RequestParam("authNo") String authNo, @RequestParam("email") String email) {

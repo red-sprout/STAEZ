@@ -116,7 +116,7 @@
                    #{send_time})
 	</insert>
 	
-	<!-- uuid 체크 -->
+	<!-- 이메일 암호키 인증체크 -->
 	<select id="emailSecretCodeCheck" resultType="_int">
 		SELECT COUNT(*)
 		  FROM email_auth

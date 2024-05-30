@@ -66,7 +66,7 @@ function callbackNickCheck(result, nicknameCheckResult, nicknameInput) {
         } else {
             nicknameCheckResult.style.color = "green";
             nicknameCheckResult.innerText = "사용가능한 닉네임입니다.";
-            console.log("닉네임 확인 : " + nicknameInput.value);
+            //console.log("닉네임 확인 : " + nicknameInput.value);
         }
     }
 }
@@ -113,7 +113,7 @@ function callbackIdCheck(result, userIdCheckResult, userIdInput) {
             } else {
                 userIdCheckResult.style.color = "green";
                 userIdCheckResult.innerText = "사용가능한 아이디입니다.";
-                console.log("아이디 확인 : " + userIdInput.value);
+                //console.log("아이디 확인 : " + userIdInput.value);
             }
         }
     }
@@ -291,11 +291,6 @@ function emailSecretCode() {
         }
     });
 }
-
-
-
-
-
 // 이메일
 function sgininemail() {
     // 필요한 요소들을 가져옵니다.
@@ -524,25 +519,25 @@ function signinSubmitButton(){
 }
 
 // 버튼 클릭시 색상변경
-function checkButton(){
-var buttons = document.querySelectorAll(".check_button");
+    function checkButton(){
+    var buttons = document.querySelectorAll(".check_button");
 
-// 각 버튼에 대해 반복
-buttons.forEach(function(button) {
-    // 클릭 이벤트 리스너 추가
-    button.addEventListener("mousedown", function() {
-      // 버튼에 clicked 클래스 추가
-      button.classList.add("clicked");
+    // 각 버튼에 대해 반복
+    buttons.forEach(function(button) {
+        // 클릭 이벤트 리스너 추가
+        button.addEventListener("mousedown", function() {
+        // 버튼에 clicked 클래스 추가
+        button.classList.add("clicked");
+        });
+        
+        // 마우스 버튼에서 떼었을 때
+        button.addEventListener("mouseup", function() {
+        // 버튼에 clicked 클래스 제거
+        button.classList.remove("clicked");
+        });
     });
-    
-    // 마우스 버튼에서 떼었을 때
-    button.addEventListener("mouseup", function() {
-      // 버튼에 clicked 클래스 제거
-      button.classList.remove("clicked");
-    });
-});
 }
-      
+
 
 
 
