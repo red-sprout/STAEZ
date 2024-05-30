@@ -29,8 +29,9 @@
                     <table>
                         <tbody>
                             <tr class="profile-area">
-                                <td rowspan="2"><img src="<c:url value='/resources/img/community/communityDetail/profile-example.png'/>"
-                                        alt=""></td>
+                                <td rowspan="2">
+                                    <img id="profile-img" src="">
+                                </td>
                                 <td>
                                     <h3>${b.nickname}</h3>
                                 </td>

@@ -28,7 +28,7 @@ public interface CommunityService {
 
 	Board boardDetail(int boardNo);
 
-	ProfileImg selectProfile(int userNo);
+	String selectProfile(int userNo);
 
 	int selectUserBoardLike(AjaxBoardDto dto);
 

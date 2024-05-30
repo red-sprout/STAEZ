@@ -79,7 +79,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Transactional(rollbackFor = {Exception.class})
 	@Override
-	public ProfileImg selectProfile(int userNo) {
+	public String selectProfile(int userNo) {
 		return communityDao.selectProfile(sqlSession, userNo);
 	}
 
