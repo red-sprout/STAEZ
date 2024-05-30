@@ -1,7 +1,9 @@
 package com.spring.staez.admin.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,7 +24,9 @@ import com.spring.staez.admin.model.vo.ConcertSchedule;
 import com.spring.staez.admin.model.vo.ImpossibleSeat;
 import com.spring.staez.admin.model.vo.Seat;
 import com.spring.staez.admin.service.AdminService;
+import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.common.template.MyFileRenamePolicy;
+import com.spring.staez.common.template.Pagination;
 import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
@@ -206,5 +210,65 @@ public class AdminController {
 		}
 		
 		return "concertList.ad";
+	}
+	
+	
+	//공연 리스트 불러오기
+	@ResponseBody
+	@GetMapping(value = "ajaxConcertContentList.ad", produces = "application/json; charset-UTF-8")
+	public String ajaxConcertContentList(String cPage) {
+		
+		int listSize = adminService.selectConcertContentListCount();
+		int currentPage = Integer.parseInt(cPage);
+		int listCount = listSize;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		ArrayList<Concert> clist = adminService.selectConcertContentList(pi);
+		
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put("clist", clist);
+		resMap.put("pi", pi);
+		
+		return new Gson().toJson(resMap);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxConcertImgList.ad", produces = "application/json; charset-UTF-8")
+	public String ajaxConcertImgList(String cPage) {
+		
+		int listSize = adminService.selectConcertContentListCount();
+		int currentPage = Integer.parseInt(cPage);
+		int listCount = listSize;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		ArrayList<Concert> ilist = adminService.selectConcertImgList(pi);
+		
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put("ilist", ilist);
+		resMap.put("pi", pi);
+		
+		return new Gson().toJson(resMap);
+	}
+	
+	//공연장리스트 불러오기
+	@ResponseBody
+	@GetMapping(value = "ajaxTheaterList.ad", produces = "application/json; charset-UTF-8")
+	public String ajaxTheaterList(String cPage) {
+		
+		int listSize = adminService.selectTheaterListCount();
+		int currentPage = Integer.parseInt(cPage);
+		int listCount = listSize;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		
+		ArrayList<Theater> tlist = adminService.selectTheaterList(pi);
+		
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put("tlist", tlist);
+		resMap.put("pi", pi);
+		
+		return new Gson().toJson(resMap);
 	}
 }

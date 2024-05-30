@@ -45,7 +45,26 @@
 		<result column="theater_no" property="theaterNo"/>
 		<result column="impossible_seat_row" property="impossibleSeatRow"/>
 		<result column="impossible_seat_col" property="impossibleSeatCol"/>
-	</resultMap>
+	</resultMap>	
+	<resultMap type="Concert" id="concertResult">
+	    <result column="concert_no" property="concertNo"/>
+	    <result column="theater_no" property="theaterNo"/>
+	    <result column="concert_title" property="concertTitle"/>
+	    <result column="concert_plot" property="concertPlot"/>
+	    <result column="concert_runtime" property="concertRuntime"/>
+	    <result column="concert_members" property="concertMembers"/>
+	    <result column="concert_production" property="concertProduction"/>
+	    <result column="age_limit" property="ageLimit"/>
+	    <result column="update_date" property="updateDate"/>
+	    <result column="concert_status" property="concertStatus"/>
+	    <result column="change_name" property="changeName"/>
+	    <result column="file_path" property="filePath"/>
+	    <result column="start_date" property="startDate"/>
+	    <result column="end_date" property="endDate"/>
+	    <result column="category_no" property="categoryNo"/>
+	    <result column="category_name" property="categoryName"/>
+	    <result column="theater_name" property="theaterName"/>
+   </resultMap>
 
 	<select id="selectFaqCategory" resultMap="categoryResult">
 		SELECT
@@ -295,5 +314,53 @@
 		JOIN category c on (bc.category_no = c.category_no)
 		WHERE b.board_no = ${boardNo}
 	</select>
+	
+	<select id="selectConcertContentList" resultMap="concertResult">
+		select c.concert_no,
+				cg.category_name,
+				c.concert_title,
+				min(cs.start_date) start_date,
+				max(cs.end_date) end_date,
+				t.theater_name
+		from concert c
+		join concert_category cc on (c.concert_no = cc.concert_no)
+		join category cg on (cc.category_no = cg.category_no)
+		join concert_schedule cs on (c.concert_no = cs.concert_no)
+		join theater t on  (c.theater_no = t.theater_no)
+		where c.concert_status = 'Y'
+		group by c.concert_no, cg.category_name, c.concert_title, t.theater_name
+		order by c.concert_no desc
+	</select>
+	
+	<select id="selectConcertImgList" resultMap="concertResult">
+		select c.concert_no, ca.file_path, ca.change_name
+		from concert c
+		join concert_attachment ca on (c.concert_no = ca.concert_no)
+		where c.concert_status = 'Y'
+		order by c.concert_no desc
+	</select>
+	
+	<select id="selectConcertContentListCount" resultType="_int">
+		select count(concert_no)
+		from concert
+		where concert_status = 'Y'
+	</select>
+	
+	<select id="selectTheaterListCount" resultType="_int">
+		select count(theater_no)
+		from theater
+	</select>
+	
+	<select id="selectMainTheaterList" resultMap="theaterResult">
+		select theater_no,
+				theater_name,
+				theater_row,
+				theater_col,
+				address,
+				telno
+		from theater
+		order by theater_no desc
+	</select>
+	
 </mapper>
 

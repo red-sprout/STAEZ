@@ -11,6 +11,8 @@
 <body>
 	<header>
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
+        <script src="<c:url value='/resources/js/api/adminapi.js'/>"></script>
+        <script src="<c:url value='/resources/js/admin/theaterMain.js'/>"></script>
 	</header>
     <nav>
         <jsp:include page="/WEB-INF/views/admin/adminHeader.jsp" />
@@ -51,7 +53,8 @@
                                 <td>전화번호</td>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="admin-theater-container">
+
                             <tr>
                                 <td class="admin-checkbox">
                                     <input type="checkbox" name="" id="">
@@ -62,96 +65,7 @@
                                 <td>서울특별시 서초구</td>
                                 <td>02-1111-1111</td>
                             </tr>
-                            <tr>
-                                <td class="admin-checkbox">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td>예술의전당 리사이틀홀</td>
-                                <td>A - J</td>
-                                <td>1 - 15</td>
-                                <td>서울특별시 서초구</td>
-                                <td>02-1111-1111</td>
-                            </tr>
-                            <tr>
-                                <td class="admin-checkbox">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td>예술의전당 리사이틀홀</td>
-                                <td>A - J</td>
-                                <td>1 - 15</td>
-                                <td>서울특별시 서초구</td>
-                                <td>02-1111-1111</td>
-                            </tr>
-                            <tr>
-                                <td class="admin-checkbox">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td>예술의전당 리사이틀홀</td>
-                                <td>A - J</td>
-                                <td>1 - 15</td>
-                                <td>서울특별시 서초구</td>
-                                <td>02-1111-1111</td>
-                            </tr>
-                            <tr>
-                                <td class="admin-checkbox">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td>예술의전당 리사이틀홀</td>
-                                <td>A - J</td>
-                                <td>1 - 15</td>
-                                <td>서울특별시 서초구</td>
-                                <td>02-1111-1111</td>
-                            </tr>
-                            <tr>
-                                <td class="admin-checkbox">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td>예술의전당 리사이틀홀</td>
-                                <td>A - J</td>
-                                <td>1 - 15</td>
-                                <td>서울특별시 서초구</td>
-                                <td>02-1111-1111</td>
-                            </tr>
-                            <tr>
-                                <td class="admin-checkbox">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td>예술의전당 리사이틀홀</td>
-                                <td>A - J</td>
-                                <td>1 - 15</td>
-                                <td>서울특별시 서초구</td>
-                                <td>02-1111-1111</td>
-                            </tr>
-                            <tr>
-                                <td class="admin-checkbox">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td>예술의전당 리사이틀홀</td>
-                                <td>A - J</td>
-                                <td>1 - 15</td>
-                                <td>서울특별시 서초구</td>
-                                <td>02-1111-1111</td>
-                            </tr>
-                            <tr>
-                                <td class="admin-checkbox">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td>예술의전당 리사이틀홀</td>
-                                <td>A - J</td>
-                                <td>1 - 15</td>
-                                <td>서울특별시 서초구</td>
-                                <td>02-1111-1111</td>
-                            </tr>
-                            <tr>
-                                <td class="admin-checkbox">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td>예술의전당 리사이틀홀</td>
-                                <td>A - J</td>
-                                <td>1 - 15</td>
-                                <td>서울특별시 서초구</td>
-                                <td>02-1111-1111</td>
-                            </tr>
+                            
                         </tbody>
                     </table>
                 </form>
