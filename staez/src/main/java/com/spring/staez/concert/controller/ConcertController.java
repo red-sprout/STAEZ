@@ -59,66 +59,74 @@ public class ConcertController {
 	}
 	
 	
+//	@ResponseBody
+//	@RequestMapping(value = "conheart.co", produces="application/json; charset=UTF-8")
+//	public String insertConLike(@RequestParam("userNo") String userNo,
+//						   @RequestParam("concertNo") String concertNo, HttpSession session, Model model) {
+//		
+//		// 좋아요 버튼 체크, 만약 좋아요 버튼을 (그 전에 한번도) 클릭하지 않았으면 : checkLike null 반환 -> 좋아요 버튼 insert
+//		//  checkLike !null 반환 -> 좋아요 버튼 update(status n)
+//		
+//        Map<String, Integer> conL = new HashMap<>();
+//        conL.put("userNo", Integer.parseInt(userNo));
+//        conL.put("concertNo", Integer.parseInt(concertNo));
+//        int checkConLike = concertService.checkConLike(conL);
+//        
+//		if(checkConLike > 0) { //성공 => list 페이지로 이동
+//			session.setAttribute("alertMsg", "좋아요 성공");
+//			return "redirect:/";
+//		} else { // 실패 => 에러페이지
+//			session.setAttribute("alertMsg", "좋아요 실패");
+//			return "redirect:/";
+//		}
+//	}	
+	
+		
+	
+	
+	
+	
+	
+	// 공연을 concertNo로 가져와서 공연세부페이지로
 	@ResponseBody
-	@RequestMapping(value = "conheart.co", produces="application/json; charset=UTF-8")
-	public String insertConLike(@RequestParam("userNo") String userNo,
-						   @RequestParam("concertNo") String concertNo, HttpSession session, Model model) {
+	@RequestMapping(value = "conDetail.co", produces="application/json; charset=UTF-8")
+	public String conDetail(@RequestParam(value = "concertNo") String concertNo) {
 		
-		// 좋아요 버튼 체크, 만약 좋아요 버튼을 (그 전에 한번도) 클릭하지 않았으면 : checkLike null 반환 -> 좋아요 버튼 insert
-		//  checkLike !null 반환 -> 좋아요 버튼 update(status n)
-		
-        Map<String, Integer> conL = new HashMap<>();
-        conL.put("userNo", Integer.parseInt(userNo));
-        conL.put("concertNo", Integer.parseInt(concertNo));
-        int checkConLike = concertService.checkConLike(conL);
-        
-		if(checkConLike > 0) { //성공 => list 페이지로 이동
-			session.setAttribute("alertMsg", "좋아요 성공");
-			return "redirect:/";
-		} else { // 실패 => 에러페이지
-			session.setAttribute("alertMsg", "좋아요 실패");
-			return "redirect:/";
-		}
-	}	
-	
-		
-	
-	
-	
-	
-	
-	// 공연을 concertNo로 가져와서 공연세부페이지로
-	@RequestMapping(value = "sellInfo.co", produces="application/json; charset=UTF-8")
-	public String selectSellInfoCon(@RequestParam(value = "concertNo") String concertNo, Model model) {
-		
-		Concert con = concertService.selectCon(Integer.parseInt(concertNo));
-		model.addAttribute("con", con);
-		
-		return "concert/sellInfo";
+		ArrayList<Concert> conDlist =  concertService.selectConDetail(Integer.parseInt(concertNo));
+		return new Gson().toJson(conDlist);
 	}
 	
-	
-	// 공연을 concertNo로 가져와서 공연세부페이지로
-	@RequestMapping(value = "comment.co", produces="application/json; charset=UTF-8")
-	public String selectCommentCon(@RequestParam(value = "concertNo") String concertNo, Model model) {
+	// 공연을 concertNo로 가져와서 공연 판매정보 페이지로
+	@ResponseBody
+	@RequestMapping(value = "conSellDetail.co", produces="application/json; charset=UTF-8")
+	public String conSellDetail(@RequestParam(value = "concertNo") String concertNo) {
 		
-		Concert con = concertService.selectCon(Integer.parseInt(concertNo));
-		model.addAttribute("con", con);
-		
-		return "concert/comment";
+		ArrayList<Concert> conDlist =  concertService.selectConDetail(Integer.parseInt(concertNo));
+		System.out.println(conDlist);
+		return new Gson().toJson(conDlist);
 	}
 	
-	
-	// 공연을 concertNo로 가져와서 공연세부페이지로
-	@RequestMapping(value = "detailReview.co", produces="application/json; charset=UTF-8")
-	public String selectDetailReviewCon(@RequestParam(value = "concertNo") String concertNo, Model model) {
+	// 공연을 concertNo로 가져와서 공연 판매정보 페이지로
+	@ResponseBody
+	@RequestMapping(value = "commentDetail.co", produces="application/json; charset=UTF-8")
+	public String commentDetail(@RequestParam(value = "concertNo") String concertNo) {
 		
-		Concert con = concertService.selectCon(Integer.parseInt(concertNo));
-		model.addAttribute("con", con);
-		
-		return "concert/detailReview";
+		ArrayList<Concert> conDlist =  concertService.selectConDetail(Integer.parseInt(concertNo));
+		System.out.println(conDlist);
+		return new Gson().toJson(conDlist);
 	}
 	
+	// 공연을 concertNo로 가져와서 공연 판매정보 페이지로
+	@ResponseBody
+	@RequestMapping(value = "reviewDetail.co", produces="application/json; charset=UTF-8")
+	public String reviewDetail(@RequestParam(value = "concertNo") String concertNo) {
+		
+		ArrayList<Concert> conDlist =  concertService.selectConDetail(Integer.parseInt(concertNo));
+		System.out.println(conDlist);
+		return new Gson().toJson(conDlist);
+	}
+	
+
 	
 	
 	// 보드넘버로 찾을 보드 가지러 가서

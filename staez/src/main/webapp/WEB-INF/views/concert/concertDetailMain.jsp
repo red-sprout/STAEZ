@@ -137,13 +137,33 @@
     </section>
 
         <!-- 공연상세페이지 아래쪽 navi-->
-    <section class="concert-detail-down-section">
+
         <ul class="concert-down-ul">
-            <li><a href="#"><h3>공연상세정보</h3></a></li>
-            <li><a href="sellInfo.co"><h3>판매정보</h3></a></li>
-            <li><a href="comment.co"><h3>한줄평(35)</h3></a></li>
-            <li><a href="detailReview.co"><h3>관람후기(10)</h3></a></li>
+            <li onclick="goConDetail()" class="conDetail1"><a><h3>공연상세정보</h3></a></li>
+            <li onclick="goSellDetail()" class="conDetail2"><a><h3>판매정보</h3></a></li>
+            <li onclick="goCommentDetail()" class="conDetail3"><a><h3>한줄평(35)</h3></a></li>
+            <li onclick="goReviewDetail()" class="conDetail4"><a><h3>관람후기(10)</h3></a></li>
         </ul>
+        <hr class="concert-detail-hr">
+        <br>
+
+    <section class="concert-detail-down-section">
+        <!-- <div>
+            <div class="concert-detail-subject">
+                <br>
+                <span><h2>작품소개</h2></span>
+                <div>
+                    ${fn:replace(con.concertPlot, replaceChar, "<br/>")}
+                </div>
+            </div>
+            <br><br>
+            <div class="concert-detail-subject">
+                <span><h2>공지사항</h2></span>
+                <img src="${pageContext.request.contextPath}${con.filePath}${con.changeName}" alt="">
+            </div>
+            <br><br>
+        </div> -->
+    </section>
 
 </body>
 </html>

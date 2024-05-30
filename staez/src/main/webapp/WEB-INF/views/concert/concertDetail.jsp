@@ -23,10 +23,11 @@
 
 <!-- 공연상세페이지 아래쪽: ajax(공연상세정보, 판매정보, 한줄평, 관람후기 내용) -->
 <!-- 공연상세정보 -->
-    </section>
+.    <!-- https://baessi.tistory.com/84 -->
+    <!-- </section>
     <hr class="concert-detail-hr">
     <br>
-    <!-- https://baessi.tistory.com/84 -->
+
     <section class="concert-detail-tab">
         <div class="concert-detail-subject">
             <br>
@@ -41,7 +42,7 @@
             <img src="${pageContext.request.contextPath}${con.filePath}${con.changeName}" alt="">
         </div>
         <br><br>
-    </section>
+    </section> -->
 
     <div>
         <jsp:include page="../common/footer.jsp" />

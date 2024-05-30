@@ -40,6 +40,11 @@ public class ConcertServiceImpl implements ConcertService {
 	public int checkConLike(Map<String, Integer> conL) {
 		return concertDao.checkConLike(sqlSession, conL);
 	}
+
+	@Override
+	public ArrayList<Concert> selectConDetail(int concertNo) {
+		return concertDao.selectConDetail(sqlSession, concertNo);
+	}
 	
 //	@Transactional
 //	@Override

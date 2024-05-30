@@ -140,6 +140,37 @@
 		ORDER BY sub.start_date
 		LIMIT 1 OFFSET 0;
 	</select>
+		
+	
+	<select id="selectConDetail" resultMap="concertResult" >
+	    SELECT *
+		FROM (
+		    SELECT c.concert_no,
+		           c.concert_title,
+		           t.theater_name,
+		           cs.start_date,
+		           cs.end_date,
+		           ca.change_name,
+		           ca.file_path,
+		           ct.category_no,
+		           c.concert_status,
+		           c.concert_runtime,
+		           c.age_limit,
+		           c.concert_production,
+		           c.concert_plot,
+		           c.concert_members
+		    FROM concert c
+		    JOIN theater t ON c.theater_no = t.theater_no
+		    JOIN concert_schedule cs ON c.concert_no = cs.concert_no
+		    JOIN concert_attachment ca ON c.concert_no = ca.concert_no
+		    JOIN concert_category cc ON c.concert_no = cc.concert_no
+		    JOIN category ct ON cc.category_no = ct.category_no
+			) sub
+		WHERE sub.concert_status = 'Y'
+		  AND sub.concert_no = #{concertNo}
+		ORDER BY sub.start_date
+		LIMIT 1 OFFSET 0;
+	</select>
 	
 	
 	<!-- 좋아요 구현 -->

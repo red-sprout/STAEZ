@@ -3,6 +3,7 @@ function conNaviDraw(callback){
     $.ajax({
         url: contextPath + "connavi.co",
         success : function(conList) {
+            console.log(conList);
             callback(conList);
         }, error() {
             console.log("실패");
@@ -15,6 +16,7 @@ function conMainDraw(callback){
     $.ajax({
         url: contextPath + "maincon.co",
         success : function(list){
+            console.log(list);
             callback(list);
         }, error(){
             console.log("실패");
@@ -22,24 +24,66 @@ function conMainDraw(callback){
     });
 }
 
-// 좋아요 버튼
-function conHeart(data, callback){
+// // 좋아요 버튼
+// function conHeart(data, callback){
+//     $.ajax({
+//         url: contextPath + "conheart.co",
+//         data: data,
+//         type :'POST',
+//         success : function(conL){
+//             console.log(conL);
+//             callback(conL);
+//         }, error(){
+//             console.log("실패");
+//         }
+//     });
+// }
+
+// 공연 상세정보
+function conDetail(data, callback){
     $.ajax({
-        url: contextPath + "conheart.co",
+        url: contextPath + "conDetail.co",
         data: data,
-        type :'POST',
-        success : function(conL){
-            console.log(conL);
-            callback(conL);
+        success : function(result){
+            console.log(result);
+            callback(result);
         }, error(){
             console.log("실패");
         }
     });
 }
 
-function conDetailTab(data, callback){
+// 판매정보
+function conSellDetail(data, callback){
     $.ajax({
-        url: contextPath + "conDetailTab.co",
+        url: contextPath + "conSellDetail.co",
+        data: data,
+        success : function(result){
+            console.log(result);
+            callback(result);
+        }, error(){
+            console.log("실패");
+        }
+    });
+}
+
+// 한줄평
+function commentDetail(data, callback){
+    $.ajax({
+        url: contextPath + "commentDetail.co",
+        data: data,
+        success : function(result){
+            console.log(result);
+            callback(result);
+        }, error(){
+            console.log("실패");
+        }
+    });
+}
+
+function reviewDetail(data, callback){
+    $.ajax({
+        url: contextPath + "reviewDetail.co",
         data: data,
         success : function(result){
             console.log(result);
