@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertReview;
 
 @Repository
 public class ConcertDao {
@@ -42,6 +43,14 @@ public class ConcertDao {
 
 	public ArrayList<Concert> selectConDetail(SqlSessionTemplate sqlSession, int concertNo) {
 		return (ArrayList)sqlSession.selectList("concertMapper.selectConDetail", concertNo);
+	}
+
+	public ArrayList<ConcertReview> selectComDetail(SqlSessionTemplate sqlSession, int concertNo) {
+		return (ArrayList)sqlSession.selectList("concertMapper.selectComDetail", concertNo);
+	}
+
+	public ArrayList<ConcertReview> selectRevDetail(SqlSessionTemplate sqlSession, int concertNo) {
+		return (ArrayList)sqlSession.selectList("concertMapper.selectRevDetail", concertNo);
 	}
 
 //	public int insertConLike(SqlSessionTemplate sqlSession, ConcertLike conL) {

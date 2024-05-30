@@ -112,7 +112,7 @@ function drawConSellDetail(result){
                                             </tr>
                                             <tr>
                                                 <th>공연런타임</th>
-                                                <td>` + c.concertRuntime + `</td>
+                                                <td>` + c.concertRuntime + `분</td>
                                       </tr>
                                       <tr>
                                           <th>관람연령</th>
@@ -128,7 +128,7 @@ function drawConSellDetail(result){
                                       </tr>
                                       <tr>
                                           <th>출연진</th>
-                                          <td>` + c.concertMember + `</td>
+                                          <td>` + c.concertMembers + `</td>
                                       </tr>
 
                                   </tbody>
@@ -225,90 +225,110 @@ function drawConSellDetail(result){
 
 function drawCommentDetail(result){
     const drawSection = document.querySelector(".concert-detail-down-section");
+    const drawPagination = document.querySelector(".concert-detail-comment-page-list");
     drawSection.innerHTML = ``;
 
-    for(let c of result){
-        drawSection.innerHTML += `<div>
-                                    <p><h4><b>글쓰기 전 주의사항</b></h4></p>
-                                    <p>※ 저속한 표현, 타인의 명예훼손, 광고성 게시물 등 게시판 운영규정에 어긋나는 글은 통보 없이 삭제될 수 있습니다.</p>
-                                    <p>※ 등록된 관람평, 관람후기의 수정과 삭제는 마이페이지에서 가능합니다.</p>        
-                                </div>
-                                <br>
-                                <div>
-                                    <div class="concert-detail-comment-div">
-                                        <table class="concert-detail-comment-table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td align="left"><b>` + 뮤덕이 + `</b></td>
-                                                        <td align="right">2024-05-01 00:00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td align="left" colspan="2">재미있을 것 같습니다</td>
-                                                    </tr>
-                                                </tbody>                 
-                                                <tbody>
-                                                    <tr>
-                                                        <td align="left"><b>뮤덕이</b></td>
-                                                        <td align="right">2024-05-01 00:00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td align="left" colspan="2">재미있을 것 같습니다</td>
-                                                    </tr>
-                                                </tbody>
-                                                <tbody>
-                                                    <tr>
-                                                        <td align="left"><b>뮤덕이</b></td>
-                                                        <td align="right">2024-05-01 00:00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td align="left" colspan="2">재미있을 것 같습니다</td>
-                                                    </tr>
-                                                </tbody>
-                                                <tbody>
-                                                    <tr>
-                                                        <td align="left"><b>뮤덕이</b></td>
-                                                        <td align="right">2024-05-01 00:00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td align="left" colspan="2">재미있을 것 같습니다</td>
-                                                    </tr>
-                                                </tbody>
-                                                <tbody>
-                                                    <tr>
-                                                        <td align="left"><b>뮤덕이</b></td>
-                                                        <td align="right">2024-05-01 00:00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td align="left" colspan="2">재미있을 것 같습니다</td>
-                                                    </tr>
-                                                </tbody>
-                                            
-                                        </table>
+    if(result.length === 0){
+        // let divEmpty = document.createElement('div');
+        drawSection.innerHTML += "등록된 한줄평이 없습니다.";
+        // divEmpty.appendChild(divEmpty);
+        // divEmpty.style.fontSize = '32px';
+
+    } else { 
+        for(let c of result){
+            drawSection.innerHTML += `<div>
+                                        <p><h4><b>글쓰기 전 주의사항</b></h4></p>
+                                        <p>※ 저속한 표현, 타인의 명예훼손, 광고성 게시물 등 게시판 운영규정에 어긋나는 글은 통보 없이 삭제될 수 있습니다.</p>
+                                        <p>※ 등록된 관람평, 관람후기의 수정과 삭제는 마이페이지에서 가능합니다.</p>        
                                     </div>
-                                    <br>        
-                                    <div class="concert-detail-comment-page-list">    
-                                        <div class="page-list" align="center">
-                                            <div class="pagination">
-                                                <img src="${pageContext.request.contextPath}/resources/img/main/before.png">
-                                            </div>
-                                            <div class="pagination current"><h4>1</h4></div>
-                                            <div class="pagination"><h4>2</h4></div>
-                                            <div class="pagination"><h4>3</h4></div>
-                                            <div class="pagination"><h4>4</h4></div>
-                                            <div class="pagination"><h4>5</h4></div>
-                                            <div class="pagination">
-                                                <img src="${pageContext.request.contextPath}/resources/img/main/after.png">
-                                            </div>
+                                    <br>
+                                    <div>
+                                        <div class="concert-detail-comment-div">
+                                            <table class="concert-detail-comment-table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td align="left"><b>` + c.nickname + `</b></td>
+                                                            <td align="right">` + c.reviewDate + `</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left" colspan="2">` + c.reviewContent + `</td>
+                                                        </tr>
+                                                    </tbody>                 
+                                            </table>
                                         </div>
                                     </div>
-                                        <br><br>
-                                </div>`
+                                    <br>`
+        }
     }
-    
+        // drawPagination.innerHTML = `<div class="page-list" align="center">
+        //                                 <div class="pagination">
+        //                                     <img src="` + contextPath + `/resources/img/main/before.png">
+        //                                 </div>
+        //                                 <div class="pagination current"><h4>1</h4></div>
+        //                                     <div class="pagination"><h4>2</h4></div>
+        //                                     <div class="pagination"><h4>3</h4></div>
+        //                                     <div class="pagination"><h4>4</h4></div>
+        //                                     <div class="pagination"><h4>5</h4></div>
+        //                                 <div class="pagination">
+        //                                     <img src="` + contextPath + `/resources/img/main/after.png">
+        //                                 </div>
+        //                                 </div>
+        //                             </div>
+        //                             <br><br>`
 }
        
 
+function drawReviewDetail(result){
+    const drawSection = document.querySelector(".concert-detail-down-section");
+    const drawPagination = document.querySelector(".concert-detail-comment-page-list");
+    drawSection.innerHTML = ``;
 
+    if(result.length === 0){
+        // let divEmpty = document.createElement('div');
+        drawSection.innerHTML += "등록된 관람후기가 없습니다.";
+        // divEmpty.appendChild(divEmpty);
+        // divEmpty.style.fontSize = '32px';
+
+    } else {
+        for(let c of result){
+            let str = c.boardContent;
+            let boardContentCut = str.substr(0, 50)
+            drawSection.innerHTML += `<div>
+                                                <p><h4><b>글쓰기 전 주의사항</b></h4></p>
+                                                <p>※ 저속한 표현, 타인의 명예훼손, 광고성 게시물 등 게시판 운영규정에 어긋나는 글은 통보 없이 삭제될 수 있습니다.</p>
+                                                <p>※ 등록된 관람평, 관람후기의 수정과 삭제는 마이페이지에서 가능합니다.</p>        
+                                            </div>
+                                            <br>
+                                            <div>
+                                                <div class="concert-detail-review-div">
+                                                    <table class="concert-detail-review-table">
+                                                            <tbody class="concert-detail-review-tbody">
+                                                                <tr>
+                                                                    <td rowspan="3"><img align="left" src="`+ contextPath + `/resources/img/concert/heart-background.png" alt=""></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left"><b>`+ c.nickname + `</b></td>
+                                                                    <td rowspan="4" class="concert-detail-review-table-img"><img align="center" src="`+ contextPath + `/resources/img/concert/heart-background.png" alt=""></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left">` + c.boardWriteDate + `</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left" colspan="2"><h3>` + c.boardTitle + `</h3>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left" colspan="2">` + boardContentCut + `...</td>
+                                                                </tr>
+                                                            </tbody>
+                                                    </table>
+                                                </div>
+                                                <br>`
+        
+        }   
+    }
+
+}
 
 
 
