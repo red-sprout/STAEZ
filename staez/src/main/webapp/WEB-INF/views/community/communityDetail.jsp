@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/community/communityDetail.css'/>">
-<script src="<c:url value='/resources/js/community/communityDetail.js'/>"></script>
 </head>
 <body>
     <header>
@@ -18,15 +17,11 @@
     <main>
         <div id="community-wrapper">
             <ul id="community-nav" align="left"></ul>
-            <ul id="community-contents">
+            <ul id="community-contents" align="left">
                 <input type="hidden" name="userNo" value="${loginUser.userNo}">
-                <h1>공지사항</h1>
+                <h1>커뮤니티</h1>
                 <hr>
-                <li id="community-category">
-                    <button class="btn-staez checked">
-                        <h4>${b.categoryName}</h4>
-                    </button>
-                </li>
+                <li id="community-category"></li>
                 <li>
                     <h1>${b.boardTitle}</h1>
                 </li>
@@ -42,7 +37,7 @@
                                 <td rowspan="2">
                                     <div>
                                         <c:choose>
-                                            <c:when test="${loginUser.userNo eq n.userNo}">
+                                            <c:when test="${loginUser.userNo eq b.userNo}">
                                                 <button class="function" onclick="location.href='updateForm.no'">수정</button>
                                                 <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
                                                 <button class="function">삭제</button>
@@ -63,10 +58,9 @@
                     </table>
                 </li>
                 <li>${b.boardContent}</li>
-                <!-- <li>${b.boardContent}</li>
                 <li id="reply-cnt">
                     <h1>댓글&nbsp;</h1>
-                    <h1>2</h1>
+                    <h1 class="reply-cnt"></h1>
                 </li>
                 <li>
                     <div class="community-reply-input">
@@ -77,7 +71,7 @@
                         <button>댓글 쓰기</button>
                     </div>
                 </li>
-                <li class="reply-flex">
+                <!-- <li class="reply-flex">
                     <div class="community-reply">
                         <div class="reply-menu">
                             <button class="function">수정</button>
@@ -135,13 +129,12 @@
     </main>
     <div class="community-fixed">
         <div class="community-circle-area" onclick="likeToggle(this)">
-            <img src="<c:url value='/resources/img/community/communityDetail/like-yes.png'/>" alt="">
-            <h4>27</h4>
+            <img><h4></h4>
         </div>
         <hr>
         <div class="community-circle-area" onclick="commentFocus()">
             <img src="<c:url value='/resources/img/community/communityDetail/reply.png'/>" alt="">
-            <h4>3</h4>
+            <h4 class="reply-cnt"></h4>
         </div>
     </div>
     <!-- The Modal -->
@@ -160,11 +153,11 @@
                         <ul>
                             <li>
                                 <h3>제목</h3>
-                                <input type="text" name="" id="">
+                                <input type="text" name="">
                             </li>
                             <li>
                                 <h3>내용</h3>
-                                <textarea name="" id=""></textarea>
+                                <textarea name=""></textarea>
                             </li>
                         </ul>
                     </div>

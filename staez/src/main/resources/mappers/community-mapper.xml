@@ -155,5 +155,26 @@
 		JOIN staez_user u on (b.user_no = u.user_no)
 		WHERE b.board_no = ${boardNo}
 	</select>
+	<select id="selectProfile" resultMap="boardResult">
+		
+	</select>
+	<select id="selectUserBoardLike" resultType="_int">
+		SELECT COUNT(*)
+		FROM board_like
+		WHERE board_no = #{boardNo}
+		AND user_no = #{userNo}
+		AND status = 'Y'
+	</select>
+	<select id="selectBoardLikeCnt" resultType="_int">
+		SELECT COUNT(*)
+		FROM board_like
+		WHERE board_no = #{boardNo}
+		AND status = 'Y'
+	</select>
+	<select id="selectReplyCnt" resultType="_int">
+		SELECT COUNT(*)
+		FROM reply
+		WHERE board_no = #{boardNo}
+	</select>
 </mapper>
 

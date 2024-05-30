@@ -7,10 +7,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.community.model.dto.AjaxBoardDto;
 import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
 import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.community.model.vo.BoardLike;
+import com.spring.staez.community.model.vo.Reply;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.user.model.vo.ProfileImg;
 
 @Repository
 public class CommunityDao {
@@ -53,6 +57,22 @@ public class CommunityDao {
 
 	public Board boardDetail(SqlSessionTemplate sqlSession, int boardNo) {
 		return sqlSession.selectOne("communityMapper.boardDetail", boardNo);
+	}
+
+	public ProfileImg selectProfile(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("communityMapper.selectProfile", userNo);
+	}
+
+	public int selectUserBoardLike(SqlSessionTemplate sqlSession, AjaxBoardDto dto) {
+		return sqlSession.selectOne("communityMapper.selectUserBoardLike", dto);
+	}
+
+	public int selectBoardLikeCnt(SqlSessionTemplate sqlSession, AjaxBoardDto dto) {
+		return sqlSession.selectOne("communityMapper.selectBoardLikeCnt", dto);
+	}
+
+	public int selectReplyCnt(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("communityMapper.selectReplyCnt", boardNo);
 	}
 
 }
