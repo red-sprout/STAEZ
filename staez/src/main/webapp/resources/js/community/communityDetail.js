@@ -59,7 +59,8 @@ function setNav(result) {
 }
 
 function profileStatus(result) {
-
+    const profile = document.querySelector(".profile-area #profile-img");
+    profile.setAttribute("src", contextPath + result);
 }
 
 function likeStatus(result) {

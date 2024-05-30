@@ -120,12 +120,14 @@
 			   b.board_count AS boardCount, 
 			   b.board_write_date AS boardWriteDate 
 		FROM board b
-		LEFT JOIN board_like bl ON b.board_no = bl.board_no
+		LEFT JOIN (SELECT board_no 
+				   FROM board_like 
+				   WHERE status='Y') bl ON b.board_no = bl.board_no
 		WHERE b.user_no = #{userNo}
-		AND b.board_code = 2 <!-- 2(일반게시글)로 변경 해야됨 -->
+		AND b.board_code = 2 
 		AND b.board_status = 'Y'
 		GROUP BY b.board_no, b.board_title, b.board_count, b.board_write_date
-		ORDER BY b.board_no DESC		
+		ORDER BY b.board_no DESC	
 	</select>
 
 	<select id="selectLikeBoardListCount" resultType="_int">
@@ -150,9 +152,9 @@
 		JOIN board b ON b.board_no = bl.board_no
 		JOIN staez_user u ON b.user_no = u.user_no 
 		WHERE bl.user_no = #{userNo}
-        AND b.board_code = 2 <!-- 2(일반게시글)로 변경 해야됨 -->
+        AND b.board_code = 2 
         AND bl.status = 'Y'
-        ORDER BY bl.board_like_no;
+        ORDER BY bl.board_like_no
 	</select>
 
 	<select id="selectPaymentsCount" resultType="_int">
@@ -164,7 +166,7 @@
 			  FROM reserve
 			  WHERE user_no = #{user_no}
 			  AND reserve_status = 'Y'
-			  GROUP BY user_no, concert_no, concert_date, concert_times);
+			  GROUP BY user_no, concert_no, concert_date, concert_times)
 	</select>
 	
 	<select id="selectPaymentsList" resultType="Concert">
@@ -253,7 +255,7 @@
 		LEFT JOIN concert_review cr
 		ON r.concert_no = cr.concert_no
 		
-		ORDER BY r.concert_date DESC, r.concert_times ASC;
+		ORDER BY r.concert_date DESC, r.concert_times ASC
 	</select>
 	
 </mapper>

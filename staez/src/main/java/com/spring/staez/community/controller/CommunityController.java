@@ -24,10 +24,11 @@ import com.spring.staez.community.model.dto.CommunityDto;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.community.service.CommunityService;
 import com.spring.staez.concert.model.vo.Concert;
-import com.spring.staez.user.model.vo.ProfileImg;
 
 @Controller
 public class CommunityController {
+	
+	private static final String BASIC_PROFILE = "/resources/img/mypage/profile/profile_img_temp.png";
 	
 	@Autowired
 	CommunityService communityService;
@@ -115,10 +116,13 @@ public class CommunityController {
 	
 	// 프로필 가져오기
 	@ResponseBody
-	@GetMapping(value = "select.pr", produces = "application/json; charset-UTF-8")
+	@GetMapping(value = "select.pr")
 	public String selectProfile(int userNo) {
-		ProfileImg profile = communityService.selectProfile(userNo);
-		return new Gson().toJson(profile);
+		String profile = communityService.selectProfile(userNo);
+		if(profile == null) {
+			profile = BASIC_PROFILE;
+		}
+		return profile;
 	}
 	
 	// 게시글 좋아요 가져오기

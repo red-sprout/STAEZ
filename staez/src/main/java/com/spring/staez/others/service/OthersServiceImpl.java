@@ -146,6 +146,11 @@ public class OthersServiceImpl implements OthersService{
 			return oDao.selectLikeCount(sqlSession, data);	
 		}
 	}
+
+	@Override
+	public ArrayList<BoardLike> selectUserLikeBoardNo(int userNo) {
+		return oDao.selectUserLikeBoardNo(sqlSession, userNo);
+	}
 	
 	
 }

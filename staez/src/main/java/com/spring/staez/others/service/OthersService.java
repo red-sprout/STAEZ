@@ -39,4 +39,6 @@ public interface OthersService {
 	ArrayList<BoardLike> insertUpdatelike(int userNo, int boardNo);
 	
 	ArrayList<BoardLike> updateNoLike(int userNo, int boardNo);
+	
+	ArrayList<BoardLike> selectUserLikeBoardNo(int userNo);
 }

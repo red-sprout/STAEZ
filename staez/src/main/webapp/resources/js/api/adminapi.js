@@ -128,3 +128,43 @@ function insertNotice(data, callback) {
         }
     });
 }
+
+//공연리스트 관련
+
+function ajaxConcertContentList(data, callback){
+    $.ajax({
+        url: contextPath + "ajaxConcertContentList.ad",
+        data: data,
+        success : function(result) {
+            callback(result);
+        }, error() {
+            console.log("공연 정보 실패");
+        }
+    }); 
+}
+
+function ajaxConcertImgList(data, callback){
+    $.ajax({
+        url: contextPath + "ajaxConcertImgList.ad",
+        data: data,
+        success : function(result) {
+            callback(result);
+        }, error() {
+            console.log("공연 이미지 실패");
+        }
+    }); 
+}
+
+//공연장리스트 관련
+
+function ajaxTheaterList(data, callback){
+    $.ajax({
+        url: contextPath + "ajaxTheaterList.ad",
+        data: data,
+        success : function(result) {
+            callback(result);
+        }, error() {
+            console.log("공연장 정보 실패");
+        }
+    }); 
+}
