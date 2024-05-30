@@ -31,7 +31,7 @@ function sendEmailVerificationRequest(emailInput) {
         url: "emailCheck.me",
         data: { email: emailInput },
         success: function(response) {
-            console.log(response);
+            //console.log(response);
             handleEmailCheckResponse(response);
         },
         error: function() {
@@ -46,7 +46,7 @@ function emailCheckCode(data, callback) {
         url: "emailSecretCodeCheck.me",
         data: data,
         success: function(result) {
-            console.log("Server response:", result); // 서버 응답 확인
+            //console.log("Server response:", result); // 서버 응답 확인
             callback(result);
         },
         error: function(jqXHR, textStatus, errorThrown) {

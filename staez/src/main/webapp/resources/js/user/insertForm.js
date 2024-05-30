@@ -81,7 +81,7 @@ function signinIdCheck() {
         userIdCheckButton.addEventListener('click', function() {
             const str = userIdInput.value.trim(); // 입력된 아이디의 공백을 제거합니다.
             if (str.length >= 1) { // 길이가 1 이상인지 확인합니다.
-                console.log("Sending checkId: " + str); // 디버깅을 위한 로그 추가
+                //console.log("Sending checkId: " + str); // 디버깅을 위한 로그 추가
                 idCheck({"checkId" : str}, (result) => callbackIdCheck(result, userIdCheckResult, userIdInput));
             } else {
                 userIdCheckResult.style.display = "none";
@@ -277,8 +277,8 @@ function emailSecretCode() {
         if (verificationCodeValue.length >= 6 && verificationCodeValue.length <= 6) {
             // 입력된 이메일과 입력된 값을 서버로 보냄
             const emailValue = checkEmail.value;
-            console.log("Email: " + emailValue);
-            console.log("Verification Code: " + verificationCodeValue);
+            // console.log("Email: " + emailValue);
+            // console.log("Verification Code: " + verificationCodeValue);
             emailCheckCode({ "authNo": verificationCodeValue, "email": emailValue }, function(result) {
                 callbackEmailSecret(result, emailSecretCheckResult, verificationCodeInput, emailSecretErrorMessage);
             });
@@ -317,7 +317,7 @@ function sgininemail() {
         } else {
             inputValueElement.value = "";
         }
-        console.log(prefix + "@" + domain);
+        //console.log(prefix + "@" + domain);
     }
     // 도메인 리스트 변경 시 처리하는 함수를 정의합니다.
     function handleDomainListChange() {
@@ -351,13 +351,13 @@ function emailTimeTwo() {
     emailInput.addEventListener('input', function() {
         const emailPrefix = emailInput.value;
         const emailSuffix = suffixInput.value;
-        console.log(emailPrefix + "@" + emailSuffix);
+        //console.log(emailPrefix + "@" + emailSuffix);
     });
 
     suffixInput.addEventListener('input', function() {
         const emailPrefix = emailInput.value;
         const emailSuffix = suffixInput.value;
-        console.log(emailPrefix + "@" + emailSuffix);
+        //console.log(emailPrefix + "@" + emailSuffix);
     });
 }
 
