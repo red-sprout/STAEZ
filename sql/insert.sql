@@ -9,13 +9,17 @@ VALUES (DEFAULT, 'missjj23', '$2a$10$86mSdcCkui2Imx3GZqLLFux4RFHjkgrQsAWkL3nWs/h
 INSERT INTO staez_user
 VALUES (DEFAULT, 'user00', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '탈퇴한놈', 'M', '1998-08-31', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'withdrawal@gmail.com', '01099999999','', 2, DEFAULT, NULL, 'Y');
 
+SELECT * FROM staez_user;
+
 /*profile_img*/
 INSERT INTO profile_img
-VALUES (DEFAULT, 1, '원래이름.png', '2024.png', '/resources/uploadfiles/profile/', DEFAULT, 'Y');
+VALUES (DEFAULT, 1, '원래이름.png', '202405201111.png', '/resources/uploadfiles/profile/', DEFAULT, 'Y');
 INSERT INTO profile_img
-VALUES (DEFAULT, 2, '원래이름.png', '바뀐이름.png', '/resources/uploadfiles/profile/', DEFAULT, 'Y');
+VALUES (DEFAULT, 2, '원래이름.png', '202405221111.png', '/resources/uploadfiles/profile/', DEFAULT, 'Y');
 INSERT INTO profile_img
-VALUES (DEFAULT, 4, '원래이름.png', '바뀐이름.png', '/resources/uploadfiles/profile/', DEFAULT, 'N');
+VALUES (DEFAULT, 4, '원래이름.png', '202405251111.png', '/resources/uploadfiles/profile/', DEFAULT, 'N');
+
+SELECT * FROM profile_img;
 
 /*board*/
 /*일반게시글*/
@@ -34,17 +38,23 @@ VALUES (DEFAULT, NULL, 2, 1, 2, '2024-05-27 05:01:42.193236+09', '게시글제�
 INSERT INTO board
 VALUES (DEFAULT, NULL, 1, 1, 2, '2024-05-27 13:01:40.193236+09', '게시글제목5', '게시글내용5', 0, 'Y');
 
+SELECT * FROM board
+WHERE board_code=2;
+
 /*공지사항*/
 INSERT INTO board
 VALUES (DEFAULT, NULL, 1, 1, 1, '2024-05-27 18:08:32.248193+09', '테스트 공지사항입니다1', '공지사항 내용입니다1', 3, 'Y');
 INSERT INTO board
-VALUES (DEFAULT, NULL, 1, 1, 1, '2024-05-27 18:08:32.248193+09', '테스트 공지사항입니다2', '공지사항 내용입니다2', 0, 'Y');
+VALUES (DEFAULT, NULL, 1, 1, 1, '2024-01-25 18:08:32.248193+09', '테스트 공지사항입니다2', '공지사항 내용입니다2', 0, 'Y');
 INSERT INTO board
-VALUES (DEFAULT, NULL, 1, 1, 1, '2024-05-27 18:08:32.248193+09', '테스트 공지사항입니다3', '공지사항 내용입니다3', 11, 'Y');
+VALUES (DEFAULT, NULL, 1, 1, 1, '2023-12-27 23:04:32.248193+09', '테스트 공지사항입니다3', '공지사항 내용입니다3', 11, 'Y');
 INSERT INTO board
-VALUES (DEFAULT, NULL, 1, 1, 1, '2024-05-27 18:08:32.248193+09', '테스트 공지사항입니다4', '공지사항 내용입니다4', 2, 'Y');
+VALUES (DEFAULT, NULL, 1, 1, 1, '2023-12-24 11:08:32.248193+09', '테스트 공지사항입니다4', '공지사항 내용입니다4', 2, 'Y');
 INSERT INTO board
-VALUES (DEFAULT, NULL, 1, 1, 1, '2024-05-27 18:08:32.248193+09', '테스트 공지사항입니다5', '공지사항 내용입니다5', 4, 'Y');
+VALUES (DEFAULT, NULL, 1, 1, 1, '2023-05-31 15:08:32.248193+09', '테스트 공지사항입니다5', '공지사항 내용입니다5', 4, 'Y');
+
+SELECT * FROM board
+WHERE board_code=1;
 
 /*문의(질문)*/
 INSERT INTO board
@@ -58,6 +68,10 @@ VALUES (DEFAULT, NULL, 2, 1, 3, '2024-05-27 19:01:40.193236+09', '문의입니�
 INSERT INTO board
 VALUES (DEFAULT, NULL, 2, 1, 3, '2024-05-27 19:01:40.193236+09', '문의입니다3', '문의내용입니다3', 0, 'Y');
 
+SELECT * FROM board
+WHERE board_code=3
+AND board_level=1;
+
 /*문의(답변)*/
 INSERT INTO board
 VALUES (DEFAULT, 1, 1, 2, 3, '2024-05-27 18:08:32.248193+09', '환불정책', '환불 안됩니다', 3, 'Y');
@@ -65,6 +79,10 @@ INSERT INTO board
 VALUES (DEFAULT, 2, 1, 2, 3, '2024-05-27 18:18:56.955458+09', '관리자사칭은', '밴사유입니다', 0, 'Y');
 INSERT INTO board
 VALUES (DEFAULT, 3, 1, 2, 3, '2024-05-27 19:01:40.193236+09', '문의답변입니다1', '문의답변내용입니다1', 0, 'Y');
+
+SELECT * FROM board
+WHERE board_code=3
+AND board_level=2;
 
 /*FAQ*/
 INSERT INTO board
@@ -74,6 +92,9 @@ VALUES (DEFAULT, NULL, 1, 1, 4, '2024-05-27 18:18:56.955458+09', 'FAQ입니다2'
 INSERT INTO board
 VALUES (DEFAULT, NULL, 1, 1, 4, '2024-05-27 19:01:40.193236+09', 'FAQ입니다3', 'FAQ내용입니다3', 0, 'Y');
 
+SELECT * FROM board
+WHERE board_code=4;
+
 /*신고 (나중에 추가)*/ 
 INSERT INTO board
 VALUES (DEFAULT, NULL, 2, 1, 5, '2024-05-27 18:08:32.248193+09', '신고입니다1', '신고내용입니다1', 3, 'Y');
@@ -82,6 +103,8 @@ VALUES (DEFAULT, NULL, 3, 1, 5, '2024-05-27 18:18:56.955458+09', '신고입니�
 INSERT INTO board
 VALUES (DEFAULT, NULL, 5, 1, 5, '2024-05-27 19:01:40.193236+09', '신고입니다3', '신고내용입니다3', 0, 'Y');
 
+SELECT * FROM board
+WHERE board_code=5;
 
 /*board_attachment*/
 INSERT INTO board_attachment
@@ -99,6 +122,7 @@ VALUES (DEFAULT, 6, '원래이름.png', '2024052809480898527.webp', '/resources/
 INSERT INTO board_attachment
 VALUES (DEFAULT, 7, '원래이름.png', '바뀐이름.png', '/resources/uploadfiles/community/', DEFAULT, 1, 'Y');
 
+SELECT * FROM board_attachment;
 
 
 /*board_like*/
@@ -111,13 +135,22 @@ VALUES (DEFAULT, 3, 1, DEFAULT, 'Y');
 INSERT INTO board_like
 VALUES (DEFAULT, 2, 2, DEFAULT, 'Y');
 
+SELECT * FROM board_like;
+
+
 /*reply*/
 INSERT INTO reply
 VALUES (DEFAULT, NULL, 1, 2, '잘보고 갑니다', '2024-05-29 09:45:52.783686+09', 'Y');
 
+SELECT * FROM reply;
+
+
 /*reply_like*/
 INSERT INTO reply_like
 VALUES (DEFAULT, 1, 3, '2024-05-29 09:45:52.783686+09', 'Y');
+
+SELECT * FROM reply_like;
+
 
 /*board_category*/
 INSERT INTO reply_like
@@ -128,6 +161,8 @@ INSERT INTO reply_like
 VALUES (4, 1);
 INSERT INTO reply_like
 VALUES (3, 4);
+
+SELECT * FROM board_category;
 
 
 /*category*/
@@ -186,6 +221,9 @@ VALUES (DEFAULT, 3, '사이트 이용', 1);
 INSERT INTO category
 VALUES (DEFAULT, 3, '티켓', 1);
 
+SELECT * FROM category;
+
+
 /*theater*/
 INSERT INTO theater
 VALUES (DEFAULT, '예술의전당', '15', '5', '서울 서초구 남부순환로 2406', '1668-1352');
@@ -197,6 +235,9 @@ INSERT INTO theater
 VALUES (DEFAULT, '대구오페라하우스', '15', '10', '대구광역시 북구 호암로 15', '053-666-6000');
 INSERT INTO theater
 VALUES (DEFAULT, '춘천문화예술회관', '20', '20', '강원 춘천시 효자상길5번길 13', '033-259-5841');
+
+SELECT * FROM theater;
+
 
 /*concert*/
 INSERT INTO concert
@@ -310,6 +351,9 @@ VALUES (DEFAULT
 	, '2024-05-27'
 	, DEFAULT);
 
+SELECT * FROM concert;
+
+
 /*concert_attachment*/
 INSERT INTO concert_attachment
 VALUES (DEFAULT, 1, 'thumbnail1.png', 'thumbnail1.png', '/resources/uploadfiles/concert/', '2024-05-23', 1, DEFAULT);
@@ -332,6 +376,7 @@ VALUES (DEFAULT, 14, '정은지이쁘다.png', '2024052718271133380.webp', '/res
 INSERT INTO concert_attachment
 VALUES (DEFAULT, 15, '김덕수사물놀이.png', '2024052809053615113.webp', '/resources/uploadfiles/concert/', '2024-05-23', 1, DEFAULT);
 
+SELECT * FROM concert_attachment;
 
 
 
@@ -341,6 +386,9 @@ INSERT INTO concert_category VALUES (2, 5);
 INSERT INTO concert_category VALUES (3, 4);
 INSERT INTO concert_category VALUES (4, 5);
 INSERT INTO concert_category VALUES (5, 4);
+
+SELECT * FROM concert_category;
+
 
 /*seat*/
 INSERT INTO seat
@@ -424,6 +472,9 @@ VALUES (DEFAULT, 5, 'B', 80000, '2024-07-08', 11, 15, 1, 20, DEFAULT);
 INSERT INTO seat
 VALUES (DEFAULT, 5, 'A', 50000, '2024-07-08', 16, 20, 1, 20, DEFAULT);
 
+SELECT * FROM seat;
+
+
 /*impossible_seat*/
 INSERT INTO impossible_seat VALUES (DEFAULT, 1, 1, 1);
 INSERT INTO impossible_seat VALUES (DEFAULT, 1, 1, 2);
@@ -431,6 +482,9 @@ INSERT INTO impossible_seat VALUES (DEFAULT, 1, 1, 3);
 INSERT INTO impossible_seat VALUES (DEFAULT, 1, 2, 1);
 INSERT INTO impossible_seat VALUES (DEFAULT, 1, 2, 2);
 INSERT INTO impossible_seat VALUES (DEFAULT, 1, 3, 1);
+
+SELECT * FROM impossible_seat;
+
 
 /*concert_schedule*/
 INSERT INTO concert_schedule
@@ -446,10 +500,14 @@ VALUES (DEFAULT, 4, '20:00-22:30', '2024-07-07', '2024-07-08', 1, DEFAULT);
 INSERT INTO concert_schedule
 VALUES (DEFAULT, 5, '20:00-23:00', '2024-07-07', '2024-07-08', 1, DEFAULT);
 
+SELECT * FROM concert_schedule;
+
 
 /*concert_like*/
 INSERT INTO concert_like
 VALUES (DEFAULT, 2, 1, '2024-05-27 19:01:40.193236+09', 'Y');
+
+SELECT * FROM concert_like;
 
 
 /*concert_review*/
@@ -460,9 +518,15 @@ VALUES (DEFAULT, 2, 2, '조금 아쉬웠어요', 4, 'Y');
 INSERT INTO concert_review
 VALUES (DEFAULT, 2, 4, '졸려서 잤어요', 2, 'Y');
 
+SELECT * FROM concert_review;
+
+
 /*reserve*/
 INSERT INTO reserve
 VALUES (DEFAULT, '24041322', 1, 4, 10, '2024-05-27 19:01:40.193236+09','무통장입금', '2024-05-29', 1, 'Y');
+
+SELECT * FROM reserve;
+
 
 /*tag*/
 INSERT INTO tag
@@ -472,8 +536,7 @@ VALUES (2,4);
 INSERT INTO tag
 VALUES (4,1);
 
+SELECT * FROM tag;
 
 
 COMMIT;
-
-SELECT * FROM concert_schedule;

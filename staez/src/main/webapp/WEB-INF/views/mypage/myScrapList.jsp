@@ -4,11 +4,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <link rel="stylesheet" href="${contextPath}/resources/css/mypage/myScrapList.css">
+<script src="${contextPath}/resources/js/mypage/myScrapList.js"></script>
 
 <div class="main-content">
     <div class="main-title">
         <h2>찜목록</h2>
-        <button><h3>삭제</h3></button>
+        <div>
+            <button type="button" id="deleteBtn" class="btn-staez purple"><h4>선택삭제</h4></button>
+            <input type="checkbox">
+        </div>
     </div>
 
     <table>
@@ -28,9 +32,9 @@
                     <h4>캐스팅 : ${c.concertMembers}</h4>
                     <h4>상영기간 : ${c.startDate} ~ ${c.endDate}</h4>
                 </td>
-                <td id="age-limit">
+                <td id="age-checkbox">
                     <div>
-                        <button type="button" hidden></button>
+                        <input type="checkbox">
                     </div>
                     <h4>${c.ageLimit}</h4>
                 </td>
