@@ -1,26 +1,31 @@
-window.onload = function(){
+$(function(){
+    const data = getUrlParams()
+    const userNo = $("input[name=userNo]").val();
+    data.userNo = userNo;
+
     communityCategory({ refCategoryNo: refCategoryMap.community, categoryLevel: 1 }, (res) => {
         setNav(res);
     });
-}
 
-function likeToggle(_this) {
-    const likeYes = "like-yes";
-    const likeNo = "like-no";
-    const img = _this.children[0];
+    selectProfile({userNo: userNo}, (res) => {
+        profileStatus(res);
+    });
 
-    const imgsrc = (str) => (`/staez/resources/img/community/communityDetail/${str}.png`);
-    if(img.getAttribute("src").includes(likeYes)) {
-        // ajax 요청 보내기
-        img.setAttribute("src", imgsrc(likeNo));
-    } else {
-        // ajax 요청 보내기
-        img.setAttribute("src", imgsrc(likeYes));
-    }
-}
+    selectLike(data, (res) => {
+        likeStatus(res);
+    });
 
-function commentFocus() {
-    $("#reply-input").focus();
+    selectReply(data, (res) => {
+        replyStatus(res);
+    });
+
+    boardCategory(data, (res) => {
+        setCategory(res);
+    })
+});
+
+function imgsrc(str) {
+    return `/staez/resources/img/community/communityDetail/${str}.png`;
 }
 
 function setNav(result) {
@@ -51,4 +56,57 @@ function setNav(result) {
                         <h2>글쓰기</h2>
                         <img src="${contextPath}/resources/img/community/communityMain/write.png">
                     </li>`;
+}
+
+function profileStatus(result) {
+
+}
+
+function likeStatus(result) {
+    const img = document.querySelector(".community-circle-area:nth-child(1) img");
+    const h4 = document.querySelector(".community-circle-area:nth-child(1) h4");
+    const likeYes = "like-yes";
+    const likeNo = "like-no";
+
+    img.setAttribute("src", imgsrc(result.userBoardLike ? likeYes : likeNo));
+    h4.innerHTML = result.boardLikeCnt;
+}
+
+function replyStatus(result) {
+    const h4 = document.querySelectorAll(".reply-cnt");
+    for(let ele of h4) {
+        ele.innerHTML = result;
+    }
+}
+
+function setCategory(result) {
+    const categoryArea = document.getElementById("community-category");
+    for(let ele of result) {
+        const btn = document.createElement("button");
+        const h4 = document.createElement("h4");
+
+        btn.setAttribute("class", "btn-staez checked");
+        h4.innerHTML = ele.categoryName;
+
+        btn.appendChild(h4);
+        categoryArea.appendChild(btn);
+    }
+}
+
+function likeToggle(_this) {
+    const likeYes = "like-yes";
+    const likeNo = "like-no";
+    const img = _this.children[0];
+
+    if(img.getAttribute("src").includes(likeYes)) {
+        // ajax 요청 보내기
+        img.setAttribute("src", imgsrc(likeNo));
+    } else {
+        // ajax 요청 보내기
+        img.setAttribute("src", imgsrc(likeYes));
+    }
+}
+
+function commentFocus() {
+    $("#reply-input").focus();
 }

@@ -85,3 +85,17 @@ function getCategoryNo(_this, id) {
 
     return result;
 }
+
+function decimalToBase26(num) {
+    if (num === 0) return 'A';  // 특별한 경우 0은 'A'
+
+    let result = '';
+    while (num >= 0) {
+        let remainder = num % 26;
+        result = String.fromCharCode(remainder + 65) + result;
+        num = Math.floor(num / 26) - 1;  // 다음 자릿수 계산
+        if (num < 0) break;
+    }
+
+    return result;
+}
