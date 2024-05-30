@@ -240,7 +240,7 @@
 	</select>
 	
 	<select id="selectPopularBoard" resultMap="boardResult">
-		select b.board_no, b.user_no, b.board_title, b.board_content, bl.like_count "like_count"
+		select b.board_no, b.user_no, b.board_title, b.board_content, bl.like_count "like_count", b.user_no
 		from (select board_no, count(board_no) like_count
 			  from board_like
 			  where status = 'Y'
