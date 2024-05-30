@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.concert.model.dao.ConcertDao;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertReview;
 
 @Service
 public class ConcertServiceImpl implements ConcertService {
@@ -44,6 +45,16 @@ public class ConcertServiceImpl implements ConcertService {
 	@Override
 	public ArrayList<Concert> selectConDetail(int concertNo) {
 		return concertDao.selectConDetail(sqlSession, concertNo);
+	}
+
+	@Override
+	public ArrayList<ConcertReview> selectComDetail(int concertNo) {
+		return concertDao.selectComDetail(sqlSession, concertNo);
+	}
+
+	@Override
+	public ArrayList<ConcertReview> selectRevDetail(int concertNo) {
+		return concertDao.selectRevDetail(sqlSession, concertNo);
 	}
 	
 //	@Transactional

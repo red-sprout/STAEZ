@@ -33,7 +33,7 @@
 
     <!-- 공연상세페이지 아래쪽: ajax(공연상세정보, 판매정보, 한줄평, 관람후기 내용) -->
     <section>
-        <div>
+        <!-- <div>
             <p><h4><b>글쓰기 전 주의사항</b></h4></p>
             <p>※ 저속한 표현, 타인의 명예훼손, 광고성 게시물 등 게시판 운영규정에 어긋나는 글은 통보 없이 삭제될 수 있습니다.</p>
             <p>※ 등록된 관람평, 관람후기의 수정과 삭제는 마이페이지에서 가능합니다.</p>        
@@ -140,7 +140,7 @@
                        
                 </table>
             </div>
-            <br>        
+            <br>         -->
             <div class="concert-detail-comment-page-list">    
                 <div class="page-list" align="center">
                     <div class="pagination">
