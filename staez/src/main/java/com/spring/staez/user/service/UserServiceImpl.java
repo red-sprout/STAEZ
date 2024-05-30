@@ -57,4 +57,10 @@ public class UserServiceImpl implements UserService{
 		return userDao.emailSecretCodeCheck(sqlSession, authNo, email);
 	}
 
+	// 회원가입 시 이메일 중복체크
+	@Override
+	public int insertEmailCheck(String checkinsertEmail) {
+		return userDao.insertEmailCheck(sqlSession,checkinsertEmail);
+	}
+
 }
