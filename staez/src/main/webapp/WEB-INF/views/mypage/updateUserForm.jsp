@@ -20,7 +20,7 @@
     </div>
     <div id="profile-update">
 
-        <div id="password-auth" hidden>
+        <div id="password-auth" >
             <h3>비밀번호 인증</h3>
             <div>
                 <input type="password" id="auth-password" placeholder="비밀번호 입력">
@@ -29,7 +29,7 @@
             <p id="auth-fail" hidden>비밀번호가 일치하지 않습니다.</p>
         </div>
 
-        <form action="update.me" method="POST" >
+        <form action="update.me" method="POST" hidden>
             <div id="profile-img">
                 <img src="${contextPath}/resources/img/mypage/profile/profile_img_temp.png" alt="" data-toggle="modal" data-target="#imgModal">
             </div>
