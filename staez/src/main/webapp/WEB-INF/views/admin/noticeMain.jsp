@@ -41,7 +41,7 @@
                     <table>
                         <tbody>
                             <tr class="profile-area">
-                                <td rowspan="2"><img src="<c:url value='/resources/img/community/communityMain/profile-example.png'/>" alt=""></td>
+                                <td rowspan="2"><img src="" alt=""></td>
                                 <td><h4>${b.nickname}</h4></td>
                                 <td rowspan="5">
                                     <input type="hidden" name="boardNo" value="${b.boardNo}" class="boardNo">
