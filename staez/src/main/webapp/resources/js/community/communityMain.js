@@ -9,20 +9,21 @@ $(function() {
     });
 
     const btnArea = [...document.querySelectorAll(".posting-category>td")];
-    const boardNoInput = document.querySelectorAll("input[name=boardNo]");
-    const boardNoList = [];
+    const profileArea = [...document.querySelectorAll(".profile-area>td>img")];
+    const boardNo = document.querySelectorAll(".profile-area input[name=boardNo]");
+    const userNo = document.querySelectorAll(".profile-area input[name=userNo]");
+    const boardNoList = [], userNoList = [];
 
-    for(let ele of boardNoInput) {
-        boardNoList.push(ele.value);
-    }
-
-    console.log(boardNoList);
+    boardNo.forEach((bNo) => {boardNoList.push(bNo.value)});
+    userNo.forEach((uNo) => {userNoList.push(uNo.value)});
 
     for(let i = 0; i < boardNoList.length; i++) {
         drawBtn(btnArea[i], boardNoList[i]);
+        drawProfile(profileArea[i], userNoList[i])
     }
 })
 
+// 왼쪽 커뮤니티 대분류 항목 그리기
 function setNav(result) {
     const ul = document.getElementById("community-nav");
     ul.innerHTML += `<li class="write-btn" onclick="location.href='main.cm'">
@@ -53,6 +54,7 @@ function setNav(result) {
                     </li>`;
 }
 
+// 클릭한 곳 글자 칠하기 - 미구현
 function setColor() {
     const communityNav = document.getElementsByClassName("community-nav-li");
     for(let i = 0; i < communityNav.length; i++) {
@@ -60,6 +62,11 @@ function setColor() {
     }
 }
 
+function setUrlParams(_this, mode) {
+    const nowParams = getUrlParams();
+}
+
+// url 만들기
 function generateUrls() {
     const input = document.getElementById('categoryInput').value;
     const categoryNos = input.split(',').map(num => num.trim());
@@ -87,11 +94,18 @@ function generateUrls() {
     });
 }
 
+// 게시글마다 해당하는 카테고리 노출하기
 function drawBtn(_this, bNo) {
     boardCategory({boardNo: bNo}, (result) => {
-        console.log(result);
         for(let c of result) {
             _this.innerHTML += `<button class="btn-staez checked"><h4>${c.categoryName}</h4></button>`
         }
     });
+}
+
+// 게시글마다 프로필 사진 그리기
+function drawProfile(_this, uNo) {
+    selectProfile({userNo: uNo}, (result) => {
+        _this.setAttribute("src", contextPath + result);
+    })
 }

@@ -59,7 +59,7 @@ public class CommunityDao {
 		return sqlSession.selectOne("communityMapper.boardDetail", boardNo);
 	}
 
-	public ProfileImg selectProfile(SqlSessionTemplate sqlSession, int userNo) {
+	public String selectProfile(SqlSessionTemplate sqlSession, int userNo) {
 		return sqlSession.selectOne("communityMapper.selectProfile", userNo);
 	}
 

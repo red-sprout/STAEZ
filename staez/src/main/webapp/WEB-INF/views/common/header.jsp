@@ -55,7 +55,7 @@
 	                </c:when>
 	                <c:otherwise>
 		                <div class="header-other-area">
-		                    <a href="scrapList.me"><img id="header-like-img" class="other-img" src="${contextPath}/resources/img/common/header/heart-header.png" alt=""></a>
+		                    <a href="scrapList.me?cpage=1"><img id="header-like-img" class="other-img" src="${contextPath}/resources/img/common/header/heart-header.png" alt=""></a>
 		                    <img class="stick" src="${contextPath}/resources/img/common/header/divide.png" alt="">
 		
 		                    <a href="calendar.co"><img id="header-calendar-img" class="other-img" src="${contextPath}/resources/img/common/header/calendar.png" alt=""></a>

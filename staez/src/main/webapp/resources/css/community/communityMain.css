@@ -124,11 +124,13 @@
     margin-right: 5px;
 }
 
-.boardContent>p {
+.boardContent>p
+, .boardContent>div {
     display: none;
 }
 
-.boardContent>p:nth-child(1) {
+.boardContent>p:nth-child(1)
+, .boardContent>div:nth-child(1) {
     overflow: hidden;
     white-space: normal;
     text-overflow: ellipsis;

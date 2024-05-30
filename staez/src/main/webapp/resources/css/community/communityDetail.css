@@ -93,6 +93,10 @@
     width: 10px;
 }
 
+#community-contents>li {
+    margin-bottom: 10px;
+}
+
 #community-contents>li>p {
     line-height: 30px;
     margin: 5px;
