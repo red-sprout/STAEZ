@@ -131,7 +131,8 @@ function drawBoardListContent(bList){
                                                     <div class="content-box">`+ b.boardContent +`</div>
                                                     <div class="heart-count-area">
                                                         <img class="heart" src="/staez/resources/img/others/like-no.png" alt="">
-                                                        <input type="hidden" value="`+ b.boardNo +`" class="imgLike">
+                                                        <input type="hidden" value="`+ b.boardNo +`" class="imgLike" name="boardNo">
+                                                        <input type="hidden" value="`+ b.userNo +`" name="userNo">
                                                         <span class="heart-count">`+ b.likeCount +`</span>
                                                     </div>
                                                 </div>
@@ -158,7 +159,8 @@ function drawBoardListContent(bList){
                                                     <div class="content-box">`+ b.boardContent +`</div>
                                                     <div class="heart-count-area" onclick="changeLike(this, event, `+ b.boardNo +`)">
                                                         <img class="heart" src="/staez/resources/img/others/like-no.png" alt="">
-                                                        <input type="hidden" value="`+ b.boardNo +`" class="imgLike">
+                                                        <input type="hidden" value="`+ b.boardNo +`" class="imgLike" name="boardNo">
+                                                        <input type="hidden" value="`+ b.userNo +`" name="userNo">
                                                         <span class="heart-count">`+ b.likeCount +`</span>
                                                     </div>
                                                 </div>
@@ -209,15 +211,26 @@ function drawBoardListContentCategory(boardCategory){
     i++;
    }
 
-   popularBoardUserProfile((profiles) => drawBoardListUserProFile(profiles));
+
+   const userNo = document.querySelectorAll(".heart-count-area input[name=userNo]");
+   const imgArea = document.querySelectorAll(".user-profile-img");
+   for(let i = 0; i < userNo.length; i++) {
+       console.log(userNo[i].value)
+       console.log(imgArea[i])
+        selectProfile({userNo: userNo[i].value}, (profile) => {
+            imgArea[i].setAttribute("src", contextPath + profile);
+        })
+   }
+    // userNo.forEach((uNo) => {selectProfile({userNo: uNo}, (profile) => 효영님함수(profile)})};
+//    popularBoardUserProfile((profiles) => drawBoardListUserProFile(profiles));
 }
 
-function drawBoardListUserProFile(profiles){
-    const imgArea = document.querySelectorAll(".user-profile-img");
-    for(let p of profiles){
-        imgArea[i].src="/staez" + p[i].filePath + p[i].changeName;
-    }
-}
+// function drawBoardListUserProFile(profiles){
+//     const imgArea = document.querySelectorAll(".user-profile-img");
+//     for(let p of profiles){
+//         imgArea[i].src="/staez" + p[i].filePath + p[i].changeName;
+//     }
+// }
 
 
 
