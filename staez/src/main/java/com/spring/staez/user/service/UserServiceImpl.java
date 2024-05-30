@@ -50,11 +50,5 @@ public class UserServiceImpl implements UserService{
 	public int registerUser(String email, String authNo, LocalDateTime send_time) {
         return userDao.registerUser(email, authNo, send_time);
     }
-	
-	//암호키 인증체크
-	@Override
-	public int emailSecretCodeCheck(String authNo, String email) {
-		return userDao.emailSecretCodeCheck(sqlSession, authNo, email);
-	}
 
 }
