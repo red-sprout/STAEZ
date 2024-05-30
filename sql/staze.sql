@@ -767,8 +767,7 @@ COMMENT ON COLUMN public.concert_review.review_status
 /*예매내역 테이블*/
 CREATE TABLE public.reserve
 (
-    reserve_seat_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_reserve'),
-	reserve_no integer NOT NULL,
+    reserve_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_reserve'),
     concert_no integer NOT NULL,
     user_no integer NOT NULL,
     reserve_row integer NOT NULL,
@@ -783,9 +782,6 @@ CREATE TABLE public.reserve
 
 ALTER TABLE IF EXISTS public.reserve
     OWNER to postgres;
-
-COMMENT ON COLUMN public.reserve.reserve_seat_no
-    IS '예약좌석번호';
 
 COMMENT ON TABLE public.reserve
     IS '예매내역';
