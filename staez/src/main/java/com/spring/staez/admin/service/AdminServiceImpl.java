@@ -13,6 +13,7 @@ import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.admin.model.vo.ConcertSchedule;
 import com.spring.staez.admin.model.vo.ImpossibleSeat;
 import com.spring.staez.admin.model.vo.Seat;
+import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.common.template.ImpossibleSeatList;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
@@ -71,5 +72,30 @@ public class AdminServiceImpl implements AdminService {
 				* adminDao.insertConcertAttachment(sqlSession, c)
 				* adminDao.insertScheduleList(sqlSession, scheduleList)
 				* adminDao.insertSeatList(sqlSession, seatList);
+	}
+
+	@Override
+	public ArrayList<Concert> selectConcertContentList(PageInfo pi) {
+		return adminDao.selectConcertContentList(sqlSession, pi);
+	}
+
+	@Override
+	public ArrayList<Concert> selectConcertImgList(PageInfo pi) {
+		return adminDao.selectConcertImgList(sqlSession, pi);
+	}
+
+	@Override
+	public int selectConcertContentListCount() {
+		return adminDao.selectConcertContentListCount(sqlSession);
+	}
+
+	@Override
+	public int selectTheaterListCount() {
+		return adminDao.selectTheaterListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Theater> selectTheaterList(PageInfo pi) {
+		return adminDao.selectTheaterList(sqlSession, pi);
 	}
 }

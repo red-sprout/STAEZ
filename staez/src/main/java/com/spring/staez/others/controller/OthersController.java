@@ -193,4 +193,17 @@ public class OthersController {
 		
 		return  new Gson().toJson(likeCount);
 	}
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxSelectUserLikeBoardNo.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxSelectUserLikeBoardNo(String uNo) {
+		int userNo = Integer.parseInt(uNo);
+		
+		ArrayList<BoardLike> userLikeList = oService.selectUserLikeBoardNo(userNo);
+		
+		
+		return  new Gson().toJson(userLikeList);
+	}
+	
+	
 }

@@ -3,6 +3,7 @@ window.onload = function(){
     body.classList.add("noScroll");
     mainCategoryName((category) => drawOption(category));
     mainPopularBoardList((bList) => drawBoardListContent(bList));
+   
 }
 
 function drawOption(category){
@@ -112,40 +113,96 @@ function drawlatestConcertImg(concertImgs){
 }
 
 function drawBoardListContent(bList){
-   
+    const userInput = document.querySelector("input[name = 'userNo']");
+    const uNo = userInput.value;
     const boardArea = document.querySelector(".popularity-bulletin-information-area");
-    boardArea.innerHTML = ``
-    for(let b of bList){
-        boardArea.innerHTML += `<div class="popularity-bulletin-information">
-                                    <div class="popularity-bulletin-information-a" onclick="location.href='detail.cm?boardNo=`+ b.boardNo +`'">
-                                        <div class="popularity-bulletin-content-area">
-                                            <div class="popularity-bulletin-title">
-                                                <span>`+ b.boardTitle +`</span>
-                                            </div>
-                                            <hr class="popularity-bulletin-hr">
-                                            <div class="popularity-bulletin-detail-content">
-                                                <div class="content-box">`+ b.boardContent +`</div>
-                                                <div class="heart-count-area" onclick="changeLike(this, event, `+ b.boardNo +`)">
-                                                    <img class="heart" src="/staez/resources/img/others/like-no.png" alt="">
-                                                    <span class="heart-count">`+ b.likeCount +`</span>
+
+    if(!uNo){
+        boardArea.innerHTML = ``
+        for(let b of bList){
+            boardArea.innerHTML += `<div class="popularity-bulletin-information">
+                                        <div class="popularity-bulletin-information-a">
+                                            <div class="popularity-bulletin-content-area">
+                                                <div class="popularity-bulletin-title">
+                                                    <span>`+ b.boardTitle +`</span>
+                                                </div>
+                                                <hr class="popularity-bulletin-hr">
+                                                <div class="popularity-bulletin-detail-content">
+                                                    <div class="content-box">`+ b.boardContent +`</div>
+                                                    <div class="heart-count-area">
+                                                        <img class="heart" src="/staez/resources/img/others/like-no.png" alt="">
+                                                        <input type="hidden" value="`+ b.boardNo +`" class="imgLike">
+                                                        <span class="heart-count">`+ b.likeCount +`</span>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <div class="user-and-category-tag-area">
+                                                <div class="user-profile"><img class="user-profile-img" src="" alt=""></div>
+                                                <button class="btn-staez checked" style="padding: 0px 10px"><h5 class="tag"></h5></button>
+                                                <button class="btn-staez checked" style="padding: 0px 10px"><h5 class="tag"></h5></button>
+                                            </div>  
                                         </div>
-                                        <div class="user-and-category-tag-area">
-                                            <div class="user-profile"><img class="user-profile-img" src="" alt=""></div>
-                                            <button class="btn-staez checked" style="padding: 0px 10px"><h5 class="tag"></h5></button>
-                                            <button class="btn-staez checked" style="padding: 0px 10px"><h5 class="tag"></h5></button>
-                                        </div>  
-                                    </div>
-                                </div>`
+                                    </div>`
+        } 
+    } else {
+        boardArea.innerHTML = ``
+        for(let b of bList){
+            boardArea.innerHTML += `<div class="popularity-bulletin-information">
+                                        <div class="popularity-bulletin-information-a" onclick="location.href='detail.cm?boardNo=`+ b.boardNo +`'">
+                                            <div class="popularity-bulletin-content-area">
+                                                <div class="popularity-bulletin-title">
+                                                    <span>`+ b.boardTitle +`</span>
+                                                </div>
+                                                <hr class="popularity-bulletin-hr">
+                                                <div class="popularity-bulletin-detail-content">
+                                                    <div class="content-box">`+ b.boardContent +`</div>
+                                                    <div class="heart-count-area" onclick="changeLike(this, event, `+ b.boardNo +`)">
+                                                        <img class="heart" src="/staez/resources/img/others/like-no.png" alt="">
+                                                        <input type="hidden" value="`+ b.boardNo +`" class="imgLike">
+                                                        <span class="heart-count">`+ b.likeCount +`</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="user-and-category-tag-area">
+                                                <div class="user-profile"><img class="user-profile-img" src="" alt=""></div>
+                                                <button class="btn-staez checked" style="padding: 0px 10px"><h5 class="tag"></h5></button>
+                                                <button class="btn-staez checked" style="padding: 0px 10px"><h5 class="tag"></h5></button>
+                                            </div>  
+                                        </div>
+                                    </div>`
+        }
     }
+   
+    selectUserLikeBoardNo({
+        uNo
+    },(ubNoList) => drawLikeImg(ubNoList));
 
     popularBoardCategory((boardCategory) => drawBoardListContentCategory(boardCategory));
 }
 
+function drawLikeImg(ubNoList){
+    const imgLike = document.querySelectorAll(".imgLike");
+    var bNoList = ubNoList.map(function(obj) {
+        return obj.boardNo;
+    });
+    for(let i = 0; i < imgLike.length; i++){
+        let value = parseInt(imgLike[i].value.trim(), 10);
+        if(bNoList.includes(value)){
+            var targetImgEl = imgLike[i].parentElement;
+            var targetImg = targetImgEl.querySelector(".heart");
+            targetImg.src="/staez/resources/img/others/like-yes.png"
+        } else {
+            var targetImgEl = imgLike[i].parentElement;
+            var targetImg = targetImgEl.querySelector(".heart");
+            targetImg.src="/staez/resources/img/others/like-no.png"
+        }
+    }
+
+    
+}
+
 function drawBoardListContentCategory(boardCategory){
-    const  categoryTag = document.querySelectorAll(".tag");
-    console.log(categoryTag)
+   const  categoryTag = document.querySelectorAll(".tag");
    for(let i = 0; i < boardCategory.length; i++){
     categoryTag[i].innerHTML = boardCategory[i].categoryName;
     categoryTag[i+1].innerHTML = boardCategory[i+1].categoryName;
@@ -168,9 +225,9 @@ function drawBoardListUserProFile(profiles){
 
 function checkedButtonHidden(){
     const pbutton = document.querySelector(".popularity-concert-information-area").querySelectorAll(".slider-btn");
-    console.log(pbutton)
+    
     const lbutton = document.querySelector(".latest-concert-information-area").querySelectorAll(".slider-btn");
-    console.log(lbutton)
+    
     const pCount = document.querySelectorAll(".popularity-concert-information");
     const lCount = document.querySelectorAll(".latest-concert-information");
     if(pCount.length < 6){
