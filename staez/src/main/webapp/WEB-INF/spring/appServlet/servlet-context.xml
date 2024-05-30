@@ -40,8 +40,14 @@
 	 -->
 	 <interceptors>
 	 	<interceptor>
-	 		<mapping path="/myPage.me"/>
-	 		<mapping path="/enrollForm.bo"/>
+	 		<mapping path="/main.me"/>
+	 		<mapping path="/detail.co"/>
+	 		<mapping path="/detail.no"/>
+	 		<mapping path="/detail.cm"/>
+	 		<mapping path="/incertForm.cm"/>
+	 		<mapping path="/updateForm.cm"/>
+	 		<mapping path="/*.iq"/>
+	 		<mapping path="/*.ad"/>
 	 		<beans:bean class="com.spring.staez.common.intercepter.LoginIntercepter" id="LoginIntercepter"/>
 	 	</interceptor>
 	 </interceptors>
