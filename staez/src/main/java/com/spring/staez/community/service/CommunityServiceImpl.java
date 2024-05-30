@@ -67,4 +67,10 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDao.selectCategory(sqlSession, boardNo);
 	}
 
+	@Transactional(readOnly = true)
+	@Override
+	public Board boardDetail(int boardNo) {
+		return communityDao.boardDetail(sqlSession, boardNo);
+	}
+
 }

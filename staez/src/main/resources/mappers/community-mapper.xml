@@ -142,5 +142,18 @@
 		JOIN category c ON (bc.category_no = c.category_no)
 		WHERE bc.board_no = #{boardNo}
 	</select>
+	<select id="boardDetail" resultMap="boardResult">
+		SELECT
+			b.board_no,
+			u.user_no,
+			u.nickname,
+			b.board_write_date,
+			b.board_title,
+			b.board_content,
+			b.board_count
+		FROM board b
+		JOIN staez_user u on (b.user_no = u.user_no)
+		WHERE b.board_no = ${boardNo}
+	</select>
 </mapper>
 

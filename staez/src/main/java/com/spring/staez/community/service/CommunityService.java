@@ -22,4 +22,6 @@ public interface CommunityService {
 
 	ArrayList<Category> selectCategory(int boardNo);
 
+	Board boardDetail(int boardNo);
+
 }
