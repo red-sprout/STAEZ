@@ -42,7 +42,7 @@
 	 	<interceptor>
 	 		<mapping path="/main.me"/>
 	 		<mapping path="/detail.co"/>
-	 		<mapping path="/detail.no"/>
+	 		<mapping path="/*.no"/>
 	 		<mapping path="/detail.cm"/>
 	 		<mapping path="/incertForm.cm"/>
 	 		<mapping path="/updateForm.cm"/>
