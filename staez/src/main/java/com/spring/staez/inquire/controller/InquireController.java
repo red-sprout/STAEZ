@@ -36,7 +36,6 @@ public class InquireController {
 	public String ajaxSelectCategory() {
 		ArrayList<Category> categorys = iService.selectCategory();
 		
-		System.out.println(categorys);
 		return  new Gson().toJson(categorys);
 	}
 	
