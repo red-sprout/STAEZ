@@ -1,4 +1,5 @@
 ------------------------------테이블 삭제------------------------------------
+DROP TABLE public.email_auth CASCADE;
 DROP TABLE public.concert_category CASCADE;
 DROP TABLE public.tag CASCADE;
 DROP TABLE public.board_category CASCADE;
@@ -21,20 +22,55 @@ DROP TABLE public.profile_img CASCADE;
 DROP TABLE public.staez_user CASCADE;
 
 ------------------------------시퀀스 삭제------------------------------------
-DROP SEQUENCE seq_board;
 DROP SEQUENCE seq_user;
+DROP SEQUENCE seq_profile_img;
+
+DROP SEQUENCE seq_board;
+DROP SEQUENCE seq_board_like;
+DROP SEQUENCE seq_board_attachment;
+DROP SEQUENCE seq_category;
+
+DROP SEQUENCE seq_reply;
+DROP SEQUENCE seq_reply_like;
+
 DROP SEQUENCE seq_concert;
+DROP SEQUENCE seq_concert_attachment;
+DROP SEQUENCE seq_concert_like;
+DROP SEQUENCE seq_concert_schedule;
+DROP SEQUENCE seq_theater;
+DROP SEQUENCE seq_reserve;
+DROP SEQUENCE seq_seat;
+DROP SEQUENCE seq_impossible_seat;
+DROP SEQUENCE seq_concert_review;
 
 ------------------------------시퀀스 생성------------------------------------
-CREATE SEQUENCE seq_concert START 1;
 CREATE SEQUENCE seq_user START 1;
+CREATE SEQUENCE seq_profile_img START 1;
+
 CREATE SEQUENCE seq_board START 1;
+CREATE SEQUENCE seq_board_like START 1;
+CREATE SEQUENCE seq_board_attachment START 1;
+CREATE SEQUENCE seq_category START 1;
+
+CREATE SEQUENCE seq_reply START 1;
+CREATE SEQUENCE seq_reply_like START 1;
+
+CREATE SEQUENCE seq_concert START 1;
+CREATE SEQUENCE seq_concert_attachment START 1;
+CREATE SEQUENCE seq_concert_like START 1;
+CREATE SEQUENCE seq_concert_schedule START 1;
+CREATE SEQUENCE seq_theater START 1;
+CREATE SEQUENCE seq_reserve START 1;
+CREATE SEQUENCE seq_seat START 1;
+CREATE SEQUENCE seq_impossible_seat START 1;
+CREATE SEQUENCE seq_concert_review START 1;
+
 
 ------------------------------테이블 생성------------------------------------
 /*회원 테이블*/
 CREATE TABLE public.staez_user
 (
-    user_no serial PRIMARY KEY,
+    user_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_user'),
     user_id character varying(20) NOT NULL UNIQUE,
     user_pwd character varying(100) NOT NULL,
     nickname character varying(50) NOT NULL UNIQUE,
@@ -106,7 +142,7 @@ COMMENT ON COLUMN public.staez_user.user_status
 /*프로필사진 테이블*/
 CREATE TABLE public.profile_img
 (
-    file_no serial PRIMARY KEY,
+    file_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_profile_img'),
     user_no integer NOT NULL,
     origin_name character varying(255) NOT NULL,
     change_name character varying(255) NOT NULL UNIQUE,
@@ -150,7 +186,7 @@ COMMENT ON COLUMN public.profile_img.status
 /*게시글 테이블*/
 CREATE TABLE public.board
 (
-    board_no serial PRIMARY KEY,
+    board_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_board'),
     ref_board_no integer,
     user_no integer NOT NULL,
     board_level integer NOT NULL DEFAULT 1, /*원글/문의/신고(1), 답변(2)*/
@@ -206,7 +242,7 @@ COMMENT ON COLUMN public.board.board_status
 /*게시글 첨부파일 테이블*/
 CREATE TABLE public.board_attachment
 (
-    file_no serial PRIMARY KEY,
+    file_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_board_attachment'),
     board_no integer NOT NULL,
     origin_name character varying(255) NOT NULL,
     change_name character varying(255) NOT NULL UNIQUE,
@@ -256,7 +292,7 @@ COMMENT ON COLUMN public.board_attachment.status
 /*게시글좋아요 테이블*/
 CREATE TABLE public.board_like
 (
-    board_like_no serial PRIMARY KEY,
+    board_like_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_board_like'),
     user_no integer NOT NULL,
     board_no integer NOT NULL,
     status character varying(1) NOT NULL CHECK(status IN('Y', 'N')) DEFAULT 'Y', /*눌러진상태(Y), 취소(N)*/
@@ -292,7 +328,7 @@ COMMENT ON COLUMN public.board_like.like_date
 /*댓글 테이블*/
 CREATE TABLE public.reply
 (
-    reply_no serial PRIMARY KEY,
+    reply_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_reply'),
     ref_reply_no integer,
     board_no integer NOT NULL,
     user_no integer NOT NULL,
@@ -336,7 +372,7 @@ COMMENT ON COLUMN public.reply.reply_status
 /*댓글좋아요 테이블*/
 CREATE TABLE public.reply_like
 (
-    reply_like_no serial PRIMARY KEY,
+    reply_like_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_reply_like'),
     reply_no integer,
     user_no integer NOT NULL,
     like_date timestamp with time zone NOT NULL DEFAULT now(),
@@ -372,7 +408,7 @@ COMMENT ON COLUMN public.reply_like.status
 /*공연 테이블*/
 CREATE TABLE public.concert
 (
-    concert_no serial PRIMARY KEY,
+    concert_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_concert'),
     theater_no integer NOT NULL,
     concert_title character varying(150) NOT NULL,
     concert_plot text NOT NULL,
@@ -428,7 +464,7 @@ COMMENT ON COLUMN public.concert.concert_status
 /*공연찜 테이블*/
 CREATE TABLE public.concert_like
 (
-    concert_like_no serial PRIMARY KEY,
+    concert_like_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_concert_like'),
     user_no integer NOT NULL,
     concert_no integer NOT NULL,
     concert_like_date timestamp with time zone NOT NULL DEFAULT now(),
@@ -464,7 +500,7 @@ COMMENT ON COLUMN public.concert_like.status
 /*좌석 테이블*/
 CREATE TABLE public.seat
 (
-    seat_id serial PRIMARY KEY,
+    seat_id integer PRIMARY KEY DEFAULT NEXTVAL('seq_seat'),
     concert_no integer NOT NULL,
     grade character varying(1), /*좌석 등급 CHECK 제약조건 나중에 추가*/
     price integer,
@@ -520,7 +556,7 @@ COMMENT ON COLUMN public.seat.status
 /*공연첨부파일 테이블*/
 CREATE TABLE public.concert_attachment
 (
-    file_no serial PRIMARY KEY,
+    file_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_concert_attachment'),
     concert_no integer NOT NULL,
     origin_name character varying(255) NOT NULL,
     change_name character varying(255) NOT NULL UNIQUE,
@@ -568,7 +604,7 @@ COMMENT ON COLUMN public.concert_attachment.status
 /*공연시설 테이블*/
 CREATE TABLE public.theater
 (
-    theater_no serial PRIMARY KEY,
+    theater_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_theater'),
     theater_name character varying(60) NOT NULL,
     theater_row integer NOT NULL,
     theater_col integer NOT NULL,
@@ -608,7 +644,7 @@ COMMENT ON COLUMN public.theater.telno
 /*착석불가 테이블*/
 CREATE TABLE public.impossible_seat
 (
-    impossible_seat_no serial PRIMARY KEY,
+    impossible_seat_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_impossible_seat'),
     theater_no integer NOT NULL,
     impossible_seat_row integer  NOT NULL,
     impossible_seat_col integer NOT NULL
@@ -640,7 +676,7 @@ COMMENT ON COLUMN public.impossible_seat.impossible_seat_col
 /*공연일정 테이블*/
 CREATE TABLE public.concert_schedule
 (
-    schedule_no serial PRIMARY KEY,
+    schedule_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_concert_schedule'),
     concert_no integer NOT NULL,
     schedule character varying(120) NOT NULL DEFAULT 'N', /*공연 시간(e.g. 20:00-22:00 or N)*/
     start_date date NOT NULL,
@@ -685,7 +721,7 @@ COMMENT ON COLUMN public.concert_schedule.status
 /*한줄평(별점) 테이블*/
 CREATE TABLE public.concert_review
 (
-    review_no serial PRIMARY KEY,
+    review_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_concert_review'),
     user_no integer NOT NULL,
     concert_no integer NOT NULL,
     review_content text,
@@ -731,7 +767,7 @@ COMMENT ON COLUMN public.concert_review.review_status
 /*예매내역 테이블*/
 CREATE TABLE public.reserve
 (
-    reserve_seat_no serial PRIMARY KEY,
+    reserve_seat_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_reserve'),
 	reserve_no integer NOT NULL,
     concert_no integer NOT NULL,
     user_no integer NOT NULL,
@@ -792,7 +828,7 @@ COMMENT ON COLUMN public.reserve.reserve_status
 /*카테고리 테이블*/
 CREATE TABLE public.category
 (
-    category_no serial PRIMARY KEY,
+    category_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_category'),
     ref_category_no integer,
     category_name character varying(30) NOT NULL,
     category_level integer NOT NULL DEFAULT 1
@@ -890,6 +926,31 @@ COMMENT ON COLUMN public.concert_category.concert_no
 COMMENT ON COLUMN public.concert_category.category_no
     IS '카테고리번호';
 
+
+
+
+
+/*이메일 인증 테이블*/
+CREATE TABLE public.email_auth(
+   email character varying(50) NOT NULL UNIQUE,
+   authNo character varying(6) NOT NULL,
+   send_time timestamp with time zone NOT NULL DEFAULT now()
+);
+
+ALTER TABLE IF EXISTS public.email_auth
+OWNER to postgres;
+
+COMMENT ON TABLE public.email_auth
+    IS '이메일인증';
+
+COMMENT ON COLUMN public.email_auth.email
+    IS '이메일주소';
+
+COMMENT ON COLUMN public.email_auth.authNo
+    IS '인증번호(6자리)';
+
+COMMENT ON COLUMN public.email_auth.send_time
+    IS '전송시간';
 
 
 
