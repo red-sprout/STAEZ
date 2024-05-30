@@ -9,10 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.community.model.dao.CommunityDao;
+import com.spring.staez.community.model.dto.AjaxBoardDto;
 import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
 import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.community.model.vo.BoardLike;
+import com.spring.staez.community.model.vo.Reply;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.user.model.vo.ProfileImg;
 
 @Service
 public class CommunityServiceImpl implements CommunityService {
@@ -73,4 +77,27 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDao.boardDetail(sqlSession, boardNo);
 	}
 
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public String selectProfile(int userNo) {
+		return communityDao.selectProfile(sqlSession, userNo);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public int selectUserBoardLike(AjaxBoardDto dto) {
+		return communityDao.selectUserBoardLike(sqlSession, dto);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public int selectBoardLikeCnt(AjaxBoardDto dto) {
+		return communityDao.selectBoardLikeCnt(sqlSession, dto);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public int selectReplyCnt(int boardNo) {
+		return communityDao.selectReplyCnt(sqlSession, boardNo);
+	}
 }

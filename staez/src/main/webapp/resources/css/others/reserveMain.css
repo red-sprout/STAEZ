@@ -259,7 +259,6 @@ main{
     gap: 40px;
     padding: 0px 20px;
     transition: transform 0.5s ease-in-out;
-    /* transition: transform 0.5s ease; 나중 스크립트 할때 사용할거 */
 }
 
 .latest-concert-information-a{
@@ -306,6 +305,8 @@ main{
 .popularity-bulletin-title-area>span {
     font-size: 23px;
     margin-right: 10px;
+    text-align: center;
+    font-weight: 800;
 }
 
 .popularity-bulletin-information-area{
@@ -343,6 +344,7 @@ main{
     height: 60px;
     display: flex;
     align-items: center;
+    
 }
 
 .popularity-bulletin-title{
@@ -351,11 +353,17 @@ main{
     display: flex;
     align-items: center;
     padding: 0px 20px;
+    overflow: hidden;
 }    
 
 .popularity-bulletin-title>span{
     font-size: 15px;
     font-weight: 800;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-align: left;
 }
 
 .popularity-bulletin-hr{

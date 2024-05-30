@@ -12,6 +12,8 @@
 <body>
 	<header>
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
+        <script src="<c:url value='/resources/js/api/adminapi.js'/>"></script>
+        <script src="<c:url value='/resources/js/admin/concertMain.js'/>"></script>
 	</header>
     <nav>
         <jsp:include page="/WEB-INF/views/admin/adminHeader.jsp" />
@@ -54,8 +56,9 @@
                                 <td>장소</td>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody class="admin-concert-container">
+
+                            <!-- <tr>
                                 <td class="admin-checkbox">
                                     <input type="checkbox" name="" id="">
                                 </td>
@@ -67,66 +70,15 @@
                                 <td>2024.05.12</td>
                                 <td>2024.05.26</td>
                                 <td>예술의전당 CJ토월극장</td>
-                            </tr>
-                            <tr>
-                                <td class="admin-checkbox">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td>뮤지컬</td>
-                                <td>천개의 파랑</td>
-                                <td class="admin-poster">
-                                    <img src="<c:url value='/resources/img/admin/poster-example.png'/>" alt="">
-                                </td>
-                                <td>2024.05.12</td>
-                                <td>2024.05.26</td>
-                                <td>예술의전당 CJ토월극장</td>
-                            </tr>
-                            <tr>
-                                <td class="admin-checkbox">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td>뮤지컬</td>
-                                <td>천개의 파랑</td>
-                                <td class="admin-poster">
-                                    <img src="<c:url value='/resources/img/admin/poster-example.png'/>" alt="">
-                                </td>
-                                <td>2024.05.12</td>
-                                <td>2024.05.26</td>
-                                <td>예술의전당 CJ토월극장</td>
-                            </tr>
-                            <tr>
-                                <td class="admin-checkbox">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td>뮤지컬</td>
-                                <td>천개의 파랑</td>
-                                <td class="admin-poster">
-                                    <img src="<c:url value='/resources/img/admin/poster-example.png'/>" alt="">
-                                </td>
-                                <td>2024.05.12</td>
-                                <td>2024.05.26</td>
-                                <td>예술의전당 CJ토월극장</td>
-                            </tr>
-                            <tr>
-                                <td class="admin-checkbox">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td>뮤지컬</td>
-                                <td>천개의 파랑</td>
-                                <td class="admin-poster">
-                                    <img src="<c:url value='/resources/img/admin/poster-example.png'/>" alt="">
-                                </td>
-                                <td>2024.05.12</td>
-                                <td>2024.05.26</td>
-                                <td>예술의전당 CJ토월극장</td>
-                            </tr>
+                            </tr> -->
+            
                         </tbody>
                     </table>
                 </form>
             </li>
             <li class="admin-middle">
                 <div class="page-list">
-                    <div class="pagination">
+                    <!-- <div class="pagination">
                         <img src="<c:url value='/resources/img/main/before.png'/>">
                     </div>
                     <div class="pagination current"><h4>1</h4></div>
@@ -141,7 +93,7 @@
                     <div class="pagination"><h4>10</h4></div>
                     <div class="pagination">
                         <img src="<c:url value='/resources/img/main/after.png'/>">
-                    </div>
+                    </div> -->
                 </div>
             </li>
         </ul>

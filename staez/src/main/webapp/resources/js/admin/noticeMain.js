@@ -1,9 +1,6 @@
 $(function() {
     category({ refCategoryNo: refCategoryMap.others }, (result) => onloadCategory(result));
-    selectNotice({
-        boardCode: boardCodeMap.notice,
-        ...getUrlParams()
-    }, res => draw(res));
+    selectNotice({boardCode: boardCodeMap.notice, categoryNo: getUrlParams().categoryNo}, res => draw(res));
 });
 
 function onloadCategory(result) {
