@@ -148,6 +148,11 @@ html { font-size:62.5%; }
     margin-top: 0;
     margin-bottom: 0;
 }
+
+.concert-down-ul li{
+    cursor: pointer;
+}
+
 .concert-detail-hr{
     align-self: center;
     width: 80%;

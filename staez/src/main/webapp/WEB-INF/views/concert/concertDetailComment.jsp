@@ -42,7 +42,7 @@
         <br>
         <div>
             <div class="concert-detail-comment-div">
-                <table class="concert-detail-comment-table">
+                <!-- <table class="concert-detail-comment-table">
                         <tbody>
                             <tr>
                                 <td align="left"><b>뮤덕이</b></td>
@@ -91,25 +91,28 @@
                       
                 </table>
             </div>
-            <br>        
-            <div class="concert-detail-comment-page-list">    
-                <div class="page-list" align="center">
-                    <div class="pagination">
-                        <img src="${pageContext.request.contextPath}/resources/img/main/before.png">
-                    </div>
-                    <div class="pagination current"><h4>1</h4></div>
-                    <div class="pagination"><h4>2</h4></div>
-                    <div class="pagination"><h4>3</h4></div>
-                    <div class="pagination"><h4>4</h4></div>
-                    <div class="pagination"><h4>5</h4></div>
-                    <div class="pagination">
-                        <img src="${pageContext.request.contextPath}/resources/img/main/after.png">
-                    </div>
-                </div>
-            </div>
-                <br><br>
-        </div>
+            <br>         -->
+
     </section>
+
+    <div class="concert-detail-comment-page-list">    
+        <!-- <div class="page-list" align="center">
+            <div class="pagination">
+                <img src="${pageContext.request.contextPath}/resources/img/main/before.png">
+            </div>
+            <div class="pagination current"><h4>1</h4></div>
+            <div class="pagination"><h4>2</h4></div>
+            <div class="pagination"><h4>3</h4></div>
+            <div class="pagination"><h4>4</h4></div>
+            <div class="pagination"><h4>5</h4></div>
+            <div class="pagination">
+                <img src="${pageContext.request.contextPath}/resources/img/main/after.png">
+            </div>
+        </div>
+    </div>
+        <br><br> -->
+    </div>
+
 	<div>
 		<jsp:include page="../common/footer.jsp" />
 	</div>

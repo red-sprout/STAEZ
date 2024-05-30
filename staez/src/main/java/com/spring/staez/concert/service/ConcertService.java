@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertReview;
 
 public interface ConcertService {
 
@@ -30,6 +31,10 @@ public interface ConcertService {
 	int checkConLike(Map<String, Integer> conL);
 
 	ArrayList<Concert> selectConDetail(int concertNo);
+
+	ArrayList<ConcertReview> selectComDetail(int concertNo);
+
+	ArrayList<ConcertReview> selectRevDetail(int concertNo);
 
 //	// 좋아요 insert, 
 //    int insertConLike(ConcertLike conL);
