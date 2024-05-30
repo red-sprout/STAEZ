@@ -229,10 +229,11 @@ function drawCommentDetail(result){
     drawSection.innerHTML = ``;
 
     if(result.length === 0){
-        // let divEmpty = document.createElement('div');
+        let divEmpty = document.createElement('p');
         drawSection.innerHTML += "등록된 한줄평이 없습니다.";
-        // divEmpty.appendChild(divEmpty);
-        // divEmpty.style.fontSize = '32px';
+        drawSection.appendChild(divEmpty);
+
+        divEmpty.style.fontSize = '32px';
 
     } else { 
         for(let c of result){
