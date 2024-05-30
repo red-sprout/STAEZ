@@ -24,6 +24,7 @@ public class ConcertReview {
 	
 	private String concertTitle; //공연명
 	
+	private String nickname;//회원 닉네임
 	private String originName; //파일원래명칭
 	private String changeName; //파일수정명
 	private String filePath; //파일경로

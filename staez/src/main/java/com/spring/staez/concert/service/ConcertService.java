@@ -29,6 +29,8 @@ public interface ConcertService {
 	// 콘서트 좋아요 버튼 확인
 	int checkConLike(Map<String, Integer> conL);
 
+	ArrayList<Concert> selectConDetail(int concertNo);
+
 //	// 좋아요 insert, 
 //    int insertConLike(ConcertLike conL);
 //    int updateLikeYtoN(ConcertLike conL);
