@@ -41,7 +41,9 @@ public class CommunityController {
 	}
 	
 	@GetMapping("detail.cm")
-	public String communityDetail() {
+	public String communityDetail(int boardNo, Model model) {
+		Board board = communityService.boardDetail(boardNo);
+		model.addAttribute("b", board);
 		return "community/communityDetail";
 	}
 	
