@@ -274,7 +274,7 @@ function emailSecretCode() {
     checkButton.addEventListener("click", function() {
         const verificationCodeValue = verificationCodeInput.value.trim();
         
-        if (verificationCodeValue.length >= 6) {
+        if (verificationCodeValue.length >= 6 && verificationCodeValue.length <= 6) {
             // 입력된 이메일과 입력된 값을 서버로 보냄
             const emailValue = checkEmail.value;
             console.log("Email: " + emailValue);
@@ -284,9 +284,10 @@ function emailSecretCode() {
             });
         } else {
             console.log("인증코드는 6자리 이상이어야 합니다.");
-            emailSecretErrorMessage.innerText = "인증코드는 6자리 이상이어야 합니다.";
-            emailSecretErrorMessage.style.display = "block"; // 에러 메시지 표시
-            emailSecretCheckResult.style.display = "none";
+            emailSecretCheckResult.innerText = "인증코드는 6자리 이상이어야 합니다.";
+            emailSecretCheckResult.style.color = "red";
+            emailSecretCheckResult.style.display = "block"; // 에러 메시지 표시
+            emailSecretErrorMessage.style.display = "none";
         }
     });
 }

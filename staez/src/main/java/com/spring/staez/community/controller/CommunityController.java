@@ -1,7 +1,9 @@
 package com.spring.staez.community.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,11 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.common.template.MyFileRenamePolicy;
+import com.spring.staez.community.model.dto.AjaxBoardDto;
 import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.community.service.CommunityService;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.user.model.vo.ProfileImg;
 
 @Controller
 public class CommunityController {
@@ -41,7 +45,9 @@ public class CommunityController {
 	}
 	
 	@GetMapping("detail.cm")
-	public String communityDetail() {
+	public String communityDetail(int boardNo, Model model) {
+		Board board = communityService.boardDetail(boardNo);
+		model.addAttribute("b", board);
 		return "community/communityDetail";
 	}
 	
@@ -105,5 +111,35 @@ public class CommunityController {
 		}
 		
 		return "main.cm";
+	}
+	
+	// 프로필 가져오기
+	@ResponseBody
+	@GetMapping(value = "select.pr", produces = "application/json; charset-UTF-8")
+	public String selectProfile(int userNo) {
+		ProfileImg profile = communityService.selectProfile(userNo);
+		return new Gson().toJson(profile);
+	}
+	
+	// 게시글 좋아요 가져오기
+	@ResponseBody
+	@GetMapping(value = "select.bl", produces = "application/json; charset-UTF-8")
+	public String selectLike(AjaxBoardDto dto) {
+		int boardLikeCnt = communityService.selectBoardLikeCnt(dto);
+		int userBoardLikeCnt = communityService.selectUserBoardLike(dto);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardLikeCnt", boardLikeCnt);
+		map.put("userBoardLike", userBoardLikeCnt > 0);
+		
+		return new Gson().toJson(map);
+	}
+	
+	// 댓글 갯수 가져오기
+	@ResponseBody
+	@GetMapping(value = "select.rp", produces = "application/json; charset-UTF-8")
+	public String selectReply(int boardNo) {
+		int replyCnt = communityService.selectReplyCnt(boardNo);
+		return String.valueOf(replyCnt);
 	}
 }

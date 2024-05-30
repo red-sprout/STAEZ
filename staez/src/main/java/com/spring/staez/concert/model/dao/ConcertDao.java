@@ -40,6 +40,10 @@ public class ConcertDao {
 		return sqlSession.selectOne("concertMapper.checkLike", conL);
 	}
 
+	public ArrayList<Concert> selectConDetail(SqlSessionTemplate sqlSession, int concertNo) {
+		return (ArrayList)sqlSession.selectList("concertMapper.selectConDetail", concertNo);
+	}
+
 //	public int insertConLike(SqlSessionTemplate sqlSession, ConcertLike conL) {
 //		return sqlSession.insert("concertMapper.insertConLike", conL);
 //	}

@@ -87,3 +87,39 @@ function boardCategory(data, callback) {
         }
     });
 }
+
+function selectProfile(data, callback) {
+    $.ajax({
+        url: contextPath + "select.pr",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("프로필 요청 실패");
+        }
+    })
+}
+
+function selectLike(data, callback) {
+    $.ajax({
+        url: contextPath + "select.bl",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("좋아요 요청 실패");
+        }
+    })
+}
+
+function selectReply(data, callback) {
+    $.ajax({
+        url: contextPath + "select.rp",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("댓글 요청 실패");
+        }
+    })
+}

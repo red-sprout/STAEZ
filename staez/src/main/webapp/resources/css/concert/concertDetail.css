@@ -17,6 +17,11 @@
 
 /* 공연상세페이지 아래쪽: ajax(공연상세정보, 판매정보, 한줄평, 관람후기 내용) */
 /* 공연상세정보 */
+.concert-detail-subject{
+    width: 75%;
+    margin: 0 auto;
+    line-height: 2.5;
+}
 .concert-detail-subject>span>h3{
     text-align: left;
     margin-left: 300px;
