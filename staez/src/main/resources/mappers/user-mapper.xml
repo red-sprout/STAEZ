@@ -124,6 +124,7 @@
 		   AND email = #{email}
 		   AND send_time >= CURRENT_TIMESTAMP - INTERVAL '5 minutes';
 	</select>
+	
 
 </mapper>
 
