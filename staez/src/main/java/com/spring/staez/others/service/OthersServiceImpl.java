@@ -106,12 +106,13 @@ public class OthersServiceImpl implements OthersService{
 
 	@Override
 	public ArrayList<BoardLike> insertUpdatelike(int userNo, int boardNo) {
-		Map data = new HashMap();
+		Map<String, Integer> data = new HashMap();
 		data.put("uNo", userNo);
 		data.put("bNo", boardNo);
 		ArrayList<BoardLike> like = null; 
-		int result1 = oDao.checkLikeStatus(sqlSession, data);
 		
+		int result1 = oDao.checkLikeStatus(sqlSession, data);
+		System.out.println(result1);
 		if(result1 < 1) { //insert문
 			int result2 = oDao.insertBoardLike(sqlSession, data);
 			

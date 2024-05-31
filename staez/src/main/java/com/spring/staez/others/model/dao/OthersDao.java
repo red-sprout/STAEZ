@@ -72,7 +72,9 @@ public class OthersDao {
 	}
 	
 	public int checkLikeStatus(SqlSessionTemplate sqlSession, Map data) {
-		return sqlSession.selectOne("othersMapper.checkLikeStatus", data);
+		String result = sqlSession.selectOne("othersMapper.checkLikeStatus", data);
+		
+		return result != null ? 1 : 0;
 	}
 	
 	public int insertBoardLike(SqlSessionTemplate sqlSession, Map data) {
