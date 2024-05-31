@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+$(function() {
     updateCombinedAddress()
     updateCombinedPhone()
     updateCombinedEmail()
@@ -6,75 +6,105 @@ document.addEventListener('DOMContentLoaded', function() {
     firstLikeGenre();
 });
 
+$(function() {
+    // 버튼 클릭 이벤트
+    $('#password-auth button').click(function() {
+        authPassword();
+    });
+
+    // Enter 키 이벤트
+    $('#pwdInput').keypress(function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Enter 키의 기본 동작 막기
+            authPassword();
+        }
+    });
+});
 
 // 회원정보 변경 전 비밀번호 인증
 function authPassword() {
-    const inputPwd = document.getElementById('auth-password').value;
+    const inputPwd = $('#pwdInput').val();
 
     console.log(inputPwd);
 
-    authPwdAjax({inputPwd}, (res) => {
-        if (res === 'NNNNY') { //비밀번호 인증 성공
-            alert('인증에 성공하였습니다');
-            document.querySelector('form').hidden = false;
-            document.getElementById('password-auth').hidden = true;
+    authPwdAjax({inputPwd}, function(res) {
+        if (res === 'NNNNY') { // 비밀번호 인증 성공
+            $('form').prop('hidden', false);
+            $('#password-auth').prop('hidden', true);
         } else {
-            document.getElementById('auth-fail').hidden = false;
+            $('#auth-fail').prop('hidden', false);
         }
-
     });
-
 }
 
+//프로필 이미지 불러오기
+$(function() {
+    loadProfileImgAjax(function(res) {
+        const profileImg = $('#profile-img>img');
+        const profilePreview = $('#profile-preview');
+        if(res.changeName !== undefined){
+            profileImg.attr('src', $('#contextPath').val() + res.filePath + res.changeName); 
+            profilePreview.attr('src', $('#contextPath').val() + res.filePath + res.changeName); 
+        } else{
+            profileImg.attr('src', $('#contextPath').val() + res.filePath + 'profile_img_default.png'); 
+            profilePreview.attr('src', $('#contextPath').val() + res.filePath + 'profile_img_default.png'); 
+        }
+    });
+});
 
 // 프로필 이미지 변경
-document.addEventListener('DOMContentLoaded', function() {
-    const profilePreview = document.querySelector('#profile-preview'); //프로필이미지 미리보기
-    const currentImageSrc = profilePreview.src; //현재 적용되어 있던 이미지 담기
-    const defaultImageSrc = document.querySelector(".img-tag input[type='hidden']").value; // 기본 이미지 경로 hidden으로 숨겨서 스크립트에 넘겨줌
-    const radioButtons = document.querySelectorAll(".img-tag input[type='radio']");
-    const closeButtons = document.querySelectorAll("#imgModal button[type='button']");
-    const newImageInput = document.querySelector("input[name='upfile']"); // 추가: 파일 인풋 요소 선택
-    const newImageRadio = document.querySelector(".img-tag input[value='new-img']");
+$(function() {
+    const profilePreview = $('#profile-preview'); // 프로필 이미지 미리보기
+
+    const radioButtons = $(".img-tag input[type=radio]"); //radio 버튼들
+    const closeButtons = $("#imgModal button[type=button]"); //닫기 버튼들
+    const newImageInput = $("input[name=upfile]"); // 추가: 파일 인풋 요소 선택
+    const newImageRadio = $(".img-tag input[value=newImg]"); //'변경할 이미지 선택' radio버튼
+
+    let currentImageSrc; // 현재 적용되어 있던 이미지 경로
+    loadProfileImgAjax(function(res) {
+        if(res.changeName !== undefined){
+            currentImageSrc = $('#contextPath').val() + res.filePath + res.changeName; 
+        } else{
+            currentImageSrc = $('#contextPath').val() + res.filePath + 'profile_img_default.png'; 
+        }
+        
+    });
+    const defaultImageSrc = $(".img-tag input[type=hidden]").val(); // 기본 이미지 경로(hidden으로 숨겨서 스크립트에 넘겨줌)
 
     // 라디오 버튼 변경 시 이미지 미리보기 업데이트
-    radioButtons.forEach(radio => {
-        radio.addEventListener('change', function() {
-            if (this.value === 'current-img') {
-                profilePreview.src = currentImageSrc;
-                newImageInput.value = '';
-            } else if (this.value === 'default-img') {
-                profilePreview.src = defaultImageSrc;
-                newImageInput.value = '';
-            } else if (this.value === 'new-img') {
-                newImageInput.click();
-            }
-        });
+    radioButtons.change(function() {
+        if (this.value === 'currentImg') {
+            profilePreview.attr('src', currentImageSrc);
+            newImageInput.val('');
+        } else if (this.value === 'defaultImg') {
+            profilePreview.attr('src', defaultImageSrc);
+            newImageInput.val('');
+        } else if (this.value === 'newImg') {
+            newImageInput.click();
+        }
     });
 
     // 새 이미지 선택 시 이미지 미리보기 업데이트
-    newImageInput.addEventListener('change', function(event) {
+    newImageInput.change(function(event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                profilePreview.src = e.target.result;
+                profilePreview.attr('src', e.target.result);
             };
             reader.readAsDataURL(file);
-            newImageRadio.checked = true;
+            newImageRadio.prop('checked', true);
         }
     });
 
-    //(프로필이미지 변경) 닫기, 취소 버튼누르면 input들 초기화
-    closeButtons.forEach(button => {
-        button.addEventListener('click', function(){
-            radioButtons[0].checked = true;
-            profilePreview.src = currentImageSrc; //미리보기 이미지 선택값에 따라 변경
-            newImageInput.value = '';
-        });
+    // (프로필이미지 변경) 닫기, 취소 버튼 누르면 input들 초기화
+    closeButtons.click(function() {
+        radioButtons.first().prop('checked', true);
+        profilePreview.attr('src', currentImageSrc); // 미리보기 이미지 선택값에 따라 변경
+        newImageInput.val('');
     });
 });
-
 
 // 비밀번호 변경
 // 비밀번호 입력때마다 유효성 확인
@@ -155,7 +185,6 @@ function withdrawalAuth() {
 }
 
 
-
 //닉네임 중복확인 ajax
 function checkNickname(){
     const nickname = document.querySelector("input[name='nickname']");
@@ -174,8 +203,6 @@ function checkNickname(){
     }
 
     dupliCheck({nickname: nickname.value}, (res) => {
-        console.log(warningText);
-        console.log(nickname.value);
         //중복닉네임이 있을 경우
         if(res === 'NNNNN'){
             inputAlert(warningText, '중복된 닉네임이 존재합니다', 'red');

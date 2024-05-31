@@ -14,14 +14,7 @@ import com.spring.staez.user.model.vo.User;
 
 @Repository
 public class MypageDao {
-	public User test(SqlSessionTemplate sqlSession) {
-		
-		User m = sqlSession.selectOne("userMapper.test"); 
-		System.out.println(m);
-		
-		return m ;
-	}
-	
+
 	public int duplicateCheck(SqlSessionTemplate sqlSession, String nickname) {
 		int result = sqlSession.selectOne("mypageMapper.duplicateCheck", nickname);
 		return result;
@@ -29,7 +22,6 @@ public class MypageDao {
 	
 	public int passwordCheck(SqlSessionTemplate sqlSession, String inputPwd) {
 		int result = sqlSession.selectOne("mypageMapper.passwordCheck", inputPwd);
-		System.out.println(result);
 		return result;
 	}
 	
@@ -45,12 +37,17 @@ public class MypageDao {
 		return result;
 	}
 
+	public ProfileImg loadProfileImg(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("mypageMapper.loadProfileImg", userNo);
+	}
+	
 	public int insertProfileImg(SqlSessionTemplate sqlSession, ProfileImg profileImg) {
 		int result = sqlSession.insert("mypageMapper.insertProfileImg", profileImg);
 		return result;
 	}
 
 	public int updateProfileImg(SqlSessionTemplate sqlSession, ProfileImg profileImg) {
+		System.out.println("repo: "+ profileImg);
 		int result = sqlSession.update("mypageMapper.updateProfileImg", profileImg);
 		return result;
 	}
