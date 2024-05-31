@@ -3,11 +3,17 @@
 INSERT INTO staez_user
 VALUES (DEFAULT, 'admin', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '관리자', 'M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user@gmail.com', '01011111111','', 1, DEFAULT, NULL, 'Y');
 INSERT INTO staez_user
-VALUES (DEFAULT, 'user01', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', 'lwg', 'F', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'admin@gmail.com', '01012345678','뮤지컬', 2, DEFAULT, NULL, 'Y');
+VALUES (DEFAULT, 'user01', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', 'wg', 'M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'admin@gmail.com', '01012345678','', 2, DEFAULT, NULL, 'Y');
 INSERT INTO staez_user
-VALUES (DEFAULT, 'missjj23', '$2a$10$86mSdcCkui2Imx3GZqLLFux4RFHjkgrQsAWkL3nWs/hb7mp26HGLG', 'Joon', 'M', '1998-08-31', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'missjj312@naver.com', '01023860434','뮤지컬', 2, DEFAULT, NULL, 'Y');
+VALUES (DEFAULT, 'user02', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', 'hyo', 'M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'admin@gmail.com', '01012345678','', 2, DEFAULT, NULL, 'Y');
 INSERT INTO staez_user
-VALUES (DEFAULT, 'user00', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '탈퇴한놈', 'M', '1998-08-31', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'withdrawal@gmail.com', '01099999999','', 2, DEFAULT, NULL, 'Y');
+VALUES (DEFAULT, 'user03', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', 'joo', 'M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'admin@gmail.com', '01012345678','', 2, DEFAULT, NULL, 'Y');
+INSERT INTO staez_user
+VALUES (DEFAULT, 'user04', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', 'joon', 'M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'admin@gmail.com', '01012345678','', 2, DEFAULT, NULL, 'Y');
+INSERT INTO staez_user
+VALUES (DEFAULT, 'missjj23', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', 'nam', 'F', '1998-08-31', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'missjj312@naver.com', '01023860434','', 2, DEFAULT, NULL, 'Y');
+INSERT INTO staez_user
+VALUES (DEFAULT, 'user00', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '탈퇴한놈', 'M', '1991-11-11', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'withdrawal@gmail.com', '01099999999','', 2, DEFAULT, NULL, 'N');
 
 SELECT * FROM staez_user;
 
@@ -15,9 +21,17 @@ SELECT * FROM staez_user;
 INSERT INTO profile_img
 VALUES (DEFAULT, 1, '원래이름.png', '202405201111.png', '/resources/uploadfiles/profile/', DEFAULT, 'Y');
 INSERT INTO profile_img
-VALUES (DEFAULT, 2, '원래이름.png', '202405221111.png', '/resources/uploadfiles/profile/', DEFAULT, 'Y');
+VALUES (DEFAULT, 2, '원래이름.png', '202405221112.png', '/resources/uploadfiles/profile/', DEFAULT, 'Y');
 INSERT INTO profile_img
-VALUES (DEFAULT, 4, '원래이름.png', '202405251111.png', '/resources/uploadfiles/profile/', DEFAULT, 'N');
+VALUES (DEFAULT, 3, '원래이름.png', '202405221113.png', '/resources/uploadfiles/profile/', DEFAULT, 'Y');
+INSERT INTO profile_img
+VALUES (DEFAULT, 4, '원래이름.png', '202405221114.png', '/resources/uploadfiles/profile/', DEFAULT, 'Y');
+INSERT INTO profile_img
+VALUES (DEFAULT, 5, '원래이름.png', '202405221115.png', '/resources/uploadfiles/profile/', DEFAULT, 'Y');
+INSERT INTO profile_img
+VALUES (DEFAULT, 6, '원래이름.png', '202405251116.png', '/resources/uploadfiles/profile/', DEFAULT, 'Y');
+INSERT INTO profile_img
+VALUES (DEFAULT, 7, '원래이름.png', '202405251117.png', '/resources/uploadfiles/profile/', DEFAULT, 'Y');
 
 SELECT * FROM profile_img;
 
