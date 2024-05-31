@@ -241,7 +241,9 @@ public class MypageController {
 		ProfileImg profileImg = mypageService.loadProfileImg(userNo);
 		
 		if(profileImg == null) {
-			return null;
+			profileImg = new ProfileImg();
+			profileImg.setFilePath("/resources/img/mypage/profile/");
+			return new Gson().toJson(profileImg);
 		}
 		
 		return new Gson().toJson(profileImg);
