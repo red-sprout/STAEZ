@@ -1,6 +1,8 @@
 package com.spring.staez.inquire.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.common.model.vo.PageInfo;
+import com.spring.staez.common.template.Pagination;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.inquire.service.InquireService;
 
@@ -56,29 +60,60 @@ public class InquireController {
 	
 	@ResponseBody
 	@GetMapping(value = "ajaxSelectFaq.iq" , produces="application/json; charset-UTF-8")
-	public String ajaxSelectFaq() {
-		ArrayList<Board> faqs = iService.ajaxSelectFaq();
+	public String ajaxSelectFaq(String cPage) {
 		
-		System.out.println(faqs);
-		return  new Gson().toJson(faqs);
+		
+		int currentPage = Integer.parseInt(cPage);
+		int listCount = iService.ajaxSelectFaqCount();
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 1);
+		
+		ArrayList<Board> faqs = iService.ajaxSelectFaq(pi);
+		System.out.println(listCount);
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put("faqs", faqs);
+		resMap.put("pi", pi);
+		
+		return  new Gson().toJson(resMap);
 	}
 	
 	@ResponseBody
 	@GetMapping(value = "ajaxSearchSelectFaq.iq" , produces="application/json; charset-UTF-8")
-	public String ajaxSearchSelectFaq(String option, String content) {
-		ArrayList<Board> faqs = iService.ajaxSearchSelectFap(option, content);
+	public String ajaxSearchSelectFaq(String option, String content, String cPage) {
 		
-		System.out.println(faqs);
-		return  new Gson().toJson(faqs);
+		int listSize = iService.ajaxSearchSelectFapCount(option, content);
+		int currentPage = Integer.parseInt(cPage);
+		int listCount = listSize;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 1);
+		
+		ArrayList<Board> faqs = iService.ajaxSearchSelectFap(option, content, pi);
+		
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put("faqs", faqs);
+		resMap.put("pi", pi);
+		
+		return  new Gson().toJson(resMap);
 	}
 	
 	@ResponseBody
 	@GetMapping(value = "ajaxCategoryFaq.iq" , produces="application/json; charset-UTF-8")
-	public String ajaxSelectCategoryFaq(String categoryName) {
-		ArrayList<Board> faqs = iService.ajaxSelectCategoryFaq(categoryName);
+	public String ajaxSelectCategoryFaq(String categoryName, String cPage) {
 		
-		System.out.println(faqs);
-		return  new Gson().toJson(faqs);
+		int currentPage = Integer.parseInt(cPage);
+		int listCount = iService.ajaxSelectCategoryFaqCount(categoryName);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 1);
+		
+		
+		ArrayList<Board> faqs = iService.ajaxSelectCategoryFaq(categoryName, pi);
+		System.out.println(listCount);
+
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put("faqs", faqs);
+		resMap.put("pi", pi);
+		
+		return  new Gson().toJson(resMap);
 	}
 	
 	

@@ -74,9 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 month = btnId === "next" ? month + 1 : month - 1;
             }
 
-            date = new Date(year, month, new Date().getDate());
-            year = date.getFullYear();
-            month = date.getMonth();
+            // date = new Date(year, month, new Date().getDate());
+            // year = date.getFullYear();
+            // month = date.getMonth();
 
             renderCalendar();
         });
@@ -172,7 +172,7 @@ function drawDateCategoryConcert(result){
                                     </div>`
     }
     
-    if(concertList !== 0){
+    if(concertList){
         const pi = result.pi;
         const pageArea = document.querySelector(".page-list");
         
@@ -249,9 +249,9 @@ function clickDate(_this){
     _this.classList.add("clickDate");
     _this.classList.add("clicked");
 
-    let year = date.getFullYear();
+    // let year = date.getFullYear();
     let day = _this.textContent; // 클릭된 날짜의 텍스트 콘텐츠
-    let month = date.getMonth();
+    // let month = date.getMonth();
     spanDayChange2(year, month, day);
 }
 
@@ -285,8 +285,8 @@ function spanDayChange2(y, m, d){
 }
 
 function spanDayChange3(y, m){
-    console.log(clickedDate);
-
+    
+    console.log("안녕")
     
     clickedDate.innerHTML = ``; 
     clickedDate.parentElement.classList.add('hidden')
