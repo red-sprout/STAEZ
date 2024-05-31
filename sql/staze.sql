@@ -144,9 +144,9 @@ CREATE TABLE public.profile_img
 (
     file_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_profile_img'),
     user_no integer NOT NULL,
-    origin_name character varying(255) NOT NULL,
-    change_name character varying(255) NOT NULL UNIQUE,
-    file_path character(1000) NOT NULL,
+    origin_name character varying(255),
+    change_name character varying(255) UNIQUE,
+    file_path character varying(1000) NOT NULL,
     upload_date timestamp with time zone NOT NULL DEFAULT now(),
     status character varying(1) NOT NULL CHECK(status IN ('Y', 'N')) DEFAULT 'Y'
 	/*사진있음(Y), 없음(N)*/
@@ -767,8 +767,7 @@ COMMENT ON COLUMN public.concert_review.review_status
 /*예매내역 테이블*/
 CREATE TABLE public.reserve
 (
-    reserve_seat_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_reserve'),
-	reserve_no integer NOT NULL,
+    reserve_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_reserve'),
     concert_no integer NOT NULL,
     user_no integer NOT NULL,
     reserve_row integer NOT NULL,
@@ -783,9 +782,6 @@ CREATE TABLE public.reserve
 
 ALTER TABLE IF EXISTS public.reserve
     OWNER to postgres;
-
-COMMENT ON COLUMN public.reserve.reserve_seat_no
-    IS '예약좌석번호';
 
 COMMENT ON TABLE public.reserve
     IS '예매내역';

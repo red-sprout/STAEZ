@@ -75,8 +75,17 @@
 		WHERE user_id = #{userId}
 	</update>
 	
+	<select id="loadProfileImg" resultType="profileImg">
+		SELECT file_no AS fileNo, 
+			   user_no AS userNo,
+			   change_name AS changeName,  
+			   file_path AS filePath 
+		FROM profile_img
+		WHERE user_no = #{userNo};
+	</select>
+	
 	<insert id="insertProfileImg">
-		INSERT INTO staez_user
+		INSERT INTO profile_img
 		VALUES (DEFAULT, 
 				#{userNo}, 
 				#{originName}, 
@@ -87,13 +96,13 @@
 	</insert>
 	
 	<update id="updateProfileImg">
-		UPDATE staez_user 
-		SET (origin_name = #{originName},
-			 change_name = #{changeName},
-			 file_path = #{filePath},
-			 upload_date = DEFAULT)
+		UPDATE profile_img
+		SET origin_name = #{originName},
+		    change_name = #{changeName},
+		    file_path = #{filePath},
+		    upload_date = DEFAULT
 		WHERE user_no = #{userNo}
-		AND user_status = 'Y'
+		AND status = 'Y'
 	</update>
 	
 	<update id="withdrawalUser">
@@ -189,7 +198,6 @@
 		       c.concert_members AS concertMembers,
 		       c.age_limit AS ageLimit,
 		       t.theater_name AS theaterName,
-		       ca.origin_name AS originName,
 		       ca.change_name AS changeName,
 		       ca.file_path AS filePath, 
 		       cs_min_max.start_date AS startDate,
@@ -234,7 +242,6 @@
 			   c.concert_title AS concertTitle,
 			   c.concert_runtime AS concertRuntime,
 			   t.theater_name AS theaterName,
-			   ca.origin_name AS originName,
 			   ca.change_name AS changeName,
 			   ca.file_path AS filePath
 			

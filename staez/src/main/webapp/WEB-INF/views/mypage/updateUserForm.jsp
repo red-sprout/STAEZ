@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${contextPath}/resources/css/mypage/updateUserForm.css">
 <script src="${contextPath}/resources/js/mypage/updateUserForm.js"></script>
 <script src="${contextPath}/resources/js/api/mypageapi.js"></script>
@@ -13,39 +12,44 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <div class="main-content">
+    <input type="hidden" id="contextPath" value="${contextPath}">
     <div class="section-title">설정</div>
-    
+
     <div class="main-title">
         <h2>회원정보변경</h2>
     </div>
     <div id="profile-update">
-
-        <div id="password-auth" >
+        <div id="password-auth" hidden>
             <h3>비밀번호 인증</h3>
             <div>
-                <input type="password" id="auth-password" placeholder="비밀번호 입력">
-                <button type="button" class="btn-staez purple" onclick="authPassword()">인증</button>
+                <input type="password" id="pwdInput" placeholder="비밀번호 입력">
+                <button type="button" class="btn-staez purple">인증</button>
             </div>
             <p id="auth-fail" hidden>비밀번호가 일치하지 않습니다.</p>
         </div>
 
-        <form action="update.me" method="POST" hidden>
+        <form action="update.me" method="POST" >
             <div id="profile-img">
-                <img src="${contextPath}/resources/img/mypage/profile/profile_img_temp.png" alt="" data-toggle="modal" data-target="#imgModal">
+                <img src="" alt="" data-toggle="modal" data-target="#imgModal">
             </div>
             <div id="update-form">
                 <table>
                     <tbody>
                         <tr>
-                            <th><h3>비밀번호</h3></th>
+                            <th>
+                                <h3>비밀번호</h3>
+                            </th>
                             <td id="pwd-btn">
-                                <button type="button" data-toggle="modal" data-target="#pwdModal">비밀번호 변경</button>
+                                <button type="button" data-toggle="modal" data-target="#pwdModal">비밀번호
+                                    변경</button>
                             </td>
                             <td></td>
                         </tr>
 
                         <tr>
-                            <th><h3>아이디</h3></th>
+                            <th>
+                                <h3>아이디</h3>
+                            </th>
                             <td class="input-box">
                                 <input type="text" name="userId" value="${loginUser.userId}" readonly>
                             </td>
@@ -53,7 +57,9 @@
                         </tr>
 
                         <tr>
-                            <th><h3>생년월일</h3></th>
+                            <th>
+                                <h3>생년월일</h3>
+                            </th>
                             <td class="input-box">
                                 <input type="date" name="birth" value="${loginUser.birth}" readonly>
                             </td>
@@ -62,9 +68,12 @@
                         </tr>
 
                         <tr>
-                            <th><h3>닉네임</h3></th>
+                            <th>
+                                <h3>닉네임</h3>
+                            </th>
                             <td class="input-box">
-                                <input type="text" name="nickname" value="${loginUser.nickname}" placeholder="" maxlength="16">
+                                <input type="text" name="nickname" value="${loginUser.nickname}"
+                                    placeholder="" maxlength="16">
                             </td>
                             <td class="input-btn">
                                 <button type="button" onclick="checkNickname()">중복확인</button>
@@ -72,22 +81,26 @@
                         </tr>
                         <tr class="warning-text">
                             <td></td>
-                            <td><h5></h5></td>
+                            <td>
+                                <h5></h5>
+                            </td>
                             <td></td>
                         </tr>
 
                         <tr>
-                            <th><h3>성별</h3></th>
+                            <th>
+                                <h3>성별</h3>
+                            </th>
                             <td id="gender-input">
                                 <div>
                                     <label for="male">
-                                        <input type="radio" name="gender" id="male" value="M" 
-                                            <c:if test="${loginUser.gender == 'M'}">checked</c:if>>
+                                        <input type="radio" name="gender" id="male" value="M" <c:if
+                                            test="${loginUser.gender == 'M'}">checked</c:if>>
                                         <h4>남자</h4>
                                     </label>
                                     <label for="female">
-                                        <input type="radio" name="gender" id="female" value="F" 
-                                            <c:if test="${loginUser.gender == 'F'}">checked</c:if>>
+                                        <input type="radio" name="gender" id="female" value="F" <c:if
+                                            test="${loginUser.gender == 'F'}">checked</c:if>>
                                         <h4>여자</h4>
                                     </label>
                                 </div>
@@ -95,11 +108,14 @@
                             <td></td>
                         </tr>
 
-                        <c:set var="address" value="${loginUser.address}"  />
+                        <c:set var="address" value="${loginUser.address}" />
                         <tr>
-                            <th><h3>주소</h3></th>
+                            <th>
+                                <h3>주소</h3>
+                            </th>
                             <td class="input-box">
-                                <input type="text" id="addressNormal" value="${fn:split(address, '/')[0]}" readonly required>
+                                <input type="text" id="addressNormal"
+                                    value="${fn:split(address, '/')[0]}" readonly required>
                             </td>
                             <td class="input-btn">
                                 <button type="button" onclick="execDaumPostcode()">우편번호</button>
@@ -108,21 +124,28 @@
                         <tr>
                             <th></th>
                             <td class="input-box">
-                                <input type="text" placeholder="상세주소를 입력하세요" id="addressDetail" value="${fn:split(address, '/')[1]}" readonly required onchange="updateCombinedAddress()">
+                                <input type="text" placeholder="상세주소를 입력하세요" id="addressDetail"
+                                    value="${fn:split(address, '/')[1]}" readonly required
+                                    onchange="updateCombinedAddress()">
                             </td>
                             <td></td>
                         </tr>
                         <input type="hidden" name="address" readonly>
                         <c:remove var="address" />
-                        
-                        <c:set var="phone" value="${loginUser.phone}"  />
+
+                        <c:set var="phone" value="${loginUser.phone}" />
                         <tr>
-                            <th><h3>휴대폰번호</h3></th>
+                            <th>
+                                <h3>휴대폰번호</h3>
+                            </th>
                             <td id="phone-input">
                                 <div>
-                                    <input id="front-num" type="text" maxlength="3" value="010" readonly>
-                                    <input id="phone1" type="text" value="${fn:substring(phone, 3, 7)}" minlength="4" maxlength="4" oninput="updateCombinedPhone()">
-                                    <input id="phone2" type="text" value="${fn:substring(phone, 7, 11)}" minlength="4" maxlength="4" oninput="updateCombinedPhone()">
+                                    <input id="front-num" type="text" maxlength="3" value="010"
+                                        readonly>
+                                    <input id="phone1" type="text" value="${fn:substring(phone, 3, 7)}"
+                                        minlength="4" maxlength="4" oninput="updateCombinedPhone()">
+                                    <input id="phone2" type="text" value="${fn:substring(phone, 7, 11)}"
+                                        minlength="4" maxlength="4" oninput="updateCombinedPhone()">
                                 </div>
                             </td>
                             <input type="hidden" name="phone" readonly>
@@ -132,14 +155,18 @@
                         </tr>
                         <c:remove var="phone" />
 
-                        <c:set var="email" value="${loginUser.email}"  />
+                        <c:set var="email" value="${loginUser.email}" />
                         <tr>
-                            <th><h3>이메일</h3></th>
+                            <th>
+                                <h3>이메일</h3>
+                            </th>
                             <td id="email-input">
                                 <div>
-                                    <input type="text" id="email-front" oninput="updateCombinedEmail()" value="${fn:split(email, '@')[0]}" required> 
+                                    <input type="text" id="email-front" oninput="updateCombinedEmail()"
+                                        value="${fn:split(email, '@')[0]}" required>
                                     <span>@</span>
-                                    <input type="text" id="email-back" oninput="updateCombinedEmail()" value="${fn:split(email, '@')[1]}" required>
+                                    <input type="text" id="email-back" oninput="updateCombinedEmail()"
+                                        value="${fn:split(email, '@')[1]}" required>
                                 </div>
                             </td>
                             <td class="input-btn">
@@ -160,25 +187,44 @@
                         </tr>
                         <tr class="warning-text hidden">
                             <td></td>
-                            <td><h5>잘못된 인증번호입니다</h5></td>
+                            <td>
+                                <h5>잘못된 인증번호입니다</h5>
+                            </td>
                             <td></td>
                         </tr>
                         <input type="hidden" name="email" readonly>
                         <c:remove var="email" />
 
                         <tr>
-                            <th rowspan="2"><h3>관심장르(택3)</h3></th>
-                            <td colspan="2" rowspan="2" id="like-genre-input" >
+                            <th rowspan="2">
+                                <h3>관심장르(택3)</h3>
+                            </th>
+                            <td colspan="2" rowspan="2" id="like-genre-input">
                                 <div>
-                                    <button type="button" class="btn-staez genre-btn"><h4>뮤지컬</h4></button>
-                                    <button type="button" class="btn-staez genre-btn"><h4>클래식</h4></button>    
-                                    <button type="button" class="btn-staez genre-btn"><h4>연극</h4></button>    
-                                    <button type="button" class="btn-staez genre-btn"><h4>국악</h4></button>    
-                                    <button type="button" class="btn-staez genre-btn full-width"><h4>대중음악</h4></button>    
-                                    <button type="button" class="btn-staez genre-btn full-width"><h4>서커스/마술</h4></button>    
-                                    <button type="button" class="btn-staez genre-btn full-width"><h4>기타</h4></button>    
+                                    <button type="button" class="btn-staez genre-btn">
+                                        <h4>뮤지컬</h4>
+                                    </button>
+                                    <button type="button" class="btn-staez genre-btn">
+                                        <h4>클래식</h4>
+                                    </button>
+                                    <button type="button" class="btn-staez genre-btn">
+                                        <h4>연극</h4>
+                                    </button>
+                                    <button type="button" class="btn-staez genre-btn">
+                                        <h4>국악</h4>
+                                    </button>
+                                    <button type="button" class="btn-staez genre-btn full-width">
+                                        <h4>대중음악</h4>
+                                    </button>
+                                    <button type="button" class="btn-staez genre-btn full-width">
+                                        <h4>서커스/마술</h4>
+                                    </button>
+                                    <button type="button" class="btn-staez genre-btn full-width">
+                                        <h4>기타</h4>
+                                    </button>
                                 </div>
-                                <input type="text" name="genreLike" value="${loginUser.genreLike}" hidden> <!--button들 내용 추가-->
+                                <input type="text" name="genreLike" value="${loginUser.genreLike}"
+                                    hidden> <!--button들 내용 추가-->
                             </td>
                         </tr>
                         <tr> <!--크기 맞추기 위한 빈공간-->
@@ -190,8 +236,13 @@
                 </table>
             </div>
             <div id="submit-btn">
-                <button type="submit" class="btn-staez purple"><h3>저장</h3></button>
-                <button type="button" class="btn-staez purple" data-toggle="modal" data-target="#withdrawalModal"><h3>회원탈퇴</h3></button>
+                <button type="submit" class="btn-staez purple">
+                    <h3>저장</h3>
+                </button>
+                <button type="button" class="btn-staez purple" data-toggle="modal"
+                    data-target="#withdrawalModal">
+                    <h3>회원탈퇴</h3>
+                </button>
             </div>
         </form>
     </div>
@@ -205,9 +256,10 @@
             <!-- Modal Header -->
             <div class="modal-header">
                 <h3 class="modal-title">비밀번호 변경</h3>
-                <button type="button" class="close" data-dismiss="modal" onclick="cancelUpdatePwd()">&times;</button>
+                <button type="button" class="close" data-dismiss="modal"
+                    onclick="cancelUpdatePwd()">&times;</button>
             </div>
-            
+
             <form action="updatePwd.me" method="POST">
                 <!-- Modal body -->
                 <div class="modal-body">
@@ -215,10 +267,11 @@
                         <div></div>
                         <div>
                             <h3>변경할 비밀번호</h3>
-                            <input id="changePwd" type="password" name="newPwd" placeholder="영문 숫자 특수문자 포함 8글자 이상" oninput="checkPassword()" required>
+                            <input id="changePwd" type="password" name="newPwd"
+                                placeholder="영문 숫자 특수문자 포함 8글자 이상" oninput="checkPassword()" required>
                         </div>
                         <div class="pwd-check">
-                            <h5></h5>                                
+                            <h5></h5>
                         </div>
                         <div>
                             <h3>비밀번호 확인</h3>
@@ -229,16 +282,18 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" disabled>변경</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="cancelUpdatePwd()">취소</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"
+                        onclick="cancelUpdatePwd()">취소</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 <!-- 프로필 이미지 변경 Modal -->
 <div class="modal fade" id="imgModal">
     <div class="modal-dialog modal-lg">
@@ -248,28 +303,28 @@
                 <h3 class="modal-title">프로필 이미지 변경</h3>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            
-            <!-- Modal body -->
-            <div class="modal-body">
-                <div class="img-tag">
-                    <div>
-                        <img id="profile-preview" src="${contextPath}/resources/img/mypage/profile/profile_img_temp.png" alt="">
-                    </div>
-                    <div class="options">
-                        <label>
-                            <input type="radio" name="profile-option" value="current-img" checked>
-                            <h4>현재 프로필 이미지</h4> 
-                        </label>
-                        <label>
-                            <input type="radio" name="profile-option" value="default-img">
-                            <h4>기본 이미지</h4>
-                            <input type="hidden" value="${contextPath}/resources/img/mypage/profile/profile_img_default.png">
-                        </label>
-                        <label>
-                            <input type="radio" name="profile-option" value="new-img">
-                            <h4>변경할 이미지 선택</h4>
-                        </label>
-                        <form action="updateImg.me" method="POST">
+            <form action="updateImg.me" method="POST" enctype="multipart/form-data">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="img-tag">
+                        <div>
+                            <img id="profile-preview" src="" alt="">
+                        </div>
+                        <div class="options">
+                            <label>
+                                <input type="radio" name="imgOption" value="currentImg" checked>
+                                <h4>현재 프로필 이미지</h4>
+                            </label>
+                            <label>
+                                <input type="radio" name="imgOption" value="defaultImg">
+                                <h4>기본 이미지</h4>
+                                <input type="hidden"
+                                    value="${contextPath}/resources/img/mypage/profile/profile_img_default.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="imgOption" value="newImg">
+                                <h4>변경할 이미지 선택</h4>
+                            </label>
                             <input type="file" name="upfile" accept="image/*">
                         </div>
                     </div>
@@ -294,7 +349,7 @@
                 <h3 class="modal-title">회원탈퇴</h3>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            
+
             <!-- Modal body -->
             <div class="modal-body">
                 <div class="withdrawal-tag">
@@ -310,7 +365,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <form action="delete.me" method="POST">
                 <!-- Modal footer -->
                 <div class="modal-footer">
@@ -321,4 +376,3 @@
         </div>
     </div>
 </div>
-

@@ -10,12 +10,16 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${contextPath}/resources/css/mypage/mypageLayout.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+<script src="${contextPath}/resources/js/api/mypageapi.js"></script>
 <script src="${contextPath}/resources/js/mypage/mypageLayout.js"></script>
+
 
 <title>Insert title here</title>
 </head>
 
 <body onload="init()">
+    <input type="hidden" id="contextPath" value="${contextPath}">
 	<header>
 		<jsp:include page="../common/header.jsp" />
 	</header>
@@ -32,7 +36,7 @@
                             <span>로그인 해주세요</span>
                         </c:when>
                         <c:otherwise>
-                            <img src="${contextPath}/resources/img/mypage/profile/profile_img_temp.png" alt="">
+                            <img src="" alt="">
                             <div id="profile-text">
                                 <span><strong>${loginUser.userId}</strong></span>
                                 <span>님</span><br>
