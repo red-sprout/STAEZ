@@ -1,4 +1,4 @@
-//콘서트 navi 그려주는
+//콘서트 navi 그려주는: 뮤지컬, 연극, 서커스...
 function conNaviDraw(callback){
     $.ajax({
         url: contextPath + "connavi.co",
@@ -11,10 +11,26 @@ function conNaviDraw(callback){
     });
 }
 
-//콘서트 내용 그려주는
-function conMainDraw(callback){
+// // 콘서트 내용 그려주는: 슬라이더랑, 그리드
+// function conMainDraw(callback){
+//     $.ajax({
+//         url: contextPath + "maincon.co",
+//         data: data,
+//         success : function(list){
+//             console.log(list);
+//             callback(list);
+//         }, error(){
+//             console.log("실패");
+//         }
+//     });
+// }
+
+// 카테고리별 콘서트 내용 그려주는: 슬라이더랑, 그리드
+function ajaxCategoryList(data, callback){
+    console.log(data)
     $.ajax({
         url: contextPath + "maincon.co",
+        data: data,
         success : function(list){
             console.log(list);
             callback(list);
@@ -39,7 +55,7 @@ function conMainDraw(callback){
 //     });
 // }
 
-// 공연 상세정보
+// 카테고리별 공연 그려주기
 function conDetail(data, callback){
     $.ajax({
         url: contextPath + "conDetail.co",
@@ -52,6 +68,7 @@ function conDetail(data, callback){
         }
     });
 }
+
 
 // 판매정보
 function conSellDetail(data, callback){
@@ -81,6 +98,7 @@ function commentDetail(data, callback){
     });
 }
 
+//리뷰
 function reviewDetail(data, callback){
     $.ajax({
         url: contextPath + "reviewDetail.co",
@@ -93,3 +111,4 @@ function reviewDetail(data, callback){
         }
     });
 }
+

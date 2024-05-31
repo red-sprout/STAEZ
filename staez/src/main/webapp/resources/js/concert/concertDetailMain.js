@@ -14,20 +14,21 @@ $(function() {
 
 // ajax로 콘서트 navi 그려
 function drawConNavi(conList){
+
+    const concertNaviArea = document.querySelector(".concert-ul");
+    concertNaviArea.innerHTML = ``;
   
-  const concertNaviArea = document.querySelector(".concert-ul");
-  concertNaviArea.innerHTML = ``;
-
-  for(let c of conList){
-    let naviLi = document.createElement('li');
-    naviLi.innerHTML = `<h2 id="`+ c.categoryNo +`">`+ c.categoryName +`</h2>`;
-
-    naviLi.setAttribute("onclick", `location.href ='main.co?categoryNo=${c.categoryNo}'`)
-
-    concertNaviArea.appendChild(naviLi);
+    for(let c of conList){
+      let naviLi = document.createElement('li');
+      naviLi.innerHTML = ``;
+      naviLi.innerHTML = `<h2 id="`+ c.categoryNo +`">`+ c.categoryName +`</h2>
+                          <input type="hidden" name="concertNo" value=`+ c. categoryNo +`>`;
+  
+      naviLi.setAttribute("onclick", `location.href ='main.co?categoryNo=`+ c.categoryNo +`'`)
+  
+      concertNaviArea.appendChild(naviLi);
+    }
   }
-  
-}
 
 function goSellDetail(){
     const concertNo =  $("input[name='concertNo']").val();
@@ -58,6 +59,7 @@ function goReviewDetail(){
 //   console.log("alertMsg");    
 
 // }
+
 function drawConDetail(result){
     const drawSection = document.querySelector(".concert-detail-down-section");
     const conDetail1 = document.querySelector(".conDetail1");
@@ -81,7 +83,6 @@ function drawConDetail(result){
 conDetail1.onclick = function goConDetail(){
     location.href = 'detail.co?concertNo=' + c.concertNo;
     }
-
   }
 }
   
@@ -230,11 +231,11 @@ function drawCommentDetail(result){
 
     if(result.length === 0){
         let divEmpty = document.createElement('p');
-        drawSection.innerHTML += "등록된 한줄평이 없습니다.";
         drawSection.appendChild(divEmpty);
-
-        divEmpty.style.fontSize = '32px';
-
+        divEmpty.innerHTML += "등록된 한줄평이 없습니다.";
+        divEmpty.style.fontSize = '24px';
+        divEmpty.style.padding = `15% 0 15% 0`;
+        
     } else { 
         for(let c of result){
             drawSection.innerHTML += `<div>
@@ -285,10 +286,11 @@ function drawReviewDetail(result){
     drawSection.innerHTML = ``;
 
     if(result.length === 0){
-        // let divEmpty = document.createElement('div');
-        drawSection.innerHTML += "등록된 관람후기가 없습니다.";
-        // divEmpty.appendChild(divEmpty);
-        // divEmpty.style.fontSize = '32px';
+        let divEmpty = document.createElement('p');
+        drawSection.appendChild(divEmpty);
+        divEmpty.innerHTML += "등록된 관람후기가 없습니다.";
+        divEmpty.style.fontSize = '24px';
+        divEmpty.style.padding = `15% 0 15% 0`;
 
     } else {
         for(let c of result){

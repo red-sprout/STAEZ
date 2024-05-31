@@ -35,7 +35,7 @@
           <!-- 자스로 그려줌 -->
         </ul>
     </div>
-
+    <input type="hidden" name="categoryNo" value="${cat.categoryNo}">
     <section class="concert-main-upper-section">
 
         <div class="concert-main-upper-before">
@@ -79,7 +79,7 @@
 
     <section>
         <br><br>
-        <h3>현재 진행중인&nbsp; <b id="concert-genre">뮤지컬</b></h3>
+        <h3>현재 진행중인&nbsp; <b id="concert-genre">${cat.categoryName}</b></h3>
         <br>
     </section>
     <hr class="concert-main-hr">

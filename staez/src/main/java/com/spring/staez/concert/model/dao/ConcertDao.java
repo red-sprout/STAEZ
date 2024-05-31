@@ -23,12 +23,16 @@ public class ConcertDao {
 //		return (ArrayList)sqlSession.selectList("concertMapper.concertList");
 //	}
 	
+	public Category selectCate(SqlSessionTemplate sqlSession, int categoryNo) {
+		return sqlSession.selectOne("concertMapper.selectCate", categoryNo);
+	}
+	
 	public ArrayList<Category> selectCateCon(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("concertMapper.selectCateCon");
 	}
 	
-	public ArrayList<Concert> selectconList(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("concertMapper.selectconList");
+	public ArrayList<Concert> selectconList(SqlSessionTemplate sqlSession, int categoryNo) {
+		return (ArrayList)sqlSession.selectList("concertMapper.selectconList", categoryNo);
 	}
 	
 	public Concert selectCon(SqlSessionTemplate sqlSession, int concertNo) {
@@ -52,6 +56,7 @@ public class ConcertDao {
 	public ArrayList<ConcertReview> selectRevDetail(SqlSessionTemplate sqlSession, int concertNo) {
 		return (ArrayList)sqlSession.selectList("concertMapper.selectRevDetail", concertNo);
 	}
+
 
 //	public int insertConLike(SqlSessionTemplate sqlSession, ConcertLike conL) {
 //		return sqlSession.insert("concertMapper.insertConLike", conL);

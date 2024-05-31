@@ -23,13 +23,18 @@ public class ConcertServiceImpl implements ConcertService {
 
 	
 	@Override
+	public Category selectCate(int categoryNo) {
+		return concertDao.selectCate(sqlSession, categoryNo);
+	}
+	
+	@Override
 	public ArrayList<Category> selectCateCon() {
 		return concertDao.selectCateCon(sqlSession);
 	}
 
 	@Override
-	public ArrayList<Concert> selectconList() {
-		return concertDao.selectconList(sqlSession);
+	public ArrayList<Concert> selectconList(int categoryNo) {
+		return concertDao.selectconList(sqlSession, categoryNo);
 	}
 
 	@Override
@@ -56,6 +61,8 @@ public class ConcertServiceImpl implements ConcertService {
 	public ArrayList<ConcertReview> selectRevDetail(int concertNo) {
 		return concertDao.selectRevDetail(sqlSession, concertNo);
 	}
+
+
 	
 //	@Transactional
 //	@Override

@@ -29,6 +29,9 @@ html { font-size:62.5%; }
     margin: auto;
     text-decoration-line: none;
 }
+.concert-ul li{
+    cursor: pointer;
+}
 
 .concert-ul li:hover a > span {
     color: #B51B75;

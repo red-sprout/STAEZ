@@ -23,12 +23,13 @@ public class ConcertController {
 	private ConcertService concertService;
 	
 	// 공연 누르면 보여주는 공연 메인 페이지
-	@GetMapping("main.co")
-	public String concertMain() {
-		return "concert/concertMain";
-	}
+//	@GetMapping("main.co")
+//	public String concertMain() {
+//		
+//		return "concert/concertMain";
+//	}
 	
-	// category를 가져와라 콘서트 네비에 뿌려주기
+	// category를 가져와라 콘서트 '네비'에 뿌려주기
 	@ResponseBody
 	@RequestMapping(value = "connavi.co", produces="application/json; charset=UTF-8")
 	public String selectCateCon() {
@@ -36,11 +37,23 @@ public class ConcertController {
 		return new Gson().toJson(conList);
 	}
 	
-	// 공연리스트 다가져와(ajax로)
-	@ResponseBody // 리턴할 응답 바디를 직접 입력할꺼야
+	// 공연을 categoryNo로 가져와서 공연세부페이지로, 메인페이지에 categoryNo를 내려주면 클릭하면 mian.co?에 들어감
+	@RequestMapping(value = "main.co")
+	public String concertMain(String categoryNo, Model model) {
+		System.out.println("main : " + categoryNo);
+		Category cat = concertService.selectCate(Integer.parseInt(categoryNo));
+		model.addAttribute("cat", cat);
+		return "concert/concertMain";
+	}
+	
+	// 공연리스트 categoryNo로 다가져와(ajax로)
+	@ResponseBody
 	@RequestMapping(value = "maincon.co", produces="application/json; charset=UTF-8")
-	public String mainDrawAjax() {
-		ArrayList<Concert> list =  concertService.selectconList();
+	public String mainDrawAjax(@RequestParam(value = "categoryNo")int categoryNo) {
+		
+		System.out.println("maincon : " + categoryNo);
+		ArrayList<Concert> list =  concertService.selectconList(categoryNo);
+		
 		return new Gson().toJson(list);
 	}
 		
@@ -48,14 +61,12 @@ public class ConcertController {
 	// 공연을 concertNo로 가져와서 공연세부페이지로
 	@RequestMapping(value = "detail.co", produces="application/json; charset=UTF-8")
 	public String selectCon(@RequestParam(value = "concertNo") String concertNo, Model model) {
-		
 		Concert con = concertService.selectCon(Integer.parseInt(concertNo));
 		model.addAttribute("con", con);
-		
 		return "concert/concertDetail";
 	}
 	
-	
+//	
 //	@ResponseBody
 //	@RequestMapping(value = "conheart.co", produces="application/json; charset=UTF-8")
 //	public String insertConLike(@RequestParam("userNo") String userNo,
@@ -77,7 +88,7 @@ public class ConcertController {
 //			return "redirect:/";
 //		}
 //	}	
-	
+//	
 		
 	
 	
