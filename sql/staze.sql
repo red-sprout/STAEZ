@@ -144,9 +144,9 @@ CREATE TABLE public.profile_img
 (
     file_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_profile_img'),
     user_no integer NOT NULL,
-    origin_name character varying(255) NOT NULL,
-    change_name character varying(255) NOT NULL UNIQUE,
-    file_path character(1000) NOT NULL,
+    origin_name character varying(255),
+    change_name character varying(255) UNIQUE,
+    file_path character varying(1000) NOT NULL,
     upload_date timestamp with time zone NOT NULL DEFAULT now(),
     status character varying(1) NOT NULL CHECK(status IN ('Y', 'N')) DEFAULT 'Y'
 	/*사진있음(Y), 없음(N)*/

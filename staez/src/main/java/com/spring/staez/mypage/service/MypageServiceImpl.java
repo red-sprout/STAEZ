@@ -23,11 +23,6 @@ public class MypageServiceImpl implements MypageService{
 	public MypageDao mpd;
 	
 	@Override
-	public User test() {
-		return mpd.test(sqlSession);
-	}
-
-	@Override
 	public int duplicateCheck(String nickname) {
 		return mpd.duplicateCheck(sqlSession, nickname);
 	}
@@ -48,6 +43,11 @@ public class MypageServiceImpl implements MypageService{
 		return mpd.updateUserInfo(sqlSession, user);
 	}
 
+	@Override
+	public ProfileImg loadProfileImg(int userNo) {
+		return mpd.loadProfileImg(sqlSession, userNo);
+	}
+	
 	@Override
 	public int updateProfileImg(ProfileImg profileImg) {
 		return mpd.updateProfileImg(sqlSession, profileImg);
@@ -112,6 +112,7 @@ public class MypageServiceImpl implements MypageService{
 	public ArrayList<Concert> selectReviewList(int userNo, PageInfo pi) {
 		return mpd.selectReviewList(sqlSession, userNo, pi);
 	}
+
 
 	
 }
