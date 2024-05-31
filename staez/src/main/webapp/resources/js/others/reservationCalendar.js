@@ -69,10 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isReservedDate) {
                 className = 'class="reservation"';
                 clickEv = `onclick="clickDate(this, '${daysInMonthString}')"`
-                if (i === date.getDate() && month === new Date().getMonth() && year === new Date().getFullYear()) {
-                    className = 'class="today clickDate clicked "';
-                }
             } 
+            if (i === date.getDate() && month === new Date().getMonth() && year === new Date().getFullYear()) {
+                className = 'class="today clickDate clicked "';
+            }
             
             datesHtml += `<li ${className} " ${clickEv}>${i}</li>`;
         }
@@ -158,9 +158,9 @@ function clickDate(_this, daysInMonth) {
     _this.classList.remove("reservation");
     
    
-    let year = date.getFullYear();
+    // let year = date.getFullYear();
     let day = _this.textContent; // 클릭된 날짜의 텍스트 콘텐츠
-    let month = date.getMonth();
+    // let month = date.getMonth();
     spanDayChange2(year, month, day);
     
 }
@@ -191,6 +191,7 @@ function spanDayChange2(y, m, d){
     },(rConcertList) => drawDateCategoryConcert(rConcertList))
 }
 function drawDateCategoryConcert(result){
+    console.log("리스트 그려주는 곳 : " + result)
     const concertArea = document.querySelector(".reservation-day-info-area");
 
     concertArea.innerHTML = ``;
