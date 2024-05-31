@@ -62,6 +62,16 @@
 									)
 	</insert>
 	
+	<select id="selectFaqCount" resultType="_int">
+		select count(b.board_no)
+		from board b
+		join board_category bc on (b.board_no = bc.board_no)
+		join category c on (bc.category_no = c.category_no)
+		where board_code = 4
+		and	board_Level = 1
+		and b.board_status = 'Y'
+	</select>
+	
 	<select id="selectFaq" resultMap="boardResult">
 		select b.board_no, b.board_title, b.board_content, c.category_name
 		from board b
@@ -72,15 +82,37 @@
 		and b.board_status = 'Y'
 	</select>
 	
+	<select id="titleSearchFaqCount" resultType="_int">
+		select count(b.board_no)
+		from board b
+		join board_category bc on (b.board_no = bc.board_no)
+		join category c on (bc.category_no = c.category_no)
+		where board_code = 4
+		and	board_Level = 1
+		and b.board_status = 'Y'
+		and b.board_title like '%' || #{content} || '%'
+	</select>
+	
+	<select id="contentSearchFaqCount" resultType="_int">
+		select count(b.board_no)
+		from board b
+		join board_category bc on (b.board_no = bc.board_no)
+		join category c on (bc.category_no = c.category_no)
+		where board_code = 4
+		and	board_Level = 1
+		and b.board_status = 'Y'
+		and b.board_content like '%' || #{content} || '%'
+	</select>
+
 	<select id="titleSearchFaq" resultMap="boardResult">
-	select b.board_no, b.board_title, b.board_content, c.category_name
-	from board b
-	join board_category bc on (b.board_no = bc.board_no)
-	join category c on (bc.category_no = c.category_no)
-	where board_code = 4
-	and	board_Level = 1
-	and b.board_status = 'Y'
-	and b.board_title like '%' || #{content} || '%'
+		select b.board_no, b.board_title, b.board_content, c.category_name
+		from board b
+		join board_category bc on (b.board_no = bc.board_no)
+		join category c on (bc.category_no = c.category_no)
+		where board_code = 4
+		and	board_Level = 1
+		and b.board_status = 'Y'
+		and b.board_title like '%' || #{content} || '%'
 	</select>
 	
 	<select id="contentSearchFaq" resultMap="boardResult">
@@ -94,15 +126,26 @@
 		and b.board_content like '%' || #{content} || '%'
 	</select>
 	
+	<select id="selectCategoryFaqCount" resultType="_int">
+		select count(b.board_no)
+		from board b
+		join board_category bc on (b.board_no = bc.board_no)
+		join category c on (bc.category_no = c.category_no)
+		where board_code = 4
+		and	board_Level = 1
+		and b.board_status = 'Y'
+		and category_name = #{categoryName}
+	</select>
+	
 	<select id="selectCategoryFaq" resultMap="boardResult">
-	select b.board_no, b.board_title, b.board_content, c.category_name
-	from board b
-	join board_category bc on (b.board_no = bc.board_no)
-	join category c on (bc.category_no = c.category_no)
-	where board_code = 4
-	and	board_Level = 1
-	and b.board_status = 'Y'
-	and category_name = #{categoryName}
+		select b.board_no, b.board_title, b.board_content, c.category_name
+		from board b
+		join board_category bc on (b.board_no = bc.board_no)
+		join category c on (bc.category_no = c.category_no)
+		where board_code = 4
+		and	board_Level = 1
+		and b.board_status = 'Y'
+		and category_name = #{categoryName}
 	</select>
 	
 </mapper>

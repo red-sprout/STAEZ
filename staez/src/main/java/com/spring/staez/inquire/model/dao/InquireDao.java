@@ -3,10 +3,12 @@ package com.spring.staez.inquire.model.dao;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.vo.Board;
 
 @Repository
@@ -24,20 +26,58 @@ public class InquireDao {
 		return sqlSession.insert("inquireMapper.insertBoardCategory", cNO);
 	}
 	
-	public ArrayList<Board> ajaxSelectFaq(SqlSessionTemplate sqlSession){
-		return (ArrayList)sqlSession.selectList("inquireMapper.selectFaq");
+	public int ajaxSelectFaqCount(SqlSessionTemplate sqlSession){
+		return sqlSession.selectOne("inquireMapper.selectFaqCount");
 	}
 	
-	public ArrayList<Board> titleSearchFaq(SqlSessionTemplate sqlSession, String content){
-		return (ArrayList)sqlSession.selectList("inquireMapper.titleSearchFaq", content);
+	public ArrayList<Board> ajaxSelectFaq(SqlSessionTemplate sqlSession, PageInfo pi){
+		int offset = (pi.getCurrentPage()-1)* pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("inquireMapper.selectFaq", null, rowBounds);
 	}
 	
-	public ArrayList<Board> contentSearchFaq(SqlSessionTemplate sqlSession, String content){
-		return (ArrayList)sqlSession.selectList("inquireMapper.contentSearchFaq", content);
+	public int titleSearchFaqCount(SqlSessionTemplate sqlSession ,String content) {
+		return sqlSession.selectOne("inquireMapper.titleSearchFaqCount", content);
 	}
 	
-	public ArrayList<Board> ajaxSelectCategoryFaq(SqlSessionTemplate sqlSession, String categoryName){
-		return (ArrayList)sqlSession.selectList("inquireMapper.selectCategoryFaq", categoryName);
+	public int contentSearchFaqCount(SqlSessionTemplate sqlSession ,String content) {
+		return sqlSession.selectOne("inquireMapper.contentSearchFaqCount", content);
+	}
+	
+	public ArrayList<Board> titleSearchFaq(SqlSessionTemplate sqlSession, String content, PageInfo pi){
+		int offset = (pi.getCurrentPage()-1)* pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		
+		return (ArrayList)sqlSession.selectList("inquireMapper.titleSearchFaq", content, rowBounds);
+	}
+	
+	
+	public ArrayList<Board> contentSearchFaq(SqlSessionTemplate sqlSession, String content, PageInfo pi){
+		int offset = (pi.getCurrentPage()-1)* pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("inquireMapper.contentSearchFaq", content, rowBounds);
+	}
+	
+	public int ajaxSelectCategoryFaqCount(SqlSessionTemplate sqlSession, String categoryName) {
+		return sqlSession.selectOne("inquireMapper.selectCategoryFaqCount", categoryName);
+	}
+	
+	public ArrayList<Board> ajaxSelectCategoryFaq(SqlSessionTemplate sqlSession, String categoryName, PageInfo pi){
+		int offset = (pi.getCurrentPage()-1)* pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("inquireMapper.selectCategoryFaq",categoryName, rowBounds);
 	}
 	
 }
