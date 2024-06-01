@@ -14,8 +14,12 @@ $(function() {
 $(function() {
     loadProfileImgAjax(function(res) {
         const profileImg = $('.profile img');
-        if(res.changeName !== undefined){
-            profileImg.attr('src', $('#contextPath').val() + res.filePath + res.changeName); 
+        if(res.fileNo !== 0){
+            if(res.changeName !== undefined){
+                profileImg.attr('src', $('#contextPath').val() + res.filePath + res.changeName); 
+            } else{
+                profileImg.attr('src' , $('#contextPath').val() + res.filePath + 'profile_img_default.png'); 
+            }
         } else{
             profileImg.attr('src' , $('#contextPath').val() + res.filePath + 'profile_img_default.png'); 
         }
