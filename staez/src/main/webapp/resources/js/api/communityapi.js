@@ -123,3 +123,16 @@ function selectReply(data, callback) {
         }
     })
 }
+
+function updateBoard(data, callback) {
+    $.ajax({
+        url: contextPath + "update.cm",
+        type: "POST",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("게시글 등록 실패");
+        }
+    });
+}

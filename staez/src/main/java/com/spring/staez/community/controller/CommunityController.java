@@ -21,14 +21,16 @@ import com.spring.staez.common.template.MyFileRenamePolicy;
 import com.spring.staez.community.model.dto.AjaxBoardDto;
 import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
+import com.spring.staez.community.model.dto.UpdateBoardDto;
 import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.community.model.vo.Tag;
 import com.spring.staez.community.service.CommunityService;
 import com.spring.staez.concert.model.vo.Concert;
 
 @Controller
 public class CommunityController {
 	
-	private static final String BASIC_PROFILE = "/resources/img/mypage/profile/profile_img_temp.png";
+	private static final String BASIC_PROFILE = "/resources/uploadfiles/profile/basic_profile.jpg";
 	
 	@Autowired
 	CommunityService communityService;
@@ -48,7 +50,9 @@ public class CommunityController {
 	@GetMapping("detail.cm")
 	public String communityDetail(int boardNo, Model model) {
 		Board board = communityService.boardDetail(boardNo);
-		model.addAttribute("b", board);
+		Tag tag = communityService.selectTag(boardNo);
+		model.addAttribute("board", board);
+		model.addAttribute("tag", tag);
 		return "community/communityDetail";
 	}
 	
@@ -58,7 +62,30 @@ public class CommunityController {
 	}
 	
 	@GetMapping("updateForm.cm")
-	public String communityUpdateForm() {
+	public String communityUpdateForm(UpdateBoardDto dto, Model model) {
+		Board board = communityService.boardDetail(Integer.parseInt(dto.getBoardNo()));
+		ArrayList<Category> categoryList = communityService.selectCategory(Integer.parseInt(dto.getBoardNo()));
+		Concert concert = new Concert();
+		try {
+			concert = communityService.selectConcert(Integer.parseInt(dto.getConcertNo()));
+		} catch (Exception e) {
+			System.out.println("선택한 콘서트가 존재하지 않습니다.");
+		}
+		
+		String genre, div;
+		if(categoryList.get(0).getCategoryNo() > categoryList.get(1).getCategoryNo()) {
+			genre = categoryList.get(0).getCategoryName();
+			div = categoryList.get(1).getCategoryName();
+		} else {
+			genre = categoryList.get(1).getCategoryName();
+			div = categoryList.get(0).getCategoryName();
+		}
+		
+		model.addAttribute("board", board);
+		model.addAttribute("genre", genre);
+		model.addAttribute("division", div);
+		model.addAttribute("concert", concert);
+		
 		return "community/communityUpdateForm";
 	}
 	
@@ -145,5 +172,32 @@ public class CommunityController {
 	public String selectReply(int boardNo) {
 		int replyCnt = communityService.selectReplyCnt(boardNo);
 		return String.valueOf(replyCnt);
+	}
+	
+	// 게시글 업데이트
+	@ResponseBody
+	@PostMapping(value = "update.cm")
+	public String updateBoard(CommunityDto communityDto, HttpSession session) {
+		int result = communityService.updateBoard(communityDto);
+		if(result == 0) {
+			session.setAttribute("alertMsg", "게시글 수정 실패");
+		} else {
+			session.setAttribute("alertMsg", "성공적으로 수정하였습니다.");
+		}
+		
+		return "main.cm";
+	}
+	
+	// 게시글 삭제
+	@GetMapping("delete.cm")
+	public String deleteBoard(int boardNo, HttpSession session) {
+		int result = communityService.deleteBoard(boardNo);
+		if(result == 0) {
+			session.setAttribute("alertMsg", "게시글 삭제 실패");
+		} else {
+			session.setAttribute("alertMsg", "성공적으로 삭제하였습니다.");
+		}
+		
+		return "community/communityMain";
 	}
 }

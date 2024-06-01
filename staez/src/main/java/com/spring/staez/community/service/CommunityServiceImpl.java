@@ -15,6 +15,7 @@ import com.spring.staez.community.model.dto.CommunityDto;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.community.model.vo.BoardLike;
 import com.spring.staez.community.model.vo.Reply;
+import com.spring.staez.community.model.vo.Tag;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.user.model.vo.ProfileImg;
 
@@ -99,5 +100,40 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public int selectReplyCnt(int boardNo) {
 		return communityDao.selectReplyCnt(sqlSession, boardNo);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public Concert selectConcert(int concertNo) {
+		return communityDao.selectConcert(sqlSession, concertNo);
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int updateBoard(CommunityDto communityDto) {
+		int updateBoardResult = communityDao.updateBoard(sqlSession, communityDto);
+		int updateCategoryResult = 1;
+		updateCategoryResult *= communityDao.deleteCategory(sqlSession, communityDto.getBoardNo());
+		updateCategoryResult *= communityDao.insertCategory(sqlSession, communityDto);
+		
+		int updateTagResult = 1;
+		if(communityDto.getConcertNo() > 0) {
+			updateTagResult = communityDao.updateTag(sqlSession, communityDto);
+		}
+		
+		int result = updateBoardResult * updateCategoryResult * updateTagResult;
+		return result;
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int deleteBoard(int boardNo) {
+		return communityDao.deleteBoard(sqlSession, boardNo);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public Tag selectTag(int boardNo) {
+		return communityDao.selectTag(sqlSession, boardNo);
 	}
 }

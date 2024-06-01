@@ -22,6 +22,11 @@ $(function(){
     boardCategory(data, (res) => {
         setCategory(res);
     })
+
+    const concertNo = document.querySelector("input[name='tag']").value;
+    if(concertNo) {
+        setTag(concertNo);
+    }
 });
 
 function imgsrc(str) {
@@ -92,6 +97,32 @@ function setCategory(result) {
         btn.appendChild(h4);
         categoryArea.appendChild(btn);
     }
+}
+
+function setTag(concertNo) {
+    const boardContent = document.getElementById("board-content");
+    const tagWrapper = styledTagWrapper();
+
+    tagWrapper.innerHTML += `<a href='detail.co?concertNo=${concertNo}'>
+                                해당 공연으로 바로 가기 >
+                            </a>`;
+    
+    boardContent.appendChild(tagWrapper);
+}
+
+function styledTagWrapper() {
+    const tagWrapper = document.createElement("div");
+
+    tagWrapper.style.border = "1px solid #969696";
+    tagWrapper.style.margin = "30px";
+    tagWrapper.style.padding = "30px";
+    tagWrapper.style.cursor = "pointer";
+
+    tagWrapper.addEventListener("mouseenter", (ev) => (ev.target.style.background = "#d9d9d9"));
+    tagWrapper.addEventListener("mouseleave", (ev) => (ev.target.style.background = "white"))
+    tagWrapper.addEventListener("click", (ev) => (ev.currentTarget.children[0].click()));
+
+    return tagWrapper;
 }
 
 function likeToggle(_this) {

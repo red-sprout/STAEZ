@@ -1,7 +1,9 @@
 package com.spring.staez.community.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -11,10 +13,8 @@ import com.spring.staez.community.model.dto.AjaxBoardDto;
 import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
 import com.spring.staez.community.model.vo.Board;
-import com.spring.staez.community.model.vo.BoardLike;
-import com.spring.staez.community.model.vo.Reply;
+import com.spring.staez.community.model.vo.Tag;
 import com.spring.staez.concert.model.vo.Concert;
-import com.spring.staez.user.model.vo.ProfileImg;
 
 @Repository
 public class CommunityDao {
@@ -75,4 +75,39 @@ public class CommunityDao {
 		return sqlSession.selectOne("communityMapper.selectReplyCnt", boardNo);
 	}
 
+	public Concert selectConcert(SqlSessionTemplate sqlSession, int concertNo) {
+		return sqlSession.selectOne("communityMapper.selectConcert", concertNo);
+	}
+	
+	public Tag selectTag(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("communityMapper.selectTag", boardNo);
+	}
+
+	public int updateBoard(SqlSessionTemplate sqlSession, CommunityDto communityDto) {
+		return sqlSession.update("communityMapper.updateBoard", communityDto);
+	}
+
+	public int updateTag(SqlSessionTemplate sqlSession, CommunityDto communityDto) {
+		return sqlSession.update("communityMapper.updateTag", communityDto);
+	}
+
+	public int deleteBoard(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.update("communityMapper.deleteBoard", boardNo);
+	}
+
+	public int insertCategory(SqlSessionTemplate sqlSession, CommunityDto communityDto) {
+		int result = 1;
+		Map<String, Integer> map = new HashMap<>();
+		map.put("boardNo", communityDto.getBoardNo());
+		for(int categoryNo : communityDto.getCategoryNo()) {
+			map.put("categoryNo", categoryNo);
+			result *= sqlSession.insert("communityMapper.updateCategory", map);
+		}
+		return result;
+	}
+
+	public int deleteCategory(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.delete("communityMapper.deleteCategory", boardNo);
+	}
+	
 }

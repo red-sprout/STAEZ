@@ -7,10 +7,8 @@ import com.spring.staez.community.model.dto.AjaxBoardDto;
 import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
 import com.spring.staez.community.model.vo.Board;
-import com.spring.staez.community.model.vo.BoardLike;
-import com.spring.staez.community.model.vo.Reply;
+import com.spring.staez.community.model.vo.Tag;
 import com.spring.staez.concert.model.vo.Concert;
-import com.spring.staez.user.model.vo.ProfileImg;
 
 public interface CommunityService {
 
@@ -35,5 +33,13 @@ public interface CommunityService {
 	int selectBoardLikeCnt(AjaxBoardDto dto);
 
 	int selectReplyCnt(int boardNo);
+
+	Concert selectConcert(int concertNo);
+
+	int updateBoard(CommunityDto communityDto);
+
+	int deleteBoard(int boardNo);
+
+	Tag selectTag(int boardNo);
 
 }
