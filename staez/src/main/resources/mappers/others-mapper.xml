@@ -107,6 +107,7 @@
 		where c.concert_status = 'Y'
 		and cg.category_no = #{cNo}
 		and ca.status = 'Y'
+		and l.end_date >= current_date
 		limit 10;
 	</select>
 	
@@ -117,9 +118,11 @@
 			ca.change_name
 		from (select 
 				cl.concert_no, 
-				count(cl.concert_no) as countlike
+				count(cl.concert_no) as countlike,
+				max(cs.end_date) as end_date
 				from concert_like cl
 				join concert c using (concert_no)
+				join concert_schedule cs on (c.concert_no = cs.concert_no)
 				where cl.status = 'Y'
 				group by cl.concert_no
 				order by countlike desc) l
@@ -130,6 +133,7 @@
 		where c.concert_status = 'Y'
 		and cg.category_no = #{cNo}
 		and ca.status = 'Y'
+		and l.end_date >= current_date
 		limit 10;
 	</select>
 	
@@ -156,6 +160,7 @@
 		where c.concert_status = 'Y'
 		and cg.category_no = #{cNo}
 		and ca.status = 'Y'
+		and l.end_date >= current_date
 		limit 10;
 	</select>
 	
@@ -166,7 +171,8 @@
 			ca.change_name
 		from (select 
 				c.concert_no,
-			 	max(cs.start_date) latest
+			 	max(cs.start_date) latest,
+			 	max(cs.end_date) end_date
 				from concert c
 				join concert_schedule cs using (concert_no)
 				group by c.concert_no
@@ -178,6 +184,7 @@
 		where c.concert_status = 'Y'
 		and cg.category_no = #{cNo}
 		and ca.status = 'Y'
+		and l.end_date >= current_date
 		limit 10;
 	</select>
 	
@@ -196,7 +203,12 @@
 			from concert_schedule 
 			where #{date}::date between start_date and end_date
 			and status = 'Y'
-			and schedule != 'N') s
+			and concert_no not in (select concert_no
+                              from concert_schedule
+								where #{date}::date between start_date and end_date
+                              and schedule = 'N'
+							  and status = 'Y'
+								))s
 	join concert c on (s.concert_no = c.concert_no)
 	join theater t on (c.theater_no = t.theater_no)
 	join concert_attachment ca on (c.concert_no = ca.concert_no)

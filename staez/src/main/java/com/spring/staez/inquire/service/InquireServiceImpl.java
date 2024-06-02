@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.inquire.model.dao.InquireDao;
 
@@ -44,32 +45,58 @@ public class InquireServiceImpl implements InquireService{
 	}
 
 	@Override
-	public ArrayList<Board> ajaxSelectFaq() {
-		return iDao.ajaxSelectFaq(sqlSession);
+	public int ajaxSelectFaqCount() {
+		return iDao.ajaxSelectFaqCount(sqlSession);
+	}
+	
+	@Override
+	public int ajaxSearchSelectFapCount(String option, String content) {
+		
+		if(option.equals("title")) { //옵션이 title일때
+			return  iDao.titleSearchFaqCount(sqlSession ,content);
+		} else { //옵션이 content일때
+			return  iDao.contentSearchFaqCount(sqlSession ,content);
+		}
 	}
 
 	@Override
-	public ArrayList<Board> ajaxSearchSelectFap(String option, String content) {
-		ArrayList<Board> faqs;
-
+	public ArrayList<Board> ajaxSearchSelectFap(String option, String content, PageInfo pi) {
+		
 		if(option.equals("title")) { //옵션이 title일때
-			faqs = iDao.titleSearchFaq(sqlSession ,content);
+			return  iDao.titleSearchFaq(sqlSession ,content, pi);
 		} else { //옵션이 content일때
-			faqs = iDao.contentSearchFaq(sqlSession ,content);
+			return  iDao.contentSearchFaq(sqlSession ,content, pi);
+		}
+	}
+	
+	@Override
+	public int ajaxSelectCategoryFaqCount(String categoryName) {
+		
+		if(categoryName.equals("전체")) {
+			return iDao.ajaxSelectFaqCount(sqlSession);
+		}else {
+			return iDao.ajaxSelectCategoryFaqCount(sqlSession, categoryName);			
 		}
 		
+	}	 
+
+	@Override
+	public ArrayList<Board> ajaxSelectCategoryFaq(String categoryName, PageInfo pi) {
+		
+		ArrayList<Board> faqs;
+		if(categoryName.equals("전체")) {
+			faqs = iDao.ajaxSelectFaq(sqlSession, pi);
+		} else {
+			faqs = iDao.ajaxSelectCategoryFaq(sqlSession, categoryName, pi);
+		}
 		return faqs;
 	}
 
 	@Override
-	public ArrayList<Board> ajaxSelectCategoryFaq(String categoryName) {
-		ArrayList<Board> faqs;
-		if(categoryName.equals("전체")) {
-			faqs = iDao.ajaxSelectFaq(sqlSession);
-		} else {
-			faqs = iDao.ajaxSelectCategoryFaq(sqlSession, categoryName);
-		}
-		return faqs;
-	}	 
+	public ArrayList<Board> ajaxSelectFaq(PageInfo pi) {
+		return iDao.ajaxSelectFaq(sqlSession, pi);
+	}
+
+
 
 }

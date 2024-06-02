@@ -177,6 +177,7 @@ function reserveConcertList(data, callback){
         url : "ajaxReserveConcertList.ot",
         data : data,
         success : function(result){
+            console.log(result)
             callback(result)
         }, error : function(){
             console.log("실패")

@@ -10,9 +10,10 @@ function faqCategoryName(callback){
 
 }
 
-function selectFaq(callback){
+function selectFaq(data, callback){
     $.ajax({
         url : "ajaxSelectFaq.iq",
+        data : data,
         success : function(result){
             callback(result)
         },error : function(){

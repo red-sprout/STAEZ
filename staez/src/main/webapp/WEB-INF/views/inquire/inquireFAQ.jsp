@@ -42,11 +42,11 @@
             
         </div>
         <div class="paging-area-container">
-            <div id="paging-area">
+            <!-- <div id="paging-area" onclick="addFaq()">
                 <a id="paging-tag">
                     <span>더보기 +</span>
                 </a>
-            </div>
+            </div> -->
         </div>
             <div class="search-bar-area">
                 <select name="option" id="search-way-box">

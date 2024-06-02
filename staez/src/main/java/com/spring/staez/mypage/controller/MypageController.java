@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.common.template.MyFileRenamePolicy;
 import com.spring.staez.common.template.Pagination;
@@ -84,6 +85,7 @@ public class MypageController {
 		int currentPage = cpage;
 		int listCount = mypageService.selectScrapCount(userNo);
 		
+		System.out.println("listCount:" + listCount);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		ArrayList<Concert> list = mypageService.selectScrapList(userNo, pi);
 		
@@ -230,46 +232,80 @@ public class MypageController {
 	    return "mypage/updateUserForm";
 	}
 	
+	//프로필 이미지 불러오기ajax
+	@RequestMapping("loadImg.me")
+	@ResponseBody
+	public String loadProfileImg(HttpSession session) {
+		int userNo = ((User)session.getAttribute("loginUser")).getUserNo(); //로그인 된 유저의 고유번호 불러오기
+
+		ProfileImg profileImg = mypageService.loadProfileImg(userNo);
+		
+		if(profileImg == null) {
+			profileImg = new ProfileImg();
+			profileImg.setFilePath("/resources/img/mypage/profile/");
+			return new Gson().toJson(profileImg);
+		}
+		
+		return new Gson().toJson(profileImg);
+		
+	}
+	
 	//프로필 이미지 변경
 	@RequestMapping("updateImg.me")
-	public String updateProfileImg(MultipartFile upfile, HttpSession session, Model model) {
-		String filePath = session.getServletContext().getRealPath("/resources/img/mypage/profile/");
-		
+	public String updateProfileImg(MultipartFile upfile, String imgOption, HttpSession session, Model model) {
+		String path = "/resources/uploadfiles/profile/";
 		ProfileImg profileImg = new ProfileImg();
-		profileImg.setFilePath(filePath);
 		
-		profileImg.setUserNo(((User)session.getAttribute("loginUser")).getUserNo()); //로그인 된 유저의 고유번호 불러오기
-		
-		if(!upfile.getOriginalFilename().equals("")) { //업로드 파일 이름이 비어있지않다면(업로드할파일이 존재한다면)
+		int result = 0, update = 0;
+		if(upfile.getOriginalFilename() != "" && imgOption.equals("newImg")) { //업로드 파일 이름이 비어있지않다면(업로드할파일이 존재한다면)
 			//이미지 파일 rename
-			String changeName = MyFileRenamePolicy.saveFile(upfile, session, filePath);
+			String changeName = MyFileRenamePolicy.saveFile(upfile, session, path);
 			 
+			profileImg.setUserNo(((User)session.getAttribute("loginUser")).getUserNo()); //로그인 된 유저의 고유번호 불러오기
+			profileImg.setFilePath(path); //저장경로
 			profileImg.setOriginName(upfile.getOriginalFilename());
 			profileImg.setChangeName(changeName);
-		}
-		
-		//이미지 업데이트 => db에 존재하지 않으면 이미지 추가
-		int result = 0;
-	    int update = mypageService.updateProfileImg(profileImg); //업데이트 
-		if(update == 0) {
-			result =  mypageService.insertProfileImg(profileImg);//추가
-		} else if(update > 0) {
-			result = 1;
+
+			//이미지 업데이트 => db에 존재하지 않으면 이미지 추가
+			update = mypageService.updateProfileImg(profileImg); //업데이트 
+			if(update == 0) {
+				result = mypageService.insertProfileImg(profileImg);//추가
+			} else if(update > 0) {
+				result = 1;
+			}
+		} else if(upfile.getOriginalFilename() == "" && imgOption.equals("defaultImg")) {
+			profileImg.setUserNo(((User)session.getAttribute("loginUser")).getUserNo()); //로그인 된 유저의 고유번호 불러오기
+			profileImg.setFilePath("/resources/img/mypage/profile/"); //저장경로
+			
+			System.out.println("profileImg : " + profileImg);
+			
+			//이미지 업데이트 => db에 존재하지 않으면 이미지 추가
+			update = mypageService.updateProfileImg(profileImg); //업데이트 
+			if(update == 0) {
+				result = mypageService.insertProfileImg(profileImg);//추가
+			} else if(update > 0) {
+				result = 1;
+			}
+		} else if(upfile.getOriginalFilename() == "" && imgOption.equals("currentImg")) {
+			model.addAttribute("contentPage", "updateUserForm");
+			return "mypage/mypageLayout";
 		}
 
-		if(result > 0) {
+		
+		if(result > 0) {			
 			session.setAttribute("alertMsg", "수정되었습니다");
-//			model.addAttribute("profileImg", profileImg);
 			return "redirect:/updateForm.me";
-		} else {
-			session.setAttribute("alertMsg", "수정에 실패하였습니다");
-			return "updateForm.me";
 		}
+		
+		session.setAttribute("alertMsg", "수정에 실패하였습니다");
+		model.addAttribute("contentPage", "updateUserForm");
+		return "mypage/mypageLayout";
+		
 	}
 	
 	//회원 정보 변경
 	@RequestMapping("update.me")
-	public String updateUserInfo(User user, HttpSession session) {
+	public String updateUserInfo(User user, HttpSession session, Model model) {
 		
 	    int result = mypageService.updateUserInfo(user);
 
@@ -279,13 +315,14 @@ public class MypageController {
 			return "redirect:/updateForm.me";
 		} else {
 			session.setAttribute("alertMsg", "수정에 실패하였습니다");
-			return "updateForm.me";
+			model.addAttribute("contentPage", "updateUserForm");
+			return "mypage/mypageLayout";
 		}
 	}
 	
 	//회원탈퇴
 	@RequestMapping("delete.me")
-	public String withdrawalUser(HttpSession session) {
+	public String withdrawalUser(HttpSession session, Model model) {
 		User user = (User)session.getAttribute("loginUser"); 
 		
 	    int result = mypageService.withdrawalUser(user);
@@ -296,7 +333,8 @@ public class MypageController {
 			return "redirect:/";
 		} else {
 			session.setAttribute("alertMsg", "회원탈퇴 실패하였습니다");
-			return "updateForm.me";
+			model.addAttribute("contentPage", "updateUserForm");
+			return "mypage/mypageLayout";
 		}
 	}
 	
