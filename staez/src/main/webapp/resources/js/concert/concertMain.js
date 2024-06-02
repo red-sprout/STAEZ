@@ -4,7 +4,7 @@ $(function() { // list는 컨트롤러에서 받아온 것
   const gridContent = document.querySelector(".concert-main-grid");
   conNaviDraw(conList => drawConNavi(conList));
 
-  const categoryNo = document.querySelector("input[name='categoryNo']").val();
+  const categoryNo = document.querySelector("input[name='categoryNo']").value;
   ajaxCategoryList({"categoryNo" : categoryNo}, (list)=>drawConMain(list, sliderContent, gridContent));
 });
 
@@ -92,10 +92,10 @@ function drawConMain(list, sliderContent, gridContent){
     // sliderContent.appendChild(sliderContentDiv);
     // sliderContent.setAttribute("onclick", `location.href ='maincon.co?concertNo=`+ c.concertNo +`'`)
 
-    // // 임시, 공연세부페이지로
-    // sliderContentDiv.onclick = function goDetail(){
-    //   location.href = 'detail.co?concertNo=' + c.concertNo;
-    // }
+    // 임시, 공연세부페이지로
+    sliderContent.onclick = function goDetail(){
+      location.href = 'detail.co?concertNo=' + c.concertNo;
+    }
     
 
     gridContent.innerHTML += `<div>
@@ -108,22 +108,10 @@ function drawConMain(list, sliderContent, gridContent){
                               +     `<p><span><b>[` + c.concertTitle + `]</b></span></p>
                                     <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
                             + `</div></div>`
-
-
-    // gridContentDiv.className = 'concert-grid-div';
-    // gridContentDiv.innerHTML +=  `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
-    //                         + `<div>`
-    //                         +     `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
-    //                         + `</div>`
-    //                         + `<div>`
-    //                         +     `<p><span>뮤지컬</span></p>`
-    //                         +     `<p><span><b>[` + c.concertTitle + `]</b></span></p>
-    //                                <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
-    //                         + `</div>`
-    // gridContent.appendChild(gridContentDiv);                        
-    // gridContentDiv.onclick = function goDetail(){
-    //   location.href = 'detail.co?concertNo=' + c.concertNo;
-    // }
+                       
+    gridContent.onclick = function goDetail(){
+      location.href = 'detail.co?concertNo=' + c.concertNo;
+    }
   }
 }
 

@@ -117,7 +117,7 @@
 		<result column="board_write_date" property="boardWriteDate" />
 	</resultMap>
 
-	<select id="selectCate" resultMap="concertResult" >
+	<select id="selectCate" resultMap="categoryResult" >
  	    SELECT category_no,
  	    	   category_name,
  	    	   category_level
@@ -143,7 +143,7 @@
 		       ca.change_name,
 		       ca.file_path,
 			   ct.category_no,
-		       cc.category_name
+		       ct.category_name
 		FROM concert c
 		JOIN theater t ON c.theater_no = t.theater_no
 		JOIN concert_schedule cs ON c.concert_no = cs.concert_no
@@ -249,15 +249,15 @@
 	
 	
 	<!-- 좋아요 구현 -->
-	<select id="checkLike" resultMap="concertLikeResult" parameterType="Map">
-			SELECT board_no,
-				   user_no,
-				   concert_no,
-				   status
+	<!-- 좋아요 갯수 몇개냐? -->
+	<select id="checkLikeExist"  resultType="_int" parameterType="Map">
+			SELECT COUNT(*)
 			FROM concert_like
-			WHERE user_no = #{userNo}
-			  AND concert_no = #{concertNo}
+			WHERE concert_no = #{concertNo}
+			  AND status = 'Y'
 	</select>
+	
+	
 	
 	<insert id="insertConLike">
 	        INSERT INTO concert_like (

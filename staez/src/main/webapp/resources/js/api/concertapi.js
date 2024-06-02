@@ -2,7 +2,7 @@
 function conNaviDraw(callback){
     $.ajax({
         url: contextPath + "connavi.co",
-        success : function(conList) {
+        success : function(conList) { // db에서 받아온 conList
             console.log(conList);
             callback(conList);
         }, error() {
@@ -54,6 +54,21 @@ function ajaxCategoryList(data, callback){
 //         }
 //     });
 // }
+
+// 좋아요 count
+function countHeart(data, callback){
+    $.ajax({
+        url: contextPath + "countheart.co",
+        data: data,
+        type :'POST',
+        success : function(likeCount){
+            console.log(likeCount);
+            callback(likeCount);
+        }, error(){
+            console.log("실패");
+        }
+    });
+}
 
 // 카테고리별 공연 그려주기
 function conDetail(data, callback){

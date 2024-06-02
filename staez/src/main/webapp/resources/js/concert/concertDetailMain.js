@@ -4,10 +4,13 @@ $(function() {
     const conSellinfo = document.getElementsByClassName("concert-detail-down-section");
 
     conNaviDraw(conList => drawConNavi(conList));
+
     // conHeart({
     //     "userNo" : userNo,
     //     "concertNo" : concertNo
-    // }, (conL) => insertLike(conL, userNo, concertNo))
+    // }, (conL) => drawConHeart(conL))
+    
+    countHeart({"concertNo" : concertNo}, (likeCount) => drawCountHeart(likeCount))
     
     conDetail({"concertNo" : concertNo}, (result) => drawConDetail(result))
 });
@@ -30,6 +33,34 @@ function drawConNavi(conList){
     }
   }
 
+// // 좋아요 버튼 그려주기 
+// function drawConHeart(conL){[
+
+// ]}
+
+// function insertLike(like, userNo, concertNo){
+//     console.log("alertMsg");
+//   }
+  
+    // 찜버튼(하트)눌러서 색 채우기
+  function likeToggle(_this) {
+      // const check = _this.children[1];
+      // check.checked = !check.checked;
+      // fa-solid && fa-regular
+      _this.children[0].classList.toggle("fa-solid");
+      _this.children[0].classList.toggle("fa-regular");
+  
+  
+  }
+
+  // 예매버튼 클릭
+function reservePage(){
+    window.open('/staez/selectDate.co' , "_blank", "width=1001, height=601, scrollbars=no");
+}
+
+
+
+
 function goSellDetail(){
     const concertNo =  $("input[name='concertNo']").val();
     conSellDetail({"concertNo" : concertNo}, (result) => drawConSellDetail(result))
@@ -49,16 +80,17 @@ function goReviewDetail(){
 
 
 // let heartClick = document.getElementsByClassName("concert-detail-like-button");
-
 // heartClick.addEventListener("click", function(){
-
 // });
 
+// like 몇개인지
+function drawCountHeart(likeCount){
+    const drawSpan = document.querySelector(".concert-likeCount");
+    drawSpan.innerHTML = ``;
+    drawSpan.innerHTML = likeCount.length;
+}
 
-// function insertLike(like, userNo, concertNo){
-//   console.log("alertMsg");    
 
-// }
 
 function drawConDetail(result){
     const drawSection = document.querySelector(".concert-detail-down-section");
@@ -342,16 +374,7 @@ function drawReviewDetail(result){
 
 
 
-  // 찜버튼(하트)눌러서 색 채우기
-function likeToggle(_this) {
-    // const check = _this.children[1];
-    // check.checked = !check.checked;
-    // fa-solid && fa-regular
-    _this.children[0].classList.toggle("fa-solid");
-    _this.children[0].classList.toggle("fa-regular");
 
-
-}
 
 
 
@@ -366,8 +389,4 @@ function likeToggle(_this) {
 
 
 
-// 예매버튼 클릭
-function reservePage(){
-    window.open('/staez/selectDate.co' , "_blank", "width=1001, height=601, scrollbars=no");
-}
 
