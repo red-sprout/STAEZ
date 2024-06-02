@@ -39,10 +39,12 @@
                         <a href="${contextPath}"><img id="header-logo-img" src="${contextPath}/resources/img/common/header/STAEZ_logo.png" alt=""></a>
                     </div>
                     <div class="header-search-area">
-                        <button onclick="">
-                            <img src="${contextPath}/resources/img/common/header/search.png" alt="">
-                        </button>
-                        <input type="text">
+                        <form class="form-area" action="searchResult.me">
+                            <button type="submit">
+                                <img src="${contextPath}/resources/img/common/header/search.png" alt="">
+                            </button>
+                            <input type="text" name="searchKeyword" value="${searchKeyword}">
+                        </form>
                     </div>
                 </div>
                 <c:choose>
