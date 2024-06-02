@@ -14,6 +14,7 @@ import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.community.model.vo.BoardLike;
+import com.spring.staez.community.model.vo.Reply;
 import com.spring.staez.community.model.vo.Tag;
 import com.spring.staez.concert.model.vo.Concert;
 
@@ -121,6 +122,10 @@ public class CommunityDao {
 
 	public int insertBoardLike(SqlSessionTemplate sqlSession, BoardLike boardLike) {
 		return sqlSession.insert("communityMapper.insertBoardLike", boardLike);
+	}
+
+	public ArrayList<Reply> selectReply(SqlSessionTemplate sqlSession, int boardNo) {
+		return (ArrayList)sqlSession.selectList("communityMapper.selectReply", boardNo);
 	}
 	
 }

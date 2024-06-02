@@ -19,12 +19,12 @@ import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.common.template.MyFileRenamePolicy;
 import com.spring.staez.community.model.dto.AjaxBoardDto;
-import com.spring.staez.community.model.dto.BoardListDto;
 import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
 import com.spring.staez.community.model.dto.UpdateBoardDto;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.community.model.vo.BoardLike;
+import com.spring.staez.community.model.vo.Reply;
 import com.spring.staez.community.model.vo.Tag;
 import com.spring.staez.community.service.CommunityService;
 import com.spring.staez.concert.model.vo.Concert;
@@ -230,6 +230,6 @@ public class CommunityController {
 	@ResponseBody
 	@GetMapping(value = "select.rp", produces = "application/json; charset-UTF-8")
 	public String selectReply(int boardNo) {
-		
+		ArrayList<Reply> list = communityService.selectReply(boardNo);
 	}
 }

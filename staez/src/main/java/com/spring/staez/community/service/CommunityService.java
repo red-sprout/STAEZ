@@ -8,6 +8,7 @@ import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.community.model.vo.BoardLike;
+import com.spring.staez.community.model.vo.Reply;
 import com.spring.staez.community.model.vo.Tag;
 import com.spring.staez.concert.model.vo.Concert;
 
@@ -48,5 +49,7 @@ public interface CommunityService {
 	int updateBoardLike(BoardLike boardLike);
 
 	int insertBoardLike(BoardLike boardLike);
+
+	ArrayList<Reply> selectReply(int boardNo);
 
 }

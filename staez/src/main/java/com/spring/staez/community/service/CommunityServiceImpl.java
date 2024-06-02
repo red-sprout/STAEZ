@@ -154,4 +154,10 @@ public class CommunityServiceImpl implements CommunityService {
 	public int insertBoardLike(BoardLike boardLike) {
 		return communityDao.insertBoardLike(sqlSession, boardLike);
 	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public ArrayList<Reply> selectReply(int boardNo) {
+		return communityDao.selectReply(sqlSession, boardNo);
+	}
 }

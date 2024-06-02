@@ -52,6 +52,16 @@
 		<result column="board_no" property="boardNo"/>
 		<result column="concert_no" property="concertNo"/>
 	</resultMap>
+	<resultMap type="Reply" id="replyResult">
+		<result column="reply_no" property="replyNo"/>
+		<result column="ref_reply_no" property="refReplyNo"/>
+		<result column="board_no" property="boardNo"/>
+		<result column="user_no" property="userNo"/>
+		<result column="path" property="path"/>
+		<result column="reply_content" property="replyContent"/>
+		<result column="reply_write_date" property="replyWriteDate"/>
+		<result column="reply_status" property="replyStatus"/>
+	</resultMap>
 	<select id="selectCategory" resultMap="categoryResult">
 		SELECT 
 			category_no,
@@ -254,5 +264,13 @@
 			#{userNo}
 		)
 	</insert>
+	<select id="selectReply">
+		SELECT
+			file_path || change_name AS path
+		FROM reply
+		SELECT 
+		FROM profile_img
+		WHERE user_no = #{userNo}
+	</select>
 </mapper>
 
