@@ -42,13 +42,17 @@ $(function() {
     loadProfileImgAjax(function(res) {
         const profileImg = $('#profile-img>img');
         const profilePreview = $('#profile-preview');
-        if(res.changeName !== undefined){
-            profileImg.attr('src', $('#contextPath').val() + res.filePath + res.changeName); 
-            profilePreview.attr('src', $('#contextPath').val() + res.filePath + res.changeName); 
+        if(res.fileNo !== 0){
+            if(res.changeName !== undefined){
+                profileImg.attr('src', $('#contextPath').val() + res.filePath + res.changeName); 
+                profilePreview.attr('src', $('#contextPath').val() + res.filePath + res.changeName); 
+            } else{
+                profileImg.attr('src', $('#contextPath').val() + res.filePath + 'profile_img_default.png'); 
+                profilePreview.attr('src', $('#contextPath').val() + res.filePath + 'profile_img_default.png'); 
+            }
         } else{
             profileImg.attr('src', $('#contextPath').val() + res.filePath + 'profile_img_default.png'); 
-            profilePreview.attr('src', $('#contextPath').val() + res.filePath + 'profile_img_default.png'); 
-        }
+            profilePreview.attr('src', $('#contextPath').val() + res.filePath + 'profile_img_default.png');         }
     });
 });
 
@@ -63,12 +67,17 @@ $(function() {
 
     let currentImageSrc; // 현재 적용되어 있던 이미지 경로
     loadProfileImgAjax(function(res) {
-        if(res.changeName !== undefined){
-            currentImageSrc = $('#contextPath').val() + res.filePath + res.changeName; 
+        console.log(res.changeName);
+        if(res.fileNo !== 0){
+            if(res.changeName !== undefined){
+                currentImageSrc = $('#contextPath').val() + res.filePath + res.changeName; 
+            } else{
+                currentImageSrc = $('#contextPath').val() + res.filePath + 'profile_img_default.png'; 
+            }
         } else{
             currentImageSrc = $('#contextPath').val() + res.filePath + 'profile_img_default.png'; 
         }
-        
+         
     });
     const defaultImageSrc = $(".img-tag input[type=hidden]").val(); // 기본 이미지 경로(hidden으로 숨겨서 스크립트에 넘겨줌)
 
