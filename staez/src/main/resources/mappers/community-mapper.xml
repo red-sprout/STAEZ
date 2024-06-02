@@ -48,6 +48,20 @@
 		<result column="file_path" property="filePath" />
 		<result column="change_name" property="changeName" />
 	</resultMap>
+	<resultMap type="Tag" id="tagResult">
+		<result column="board_no" property="boardNo"/>
+		<result column="concert_no" property="concertNo"/>
+	</resultMap>
+	<resultMap type="Reply" id="replyResult">
+		<result column="reply_no" property="replyNo"/>
+		<result column="ref_reply_no" property="refReplyNo"/>
+		<result column="board_no" property="boardNo"/>
+		<result column="user_no" property="userNo"/>
+		<result column="path" property="path"/>
+		<result column="reply_content" property="replyContent"/>
+		<result column="reply_write_date" property="replyWriteDate"/>
+		<result column="reply_status" property="replyStatus"/>
+	</resultMap>
 	<select id="selectCategory" resultMap="categoryResult">
 		SELECT 
 			category_no,
@@ -66,6 +80,7 @@
 		FROM concert c
 		JOIN concert_attachment ca ON (c.concert_no = ca.concert_no)
 		WHERE concert_title LIKE '%${keyword}%'
+		ORDER BY c.concert_no DESC
 		LIMIT 5
 	</select>
 	<insert id="insertBoard">
@@ -114,10 +129,11 @@
 		JOIN staez_user u on (b.user_no = u.user_no)
 		JOIN board_category bc on (b.board_no = bc.board_no)
 		WHERE b.board_status = 'Y'
-		and category_no IN
+		and bc.category_no IN
 		<foreach collection="categoryNo" item="item" open="(" close=")" separator=",">
 			#{item}
 		</foreach>
+		ORDER BY b.board_no DESC
 	</select>
 	<select id="selectBoardAll" resultMap="boardResult">
 		SELECT
@@ -132,7 +148,8 @@
 		FROM board b
 		JOIN staez_user u on (b.user_no = u.user_no)
 		WHERE b.board_status = 'Y'
-		and b.board_code = 2;
+		and b.board_code = 2
+		ORDER BY b.board_no DESC
 	</select>
 	<select id="selectBoardCategory" resultMap="categoryResult">
 		SELECT
@@ -177,6 +194,83 @@
 		SELECT COUNT(*)
 		FROM reply
 		WHERE board_no = #{boardNo}
+	</select>
+	<select id="selectConcert" resultMap="concertResult">
+		SELECT 
+			concert_no,
+			concert_title
+		FROM concert
+		WHERE concert_no = #{concertNo}
+	</select>
+	<select id="selectTag" resultMap="tagResult">
+		SELECT
+			board_no,
+			concert_no
+		FROM tag
+		WHERE board_no = #{boardNo}
+	</select>
+	<update id="updateBoard">
+		UPDATE board
+		SET 
+			user_no = #{userNo},
+			board_title = #{boardTitle},
+			board_content = #{boardContent}
+		WHERE board_no = #{boardNo}
+	</update>
+	<delete id="deleteCategory">
+		DELETE FROM board_category
+		WHERE board_no = #{boardNo}
+	</delete>
+	<update id="updateCategory">
+		INSERT INTO board_category
+		(
+			board_no,
+			category_no
+		) values (
+			#{boardNo},
+			#{categoryNo}
+		)
+	</update>
+	<update id="updateTag">
+		UPDATE tag
+		SET concert_no = #{concertNo}
+		WHERE board_no = #{boardNo}
+	</update>
+	<update id="deleteBoard">
+		UPDATE board
+		SET board_status = 'N'
+		WHERE board_no = #{boardNo}
+	</update>
+	<select id="selectUserBoardLikeAll" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM board_like
+		WHERE board_no = #{boardNo}
+		AND user_no = #{userNo}
+	</select>
+	<update id="updateBoardLike">
+		UPDATE board_like
+		SET status = #{status}
+		WHERE board_no = #{boardNo}
+		AND user_no = #{userNo}
+	</update>
+	<insert id="insertBoardLike">
+		INSERT INTO board_like
+		(
+			board_no,
+			user_no
+		) VALUES (
+			#{boardNo},
+			#{userNo}
+		)
+	</insert>
+	<select id="selectReply">
+		SELECT
+			file_path || change_name AS path
+		FROM reply
+		SELECT 
+		FROM profile_img
+		WHERE user_no = #{userNo}
 	</select>
 </mapper>
 
