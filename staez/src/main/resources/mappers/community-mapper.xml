@@ -231,5 +231,28 @@
 		SET board_status = 'N'
 		WHERE board_no = #{boardNo}
 	</update>
+	<select id="selectUserBoardLikeAll" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM board_like
+		WHERE board_no = #{boardNo}
+		AND user_no = #{userNo}
+	</select>
+	<update id="updateBoardLike">
+		UPDATE board_like
+		SET status = #{status}
+		WHERE board_no = #{boardNo}
+		AND user_no = #{userNo}
+	</update>
+	<insert id="insertBoardLike">
+		INSERT INTO board_like
+		(
+			board_no,
+			user_no
+		) VALUES (
+			#{boardNo},
+			#{userNo}
+		)
+	</insert>
 </mapper>
 

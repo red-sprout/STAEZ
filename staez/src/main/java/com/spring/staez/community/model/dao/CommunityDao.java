@@ -13,6 +13,7 @@ import com.spring.staez.community.model.dto.AjaxBoardDto;
 import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
 import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.community.model.vo.BoardLike;
 import com.spring.staez.community.model.vo.Tag;
 import com.spring.staez.concert.model.vo.Concert;
 
@@ -108,6 +109,18 @@ public class CommunityDao {
 
 	public int deleteCategory(SqlSessionTemplate sqlSession, int boardNo) {
 		return sqlSession.delete("communityMapper.deleteCategory", boardNo);
+	}
+
+	public int selectUserBoardLikeAll(SqlSessionTemplate sqlSession, AjaxBoardDto dto) {
+		return sqlSession.selectOne("communityMapper.selectUserBoardLikeAll", dto);
+	}
+
+	public int updateBoardLike(SqlSessionTemplate sqlSession, BoardLike boardLike) {
+		return sqlSession.update("communityMapper.updateBoardLike", boardLike);
+	}
+
+	public int insertBoardLike(SqlSessionTemplate sqlSession, BoardLike boardLike) {
+		return sqlSession.insert("communityMapper.insertBoardLike", boardLike);
 	}
 	
 }

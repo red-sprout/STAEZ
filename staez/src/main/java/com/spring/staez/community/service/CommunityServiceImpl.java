@@ -136,4 +136,22 @@ public class CommunityServiceImpl implements CommunityService {
 	public Tag selectTag(int boardNo) {
 		return communityDao.selectTag(sqlSession, boardNo);
 	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public int selectUserBoardLikeAll(AjaxBoardDto dto) {
+		return communityDao.selectUserBoardLikeAll(sqlSession, dto);
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int updateBoardLike(BoardLike boardLike) {
+		return communityDao.updateBoardLike(sqlSession, boardLike);
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int insertBoardLike(BoardLike boardLike) {
+		return communityDao.insertBoardLike(sqlSession, boardLike);
+	}
 }

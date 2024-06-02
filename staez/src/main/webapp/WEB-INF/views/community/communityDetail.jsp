@@ -19,12 +19,14 @@
             <ul id="community-nav" align="left"></ul>
             <ul id="community-contents" align="left">
                 <input type="hidden" name="userNo" value="${loginUser.userNo}">
+                <input type="hidden" name="writerNo" value="${board.userNo}">
+                <input type="hidden" name="boardNo" value="${board.boardNo}">
                 <input type="hidden" name="tag" value="${tag.concertNo}">
                 <h1>커뮤니티</h1>
                 <hr>
                 <li id="community-category"></li>
                 <li>
-                    <h1>${b.boardTitle}</h1>
+                    <h1>${board.boardTitle}</h1>
                 </li>
                 <li>
                     <table>
@@ -75,10 +77,10 @@
                     <h1>댓글&nbsp;</h1>
                     <h1 class="reply-cnt"></h1>
                 </li>
-                <li>
+                <li id="reply-input-area">
                     <div class="community-reply-input">
                         <div class="reply-profile-area">
-                            <img src="<c:url value='/resources/img/community/communityDetail/profile-example.png'/>" alt="">
+                            <img src="<c:url value='/resources/uploadfiles/profile/basic_profile.jpg'/>" alt="">
                         </div>
                         <textarea name="" id="reply-input"></textarea>
                         <button>댓글 쓰기</button>

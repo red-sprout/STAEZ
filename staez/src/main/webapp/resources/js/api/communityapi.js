@@ -136,3 +136,27 @@ function updateBoard(data, callback) {
         }
     });
 }
+
+function onClickLike(data, callback) {
+    $.ajax({
+        url: contextPath + "update.bl",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("좋아요 요청 실패");
+        }
+    });
+}
+
+function selectReply(data, callback) {
+    $.ajax({
+        url: contextPath + "select.rp",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("댓글 요청 실패");
+        }
+    });
+}

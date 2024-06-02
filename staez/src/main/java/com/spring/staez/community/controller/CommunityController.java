@@ -19,10 +19,12 @@ import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.common.template.MyFileRenamePolicy;
 import com.spring.staez.community.model.dto.AjaxBoardDto;
+import com.spring.staez.community.model.dto.BoardListDto;
 import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
 import com.spring.staez.community.model.dto.UpdateBoardDto;
 import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.community.model.vo.BoardLike;
 import com.spring.staez.community.model.vo.Tag;
 import com.spring.staez.community.service.CommunityService;
 import com.spring.staez.concert.model.vo.Concert;
@@ -199,5 +201,35 @@ public class CommunityController {
 		}
 		
 		return "community/communityMain";
+	}
+	
+	// 좋아요 상태 변경
+	@ResponseBody
+	@GetMapping("update.bl")
+	public String updateLike(BoardLike boardLike) {		
+		AjaxBoardDto dto = new AjaxBoardDto();
+		dto.setBoardNo(boardLike.getBoardNo());
+		dto.setUserNo(boardLike.getUserNo());
+		
+		int result = communityService.selectUserBoardLikeAll(dto);
+		if(result > 0) {
+			result = communityService.updateBoardLike(boardLike);
+		} else {
+			result = communityService.insertBoardLike(boardLike);
+		}
+		
+		int boardLikeCnt = communityService.selectBoardLikeCnt(dto);
+		if(result > 0) {
+			return String.valueOf(boardLikeCnt);
+		} else {
+			return "Exception 발생, 좋아요 실패";
+		}
+	}
+	
+	// 댓글 select
+	@ResponseBody
+	@GetMapping(value = "select.rp", produces = "application/json; charset-UTF-8")
+	public String selectReply(int boardNo) {
+		
 	}
 }
