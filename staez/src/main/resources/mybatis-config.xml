@@ -23,6 +23,7 @@
  		<typeAlias type="com.spring.staez.community.model.vo.BoardLike" alias="BoardLike" />
  		<typeAlias type="com.spring.staez.community.model.vo.Reply" alias="Reply" />
  		<typeAlias type="com.spring.staez.community.model.vo.ReplyLike" alias="ReplyLike" />
+ 		<typeAlias type="com.spring.staez.community.model.vo.Tag" alias="Tag" />
 
  		<typeAlias type="com.spring.staez.concert.model.vo.Concert" alias="Concert" />
  		<typeAlias type="com.spring.staez.concert.model.vo.ConcertAttachment" alias="ConcertAttachment" />

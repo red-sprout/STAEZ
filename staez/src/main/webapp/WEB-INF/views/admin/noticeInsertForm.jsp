@@ -7,13 +7,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/admin/noticeIncertForm.css'/>">
-<script src="<c:url value='/resources/js/admin/noticeIncertForm.js'/>"></script>
 </head>
 <body>
     <header>
         <jsp:include page="/WEB-INF/views/common/header.jsp" />
         <script src="<c:url value='/resources/js/api/adminapi.js'/>"></script>
-        <script src="<c:url value='/resources/js/admin/noticeIncertForm.js'/>"></script>
+        <script src="<c:url value='/resources/js/admin/noticeInsertForm.js'/>"></script>
     </header>
     <main>
         <div id="community-wrapper">

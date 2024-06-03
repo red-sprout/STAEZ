@@ -15,7 +15,7 @@ function drawTheaterList(theaterList){
                                         <input type="checkbox" name="" id="`+ t.theaterNo +`">
                                     </td>
                                     <td>`+ t.theaterName +`</td>
-                                    <td>A `+ row +`</td>
+                                    <td>A - `+ row +`</td>
                                     <td>1 - `+ t.theaterCol +`</td>
                                     <td>`+ t.address +`</td>
                                     <td>`+ t.telno +`</td>

@@ -1,7 +1,5 @@
 package com.spring.staez.community.model.dto;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,11 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CommunityDto {
-	private int userNo;
-	private int boardNo;
-	private String boardTitle;
-	private List<Integer> categoryNo;
-	private int concertNo;
-	private String boardContent;
+public class UpdateBoardDto {
+	private String boardNo;
+	private String concertNo;
 }
