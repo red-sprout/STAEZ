@@ -8,4 +8,19 @@ const starRating = _this => {
     }
 }
 
+$(function() {
+    // 이미 한줄평이 있을때 hover시 수정버튼 활성화
+    $('#review-func').hover(function() {
+        $('#review-func>span').prop('hidden', true);
+        $('#review-func>span+button').prop('hidden', false);
+    }, function(){
+        $('#review-func>span').prop('hidden', false);
+        $('#review-func>span+button').prop('hidden', true);
+    });
 
+    // 버튼 클릭 시 한줄평 작성 모달 출력
+    $("#review-func>button").click(function() {
+        
+    });
+
+});

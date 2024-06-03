@@ -5,16 +5,16 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <link rel="stylesheet" href="${contextPath}/resources/css/mypage/myScrapList.css">
 <script src="${contextPath}/resources/js/mypage/myScrapList.js"></script>
+<script src="${contextPath}/resources/js/api/mypageapi.js"></script>
 
 <div class="main-content">
     <div class="main-title">
         <h2>찜목록</h2>
         <div>
-            <button type="button" id="deleteBtn" class="btn-staez purple"><h4>선택삭제</h4></button>
-            <input type="checkbox">
+            <button type="button" id="deleteBtn" class="btn-staez purple" onclick="deleteMyScrap()"><h4>선택삭제</h4></button>
+            <input type="checkbox" id="checkAll">
         </div>
     </div>
-
     <table>
         <tbody>
             <tr class="tb-title">
@@ -23,24 +23,24 @@
 
             <c:forEach var="c" items="${clist}">
             <tr class="tb-content">
-                <td id="concert-img" onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
+                <td class="concert-img" onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
                     <img src="${contextPath}${c.filePath}${c.changeName}" alt="">
                 </td>
-                <td id="content" onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
+                <td class="concert-content" onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
                     <h3>${c.concertTitle}</h3>
                     <h5>${c.theaterName}</h5>
                     <h4>캐스팅 : ${c.concertMembers}</h4>
                     <h4>상영기간 : ${c.startDate} ~ ${c.endDate}</h4>
                 </td>
-                <td id="age-checkbox">
+                <td class="age-checkbox">
                     <div>
-                        <input type="checkbox">
+                        <input type="checkbox" value="${c.concertNo}">
                     </div>
                     <h4>${c.ageLimit}</h4>
                 </td>
             </tr>
             </c:forEach>
-    </tbody>
+        </tbody>
     </table>
 
     <div class="page-list">

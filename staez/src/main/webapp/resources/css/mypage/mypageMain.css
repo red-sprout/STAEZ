@@ -122,8 +122,19 @@
     flex-direction: row;
     justify-content: center;
 }
+#review span{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 
+#review span>img{
+    width: 20px;
+    height: 20px;
 
+    margin-right: 10px;
+}
 
 
 
