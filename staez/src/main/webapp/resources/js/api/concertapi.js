@@ -11,20 +11,6 @@ function conNaviDraw(callback){
     });
 }
 
-// // 콘서트 내용 그려주는: 슬라이더랑, 그리드
-// function conMainDraw(callback){
-//     $.ajax({
-//         url: contextPath + "maincon.co",
-//         data: data,
-//         success : function(list){
-//             console.log(list);
-//             callback(list);
-//         }, error(){
-//             console.log("실패");
-//         }
-//     });
-// }
-
 // 카테고리별 콘서트 내용 그려주는: 슬라이더랑, 그리드
 function ajaxCategoryList(data, callback){
     console.log(data)
@@ -40,30 +26,30 @@ function ajaxCategoryList(data, callback){
     });
 }
 
-// // 좋아요 버튼
-// function conHeart(data, callback){
-//     $.ajax({
-//         url: contextPath + "conheart.co",
-//         data: data,
-//         type :'POST',
-//         success : function(conL){
-//             console.log(conL);
-//             callback(conL);
-//         }, error(){
-//             console.log("실패");
-//         }
-//     });
-// }
-
-// 좋아요 count
-function countHeart(data, callback){
+// 좋아요 버튼
+function likeUpdate(data, callback){
     $.ajax({
-        url: contextPath + "countheart.co",
+        url: contextPath + "likeupdate.co",
         data: data,
         type :'POST',
-        success : function(likeCount){
-            console.log(likeCount);
-            callback(likeCount);
+        success : function(result){
+            console.log("insertLike:" + result);
+            callback(result);
+        }, error(){
+            console.log("실패");
+        }
+    });
+}
+
+// 좋아요 count
+function likeCount(data, callback){
+    $.ajax({
+        url: contextPath + "likecount.co",
+        data: data,
+        type :'POST',
+        success : function(result){
+            console.log(result);
+            callback(result);
         }, error(){
             console.log("실패");
         }

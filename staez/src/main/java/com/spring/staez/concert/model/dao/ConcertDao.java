@@ -2,6 +2,7 @@ package com.spring.staez.concert.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -61,6 +62,51 @@ public class ConcertDao {
 	public ArrayList<ConcertLike> checkLikeExist(SqlSessionTemplate sqlSession, int concertNo) {
 		return (ArrayList)sqlSession.selectList("concertMapper.checkLikeExist", concertNo);
 	}
+
+	public int selectConLikeCount(SqlSessionTemplate sqlSession, int concertNo) {
+		return sqlSession.selectOne("concertMapper.selectConLikeCount", concertNo);
+	}
+
+	public int selectUserConLike(SqlSessionTemplate sqlSession, Map map) {
+		return sqlSession.selectOne("concertMapper.selectUserConLike", map);
+	}
+
+	public int selectUserConLikeAll(SqlSessionTemplate sqlSession, ConcertLike like) {
+		return sqlSession.selectOne("concertMapper.selectUserConLikeAll", like);
+	}
+
+	public int updateConLike(SqlSessionTemplate sqlSession, Map map) {
+		return sqlSession.update("concertMapper.updateConLike", map);
+	}
+
+	public int insertConLike(SqlSessionTemplate sqlSession, Map map) {
+		return sqlSession.insert("concertMapper.insertConLike", map);
+	}
+	
+	
+	
+	
+//	// 1반환되면 있는거
+//	public int checkDidLike(SqlSessionTemplate sqlSession, Map insertLikeMap) {
+//		return sqlSession.selectOne("concertMapper.checkDidLike", insertLikeMap);
+//	}
+//
+//	public int insertLike(SqlSessionTemplate sqlSession, Map insertLikeMap) {
+//		return sqlSession.insert("concertMapper.insertLike", insertLikeMap);
+//	}
+//
+//	public ArrayList<ConcertLike> selectLikeCount(SqlSessionTemplate sqlSession, Map insertLikeMap) {
+//		return (ArrayList)sqlSession.selectList("concertMapper.selectLikeCount", insertLikeMap);
+//	}
+//
+//	public int updateYtoN(SqlSessionTemplate sqlSession, Map insertLikeMap) {
+//		return sqlSession.update("concertMapper.updateYtoN", insertLikeMap);
+//	}
+
+
+	
+	
+
 
 
 
