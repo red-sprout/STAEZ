@@ -106,12 +106,13 @@ public class OthersServiceImpl implements OthersService{
 
 	@Override
 	public ArrayList<BoardLike> insertUpdatelike(int userNo, int boardNo) {
-		Map data = new HashMap();
+		Map<String, Integer> data = new HashMap();
 		data.put("uNo", userNo);
 		data.put("bNo", boardNo);
 		ArrayList<BoardLike> like = null; 
-		int result1 = oDao.checkLikeStatus(sqlSession, data);
 		
+		int result1 = oDao.checkLikeStatus(sqlSession, data);
+		System.out.println(result1);
 		if(result1 < 1) { //insert문
 			int result2 = oDao.insertBoardLike(sqlSession, data);
 			
@@ -150,6 +151,32 @@ public class OthersServiceImpl implements OthersService{
 	@Override
 	public ArrayList<BoardLike> selectUserLikeBoardNo(int userNo) {
 		return oDao.selectUserLikeBoardNo(sqlSession, userNo);
+	}
+
+	@Override
+	public ArrayList<Concert> selectKeywordConcert(String keyword) {
+		
+		return oDao.selectKeywordConcert(sqlSession, keyword);
+	}
+
+	@Override
+	public ArrayList<Concert> selectKeywordConcertImg(String keyword) {
+		return oDao.selectKeywordConcertImg(sqlSession, keyword);
+	}
+
+	@Override
+	public ArrayList<Board> selectKeywordBoardList(String keyword) {
+		return oDao.selectKeywordBoard(sqlSession, keyword);
+	}
+
+	@Override
+	public ArrayList<Board> selectkeywordCategoryList(int bNo) {
+		return oDao.selectkeywordCategoryList(sqlSession, bNo);
+	}
+
+	@Override
+	public ArrayList<ProfileImg> selectKeywordUserProfilet(String keyword) {
+		return oDao.selectKeywordUserProfilet(sqlSession, keyword);
 	}
 	
 	

@@ -6,7 +6,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -32,7 +34,9 @@ public class OthersController {
 	}
 	
 	@GetMapping("searchResult.me") // 전체 검색 결과
-	public String searchResultPage() {
+	public String searchResultPage(@RequestParam("keyword") String keyword, Model model) {
+		
+		model.addAttribute("keyword", keyword);
 		return "others/searchResultPage";
 	}
 	
@@ -203,6 +207,56 @@ public class OthersController {
 		
 		
 		return  new Gson().toJson(userLikeList);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxKeywordConcertList.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxKeywordConcertList(String keyword) {
+		
+		ArrayList<Concert> cList = oService.selectKeywordConcert(keyword);
+		
+		
+		return  new Gson().toJson(cList);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxKeywordConcertImgList.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxKeywordConcertImgList(String keyword) {
+		
+		ArrayList<Concert> ciList = oService.selectKeywordConcertImg(keyword);
+		
+		
+		return  new Gson().toJson(ciList);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxKeywordBoardList.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxKeywordBoardList(String keyword) {
+		
+		ArrayList<Board> bList = oService.selectKeywordBoardList(keyword);
+		
+		
+		return  new Gson().toJson(bList);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxKeywordCategoryList.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxkeywordCategoryList(String bNo) {
+		int boardNo = Integer.parseInt(bNo);
+		ArrayList<Board> categoryList = oService.selectkeywordCategoryList(boardNo);
+		
+		
+		return  new Gson().toJson(categoryList);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxKeywordUserProfile.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxKeywordUserProfile(String keyword) {
+		
+		ArrayList<ProfileImg> profileList = oService.selectKeywordUserProfilet(keyword);
+		
+		
+		return  new Gson().toJson(profileList);
 	}
 	
 	

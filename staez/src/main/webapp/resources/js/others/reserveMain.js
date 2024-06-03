@@ -321,6 +321,7 @@ function changeLike(_this, event, bNo) {
     let img = _this.querySelector('img')
     let src = img.src;
     const uNo = document.querySelector("input[name = 'userNo']").value;
+    console.log("난 누구니 : " + uNo)
     if(src.includes("no")){
         img.src = likeYes
         likeYesEv(uNo ,bNo, _this);
@@ -331,6 +332,7 @@ function changeLike(_this, event, bNo) {
 }
 
 function likeYesEv(uNo ,bNo, countArea){
+    console.log(uNo +"//"+ bNo + "//" + countArea)
     insertUpdatelike({
         uNo,
         bNo

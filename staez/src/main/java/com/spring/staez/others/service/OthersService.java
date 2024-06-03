@@ -41,4 +41,14 @@ public interface OthersService {
 	ArrayList<BoardLike> updateNoLike(int userNo, int boardNo);
 	
 	ArrayList<BoardLike> selectUserLikeBoardNo(int userNo);
+	
+	ArrayList<Concert> selectKeywordConcert(String keyword);
+	
+	ArrayList<Concert> selectKeywordConcertImg(String keyword);
+	
+	ArrayList<Board> selectKeywordBoardList(String keyword);
+	
+	ArrayList<Board> selectkeywordCategoryList(int bNo);
+	
+	ArrayList<ProfileImg> selectKeywordUserProfilet(String keyword);
 }

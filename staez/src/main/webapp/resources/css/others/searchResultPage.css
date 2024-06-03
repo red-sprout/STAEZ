@@ -79,6 +79,7 @@
 
 .concert-search-result-info>a>img{
     width: 220px;
+    height: 275px;
     cursor: pointer;
     -webkit-transition: .3s ease-in-out;
     transition: .3s ease-in-out;
@@ -206,6 +207,11 @@
 
 .bulletin-thumbnail{
     width: 150px;
+}
+
+.community-bulletin-area{
+    width: 1300px;
+    height: 550px;
 }
 
 

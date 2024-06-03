@@ -72,7 +72,9 @@ public class OthersDao {
 	}
 	
 	public int checkLikeStatus(SqlSessionTemplate sqlSession, Map data) {
-		return sqlSession.selectOne("othersMapper.checkLikeStatus", data);
+		Integer result = sqlSession.selectOne("othersMapper.checkLikeStatus", data);
+		
+		return result != null ? 1 : 0;
 	}
 	
 	public int insertBoardLike(SqlSessionTemplate sqlSession, Map data) {
@@ -95,5 +97,24 @@ public class OthersDao {
 		return (ArrayList)sqlSession.selectList("othersMapper.selectUserLikeBoardNo", userNo);
 	}
 	
+	public ArrayList<Concert> selectKeywordConcert(SqlSessionTemplate sqlSession, String keyword) {
+		return (ArrayList)sqlSession.selectList("othersMapper.selectKeywordConcert", keyword);
+	}
+	
+	public ArrayList<Concert> selectKeywordConcertImg(SqlSessionTemplate sqlSession, String keyword){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectKeywordConcertImg", keyword);
+	}
+	
+	public ArrayList<Board> selectKeywordBoard(SqlSessionTemplate sqlSession, String keyword){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectKeywordBoard", keyword);
+	}
+	
+	public ArrayList<Board> selectkeywordCategoryList(SqlSessionTemplate sqlSession, int bNo){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectkeywordCategoryList", bNo);
+	}
+	
+	public ArrayList<ProfileImg> selectKeywordUserProfilet(SqlSessionTemplate sqlSession, String keyword){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectKeywordUserProfilet", keyword);
+	}
 
 }
