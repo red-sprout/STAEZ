@@ -15,9 +15,11 @@ import lombok.ToString;
 @ToString
 public class Reply {
 	private int	replyNo; //댓글번호
-	private int refReplyNo; //참조댓글번호
+	private String refReplyNo; //참조댓글번호
 	private int boardNo; //게시글번호
 	private int userNo; //작성회원번호
+	private String nickname; //닉네임
+	private String path; //프로필 사진 위치
 	private String replyContent; //내용
 	private Timestamp replyWriteDate; //작성날짜
 	private String replyStatus; //댓글활성화여부

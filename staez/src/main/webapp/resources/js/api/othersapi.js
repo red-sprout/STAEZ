@@ -221,3 +221,68 @@ function updateNolike(data, callback){
         }
     })
 }
+
+// 검색 결과 ajax
+
+function keywordConcertList(data, callback){
+    $.ajax({
+        url : "ajaxKeywordConcertList.ot",
+        data : data,
+        success : function(result){
+            callback(result)
+        }, error : function(){
+            console.log("실패")
+        }
+    })
+}
+
+function keywordConcertImgList(data, callback){
+    $.ajax({
+        url : "ajaxKeywordConcertImgList.ot",
+        data : data,
+        success : function(result){
+            callback(result)
+        }, error : function(){
+            console.log("실패")
+        }
+    })
+}
+
+function keywordBoardList(data, callback){
+    $.ajax({
+        url : "ajaxKeywordBoardList.ot",
+        data : data,
+        success : function(result){
+            callback(result)
+        }, error : function(){
+            console.log("실패")
+        }
+    })
+}
+
+function keywordCategoryList(data, callback){
+    $.ajax({
+        url : "ajaxKeywordCategoryList.ot",
+        data : data,
+        success : function(result){
+            console.log(result)
+            callback(result)
+        }, error : function(){
+            console.log("실패")
+        }
+    })
+}
+
+function keywordUserProfile(data, callback){
+    $.ajax({
+        url : "ajaxKeywordUserProfile.ot",
+        data : data,
+        success : function(result){
+            callback(result)
+        }, error : function(){
+            console.log("실패")
+        }
+    })
+}
+
+

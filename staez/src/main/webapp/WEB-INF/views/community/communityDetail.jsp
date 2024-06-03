@@ -19,11 +19,14 @@
             <ul id="community-nav" align="left"></ul>
             <ul id="community-contents" align="left">
                 <input type="hidden" name="userNo" value="${loginUser.userNo}">
+                <input type="hidden" name="writerNo" value="${board.userNo}">
+                <input type="hidden" name="boardNo" value="${board.boardNo}">
+                <input type="hidden" name="tag" value="${tag.concertNo}">
                 <h1>커뮤니티</h1>
                 <hr>
                 <li id="community-category"></li>
                 <li>
-                    <h1>${b.boardTitle}</h1>
+                    <h1>${board.boardTitle}</h1>
                 </li>
                 <li>
                     <table>
@@ -33,17 +36,28 @@
                                     <img id="profile-img" src="">
                                 </td>
                                 <td>
-                                    <h3>${b.nickname}</h3>
+                                    <h3>${board.nickname}</h3>
                                 </td>
                                 <td rowspan="2">
                                     <div>
                                         <c:choose>
-                                            <c:when test="${loginUser.userNo eq b.userNo}">
-                                                <button class="function" onclick="location.href='updateForm.no'">수정</button>
-                                                <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
-                                                <button class="function">삭제</button>
-                                                <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
-                                                <button class="function" data-toggle="modal" data-target="#myModal">신고</button>
+                                            <c:when test="${loginUser.userNo eq board.userNo}">
+                                                <c:choose>
+                                                    <c:when test="${tag.concertNo eq null}">                                                        
+                                                        <button class="function" onclick="location.href='updateForm.cm?boardNo=${board.boardNo}'">수정</button>
+                                                        <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
+                                                        <button class="function" onclick="location.href='delete.cm?boardNo=${board.boardNo}'">삭제</button>
+                                                        <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
+                                                        <button class="function" data-toggle="modal" data-target="#myModal">신고</button>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <button class="function" onclick="location.href='updateForm.cm?boardNo=${board.boardNo}&concertNo=${tag.concertNo}'">수정</button>
+                                                        <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
+                                                        <button class="function" onclick="location.href='delete.cm?boardNo=${board.boardNo}'">삭제</button>
+                                                        <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
+                                                        <button class="function" data-toggle="modal" data-target="#myModal">신고</button>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </c:when>
                                             <c:otherwise>
                                                 <button class="function" data-toggle="modal" data-target="#myModal">신고</button>
@@ -53,78 +67,25 @@
                                 </td>
                             </tr>
                             <tr class="profile-area">
-                                <td>${b.boardWriteDate}</td>
+                                <td>${board.boardWriteDate}</td>
                             </tr>
                         </tbody>
                     </table>
                 </li>
-                <li>${b.boardContent}</li>
+                <li id="board-content">${board.boardContent}</li>
                 <li id="reply-cnt">
                     <h1>댓글&nbsp;</h1>
                     <h1 class="reply-cnt"></h1>
                 </li>
-                <li>
+                <li id="reply-input-area">
                     <div class="community-reply-input">
                         <div class="reply-profile-area">
-                            <img src="<c:url value='/resources/img/community/communityDetail/profile-example.png'/>" alt="">
+                            <img src="<c:url value='/resources/uploadfiles/profile/basic_profile.jpg'/>" alt="">
                         </div>
-                        <textarea name="" id="reply-input"></textarea>
-                        <button>댓글 쓰기</button>
+                        <textarea name="replyInput" id="reply-input"></textarea>
+                        <button onclick="insertReply()">댓글 쓰기</button>
                     </div>
                 </li>
-                <!-- <li class="reply-flex">
-                    <div class="community-reply">
-                        <div class="reply-menu">
-                            <button class="function">수정</button>
-                            <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
-                            <button class="function">삭제</button>
-                            <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
-                            <button class="function">답글</button>
-                        </div>
-                        <div class="reply-wrapper">
-                            <div class="reply-profile-area">
-                                <img src="<c:url value='/resources/img/community/communityDetail/profile-example.png'/>" alt="">
-                            </div>
-                            <div class="reply-contents">
-                                <div class="reply-text">
-                                    <h3>작은 숲</h3>
-                                    <p>말 그대로 phenomenal 이네요!!</p>
-                                </div>
-                                <div class="reply-like" onclick="likeToggle(this)">
-                                    <img src="<c:url value='/resources/img/community/communityDetail/like-no.png'/>" alt="">
-                                    <h4>3</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="reply-flex">
-                    <div class="reply-level"></div>
-                    <div class="community-reply">
-                        <div class="reply-menu">
-                            <button class="function">수정</button>
-                            <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
-                            <button class="function">삭제</button>
-                            <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
-                            <button class="function">답글</button>
-                        </div>
-                        <div class="reply-wrapper">
-                            <div class="reply-profile-area">
-                                <img src="<c:url value='/resources/img/community/communityDetail/profile-example.png'/>" alt="">
-                            </div>
-                            <div class="reply-contents">
-                                <div class="reply-text">
-                                    <h3>작은 숲</h3>
-                                    <p>말 그대로 phenomenal 이네요!!</p>
-                                </div>
-                                <div class="reply-like" onclick="likeToggle(this)">
-                                    <img src="<c:url value='/resources/img/community/communityDetail/like-no.png'/>" alt="">
-                                    <h4>3</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li> -->
             </ul>
         </div>
     </main>
@@ -133,7 +94,7 @@
             <img><h4></h4>
         </div>
         <hr>
-        <div class="community-circle-area" onclick="commentFocus()">
+        <div class="community-circle-area" onclick="replyFocus()">
             <img src="<c:url value='/resources/img/community/communityDetail/reply.png'/>" alt="">
             <h4 class="reply-cnt"></h4>
         </div>

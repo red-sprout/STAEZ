@@ -123,3 +123,44 @@ function selectReply(data, callback) {
         }
     })
 }
+
+function updateBoard(data, callback) {
+    $.ajax({
+        url: contextPath + "update.cm",
+        type: "POST",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("게시글 등록 실패");
+        }
+    });
+}
+
+function onClickLike(data, callback) {
+    $.ajax({
+        url: contextPath + "update.bl",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("좋아요 요청 실패");
+        }
+    });
+}
+
+function selectReplyAll(data, callback) {
+    $.ajax({
+        url: contextPath + "selectAll.rp",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("댓글 요청 실패");
+        }
+    });
+}
+
+function insertReply(data, callback) {
+    
+}

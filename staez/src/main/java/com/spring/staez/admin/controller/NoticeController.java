@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.staez.admin.service.NoticeService;
 import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.user.model.vo.User;
 
 @Controller
 public class NoticeController {
@@ -40,13 +41,23 @@ public class NoticeController {
 		return "admin/noticeDetail";
 	}
 	
-	@GetMapping("incertForm.no")
-	public String noticeIncertForm() {
-		return "admin/noticeIncertForm";
+	@GetMapping("insertForm.no")
+	public String noticeIncertForm(HttpSession session) {
+		User loginUser = (User)session.getAttribute("loginUser");
+		if(!loginUser.getGrade().equals("1")) {
+			session.setAttribute("alertMsg", "접근 권한이 없습니다.");
+			return "redirect: main.no";
+		}
+		return "admin/noticeInsertForm";
 	}
 	
 	@GetMapping("updateForm.no")
-	public String noticeUpdateForm() {
+	public String noticeUpdateForm(HttpSession session) {
+		User loginUser = (User)session.getAttribute("loginUser");
+		if(!loginUser.getGrade().equals("1")) {
+			session.setAttribute("alertMsg", "접근 권한이 없습니다.");
+			return "redirect: main.no";
+		}
 		return "admin/noticeUpdateForm";
 	}
 	

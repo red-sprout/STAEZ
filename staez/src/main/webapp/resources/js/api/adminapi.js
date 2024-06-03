@@ -168,3 +168,15 @@ function ajaxTheaterList(data, callback){
         }
     }); 
 }
+
+function selectProfile(data, callback) {
+    $.ajax({
+        url: contextPath + "select.pr",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("프로필 요청 실패");
+        }
+    })
+}

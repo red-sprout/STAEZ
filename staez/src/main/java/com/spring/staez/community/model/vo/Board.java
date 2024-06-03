@@ -33,5 +33,6 @@ public class Board {
 	private int categoryLevel; //카테고리레벨
 	private int concertNo; //공연번호
 	private int likeCount; //좋아요 개수
+	private String path; //프로필 사진 경로
 }
 
