@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
-import com.spring.staez.community.model.dto.AjaxBoardDto;
-import com.spring.staez.community.model.vo.BoardLike;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.model.vo.ConcertReview;
@@ -98,28 +94,32 @@ public class ConcertController {
 	// 좋아요 insert, update
 	@ResponseBody
 	@RequestMapping(value = "likeupdate.co")
-	public String likeUpdate(String userNo, String concertNo) {
+	public String likeUpdate(ConcertLike like) {
 		// like 있는지 없는지 체크후 없으면 insert
 
-		ConcertLike like = new ConcertLike();
-		like.setUserNo(Integer.parseInt(userNo));
-		like.setConcertNo(Integer.parseInt(concertNo));
+		int userNo = like.getUserNo();
+		int concertNo = like.getConcertNo();
+		Map map = new HashMap();
+		map.put("userNo", userNo);
+		map.put("concertNo", concertNo);
+
 		System.out.println(like);
+		System.out.println("userNo: "+ userNo + "concertNo: " + concertNo);
 		
-		int result =  concertService.selectUserConLikeAll(like); // a유저가 1이라는 콘서트에 좋아요한 적이 있냐 status 노상관
+		int result =  concertService.selectUserConLikeAll(map); // a유저가 1이라는 콘서트에 좋아요한 적이 있냐 status 노상관
 		System.out.println("selectUserConLikeAll:" + result);
 		
 		
 		if(result > 0) {
-			result = concertService.updateConLike(Integer.parseInt(userNo), Integer.parseInt(concertNo)); // 좋아요 한 적 있으면 update
+			result = concertService.updateConLike(like); // 좋아요 한 적 있으면 update
 		} else {
-			result = concertService.insertConLike(Integer.parseInt(userNo), Integer.parseInt(concertNo)); // 좋아요 한 적 없으면 insert
+			result = concertService.insertConLike(like); // 좋아요 한 적 없으면 insert
 		}
 		
 		System.out.println("updateConLike:" + result);
 		System.out.println("insertConLike:" + result);
 		
-		int conLikeCount = concertService.selectConLikeCount(Integer.parseInt(concertNo));
+		int conLikeCount = concertService.selectConLikeCount(map);
 		System.out.println("conLikeCount:" + conLikeCount);
 		
 		if(result > 0) {

@@ -1,11 +1,10 @@
 package com.spring.staez.concert.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.concert.model.vo.Concert;
-import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.model.vo.ConcertReview;
 
 
@@ -48,7 +47,7 @@ public interface ConcertService {
 
 	int selectUserConLike(int userNo, int concertNo);
 
-	int selectUserConLikeAll(ConcertLike like);
+	int selectUserConLikeAll(Map map);
 
 	int updateConLike(int userNo, int concertNo);
 

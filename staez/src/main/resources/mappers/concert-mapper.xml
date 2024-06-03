@@ -285,7 +285,7 @@
 	
 	<update id="updateConLike">
         UPDATE concert_like
-           SET status = 'Y'
+           SET status = #{status}
          WHERE user_no = #{userNo}
            AND concert_no = #{concertNo}
     </update>

@@ -53,10 +53,10 @@
             </div>
             <!-- 좋아요 버튼 -->
             <div class="concert-detail-like">
-                <button class="concert-detail-like-button" onclick="likeToggle(this, event, ${con.concertNo})">
-                    <!-- <i class="fa-regular fa-heart"></i>
+                <button class="concert-detail-like-button" onclick="likeToggle(this)">
+                    <i class="fa-regular fa-heart"></i>
                     <input type="checkbox" class="hidden" name="conHeart">
-                    <span class="concert-likeCount"></span> -->
+                    <span class="concert-likeCount"></span>
                 </button> <!-- 길이조절필요 -->
                 <div class="concert-detail-like-commu"><a href="main.cm"><span><b>${con.concertTitle} 커뮤니티로 가기</b></span></a></div>
             </div>
