@@ -57,5 +57,10 @@ public class UserDao {
         params.put("authNo", authNo);
         return sqlSession.selectOne("userMapper.emailSecretCodeCheck", params);
     }
+    
+  //이메일로 아이디찾기
+	public String findEmailCheck(SqlSessionTemplate sqlSession2, String checkFindEmail) {
+		return sqlSession.selectOne("userMapper.findEmailCheck",checkFindEmail);
+	}
 
 }

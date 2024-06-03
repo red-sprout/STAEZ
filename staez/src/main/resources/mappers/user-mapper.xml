@@ -125,6 +125,12 @@
 		   AND send_time >= CURRENT_TIMESTAMP - INTERVAL '5 minutes';
 	</select>
 	
-
+	<!-- 이메일로 아이디찾기 -->
+	<select id="findEmailCheck" resultType="string">
+		SELECT user_id
+		  FROM staez_user
+		 WHERE email = #{email}
+	</select>
+	
 </mapper>
 

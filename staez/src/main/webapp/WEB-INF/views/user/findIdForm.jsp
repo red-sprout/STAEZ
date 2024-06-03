@@ -115,11 +115,38 @@
         </form>
         <div class="insert-member-div">
             <button type="button" id="backButton">이전</button>
-            <button type="submit">다음</button>
+            <button type="submit" id="findEmailCheck" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clickGetId()"disabled>다음</button>
         </div>
     </main>
     <footer>
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     </footer>
+      
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+            
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">회원님의 이메일에 등록된 아이디입니다.</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              
+              <!-- Modal body -->
+              <div id="emailFindId" class="modal-body">
+              </div>
+              
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" id="loginButton" class="btn btn-danger" data-dismiss="modal">로그인</button>
+                <button type="button" id="pwdFindButton" class="btn btn-danger" data-dismiss="modal">비밀번호 찾기</button>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
 </body>
 </html>
+

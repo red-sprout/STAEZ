@@ -237,9 +237,9 @@ function sendVerificationCode() {
 function handleEmailCheckResponse(response) {
     const emailCheckResult = document.getElementById("checkResultEamil");
     emailCheckResult.style.display = "block";
-    if (response === "No") {
+    if (response === "emailCheck No") {
         alert("인증번호 전송이 실패했습니다 다시 입력해주세요!");
-    } else if (response === "Yes") {
+    } else if (response === "emailCheck Yes") {
         alert("인증번호가 성공적으로 전송되었습니다!");
     }
 }
@@ -249,10 +249,10 @@ function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput, e
     console.log("Callback result:", result);
     emailSecretCheckResult.style.display = "block";
 
-    if (result === "No") { // 입력값이 데이터베이스 값과 일치하지 않을 때
+    if (result === "emailSecretCodeCheck No") { // 입력값이 데이터베이스 값과 일치하지 않을 때
         emailSecretCheckResult.style.color = "red";
         emailSecretCheckResult.innerText = "인증 코드가 일치하지 않습니다.";
-    } else if (result === "Yes") { // 입력값이 데이터베이스 값과 일치할 때
+    } else if (result === "emailSecretCodeCheck Yes") { // 입력값이 데이터베이스 값과 일치할 때
         emailSecretCheckResult.style.color = "green";
         emailSecretCheckResult.innerText = "인증이 확인되었습니다.";
         console.log("이메일 확인:", emailSecretInput.value);

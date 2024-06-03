@@ -151,13 +151,13 @@ public class UserController {
             // 이메일 전송이 성공한 경우에만 데이터 저장
             int result = userService.registerUser(email, authNo, send_time);
             if (result > 0) { // 저장완료
-                return "Yes";
+                return "emailCheck Yes";
             } else { // 저장이 실패한 경우
-                return "No";
+                return "emailCheck No";
             }
         } catch (MailException e) {
             System.out.println("이메일 전송 실패: " + e.getMessage());
-            return "No";
+            return "emailCheck No";
         }
     }
     
@@ -170,15 +170,18 @@ public class UserController {
         int result = userService.emailSecretCodeCheck(authNo, email);
         System.out.println(result);
         if (result > 0) { // 일치하다면 
-            return "Yes"; // 수정된 부분
+            return "emailSecretCodeCheck Yes"; // 수정된 부분
         } else { // 일치하지 않다면
-            return "No"; // 수정된 부분
+            return "emailSecretCodeCheck No"; // 수정된 부분
         }
+    } 
+    
+   //이메일로 아이디찾기
+    @ResponseBody
+    @GetMapping("findEmailCheck.me")
+    public String findEmailCheck(String checkFindEmail) {
+    	String result = userService.findEmailCheck(checkFindEmail);
+        return result;
     }
-    
-    
-    
-    
-    
     
 }

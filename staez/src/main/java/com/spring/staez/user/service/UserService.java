@@ -26,4 +26,6 @@ public interface UserService {
 	 // 이메일 암호키 인증체크
 	int emailSecretCodeCheck(String authNo, String email);
 	
+	//이메일로 아이디찾기
+	String findEmailCheck(String checkFindEmail);
 }

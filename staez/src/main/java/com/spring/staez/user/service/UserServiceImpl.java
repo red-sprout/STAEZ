@@ -56,5 +56,11 @@ public class UserServiceImpl implements UserService{
 	public int emailSecretCodeCheck(String authNo, String email) {
 		return userDao.emailSecretCodeCheck(sqlSession, authNo, email);
 	}
+	
+	//이메일로 아이디찾기
+	@Override
+	public String findEmailCheck(String checkFindEmail) {
+		return userDao.findEmailCheck(sqlSession, checkFindEmail);
+	}
 
 }
