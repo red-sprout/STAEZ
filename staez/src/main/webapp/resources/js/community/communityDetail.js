@@ -28,8 +28,8 @@ $(function(){
         setCategory(res);
     })
 
-    selectReply(data, (res) => {
-        console.log(res);
+    selectReplyAll(data, (res) => {
+        setReply(res);
     });
 
     const concertNo = document.querySelector("input[name='tag']").value;
@@ -158,6 +158,102 @@ function likeToggle(_this) {
     }
 }
 
-function commentFocus() {
+function replyFocus() {
     $("#reply-input").focus();
+}
+
+function setReply(result) {
+    const communityContents = document.getElementById("community-contents");
+    for(let ele of result) {
+        const replyFlex = document.createElement("li");
+        const communityReply = document.createElement("div");
+    
+        replyFlex.setAttribute("class", "reply-flex");
+        communityReply.setAttribute("class", "community-reply");
+
+        communityReply.appendChild(replyMenu());
+        communityReply.appendChild(replyWrapper(ele));
+        if(ele.refReplyNo) {
+            replyFlex.appendChild(blank());
+        }
+        replyFlex.appendChild(communityReply);
+        communityContents.appendChild(replyFlex);
+    }
+}
+
+function blank() {
+    const div = document.createElement("div");
+    div.setAttribute("class", "reply-level");
+    return div;
+}
+
+function replyMenu() {
+    const div = document.createElement("div");
+    const action = ["수정", "삭제", "답글"];
+
+    div.setAttribute("class", "reply-menu");
+    for(let i = 0; i < 3; i++) {
+        const btn = document.createElement("button");
+        const img = document.createElement("img");
+
+        btn.setAttribute("class", "function");
+        img.setAttribute("src", contextPath + "/resources/img/common/header/divide.png");
+
+        btn.innerHTML = action[i];
+
+        if(i !== 0) {
+            div.appendChild(img);
+        }
+        div.appendChild(btn);
+    }
+
+    return div;
+}
+
+function replyWrapper(result) {
+    const div = document.createElement("div");
+    const profile = document.createElement("div");
+    const contents = document.createElement("div");
+
+    div.setAttribute("class", "reply-wrapper");
+    profile.setAttribute("class", "reply-profile-area");
+    contents.setAttribute("class", "reply-contents");
+
+    profile.innerHTML += `<img src="${contextPath + result.path}">`;
+
+    const replyText = document.createElement("div");
+    const replyLike = document.createElement("div");
+
+    replyText.setAttribute("class", "reply-text");
+    replyLike.setAttribute("class", "reply-like");
+
+    replyText.innerHTML += `<h3>${result.nickname}</h3>`
+    replyText.innerHTML += `<p>${result.replyContent}</p>`
+
+    const replyLikeStatus = document.createElement("img");
+    const replyLikeCnt = document.createElement("h4");
+    replyLikeStatus.setAttribute("src", contextPath + "/resources/img/community/communityDetail/like-no.png");
+    replyLikeCnt.innerHTML = 0;
+
+    replyLike.onload = function() {
+        const userNo = $("input[name=userNo]").val();
+        console.log(userNo);
+    }
+    replyLike.addEventListener("click", (ev) =>{
+        console.log(ev.currentTarget);
+    });
+
+    replyLike.appendChild(replyLikeStatus);
+    replyLike.appendChild(replyLikeCnt);
+
+    contents.appendChild(replyText);
+    contents.appendChild(replyLike);
+
+    div.appendChild(profile);
+    div.appendChild(contents);
+    return div;
+}
+
+function insertReply() {
+    
 }

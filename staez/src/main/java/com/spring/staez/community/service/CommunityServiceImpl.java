@@ -21,6 +21,8 @@ import com.spring.staez.user.model.vo.ProfileImg;
 
 @Service
 public class CommunityServiceImpl implements CommunityService {
+	
+	private static final String BASIC_PROFILE = "/resources/uploadfiles/profile/basic_profile.jpg";
 
 	@Autowired
 	SqlSessionTemplate sqlSession;
@@ -157,7 +159,12 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public ArrayList<Reply> selectReply(int boardNo) {
-		return communityDao.selectReply(sqlSession, boardNo);
+	public ArrayList<Reply> selectReplyAll(int boardNo) {
+		ArrayList<Reply> list = communityDao.selectReplyAll(sqlSession, boardNo);
+		for(Reply r : list) {
+			if(r.getPath() == null) 
+				r.setPath(BASIC_PROFILE);
+		}
+		return list;
 	}
 }

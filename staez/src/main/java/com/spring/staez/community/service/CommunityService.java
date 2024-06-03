@@ -50,6 +50,6 @@ public interface CommunityService {
 
 	int insertBoardLike(BoardLike boardLike);
 
-	ArrayList<Reply> selectReply(int boardNo);
+	ArrayList<Reply> selectReplyAll(int boardNo);
 
 }

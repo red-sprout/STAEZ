@@ -82,63 +82,10 @@
                         <div class="reply-profile-area">
                             <img src="<c:url value='/resources/uploadfiles/profile/basic_profile.jpg'/>" alt="">
                         </div>
-                        <textarea name="" id="reply-input"></textarea>
-                        <button>댓글 쓰기</button>
+                        <textarea name="replyInput" id="reply-input"></textarea>
+                        <button onclick="insertReply()">댓글 쓰기</button>
                     </div>
                 </li>
-                <!-- <li class="reply-flex">
-                    <div class="community-reply">
-                        <div class="reply-menu">
-                            <button class="function">수정</button>
-                            <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
-                            <button class="function">삭제</button>
-                            <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
-                            <button class="function">답글</button>
-                        </div>
-                        <div class="reply-wrapper">
-                            <div class="reply-profile-area">
-                                <img src="<c:url value='/resources/img/community/communityDetail/profile-example.png'/>" alt="">
-                            </div>
-                            <div class="reply-contents">
-                                <div class="reply-text">
-                                    <h3>작은 숲</h3>
-                                    <p>말 그대로 phenomenal 이네요!!</p>
-                                </div>
-                                <div class="reply-like" onclick="likeToggle(this)">
-                                    <img src="<c:url value='/resources/img/community/communityDetail/like-no.png'/>" alt="">
-                                    <h4>3</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="reply-flex">
-                    <div class="reply-level"></div>
-                    <div class="community-reply">
-                        <div class="reply-menu">
-                            <button class="function">수정</button>
-                            <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
-                            <button class="function">삭제</button>
-                            <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
-                            <button class="function">답글</button>
-                        </div>
-                        <div class="reply-wrapper">
-                            <div class="reply-profile-area">
-                                <img src="<c:url value='/resources/img/community/communityDetail/profile-example.png'/>" alt="">
-                            </div>
-                            <div class="reply-contents">
-                                <div class="reply-text">
-                                    <h3>작은 숲</h3>
-                                    <p>말 그대로 phenomenal 이네요!!</p>
-                                </div>
-                                <div class="reply-like" onclick="likeToggle(this)">
-                                    <img src="<c:url value='/resources/img/community/communityDetail/like-no.png'/>" alt="">
-                                    <h4>3</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li> -->
             </ul>
         </div>
     </main>
@@ -147,7 +94,7 @@
             <img><h4></h4>
         </div>
         <hr>
-        <div class="community-circle-area" onclick="commentFocus()">
+        <div class="community-circle-area" onclick="replyFocus()">
             <img src="<c:url value='/resources/img/community/communityDetail/reply.png'/>" alt="">
             <h4 class="reply-cnt"></h4>
         </div>

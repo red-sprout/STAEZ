@@ -124,8 +124,8 @@ public class CommunityDao {
 		return sqlSession.insert("communityMapper.insertBoardLike", boardLike);
 	}
 
-	public ArrayList<Reply> selectReply(SqlSessionTemplate sqlSession, int boardNo) {
-		return (ArrayList)sqlSession.selectList("communityMapper.selectReply", boardNo);
+	public ArrayList<Reply> selectReplyAll(SqlSessionTemplate sqlSession, int boardNo) {
+		return (ArrayList)sqlSession.selectList("communityMapper.selectReplyAll", boardNo);
 	}
 	
 }

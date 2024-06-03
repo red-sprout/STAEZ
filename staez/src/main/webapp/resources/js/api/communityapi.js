@@ -149,9 +149,9 @@ function onClickLike(data, callback) {
     });
 }
 
-function selectReply(data, callback) {
+function selectReplyAll(data, callback) {
     $.ajax({
-        url: contextPath + "select.rp",
+        url: contextPath + "selectAll.rp",
         data: data,
         success: function (res) {
             callback(res);
@@ -159,4 +159,8 @@ function selectReply(data, callback) {
             console.log("댓글 요청 실패");
         }
     });
+}
+
+function insertReply(data, callback) {
+    
 }

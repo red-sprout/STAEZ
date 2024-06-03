@@ -228,8 +228,9 @@ public class CommunityController {
 	
 	// 댓글 select
 	@ResponseBody
-	@GetMapping(value = "select.rp", produces = "application/json; charset-UTF-8")
-	public String selectReply(int boardNo) {
-		ArrayList<Reply> list = communityService.selectReply(boardNo);
+	@GetMapping(value = "selectAll.rp", produces = "application/json; charset-UTF-8")
+	public String selectReplyAll(int boardNo) {
+		ArrayList<Reply> list = communityService.selectReplyAll(boardNo);
+		return new Gson().toJson(list);
 	}
 }
