@@ -32,16 +32,18 @@
             </li>
             <li id="notice-category">
                 <div id="category-div"></div>
-                <div class="">
-                    <button class="btn-staez purple" onclick="location.href='incertForm.no'"><h3>작성</h3></button>
-                </div>
+                <c:if test = "${loginUser.grade eq 1}">
+                    <div>
+                        <button class="btn-staez purple" onclick="location.href='insertForm.no'"><h3>작성</h3></button>
+                    </div>
+                </c:if>
             </li>
             <c:forEach var="b" items="${list}">
                 <li class="notice-posting" onclick="location.href='detail.no?boardNo=${b.boardNo}'">
                     <table>
                         <tbody>
                             <tr class="profile-area">
-                                <td rowspan="2"><img src="<c:url value='/resources/img/community/communityMain/profile-example.png'/>" alt=""></td>
+                                <td rowspan="2"><img src="" alt=""></td>
                                 <td><h4>${b.nickname}</h4></td>
                                 <td rowspan="5">
                                     <input type="hidden" name="boardNo" value="${b.boardNo}" class="boardNo">
