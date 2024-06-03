@@ -1,6 +1,7 @@
 package com.spring.staez.mypage.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.dto.BoardListDto;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.mypage.model.dao.MypageDao;
+import com.spring.staez.user.model.dto.PaymentsInfoDto;
 import com.spring.staez.user.model.vo.ProfileImg;
 import com.spring.staez.user.model.vo.User;
 
@@ -89,7 +91,7 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public ArrayList<Concert> selectPaymentsList(int userNo, PageInfo pi) {
+	public ArrayList<PaymentsInfoDto> selectPaymentsList(int userNo, PageInfo pi) {
 		return mpd.selectPaymentsList(sqlSession, userNo, pi);
 	}
 
@@ -111,6 +113,11 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public ArrayList<Concert> selectReviewList(int userNo, PageInfo pi) {
 		return mpd.selectReviewList(sqlSession, userNo, pi);
+	}
+
+	@Override
+	public int deleteMyScrapAjax(Map<String, Integer> params) {
+		return mpd.deleteMyScrapAjax(sqlSession, params);
 	}
 
 

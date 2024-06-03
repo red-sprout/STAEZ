@@ -52,7 +52,12 @@
                 <c:forEach var="i" begin="0" end="4">      
                 <tr>
                     <td class="long-td">2024 최현우 Answer - 여수</td>     
-                    <td>★ 5</td>
+                    <td>
+                        <span>
+                            <img src="${contextPath}/resources/img/mypage/star-filled.png">
+                            <h4>5</h4>
+                        </span>
+                    </td>
                 </tr>
                 </c:forEach>
             </table>

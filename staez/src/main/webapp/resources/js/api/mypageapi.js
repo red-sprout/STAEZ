@@ -31,4 +31,16 @@ function loadProfileImgAjax(callback) {
     });
 }
 
+function deleteMyScrapAjax(data, callback){
+    $.ajax({
+        url: contextPath + 'deleteMyScrap.me',
+        data,
+        success: res => callback(res),
+        error: () => {
+            alert('찜목록 삭제에 실패하였습니다');
+        }
+    });
+}
+
+
 
