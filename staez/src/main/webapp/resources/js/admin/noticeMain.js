@@ -1,6 +1,16 @@
 $(function() {
     category({ refCategoryNo: refCategoryMap.others }, (result) => onloadCategory(result));
-    selectNotice({boardCode: boardCodeMap.notice, categoryNo: getUrlParams().categoryNo}, res => draw(res));
+    // selectNotice({boardCode: boardCodeMap.notice, categoryNo: getUrlParams().categoryNo}, res => draw(res));
+
+    const profileArea = [...document.querySelectorAll(".profile-area>td>img")];
+    const userNo = document.querySelectorAll(".profile-area input[name=userNo]");
+    const userNoList = [];
+
+    userNo.forEach((uNo) => {userNoList.push(uNo.value)});
+
+    for(let i = 0; i < userNoList.length; i++) {
+        drawProfile(profileArea[i], userNoList[i])
+    }
 });
 
 function onloadCategory(result) {
@@ -43,6 +53,18 @@ function setColor(id) {
     }
 }
 
-function draw(result) {
-    
+// 게시글마다 해당하는 카테고리 노출하기
+function drawBtn(_this, bNo) {
+    boardCategory({boardNo: bNo}, (result) => {
+        for(let c of result) {
+            _this.innerHTML += `<button class="btn-staez checked"><h4>${c.categoryName}</h4></button>`
+        }
+    });
+}
+
+// 게시글마다 프로필 사진 그리기
+function drawProfile(_this, uNo) {
+    selectProfile({userNo: uNo}, (result) => {
+        _this.setAttribute("src", contextPath + result);
+    })
 }
