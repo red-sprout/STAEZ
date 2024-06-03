@@ -10,6 +10,7 @@ function summernote() {
     });
 }
 
+// summernote 이미지 업로드
 function insertFileApi(data, callback) {
     $.ajax({
         url: contextPath + "communityImgUpload.cm",
@@ -64,6 +65,8 @@ function insertBoard(data, callback) {
     });
 }
 
+// 게시글 불러오기
+// data : CategoryDto(ArrayList<Integer> categoryNo)
 function selectBoard(data, callback) {
     $.ajax({
         url: contextPath + "main.cm",
@@ -76,6 +79,8 @@ function selectBoard(data, callback) {
     })
 }
 
+// 카테고리 정보 불러오기(이름)
+// data : boardNo
 function boardCategory(data, callback) {
     $.ajax({
         url: contextPath + "boardCategory.cm",
@@ -88,6 +93,8 @@ function boardCategory(data, callback) {
     });
 }
 
+// 프로필 가져오기
+// data : userNo
 function selectProfile(data, callback) {
     $.ajax({
         url: contextPath + "select.pr",

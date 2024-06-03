@@ -1,8 +1,6 @@
 window.onload = function () {
     summernote();
-
     category({ refCategoryNo: refCategoryMap.others }, (result) => setCategory(result, 'notice-category'));
-
     $('input').keydown(function (ev) {
         if (ev.keyCode === 13) {
             ev.preventDefault();
@@ -15,6 +13,12 @@ window.onload = function () {
         data.boardTitle = $("input[name='boardTitle']").val();
         data.categoryNo = categoryForm();
         data.boardContent = $(".note-editing-area>.note-editable").html();
+
+        if(!(data.userNo && data.boardTitle && data.categoryNo && data.boardContent)) {
+            alert("빠진 항목이 없는지 확인 바랍니다.");
+            return;
+        }
+
         insertNotice(data, res => {
             location.href = contextPath + res;
         });
@@ -87,14 +91,10 @@ function drawResultList(result) {
 
 function categoryForm() {
     const category = document.querySelectorAll("input[name='categoryNo']");
-    let arr = [];
-    
     for(let ele of category) {
         if(ele.getAttribute("checked")) {
-            arr.push(ele.value);
+            return ele.value;
         }
     }
-    console.log(arr);
-
-    return arr;
+    return null;
 }

@@ -102,7 +102,7 @@
 			board_no,
 			category_no
 		) values (
-			CURRVAL('board_board_no_seq'::regclass),
+			CURRVAL('seq_board'::regclass),
 			#{categoryNo}
 		)
 	</insert>
@@ -112,7 +112,7 @@
 			board_no,
 			concert_no
 		) values (
-			CURRVAL('board_board_no_seq'::regclass),
+			CURRVAL('seq_board'::regclass),
 			#{concertNo}
 		)
 	</insert>
