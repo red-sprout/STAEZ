@@ -17,10 +17,11 @@ $(function() {
         $('#review-func>span').prop('hidden', false);
         $('#review-func>span+button').prop('hidden', true);
     });
+});
 
-    // 버튼 클릭 시 한줄평 작성 모달 출력
-    $("#review-func>button").click(function() {
+// 버튼 클릭 시 한줄평 작성 모달 출력
+function loadOneLineReview(concertNo){
+    loadOneLineReviewAjax({concertNo}, function(res){
         
     });
-
-});
+}

@@ -300,5 +300,16 @@
 		AND status = 'Y'
 	</update>
 	
+	<select id="loadOneLineReviewAjax" resultType="Concert">
+		SELECT score, 
+			   file_path,
+			   change_name,
+			   concert_title
+			   theater_name
+			   
+		FROM concert_review
+		WHERE concert_no = #{concertNo}
+		AND user_no = #{userNo}
+	</select>
 </mapper>
 

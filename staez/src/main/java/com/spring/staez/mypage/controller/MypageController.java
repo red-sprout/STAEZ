@@ -351,6 +351,7 @@ public class MypageController {
 		}
 	}
 	
+	//선택한 한줄평 요소 삭제
 	@RequestMapping("deleteMyScrap.me")
 	@ResponseBody
 	public String deleteMyScrapAjax(int concertNo, HttpSession session) {
@@ -366,4 +367,19 @@ public class MypageController {
 		return result > 0 ? "NNNNY" : "NNNNN";
 	}
 
+	@RequestMapping("loadReview.me")
+	@ResponseBody
+	public String loadOneLineReviewAjax(int concertNo, HttpSession session) {
+		int userNo = ((User)session.getAttribute("loginUser")).getUserNo(); //로그인 된 유저의 고유번호 불러오기
+
+		Map<String, Integer> params = new HashMap<>();
+		params.put("userNo", userNo);
+		params.put("concertNo", concertNo);
+	
+		
+		
+		Concert reviewInfo = null;
+		return new Gson().toJson(reviewInfo);
+	}
+	
 }

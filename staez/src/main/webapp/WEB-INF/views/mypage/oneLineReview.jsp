@@ -33,7 +33,7 @@
                                 <img src="${contextPath}/resources/img/mypage/star-filled.png"> 
                                 <h4>${c.score}</h4>
                             </span>
-                            <button type="button" class="btn-staez purple" data-toggle="modal" data-target="#myModal" hidden><h4>수정</h4></button>
+                            <button type="button" class="btn-staez purple" data-toggle="modal" data-target="#myModal" onclick="loadOneLineReview('${c.concertNo}')" hidden><h4>수정</h4></button>
                         </td>
                     </tr>
                 </c:when>
@@ -48,7 +48,7 @@
                             <h4>리뷰를 작성해주세요</h4>
                         </td>
                         <td id="review-func">
-                            <button type="button" class="btn-staez purple" data-toggle="modal" data-target="#myModal"><h4>후기작성</h4></button>
+                            <button type="button" class="btn-staez purple" data-toggle="modal" data-target="#myModal"  onclick="loadOneLineReview('${c.concertNo}')"><h4>후기작성</h4></button>
                         </td>
                     </tr>                    
                 </c:otherwise>                
@@ -152,7 +152,7 @@
                     <div class="comment-area">
                         <h3>한줄평</h3>
                         <textarea rows="4" placeholder="200자" maxlength="200">
-                            ${c.reviewContent}
+                            
                         </textarea>
                     </div>
                 </div>
