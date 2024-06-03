@@ -152,6 +152,32 @@ public class OthersServiceImpl implements OthersService{
 	public ArrayList<BoardLike> selectUserLikeBoardNo(int userNo) {
 		return oDao.selectUserLikeBoardNo(sqlSession, userNo);
 	}
+
+	@Override
+	public ArrayList<Concert> selectKeywordConcert(String keyword) {
+		
+		return oDao.selectKeywordConcert(sqlSession, keyword);
+	}
+
+	@Override
+	public ArrayList<Concert> selectKeywordConcertImg(String keyword) {
+		return oDao.selectKeywordConcertImg(sqlSession, keyword);
+	}
+
+	@Override
+	public ArrayList<Board> selectKeywordBoardList(String keyword) {
+		return oDao.selectKeywordBoard(sqlSession, keyword);
+	}
+
+	@Override
+	public ArrayList<Board> selectkeywordCategoryList(int bNo) {
+		return oDao.selectkeywordCategoryList(sqlSession, bNo);
+	}
+
+	@Override
+	public ArrayList<ProfileImg> selectKeywordUserProfilet(String keyword) {
+		return oDao.selectKeywordUserProfilet(sqlSession, keyword);
+	}
 	
 	
 }
