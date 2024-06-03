@@ -12,42 +12,45 @@
     </div>
     <table>
         <tbody>
+            <tr class="tb-title">
+                <th colspan="3">공연정보</th>
+            </tr>
+            
             <c:forEach var="c" items="${clist}">
             <c:choose>
                 <c:when test="${not empty c.reviewContent}">
                     <tr>
                         <td id="concert-img"  onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
-                            <img src="${contextPath}${c.filePath}${c.changeName}" alt="">
+                            <img src="${contextPath}${c.filePath}${c.changeName}">
                         </td>
                         <td id="content">
                             <h3>${c.concertTitle}</h3>
-                            <h4>관람일 : ${c.concertDate}</h4>
+                            <h4>최근 관람일 : ${c.concertDate}</h4>
                             <h4>${c.reviewContent}</h4>
                         </td>
                         <td id="review-func">
                             <span>
-                                <img src="${contextPath}/resources/img/mypage/star-filled.png" alt=""> 
+                                <img src="${contextPath}/resources/img/mypage/star-filled.png"> 
                                 <h4>${c.score}</h4>
                             </span>
-                            <button class="hidden" type="button" data-toggle="modal" data-target="#myModal"><h4>수정</h4></button>
+                            <button type="button" class="btn-staez purple" data-toggle="modal" data-target="#myModal" hidden><h4>수정</h4></button>
                         </td>
                     </tr>
                 </c:when>
                 <c:otherwise>
                     <tr>
                         <td id="concert-img" onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
-                            <img src="${contextPath}${c.filePath}${c.changeName}" alt="">
+                            <img src="${contextPath}${c.filePath}${c.changeName}">
                         </td>
                         <td id="content">
                             <h3>${c.concertTitle}</h3>
-                            <h4>관람일 : ${c.concertDate}</h4>
+                            <h4>최근 관람일 : ${c.concertDate}</h4>
                             <h4>리뷰를 작성해주세요</h4>
                         </td>
                         <td id="review-func">
-                            <button type="button" data-toggle="modal" data-target="#myModal"><h4>후기작성</h4></button>
+                            <button type="button" class="btn-staez purple" data-toggle="modal" data-target="#myModal"><h4>후기작성</h4></button>
                         </td>
-                    </tr>
-                    
+                    </tr>                    
                 </c:otherwise>                
             </c:choose>            
         </c:forEach>

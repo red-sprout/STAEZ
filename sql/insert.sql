@@ -136,11 +136,11 @@ AND board_level=1;
 
 /*문의(답변)*/
 INSERT INTO board
-VALUES (DEFAULT, 1, 1, 2, 3, '2024-05-27 18:08:32.248193+09', '환불정책', '환불 안됩니다', DEFAULT, DEFAULT);
+VALUES (DEFAULT, 21, 1, 2, 3, '2024-05-27 18:08:32.248193+09', '환불정책', '환불 안됩니다', DEFAULT, DEFAULT);
 INSERT INTO board
-VALUES (DEFAULT, 2, 1, 2, 3, '2024-05-27 18:18:56.955458+09', '관리자사칭은', '밴사유입니다', DEFAULT, DEFAULT);
+VALUES (DEFAULT, 22, 1, 2, 3, '2024-05-27 18:18:56.955458+09', '관리자사칭은', '밴사유입니다', DEFAULT, DEFAULT);
 INSERT INTO board
-VALUES (DEFAULT, 3, 1, 2, 3, '2024-05-27 19:01:40.193236+09', '문의답변입니다1', '문의답변내용입니다1', DEFAULT, DEFAULT);
+VALUES (DEFAULT, 23, 1, 2, 3, '2024-05-27 19:01:40.193236+09', '문의답변입니다1', '문의답변내용입니다1', DEFAULT, DEFAULT);
 
 SELECT * FROM board
 WHERE board_code=3
@@ -346,8 +346,9 @@ SELECT * FROM category;
 board_category(게시글 카테고리)
 (board_no, category_no)
 - 카테고리번호는 11~14(대분류), 15~21(소분류) 커뮤니티 카테고리만 해당
-- 게시글과 카테고리 중계테이블로 게시글이 있으면 무조건 대분류와 소분류 데이터 쌍으로 두개씩 생성
-  => 커뮤니티게시글 갯수 * 2 = 게시글 카테고리 테이블 데이터 개수)
+- 게시글과 카테고리 중계테이블로 게시글이 있으면 무조건 대분류와 소분류 데이터 쌍으로 2개씩 생성
+  => 커뮤니티게시글 갯수 * 2 = 커뮤니티관련 category 테이블 데이터 개수
+- 나머지 공지사항, 문의(질문, 답변), FAQ, 신고 게시글들은 기타 카테고리 1개씩 생성
 */
 INSERT INTO board_category
 VALUES (1, 11);
@@ -370,9 +371,97 @@ VALUES (5, 13);
 INSERT INTO board_category
 VALUES (5, 16);
 INSERT INTO board_category
-VALUES (6, 13);
+VALUES (6, 14);
 INSERT INTO board_category
 VALUES (6, 15);
+INSERT INTO board_category
+VALUES (7, 14);
+INSERT INTO board_category
+VALUES (7, 17);
+INSERT INTO board_category
+VALUES (8, 13);
+INSERT INTO board_category
+VALUES (8, 18);
+INSERT INTO board_category
+VALUES (9, 13);
+INSERT INTO board_category
+VALUES (9, 20);
+INSERT INTO board_category
+VALUES (10, 11);
+INSERT INTO board_category
+VALUES (10, 20);
+INSERT INTO board_category
+VALUES (11, 12);
+INSERT INTO board_category
+VALUES (11, 21);
+INSERT INTO board_category
+VALUES (12, 13);
+INSERT INTO board_category
+VALUES (12, 17);
+INSERT INTO board_category
+VALUES (13, 12);
+INSERT INTO board_category
+VALUES (13, 16);
+INSERT INTO board_category
+VALUES (14, 11);
+INSERT INTO board_category
+VALUES (14, 18);
+INSERT INTO board_category
+VALUES (15, 14);
+INSERT INTO board_category
+VALUES (15, 21);
+
+--(기타 카테고리 22~27)
+INSERT INTO board_category
+VALUES (16, 22);
+INSERT INTO board_category
+VALUES (17, 23);
+INSERT INTO board_category
+VALUES (18, 24);
+INSERT INTO board_category
+VALUES (19, 25);
+INSERT INTO board_category
+VALUES (20, 26);
+
+INSERT INTO board_category
+VALUES (21, 23);
+INSERT INTO board_category
+VALUES (22, 24);
+INSERT INTO board_category
+VALUES (23, 25);
+INSERT INTO board_category
+VALUES (24, 26);
+INSERT INTO board_category
+VALUES (25, 27);
+
+INSERT INTO board_category
+VALUES (26, 23);
+INSERT INTO board_category
+VALUES (27, 24);
+INSERT INTO board_category
+VALUES (28, 25);
+
+INSERT INTO board_category
+VALUES (29, 22);
+INSERT INTO board_category
+VALUES (30, 23);
+INSERT INTO board_category
+VALUES (31, 24);
+INSERT INTO board_category
+VALUES (32, 25);
+INSERT INTO board_category
+VALUES (33, 26);
+INSERT INTO board_category
+VALUES (34, 27);
+INSERT INTO board_category
+VALUES (35, 22);
+
+INSERT INTO board_category
+VALUES (36, 22);
+INSERT INTO board_category
+VALUES (37, 24);
+INSERT INTO board_category
+VALUES (38, 26);
 
 SELECT * FROM board_category;
 
@@ -915,7 +1004,21 @@ VALUES (DEFAULT, 2, 1, '2024-05-27 19:01:40.193236+09', DEFAULT);
 INSERT INTO concert_like
 VALUES (DEFAULT, 2, 2, '2024-05-27 19:01:40.193236+09', DEFAULT);
 INSERT INTO concert_like
+VALUES (DEFAULT, 2, 3, '2024-05-27 19:01:40.193236+09', DEFAULT);
+INSERT INTO concert_like
+VALUES (DEFAULT, 2, 4, '2024-05-27 19:01:40.193236+09', DEFAULT);
+INSERT INTO concert_like
+VALUES (DEFAULT, 2, 5, '2024-05-27 19:01:40.193236+09', DEFAULT);
+INSERT INTO concert_like
 VALUES (DEFAULT, 2, 6, '2024-05-27 19:01:40.193236+09', DEFAULT);
+INSERT INTO concert_like
+VALUES (DEFAULT, 2, 7, '2024-05-27 19:01:40.193236+09', DEFAULT);
+INSERT INTO concert_like
+VALUES (DEFAULT, 2, 8, '2024-05-27 19:01:40.193236+09', DEFAULT);
+INSERT INTO concert_like
+VALUES (DEFAULT, 2, 9, '2024-05-27 19:01:40.193236+09', DEFAULT);
+INSERT INTO concert_like
+VALUES (DEFAULT, 2, 10, '2024-05-27 19:01:40.193236+09', DEFAULT);
 INSERT INTO concert_like
 VALUES (DEFAULT, 3, 1, '2024-05-27 19:01:40.193236+09', DEFAULT);
 INSERT INTO concert_like
@@ -968,18 +1071,32 @@ SELECT * FROM concert_review;
 reserve(예매정보)
 (reserve_no, concert_no, user_no, reserve_row, reserve_col, reserve_date, pay_method, concert_date, concert_times, reserve_status)
 - 데이터 하나당 한좌석에 대한 정보 저장(ex. b3, b4, b5좌석 예매하면 3개의 데이터 저장)
-- 
+- reserve_status : 결제된예약(Y), 결제전예약(U), 만료된예약(N) => DEFAULT는 'U'
 */
 INSERT INTO reserve
-VALUES (DEFAULT, 1, 2, 2, 3, '2024-05-27 19:01:40.193236+09','무통장입금', '2024-07-07', 1, DEFAULT);
+VALUES (DEFAULT, 1, 2, 2, 3, '2024-05-27 19:01:40.193236+09','무통장입금', '2024-07-07', 1, 'Y');
 INSERT INTO reserve
-VALUES (DEFAULT, 1, 2, 2, 4, '2024-05-27 19:01:40.193236+09','무통장입금', '2024-07-07', 1, DEFAULT);
+VALUES (DEFAULT, 1, 2, 2, 4, '2024-05-27 19:01:40.193236+09','무통장입금', '2024-07-07', 1, 'Y');
 INSERT INTO reserve
-VALUES (DEFAULT, 1, 2, 2, 5, '2024-05-27 19:01:40.193236+09','무통장입금', '2024-07-07', 1, DEFAULT);
+VALUES (DEFAULT, 1, 2, 2, 5, '2024-05-27 19:01:40.193236+09','무통장입금', '2024-07-07', 1, 'Y');
 INSERT INTO reserve
-VALUES (DEFAULT, 3, 4, 3, 2, '2024-05-27 19:01:40.193236+09','무통장입금', '2024-07-08', 1, DEFAULT);
+VALUES (DEFAULT, 3, 4, 3, 2, '2024-05-26 19:01:40.193236+09','무통장입금', '2024-07-08', 1, 'Y');
 INSERT INTO reserve
-VALUES (DEFAULT, 3, 4, 3, 3, '2024-05-27 19:01:40.193236+09','무통장입금', '2024-07-08', 1, DEFAULT);
+VALUES (DEFAULT, 3, 4, 3, 3, '2024-05-26 19:01:40.193236+09','무통장입금', '2024-07-08', 1, 'Y');
+INSERT INTO reserve
+VALUES (DEFAULT, 4, 5, 5, 6, '2024-05-24 12:01:40.193236+09','무통장입금', '2024-07-08', 1, 'Y');
+INSERT INTO reserve
+VALUES (DEFAULT, 4, 5, 5, 7, '2024-05-24 12:01:40.193236+09','무통장입금', '2024-07-08', 1, 'Y');
+INSERT INTO reserve
+VALUES (DEFAULT, 4, 5, 5, 8, '2024-05-24 12:01:40.193236+09','무통장입금', '2024-07-08', 1, 'Y');
+INSERT INTO reserve
+VALUES (DEFAULT, 4, 5, 5, 9, '2024-05-24 12:01:40.193236+09','무통장입금', '2024-07-08', 1, 'Y');
+INSERT INTO reserve
+VALUES (DEFAULT, 5, 2, 10, 4, '2024-05-21 12:01:40.193236+09','무통장입금', '2024-07-08', 1, 'Y');
+INSERT INTO reserve
+VALUES (DEFAULT, 5, 2, 10, 3, '2024-05-21 12:01:40.193236+09','무통장입금', '2024-07-08', 1, 'Y');
+INSERT INTO reserve
+VALUES (DEFAULT, 1, 2, 4, 5, '2024-05-27 19:01:40.193236+09','무통장입금', '2024-07-08', 1, 'Y');
 
 SELECT * FROM reserve;
 
@@ -997,6 +1114,7 @@ INSERT INTO tag
 VALUES (2,4);
 INSERT INTO tag
 VALUES (4,1);
+
 
 SELECT * FROM tag;
 

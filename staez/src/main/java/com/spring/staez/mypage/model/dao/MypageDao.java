@@ -1,6 +1,7 @@
 package com.spring.staez.mypage.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.dto.BoardListDto;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.user.model.dto.PaymentsInfoDto;
 import com.spring.staez.user.model.vo.ProfileImg;
 import com.spring.staez.user.model.vo.User;
 
@@ -65,7 +67,7 @@ public class MypageDao {
 	public ArrayList<BoardListDto> selectMyBoardList(SqlSessionTemplate sqlSession, int userNo, PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		ArrayList<BoardListDto> list = (ArrayList)sqlSession.selectList("mypageMapper.selectMyBoardList", userNo);
+		ArrayList<BoardListDto> list = (ArrayList)sqlSession.selectList("mypageMapper.selectMyBoardList", userNo, rowBounds);
 		return list;
 		
 	}
@@ -78,7 +80,7 @@ public class MypageDao {
 	public ArrayList<BoardListDto> selectLikeBoardList(SqlSessionTemplate sqlSession, int userNo, PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		ArrayList<BoardListDto> list = (ArrayList)sqlSession.selectList("mypageMapper.selectLikeBoardList", userNo);
+		ArrayList<BoardListDto> list = (ArrayList)sqlSession.selectList("mypageMapper.selectLikeBoardList", userNo, rowBounds);
 		return list;
 	}
 	
@@ -88,10 +90,10 @@ public class MypageDao {
 		return count;
 	}
 	
-	public ArrayList<Concert> selectPaymentsList(SqlSessionTemplate sqlSession, int userNo, PageInfo pi) {
+	public ArrayList<PaymentsInfoDto> selectPaymentsList(SqlSessionTemplate sqlSession, int userNo, PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		ArrayList<Concert> list = (ArrayList)sqlSession.selectList("mypageMapper.selectPaymentsList", userNo);
+		ArrayList<PaymentsInfoDto> list = (ArrayList)sqlSession.selectList("mypageMapper.selectPaymentsList", userNo, rowBounds);
 		return list;
 	}
 	
@@ -103,7 +105,7 @@ public class MypageDao {
 	public ArrayList<Concert> selectScrapList(SqlSessionTemplate sqlSession, int userNo, PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		ArrayList<Concert> list = (ArrayList)sqlSession.selectList("mypageMapper.selectScrapList", userNo);
+		ArrayList<Concert> list = (ArrayList)sqlSession.selectList("mypageMapper.selectScrapList", userNo, rowBounds);
 		return list;
 	}
 
@@ -119,5 +121,9 @@ public class MypageDao {
 		return list;
 	}
 	
+	public int deleteMyScrapAjax(SqlSessionTemplate sqlSession, Map<String, Integer> params){
+		return sqlSession.update("mypageMapper.deleteMyScrapAjax", params);
+		
+	}
 	
 }

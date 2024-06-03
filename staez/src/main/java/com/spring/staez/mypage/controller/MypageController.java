@@ -1,6 +1,8 @@
 package com.spring.staez.mypage.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +21,7 @@ import com.spring.staez.common.template.Pagination;
 import com.spring.staez.community.model.dto.BoardListDto;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.mypage.service.MypageService;
+import com.spring.staez.user.model.dto.PaymentsInfoDto;
 import com.spring.staez.user.model.vo.ProfileImg;
 import com.spring.staez.user.model.vo.User;
 import com.spring.staez.user.service.UserService;
@@ -63,7 +66,7 @@ public class MypageController {
 		int listCount = mypageService.selectPaymentsCount(userNo);
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-		ArrayList<Concert> list = mypageService.selectPaymentsList(userNo, pi);
+		ArrayList<PaymentsInfoDto> list = mypageService.selectPaymentsList(userNo, pi);
 		
 		model.addAttribute("contentPage", "paymentsLog");
 		model.addAttribute("clist", list);
@@ -176,12 +179,22 @@ public class MypageController {
 	
 	//나의 문의내역 리스트 페이지 출력
 	@RequestMapping("inquireList.me")
-	public String myInquireList(HttpSession session, Model model) {
+	public String myInquireList(int cpage, HttpSession session, Model model) {
+		User loginUser = userService.loginUser((User)session.getAttribute("loginUser"));
+
 		if(session.getAttribute("loginUser") == null) { //로그인 되어있지 않을 경우
 	        session.setAttribute("alertMsg", "로그인이 필요합니다.");
 	        return "redirect:/loginForm.me";
 		}
-		model.addAttribute("contentPage", "myInquireList");
+		
+//		int userNo = loginUser.getUserNo();
+//		int currentPage = cpage;
+//		int listCount = mypageService.selectMyInquireCount(userNo);
+//		
+//		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+//		ArrayList<BoardListDto> list = mypageService.selectMyInquireList(userNo, pi);
+//		
+//		model.addAttribute("contentPage", "myInquireList");
 		return "mypage/mypageLayout";
 	}
 	
@@ -338,6 +351,19 @@ public class MypageController {
 		}
 	}
 	
-	
+	@RequestMapping("deleteMyScrap.me")
+	@ResponseBody
+	public String deleteMyScrapAjax(int concertNo, HttpSession session) {
+		int userNo = ((User)session.getAttribute("loginUser")).getUserNo(); //로그인 된 유저의 고유번호 불러오기
+		
+		Map<String, Integer> params = new HashMap<>();
+		
+		params.put("userNo", userNo);
+		params.put("concertNo", concertNo);
+		
+		int result = mypageService.deleteMyScrapAjax(params);
+		
+		return result > 0 ? "NNNNY" : "NNNNN";
+	}
 
 }
