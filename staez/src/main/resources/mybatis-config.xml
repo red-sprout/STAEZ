@@ -53,6 +53,7 @@
  		<mapper resource="/mappers/others-mapper.xml"/>
  		<mapper resource="/mappers/user-mapper.xml"/>
  		<mapper resource="/mappers/community-mapper.xml"/>
+ 		<mapper resource="/mappers/concertReserve-mapper.xml"/>
  	</mappers> 
 
 
