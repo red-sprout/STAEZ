@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.dto.AjaxBoardDto;
 import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
@@ -45,12 +47,20 @@ public class CommunityDao {
 		return sqlSession.insert("communityMapper.insertTag", concertNo);
 	}
 
-	public ArrayList<Board> selectBoard(SqlSessionTemplate sqlSession, CategoryDto categoryDto) {
-		return (ArrayList)sqlSession.selectList("communityMapper.selectBoard", categoryDto);
+	public ArrayList<Board> selectBoard(SqlSessionTemplate sqlSession, CategoryDto categoryDto, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1)* pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("communityMapper.selectBoard", categoryDto, rowBounds);
 	}
 
-	public ArrayList<Board> selectBoard(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("communityMapper.selectBoardAll");
+	public ArrayList<Board> selectBoard(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1)* pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("communityMapper.selectBoardAll", null, rowBounds);
 	}
 
 	public ArrayList<Category> selectCategory(SqlSessionTemplate sqlSession, int boardNo) {
@@ -126,6 +136,14 @@ public class CommunityDao {
 
 	public ArrayList<Reply> selectReplyAll(SqlSessionTemplate sqlSession, int boardNo) {
 		return (ArrayList)sqlSession.selectList("communityMapper.selectReplyAll", boardNo);
+	}
+
+	public int selectBoardCnt(SqlSessionTemplate sqlSession, CategoryDto categoryDto) {
+		return sqlSession.selectOne("communityMapper.selectBoardCnt", categoryDto);
+	}
+
+	public int selectBoardCnt(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("communityMapper.selectBoardCntAll");
 	}
 	
 }

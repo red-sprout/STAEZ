@@ -17,7 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.common.template.MyFileRenamePolicy;
+import com.spring.staez.common.template.Pagination;
 import com.spring.staez.community.model.dto.AjaxBoardDto;
 import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
@@ -38,12 +40,23 @@ public class CommunityController {
 	CommunityService communityService;
 	
 	@GetMapping("main.cm")
-	public String communityMainList(CategoryDto categoryDto, Model model) {
+	public String communityMainList(CategoryDto categoryDto, String cPage, Model model) {
+		int listSize, listCount;
+		int currentPage = Integer.parseInt(cPage);
+		
 		ArrayList<Board> list = null;
+		PageInfo pi = null;
+		
 		if(categoryDto.getCategoryNo() != null) {			
-			list = communityService.selectBoard(categoryDto);
+			listSize = communityService.selectBoardCnt(categoryDto);
+			listCount = listSize;
+			pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			list = communityService.selectBoard(categoryDto, pi);
 		} else {
-			list = communityService.selectBoard();
+			listSize = communityService.selectBoardCnt();
+			listCount = listSize;
+			pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			list = communityService.selectBoard(pi);
 		}
 		model.addAttribute("boardList", list);
 		return "community/communityMain";

@@ -116,6 +116,24 @@
 			#{concertNo}
 		)
 	</insert>
+	<select id="selectBoardCnt" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM board b
+		JOIN board_category bc on (b.board_no = bc.board_no)
+		WHERE b.board_status = 'Y'
+		and bc.category_no IN
+		<foreach collection="categoryNo" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+	<select id="selectBoardCntAll" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM board b
+		WHERE b.board_status = 'Y'
+		and b.board_code = 2
+	</select>
 	<select id="selectBoard" resultMap="boardResult">
 		SELECT
 			b.board_no,
