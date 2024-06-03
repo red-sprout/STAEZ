@@ -66,7 +66,7 @@ function callbackNickCheck(result, nicknameCheckResult, nicknameInput) {
         } else {
             nicknameCheckResult.style.color = "green";
             nicknameCheckResult.innerText = "사용가능한 닉네임입니다.";
-            console.log("닉네임 확인 : " + nicknameInput.value);
+            //console.log("닉네임 확인 : " + nicknameInput.value);
         }
     }
 }
@@ -113,7 +113,7 @@ function callbackIdCheck(result, userIdCheckResult, userIdInput) {
             } else {
                 userIdCheckResult.style.color = "green";
                 userIdCheckResult.innerText = "사용가능한 아이디입니다.";
-                console.log("아이디 확인 : " + userIdInput.value);
+                //console.log("아이디 확인 : " + userIdInput.value);
             }
         }
     }
@@ -237,9 +237,9 @@ function sendVerificationCode() {
 function handleEmailCheckResponse(response) {
     const emailCheckResult = document.getElementById("checkResultEamil");
     emailCheckResult.style.display = "block";
-    if (response === "No") {
+    if (response === "emailCheck No") {
         alert("인증번호 전송이 실패했습니다 다시 입력해주세요!");
-    } else if (response === "Yes") {
+    } else if (response === "emailCheck Yes") {
         alert("인증번호가 성공적으로 전송되었습니다!");
     }
 }
@@ -249,10 +249,10 @@ function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput, e
     console.log("Callback result:", result);
     emailSecretCheckResult.style.display = "block";
 
-    if (result === "No") { // 입력값이 데이터베이스 값과 일치하지 않을 때
+    if (result === "emailSecretCodeCheck No") { // 입력값이 데이터베이스 값과 일치하지 않을 때
         emailSecretCheckResult.style.color = "red";
         emailSecretCheckResult.innerText = "인증 코드가 일치하지 않습니다.";
-    } else if (result === "Yes") { // 입력값이 데이터베이스 값과 일치할 때
+    } else if (result === "emailSecretCodeCheck Yes") { // 입력값이 데이터베이스 값과 일치할 때
         emailSecretCheckResult.style.color = "green";
         emailSecretCheckResult.innerText = "인증이 확인되었습니다.";
         console.log("이메일 확인:", emailSecretInput.value);
@@ -291,11 +291,6 @@ function emailSecretCode() {
         }
     });
 }
-
-
-
-
-
 // 이메일
 function sgininemail() {
     // 필요한 요소들을 가져옵니다.
@@ -524,25 +519,25 @@ function signinSubmitButton(){
 }
 
 // 버튼 클릭시 색상변경
-function checkButton(){
-var buttons = document.querySelectorAll(".check_button");
+    function checkButton(){
+    var buttons = document.querySelectorAll(".check_button");
 
-// 각 버튼에 대해 반복
-buttons.forEach(function(button) {
-    // 클릭 이벤트 리스너 추가
-    button.addEventListener("mousedown", function() {
-      // 버튼에 clicked 클래스 추가
-      button.classList.add("clicked");
+    // 각 버튼에 대해 반복
+    buttons.forEach(function(button) {
+        // 클릭 이벤트 리스너 추가
+        button.addEventListener("mousedown", function() {
+        // 버튼에 clicked 클래스 추가
+        button.classList.add("clicked");
+        });
+        
+        // 마우스 버튼에서 떼었을 때
+        button.addEventListener("mouseup", function() {
+        // 버튼에 clicked 클래스 제거
+        button.classList.remove("clicked");
+        });
     });
-    
-    // 마우스 버튼에서 떼었을 때
-    button.addEventListener("mouseup", function() {
-      // 버튼에 clicked 클래스 제거
-      button.classList.remove("clicked");
-    });
-});
 }
-      
+
 
 
 

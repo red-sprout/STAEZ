@@ -48,14 +48,19 @@ public class UserDao {
         return sqlSession.insert("userMapper.registerUser", params);
     }
     
-  //암호키 인증체크
+   //이메일 암호키 인증체크
     public int emailSecretCodeCheck(SqlSessionTemplate sqlSession, String authNo, String email) {
-        System.out.println("UUID Check: " + authNo);
-        System.out.println("Email: " + email);
+        //System.out.println("UUID Check: " + authNo);
+       // System.out.println("Email: " + email);
         Map<String, Object> params = new HashMap<>();
         params.put("email", email);
         params.put("authNo", authNo);
         return sqlSession.selectOne("userMapper.emailSecretCodeCheck", params);
     }
+    
+  //이메일로 아이디찾기
+	public String findEmailCheck(SqlSessionTemplate sqlSession2, String checkFindEmail) {
+		return sqlSession.selectOne("userMapper.findEmailCheck",checkFindEmail);
+	}
 
 }

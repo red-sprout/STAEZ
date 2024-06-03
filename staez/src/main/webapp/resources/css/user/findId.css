@@ -168,12 +168,10 @@ table td {
     text-align: left;
 }
 
-
-
 hr{
-    border: 0.8px solid rgb(124, 124, 124);
     width: 100%;
     max-width: 950px;
+    padding: 0px;
 }
 
 /* 인증보내기 확인 재발송 */
