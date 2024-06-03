@@ -13,70 +13,31 @@
 <body>
 	<header>
         <jsp:include page="../common/header.jsp" />
+        <script src="${contextPath}/resources/js/api/othersapi.js"></script>
+        <script src="${contextPath}/resources/js/others/searchResultMoreConcert.js"></script>
     </header>
     <main>
         <div class="search-result-value-area">
-            <span>"시카고"검색결과</span>
+            <span>"${keyword}"검색결과</span>
+            <input type="hidden" name="keyword" value="${keyword}">
         </div>
         <div class="concert-search-result-title-area">
-            <span>공연정보(7)</span>
+            <span class="concert-count"></span>
+            <button class="btn-staez checked end-concert" onclick="noEndConcert()"></button>
         </div>
         <div class="concert-search-result-area">
-            <div class="concert-search-result-info">
+            <!-- <div class="concert-search-result-info">
                 <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
                 <div class="concert-search-result-content-info">
                     <span class="concert-search-result-content-span1">뮤지컬</span>
                     <span class="concert-search-result-content-span2">[시카고]</span>
                     <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
                 </div>
-            </div>
-            <div class="concert-search-result-info">
-                <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
-                <div class="concert-search-result-content-info">
-                    <span class="concert-search-result-content-span1">뮤지컬</span>
-                    <span class="concert-search-result-content-span2">[시카고]</span>
-                    <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
-                </div>
-            </div>
-            <div class="concert-search-result-info">
-                <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
-                <div class="concert-search-result-content-info">
-                    <span class="concert-search-result-content-span1">뮤지컬</span>
-                    <span class="concert-search-result-content-span2">[시카고]</span>
-                    <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
-                </div>
-            </div>
-            <div class="concert-search-result-info">
-                <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
-                <div class="concert-search-result-content-info">
-                    <span class="concert-search-result-content-span1">뮤지컬</span>
-                    <span class="concert-search-result-content-span2">[시카고]</span>
-                    <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
-                </div>
-            </div>
-            <div class="concert-search-result-info">
-                <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
-                <div class="concert-search-result-content-info">
-                    <span class="concert-search-result-content-span1">뮤지컬</span>
-                    <span class="concert-search-result-content-span2">[시카고]</span>
-                    <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
-                </div>
-            </div>
-            <div class="concert-search-result-info">
-                <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
-                <div class="concert-search-result-content-info">
-                    <span class="concert-search-result-content-span1">뮤지컬</span>
-                    <span class="concert-search-result-content-span2">[시카고]</span>
-                    <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
-                </div>
-            </div>
-            <div class="concert-search-result-info">
-                <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
-                <div class="concert-search-result-content-info">
-                    <span class="concert-search-result-content-span1">뮤지컬</span>
-                    <span class="concert-search-result-content-span2">[시카고]</span>
-                    <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
-                </div>
+            </div> -->
+        </div>
+        <div class="page-list-area">
+            <div class="page-list">
+            
             </div>
         </div>
 

@@ -46,7 +46,7 @@ function drawBoardList(bList, keyword){
 
             keywordCategoryList({bNo},(categoryList)=>drawBoardCategoryList(categoryList, b));
         }
-        keywordUserProfile({keyword},(profileList)=>drawUserProfile(profileList, keyword))
+        keywordUserProfile({keyword},(profileList)=>drawUserProfile(profileList))
     }
 }
 
@@ -92,10 +92,14 @@ function formatDate(bDate) {
     return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
 
-function drawUserProfile(profileList, keyword){
+function drawUserProfile(profileList){
     const userImgArea = document.querySelectorAll(".user-profile-img");
-
+ 
     for(let i = 0; i < userImgArea.length; i++){
+        if(profileList[1].changeName == null){
+            userImgArea[i].src="/staez/resources/uploadfiles/profile/basic_profile.jpg";
+        }else{
         userImgArea[i].src="/staez" + profileList[i].filePath + profileList[i].changeName;  
+        }
     }
 }

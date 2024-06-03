@@ -396,13 +396,141 @@
 		select u.user_no, pi.file_path, pi.change_name
 		from board b
 		join staez_user u on (b.user_no = u.user_no)
-		join profile_img pi on (u.user_no = pi.user_no)
+		left join profile_img pi on (pi.user_no = u.user_no)
 		where b.board_code = 2
 		and b.board_status = 'Y'
 		and u.user_status ='Y'
 		and (b.board_title like '%' || #{keyword} || '%' or b.board_content like '%' || #{keyword} || '%')
 		order by b.board_write_date desc
 		limit 3
+	</select>
+	
+	<select id="selectKeywordMoreEndConcertCount" resultMap="concertResult">
+		select c.concert_no, c.concert_title, cg.category_no, cg.category_name, start_date, end_date
+		from (select 
+					cs.concert_no,
+					min(start_date) start_date,
+					max(end_date) end_Date
+			  from concert_schedule cs
+			  group by cs.concert_no) l
+		join concert c on (l.concert_no = c.concert_no)
+		join concert_category cc on (c.concert_no = cc.concert_no)
+		join category cg on (cc.category_no = cg.category_no)
+		where c.concert_title like '%' || #{keyword} || '%'
+		and c.concert_status = 'Y'
+		order by l.end_date asc
+	</select>
+	
+	<select id="selectKeywordMoreEndConcert" resultMap="concertResult">
+		select c.concert_no, c.concert_title, cg.category_no, cg.category_name, start_date, end_date
+		from (select 
+					cs.concert_no,
+					min(start_date) start_date,
+					max(end_date) end_Date
+			  from concert_schedule cs
+			  group by cs.concert_no) l
+		join concert c on (l.concert_no = c.concert_no)
+		join concert_category cc on (c.concert_no = cc.concert_no)
+		join category cg on (cc.category_no = cg.category_no)
+		where c.concert_title like '%' || #{keyword} || '%'
+		and c.concert_status = 'Y'
+		order by l.end_date asc
+	</select>
+	
+	<select id="selectKeywordMoreEndConcertImgCount" resultMap="concertResult">
+		select c.concert_no, ca.file_path, ca.change_name
+		from (select 
+					cs.concert_no,
+					min(start_date) start_date,
+					max(end_date) end_Date
+			  from concert_schedule cs
+			  group by cs.concert_no) l
+		join concert c on (l.concert_no = c.concert_no)
+		join concert_attachment ca on (c.concert_no = ca.concert_no)
+		where c.concert_title like '%' || #{keyword} || '%'
+		and c.concert_status = 'Y'
+		order by l.end_date asc
+	</select>
+	
+	<select id="selectKeywordMoreEndConcertImg" resultMap="concertResult">
+		select c.concert_no, ca.file_path, ca.change_name
+		from (select 
+					cs.concert_no,
+					min(start_date) start_date,
+					max(end_date) end_Date
+			  from concert_schedule cs
+			  group by cs.concert_no) l
+		join concert c on (l.concert_no = c.concert_no)
+		join concert_attachment ca on (c.concert_no = ca.concert_no)
+		where c.concert_title like '%' || #{keyword} || '%'
+		and c.concert_status = 'Y'
+		order by l.end_date asc
+	</select>
+	
+	<select id="selectKeywordMoreConcertCount" resultMap="concertResult">
+		select c.concert_no, c.concert_title, cg.category_no, cg.category_name, start_date, end_date
+		from (select 
+					cs.concert_no,
+					min(start_date) start_date,
+					max(end_date) end_Date
+			  from concert_schedule cs
+			  group by cs.concert_no) l
+		join concert c on (l.concert_no = c.concert_no)
+		join concert_category cc on (c.concert_no = cc.concert_no)
+		join category cg on (cc.category_no = cg.category_no)
+		where c.concert_title like '%' || #{keyword} || '%'
+		and l.end_date >= current_date
+		and c.concert_status = 'Y'
+		order by l.end_date asc
+	</select>
+	
+	<select id="selectKeywordMoreConcert" resultMap="concertResult">
+		select c.concert_no, c.concert_title, cg.category_no, cg.category_name, start_date, end_date
+		from (select 
+					cs.concert_no,
+					min(start_date) start_date,
+					max(end_date) end_Date
+			  from concert_schedule cs
+			  group by cs.concert_no) l
+		join concert c on (l.concert_no = c.concert_no)
+		join concert_category cc on (c.concert_no = cc.concert_no)
+		join category cg on (cc.category_no = cg.category_no)
+		where c.concert_title like '%' || #{keyword} || '%'
+		and l.end_date >= current_date
+		and c.concert_status = 'Y'
+		order by l.end_date asc
+	</select>
+	
+	<select id="selectKeywordMoreConcertImgCount" resultMap="concertResult">
+		select c.concert_no, ca.file_path, ca.change_name
+		from (select 
+					cs.concert_no,
+					min(start_date) start_date,
+					max(end_date) end_Date
+			  from concert_schedule cs
+			  group by cs.concert_no) l
+		join concert c on (l.concert_no = c.concert_no)
+		join concert_attachment ca on (c.concert_no = ca.concert_no)
+		where c.concert_title like '%' || #{keyword} || '%'
+		and l.end_date >= current_date
+		and c.concert_status = 'Y'
+		order by l.end_date asc
+	</select>
+	
+	<select id="selectKeywordMoreConcertImg" resultMap="concertResult">
+		select c.concert_no, ca.file_path, ca.change_name
+		from (select 
+					cs.concert_no,
+					min(start_date) start_date,
+					max(end_date) end_Date
+			  from concert_schedule cs
+			  group by cs.concert_no) l
+		join concert c on (l.concert_no = c.concert_no)
+		join concert_attachment ca on (c.concert_no = ca.concert_no)
+		where c.concert_title like '%' || #{keyword} || '%'
+		and l.end_date >= current_date
+		and c.concert_status = 'Y'
+		order by l.end_date asc
 	</select>
 </mapper>
 

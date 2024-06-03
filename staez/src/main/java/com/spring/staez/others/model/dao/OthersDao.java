@@ -116,5 +116,54 @@ public class OthersDao {
 	public ArrayList<ProfileImg> selectKeywordUserProfilet(SqlSessionTemplate sqlSession, String keyword){
 		return (ArrayList)sqlSession.selectList("othersMapper.selectKeywordUserProfilet", keyword);
 	}
+	
+	public ArrayList<Concert> selectKeywordMoreEndConcertCount(SqlSessionTemplate sqlSession, String keyword){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectKeywordMoreEndConcertCount", keyword);
+	}
+	
+	public ArrayList<Concert> selectKeywordMoreEndConcert(SqlSessionTemplate sqlSession, String keyword, PageInfo pi){
+		
+		int offset = (pi.getCurrentPage()-1)* pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("othersMapper.selectKeywordMoreEndConcert", keyword, rowBounds);
+	}
 
+	public ArrayList<Concert> selectKeywordMoreEndConcertImgCount(SqlSessionTemplate sqlSession, String keyword){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectKeywordMoreEndConcertImgCount", keyword);
+	}
+	
+	public ArrayList<Concert> selectKeywordMoreEndConcertImg(SqlSessionTemplate sqlSession, String keyword, PageInfo pi){
+		int offset = (pi.getCurrentPage()-1)* pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("othersMapper.selectKeywordMoreEndConcertImg", keyword, rowBounds);
+	}
+	
+	public ArrayList<Concert> selectKeywordMoreConcertCount(SqlSessionTemplate sqlSession, String keyword){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectKeywordMoreConcertCount", keyword);
+	}
+	
+	public ArrayList<Concert> selectKeywordMoreConcert(SqlSessionTemplate sqlSession, String keyword, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1)* pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("othersMapper.selectKeywordMoreConcert", keyword, rowBounds);
+	}
+	
+	public ArrayList<Concert> selectKeywordMoreConcertImgCount(SqlSessionTemplate sqlSession, String keyword){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectKeywordMoreConcertImgCount", keyword);
+	}
+	
+	public ArrayList<Concert> selectKeywordMoreConcertImg(SqlSessionTemplate sqlSession, String keyword, PageInfo pi){
+		int offset = (pi.getCurrentPage()-1)* pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("othersMapper.selectKeywordMoreConcertImg", keyword, rowBounds);
+	}
+	
 }
