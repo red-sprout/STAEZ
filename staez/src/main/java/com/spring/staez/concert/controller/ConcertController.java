@@ -71,7 +71,6 @@ public class ConcertController {
 		return "concert/concertDetail";
 	}
 	
-
 	
 	
 	
@@ -87,8 +86,8 @@ public class ConcertController {
 		System.out.println("userConLikeCount:" +  userConLikeCount);
 		
 		Map<String, Object> map = new HashMap<>();
-		map.put("conLikeCount", conLikeCount);
-		map.put("userConLikeCount", userConLikeCount);
+		map.put("conLikeCount", conLikeCount); // 콘서트가 가진 좋아요 총 갯수 status Y
+		map.put("userConLikeCount", userConLikeCount); // a유저가 1이라는 콘서트에 좋아요한 갯수 status Y
 		
 		System.out.println("map" + map);
 
@@ -105,17 +104,24 @@ public class ConcertController {
 		ConcertLike like = new ConcertLike();
 		like.setUserNo(Integer.parseInt(userNo));
 		like.setConcertNo(Integer.parseInt(concertNo));
+		System.out.println(like);
 		
-		int result =  concertService.selectUserConLikeAll(like);
+		int result =  concertService.selectUserConLikeAll(like); // a유저가 1이라는 콘서트에 좋아요한 적이 있냐 status 노상관
+		System.out.println("selectUserConLikeAll:" + result);
+		
+		
 		if(result > 0) {
-			result = concertService.updateConLike(Integer.parseInt(userNo), Integer.parseInt(concertNo));
+			result = concertService.updateConLike(Integer.parseInt(userNo), Integer.parseInt(concertNo)); // 좋아요 한 적 있으면 update
 		} else {
-			result = concertService.insertConLike(Integer.parseInt(userNo), Integer.parseInt(concertNo));
+			result = concertService.insertConLike(Integer.parseInt(userNo), Integer.parseInt(concertNo)); // 좋아요 한 적 없으면 insert
 		}
-		System.out.println("result:" + result);
+		
+		System.out.println("updateConLike:" + result);
+		System.out.println("insertConLike:" + result);
 		
 		int conLikeCount = concertService.selectConLikeCount(Integer.parseInt(concertNo));
 		System.out.println("conLikeCount:" + conLikeCount);
+		
 		if(result > 0) {
 			return String.valueOf(conLikeCount);
 		} else {

@@ -257,7 +257,7 @@
 			  AND status = 'Y'
 	</select>
 	
-	<select id="selectUserConLike" resultType="_int">
+	<select id="selectUserConLike" resultType="_int" parameterType="map">
 			SELECT COUNT(*)
 			FROM concert_like
            WHERE user_no = #{userNo}
@@ -265,12 +265,13 @@
              AND status = 'Y'
 	</select>
 	
-	<select id="selectUserConLikeAll" resultType="_int" parameterType="map">
+	<select id="selectUserConLikeAll" resultType="_int">
 			SELECT COUNT(*)
 			FROM concert_like
            WHERE user_no = #{userNo}
              AND concert_no = #{concertNo}
 	</select>
+	
 	
 	<insert id="insertConLike">
 	        INSERT INTO concert_like (
@@ -281,7 +282,6 @@
 	            #{concertNo}
 	        )
 	</insert>
-
 	
 	<update id="updateConLike">
         UPDATE concert_like

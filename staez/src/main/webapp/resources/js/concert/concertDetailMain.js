@@ -8,7 +8,7 @@ $(function() {
     likeUpdate({ "userNo" : userNo, "concertNo" : concertNo}, (result) => drawLikeUpdate(result))
     
     //하트 카운트
-    likeCount({"concertNo" : concertNo}, (result) => drawLikeCount(result))
+    likeCount({ "userNo" : userNo, "concertNo" : concertNo}, (result) => drawLikeCount(result))
     
     conDetail({"concertNo" : concertNo}, (result) => drawConDetail(result))
 });
@@ -62,35 +62,45 @@ function goReviewDetail(){
 
 
 
+// function drawLikeUpdate(result){
+//     console.log("drawLikeUpdate:" + result)
+// }
+
+
 // 좋아요 누르기 구현
 function drawLikeCount(result){
 
-    console.log(result)
+    console.log("drawLikeCount:" + result)
     const likeSection = document.querySelector(".concert-detail-like-button");
+
     // drawSpan.innerHTML = insertLike.length;
     // likeSection.innerHTML = ``;
-    for(let c of insertLike){
+    for(let c of Object.keys(result)){
         likeSection.innerHTML = `<i class="fa-regular fa-heart"></i>
                                  <input type="checkbox" class="hidden" name="conHeart">
-                                 <span class="concert-likeCount">`+ insertLike.length +`</span>` 
+                                 <span class="concert-likeCount">`+ Object.keys(result).length +`</span>` 
     }
-    const emptyLike = likeSection.children[0].classList.toggle("fa-solid");
-    const fillLike = likeSection.children[0].classList.toggle("fa-regular");
 
     likeSection.addEventListener("click", function(event) {
-        likeToggle(event.currentTarget, userNo);
+        likeToggle(event.currentTarget, result);
     });
 }
   
     // 찜버튼(하트)눌러서 색 채우기
-function likeToggle(target, userNo){
-    console.log("target" + target.children[0]);
-    if(userNo == null){
+function likeToggle(target, result){
+    const likeSection = document.querySelector(".concert-detail-like-button");
+    const emptyLike = likeSection.children[0].classList.toggle("fa-solid");
+    const fillLike = likeSection.children[0].classList.toggle("fa-regular");
 
-        target.children[0].classList.toggle("fa-solid");
+    console.log("target: " + target.children[0]);
 
+    if(result == null){
+        likeSection.innerHTML = emptyLike
     } else {
-        target.children[0].classList.toggle("fa-regular");
+        likeSection.innerHTML = fillLike
+        function drawLikeUpdate(result){
+
+        }
     }
 
  }
