@@ -144,16 +144,16 @@ CREATE TABLE public.profile_img
 (
     file_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_profile_img'),
     user_no integer NOT NULL,
-    origin_name character varying(255) NOT NULL,
-    change_name character varying(255) NOT NULL UNIQUE,
-    file_path character(1000) NOT NULL,
+    origin_name character varying(255),
+    change_name character varying(255) UNIQUE,
+    file_path character varying(1000) NOT NULL,
     upload_date timestamp with time zone NOT NULL DEFAULT now(),
     status character varying(1) NOT NULL CHECK(status IN ('Y', 'N')) DEFAULT 'Y'
 	/*사진있음(Y), 없음(N)*/
 );
 
 ALTER TABLE IF EXISTS public.profile_img
-    OWNER to postgres;
+	OWNER to postgres;
 
 COMMENT ON TABLE public.profile_img
     IS '프로필사진';
@@ -247,7 +247,7 @@ CREATE TABLE public.board_attachment
     origin_name character varying(255) NOT NULL,
     change_name character varying(255) NOT NULL UNIQUE,
     file_path character varying(1000) NOT NULL,
-    upload_date timestamp with time zone NOT NULL,
+    upload_date timestamp with time zone NOT NULL DEFAULT now(),
     file_level integer NOT NULL CHECK(file_level IN (1, 2)) DEFAULT 1, /*썸네일사진(1), 그외(2)*/
     status character varying(1) NOT NULL CHECK(status IN ('Y', 'N')) DEFAULT 'Y'
 	/*첨부파일 있음(Y), 없음(N)*/
@@ -295,8 +295,8 @@ CREATE TABLE public.board_like
     board_like_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_board_like'),
     user_no integer NOT NULL,
     board_no integer NOT NULL,
-    status character varying(1) NOT NULL CHECK(status IN('Y', 'N')) DEFAULT 'Y', /*눌러진상태(Y), 취소(N)*/
     like_date timestamp with time zone NOT NULL DEFAULT now(),
+    status character varying(1) NOT NULL CHECK(status IN('Y', 'N')) DEFAULT 'Y', /*눌러진상태(Y), 취소(N)*/
     UNIQUE(user_no, board_no)
 );
 
@@ -468,8 +468,8 @@ CREATE TABLE public.concert_like
     user_no integer NOT NULL,
     concert_no integer NOT NULL,
     concert_like_date timestamp with time zone NOT NULL DEFAULT now(),
-    status character varying(1) NOT NULL CHECK(status IN('Y', 'N')) DEFAULT 'Y'
-	/*찜한상태(Y), 취소(N)*/
+    status character varying(1) NOT NULL CHECK(status IN('Y', 'N')) DEFAULT 'Y', /*찜한상태(Y), 취소(N)*/
+    UNIQUE(user_no, concert_no)
 );
 
 ALTER TABLE IF EXISTS public.concert_like
@@ -767,8 +767,7 @@ COMMENT ON COLUMN public.concert_review.review_status
 /*예매내역 테이블*/
 CREATE TABLE public.reserve
 (
-    reserve_seat_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_reserve'),
-	reserve_no integer NOT NULL,
+    reserve_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_reserve'),
     concert_no integer NOT NULL,
     user_no integer NOT NULL,
     reserve_row integer NOT NULL,
@@ -783,9 +782,6 @@ CREATE TABLE public.reserve
 
 ALTER TABLE IF EXISTS public.reserve
     OWNER to postgres;
-
-COMMENT ON COLUMN public.reserve.reserve_seat_no
-    IS '예약좌석번호';
 
 COMMENT ON TABLE public.reserve
     IS '예매내역';
@@ -861,7 +857,7 @@ COMMENT ON COLUMN public.category.category_level
 /*게시글카테고리 테이블*/
 CREATE TABLE public.board_category
 (
-    board_no integer NOT NULL UNIQUE,
+    board_no integer NOT NULL,
     category_no integer NOT NULL
 );
 
@@ -886,7 +882,7 @@ COMMENT ON COLUMN public.board_category.category_no
 /*태그 테이블*/
 CREATE TABLE public.tag
 (
-    board_no integer NOT NULL UNIQUE,
+    board_no integer NOT NULL,
     concert_no integer NOT NULL
 );
 
@@ -910,7 +906,7 @@ COMMENT ON COLUMN public.tag.concert_no
 /*공연카테고리 테이블*/
 CREATE TABLE public.concert_category
 (
-    concert_no integer NOT NULL UNIQUE,
+    concert_no integer NOT NULL,
     category_no integer NOT NULL
 );
 
