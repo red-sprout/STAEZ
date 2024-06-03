@@ -32,9 +32,11 @@
             </li>
             <li id="notice-category">
                 <div id="category-div"></div>
-                <div class="">
-                    <button class="btn-staez purple" onclick="location.href='incertForm.no'"><h3>작성</h3></button>
-                </div>
+                <c:if test = "${loginUser.grade eq 1}">
+                    <div>
+                        <button class="btn-staez purple" onclick="location.href='insertForm.no'"><h3>작성</h3></button>
+                    </div>
+                </c:if>
             </li>
             <c:forEach var="b" items="${list}">
                 <li class="notice-posting" onclick="location.href='detail.no?boardNo=${b.boardNo}'">
