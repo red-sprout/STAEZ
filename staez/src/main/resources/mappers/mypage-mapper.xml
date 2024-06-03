@@ -167,41 +167,66 @@
 	</select>
 
 	<select id="selectPaymentsCount" resultType="_int">
-		SELECT COUNT(*) 
-		FROM (SELECT user_no, 
-					 concert_no, 
-					 concert_date, 
-					 concert_times
-			  FROM reserve
-			  WHERE user_no = #{user_no}
-			  AND reserve_status = 'Y'
-			  GROUP BY user_no, concert_no, concert_date, concert_times)
+		SELECT COUNT(reserve_no)
+		FROM reserve
+		WHERE user_no = #{userNo}
 	</select>
 	
-	<select id="selectPaymentsList" resultType="Concert">
-
+	<select id="selectPaymentsList" resultType="com.spring.staez.user.model.dto.PaymentsInfoDto">
+		SELECT c.concert_no AS concertNo, 
+				c.concert_title AS concertTitle,
+			    t.theater_name AS theaterName,
+				r.concert_date AS concertDate,
+				cs.schedule,
+				c.concert_runtime AS concertRuntime,
+					
+				r.reserve_no AS reserveNo,
+				r.reserve_date AS reserveDate,
+				s.grade,
+				s.price,
+		
+				r.reserve_row AS reserveRow,
+				r.reserve_col AS reserveCol,
+				r.reserve_status AS reserveStatus,
+				
+				ca.file_path AS filePath,
+				ca.change_name AS changeName
+		FROM reserve r
+		JOIN concert c ON r.concert_no = c.concert_no
+		JOIN concert_attachment ca ON c.concert_no = ca.concert_no
+		JOIN theater t ON c.theater_no = t.theater_no
+		JOIN seat s ON c.concert_no = s.concert_no
+		JOIN concert_schedule cs ON c.concert_no = cs.concert_no			
+					
+		WHERE r.user_no = #{userNo}
+		AND r.reserve_row BETWEEN seat_start_row AND seat_end_row 
+		AND r.reserve_col BETWEEN seat_start_col AND seat_end_col
+		AND r.concert_date = s.concert_date
+		AND r.reserve_status IN ('Y', 'U')
+		
+		ORDER BY r.reserve_no DESC
 	</select>
 
 	<select id="selectScrapCount" resultType="_int">
 		SELECT COUNT(concert_like_no) 
 		FROM concert_like
-		JOIN concert USING (concert_no)
 		WHERE user_no = #{userNo}
 		AND status = 'Y'
 	</select>
 	
 	<select id="selectScrapList" resultType="Concert">
 		SELECT cl.concert_like_no AS concertLikeNo, 
-		       cl.user_no AS userNo,
-		       c.concert_no AS concertNo, 
-		       c.concert_title AS concertTitle, 
-		       c.concert_members AS concertMembers,
-		       c.age_limit AS ageLimit,
-		       t.theater_name AS theaterName,
-		       ca.change_name AS changeName,
-		       ca.file_path AS filePath, 
-		       cs_min_max.start_date AS startDate,
-		       cs_min_max.end_date AS endDate		       
+				       cl.user_no AS userNo,
+					   cl.concert_like_date AS concertLikeDate,
+				       c.concert_no AS concertNo, 
+				       c.concert_title AS concertTitle, 
+				       c.concert_members AS concertMembers,
+				       c.age_limit AS ageLimit,
+				       t.theater_name AS theaterName,
+				       ca.change_name AS changeName,
+				       ca.file_path AS filePath, 
+				       cs_min_max.start_date AS startDate,
+				       cs_min_max.end_date AS endDate		       
 		FROM concert_like cl
 		
 		JOIN concert c 
@@ -214,23 +239,24 @@
 		ON c.theater_no = t.theater_no
 		
 		JOIN (SELECT concert_no, 
-			         MIN(start_date) AS start_date, 
-			         MAX(end_date) AS end_date
-		      FROM concert_schedule
-		      GROUP BY concert_no) cs_min_max 
+					 MIN(start_date) AS start_date, 
+					 MAX(end_date) AS end_date
+			  FROM concert_schedule
+			  GROUP BY concert_no) cs_min_max 
 		ON cl.concert_no = cs_min_max.concert_no
 		
 		WHERE cl.user_no = #{userNo}		
 		AND cl.status = 'Y'
 		AND ca.file_level = 1
+		
+		ORDER BY cl.concert_like_date DESC
 	</select>
 	
 	<select id="selectReviewCount" resultType="_int">
-		SELECT COUNT(concert_no) 
-		FROM (SELECT concert_no
-			  FROM reserve
-			  WHERE user_no = #{userNo}
-			  AND reserve_status = 'Y') 
+		SELECT COUNT(DISTINCT concert_no)
+	    FROM reserve
+	    WHERE user_no = #{userNo}
+	    AND reserve_status = 'Y'
 	</select>
 	
 	<select id="selectReviewList" resultType="Concert">
@@ -245,10 +271,11 @@
 			   ca.change_name AS changeName,
 			   ca.file_path AS filePath
 			
-		FROM (SELECT DISTINCT concert_date, concert_times, concert_no, user_no
-				FROM reserve
-				WHERE user_no = #{userNo}
-				AND reserve_status = 'Y') r
+		FROM (SELECT MAX(concert_date) AS concert_date, concert_times, concert_no, user_no
+			  FROM reserve
+			  WHERE user_no = #{userNo}
+			  AND reserve_status = 'Y'
+			  GROUP BY concert_times, concert_no, user_no) r
 		
 		JOIN concert c 
 		ON r.concert_no = c.concert_no
@@ -264,6 +291,14 @@
 		
 		ORDER BY r.concert_date DESC, r.concert_times ASC
 	</select>
+	
+	<update id="deleteMyScrapAjax">
+		UPDATE concert_like
+		SET status = 'N'
+		WHERE user_no = #{userNo}
+		AND concert_no = #{concertNo}
+		AND status = 'Y'
+	</update>
 	
 </mapper>
 

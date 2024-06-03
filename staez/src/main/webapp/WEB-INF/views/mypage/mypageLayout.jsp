@@ -38,7 +38,7 @@
                         <c:otherwise>
                             <img src="" alt="">
                             <div id="profile-text">
-                                <span><strong>${loginUser.userId}</strong></span>
+                                <span><strong>${loginUser.nickname}</strong></span>
                                 <span>님</span><br>
                                 <span>환영합니다</span>
                             </div>
