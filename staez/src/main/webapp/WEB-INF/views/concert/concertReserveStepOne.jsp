@@ -14,6 +14,8 @@
 <body>
 	<div class="container">
         <div class="reserve-step-area-top">
+            <!-- <input type="hidden" name="userNo" value="${loginUser.userNo}"> -->
+            <input type="hidden" name="concertNo" value="7">
             <span>STAEZ 티켓예매</span>
             <div class="reserve-step-area">
                 <div class="step-one"><span>01 관람일/회차선택</span></div>
@@ -139,6 +141,7 @@
                 </div>
             </div>
         </div>
+        <script src="${contextPath}/resources/js/api/concertReserveapi.js"></script>
         <script src="${contextPath}/resources/js/concert/concertReserveStepOne.js"></script>
     </div>
 </body>
