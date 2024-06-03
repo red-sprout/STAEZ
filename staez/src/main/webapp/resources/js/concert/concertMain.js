@@ -2,6 +2,7 @@
 $(function() { // list는 컨트롤러에서 받아온 것
   const sliderContent = document.querySelector(".concert-main-upper");
   const gridContent = document.querySelector(".concert-main-grid");
+  
   conNaviDraw(conList => drawConNavi(conList));
 
   const categoryNo = document.querySelector("input[name='categoryNo']").value;
@@ -36,37 +37,6 @@ function drawConNavi(conList){
     concertNaviArea.appendChild(naviLi);
   }
 }
-
-// // 공연 누르면 슬라이더, 그리드 그려주기
-// function drawCon(list, sliderContent, gridContent){
-//   sliderContent.innerHTML =``;
-//   gridContent.innerHTML = ``;
-//   for (let c of list) {
-//     sliderContent.innerHTML += ` <div class="concert-main-upper-pic-div"
-//                                   onclick="location.href='detail.co?concertNo=`+ c.concertNo +`'">` + 
-//                                   `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
-//                                   + `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
-//                                   + `<div class="concert-main-upper-sen-div">
-//                                       <p><span><b><h2>` + c.concertTitle + `</h2></span></b></p>
-//                                       <p><span>` + c.theaterName + `</span></p>
-//                                       <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
-//                                  + `</div>
-//                                   </div>`;
-
-//     gridContent.innerHTML += `<div onclick="location.href='detail.co?concertNo=`+ c.concertNo +`'">
-//                                 <input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
-//                             + `<div>`
-//                             +     `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
-//                             + `</div>`
-//                             + `<div>`
-//                             +     `<p><span>뮤지컬</span></p>`
-//                             +     `<p><span><b>[` + c.concertTitle + `]</b></span></p>
-//                                    <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
-//                             + `</div></div>`
-    
-//   }
-// }
-
 
 
 // 슬라이더, 그리드 그려주기
