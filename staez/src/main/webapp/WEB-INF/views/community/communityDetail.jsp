@@ -33,7 +33,7 @@
                         <tbody>
                             <tr class="profile-area">
                                 <td rowspan="2">
-                                    <img id="profile-img" src="">
+                                    <img id="profile-img" src="<c:url value='/resources/uploadfiles/profile/no-data.png'/>">
                                 </td>
                                 <td>
                                     <h3>${board.nickname}</h3>

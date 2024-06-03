@@ -178,6 +178,47 @@ public class OthersServiceImpl implements OthersService{
 	public ArrayList<ProfileImg> selectKeywordUserProfilet(String keyword) {
 		return oDao.selectKeywordUserProfilet(sqlSession, keyword);
 	}
+
+	@Override
+	public ArrayList<Concert> selectKeywordMoreEndConcertCount(String keyword) {
+		return oDao.selectKeywordMoreEndConcertCount(sqlSession, keyword);
+	}
 	
+	@Override
+	public ArrayList<Concert> selectKeywordMoreEndConcert(String keyword, PageInfo pi) {
+		
+		return oDao.selectKeywordMoreEndConcert(sqlSession, keyword, pi);
+	}
+
+	@Override
+	public ArrayList<Concert> selectKeywordMoreEndConcertImgCount(String keyword) {
+		return oDao.selectKeywordMoreEndConcertCount(sqlSession, keyword);
+	}
+
+	@Override
+	public ArrayList<Concert> selectKeywordMoreEndConcertImg(String keyword, PageInfo pi) {
+		return oDao.selectKeywordMoreEndConcertImg(sqlSession, keyword, pi);
+	}
+
+	@Override
+	public ArrayList<Concert> selectKeywordMoreConcertCount(String keyword) {
+		return oDao.selectKeywordMoreConcertCount(sqlSession, keyword);
+	}
+
+	@Override
+	public ArrayList<Concert> selectKeywordMoreConcert(String keyword, PageInfo pi) {
+		return oDao.selectKeywordMoreConcert(sqlSession, keyword, pi);
+	}
+
+	@Override
+	public ArrayList<Concert> selectKeywordMoreConcertImgCount(String keyword) {
+		return oDao.selectKeywordMoreConcertImgCount(sqlSession, keyword);
+	}
+
+	@Override
+	public ArrayList<Concert> selectKeywordMoreConcertImg(String keyword, PageInfo pi) {
+		return  oDao.selectKeywordMoreConcertImg(sqlSession, keyword, pi);
+	}
+
 	
 }

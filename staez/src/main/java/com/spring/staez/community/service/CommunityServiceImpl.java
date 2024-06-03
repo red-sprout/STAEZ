@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.dao.CommunityDao;
 import com.spring.staez.community.model.dto.AjaxBoardDto;
 import com.spring.staez.community.model.dto.CategoryDto;
@@ -58,14 +59,14 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public ArrayList<Board> selectBoard(CategoryDto categoryDto) {
-		return communityDao.selectBoard(sqlSession, categoryDto);
+	public ArrayList<Board> selectBoard(CategoryDto categoryDto, PageInfo pi) {
+		return communityDao.selectBoard(sqlSession, categoryDto, pi);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public ArrayList<Board> selectBoard() {
-		return communityDao.selectBoard(sqlSession);
+	public ArrayList<Board> selectBoard(PageInfo pi) {
+		return communityDao.selectBoard(sqlSession, pi);
 	}
 
 	@Transactional(readOnly = true)
@@ -166,5 +167,15 @@ public class CommunityServiceImpl implements CommunityService {
 				r.setPath(BASIC_PROFILE);
 		}
 		return list;
+	}
+
+	@Override
+	public int selectBoardCnt(CategoryDto categoryDto) {
+		return communityDao.selectBoardCnt(sqlSession, categoryDto);
+	}
+
+	@Override
+	public int selectBoardCnt() {
+		return communityDao.selectBoardCnt(sqlSession);
 	}
 }

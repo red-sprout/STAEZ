@@ -3,6 +3,7 @@ package com.spring.staez.community.service;
 import java.util.ArrayList;
 
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.dto.AjaxBoardDto;
 import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
@@ -20,9 +21,9 @@ public interface CommunityService {
 
 	int insertBoard(CommunityDto communityDto);
 
-	ArrayList<Board> selectBoard(CategoryDto categoryDto);
+	ArrayList<Board> selectBoard(CategoryDto categoryDto, PageInfo pi);
 
-	ArrayList<Board> selectBoard();
+	ArrayList<Board> selectBoard(PageInfo pi);
 
 	ArrayList<Category> selectCategory(int boardNo);
 
@@ -51,5 +52,9 @@ public interface CommunityService {
 	int insertBoardLike(BoardLike boardLike);
 
 	ArrayList<Reply> selectReplyAll(int boardNo);
+
+	int selectBoardCnt(CategoryDto categoryDto);
+
+	int selectBoardCnt();
 
 }

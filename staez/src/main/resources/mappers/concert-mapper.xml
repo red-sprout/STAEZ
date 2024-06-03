@@ -30,6 +30,7 @@
 		<result column="origin_name" property="originName"/>
 		<result column="change_name" property="changeName"/>
 		<result column="file_path" property="filePath"/>
+		<result column="category_name" property="categoryName"/>
 	</resultMap>
 		
 	<resultMap type="Category" id="categoryResult">
@@ -116,11 +117,21 @@
 		<result column="board_write_date" property="boardWriteDate" />
 	</resultMap>
 
+	<select id="selectCate" resultMap="categoryResult" >
+ 	    SELECT category_no,
+ 	    	   category_name,
+ 	    	   category_level
+		FROM category
+		WHERE category_no = #{categoryNo};
+		<!-- LIMIT 1 OFFSET 0; -->
+	</select>
+
+
 	
 	<select id="selectCateCon" resultMap="categoryResult" > 
- 	    select category_no, category_name
-		from category
-		where ref_category_no = 1
+ 	    SELECT category_no, category_name
+		FROM category
+		WHERE ref_category_no = 1;
 	</select>
 
 	<select id="selectconList" resultMap="concertResult" >
@@ -131,14 +142,16 @@
 		       cs.end_date,
 		       ca.change_name,
 		       ca.file_path,
-			   ct.category_no
+			   ct.category_no,
+		       ct.category_name
 		FROM concert c
 		JOIN theater t ON c.theater_no = t.theater_no
 		JOIN concert_schedule cs ON c.concert_no = cs.concert_no
 		JOIN concert_attachment ca ON c.concert_no = ca.concert_no
 		JOIN concert_category cc on  c.concert_no = cc.concert_no	
 		JOIN category ct ON cc.category_no = ct.category_no
-		WHERE c.concert_status = 'Y';	
+		WHERE c.concert_status = 'Y'
+		 AND cc.category_no =  #{categoryNo};	
 	</select> 
 	
 	<select id="selectCon" resultMap="concertResult" >
@@ -236,15 +249,15 @@
 	
 	
 	<!-- 좋아요 구현 -->
-	<select id="checkLike" resultMap="concertLikeResult" parameterType="Map">
-			SELECT board_no,
-				   user_no,
-				   concert_no,
-				   status
+	<!-- 좋아요 갯수 몇개냐? -->
+	<select id="checkLikeExist"  resultType="_int" parameterType="Map">
+			SELECT COUNT(*)
 			FROM concert_like
-			WHERE user_no = #{userNo}
-			  AND concert_no = #{concertNo}
+			WHERE concert_no = #{concertNo}
+			  AND status = 'Y'
 	</select>
+	
+	
 	
 	<insert id="insertConLike">
 	        INSERT INTO concert_like (

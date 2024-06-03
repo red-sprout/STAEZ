@@ -75,7 +75,7 @@
                 <!--일반 회원-->
                 <div class="menu-bar-area">
                     <div class="menu-bar">
-                        <a href="main.co"><span>공연</span></a>
+                        <a href="main.co?categoryNo=4"><span>공연</span></a>
                     </div>
                     <div class="menu-bar">
                         <a href="main.cm"><span>커뮤니티</span></a>

@@ -8,6 +8,100 @@ $(function() {
         setCategory(res, 'community-category');
     });
 
+    communityMainList({
+        categoryNo: getCommunityCategoryNo(),
+        cPage: 1
+    }, (res) => {
+        drawBoard(result);
+    })
+
+})
+
+function getCommunityCategoryNo() {
+
+}
+
+// 요소 그리기
+function drawBoard(result) {
+    const communityContents = document.getElementById("community-contents");
+    for(let b of result) {
+        const li = communityPosting(b.boardNo);
+        const table = table(b);
+        li.appendChild(table)
+        communityContents.appendChild(li);
+    }
+    initBoardList();
+}
+
+// li 태그 그리기 - 게시글 한 요소
+function communityPosting(boardNo) {
+    const li = document.createElement("li");
+    li.setAttribute("class", "community-posting");
+    li.addEventListener("click", (ev) => {
+        location.href = `detail.cm?boardNo=${boardNo}`;
+    });
+    return li;
+}
+
+// table 태그 그리기 - 게시글 한 요소 내용
+function table(board) {
+    const table = document.createElement("table");
+    const tbody = tableRows(board);
+    table.appendChild(tbody);
+    return table;
+}
+
+// tr 태그 그리기 - 게시글 한 요소 상세 내용
+function tableRows(board) {
+    const result = document.createElement("tbody");
+
+    const profileArea = profileArea(board);
+    profileArea.setAttribute("class", "profile-area");
+    result.appendChild(profileArea);
+
+    const writeDate = document.createElement("tr");
+    writeDate.innerHTML += `<td>${board.boardWriteDate}</td>`;
+    result.appendChild(writeDate);
+
+    const boardTitle = document.createElement("tr");
+    boardTitle.innerHTML += `<td colspan="2"><h3>${board.boardTitle}</h3></td>`;
+    result.appendChild(boardTitle);
+
+    const boardContent = document.createElement("tr");
+    boardContent.innerHTML += `<td colspan="2" class="boardContent">${board.boardContent}</td>`;
+    result.appendChild(boardContent);
+
+    const postingCategory = document.createElement("tr");
+    postingCategory.innerHTML += `<td colspan="2"></td>`;
+    postingCategory.setAttribute("class", "posting-category");
+    result.appendChild(postingCategory);
+
+    return result;
+}
+
+function profileArea(board) {
+    const tRow = document.createElement("tr");
+
+    const profileImg = document.createElement("td");
+    profileImg.setAttribute("rowspan", 2);
+    profileImg.setAttribute("width", "60px");
+    profileImg.innerHTML += `<img src="/resources/uploadfiles/profile/no-data.png" alt=""></img>`;
+    tRow.appendChild(profileImg);
+
+    const nickname = document.createElement("td");
+    nickname.innerHTML += `<h4>${board.nickname}</h4>`;
+
+    const hidden = document.createElement("td");
+    hidden.setAttribute("rowspan", 5);
+    hidden.innerHTML += `
+        <input type="hidden" name="boardNo" value="${board.boardNo}" class="boardNo">
+        <input type="hidden" name="userNo" value="${board.userNo}" class="userNo">
+    `;
+
+    return tRow;
+}
+
+function initBoardList() {
     const btnArea = [...document.querySelectorAll(".posting-category>td")];
     const profileArea = [...document.querySelectorAll(".profile-area>td>img")];
     const boardNo = document.querySelectorAll(".profile-area input[name=boardNo]");
@@ -21,7 +115,7 @@ $(function() {
         drawBtn(btnArea[i], boardNoList[i]);
         drawProfile(profileArea[i], userNoList[i])
     }
-})
+}
 
 // 왼쪽 커뮤니티 대분류 항목 그리기
 function setNav(result) {
@@ -36,7 +130,9 @@ function setNav(result) {
         const input = document.createElement("input");
         
         li.setAttribute("class", "community-nav-li");
-        li.setAttribute("onclick", `location.href='main.cm?categoryNo=${ele.categoryNo}'`);
+        li.addEventListener("click", (ev) => {
+
+        });
         
         h2.innerHTML += ele.categoryName;
         input.type = "hidden"
@@ -60,38 +156,6 @@ function setColor() {
     for(let i = 0; i < communityNav.length; i++) {
         if(communityNav.item(i));
     }
-}
-
-function setUrlParams(_this, mode) {
-    const nowParams = getUrlParams();
-}
-
-// url 만들기
-function generateUrls() {
-    const input = document.getElementById('categoryInput').value;
-    const categoryNos = input.split(',').map(num => num.trim());
-    const outputDiv = document.getElementById('output');
-
-    let urls = [];
-
-    // Single categoryNo
-    categoryNos.forEach(categoryNo => {
-        urls.push(`/staez/main.com?categoryNo=${categoryNo}`);
-    });
-
-    // Multiple categoryNos
-    if (categoryNos.length > 1) {
-        let multipleCategoryNo = `/staez/main.com?categoryNo=${categoryNos.join('&categoryNo=')}`;
-        urls.push(multipleCategoryNo);
-    }
-
-    // Display the URLs
-    outputDiv.innerHTML = '<h2>Generated URLs:</h2>';
-    urls.forEach(url => {
-        const urlElement = document.createElement('p');
-        urlElement.textContent = url;
-        outputDiv.appendChild(urlElement);
-    });
 }
 
 // 게시글마다 해당하는 카테고리 노출하기

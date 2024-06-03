@@ -17,9 +17,14 @@
     width: 1300px;
     height: 40px;
     display: flex;
-    justify-content: space-between;
     margin-bottom: 30px;
     align-items: center;
+}
+
+.end-concert{
+  margin: 0px !important; 
+  margin-top: 3px !important;
+  margin-left: 3px !important;
 }
 
 .concert-search-result-title-area>span{
@@ -50,6 +55,7 @@
 
 .concert-search-result-info>a>img{
     width: 220px;
+    height: 275px;
     cursor: pointer;
     -webkit-transition: .3s ease-in-out;
     transition: .3s ease-in-out;
@@ -86,4 +92,11 @@
 .gap-hr{
     border: none;
     height: 200px;
+}
+
+.page-list-area{
+    width: 1300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

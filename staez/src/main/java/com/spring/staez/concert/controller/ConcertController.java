@@ -1,6 +1,10 @@
 package com.spring.staez.concert.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.concert.service.ConcertService;
 
@@ -23,12 +28,13 @@ public class ConcertController {
 	private ConcertService concertService;
 	
 	// 공연 누르면 보여주는 공연 메인 페이지
-	@GetMapping("main.co")
-	public String concertMain() {
-		return "concert/concertMain";
-	}
+//	@GetMapping("main.co")
+//	public String concertMain() {
+//		
+//		return "concert/concertMain";
+//	}
 	
-	// category를 가져와라 콘서트 네비에 뿌려주기
+	// category를 가져와라 콘서트 '네비'에 뿌려주기
 	@ResponseBody
 	@RequestMapping(value = "connavi.co", produces="application/json; charset=UTF-8")
 	public String selectCateCon() {
@@ -36,11 +42,23 @@ public class ConcertController {
 		return new Gson().toJson(conList);
 	}
 	
-	// 공연리스트 다가져와(ajax로)
-	@ResponseBody // 리턴할 응답 바디를 직접 입력할꺼야
+	// 공연을 categoryNo로 가져와서 공연세부페이지로, 메인페이지에 categoryNo를 내려주면 클릭하면 mian.co?에 들어감
+	@RequestMapping(value = "main.co")
+	public String concertMain(String categoryNo, Model model) {
+		System.out.println("main : " + categoryNo);
+		Category cat = concertService.selectCate(Integer.parseInt(categoryNo));
+		model.addAttribute("cat", cat);
+		return "concert/concertMain";
+	}
+	
+	// 공연리스트 categoryNo로 다가져와(ajax로)
+	@ResponseBody
 	@RequestMapping(value = "maincon.co", produces="application/json; charset=UTF-8")
-	public String mainDrawAjax() {
-		ArrayList<Concert> list =  concertService.selectconList();
+	public String mainDrawAjax(@RequestParam(value = "categoryNo")int categoryNo) {
+		
+		System.out.println("maincon : " + categoryNo);
+		ArrayList<Concert> list =  concertService.selectconList(categoryNo);
+		
 		return new Gson().toJson(list);
 	}
 		
@@ -48,18 +66,39 @@ public class ConcertController {
 	// 공연을 concertNo로 가져와서 공연세부페이지로
 	@RequestMapping(value = "detail.co", produces="application/json; charset=UTF-8")
 	public String selectCon(@RequestParam(value = "concertNo") String concertNo, Model model) {
-		
 		Concert con = concertService.selectCon(Integer.parseInt(concertNo));
 		model.addAttribute("con", con);
-		
 		return "concert/concertDetail";
 	}
 	
 	
 //	@ResponseBody
 //	@RequestMapping(value = "conheart.co", produces="application/json; charset=UTF-8")
-//	public String insertConLike(@RequestParam("userNo") String userNo,
+//	public String countConLike(@RequestParam("userNo") String userNo,
 //						   @RequestParam("concertNo") String concertNo, HttpSession session, Model model) {
+//		
+////		Map<String, Integer> conL = new HashMap<>();
+////		conL.put("userNo", Integer.parseInt(userNo));
+////		conL.put("concertNo", Integer.parseInt(concertNo));
+////		int checkConLike = concertService.checkConLike((HashMap<String, Integer>) conL);
+//		
+//		// like 있는지 없는지 체크
+//		ArrayList<ConcertLike> checkLikeExist = concertService.checkConLike(Integer.parseInt(userNo), Integer.parseInt(concertNo));
+//
+//		return new Gson().toJson();
+//	}
+	
+	@ResponseBody
+	@RequestMapping(value = "countheart.co", produces="application/json; charset=UTF-8")
+	public String checkLikeExist(String concertNo) {
+
+		ArrayList<ConcertLike> countLike = concertService.checkLikeExist(Integer.parseInt(concertNo));
+		System.out.println(countLike);
+		return new Gson().toJson(countLike);
+	}
+	
+	
+	
 //		
 //		// 좋아요 버튼 체크, 만약 좋아요 버튼을 (그 전에 한번도) 클릭하지 않았으면 : checkLike null 반환 -> 좋아요 버튼 insert
 //		//  checkLike !null 반환 -> 좋아요 버튼 update(status n)
@@ -77,7 +116,7 @@ public class ConcertController {
 //			return "redirect:/";
 //		}
 //	}	
-	
+//	
 		
 	
 	

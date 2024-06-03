@@ -51,4 +51,21 @@ public interface OthersService {
 	ArrayList<Board> selectkeywordCategoryList(int bNo);
 	
 	ArrayList<ProfileImg> selectKeywordUserProfilet(String keyword);
+	
+	ArrayList<Concert> selectKeywordMoreEndConcertCount(String keyword);
+	
+	ArrayList<Concert> selectKeywordMoreEndConcert(String keyword, PageInfo pi);
+	
+	ArrayList<Concert> selectKeywordMoreEndConcertImgCount(String keyword);
+	
+	ArrayList<Concert> selectKeywordMoreEndConcertImg(String keyword, PageInfo pi);
+	
+	ArrayList<Concert> selectKeywordMoreConcertCount(String keyword);
+	
+	ArrayList<Concert> selectKeywordMoreConcert(String keyword, PageInfo pi);
+	
+	ArrayList<Concert> selectKeywordMoreConcertImgCount(String keyword);
+	
+	ArrayList<Concert> selectKeywordMoreConcertImg(String keyword, PageInfo pi);
+	
 }

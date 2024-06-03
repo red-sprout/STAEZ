@@ -35,6 +35,9 @@
     </div>
 
     <!-- 공연 navi -->
+    <input type="hidden" name="userNo" value="${loginUser.userNo}">
+    <input type="hidden" name="concertNo" value="${con.concertNo}">
+
     <div>
         <ul class="concert-ul">
             <!-- 자스로 그려줌 -->
@@ -53,10 +56,8 @@
                 <button class="concert-detail-like-button" onclick="likeToggle(this)">
                     <i class="fa-regular fa-heart"></i>
                     <input type="checkbox" class="hidden" name="conHeart">
-                    <input type="hidden" name="userNo" value="${loginUser.userNo}">
-                    <input type="hidden" name="concertNo" value="${con.concertNo}">
                     <!-- <i class="fa-solid fa-heart" style="color: #ff0000;"></i> -->
-                    <span>127</span>
+                    <span class="concert-likeCount"></span>
                 </button> <!-- 길이조절 -->
                 <div class="concert-detail-like-commu"><a href="main.cm"><span><b>${con.concertTitle} 커뮤니티로 가기</b></span></a></div>
             </div>

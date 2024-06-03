@@ -41,7 +41,9 @@ public class OthersController {
 	}
 	
 	@GetMapping("searchResult.co") // 공연 더보기 검색 결과
-	public String searchResultMoreConcert() {
+	public String searchResultMoreConcert(@RequestParam("keyword") String keyword, Model model) {
+		
+		model.addAttribute("keyword", keyword);
 		return "others/searchResultMoreConcert";
 	}
 	
@@ -257,6 +259,70 @@ public class OthersController {
 		
 		
 		return  new Gson().toJson(profileList);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxKeywordMoreEndConcert.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxKeywordMoreEndConcert(String keyword, String cPage) {
+		
+		int currentPage = Integer.parseInt(cPage);
+		int listCount = oService.selectKeywordMoreEndConcertCount(keyword).size();
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		
+		ArrayList<Concert> cList = oService.selectKeywordMoreEndConcert(keyword, pi);
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put("cList", cList);
+		resMap.put("pi", pi);
+		
+		return  new Gson().toJson(resMap);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxKeywordMoreEndConcertImg.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxKeywordMoreEndConcertImg(String keyword, String cPage) {
+		
+		int currentPage = Integer.parseInt(cPage);
+		int listCount = oService.selectKeywordMoreEndConcertImgCount(keyword).size();
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		
+		ArrayList<Concert> ciList = oService.selectKeywordMoreEndConcertImg(keyword, pi);
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put("ciList", ciList);
+		resMap.put("pi", pi);
+		
+		return  new Gson().toJson(resMap);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxKeywordMoreConcert.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxKeywordMoreConcert(String keyword, String cPage) {
+		
+		int currentPage = Integer.parseInt(cPage);
+		int listCount = oService.selectKeywordMoreConcertCount(keyword).size();
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		
+		ArrayList<Concert> cList = oService.selectKeywordMoreConcert(keyword, pi);
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put("cList", cList);
+		resMap.put("pi", pi);
+		
+		return  new Gson().toJson(resMap);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "ajaxKeywordMoreConcertImg.ot" , produces="application/json; charset-UTF-8")
+	public String ajaxKeywordMoreConcertImg(String keyword, String cPage) {
+		
+		int currentPage = Integer.parseInt(cPage);
+		int listCount = oService.selectKeywordMoreConcertImgCount(keyword).size();
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		
+		ArrayList<Concert> ciList = oService.selectKeywordMoreConcertImg(keyword, pi);
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put("ciList", ciList);
+		resMap.put("pi", pi);
+		
+		return  new Gson().toJson(resMap);
 	}
 	
 	

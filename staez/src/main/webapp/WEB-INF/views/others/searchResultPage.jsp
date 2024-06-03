@@ -25,7 +25,7 @@
             <span class="concert-count"></span>
             <div class="paging-area-container">
                 <div id="paging-area">
-                    <a onclick="location.href='searchResult.co'" id="paging-tag">
+                    <a onclick="location.href='searchResult.co?keyword=${keyword}'" id="paging-tag">
                         <span>더보기 +</span>
                     </a>
                 </div>

@@ -285,4 +285,52 @@ function keywordUserProfile(data, callback){
     })
 }
 
+// 검색 결과 콘서트 더보기ajax
 
+function keywordMoreEndConcert(data, callback){
+    $.ajax({
+        url : "ajaxKeywordMoreEndConcert.ot",
+        data : data,
+        success : function(result){
+            callback(result)
+        }, error : function(){
+            console.log("실패")
+        }
+    })
+}
+
+function keywordMoreEndConcertImg(data, callback){
+    $.ajax({
+        url : "ajaxKeywordMoreEndConcertImg.ot",
+        data : data,
+        success : function(result){
+            callback(result)
+        }, error : function(){
+            console.log("실패")
+        }
+    })
+}
+
+function keywordMoreConcert(data, callback){
+    $.ajax({
+        url : "ajaxKeywordMoreConcert.ot",
+        data : data,
+        success : function(result){
+            callback(result)
+        }, error : function(){
+            console.log("실패")
+        }
+    })
+}
+
+function keywordMoreConcertImg(data, callback){
+    $.ajax({
+        url : "ajaxKeywordMoreConcertImg.ot",
+        data : data,
+        success : function(result){
+            callback(result)
+        }, error : function(){
+            console.log("실패")
+        }
+    })
+}

@@ -34,8 +34,11 @@ public class NoticeServiceImpl implements NoticeService {
 	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public int insertNotice(Board b) {
-		int result1 = noticeDao.insertNotice(sqlSession, b);
-		int result2 = noticeDao.insertNoticeCategory(sqlSession, b);
+		int result1, result2;	
+		if((result1 = noticeDao.insertNotice(sqlSession, b)) == 0)
+			throw new RuntimeException("공지사항 삽입 실패");
+		if((result2 = noticeDao.insertNoticeCategory(sqlSession, b)) == 0)
+			throw new RuntimeException("공지사항 카테고리 삽입 실패");
 		return result1 * result2;
 	}
 
