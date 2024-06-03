@@ -4,30 +4,62 @@ $(function() {
     const conSellinfo = document.getElementsByClassName("concert-detail-down-section");
 
     conNaviDraw(conList => drawConNavi(conList));
+
     // conHeart({
     //     "userNo" : userNo,
     //     "concertNo" : concertNo
-    // }, (conL) => insertLike(conL, userNo, concertNo))
+    // }, (conL) => drawConHeart(conL))
+    
+    countHeart({"concertNo" : concertNo}, (likeCount) => drawCountHeart(likeCount))
     
     conDetail({"concertNo" : concertNo}, (result) => drawConDetail(result))
 });
 
 // ajax로 콘서트 navi 그려
 function drawConNavi(conList){
+
+    const concertNaviArea = document.querySelector(".concert-ul");
+    concertNaviArea.innerHTML = ``;
   
-  const concertNaviArea = document.querySelector(".concert-ul");
-  concertNaviArea.innerHTML = ``;
-
-  for(let c of conList){
-    let naviLi = document.createElement('li');
-    naviLi.innerHTML = `<h2 id="`+ c.categoryNo +`">`+ c.categoryName +`</h2>`;
-
-    naviLi.setAttribute("onclick", `location.href ='main.co?categoryNo=${c.categoryNo}'`)
-
-    concertNaviArea.appendChild(naviLi);
+    for(let c of conList){
+      let naviLi = document.createElement('li');
+      naviLi.innerHTML = ``;
+      naviLi.innerHTML = `<h2 id="`+ c.categoryNo +`">`+ c.categoryName +`</h2>
+                          <input type="hidden" name="concertNo" value=`+ c. categoryNo +`>`;
+  
+      naviLi.setAttribute("onclick", `location.href ='main.co?categoryNo=`+ c.categoryNo +`'`)
+  
+      concertNaviArea.appendChild(naviLi);
+    }
   }
+
+// // 좋아요 버튼 그려주기 
+// function drawConHeart(conL){[
+
+// ]}
+
+// function insertLike(like, userNo, concertNo){
+//     console.log("alertMsg");
+//   }
   
+    // 찜버튼(하트)눌러서 색 채우기
+  function likeToggle(_this) {
+      // const check = _this.children[1];
+      // check.checked = !check.checked;
+      // fa-solid && fa-regular
+      _this.children[0].classList.toggle("fa-solid");
+      _this.children[0].classList.toggle("fa-regular");
+  
+  
+  }
+
+  // 예매버튼 클릭
+function reservePage(){
+    window.open('/staez/selectDate.co' , "_blank", "width=1001, height=601, scrollbars=no");
 }
+
+
+
 
 function goSellDetail(){
     const concertNo =  $("input[name='concertNo']").val();
@@ -48,16 +80,18 @@ function goReviewDetail(){
 
 
 // let heartClick = document.getElementsByClassName("concert-detail-like-button");
-
 // heartClick.addEventListener("click", function(){
-
 // });
 
+// like 몇개인지
+function drawCountHeart(likeCount){
+    const drawSpan = document.querySelector(".concert-likeCount");
+    drawSpan.innerHTML = ``;
+    drawSpan.innerHTML = likeCount.length;
+}
 
-// function insertLike(like, userNo, concertNo){
-//   console.log("alertMsg");    
 
-// }
+
 function drawConDetail(result){
     const drawSection = document.querySelector(".concert-detail-down-section");
     const conDetail1 = document.querySelector(".conDetail1");
@@ -81,7 +115,6 @@ function drawConDetail(result){
 conDetail1.onclick = function goConDetail(){
     location.href = 'detail.co?concertNo=' + c.concertNo;
     }
-
   }
 }
   
@@ -229,11 +262,12 @@ function drawCommentDetail(result){
     drawSection.innerHTML = ``;
 
     if(result.length === 0){
-        // let divEmpty = document.createElement('div');
-        drawSection.innerHTML += "등록된 한줄평이 없습니다.";
-        // divEmpty.appendChild(divEmpty);
-        // divEmpty.style.fontSize = '32px';
-
+        let divEmpty = document.createElement('p');
+        drawSection.appendChild(divEmpty);
+        divEmpty.innerHTML += "등록된 한줄평이 없습니다.";
+        divEmpty.style.fontSize = '24px';
+        divEmpty.style.padding = `15% 0 15% 0`;
+        
     } else { 
         for(let c of result){
             drawSection.innerHTML += `<div>
@@ -284,10 +318,11 @@ function drawReviewDetail(result){
     drawSection.innerHTML = ``;
 
     if(result.length === 0){
-        // let divEmpty = document.createElement('div');
-        drawSection.innerHTML += "등록된 관람후기가 없습니다.";
-        // divEmpty.appendChild(divEmpty);
-        // divEmpty.style.fontSize = '32px';
+        let divEmpty = document.createElement('p');
+        drawSection.appendChild(divEmpty);
+        divEmpty.innerHTML += "등록된 관람후기가 없습니다.";
+        divEmpty.style.fontSize = '24px';
+        divEmpty.style.padding = `15% 0 15% 0`;
 
     } else {
         for(let c of result){
@@ -339,16 +374,7 @@ function drawReviewDetail(result){
 
 
 
-  // 찜버튼(하트)눌러서 색 채우기
-function likeToggle(_this) {
-    // const check = _this.children[1];
-    // check.checked = !check.checked;
-    // fa-solid && fa-regular
-    _this.children[0].classList.toggle("fa-solid");
-    _this.children[0].classList.toggle("fa-regular");
 
-
-}
 
 
 
@@ -363,8 +389,4 @@ function likeToggle(_this) {
 
 
 
-// 예매버튼 클릭
-function reservePage(){
-    window.open('/staez/selectDate.co' , "_blank", "width=1001, height=601, scrollbars=no");
-}
 
