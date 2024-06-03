@@ -32,9 +32,15 @@
     height: fit-content;
 }
 
-#community-contents>li {
+#community-contents>.left {
     text-align: left;
 }
+
+#community-contents>.middle {
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+}   
 
 .profile-area {
     white-space: nowrap;

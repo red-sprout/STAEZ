@@ -292,7 +292,7 @@
 			board_no,
 			category_no
 		) VALUES (
-			CURRVAL('board_board_no_seq'::regclass),
+			CURRVAL('seq_board'::regclass),
 			#{categoryNo}
 		)
 	</insert>

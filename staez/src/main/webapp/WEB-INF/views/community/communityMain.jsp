@@ -25,34 +25,6 @@
 					<input type="text" name="keyword">
 				</li>
 				<li id="community-category"></li>
-				<c:forEach var="b" items="${boardList}">
-					<li class="community-posting" onclick="location.href='detail.cm?boardNo=${b.boardNo}'">
-						<table>
-							<tbody>
-								<tr class="profile-area">
-									<td rowspan="2" width="60px"><img src="" alt=""></td>
-									<td><h4>${b.nickname}</h4></td>
-									<td rowspan="5">
-										<input type="hidden" name="boardNo" value="${b.boardNo}" class="boardNo">
-										<input type="hidden" name="userNo" value="${b.userNo}" class="userNo">
-									</td>
-								</tr>
-								<tr>
-									<td>${b.boardWriteDate}</td>
-								</tr>
-								<tr>
-									<td colspan="2"><h3>${b.boardTitle}</h3></td>
-								</tr>
-								<tr>
-									<td colspan="2" class="boardContent">${b.boardContent}</td>
-								</tr>
-								<tr class="posting-category">
-									<td colspan="2"></td>
-								</tr>
-							</tbody>
-						</table>
-					</li>
-				</c:forEach>
 				<!-- <li id="community-pagination">
 					<div class="page-list">
 						<div class="pagination">

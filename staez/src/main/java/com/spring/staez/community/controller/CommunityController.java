@@ -17,7 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.common.template.MyFileRenamePolicy;
+import com.spring.staez.common.template.Pagination;
 import com.spring.staez.community.model.dto.AjaxBoardDto;
 import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
@@ -38,14 +40,7 @@ public class CommunityController {
 	CommunityService communityService;
 	
 	@GetMapping("main.cm")
-	public String communityMainList(CategoryDto categoryDto, Model model) {
-		ArrayList<Board> list = null;
-		if(categoryDto.getCategoryNo() != null) {			
-			list = communityService.selectBoard(categoryDto);
-		} else {
-			list = communityService.selectBoard();
-		}
-		model.addAttribute("boardList", list);
+	public String communityMain() {
 		return "community/communityMain";
 	}
 	
@@ -89,6 +84,31 @@ public class CommunityController {
 		model.addAttribute("concert", concert);
 		
 		return "community/communityUpdateForm";
+	}
+	
+	// 게시글 불러오기(페이지네이션)
+	@ResponseBody
+	@GetMapping(value = "list.bo", produces = "application/json; charset-UTF-8")
+	public String communityMainList(CategoryDto categoryDto, String cPage) {
+		int listSize, listCount;
+		int currentPage = Integer.parseInt(cPage);
+		
+		ArrayList<Board> list = null;
+		PageInfo pi = null;
+		
+		if(categoryDto.getCategoryNo() != null) {			
+			listSize = communityService.selectBoardCnt(categoryDto);
+			listCount = listSize;
+			pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			list = communityService.selectBoard(categoryDto, pi);
+		} else {
+			listSize = communityService.selectBoardCnt();
+			listCount = listSize;
+			pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			list = communityService.selectBoard(pi);
+		}
+
+		return new Gson().toJson(list);
 	}
 	
 	// 카테고리 정보 불러오기
