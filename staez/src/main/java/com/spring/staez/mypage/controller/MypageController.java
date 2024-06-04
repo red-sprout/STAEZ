@@ -19,6 +19,7 @@ import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.common.template.MyFileRenamePolicy;
 import com.spring.staez.common.template.Pagination;
 import com.spring.staez.community.model.dto.BoardListDto;
+import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.mypage.service.MypageService;
@@ -122,6 +123,39 @@ public class MypageController {
 		return "mypage/mypageLayout";
 	}
 	
+	//나의 문의내역 리스트 페이지 출력
+	@RequestMapping("inquireList.me")
+	public String myInquireList(int cpage, HttpSession session, Model model) {
+		User loginUser = userService.loginUser((User)session.getAttribute("loginUser"));
+
+		if(session.getAttribute("loginUser") == null) { //로그인 되어있지 않을 경우
+	        session.setAttribute("alertMsg", "로그인이 필요합니다.");
+	        return "redirect:/loginForm.me";
+		}
+		
+		int userNo = loginUser.getUserNo();
+		int currentPage = cpage;
+		int listCount = mypageService.selectMyInquireCount(userNo);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 8);
+		ArrayList<Board> list = mypageService.selectMyInquireList(userNo, pi);
+		
+		model.addAttribute("contentPage", "myInquireList");
+		model.addAttribute("blist", list);
+		model.addAttribute("pi", pi);
+		return "mypage/mypageLayout";
+	}
+	
+	//문의 내역 답변 불러오기 ajax
+	@RequestMapping("loadAnswer.me")
+	@ResponseBody
+	public String loadAnswerAjax(Integer boardNo) {
+		System.out.println(boardNo);
+		String inquireAnswer = mypageService.loadAnswerAjax(boardNo);
+		
+		return inquireAnswer;
+	}
+	
 	//나의 작성 게시글 리스트 페이지 출력
 	@RequestMapping("boardList.me")
 	public String myBoardList(int cpage, HttpSession session, Model model) {
@@ -175,27 +209,6 @@ public class MypageController {
 	        return "redirect:/loginForm.me";
 		}
 		model.addAttribute("contentPage", "updateUserForm");
-		return "mypage/mypageLayout";
-	}
-	
-	//나의 문의내역 리스트 페이지 출력
-	@RequestMapping("inquireList.me")
-	public String myInquireList(int cpage, HttpSession session, Model model) {
-		User loginUser = userService.loginUser((User)session.getAttribute("loginUser"));
-
-		if(session.getAttribute("loginUser") == null) { //로그인 되어있지 않을 경우
-	        session.setAttribute("alertMsg", "로그인이 필요합니다.");
-	        return "redirect:/loginForm.me";
-		}
-		
-//		int userNo = loginUser.getUserNo();
-//		int currentPage = cpage;
-//		int listCount = mypageService.selectMyInquireCount(userNo);
-//		
-//		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
-//		ArrayList<BoardListDto> list = mypageService.selectMyInquireList(userNo, pi);
-//		
-//		model.addAttribute("contentPage", "myInquireList");
 		return "mypage/mypageLayout";
 	}
 	

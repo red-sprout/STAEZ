@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.dto.BoardListDto;
+import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.user.model.dto.PaymentsInfoDto;
@@ -120,6 +121,22 @@ public class MypageDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		ArrayList<Concert> list = (ArrayList)sqlSession.selectList("mypageMapper.selectReviewList", userNo, rowBounds);
 		return list;
+	}
+	
+	public int selectMyInquireCount(SqlSessionTemplate sqlSession, int userNo) {
+		int count = sqlSession.selectOne("mypageMapper.selectMyInquireCount", userNo);
+		return count;	
+	}
+
+	public ArrayList<Board> selectMyInquireList(SqlSessionTemplate sqlSession, int userNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		ArrayList<Board> list = (ArrayList)sqlSession.selectList("mypageMapper.selectMyInquireList", userNo, rowBounds);
+		return list;
+	}
+	
+	public String loadAnswerAjax(SqlSessionTemplate sqlSession, int boardNo) {
+		return (String)sqlSession.selectOne("mypageMapper.loadAnswerAjax", boardNo);
 	}
 	
 	public int deleteMyScrapAjax(SqlSessionTemplate sqlSession, Map<String, Integer> params){

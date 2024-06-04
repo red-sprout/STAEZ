@@ -69,19 +69,24 @@
     cursor: pointer;
 }
 
-.main-content>table #content{
+.main-content>table .content{
     padding-left: 20px;
 }
 
+.main-content>table .content>*{
+    text-align: left;
+}
+
 /*공연명*/
-.main-content>table #content>h3:hover{
+.main-content>table .content>h3:hover{
     cursor: pointer;
     text-decoration: underline;
 }
 
-.main-content>table #content>*{
-    text-align: left;
+.main-content>table .content>h5{
+    margin: 10px 0;
 }
+
 
 
 

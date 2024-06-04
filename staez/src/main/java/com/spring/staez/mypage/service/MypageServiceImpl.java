@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.dto.BoardListDto;
+import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.mypage.model.dao.MypageDao;
@@ -115,6 +116,16 @@ public class MypageServiceImpl implements MypageService{
 	public ArrayList<Concert> selectReviewList(int userNo, PageInfo pi) {
 		return mpd.selectReviewList(sqlSession, userNo, pi);
 	}
+	
+	@Override
+	public int selectMyInquireCount(int userNo) {
+		return mpd.selectMyInquireCount(sqlSession, userNo);
+	}
+
+	@Override
+	public ArrayList<Board> selectMyInquireList(int userNo, PageInfo pi) {
+		return mpd.selectMyInquireList(sqlSession, userNo, pi);
+	}
 
 	@Override
 	public int deleteMyScrapAjax(Map<String, Integer> params) {
@@ -136,6 +147,9 @@ public class MypageServiceImpl implements MypageService{
 		return mpd.updateOneLineReview(sqlSession, concertReview);
 	}
 
-
+	@Override
+	public String loadAnswerAjax(int boardNo) {
+		return mpd.loadAnswerAjax(sqlSession, boardNo);
+	}
 	
 }

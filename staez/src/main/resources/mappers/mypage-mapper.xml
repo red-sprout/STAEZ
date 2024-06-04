@@ -177,7 +177,7 @@
 				c.concert_title AS concertTitle,
 			    t.theater_name AS theaterName,
 				r.concert_date AS concertDate,
-				cs.schedule,
+				r.schedule,
 				c.concert_runtime AS concertRuntime,
 					
 				r.reserve_no AS reserveNo,
@@ -196,7 +196,6 @@
 		JOIN concert_attachment ca ON c.concert_no = ca.concert_no
 		JOIN theater t ON c.theater_no = t.theater_no
 		JOIN seat s ON c.concert_no = s.concert_no
-		JOIN concert_schedule cs ON c.concert_no = cs.concert_no			
 					
 		WHERE r.user_no = #{userNo}
 		AND r.reserve_row BETWEEN seat_start_row AND seat_end_row 
@@ -291,6 +290,38 @@
 		
 		ORDER BY r.concert_date DESC, r.schedule DESC
 	</select>
+	
+	<select id="selectMyInquireCount" resultType="_int">
+		SELECT COUNT(board_no)
+		FROM board
+		WHERE board_code = 3
+		AND board_level = 1
+		AND user_no = #{userNo}
+		AND board_status = 'Y'
+	</select>
+	
+	<select id="selectMyInquireList" resultType="Board">
+		SELECT board_no AS boardNo, 
+			   board_write_date AS boardWriteDate, 
+			   board_title AS boardTitle, 
+			   board_content AS boardContent
+		FROM board
+		WHERE board_code = 3
+		AND board_level = 1
+		AND user_no = #{userNo}
+		AND board_status = 'Y'
+	</select>
+	
+	<select id="loadAnswerAjax" resultType="string">
+		SELECT board_content AS boardContent
+		FROM board
+		WHERE board_code=3
+		AND board_level=2
+		AND ref_board_no = #{boardNo}
+		AND board_status = 'Y'
+	</select>
+	
+	
 	
 	<update id="deleteMyScrapAjax">
 		UPDATE concert_like

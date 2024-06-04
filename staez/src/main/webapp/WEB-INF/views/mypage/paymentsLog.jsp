@@ -22,7 +22,7 @@
                 <td>
                     <img src="${contextPath}${c.filePath}${c.changeName}" onclick="location.href='${contextPath}/detail.co?concertNo=${c.concertNo}'">
                 </td>
-                <td id="content">
+                <td class="content">
                     <h3 onclick="location.href='${contextPath}/detail.co?concertNo=${c.concertNo}'">${c.concertTitle}</h3>
                     <h5>${c.theaterName}</h5>
                     <h4>
