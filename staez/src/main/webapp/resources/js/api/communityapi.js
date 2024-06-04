@@ -30,7 +30,7 @@ function insertFileApi(data, callback) {
 
 function communityCategory(data, callback) {
     $.ajax({
-        url: contextPath + "category.cm",
+        url: contextPath + "category.ct",
         data: data,
         success : function(res) {
             callback(res);
@@ -178,17 +178,4 @@ function selectReplyAll(data, callback) {
             console.log("댓글 요청 실패");
         }
     });
-}
-
-// 게시판 검색 api
-function searchBoard(data, callback) {
-    $.ajax({
-        url: contextPath + "search.bo",
-        data: data,
-        success: function (res) {
-            callback(res);
-        }, error() {
-            console.log("댓글 요청 실패");
-        }
-    })
 }

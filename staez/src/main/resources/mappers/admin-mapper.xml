@@ -139,7 +139,7 @@
 			theater_row,
 			theater_col
 		FROM theater
-		WHERE theater_name LIKE '%${keyword}%'
+		WHERE theater_name LIKE '%' || #{keyword} || '%'
 		LIMIT 5
 	</select>
 	
@@ -227,8 +227,69 @@
 			#{seatEndCol}
 		)
 	</insert>
-	
-	<select id="selectNotice" resultMap="boardResult">
+	<select id="selectNoticeCnt" parameterType="com.spring.staez.admin.model.dto.AdminCategoryDto" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM board b
+		JOIN board_category bc on (b.board_no = bc.board_no)
+		WHERE b.board_status = 'Y'
+		AND
+	    <choose>
+	        <when test='select != null and select == "title"'>
+	            b.board_title LIKE '%' || #{keyword} || '%'
+	        </when>
+	        <otherwise>
+	            b.board_content LIKE '%' || #{keyword} || '%'
+	        </otherwise>
+	    </choose>
+		AND b.board_code = 1
+		AND bc.category_no = ${categoryNo}
+	</select>
+	<select id="selectNoticeCntAll" parameterType="com.spring.staez.admin.model.dto.AdminCategoryDto" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM board b
+		JOIN board_category bc on (b.board_no = bc.board_no)
+		WHERE b.board_status = 'Y'
+		AND 
+	    <choose>
+	        <when test='select != null and select == "title"'>
+	            b.board_title LIKE '%' || #{keyword} || '%'
+	        </when>
+	        <otherwise>
+	            b.board_content LIKE '%' || #{keyword} || '%'
+	        </otherwise>
+	    </choose>
+		AND b.board_code = 1
+	</select>
+	<select id="selectNotice" parameterType="com.spring.staez.admin.model.dto.AdminCategoryDto" resultMap="boardResult">
+	    SELECT
+	        b.board_no,
+	        u.user_no,
+	        u.nickname,
+	        b.board_level,
+	        b.board_write_date,
+	        b.board_title,
+	        b.board_content,
+	        b.board_count
+	    FROM board b
+	    JOIN staez_user u on (b.user_no = u.user_no)
+	    JOIN board_category bc on (b.board_no = bc.board_no)
+	    WHERE b.board_status = 'Y'
+	    AND 
+	    <choose>
+	        <when test='select != null and select == "title"'>
+	            b.board_title LIKE '%' || #{keyword} || '%'
+	        </when>
+	        <otherwise>
+	            b.board_content LIKE '%' || #{keyword} || '%'
+	        </otherwise>
+	    </choose>
+	    AND b.board_code = 1
+	    AND bc.category_no = ${categoryNo}
+	    ORDER BY b.board_no DESC
+	</select>
+	<select id="selectNoticeAll" parameterType="com.spring.staez.admin.model.dto.AdminCategoryDto" resultMap="boardResult">
 		SELECT
 			b.board_no,
 			u.user_no,
@@ -237,40 +298,31 @@
 			b.board_write_date,
 			b.board_title,
 			b.board_content,
-			b.board_count,
-			bc.category_no,
-			c.category_name
+			b.board_count
 		FROM board b
 		JOIN staez_user u on (b.user_no = u.user_no)
 		JOIN board_category bc on (b.board_no = bc.board_no)
-		JOIN category c on (bc.category_no = c.category_no)
 		WHERE b.board_status = 'Y'
-		and b.board_code = 1
+		AND
+	    <choose>
+	        <when test='select != null and select == "title"'>
+	            b.board_title LIKE '%' || #{keyword} || '%'
+	        </when>
+	        <otherwise>
+	            b.board_content LIKE '%' || #{keyword} || '%'
+	        </otherwise>
+	    </choose>
+		AND b.board_code = 1
 		ORDER BY b.board_no DESC
 	</select>
-	
-	<select id="selectNoticeByCategory" resultMap="boardResult">
+	<select id="selectNoticeCategory" resultMap="categoryResult">
 		SELECT
-			b.board_no,
-			u.user_no,
-			u.nickname,
-			b.board_level,
-			b.board_write_date,
-			b.board_title,
-			b.board_content,
-			b.board_count,
-			bc.category_no,
+			c.category_no,
 			c.category_name
-		FROM board b
-		JOIN staez_user u on (b.user_no = u.user_no)
-		JOIN board_category bc on (b.board_no = bc.board_no)
-		JOIN category c on (bc.category_no = c.category_no)
-		WHERE b.board_status = 'Y'
-		and b.board_code = 1
-		and c.category_no = ${categoryNo}
-		ORDER BY b.board_no DESC
+		FROM board_category bc
+		JOIN category c ON (bc.category_no = c.category_no)
+		WHERE bc.board_no = #{boardNo}
 	</select>
-	
 	<insert id="insertNotice">
 		INSERT INTO board
 		(

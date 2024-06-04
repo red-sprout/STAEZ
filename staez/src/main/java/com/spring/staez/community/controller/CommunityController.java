@@ -116,7 +116,7 @@ public class CommunityController {
 	
 	// 카테고리 정보 불러오기
 	@ResponseBody
-	@GetMapping(value = "category.cm", produces = "application/json; charset-UTF-8")
+	@GetMapping(value = "category.ct", produces = "application/json; charset-UTF-8")
 	public String ajaxCategory(Category c) {
 		ArrayList<Category> list = communityService.selectCategory(c);
 		return new Gson().toJson(list);

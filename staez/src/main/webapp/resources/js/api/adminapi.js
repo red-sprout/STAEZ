@@ -130,7 +130,6 @@ function insertNotice(data, callback) {
 }
 
 //공연리스트 관련
-
 function ajaxConcertContentList(data, callback){
     $.ajax({
         url: contextPath + "ajaxConcertContentList.ad",
@@ -156,7 +155,6 @@ function ajaxConcertImgList(data, callback){
 }
 
 //공연장리스트 관련
-
 function ajaxTheaterList(data, callback){
     $.ajax({
         url: contextPath + "ajaxTheaterList.ad",
@@ -193,6 +191,7 @@ function selectLike(data, callback) {
     })
 }
 
+// 좋아요 클릭시 상태 변경 api
 function onClickLike(data, callback) {
     $.ajax({
         url: contextPath + "update.bl",
@@ -201,6 +200,47 @@ function onClickLike(data, callback) {
             callback(res);
         }, error() {
             console.log("좋아요 요청 실패");
+        }
+    });
+}
+
+// 공지사항 조회 api
+function noticeMainList(data, callback) {
+    $.ajax({
+        url: contextPath + "list.no",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("공지사항 요청 실패")
+        }
+    });
+}
+
+// 카테고리 가져오기
+// 커뮤니티 양식과 동일
+function noticeCategory(data, callback) {
+    $.ajax({
+        url: contextPath + "category.ct",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("카테고리 요청 실패");
+        }
+    });
+}
+
+// 카테고리 정보 불러오기(이름)
+// data : boardNo
+function noticeBoardCategory(data, callback) {
+    $.ajax({
+        url: contextPath + "notice.ct",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("카테고리 요청 실패");
         }
     });
 }
