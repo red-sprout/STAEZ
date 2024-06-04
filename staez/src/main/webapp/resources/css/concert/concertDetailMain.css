@@ -113,7 +113,7 @@ html { font-size:62.5%; }
 /* 공연상세페이지 별점, 공연안내 */
 /* 클래스로 안잡혀서 id로 */
 #concert-detail-starImg{
-    width: 30%;
+    width: 5%;
 }
 .concert-detail-table{
     margin-top: 30px;

@@ -125,8 +125,6 @@
 		WHERE category_no = #{categoryNo};
 		<!-- LIMIT 1 OFFSET 0; -->
 	</select>
-
-
 	
 	<select id="selectCateCon" resultMap="categoryResult" > 
  	    SELECT category_no, category_name
@@ -257,7 +255,7 @@
 			  AND status = 'Y'
 	</select>
 	
-	<select id="selectUserConLike" resultType="_int" parameterType="map">
+	<select id="selectUserConLike" resultType="_int">
 			SELECT COUNT(*)
 			FROM concert_like
            WHERE user_no = #{userNo}

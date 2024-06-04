@@ -7,13 +7,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.model.vo.ConcertReview;
@@ -48,13 +48,11 @@ public class ConcertController {
 		return "concert/concertMain";
 	}
 	
-	// 공연리스트 categoryNo로 다가져와(ajax로)
+	// 공연리스트 categoryNo로 다가져와(ajax로): 슬라이더랑 그리드
 	@ResponseBody
 	@RequestMapping(value = "maincon.co", produces="application/json; charset=UTF-8")
 	public String mainDrawAjax(@RequestParam(value = "categoryNo")int categoryNo) {
-		
 		ArrayList<Concert> list =  concertService.selectconList(categoryNo);
-		
 		return new Gson().toJson(list);
 	}
 		
@@ -63,8 +61,14 @@ public class ConcertController {
 	@RequestMapping(value = "detail.co", produces="application/json; charset=UTF-8")
 	public String selectCon(@RequestParam(value = "concertNo") String concertNo, Model model) {
 		Concert con = concertService.selectCon(Integer.parseInt(concertNo));
+		ArrayList<ConcertReview> conComDlist =  concertService.selectComDetail(Integer.parseInt(concertNo));
+		ArrayList<Board> conRevDlist =  concertService.selectRevDetail(Integer.parseInt(concertNo));
+		
+		model.addAttribute("rev", conRevDlist);
+		model.addAttribute("com", conComDlist);
 		model.addAttribute("con", con);
-		return "concert/concertDetail";
+		
+		return "concert/concertDetailMain";
 	}
 	
 	
@@ -75,19 +79,18 @@ public class ConcertController {
 	@RequestMapping(value = "likecount.co", produces="application/json; charset=UTF-8")
 	public String likeCount(String userNo, String concertNo) {
 		
-		int conLikeCount = concertService.selectConLikeCount(Integer.parseInt(concertNo));
-		System.out.println("conLikeCount:" +  conLikeCount);
+		Map map = new HashMap();
+		map.put("userNo", Integer.parseInt(userNo));
+		map.put("concertNo", Integer.parseInt(concertNo));
 		
-		int userConLikeCount = concertService.selectUserConLike(Integer.parseInt(userNo), Integer.parseInt(concertNo));
-		System.out.println("userConLikeCount:" +  userConLikeCount);
+		int conLikeCount = concertService.selectConLikeCount(Integer.parseInt(concertNo));		
+		int userConLikeCount = concertService.selectUserConLike(map);
 		
-		Map<String, Object> map = new HashMap<>();
-		map.put("conLikeCount", conLikeCount); // 콘서트가 가진 좋아요 총 갯수 status Y
-		map.put("userConLikeCount", userConLikeCount); // a유저가 1이라는 콘서트에 좋아요한 갯수 status Y
-		
-		System.out.println("map" + map);
+		Map<String, Object> conMap = new HashMap<>();
+		conMap.put("conLikeCount", conLikeCount); // 콘서트가 가진 좋아요 총 갯수 status Y
+		conMap.put("userConLikeCount", userConLikeCount); // a유저가 1이라는 콘서트에 좋아요한 갯수 status Y
 
-		return new Gson().toJson(map);
+		return new Gson().toJson(conMap);
 	}
 	
 	
@@ -102,25 +105,16 @@ public class ConcertController {
 		Map map = new HashMap();
 		map.put("userNo", userNo);
 		map.put("concertNo", concertNo);
-
-		System.out.println(like);
-		System.out.println("userNo: "+ userNo + "concertNo: " + concertNo);
 		
 		int result =  concertService.selectUserConLikeAll(map); // a유저가 1이라는 콘서트에 좋아요한 적이 있냐 status 노상관
-		System.out.println("selectUserConLikeAll:" + result);
-		
 		
 		if(result > 0) {
 			result = concertService.updateConLike(like); // 좋아요 한 적 있으면 update
 		} else {
 			result = concertService.insertConLike(like); // 좋아요 한 적 없으면 insert
 		}
-		
-		System.out.println("updateConLike:" + result);
-		System.out.println("insertConLike:" + result);
-		
-		int conLikeCount = concertService.selectConLikeCount(map);
-		System.out.println("conLikeCount:" + conLikeCount);
+				
+		int conLikeCount = concertService.selectConLikeCount(concertNo);
 		
 		if(result > 0) {
 			return String.valueOf(conLikeCount);
@@ -132,48 +126,6 @@ public class ConcertController {
 	}
 	
 
-//	// 좋아요 상태 변경
-//	@ResponseBody
-//	@GetMapping("update.bl")
-//	public String updateLike(BoardLike boardLike) {		
-//		AjaxBoardDto dto = new AjaxBoardDto();
-//		dto.setBoardNo(boardLike.getBoardNo());
-//		dto.setUserNo(boardLike.getUserNo());
-//		
-//		int result = communityService.selectUserBoardLikeAll(dto);
-//		if(result > 0) {
-//			result = communityService.updateBoardLike(boardLike);
-//		} else {
-//			result = communityService.insertBoardLike(boardLike);
-//		}
-//		
-//		
-//		
-//		
-//		int boardLikeCnt = communityService.selectBoardLikeCnt(dto);
-//		if(result > 0) {
-//			return String.valueOf(boardLikeCnt);
-//		} else {
-//			return "Exception 발생, 좋아요 실패";
-//		}
-//	}
-//	
-//	
-//	// 게시글 좋아요 가져오기
-//	@ResponseBody
-//	@GetMapping(value = "select.bl", produces = "application/json; charset-UTF-8")
-//	public String selectLike(AjaxBoardDto dto) {
-//		int boardLikeCnt = communityService.selectBoardLikeCnt(dto);
-//		int userBoardLikeCnt = communityService.selectUserBoardLike(dto);
-//		
-//		Map<String, Object> map = new HashMap<>();
-//		map.put("boardLikeCnt", boardLikeCnt);
-//		map.put("userBoardLike", userBoardLikeCnt > 0);
-//		
-//		return new Gson().toJson(map);
-//	}	
-
-	
 	
 	// 공연을 concertNo로 가져와서 공연세부페이지로
 	@ResponseBody
@@ -203,31 +155,38 @@ public class ConcertController {
 	@ResponseBody
 	@RequestMapping(value = "reviewDetail.co", produces="application/json; charset=UTF-8")
 	public String reviewDetail(@RequestParam(value = "concertNo") String concertNo) {
-		ArrayList<ConcertReview> conRevDlist =  concertService.selectRevDetail(Integer.parseInt(concertNo));
+		ArrayList<Board> conRevDlist =  concertService.selectRevDetail(Integer.parseInt(concertNo));
 		return new Gson().toJson(conRevDlist);
 	}
 	
-
 	
 	
-	// 보드넘버로 찾을 보드 가지러 가서
-	// 찾아서 가져와서 보드 상세 페이지로 보내주기
-	@GetMapping("sellInfo.co")
-	public String sellInfo() {
-		return "concert/concertDetailSellInfo";
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "popular.co", produces="application/json; charset=UTF-8")
+	public String popular(@RequestParam(value = "categoryNo")int categoryNo) {
+		ArrayList<Concert> list =  concertService.selectconList(categoryNo);
+		return new Gson().toJson(list);
+	}
+	@ResponseBody
+	@RequestMapping(value = "latest.co", produces="application/json; charset=UTF-8")
+	public String latest(@RequestParam(value = "categoryNo")int categoryNo) {
+		ArrayList<Concert> list =  concertService.selectconList(categoryNo);
+		return new Gson().toJson(list);
+	}
+	@ResponseBody
+	@RequestMapping(value = "highscore.co", produces="application/json; charset=UTF-8")
+	public String highscore(@RequestParam(value = "categoryNo")int categoryNo) {
+		ArrayList<Concert> list =  concertService.selectconList(categoryNo);
+		return new Gson().toJson(list);
 	}
 
-	@GetMapping("comment.co")
-	public String comment() {
-		return "concert/concertDetailComment";
+	@ResponseBody
+	@RequestMapping(value = "locationAll.co", produces="application/json; charset=UTF-8")
+	public String locationAll(@RequestParam(value = "categoryNo")int categoryNo) {
+		ArrayList<Concert> list =  concertService.selectconList(categoryNo);
+		return new Gson().toJson(list);
 	}
-	
-	@GetMapping("detailReview.co")
-	public String detailReview() {
-		return "concert/concertDetailReview";
-	}
-	
-	
-
 
 }

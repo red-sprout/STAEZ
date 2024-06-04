@@ -38,6 +38,7 @@ function reservePage(){
 }
 
 
+// 세부 내용 ajax로 값받아오기
 function goSellDetail(){
     const concertNo =  $("input[name='concertNo']").val();
     conSellDetail({"concertNo" : concertNo}, (result) => drawConSellDetail(result))
@@ -60,99 +61,46 @@ function goReviewDetail(){
 // 좋아요 누르기 구현
 function drawLikeCount(result){
 
-    const likeSection = document.querySelector(".concert-detail-like-button");
-    const emptyImg = document.querySelector(".fa-regular fa-heart");
-    const fillImg = document.querySelector(".fa-solid fa-heart");
+    // const empty = document.querySelector(".fa-regular");
+    // const fill = document.querySelector(".fa-solid");
+    const heart = document.querySelector(".fa-heart");
     const span = document.querySelector(".concert-likeCount");
+    console.log("userConLikeCount:" + result.userConLikeCount)
 
-    const heart = result.userConLikeCount ? fillImg : emptyImg // a유저가 1이라는 콘서트에 좋아요한 갯수 status Y
+    if(result.userConLikeCount == 1){ // 좋아요 한 적 있으면: 1이랑 0으로 오는구나
+        heart.classList.add("fa-solid"); // 하트 채워라
+        heart.classList.remove("fa-regular");
+    } else {
+        heart.classList.remove("fa-solid");
+        heart.classList.add("fa-regular");
+    }
+
+    // const heart = result.userConLikeCount ? fill : empty // a유저가 1이라는 콘서트에 좋아요한 갯수 status Y
     span.innerHTML = result.conLikeCount // 콘서트가 가진 좋아요 총 갯수 status Y
-
-    // for(let c of Object.keys(result)){
-    //     likeSection.innerHTML = `<i class="fa-regular fa-heart"></i>
-    //                              <input type="checkbox" class="hidden" name="conHeart">
-    //                              <span class="concert-likeCount">`+ Object.keys(result).length +`</span>` 
-    // }
-
-    likeSection.addEventListener("click", function(event) {
-        likeToggle(event.currentTarget);
-    });
 }
 
     // 찜버튼(하트)눌러서 색 채우기
 
-    function likeToggle(target) {
-        const imgEmpty = target.children[0].classList.toggle("fa-solid");
-        const imgFill = target.children[0].classList.toggle("fa-regular");
+    function likeToggle(_this) {
+        _this.children[0].classList.toggle("fa-solid");
+        _this.children[0].classList.toggle("fa-regular");
         const span = document.querySelector(".concert-likeCount");
-    
+
         const data = {
             "concertNo": document.querySelector("input[name=concertNo]").value,
             "userNo": document.querySelector("input[name=userNo]").value
-        };
-    
-        if(imgFill.classList.contains(fa-regular)) {
-            // ajax 요청 보내기
-            data.status = "N";
-            likeUpdate(data, (result) => span.innerHTML = result);
-        } else {
+        };    
+
+        if(_this.children[0].classList.contains('fa-solid')) { // fa-regular이 하트 빈상태
             // ajax 요청 보내기
             data.status = "Y";
             likeUpdate(data, (result) => span.innerHTML = result);
+        } else {
+            // ajax 요청 보내기
+            data.status = "N";
+            likeUpdate(data, (result) => span.innerHTML = result);
         }
     }
-
-
-        // // 좋아요 누르기 구현
-        // function drawLikeCount(result) {
-        //     const likeSection = document.querySelector(".concert-detail-like-button");
-        //     const emptyImg = document.querySelector(".far.fa-heart"); // 수정: 클래스 선택자 수정
-        //     const fillImg = document.querySelector(".fas.fa-heart"); // 수정: 클래스 선택자 수정
-        //     const span = document.querySelector(".concert-likeCount");
-    
-        //     const heart = result.userConLikeCount ? fillImg : emptyImg;
-        //     span.innerHTML = result.conLikeCount;
-    
-        //     likeSection.addEventListener("click", function(event) {
-        //         likeToggle(event.target);
-        //     });
-        // }
-    
-        // // 찜버튼(하트)눌러서 색 채우기
-        // function likeToggle(target) {
-        //     target.classList.toggle("far"); // 수정: 클래스 토글
-        //     target.classList.toggle("fas"); // 수정: 클래스 토글
-        //     const span = document.querySelector(".concert-likeCount");
-    
-        //     const data = {
-        //         "concertNo": document.querySelector("input[name=concertNo]").value,
-        //         "userNo": document.querySelector("input[name=userNo]").value
-        //     };
-    
-        //     if (target.classList.contains("far")) {
-        //         // ajax 요청 보내기
-        //         data.status = "N";
-        //         likeUpdate(data, (res) => span.innerHTML = res);
-        //     } else {
-        //         // ajax 요청 보내기
-        //         data.status = "Y";
-        //         likeUpdate(data, (res) => span.innerHTML = res);
-        //     }
-        // }
-    
-        // // ajax 요청 함수
-        // function likeUpdate(data, callback) {
-        //     // ajax 요청 코드 작성
-        //     // 성공 시 callback 호출
-        //     callback("수정된 좋아요 수");
-        // }
-
-
-
-
-
-
-
 
 
 
@@ -176,6 +124,7 @@ function drawConDetail(result){
                                   `</div>
                                 </div>
                               <br><br>`
+
 conDetail1.onclick = function goConDetail(){
     location.href = 'detail.co?concertNo=' + c.concertNo;
     }
@@ -319,6 +268,8 @@ function drawConSellDetail(result){
 
                           }
     }
+
+
 
 function drawCommentDetail(result){
     const drawSection = document.querySelector(".concert-detail-down-section");

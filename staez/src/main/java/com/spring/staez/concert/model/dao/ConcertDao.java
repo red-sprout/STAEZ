@@ -1,13 +1,13 @@
 package com.spring.staez.concert.model.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.model.vo.ConcertReview;
@@ -55,7 +55,7 @@ public class ConcertDao {
 		return (ArrayList)sqlSession.selectList("concertMapper.selectComDetail", concertNo);
 	}
 
-	public ArrayList<ConcertReview> selectRevDetail(SqlSessionTemplate sqlSession, int concertNo) {
+	public ArrayList<Board> selectRevDetail(SqlSessionTemplate sqlSession, int concertNo) {
 		return (ArrayList)sqlSession.selectList("concertMapper.selectRevDetail", concertNo);
 	}
 
@@ -71,16 +71,16 @@ public class ConcertDao {
 		return sqlSession.selectOne("concertMapper.selectUserConLike", map);
 	}
 
-	public int selectUserConLikeAll(SqlSessionTemplate sqlSession, ConcertLike like) {
-		return sqlSession.selectOne("concertMapper.selectUserConLikeAll", like);
+	public int selectUserConLikeAll(SqlSessionTemplate sqlSession,  Map map) {
+		return sqlSession.selectOne("concertMapper.selectUserConLikeAll", map);
 	}
 
-	public int updateConLike(SqlSessionTemplate sqlSession, Map map) {
-		return sqlSession.update("concertMapper.updateConLike", map);
+	public int updateConLike(SqlSessionTemplate sqlSession, ConcertLike like) {
+		return sqlSession.update("concertMapper.updateConLike", like);
 	}
 
-	public int insertConLike(SqlSessionTemplate sqlSession, Map map) {
-		return sqlSession.insert("concertMapper.insertConLike", map);
+	public int insertConLike(SqlSessionTemplate sqlSession, ConcertLike like) {
+		return sqlSession.insert("concertMapper.insertConLike", like);
 	}
 	
 	

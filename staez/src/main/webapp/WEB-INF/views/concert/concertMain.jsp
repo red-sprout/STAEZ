@@ -87,11 +87,11 @@
 
     <section class="concert-main-list-section">
         <ul class="concert-main-list-ul">
-            <li><button class="concert-main-list-button" onclick=""><h3><span>전체보기</span></h3></button></li>
-            <li><button class="concert-main-list-button" onclick=""><h3><span>인기순위</span></h3></button></li>
-            <li><button class="concert-main-list-button" onclick=""><h3><span>최신공연</span></h3></button></li>
-            <li><button class="concert-main-list-button" onclick=""><h3><span>별점높은</span></h3></button></li>
-            <li id="concert-main-list-area-parent"><button class="concert-main-list-button area" onclick=""><h3><span>지역전체 ▼</span></h3></button>
+            <li><button class="concert-main-list-button" onclick="all()"><h3><span>전체보기</span></h3></button></li>
+            <li><button class="concert-main-list-button" onclick="popularClick()"><h3><span>인기순위</span></h3></button></li>
+            <li><button class="concert-main-list-button" onclick="latestClick()"><h3><span>최신공연</span></h3></button></li>
+            <li><button class="concert-main-list-button" onclick="highscoreClick()"><h3><span>별점높은</span></h3></button></li>
+            <li id="concert-main-list-area-parent"><button class="concert-main-list-button area" onclick="locationClick()"><h3><span>지역전체 ▼</span></h3></button>
                 <ul class="concert-main-list-area">
                     <li><a href="">서울</a></li>
                     <li><a href="">경기</a></li>

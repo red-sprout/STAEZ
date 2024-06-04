@@ -113,3 +113,64 @@ function reviewDetail(data, callback){
     });
 }
 
+
+
+
+
+
+// 인기순위 - 찜기준
+function popular(data, callback){
+    $.ajax({
+        url: contextPath + "popular.co",
+        data: data,
+        type :'POST',
+        success : function(list){
+            console.log(list);
+            callback(list);
+        }, error(){
+            console.log("실패");
+        }
+    });
+}
+
+// 최신공연
+function latest(data, callback){
+    $.ajax({
+        url: contextPath + "latest.co",
+        data: data,
+        success : function(result){
+            console.log(result);
+            callback(result);
+        }, error(){
+            console.log("실패");
+        }
+    });
+}
+
+// 별점높은
+function highscore(data, callback){
+    $.ajax({
+        url: contextPath + "highscore.co",
+        data: data,
+        success : function(result){
+            console.log(result);
+            callback(result);
+        }, error(){
+            console.log("실패");
+        }
+    });
+}
+
+// 지역전체
+function locationAll(data, callback){
+    $.ajax({
+        url: contextPath + "locationAll.co",
+        data: data,
+        success : function(result){
+            console.log(result);
+            callback(result);
+        }, error(){
+            console.log("실패");
+        }
+    });
+}
