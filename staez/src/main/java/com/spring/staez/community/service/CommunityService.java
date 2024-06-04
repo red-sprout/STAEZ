@@ -23,7 +23,7 @@ public interface CommunityService {
 
 	ArrayList<Board> selectBoard(CategoryDto categoryDto, PageInfo pi);
 
-	ArrayList<Board> selectBoard(PageInfo pi);
+	ArrayList<Board> selectBoard(String keyword, PageInfo pi);
 
 	ArrayList<Category> selectCategory(int boardNo);
 
@@ -55,6 +55,6 @@ public interface CommunityService {
 
 	int selectBoardCnt(CategoryDto categoryDto);
 
-	int selectBoardCnt();
+	int selectBoardCnt(String keyword);
 
 }

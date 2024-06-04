@@ -102,10 +102,10 @@ public class CommunityController {
 			pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 			list = communityService.selectBoard(categoryDto, pi);
 		} else {
-			listSize = communityService.selectBoardCnt();
+			listSize = communityService.selectBoardCnt(categoryDto.getKeyword());
 			listCount = listSize;
 			pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
-			list = communityService.selectBoard(pi);
+			list = communityService.selectBoard(categoryDto.getKeyword(), pi);
 		}
 
 		Map<String, Object> map = new HashMap<>();

@@ -40,6 +40,18 @@ function communityCategory(data, callback) {
     });
 }
 
+function communityMainList(data, callback) {
+    $.ajax({
+        url: contextPath + "list.bo",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("게시판 요청 실패");
+        }
+    })
+}
+
 function searchConcertList(data, callback) {
     $.ajax({
         url: contextPath + "searchConcertList.cm",
@@ -168,6 +180,15 @@ function selectReplyAll(data, callback) {
     });
 }
 
-function insertReply(data, callback) {
-    
+// 게시판 검색 api
+function searchBoard(data, callback) {
+    $.ajax({
+        url: contextPath + "search.bo",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("댓글 요청 실패");
+        }
+    })
 }

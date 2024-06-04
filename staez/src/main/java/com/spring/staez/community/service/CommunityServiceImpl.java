@@ -65,8 +65,8 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public ArrayList<Board> selectBoard(PageInfo pi) {
-		return communityDao.selectBoard(sqlSession, pi);
+	public ArrayList<Board> selectBoard(String keyword, PageInfo pi) {
+		return communityDao.selectBoard(sqlSession, keyword, pi);
 	}
 
 	@Transactional(readOnly = true)
@@ -175,7 +175,7 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
-	public int selectBoardCnt() {
-		return communityDao.selectBoardCnt(sqlSession);
+	public int selectBoardCnt(String keyword) {
+		return communityDao.selectBoardCnt(sqlSession, keyword);
 	}
 }

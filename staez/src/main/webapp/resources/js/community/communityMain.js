@@ -14,11 +14,16 @@ $(function() {
     });
 
     communityMainList({
-        cPage: 1
+        categoryNo: communityCategoryNo(),
+        cPage: 1, 
+        keyword: document.querySelector("#community-search input[name=keyword]").value
     }, (result) => {
         drawBoard(result.boardList);
         pagination(result.pagination);
-    })
+    });
+
+    document.querySelector("#community-search button").addEventListener("click", (ev) => searchEvent(ev));
+    document.querySelector("#community-search input[name=keyword]").addEventListener("keypress", (ev) => searchEventEnter(ev));
 })
 
 // 기존 그려진 요소 삭제
@@ -251,12 +256,14 @@ function pagination(result) {
 function navEvent(ev) {
     initNavAttributes();
     initBtnAttributes();
+    document.querySelector("#community-search input[name=keyword]").value = "";
     // 색, checked 속성 부여
     ev.target.style.color = "#b51b75";
     ev.target.children[0].setAttribute("checked", true);
     communityMainList({
         categoryNo : communityCategoryNo(),
-        cPage: 1
+        cPage: 1,
+        keyword: document.querySelector("#community-search input[name=keyword]").value
     }, (result) => {
         deleteNodes()
         drawBoard(result.boardList);
@@ -276,6 +283,7 @@ function pageEvent(ev) {
     communityMainList({
         categoryNo: communityCategoryNo(),
         cPage: ev.currentTarget.children[0].innerText,
+        keyword: document.querySelector("#community-search input[name=keyword]").value
     }, (result) => {
         deleteNodes();
         drawBoard(result.boardList);
@@ -288,6 +296,7 @@ function btnEvent(ev) {
     communityMainList({
         categoryNo: communityCategoryNo(),
         cPage: 1,
+        keyword: document.querySelector("#community-search input[name=keyword]").value
     }, (result) => {
         deleteNodes();
         drawBoard(result.boardList);
@@ -295,3 +304,29 @@ function btnEvent(ev) {
     })
 }
 
+// 검색시 이벤트
+function searchEvent(ev) {
+    communityMainList({
+        categoryNo: communityCategoryNo(),
+        cPage: 1,
+        keyword: document.querySelector("#community-search input[name=keyword]").value
+    }, (result) => {
+        deleteNodes();
+        drawBoard(result.boardList);
+        pagination(result.pagination);
+    })
+}
+
+// 검색시 이벤트
+function searchEventEnter(ev) {
+    if(ev.keyCode != 13) return;
+    communityMainList({
+        categoryNo: communityCategoryNo(),
+        cPage: 1,
+        keyword: document.querySelector("#community-search input[name=keyword]").value
+    }, (result) => {
+        deleteNodes();
+        drawBoard(result.boardList);
+        pagination(result.pagination);
+    })
+}

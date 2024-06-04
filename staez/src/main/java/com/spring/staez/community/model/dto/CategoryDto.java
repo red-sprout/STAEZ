@@ -17,4 +17,5 @@ import lombok.ToString;
 @ToString
 public class CategoryDto {
 	private ArrayList<Integer> categoryNo;
+	private String keyword;
 }
