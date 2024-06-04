@@ -165,10 +165,9 @@ public class UserController {
     @ResponseBody
     @GetMapping("emailSecretCodeCheck.me")
     public String uuidCheck(@RequestParam("authNo") String authNo, @RequestParam("email") String email) {
-        System.out.println("authNo : " + authNo); // 디버깅을 위한 로그 추가
-        System.out.println("email : " + email);
+//        System.out.println("authNo : " + authNo); // 디버깅을 위한 로그 추가
+//        System.out.println("email : " + email);
         int result = userService.emailSecretCodeCheck(authNo, email);
-        System.out.println(result);
         if (result > 0) { // 일치하다면 
             return "emailSecretCodeCheck Yes"; // 수정된 부분
         } else { // 일치하지 않다면
@@ -185,30 +184,54 @@ public class UserController {
     }
     
     // 비밀번호 찾기 새로운 비밀번호 업데이트
-    @PostMapping("checkFindNewPwd.me")
+    @PostMapping("/checkFindNewPwd.me")
+    @ResponseBody
+    public String checkFindNewPwd(@RequestParam("userId") String user_id,
+                                  @RequestParam("phone") String phone,
+                                  @RequestParam("email") String email, HttpSession session) {
+
+        // 유효성 검사 및 사용자 정보 확인
+        String user = userService.findUserByIdEmailPhone(user_id, phone, email);
+        System.out.println("user 잘 받아왔나? : " + user);
+
+        if (user != null) {
+            // 사용자 정보를 찾았을 경우
+            // 세션으로 유저 정보 저장
+            session.setAttribute("user_id", user_id);
+            session.setAttribute("phone", phone);
+            session.setAttribute("email", email);
+            return "New Pwd Go";
+        } else {
+            // 사용자 정보를 찾지 못했을 경우
+            return "Funk";
+        }
+    }
+    
+    // 새로운 비밀번호 저장
+    @ResponseBody
+    @PostMapping("insertNewPwd.me")
     public String insertNewPwd(String newPassword, HttpSession session, Model model) {
         // 디버깅 추가
-    	User u = (User)session.getAttribute("loginUser");
-        System.out.println("Received password: " + u.getUserPwd());
-    
-        // 비밀번호가 null인지 확인
-        if (u.getUserPwd() == null) {
-            model.addAttribute("alertMsg", "비밀번호가 입력되지 않았습니다.");
-            return "user/findPwdForm";
-        }
+        System.out.println("새로운 비번 잘 받았음? : " + newPassword);
+
+        // 세션에서 유저 정보를 가져온다
+        String user_id = (String) session.getAttribute("user_id");
+        String phone = (String) session.getAttribute("phone");
+        String email = (String) session.getAttribute("email");
+        System.out.println("insertNewPwd : user_id=" + user_id + ", phone=" + phone + ", email=" + email);
 
         // 암호화 작업
-        String encPwd = bcryptPasswordEncoder.encode(u.getUserPwd());
-        u.setUserPwd(encPwd);
+        String encPwd = bcryptPasswordEncoder.encode(newPassword);
 
-        int result = userService.insertNewPwd(u);
+        // 새로운 비밀번호와 함께 유저 정보를 업데이트
+        int result = userService.updatePassword(user_id, phone, email, encPwd);
 
         if (result > 0) {
-            session.setAttribute("alertMsg", "성공적으로 비밀번호가 변경되었습니다..");
+            session.setAttribute("alertMsg", "성공적으로 비밀번호 변경이 완료되었습니다.");
             return "redirect:/";
         } else {
-            model.addAttribute("alertMsg", "비밀번호 변경 실패");
-            return "user/findPwdForm";
+            session.setAttribute("alertMsg", "비밀번호 변경에 실패하였습니다.");
+            return "no";
         }
     }
     

@@ -28,13 +28,13 @@
     <main>
         <a href="${contextPath}/index.jsp"><img src="${contextPath}/resources/img/user/STAEZ_logo.png" alt="STAEZ로고"></a>
         <h2>비밀번호 찾기</h2>
-        <form action="checkFindNewPwd.me" method="post">
+        <form id="checkFindNewPwd" action="checkFindNewPwd.me" method="post">
             <div id="findId-div">
                 <table>
                     <tr>
                         <th>아이디</th>
-                        <td colspan="2" class="email-container" id="">
-                            <input type="text" id="input-value-id" name="name">
+                        <td colspan="2" class="email-container">
+                            <input type="text" id="input-value-id" name="userId" required>
                         </td>
                         <td></td>
                         <td></td>
@@ -44,7 +44,7 @@
                     </tr>
                     <tr>
                         <th>휴대폰 번호</th>
-                        <td class="email-container" colspan="2">
+                        <td class="email-container" colspan="2" >
                             <div id="td-div">
                                 <span id="phone-prefix">010</span>
                                 <span>-</span>
@@ -53,7 +53,7 @@
                                 <input type="text" id="phone-suffix2" name="phone-suffix2" maxlength="4">
                                 <input type="text" name="phone" id="input-value-phone" required  >
                             </div>
-                        </td>                      
+                        </td>
                     </tr>
                     <tr>
                         <th></th>
@@ -99,48 +99,50 @@
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <td colspan="4">
+                            <div class="insert-member-div">
+                                <button type="button" id="backButton">이전</button>
+                                <button type="button" id="findEmailCheck" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clickIdPhoneEmail()">다음</button>
+                            </div>
+                        </td>
+                    </tr>
                 </table>
             </div>
             <!-- The Modal -->
             <div class="modal" id="myModal">
                 <div class="modal-dialog">
-                <div class="modal-content">
-                
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                    <h4 class="modal-title">새로운 비밀번호를 입력하세요.</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
+                    <div class="modal-content">
                     
-                    <!-- Modal body -->
-                    <div id="emailNewPwd" class="modal-body">
-                        <table id="findId-div">
-                            <tr>
-                                <th colspan="2" class="findId-label">새 비밀번호</th>
-                                <td colspan="5"><input type="password" id="newPassword" name="newPassword"></td>
-                            </tr>
-                            <tr>
-                                <th colspan="2" class="findId-label">새 비밀번호 확인</th>
-                                <td colspan="5"><input type="password" id="confirmNewPassword" name="confirmNewPassword"></td>
-                            </tr>
-                        </table>
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">새로운 비밀번호를 입력하세요.</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        
+                        <!-- Modal body -->
+                        <div id="emailNewPwd" class="modal-body">
+                            <table id="findId-div">
+                                <tr>
+                                    <th colspan="2" class="findId-label">새 비밀번호</th>
+                                    <td colspan="5"><input type="password" id="newPassword" name="newPassword"></td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2" class="findId-label">새 비밀번호 확인</th>
+                                    <td colspan="5"><input type="password" id="confirmNewPassword" name="confirmNewPassword"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" id="loginButton" class="btn btn-danger" onclick="clickNewPwd()">변경하기</button>
+                        </div>
                     </div>
-                    
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                    <button type="submit" id="loginButton" class="btn btn-danger" data-dismiss="modal">변경하기</button>
-                    </div>
-                    
-                </div>
                 </div>
             </div>
         </form>
-        <div class="insert-member-div">
-            <button type="button" id="backButton">이전</button>
-            <button type="submit" id="findEmailCheck" class="btn btn-primary" data-toggle="modal" data-target="#myModal">다음</button>
-        </div>
     </main>
-
     <footer>
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     </footer>

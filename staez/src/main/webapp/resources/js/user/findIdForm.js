@@ -258,8 +258,8 @@ function clickGetId(){
     let email = document.getElementById("input-value-email").value;
     getIdbyEmail({checkFindEmail: email}, function(res){
         console.log(res)
-        document.querySelector("#emailNewPwd").innerHTML = res;
-    })
+        document.querySelector("#emailFindId").innerHTML = res;
+    });
 }
 
 // 로그인 버튼 클릭 이벤트

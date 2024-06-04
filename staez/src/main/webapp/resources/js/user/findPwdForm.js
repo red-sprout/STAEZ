@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     // UUID 이메일 체크
     emailSecretCode();
+    // 핸드폰 번호 전송 처리
+    signinPhoneNumber();
 });
 //이전페이지
 function backPage(){
@@ -188,12 +190,96 @@ function sgininemailEng() {
     });
 }
 
-// // 이메일로 비밀번호 새로저장하기
-// function clickNewPwd(){
-//     let userid = document.getElementById("input-value-id").value;
-//     let phone = document.getElementById("input-value-phone").value;
-//     let email = document.getElementById("input-value-email").value;
-//     updateNewPwd({checkFindNewPwd: userid,phone,email}, function(res){
-//         console.log(res)
-//     })
-// }
+// 비번 바꾸기 전 아이디 핸드폰 이메일 확인 맞는지
+function clickIdPhoneEmail() {
+    let id = document.getElementById("input-value-id").value;
+    let phone = document.getElementById("input-value-phone").value;
+    let email = document.getElementById("input-value-email").value;
+
+    // 데이터 확인
+    console.log("ID:", id);
+    console.log("Phone:", phone);
+    console.log("Email:", email);
+
+    clickIdPhoneEmailSelect({ userId: id, phone: phone, email: email }, function(res) {
+        console.log(res);
+        if (res.trim() === "New Pwd Go") {
+            $('#myModal').modal('show');
+        } else {
+            alert("사용자 정보를 찾을 수 없습니다.");
+        }
+    });
+}
+
+// 비밀번호 변경
+function clickNewPwd() {
+    let newPassword = document.getElementById("newPassword").value;
+    let confirmNewPassword = document.getElementById("confirmNewPassword").value;
+
+    if (newPassword !== confirmNewPassword) {
+        alert("새 비밀번호가 일치하지 않습니다.");
+        return;
+    }
+
+    let id = document.getElementById("input-value-id").value;
+    let phone = document.getElementById("input-value-phone").value;
+    let email = document.getElementById("input-value-email").value;
+
+    // 데이터 확인
+    console.log("New Password:", newPassword);
+
+    clickNewPwdInsert({ userId: id, phone: phone, email: email, newPassword: newPassword }, function(res) {
+        console.log(res);
+        if (res.trim() === "Password Changed") {
+            alert("비밀번호가 성공적으로 변경되었습니다.");
+        } else {
+            alert("비밀번호 변경에 실패했습니다.");
+        }
+    });
+}
+
+// 핸드폰 번호 전송 처리
+function signinPhoneNumber (){
+    const prefixElement = document.getElementById("phone-prefix");
+    const suffix1Element = document.getElementById("phone-suffix1");
+    const suffix2Element = document.getElementById("phone-suffix2");
+    const inputValueElement = document.getElementById("input-value-phone");
+
+    function updatePhoneNumber() {
+        const prefix = prefixElement.innerText;
+        const suffix1 = suffix1Element.value;
+        const suffix2 = suffix2Element.value;
+        const phoneNumber = prefix + suffix1 + suffix2;
+        inputValueElement.value = phoneNumber;
+    }
+    suffix1Element.addEventListener('input', updatePhoneNumber);
+    suffix2Element.addEventListener('input', updatePhoneNumber);
+}
+// 핸드폰 번호 전송 처리
+function sendPhoneNumber() {
+    // input-value-phone 요소를 가져옵니다.
+    var inputValueElement = document.getElementById("input-value-phone");
+    if (!inputValueElement) {
+        console.error("input-value-phone 요소를 찾을 수 없습니다.");
+        return;
+    }
+    // phone-prefix 요소가 존재하는지 확인
+    var prefixElement = document.getElementById("phone-prefix");
+    if (!prefixElement) {
+        console.error("phone-prefix 요소를 찾을 수 없습니다.");
+        return;
+    }
+    // 010 부분 가져오기
+    var prefix = prefixElement.innerText;
+
+    // 각 번호 입력란의 값 가져오기
+    var suffix1 = document.getElementById("phone-suffix1").value;
+    var suffix2 = document.getElementById("phone-suffix2").value;
+
+    // 전체 번호 조합하여 표시
+    var phoneNumber = prefix + suffix1 + suffix2;
+    //console.log(phoneNumber); // 번호 확인용, 실제 사용시 주석처리해도 됩니다.
+
+    // input-value-phone 필드에 번호 설정
+    inputValueElement.value = phoneNumber;
+}

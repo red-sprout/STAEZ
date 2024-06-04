@@ -75,21 +75,40 @@ function getIdbyEmail(data, callback) {
         }
     });
 }
+// 비번 바꾸기 전 아이디 핸드폰 이메일 확인 맞는지
+function clickIdPhoneEmailSelect(data, callback) {
+    $.ajax({
+        url: "checkFindNewPwd.me",
+        type: "POST",
+        data: data,
+        success: function(result) {
+            console.log("Server response:", result);
+            callback(result);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("아이디, 핸드폰, 이메일 확인 ajax 실패");
+            console.log("Status:", textStatus);
+            console.log("Error:", errorThrown);
+            console.log("Response Text:", jqXHR.responseText);
+        }
+    });
+}
 
-// // 아이디,휴대전화 이메일 가지고 비밀번호 새로 변경
-// function updateNewPwd(data, callback) {
-//     $.ajax({
-//         url: "checkFindNewPwd.me",
-//         data: data,
-//         success: function(result) {
-//             // console.log("Server response:", result); // 서버 응답 확인
-//             callback(result);
-//         },
-//         error: function(jqXHR, textStatus, errorThrown) {
-//             console.log("비밀번호 변경 ajax 실패");
-//             console.log("Status: " + textStatus);
-//             console.log("Error: " + errorThrown);
-//             console.log("Response Text: " + jqXHR.responseText);
-//         }
-//     });
-// }
+// 비밀번호 변경
+function clickNewPwdInsert(data, callback) {
+    $.ajax({
+        url: "insertNewPwd.me",
+        type: "POST",
+        data: data,
+        success: function(result) {
+            console.log("Server response:", result);
+            callback(result);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("비밀번호 변경 ajax 실패");
+            console.log("Status:", textStatus);
+            console.log("Error:", errorThrown);
+            console.log("Response Text:", jqXHR.responseText);
+        }
+    });
+}

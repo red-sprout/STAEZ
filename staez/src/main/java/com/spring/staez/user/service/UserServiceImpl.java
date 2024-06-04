@@ -63,11 +63,19 @@ public class UserServiceImpl implements UserService{
 		return userDao.findEmailCheck(sqlSession, checkFindEmail);
 	}
 	
+	// 유효성 검사 및 사용자 정보 확인
+	@Override
+	public String findUserByIdEmailPhone(String user_id, String phone, String email) {
+	    return userDao.findUserByIdEmailPhone(sqlSession, user_id, phone, email);
+	}
+
 	//새로운 비밀번호 저장
 	@Override
-	public int insertNewPwd(User u) {
-		return userDao.insertUser(sqlSession, u);
+	public int updatePassword(String user_id, String phone, String email, String encPwd) {
+	    return userDao.updatePassword(user_id, phone, email, encPwd);
 	}
+
+	
 
 
 }

@@ -63,9 +63,25 @@ public class UserDao {
 		return sqlSession.selectOne("userMapper.findEmailCheck",checkFindEmail);
 	}
 	
+	// 유효성 검사 및 사용자 정보 확인
+	public String findUserByIdEmailPhone(SqlSessionTemplate sqlSession, String user_id, String phone, String email) {
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("userId", user_id); // SQL 쿼리의 #{userId}와 일치하도록 수정
+	    params.put("phone", phone);
+	    params.put("email", email);
+	    String result = sqlSession.selectOne("userMapper.findUserByIdEmailPhone", params);
+	    return result;
+	}
+
 	//새로운 비밀번호 저장
-	public int insertNewPwd(SqlSessionTemplate sqlSession, User u) {
-		return sqlSession.update("userMapper.insertNewPwd", u);
+	public int updatePassword(String user_id, String phone, String email, String encPwd) {
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("user_id", user_id);
+	    params.put("phone", phone);
+	    params.put("email", email);
+	    params.put("password", encPwd);
+
+	    return sqlSession.update("UserMapper.updatePassword", params);
 	}
 
 }

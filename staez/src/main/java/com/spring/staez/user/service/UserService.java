@@ -29,6 +29,10 @@ public interface UserService {
 	//이메일로 아이디찾기
 	String findEmailCheck(String checkFindEmail);
 
+	// 유효성 검사 및 사용자 정보 확인
+	String findUserByIdEmailPhone(String user_id, String phone, String email);
+
 	//새로운 비밀번호 저장
-	int insertNewPwd(User u);
+	int updatePassword(String user_id, String phone, String email, String encPwd);
+
 }
