@@ -47,21 +47,21 @@
 }
 
 /*공연 포스터 이미지*/
-.main-content>table #concert-img{
+.main-content>table .concert-img{
     width: 140px;
 }
 
-.main-content>table #concert-img:hover{
+.main-content>table .concert-img:hover{
     cursor: pointer;
 }
 
-.main-content>table #concert-img>img{
+.main-content>table .concert-img>img{
     width: 90px;
     height: 120px;
 }
 
 /*공연명 + 한줄평 내용*/
-.main-content>table #content{
+.main-content>table .content{
     width: 580px;
     height: 150px;
     padding: 15px 10px;
@@ -71,17 +71,17 @@
     justify-content: center;
 }
 
-.main-content>table #content>*{
+.main-content>table .content>*{
     text-align: left;
 }
 
 /**/
-.main-content>table #review-func{
+.main-content>table .review-func{
     width: 100px;
     height: 150px;
 }
 
-.main-content>table #review-func>span{
+.main-content>table .review-func>span{
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -92,17 +92,17 @@
 }
 
 
-.main-content>table #review-func>span>*{
+.main-content>table .review-func>span>*{
     width: 20px;
     height: 20px;
     margin: 0 2px;
 }
 
-.main-content>table #review-func>button{
+.main-content>table .review-func>button{
     width: 90px;
     height: 35px;
 }
-.main-content>table #review-func>button>h4{
+.main-content>table .review-func>button>h4{
 
 }
 
@@ -117,7 +117,7 @@
 
 .concert-tag tr img {
     width: 100px;
-    margin-right: 20px;
+    margin: 0 30px 0 10px;
 }
 
 .star-rating {

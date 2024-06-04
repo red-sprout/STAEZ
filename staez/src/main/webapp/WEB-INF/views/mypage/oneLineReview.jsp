@@ -20,15 +20,15 @@
             <c:choose>
                 <c:when test="${not empty c.reviewContent}">
                     <tr>
-                        <td id="concert-img"  onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
+                        <td class="concert-img"  onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
                             <img src="${contextPath}${c.filePath}${c.changeName}">
                         </td>
-                        <td id="content">
+                        <td class="content">
                             <h3>${c.concertTitle}</h3>
                             <h4>최근 관람일 : ${c.concertDate}</h4>
                             <h4>${c.reviewContent}</h4>
                         </td>
-                        <td id="review-func">
+                        <td class="review-func">
                             <span>
                                 <img src="${contextPath}/resources/img/mypage/star-filled.png"> 
                                 <h4>${c.score}</h4>
@@ -39,15 +39,15 @@
                 </c:when>
                 <c:otherwise>
                     <tr>
-                        <td id="concert-img" onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
+                        <td class="concert-img" onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
                             <img src="${contextPath}${c.filePath}${c.changeName}">
                         </td>
-                        <td id="content">
+                        <td class="content">
                             <h3>${c.concertTitle}</h3>
                             <h4>최근 관람일 : ${c.concertDate}</h4>
                             <h4>리뷰를 작성해주세요</h4>
                         </td>
-                        <td id="review-func">
+                        <td class="review-func">
                             <button type="button" class="btn-staez purple" data-toggle="modal" data-target="#myModal"  onclick="loadOneLineReview('${c.concertNo}')"><h4>후기작성</h4></button>
                         </td>
                     </tr>                    
@@ -93,74 +93,54 @@
             <!-- Modal Header -->
             <div class="modal-header">
                 <h3 class="modal-title">한줄평</h3>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" onclick="closeModal()">&times;</button>
             </div>
                 
-            <form method="POST">
+            <form method="POST" action="saveReview.me">
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <div class="concert-tag">
+                    <div class="concert-tag" onclick="location.href='${contextPath}/detail.co?concertNo='">
                         <table>
-                            <tr>
-                                <td rowspan="5">
-                                    <img src="${contextPath}${c.filePath}${c.changeName}" alt="">
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td><h3>${c.concertTitle}</h3></td>
-                            </tr>
-                            <tr>
-                                <td>${c.theaterName}</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    관람일 : 
-                                    <fmt:parseDate value="${c.concertDate}" var="date" pattern="yyyy-MM-dd" />
-                                    <fmt:formatDate value="${date}" pattern="yyyy-MM-dd (E)" />
-                                    14:00 (${c.concertRuntime}분)
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>&nbsp;</td>
-                            </tr>
+                            <tbody>
+                            </tbody>
                         </table>
                     </div>
                     <div class="star-rating">
                         <h3>별점</h3>
                         <label class="star-label">
-                            <input type="radio" value="1" class="hidden" onclick="starRating(this);">
-                            <span class="star-icon"><img src="${contextPath}/resources/img/mypage/star.png" alt=""></span>
+                            <input type="radio" value="1" class="hidden" name="score">
+                            <span class="star-icon"><img src="${contextPath}/resources/img/mypage/star.png"></span>
                         </label>
                         <label class="star-label">
-                            <input type="radio" value="2" class="hidden" onclick="starRating(this);">
-                            <span class="star-icon"><img src="${contextPath}/resources/img/mypage/star.png" alt=""></span>
+                            <input type="radio" value="2" class="hidden" name="score">
+                            <span class="star-icon"><img src="${contextPath}/resources/img/mypage/star.png"></span>
                         </label>
                         <label class="star-label">
-                            <input type="radio" value="3" class="hidden" onclick="starRating(this);">
-                            <span class="star-icon"><img src="${contextPath}/resources/img/mypage/star.png" alt=""></span>
+                            <input type="radio" value="3" class="hidden" name="score">
+                            <span class="star-icon"><img src="${contextPath}/resources/img/mypage/star.png"></span>
                         </label>
                         <label class="star-label">
-                            <input type="radio" value="4" class="hidden" onclick="starRating(this);">
-                            <span class="star-icon"><img src="${contextPath}/resources/img/mypage/star.png" alt=""></span>
+                            <input type="radio" value="4" class="hidden" name="score">
+                            <span class="star-icon"><img src="${contextPath}/resources/img/mypage/star.png"></span>
                         </label>
                         <label class="star-label">
-                            <input type="radio" value="5" class="hidden" onclick="starRating(this);">
-                            <span class="star-icon"><img src="${contextPath}/resources/img/mypage/star.png" alt=""></span>
+                            <input type="radio" value="5" class="hidden" name="score">
+                            <span class="star-icon"><img src="${contextPath}/resources/img/mypage/star.png"></span>
                         </label>
                     </div>
                     <div class="comment-area">
                         <h3>한줄평</h3>
-                        <textarea rows="4" placeholder="200자" maxlength="200">
-                            
+                        <textarea rows="4" placeholder="200자 " maxlength="200" name="reviewContent">                            
                         </textarea>
                     </div>
+                    <input type="hidden" name="concertNo" value="">
+                    <input type="hidden" name="reviewNo" value="">
                 </div>
                 
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">저장</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="closeModal()">취소</button>
                 </div>
             </form>
         </div>

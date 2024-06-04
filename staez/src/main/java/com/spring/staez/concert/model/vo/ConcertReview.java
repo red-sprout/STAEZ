@@ -23,6 +23,8 @@ public class ConcertReview {
 	private Timestamp reviewDate; //작성날짜
 	
 	private String concertTitle; //공연명
+	private String concertMembers; //출연진들
+	private String theaterName; //공연장명
 	
 	private String nickname;//회원 닉네임
 	private String originName; //파일원래명칭

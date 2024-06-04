@@ -261,7 +261,7 @@
 	
 	<select id="selectReviewList" resultType="Concert">
 		SELECT r.concert_date AS concertDate, 
-			   r.concert_times AS concertTimes,
+			   r.schedule,
 			   cr.score AS score,
 			   cr.review_content AS reviewContent,
 			   c.concert_no AS concertNo,
@@ -271,11 +271,11 @@
 			   ca.change_name AS changeName,
 			   ca.file_path AS filePath
 			
-		FROM (SELECT MAX(concert_date) AS concert_date, concert_times, concert_no, user_no
+		FROM (SELECT MAX(concert_date) AS concert_date, schedule, concert_no, user_no
 			  FROM reserve
 			  WHERE user_no = #{userNo}
 			  AND reserve_status = 'Y'
-			  GROUP BY concert_times, concert_no, user_no) r
+			  GROUP BY schedule, concert_no, user_no) r
 		
 		JOIN concert c 
 		ON r.concert_no = c.concert_no
@@ -289,7 +289,7 @@
 		LEFT JOIN concert_review cr
 		ON r.concert_no = cr.concert_no
 		
-		ORDER BY r.concert_date DESC, r.concert_times ASC
+		ORDER BY r.concert_date DESC, r.schedule DESC
 	</select>
 	
 	<update id="deleteMyScrapAjax">
@@ -300,16 +300,45 @@
 		AND status = 'Y'
 	</update>
 	
-	<select id="loadOneLineReviewAjax" resultType="Concert">
-		SELECT score, 
-			   file_path,
-			   change_name,
-			   concert_title
-			   theater_name
-			   
-		FROM concert_review
-		WHERE concert_no = #{concertNo}
-		AND user_no = #{userNo}
+	<select id="loadOneLineReviewAjax" resultType="ConcertReview">
+		SELECT cr.review_no AS reviewNo,
+			   c.concert_no AS concertNo,
+			   c.concert_title AS concertTitle,
+			   c.concert_members AS concertMembers,
+		       t.theater_name AS theaterName,
+		       cr.review_content AS reviewContent,
+		       cr.score, 
+		       cr.review_date AS reviewDate,
+		       ca.file_path AS filePath,
+		       ca.change_name AS changeName
+		FROM concert c
+		
+		LEFT JOIN concert_review cr ON cr.concert_no = c.concert_no 
+		AND cr.user_no = #{userNo}
+		
+		LEFT JOIN concert_attachment ca ON c.concert_no = ca.concert_no
+		
+		JOIN theater t ON c.theater_no = t.theater_no
+		
+		WHERE c.concert_no = #{concertNo}
 	</select>
+	
+	<insert id="insertOneLineReview">
+		INSERT INTO concert_review
+		VALUES (DEFAULT,
+				#{userNo},
+				#{concertNo},
+				#{reviewContent},
+				#{score},
+				DEFAULT,
+				DEFAULT)	
+	</insert>
+	
+	<update id="updateOneLineReview">
+		UPDATE concert_review 
+		SET review_content = #{reviewContent},
+			score = #{score}
+		WHERE review_no = #{reviewNo}
+	</update>
 </mapper>
 
