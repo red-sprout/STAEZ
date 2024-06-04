@@ -31,27 +31,28 @@ public interface ConcertService {
 	Concert selectCon(int concertNo);
 	
 	
-	// 좋아요 버튼 SET
-	// 콘서트 좋아요 버튼 클릭한 적 있냐?
 
-	
-//	 // 콘서트 좋아요 버튼 클릭한 적 있냐?
-//	ArrayList<ConcertLike> checkConLike(int userNo, int concertNo);
-//	
-//
 	ArrayList<Concert> selectConDetail(int concertNo);
 
 	ArrayList<ConcertReview> selectComDetail(int concertNo);
 
 	ArrayList<ConcertReview> selectRevDetail(int concertNo);
+//
+//	
+//	// 그 공연의 총 좋아요 갯수 가져와라
+//	ArrayList<ConcertLike> checkLikeExist(int concertNo);
+//
+//	ArrayList<ConcertLike> insertLike(int userNo, int concertNo);
 
-	
-	// 좋아요 갯수 가져와라
-	ArrayList<ConcertLike> checkLikeExist(int concertNo);
+	int selectConLikeCount(int concertNo);
 
-	
+	int selectUserConLike(int userNo, int concertNo);
 
+	int selectUserConLikeAll(ConcertLike like);
 
+	int updateConLike(int userNo, int concertNo);
+
+	int insertConLike(int userNo, int concertNo);
 
 //	// 좋아요 insert, 
 //    int insertConLike(ConcertLike conL);

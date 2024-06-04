@@ -53,6 +53,8 @@ public class UserController {
     public String idListForm() {
         return "user/idListForm";
     }
+    
+    
 
     // 비밀번호 찾기
     @GetMapping("findPwdForm.me")
@@ -124,19 +126,19 @@ public class UserController {
     @ResponseBody
     @GetMapping("emailCheck.me")
     public String emailCheck(String email) {
-        System.out.println("이메일 : " + email);
+        //System.out.println("이메일 : " + email);
 
         // UUID 생성
         String shortenedAuthNo = UUID.randomUUID().toString();
-        System.out.println("원래 암호이메일 : " + shortenedAuthNo);
+        //System.out.println("원래 암호이메일 : " + shortenedAuthNo);
 
         // UUID를 6자로 축소
         String authNo = shortenedAuthNo.substring(0, 6);
-        System.out.println("6글자 암호 이메일 : " + authNo);
+        //System.out.println("6글자 암호 이메일 : " + authNo);
 
         // 현재 날짜 및 시간 가져오기
         LocalDateTime send_time = LocalDateTime.now();
-        System.out.println("send_time : " + send_time);
+        //System.out.println("send_time : " + send_time);
 
         // 메일 전송
         SimpleMailMessage message = new SimpleMailMessage();
@@ -149,17 +151,17 @@ public class UserController {
             // 이메일 전송이 성공한 경우에만 데이터 저장
             int result = userService.registerUser(email, authNo, send_time);
             if (result > 0) { // 저장완료
-                return "Yes";
+                return "emailCheck Yes";
             } else { // 저장이 실패한 경우
-                return "No";
+                return "emailCheck No";
             }
         } catch (MailException e) {
             System.out.println("이메일 전송 실패: " + e.getMessage());
-            return "No";
+            return "emailCheck No";
         }
     }
     
-    // 이메일 UUID체크
+    // 이메일 암호키 인증체크
     @ResponseBody
     @GetMapping("emailSecretCodeCheck.me")
     public String uuidCheck(@RequestParam("authNo") String authNo, @RequestParam("email") String email) {
@@ -168,15 +170,18 @@ public class UserController {
         int result = userService.emailSecretCodeCheck(authNo, email);
         System.out.println(result);
         if (result > 0) { // 일치하다면 
-            return "Yes"; // 수정된 부분
+            return "emailSecretCodeCheck Yes"; // 수정된 부분
         } else { // 일치하지 않다면
-            return "No"; // 수정된 부분
+            return "emailSecretCodeCheck No"; // 수정된 부분
         }
+    } 
+    
+   //이메일로 아이디찾기
+    @ResponseBody
+    @GetMapping("findEmailCheck.me")
+    public String findEmailCheck(String checkFindEmail) {
+    	String result = userService.findEmailCheck(checkFindEmail);
+        return result;
     }
-    
-    
-    
-    
-    
     
 }

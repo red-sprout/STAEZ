@@ -23,7 +23,9 @@ public interface UserService {
 	// 이메일 인증번호 저장을 위한 서비스
 	 int registerUser(String email, String authNo, LocalDateTime send_time);
 
-	 // 이메일 UUID체크
+	 // 이메일 암호키 인증체크
 	int emailSecretCodeCheck(String authNo, String email);
 	
+	//이메일로 아이디찾기
+	String findEmailCheck(String checkFindEmail);
 }

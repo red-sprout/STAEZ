@@ -44,33 +44,6 @@ public class ConcertServiceImpl implements ConcertService {
 		return concertDao.selectCon(sqlSession, concertNo);
 	}
 
-	
-	
-	
-	
-//	@Override
-//	public ArrayList<ConcertLike> checkConLike(int userNo, int concertNo) {
-//		Map<String, Integer> like = new HashMap();
-//		like.put("userNo", userNo);
-//		like.put("concertNo", concertNo);
-//		
-//		ConcertLike userLike = new 
-//		
-//		ArrayList<ConcertLike> userLike = null;
-//		
-//		if(userLike == null) {// 기존 사용자 like 없으면: insert 해라
-//			int insert = concertDao.insertLike(sqlSession, like);
-//			
-//			if( )
-//			
-//		} else {
-//			
-//		}
-//		
-//		
-//		return concertDao.checkConLike(sqlSession, userNo, concertNo);
-//	}
-//
 	@Override
 	public ArrayList<Concert> selectConDetail(int concertNo) {
 		return concertDao.selectConDetail(sqlSession, concertNo);
@@ -87,9 +60,86 @@ public class ConcertServiceImpl implements ConcertService {
 	}
 
 	@Override
-	public ArrayList<ConcertLike> checkLikeExist(int concertNo) {
-		return concertDao.checkLikeExist(sqlSession, concertNo);
+	public int selectConLikeCount(int concertNo) {
+		return concertDao.selectConLikeCount(sqlSession, concertNo);
 	}
+
+	@Override
+	public int selectUserConLike(int userNo, int concertNo) {
+		Map map = new HashMap();
+		map.put("userNo", userNo);
+		map.put("concertNo", concertNo);
+		return concertDao.selectUserConLike(sqlSession, map);
+	}
+
+	@Override
+	public int selectUserConLikeAll(ConcertLike like) {
+		return concertDao.selectUserConLikeAll(sqlSession, like);
+	}
+
+	@Override
+	public int updateConLike(int userNo, int concertNo) {
+		Map map = new HashMap();
+		map.put("userNo", userNo);
+		map.put("concertNo", concertNo);
+		return concertDao.updateConLike(sqlSession, map);
+	}
+
+	@Override
+	public int insertConLike(int userNo, int concertNo) {
+		Map map = new HashMap();
+		map.put("userNo", userNo);
+		map.put("concertNo", concertNo);
+		return concertDao.insertConLike(sqlSession, map);
+	}
+
+	
+	
+//	// 그 공연의 총 좋아요 갯수
+//	@Override
+//	public ArrayList<ConcertLike> checkLikeExist(int concertNo) {
+//		return concertDao.checkLikeExist(sqlSession, concertNo);
+//	}
+//
+//
+//	
+//	@Override
+//	public ArrayList<ConcertLike> insertLike(int userNo, int concertNo) {
+//		Map insertLikeMap = new HashMap();
+//		insertLikeMap.put("userNo", userNo);
+//		insertLikeMap.put("concertNo", concertNo);
+//		
+//		
+//		ArrayList<ConcertLike> noResult = null;
+//		
+//		// 유저가 좋아요한 적 있냐?
+//		int checkDidLike = concertDao.checkDidLike(sqlSession, insertLikeMap);
+//		
+//		// 유저가 좋아요한 결과가 없으면: 새로 insert
+//		if(checkDidLike < 1) {
+//			int insertLike = concertDao.insertLike(sqlSession, insertLikeMap);
+//			
+//			if(insertLike < 1) { // insert 실패하면 null값 반환
+//				return noResult;
+//			} else { // insert 성공하면  좋아요 갯수 반환
+//				
+//				return concertDao.selectLikeCount(sqlSession, insertLikeMap);
+//			}
+//			
+//		// 유저가 좋아요한 결과가 있으면: 있는 db update -> status Y 혹은 N
+//		} else {
+//			int updateYtoN = concertDao.updateYtoN(sqlSession, insertLikeMap);
+//			
+//			// update 한 결과가 실패면 null 값 반환
+//			if(updateYtoN < 1) {
+//				return noResult;
+//			} else { // update 한 결과가 성공이면 콘서트의 좋아요 갯수 반환
+//				return concertDao.selectLikeCount(sqlSession, insertLikeMap);
+//						// concertDao.selectLikeCount(sqlSession, insertLikeMap);
+//			}
+//		}
+//
+//	}
 
 
 

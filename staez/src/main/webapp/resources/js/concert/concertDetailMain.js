@@ -1,16 +1,14 @@
 $(function() { 
     const userNo = $("input[name='userNo']").val();
     const concertNo =  $("input[name='concertNo']").val();
-    const conSellinfo = document.getElementsByClassName("concert-detail-down-section");
 
     conNaviDraw(conList => drawConNavi(conList));
 
-    // conHeart({
-    //     "userNo" : userNo,
-    //     "concertNo" : concertNo
-    // }, (conL) => drawConHeart(conL))
+    // 하트 insert, update
+    likeUpdate({ "userNo" : userNo, "concertNo" : concertNo}, (result) => drawLikeUpdate(result))
     
-    countHeart({"concertNo" : concertNo}, (likeCount) => drawCountHeart(likeCount))
+    //하트 카운트
+    likeCount({"concertNo" : concertNo}, (result) => drawLikeCount(result))
     
     conDetail({"concertNo" : concertNo}, (result) => drawConDetail(result))
 });
@@ -33,32 +31,11 @@ function drawConNavi(conList){
     }
   }
 
-// // 좋아요 버튼 그려주기 
-// function drawConHeart(conL){[
-
-// ]}
-
-// function insertLike(like, userNo, concertNo){
-//     console.log("alertMsg");
-//   }
-  
-    // 찜버튼(하트)눌러서 색 채우기
-  function likeToggle(_this) {
-      // const check = _this.children[1];
-      // check.checked = !check.checked;
-      // fa-solid && fa-regular
-      _this.children[0].classList.toggle("fa-solid");
-      _this.children[0].classList.toggle("fa-regular");
-  
-  
-  }
 
   // 예매버튼 클릭
 function reservePage(){
     window.open('/staez/selectDate.co' , "_blank", "width=1001, height=601, scrollbars=no");
 }
-
-
 
 
 function goSellDetail(){
@@ -83,13 +60,40 @@ function goReviewDetail(){
 // heartClick.addEventListener("click", function(){
 // });
 
-// like 몇개인지
-function drawCountHeart(likeCount){
-    const drawSpan = document.querySelector(".concert-likeCount");
-    drawSpan.innerHTML = ``;
-    drawSpan.innerHTML = likeCount.length;
-}
 
+
+// 좋아요 누르기 구현
+function drawLikeCount(result){
+
+    console.log(result)
+    const likeSection = document.querySelector(".concert-detail-like-button");
+    // drawSpan.innerHTML = insertLike.length;
+    // likeSection.innerHTML = ``;
+    for(let c of insertLike){
+        likeSection.innerHTML = `<i class="fa-regular fa-heart"></i>
+                                 <input type="checkbox" class="hidden" name="conHeart">
+                                 <span class="concert-likeCount">`+ insertLike.length +`</span>` 
+    }
+    const emptyLike = likeSection.children[0].classList.toggle("fa-solid");
+    const fillLike = likeSection.children[0].classList.toggle("fa-regular");
+
+    likeSection.addEventListener("click", function(event) {
+        likeToggle(event.currentTarget, userNo);
+    });
+}
+  
+    // 찜버튼(하트)눌러서 색 채우기
+function likeToggle(target, userNo){
+    console.log("target" + target.children[0]);
+    if(userNo == null){
+
+        target.children[0].classList.toggle("fa-solid");
+
+    } else {
+        target.children[0].classList.toggle("fa-regular");
+    }
+
+ }
 
 
 function drawConDetail(result){
