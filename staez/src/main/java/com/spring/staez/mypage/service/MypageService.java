@@ -6,6 +6,7 @@ import java.util.Map;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.dto.BoardListDto;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.user.model.dto.PaymentsInfoDto;
 import com.spring.staez.user.model.vo.ProfileImg;
 import com.spring.staez.user.model.vo.User;
@@ -40,6 +41,11 @@ public interface MypageService {
 	public ArrayList<Concert> selectReviewList(int userNo, PageInfo pi); //한줄평 리스트
 	
 	public int deleteMyScrapAjax(Map<String, Integer> params); //찜목록 삭제
+	
+	public ConcertReview loadOneLineReviewAjax(Map<String, Integer> params); //한줄평 작성을 위한 공연 정보 가져오기
+	
+	public int insertOneLineReview(ConcertReview concertReview); //한줄평 저장
+	public int updateOneLineReview(ConcertReview concertReview); //한줄평 수정
 	
 	
 }

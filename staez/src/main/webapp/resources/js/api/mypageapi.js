@@ -42,5 +42,15 @@ function deleteMyScrapAjax(data, callback){
     });
 }
 
-
+function loadOneLineReviewAjax(data, callback){
+    $.ajax({
+        url: contextPath + 'loadReview.me',
+        data,
+        dataType: 'json', 
+        success: res => callback(res),
+        error: () => {
+            alert('한줄평을 불러오는데 실패하였습니다');
+        }
+    });
+}
 
