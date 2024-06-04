@@ -108,7 +108,10 @@ public class CommunityController {
 			list = communityService.selectBoard(pi);
 		}
 
-		return new Gson().toJson(list);
+		Map<String, Object> map = new HashMap<>();
+		map.put("pagination", pi);
+		map.put("boardList", list);
+		return new Gson().toJson(map);
 	}
 	
 	// 카테고리 정보 불러오기

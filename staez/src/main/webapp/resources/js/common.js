@@ -40,7 +40,23 @@ function setCategory(result, id) {
     }
 }
 
+// 버튼 색, checked 속성 제거 및 초기화
+function initBtnAttributes() {
+    // 버튼 색 초기화
+    const btnStaez = document.querySelectorAll("#community-category button");
+    for(let ele of btnStaez) {
+        ele.classList.remove("checked");
+    }
+
+    // checked 속성 제거
+    const radioAll = document.querySelectorAll("#community-category input[type=radio]");
+    for(let radio of radioAll) {
+        radio.removeAttribute("checked");
+    }
+}
+
 function toggleCategory(_this, id) {
+    initBtnAttributes();
     const categoryBtn = document.querySelectorAll(`#${id}>.btn-staez`);
     const categoryRadio = document.querySelectorAll(`#${id} input[name='categoryNo']`);
     for(let i in categoryBtn) {
@@ -49,8 +65,6 @@ function toggleCategory(_this, id) {
             if(categoryBtn[i] === _this) {
                 _this.classList.add("checked");
                 categoryRadio[i].setAttribute("checked", true);
-            } else {
-                categoryRadio[i].removeAttribute("checked");
             }
         } catch (error) {
             continue;

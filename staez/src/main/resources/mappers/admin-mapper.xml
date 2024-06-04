@@ -97,7 +97,7 @@
 			board_no,
 			category_no
 		) values (
-			CURRVAL('board_board_no_seq'::regclass),
+			CURRVAL('seq_board'::regclass),
 			#{categoryNo}
 		)
 	</insert>
@@ -126,7 +126,7 @@
 			impossible_seat_row,
 			impossible_seat_col
 		) VALUES (
-			CURRVAL('theater_theater_no_seq'::regclass),
+			CURRVAL('seq_theater'::regclass),
 			${impossibleSeatRow},
 			${impossibleSeatCol}
 		)
@@ -170,7 +170,7 @@
 			concert_no,
 			category_no
 		) VALUES (
-			CURRVAL('concert_concert_no_seq'::regclass),
+			CURRVAL('seq_concert'::regclass),
 			#{categoryNo}
 		)
 	</insert>
@@ -183,7 +183,7 @@
 			change_name,
 			file_path
 		) VALUES (
-			CURRVAL('concert_concert_no_seq'::regclass),
+			CURRVAL('seq_concert'::regclass),
 			#{originName},
 			#{changeName},
 			#{filePath}
@@ -198,7 +198,7 @@
 			start_date,
 			end_date
 		) VALUES (
-			CURRVAL('concert_concert_no_seq'::regclass),
+			CURRVAL('seq_concert'::regclass),
 			#{schedule},
 			#{startDate},
 			#{endDate}
@@ -217,7 +217,7 @@
 			seat_start_col,
 			seat_end_col
 		) VALUES (
-			CURRVAL('concert_concert_no_seq'::regclass),
+			CURRVAL('seq_concert'::regclass),
 			#{grade},
 			#{price},
 			#{concertDate},
