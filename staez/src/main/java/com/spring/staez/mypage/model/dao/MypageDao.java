@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.dto.BoardListDto;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.user.model.dto.PaymentsInfoDto;
 import com.spring.staez.user.model.vo.ProfileImg;
 import com.spring.staez.user.model.vo.User;
@@ -123,7 +124,18 @@ public class MypageDao {
 	
 	public int deleteMyScrapAjax(SqlSessionTemplate sqlSession, Map<String, Integer> params){
 		return sqlSession.update("mypageMapper.deleteMyScrapAjax", params);
-		
+	}
+	
+	public ConcertReview loadOneLineReviewAjax(SqlSessionTemplate sqlSession, Map<String, Integer> params) {
+		return sqlSession.selectOne("mypageMapper.loadOneLineReviewAjax", params);
+	}
+	
+	public int insertOneLineReview(SqlSessionTemplate sqlSession, ConcertReview concertReview) {
+		return sqlSession.insert("mypageMapper.insertOneLineReview", concertReview);
+	}
+
+	public int updateOneLineReview(SqlSessionTemplate sqlSession, ConcertReview concertReview) {
+		return sqlSession.update("mypageMapper.updateOneLineReview", concertReview);
 	}
 	
 }
