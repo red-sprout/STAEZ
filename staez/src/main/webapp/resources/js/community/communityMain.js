@@ -255,7 +255,7 @@ function pagination(result) {
 // navigation-bar 클릭시 이벤트
 function navEvent(ev) {
     initNavAttributes();
-    initBtnAttributes();
+    initBtnAttributes("community-category");
     document.querySelector("#community-search input[name=keyword]").value = "";
     // 색, checked 속성 부여
     ev.target.style.color = "#b51b75";

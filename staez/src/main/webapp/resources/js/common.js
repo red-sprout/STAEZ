@@ -41,22 +41,22 @@ function setCategory(result, id) {
 }
 
 // 버튼 색, checked 속성 제거 및 초기화
-function initBtnAttributes() {
+function initBtnAttributes(id) {
     // 버튼 색 초기화
-    const btnStaez = document.querySelectorAll("#community-category button");
+    const btnStaez = document.querySelectorAll(`#${id} button`);
     for(let ele of btnStaez) {
         ele.classList.remove("checked");
     }
 
     // checked 속성 제거
-    const radioAll = document.querySelectorAll("#community-category input[type=radio]");
+    const radioAll = document.querySelectorAll(`#${id} input[type=radio]`);
     for(let radio of radioAll) {
         radio.removeAttribute("checked");
     }
 }
 
 function toggleCategory(_this, id) {
-    initBtnAttributes();
+    initBtnAttributes(id);
     const categoryBtn = document.querySelectorAll(`#${id}>.btn-staez`);
     const categoryRadio = document.querySelectorAll(`#${id} input[name='categoryNo']`);
     for(let i in categoryBtn) {
