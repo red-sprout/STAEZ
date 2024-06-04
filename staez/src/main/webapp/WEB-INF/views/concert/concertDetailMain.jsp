@@ -55,7 +55,6 @@
             <div class="concert-detail-like">
                 <button class="concert-detail-like-button" onclick="likeToggle(this)">
                     <i class="fa-regular fa-heart"></i>
-                    <input type="checkbox" class="hidden" name="conHeart">
                     <span class="concert-likeCount"></span>
                 </button> <!-- 길이조절필요 -->
                 <div class="concert-detail-like-commu"><a href="main.cm"><span><b>${con.concertTitle} 커뮤니티로 가기</b></span></a></div>
@@ -64,7 +63,11 @@
         <div class="concert-detail-body-div">
             <table class="concert-detail-table">
                 <tr>
-                    <td><img id="concert-detail-starImg" src="${pageContext.request.contextPath}/resources/img/concert/tempStar.png" alt=""></td>
+                    <td>
+                        <c:forEach var="i" begin="1" end="${com[0].score}">
+                            <img id="concert-detail-starImg" src="${pageContext.request.contextPath}/resources/img/concert/star.png" alt="">
+                        </c:forEach>
+                    </td>
                 </tr>
                 <tr>                    
                     <td><h2>&lt;${con.concertTitle}&gt;</h2></td>
@@ -141,8 +144,8 @@
         <ul class="concert-down-ul">
             <li onclick="goConDetail()" class="conDetail1"><a><h3>공연상세정보</h3></a></li>
             <li onclick="goSellDetail()" class="conDetail2"><a><h3>판매정보</h3></a></li>
-            <li onclick="goCommentDetail()" class="conDetail3"><a><h3>한줄평(35)</h3></a></li>
-            <li onclick="goReviewDetail()" class="conDetail4"><a><h3>관람후기(10)</h3></a></li>
+            <li onclick="goCommentDetail()" class="conDetail3"><a><h3>한줄평(<c:out value="${fn:length(com)}" />)</h3></a></li>
+            <li onclick="goReviewDetail()" class="conDetail4"><a><h3>관람후기(<c:out value="${fn:length(rev)}" />)</h3></a></li>
         </ul>
         <hr class="concert-detail-hr">
         <br>
@@ -165,5 +168,8 @@
         </div> -->
     </section>
 
+    <div>
+        <jsp:include page="../common/footer.jsp" />
+    </div>
 </body>
 </html>

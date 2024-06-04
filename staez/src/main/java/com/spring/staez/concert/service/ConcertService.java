@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.model.vo.ConcertReview;
 
 
@@ -35,7 +37,7 @@ public interface ConcertService {
 
 	ArrayList<ConcertReview> selectComDetail(int concertNo);
 
-	ArrayList<ConcertReview> selectRevDetail(int concertNo);
+	ArrayList<Board> selectRevDetail(int concertNo);
 //
 //	
 //	// 그 공연의 총 좋아요 갯수 가져와라
@@ -45,13 +47,13 @@ public interface ConcertService {
 
 	int selectConLikeCount(int concertNo);
 
-	int selectUserConLike(int userNo, int concertNo);
+	int selectUserConLike(Map map);
 
 	int selectUserConLikeAll(Map map);
 
-	int updateConLike(int userNo, int concertNo);
+	int updateConLike(ConcertLike like);
 
-	int insertConLike(int userNo, int concertNo);
+	int insertConLike(ConcertLike like);
 
 //	// 좋아요 insert, 
 //    int insertConLike(ConcertLike conL);

@@ -48,6 +48,13 @@ function drawConMain(list, sliderContent, gridContent){
   gridContent.innerHTML = ``;
   for (let c of list) {
 
+    // 제일 마지막으로 등록된 공연만 추가되는 이유:
+
+    // ChatGPT
+    // sliderContent.onclick 이벤트를 각각의 sliderContent에 바인딩할 때, 클로저(closure) 문제가 발생할 수 있습니다. 클로저 문제란 이벤트 핸들러 함수가 외부 변수를 참조할 때, 이벤트 핸들러 함수가 정의된 시점의 변수 값으로만 접근한다는 것을 의미합니다. 이 경우에는 각각의 이벤트 핸들러 함수가 아닌 마지막 이벤트 핸들러 함수가 전역 변수인 c의 최종 값으로 접근합니다.
+
+    // 이 문제를 해결하기 위해서는 클로저 문제를 회피해야 합니다. 각각의 이벤트 핸들러 함수에서 c 변수를 받아오는 방식으로 수정하면 됩니다. 아래는 수정된 코드입니다.
+
     // sliderContent에 HTML 추가
     // sliderContent.className = 'concert-main-upper-pic-div';
     sliderContent.innerHTML += ` <div class="concert-main-upper-pic-div">` 
@@ -66,8 +73,8 @@ function drawConMain(list, sliderContent, gridContent){
     sliderContent.onclick = function goDetail(){
       location.href = 'detail.co?concertNo=' + c.concertNo;
     }
-    
-
+  }
+    for (let c of list) {
     gridContent.innerHTML += `<div>
                                 <input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
                               + `<div>`

@@ -1,14 +1,15 @@
 package com.spring.staez.concert.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.dao.ConcertDao;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.ConcertLike;
@@ -55,7 +56,7 @@ public class ConcertServiceImpl implements ConcertService {
 	}
 
 	@Override
-	public ArrayList<ConcertReview> selectRevDetail(int concertNo) {
+	public ArrayList<Board> selectRevDetail(int concertNo) {
 		return concertDao.selectRevDetail(sqlSession, concertNo);
 	}
 
@@ -65,32 +66,25 @@ public class ConcertServiceImpl implements ConcertService {
 	}
 
 	@Override
-	public int selectUserConLike(int userNo, int concertNo) {
-		Map map = new HashMap();
-		map.put("userNo", userNo);
-		map.put("concertNo", concertNo);
+	public int selectUserConLike(Map map) {
 		return concertDao.selectUserConLike(sqlSession, map);
 	}
 
 	@Override
-	public int selectUserConLikeAll(ConcertLike like) {
-		return concertDao.selectUserConLikeAll(sqlSession, like);
+	public int selectUserConLikeAll(Map map) {
+		return concertDao.selectUserConLikeAll(sqlSession, map);
+	}
+	
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int updateConLike(ConcertLike like) {
+		return concertDao.updateConLike(sqlSession, like);
 	}
 
+	@Transactional(rollbackFor = {Exception.class})
 	@Override
-	public int updateConLike(int userNo, int concertNo) {
-		Map map = new HashMap();
-		map.put("userNo", userNo);
-		map.put("concertNo", concertNo);
-		return concertDao.updateConLike(sqlSession, map);
-	}
-
-	@Override
-	public int insertConLike(int userNo, int concertNo) {
-		Map map = new HashMap();
-		map.put("userNo", userNo);
-		map.put("concertNo", concertNo);
-		return concertDao.insertConLike(sqlSession, map);
+	public int insertConLike(ConcertLike like) {
+		return concertDao.insertConLike(sqlSession, like);
 	}
 
 	

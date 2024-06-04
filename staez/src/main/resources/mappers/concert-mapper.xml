@@ -257,7 +257,7 @@
 			  AND status = 'Y'
 	</select>
 	
-	<select id="selectUserConLike" resultType="_int" parameterType="map">
+	<select id="selectUserConLike" resultType="_int">
 			SELECT COUNT(*)
 			FROM concert_like
            WHERE user_no = #{userNo}
