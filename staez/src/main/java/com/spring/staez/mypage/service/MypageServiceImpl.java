@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.dto.BoardListDto;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.mypage.model.dao.MypageDao;
 import com.spring.staez.user.model.dto.PaymentsInfoDto;
 import com.spring.staez.user.model.vo.ProfileImg;
@@ -118,6 +119,21 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public int deleteMyScrapAjax(Map<String, Integer> params) {
 		return mpd.deleteMyScrapAjax(sqlSession, params);
+	}
+
+	@Override
+	public ConcertReview loadOneLineReviewAjax(Map<String, Integer> params) {
+		return mpd.loadOneLineReviewAjax(sqlSession, params);
+	}
+
+	@Override
+	public int insertOneLineReview(ConcertReview concertReview) {
+		return mpd.insertOneLineReview(sqlSession, concertReview);
+	}
+
+	@Override
+	public int updateOneLineReview(ConcertReview concertReview) {
+		return mpd.updateOneLineReview(sqlSession, concertReview);
 	}
 
 
