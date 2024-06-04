@@ -2,10 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const tophtml = document.querySelector(".calendar-top h3");
     const dates = document.querySelector(".dates");
     const navs = document.querySelectorAll("#previous, #next");
+    const cNo = document.querySelector("input[name = 'concertNo']").value;
 
+    reserveConcertInfo({cNo},(concert)=>drawConcertInfo(concert));
     const months = [
-        "1월", "2월", "3월", "4월", "5월", "6월",
-        "7월", "8월", "9월", "10월", "11월", "12월"
+        "01", "02", "03", "04", "05", "06",
+        "07", "08", "09", "10", "11", "12"
     ];
 
     let date = new Date();
@@ -13,15 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let year = date.getFullYear();
     let day = date.getDate();
 
-    // const clickedDate = document.querySelector(".choice-date-span");
-
     
-    // function spanDayChange(d){
-    //     clickedDate.innerHTML = ``;
-    //     clickedDate.innerHTML = `${year}-${months[month]}-${String(d).padStart(2, '0')}`;
-    // }
-    
-    // spanDayChange(date.getDate());
 
     function renderCalendar() {
         const startDay = new Date(year, month, 1).getDay(); // 월의 시작 요일
@@ -47,12 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             for (let i = 1; i <= endDate; i++) {
                 let className;
                 if(i === 25 || i === 26 || i === 27 || i === 28 || i === 29){
-                    // if( i === date.getDate() &&
-                    //  month === new Date().getMonth() &&
-                    // year === new Date().getFullYear()){
                         className ='class="textColor"';
-                    //     datesHtml += `<li ${className} onclick="clickDate(this)">${i}</li>`;
-                    // }
                     datesHtml += `<li ${className} onclick="clickDate(this)">${i}</li>`;
                 } else {
                     className =
@@ -136,8 +125,8 @@ let date = new Date();
 let month = date.getMonth();
 let year = date.getFullYear();
 const months = [
-    "1월", "2월", "3월", "4월", "5월", "6월",
-    "7월", "8월", "9월", "10월", "11월", "12월"
+    "01", "02", "03", "04", "05", "06",
+    "07", "08", "09", "10", "11", "12"
 ];
 function spanDayChange2(y, m, d){
     console.log(clickedDate);
@@ -145,7 +134,7 @@ function spanDayChange2(y, m, d){
     
     clickedDate.innerHTML = ``; 
     clickedDate.classList.add("bd")
-    clickedDate.innerHTML += `${y}년 ${months[m]} ${String(d).padStart(2, '0')}일`; 
+    clickedDate.innerHTML += `${y}-${months[m]}-${String(d).padStart(2, '0')}`; 
     
 }
 
@@ -181,5 +170,10 @@ navs.forEach(nav => {
         
     });
 });
+
+
+function drawConcertInfo(concert){
+    console.log(concert)
+}
 
 
