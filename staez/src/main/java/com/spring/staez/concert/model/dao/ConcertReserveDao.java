@@ -8,7 +8,11 @@ import com.spring.staez.concert.model.vo.Concert;
 @Repository
 public class ConcertReserveDao {
 
-	public Concert reserveConcertInfo(SqlSessionTemplate sqlSession, int concertNo) {
-		return sqlSession.selectOne("concertReserveMapper.reserveConcertInfo", concertNo);
+	public Concert reserveConcertInfo(SqlSessionTemplate sqlSession, int cNo) {
+		return sqlSession.selectOne("concertReserveMapper.reserveConcertInfo", cNo);
+	}
+	
+	public Concert selectConcertPeriod(SqlSessionTemplate sqlSession, int concertNo) {
+		return sqlSession.selectOne("concertReserveMapper.selectConcertPeriod", concertNo);
 	}
 }

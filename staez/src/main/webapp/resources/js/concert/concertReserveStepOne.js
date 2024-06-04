@@ -2,9 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const tophtml = document.querySelector(".calendar-top h3");
     const dates = document.querySelector(".dates");
     const navs = document.querySelectorAll("#previous, #next");
-    const cNo = document.querySelector("input[name = 'concertNo']").value;
+    const concertNo = document.querySelector("input[name = 'concertNo']").value;
 
-    reserveConcertInfo({cNo},(concert)=>drawConcertInfo(concert));
+
+   
+
     const months = [
         "01", "02", "03", "04", "05", "06",
         "07", "08", "09", "10", "11", "12"
@@ -17,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
 
-    function renderCalendar() {
+    function renderCalendar(concertPeriod) {
         const startDay = new Date(year, month, 1).getDay(); // 월의 시작 요일
         
         const endDate = new Date(year, month + 1, 0).getDate(); // 월의 마지막 날짜
@@ -38,9 +40,16 @@ document.addEventListener('DOMContentLoaded', () => {
         recalendar();
         // 현재 달의 날짜들
         function recalendar(){
+            const conStartDate = new Date(concertPeriod.startDate);
+            const conEndDate = new Date(concertPeriod.endDate);
+            conStartDate.setHours(0, 0, 0, 0);
+            conEndDate.setHours(0, 0, 0, 0);
+            
             for (let i = 1; i <= endDate; i++) {
                 let className;
-                if(i === 25 || i === 26 || i === 27 || i === 28 || i === 29){
+                const currentDate = new Date(year, month, i);
+                currentDate.setHours(0, 0, 0, 0);
+                if(currentDate >= conStartDate && currentDate <= conEndDate){
                         className ='class="textColor"';
                     datesHtml += `<li ${className} onclick="clickDate(this)">${i}</li>`;
                 } else {
@@ -79,12 +88,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
             date = new Date(year, month, new Date().getDate());
             
-            renderCalendar();
+            ajaxConcertPeriod({concertNo},(concertPeriod)=>renderCalendar(concertPeriod));
         });
     });
 
 
-    renderCalendar();
+    ajaxConcertPeriod({concertNo},(concertPeriod)=>renderCalendar(concertPeriod));
 
     
 });
@@ -172,8 +181,8 @@ navs.forEach(nav => {
 });
 
 
-function drawConcertInfo(concert){
-    console.log(concert)
-}
+// function drawConcertInfo(concert){
+//     console.log(concert)
+// }
 
 

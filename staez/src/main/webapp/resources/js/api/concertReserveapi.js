@@ -1,6 +1,6 @@
-function ajaxConcertInfo(data, callback){
+function ajaxConcertPeriod(data, callback){
     $.ajax({
-        url : "reserveConcertInfo.co",
+        url : "ajaxConcertPeriod.co",
         data : data,
         success : function(result){
             callback(result)

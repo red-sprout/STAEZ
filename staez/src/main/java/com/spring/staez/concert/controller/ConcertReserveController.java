@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,7 +23,10 @@ public class ConcertReserveController {
 	private ConcertReserveService crService;
 	
 	@GetMapping("selectDate.co")
-	public String concertReserveStepOne() {
+	public String concertReserveStepOne(Model model) {
+		int cNo = 7;
+		Concert concert = crService.reserveConcertInfo(cNo);
+		model.addAttribute(concert);
 		return "concert/concertReserveStepOne";
 	}
 	
@@ -50,12 +54,11 @@ public class ConcertReserveController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value = "reserveConcertInfo.co" , produces="application/json; charset-UTF-8")
-	public String reserveConcertInfo(String cNo) {
-		int concertNo = Integer.parseInt(cNo);
+	@GetMapping(value = "ajaxConcertPeriod.co" , produces="application/json; charset-UTF-8")
+	public String ajaxConcertPeriod(String concertNo) {
+		int cNo = Integer.parseInt(concertNo);
 		
-		Concert concert = crService.reserveConcertInfo(concertNo);
-		
+		Concert concert = crService.selectConcertPeriod(cNo);
 		
 		return  new Gson().toJson(concert);
 	}

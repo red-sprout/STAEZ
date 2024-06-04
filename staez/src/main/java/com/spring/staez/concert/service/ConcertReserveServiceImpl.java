@@ -18,7 +18,12 @@ public class ConcertReserveServiceImpl implements ConcertReserveService{
 	private ConcertReserveDao crDao;
 
 	@Override
-	public Concert reserveConcertInfo(int concertNo) {
-		return crDao.reserveConcertInfo(sqlSession, concertNo);
+	public Concert reserveConcertInfo(int cNo) {
+		return crDao.reserveConcertInfo(sqlSession, cNo);
+	}
+
+	@Override
+	public Concert selectConcertPeriod(int concertNo) {
+		return crDao.selectConcertPeriod(sqlSession, concertNo);
 	}
 }

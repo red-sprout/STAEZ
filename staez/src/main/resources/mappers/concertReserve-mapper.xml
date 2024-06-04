@@ -4,5 +4,51 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="concertReserveMapper" >
-
+	<resultMap type="Concert" id="concertResult">
+	    <result column="concert_no" property="concertNo"/>
+	    <result column="theater_no" property="theaterNo"/>
+	    <result column="concert_title" property="concertTitle"/>
+	    <result column="concert_plot" property="concertPlot"/>
+	    <result column="concert_runtime" property="concertRuntime"/>
+	    <result column="concert_members" property="concertMembers"/>
+	    <result column="concert_production" property="concertProduction"/>
+	    <result column="age_limit" property="ageLimit"/>
+	    <result column="update_date" property="updateDate"/>
+	    <result column="concert_status" property="concertStatus"/>
+	    <result column="change_name" property="changeName"/>
+	    <result column="file_path" property="filePath"/>
+	    <result column="start_date" property="startDate"/>
+	    <result column="end_date" property="endDate"/>
+	    <result column="category_no" property="categoryNo"/>
+	    <result column="category_name" property="categoryName"/>
+	    <result column="theater_name" property="theaterName"/>
+	    <result column="path" property="path"/>
+   </resultMap>
+   
+   <select id="reserveConcertInfo" resultMap="concertResult">
+		select 
+			c.concert_no, 
+			c.concert_title, 
+			min(cs.start_date) start_date,
+			max(cs.end_date) end_date,
+			t.theater_name,
+			c.age_limit,
+			c.concert_runtime,
+			(ca.file_path || ca.change_name) path
+		from concert c
+		join concert_schedule cs on (c.concert_no = cs.concert_no)
+		join theater t on (c.theater_no = t.theater_no)
+		join concert_attachment ca on (c.concert_no = ca.concert_no)
+		where c.concert_no = #{cNo}
+		and ca.file_level = 1
+		group by c.concert_no, t.theater_name, c.age_limit, c.concert_runtime, path
+   </select>
+   
+   <select id="selectConcertPeriod" resultMap="concertResult">
+   select concert_no, min(start_date) start_date, max(end_date) end_Date 
+	from concert_schedule
+	where concert_no = #{cNo}
+	and schedule != 'N'
+	group by concert_no
+   </select>
 </mapper>
