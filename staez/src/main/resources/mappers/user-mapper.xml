@@ -132,5 +132,11 @@
 		 WHERE email = #{email}
 	</select>
 	
+	<!-- 새로운 비밀번호 저장 -->
+	<update id="insertNewPwd">
+		UPDATE staez_user
+		   SET user_pwd = #{userPwd};
+		   WHERE user_id = #{userId};
+	</update>
 </mapper>
 

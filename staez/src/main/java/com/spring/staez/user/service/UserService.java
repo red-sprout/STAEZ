@@ -28,4 +28,7 @@ public interface UserService {
 	
 	//이메일로 아이디찾기
 	String findEmailCheck(String checkFindEmail);
+
+	//새로운 비밀번호 저장
+	int insertNewPwd(User u);
 }

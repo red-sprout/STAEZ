@@ -75,3 +75,21 @@ function getIdbyEmail(data, callback) {
         }
     });
 }
+
+// // 아이디,휴대전화 이메일 가지고 비밀번호 새로 변경
+// function updateNewPwd(data, callback) {
+//     $.ajax({
+//         url: "checkFindNewPwd.me",
+//         data: data,
+//         success: function(result) {
+//             // console.log("Server response:", result); // 서버 응답 확인
+//             callback(result);
+//         },
+//         error: function(jqXHR, textStatus, errorThrown) {
+//             console.log("비밀번호 변경 ajax 실패");
+//             console.log("Status: " + textStatus);
+//             console.log("Error: " + errorThrown);
+//             console.log("Response Text: " + jqXHR.responseText);
+//         }
+//     });
+// }

@@ -71,7 +71,7 @@
                 <table>
                     <tr>
                         <th>이메일</th>
-                        <td colspan="6" class="email-container" id="insertEmail" name="insertEmail">
+                        <td colspan="5" class="email-container" id="insertEmail" name="insertEmail">
                             <div style="display: flex;">
                                 <input type="text" id="email-prefix" placeholder="이메일 아이디">
                                 <span id="email-prefix-shift2">@</span>

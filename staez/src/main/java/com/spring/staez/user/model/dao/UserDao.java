@@ -62,5 +62,10 @@ public class UserDao {
 	public String findEmailCheck(SqlSessionTemplate sqlSession2, String checkFindEmail) {
 		return sqlSession.selectOne("userMapper.findEmailCheck",checkFindEmail);
 	}
+	
+	//새로운 비밀번호 저장
+	public int insertNewPwd(SqlSessionTemplate sqlSession, User u) {
+		return sqlSession.update("userMapper.insertNewPwd", u);
+	}
 
 }

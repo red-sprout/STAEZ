@@ -24,9 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // 모달) 비밀번호 찾기 클릭 이벤트
     PwdFindPage();
 });
-
-
-
 //인증 모달창
 function toggleAuthMethod(){
         // 페이지 로드 시 findId-div를 숨김
@@ -261,7 +258,7 @@ function clickGetId(){
     let email = document.getElementById("input-value-email").value;
     getIdbyEmail({checkFindEmail: email}, function(res){
         console.log(res)
-        document.querySelector("#emailFindId").innerHTML = res;
+        document.querySelector("#emailNewPwd").innerHTML = res;
     })
 }
 

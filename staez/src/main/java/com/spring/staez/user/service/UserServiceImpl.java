@@ -62,5 +62,12 @@ public class UserServiceImpl implements UserService{
 	public String findEmailCheck(String checkFindEmail) {
 		return userDao.findEmailCheck(sqlSession, checkFindEmail);
 	}
+	
+	//새로운 비밀번호 저장
+	@Override
+	public int insertNewPwd(User u) {
+		return userDao.insertUser(sqlSession, u);
+	}
+
 
 }

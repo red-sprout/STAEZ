@@ -184,4 +184,32 @@ public class UserController {
         return result;
     }
     
+    // 비밀번호 찾기 새로운 비밀번호 업데이트
+    @PostMapping("checkFindNewPwd.me")
+    public String insertNewPwd(String newPassword, HttpSession session, Model model) {
+        // 디버깅 추가
+    	User u = (User)session.getAttribute("loginUser");
+        System.out.println("Received password: " + u.getUserPwd());
+    
+        // 비밀번호가 null인지 확인
+        if (u.getUserPwd() == null) {
+            model.addAttribute("alertMsg", "비밀번호가 입력되지 않았습니다.");
+            return "user/findPwdForm";
+        }
+
+        // 암호화 작업
+        String encPwd = bcryptPasswordEncoder.encode(u.getUserPwd());
+        u.setUserPwd(encPwd);
+
+        int result = userService.insertNewPwd(u);
+
+        if (result > 0) {
+            session.setAttribute("alertMsg", "성공적으로 비밀번호가 변경되었습니다..");
+            return "redirect:/";
+        } else {
+            model.addAttribute("alertMsg", "비밀번호 변경 실패");
+            return "user/findPwdForm";
+        }
+    }
+    
 }
