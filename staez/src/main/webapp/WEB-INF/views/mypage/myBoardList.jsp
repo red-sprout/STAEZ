@@ -21,7 +21,7 @@
             </tr>
             <c:forEach var="b" items="${blist}">
             <tr class="tb-content" onclick="location.href='detail.cm?boardNo=${b.boardNo}'">
-                <td id="btitle">${b.boardTitle}</td>
+                <td class="btitle">${b.boardTitle}</td>
                 <td>
                     <fmt:parseDate value="${b.boardWriteDate}" var="date" pattern="yyyy-MM-dd HH:mm:ss" />
                     <fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />

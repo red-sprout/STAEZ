@@ -20,6 +20,11 @@
     border-bottom: 1px solid black;
 }
 
+.main-content tbody>tr:hover{
+    cursor: pointer;
+    background: rgb(245, 245, 245);
+}
+
 .main-content>#reserve-td{
     width: 820px;
     display: flex;
@@ -29,6 +34,8 @@
 
 /*테이블 소제목*/
 .table-title{
+    width: 100%;
+
     position: relative;
 
     font-size: 22px;
@@ -54,6 +61,10 @@
     line-height: 30px;
 }
 
+.table-title>button:hover{
+    background: rgb(245, 245, 245);
+}
+
 
 .more-btn{
     position: relative;
@@ -68,6 +79,10 @@
     padding: 10px 10px 0 0;
 }
 
+.more-btn>a:hover{
+    text-decoration: underline;
+}
+
 
 .main-content>#reserve-td>table{
     align-self: center;
@@ -78,11 +93,8 @@
     height: 40px;
 }
 
-.main-content>#reserve-td>table tr:nth-child(1){
+.main-content>#reserve-td>table th{
     border-bottom: solid 1px black;
-}
-
-.main-content>#reserve-td>table>tr>th{
     text-align: center;
 }
 
@@ -147,17 +159,17 @@
 }
 
 .main-content table .long-td{
-    width: 300px;
+    width: 310px;
     text-align: left;
     padding-left: 20px;
 
-    white-space: nowrap;
     overflow: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
 }
 
 .main-content table .short-td{
-    width: 94px;
+    width: 90px;
 }
 
 .main-content>#like-and-review>*{
@@ -166,31 +178,6 @@
 }
 
 .main-content>#community-manage{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-}
-
-.main-content>#community-manage>.section-title{
-    width: 900px;
-    height: 60px;
-    
-    background: #B51B75;
-    border-radius: 20px 0px 0px 20px;
-    
-    font-size: 25px;
-    font-weight: 600;
-    color: white;
-    line-height: 60px;
-    text-align: left;
-    
-    padding-left: 20px;
-    margin: 30px 0;
-    
-}
-
-.main-content>#community-manage>div:nth-child(2){
     width: 1000px;
 
     display: flex;
@@ -198,7 +185,7 @@
     justify-content: center;
 }
 
-.main-content>#community-manage>div:nth-child(2)>*{
+.main-content>#community-manage>*{
     width: 40%;
     margin: 0 15px;
 }

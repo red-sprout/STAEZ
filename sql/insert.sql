@@ -424,11 +424,11 @@ INSERT INTO board_category
 VALUES (20, 26);
 
 INSERT INTO board_category
-VALUES (21, 23);
+VALUES (21, 25);
 INSERT INTO board_category
 VALUES (22, 24);
 INSERT INTO board_category
-VALUES (23, 25);
+VALUES (23, 23);
 INSERT INTO board_category
 VALUES (24, 26);
 INSERT INTO board_category
