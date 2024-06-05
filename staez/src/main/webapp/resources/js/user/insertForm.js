@@ -219,11 +219,12 @@ function sendPhoneNumber() {
 
     // 전체 번호 조합하여 표시
     var phoneNumber = prefix + suffix1 + suffix2;
-    //console.log(phoneNumber); // 번호 확인용, 실제 사용시 주석처리해도 됩니다.
+    console.log(phoneNumber); // 번호 확인용, 실제 사용시 주석처리해도 됩니다.
 
     // input-value-phone 필드에 번호 설정
     inputValueElement.value = phoneNumber;
 }
+
 // 이메일 인증 코드 전송 함수
 function sendVerificationCode() {
     const emailInput = document.getElementById("input-value-email").value;
