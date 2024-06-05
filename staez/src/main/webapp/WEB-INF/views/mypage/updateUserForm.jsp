@@ -319,7 +319,7 @@
                                 <input type="radio" name="imgOption" value="defaultImg">
                                 <h4>기본 이미지</h4>
                                 <input type="hidden"
-                                    value="${contextPath}/resources/img/mypage/profile/profile_img_default.png">
+                                    value="${contextPath}/resources/uploadfiles/profile/basic_profile.jpg">
                             </label>
                             <label>
                                 <input type="radio" name="imgOption" value="newImg">

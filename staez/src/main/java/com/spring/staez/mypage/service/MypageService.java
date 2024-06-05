@@ -7,9 +7,11 @@ import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.dto.BoardListDto;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.user.model.dto.PaymentsInfoDto;
 import com.spring.staez.user.model.vo.ProfileImg;
+import com.spring.staez.user.model.vo.Reserve;
 import com.spring.staez.user.model.vo.User;
 
 public interface MypageService {
@@ -51,6 +53,11 @@ public interface MypageService {
 	
 	public int insertOneLineReview(ConcertReview concertReview); //한줄평 저장
 	public int updateOneLineReview(ConcertReview concertReview); //한줄평 수정
-	
+		
+	public ArrayList<PaymentsInfoDto> loadMyPaymentsAjax(int userNo); //결제내역 ajax
+	public ArrayList<Concert> loadMyScrapAjax(int userNo); //찜목록 ajax
+	public ArrayList<ConcertReview> loadMyReviewAjax(int userNo); //한줄평 ajax
+	public ArrayList<Board> loadMyBoardAjax(int userNo); //나의작성글 ajax
+	public ArrayList<Board> loadMyInquireAjax(int userNo); //문의내역 ajax
 	
 }

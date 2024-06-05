@@ -69,22 +69,29 @@
     cursor: pointer;
 }
 
-.main-content>table .content{
+.main-content>table .concert-info{
     padding-left: 20px;
 }
 
-.main-content>table .content>*{
+.main-content>table .concert-info>*{
     text-align: left;
 }
 
 /*공연명*/
-.main-content>table .content>h3:hover{
+.main-content>table .concert-info>h3:hover{
     cursor: pointer;
     text-decoration: underline;
 }
 
-.main-content>table .content>h5{
+.main-content>table .concert-info>h5{
     margin: 10px 0;
+}
+
+
+/*예매정보 hover*/
+.main-content>table .reserve-info:hover{
+    cursor: pointer;
+    background: rgb(245, 245, 245);
 }
 
 

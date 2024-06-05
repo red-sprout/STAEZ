@@ -21,10 +21,12 @@ import com.spring.staez.common.template.Pagination;
 import com.spring.staez.community.model.dto.BoardListDto;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.mypage.service.MypageService;
 import com.spring.staez.user.model.dto.PaymentsInfoDto;
 import com.spring.staez.user.model.vo.ProfileImg;
+import com.spring.staez.user.model.vo.Reserve;
 import com.spring.staez.user.model.vo.User;
 import com.spring.staez.user.service.UserService;
 
@@ -271,7 +273,7 @@ public class MypageController {
 		
 		if(profileImg == null) {
 			profileImg = new ProfileImg();
-			profileImg.setFilePath("/resources/img/mypage/profile/");
+			profileImg.setFilePath("/resources/uploadfiles/profile/");
 			return new Gson().toJson(profileImg);
 		}
 		
@@ -282,7 +284,7 @@ public class MypageController {
 	//프로필 이미지 변경
 	@RequestMapping("updateImg.me")
 	public String updateProfileImg(MultipartFile upfile, String imgOption, HttpSession session, Model model) {
-		String path = "/resources/uploadfiles/profile/";
+		String path = "/resources/uploadfiles/profile/"; //프로필 이미지들 저장되는 경로
 		ProfileImg profileImg = new ProfileImg();
 		
 		int result = 0, update = 0;
@@ -304,7 +306,7 @@ public class MypageController {
 			}
 		} else if(upfile.getOriginalFilename() == "" && imgOption.equals("defaultImg")) {
 			profileImg.setUserNo(((User)session.getAttribute("loginUser")).getUserNo()); //로그인 된 유저의 고유번호 불러오기
-			profileImg.setFilePath("/resources/img/mypage/profile/"); //저장경로
+			profileImg.setFilePath(path); //저장경로
 			
 			System.out.println("profileImg : " + profileImg);
 			
@@ -425,5 +427,31 @@ public class MypageController {
 	
 	}
 	
-	
+	@RequestMapping("loadMainPageAjax.me")
+	@ResponseBody
+	public String loadMainPage(String tableType, HttpSession session) {
+		int userNo = ((User)session.getAttribute("loginUser")).getUserNo(); //로그인 된 유저의 고유번호 불러오기
+		
+		switch(tableType) {
+		case "myPayments":
+			ArrayList<PaymentsInfoDto> paylist = mypageService.loadMyPaymentsAjax(userNo);
+			return new Gson().toJson(paylist);
+		case "myScrap":
+			ArrayList<Concert> scraplist = mypageService.loadMyScrapAjax(userNo);
+			return new Gson().toJson(scraplist);
+		case "myReview":
+			ArrayList<ConcertReview> reviewlist = mypageService.loadMyReviewAjax(userNo);
+			return new Gson().toJson(reviewlist);
+		case "myBoard":
+			ArrayList<Board> boardlist = mypageService.loadMyBoardAjax(userNo);
+			return new Gson().toJson(boardlist);
+		case "myInquire":
+			ArrayList<Board> inquirelist = mypageService.loadMyInquireAjax(userNo);
+			return new Gson().toJson(inquirelist);
+		default :
+			return null;
+		}
+		
+	}
 }
+	

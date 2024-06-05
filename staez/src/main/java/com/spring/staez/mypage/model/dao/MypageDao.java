@@ -155,4 +155,21 @@ public class MypageDao {
 		return sqlSession.update("mypageMapper.updateOneLineReview", concertReview);
 	}
 	
+	
+	public ArrayList<PaymentsInfoDto> loadMyPaymentsAjax(SqlSessionTemplate sqlSession, int userNo) {
+		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyPaymentsAjax", userNo);
+	}
+	public ArrayList<Concert> loadMyScrapAjax(SqlSessionTemplate sqlSession, int userNo) {
+		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyPaymentsAjax", userNo);
+	}
+	public ArrayList<ConcertReview> loadMyReviewAjax(SqlSessionTemplate sqlSession, int userNo) {
+		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyPaymentsAjax", userNo);
+	}
+	public ArrayList<Board> loadMyBoardAjax(SqlSessionTemplate sqlSession, int userNo) {
+		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyPaymentsAjax", userNo);
+	}
+	public ArrayList<Board> loadMyInquireAjax(SqlSessionTemplate sqlSession, int userNo) {
+		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyPaymentsAjax", userNo);
+	}
+	
 }

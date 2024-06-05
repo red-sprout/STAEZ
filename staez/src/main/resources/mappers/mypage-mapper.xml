@@ -327,7 +327,6 @@
 	</select>
 	
 	
-	
 	<update id="deleteMyScrapAjax">
 		UPDATE concert_like
 		SET status = 'N'
@@ -373,8 +372,81 @@
 	<update id="updateOneLineReview">
 		UPDATE concert_review 
 		SET review_content = #{reviewContent},
-			score = #{score}
+			score = #{score},
+			review_date = DEFAULT
 		WHERE review_no = #{reviewNo}
 	</update>
+	
+	<!-- 마이페이지 메인에서 데이터들 불러오는 ajax -->	
+	<select id="loadMyPaymentsAjax" resultType="com.spring.staez.user.model.dto.PaymentsInfoDto">
+		SELECT ROW_NUMBER() OVER() AS rn, 
+			   reserve_date AS reserveDate, 
+			   concert_title AS concertTitle,
+			   concert_date AS concertDate,
+			   schedule,
+			   tickets
+		FROM (SELECT reserve_date, concert_title, concert_date, schedule, COUNT(*) AS tickets
+			  FROM reserve
+			  JOIN concert USING (concert_no)
+			  WHERE user_no = #{userNo}
+		      AND reserve_status = 'Y'
+			  GROUP BY reserve_date, concert_title, concert_date, schedule
+			  ORDER BY reserve_date DESC)
+		LIMIT 5
+	</select>
+	
+	<select id="loadMyScrapAjax" resultType="Concert">
+		SELECT ROW_NUMBER() OVER() AS rn, concertNo, concertTitle
+		FROM (SELECT cl.concert_no AS concertNo, 
+				     c.concert_title  AS concertTitle
+			  FROM concert_like cl
+			  JOIN concert c ON (cl.concert_no = c.concert_no)
+			  WHERE cl.user_no = #{userNo}
+		      AND cl.status = 'Y'
+			  ORDER BY cl.concert_like_date DESC)
+		LIMIT 5
+	</select>
+	
+	<select id="loadMyReviewAjax" resultType="ConcertReview">
+		SELECT ROW_NUMBER() OVER() AS rn, 
+			   review_no AS reviewNo, 
+			   review_content AS reviewContent,
+			   score
+		FROM (SELECT review_no, review_content, score
+			  FROM concert_review 
+			  WHERE user_no = #{userNo}
+		      AND review_status = 'Y'
+			  ORDER BY review_date DESC)
+		LIMIT 5
+	</select>
+	
+	<select id="loadMyBoardAjax" resultType="Board">
+		SELECT ROW_NUMBER() OVER() AS rn, 
+			   board_no AS boardNo, 
+			   board_title AS boardTitle, 
+			   board_write_date AS boardWriteDate
+		FROM (SELECT board_no, board_title, board_write_date
+			  FROM board 
+			  WHERE user_no = #{userNo}
+			  AND board_code = 2
+		      AND board_status = 'Y'
+			  ORDER BY board_write_date DESC)
+		LIMIT 5
+	</select>
+	
+	<select id="loadMyInquireAjax" resultType="Board">
+		SELECT ROW_NUMBER() OVER() AS rn,
+			   board_no AS boardNo,
+			   board_title AS boardTitle,
+			   board_write_date AS boardWriteDate
+		FROM (SELECT board_no, board_title, board_write_date
+			  FROM board 
+			  WHERE user_no = #{userNo}
+			  AND board_code = 3
+			  AND board_level = 1
+			  AND board_status = 'Y'
+			  ORDER BY board_write_date DESC)
+		LIMIT 5;
+	</select>
 </mapper>
 

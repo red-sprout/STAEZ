@@ -11,10 +11,10 @@ $(function() {
         const img = $(this).find('img'); // 클릭된 메뉴 아이템 내의 이미지 태그
 
         if (subMenu.is(':visible')) {
-            subMenu.hide();
+            subMenu.slideUp(500);
             img.attr('src', './resources/img/inquire/up.png'); // 토글하여 숨길 때 이미지 변경
         } else {
-            subMenu.show();
+            subMenu.slideDown(500);
             img.attr('src', './resources/img/inquire/down.png'); // 토글하여 보일 때 이미지 변경
         }
     });
@@ -31,7 +31,7 @@ $(function() {
             
             let date;
             if(res !== null){
-                console.log('res: (' + res.boardWriteDate + ')' + res.boardContent);
+                console.log('res: (' + res.boardWriteDate + ') ' + res.boardContent);
                 date = new Date(res.boardWriteDate).toISOString().split('T');
             }
 

@@ -22,7 +22,7 @@
                 <td>
                     <img src="${contextPath}${c.filePath}${c.changeName}" onclick="location.href='${contextPath}/detail.co?concertNo=${c.concertNo}'">
                 </td>
-                <td class="content">
+                <td class="concert-info">
                     <h3 onclick="location.href='${contextPath}/detail.co?concertNo=${c.concertNo}'">${c.concertTitle}</h3>
                     <h5>${c.theaterName}</h5>
                     <h4>
@@ -30,7 +30,7 @@
                         ${c.schedule}(${c.concertRuntime}분)
                     </h4>
                 </td>
-                <td>
+                <td class="reserve-info">
                     <h5>예약번호: ${c.reserveNo}</h5>
                     <h5><fmt:formatDate value="${c.reserveDate}" pattern="yyyy-MM-dd HH:mm:ss" /></h5>
                     <h5>

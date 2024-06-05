@@ -11,10 +11,12 @@ import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.dto.BoardListDto;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.mypage.model.dao.MypageDao;
 import com.spring.staez.user.model.dto.PaymentsInfoDto;
 import com.spring.staez.user.model.vo.ProfileImg;
+import com.spring.staez.user.model.vo.Reserve;
 import com.spring.staez.user.model.vo.User;
 
 @Service
@@ -151,5 +153,32 @@ public class MypageServiceImpl implements MypageService{
 	public Board loadAnswerAjax(int boardNo) {
 		return mpd.loadAnswerAjax(sqlSession, boardNo);
 	}
+
+	@Override
+	public ArrayList<PaymentsInfoDto> loadMyPaymentsAjax(int userNo) {
+		return mpd.loadMyPaymentsAjax(sqlSession, userNo);
+	}
+
+	@Override
+	public ArrayList<Concert> loadMyScrapAjax(int userNo) {
+		return mpd.loadMyScrapAjax(sqlSession, userNo);
+	}
+
+	@Override
+	public ArrayList<ConcertReview> loadMyReviewAjax(int userNo) {
+		return mpd.loadMyReviewAjax(sqlSession, userNo);
+	}
+
+	@Override
+	public ArrayList<Board> loadMyBoardAjax(int userNo) {
+		return mpd.loadMyBoardAjax(sqlSession, userNo);
+	}
+
+	@Override
+	public ArrayList<Board> loadMyInquireAjax(int userNo) {
+		return mpd.loadMyInquireAjax(sqlSession, userNo);
+	}
+
+
 	
 }
