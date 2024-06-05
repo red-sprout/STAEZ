@@ -31,6 +31,7 @@ button{
 .main-section>.side{
     width: 250px;
     height: 1000px;
+    
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -103,5 +104,9 @@ button{
 
 .main-section>.side>.side-menu>ul>.side-menu-title{
     font-weight: 600;
+}
+
+.main-content{
+    margin-left: 20px;
 }
 

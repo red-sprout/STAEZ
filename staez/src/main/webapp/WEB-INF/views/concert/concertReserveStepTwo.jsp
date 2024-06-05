@@ -19,24 +19,25 @@
                 <div class="step-one"><span>02 좌석선택</span></div>
                 <div class="step-two" id="step-two-info">
                     <div>
-                        <span id="step-two-concert-title">뮤지컬 <천개의 파랑></span>
-                        <span class="step-two-top-span"> | 예술의 전당 CJ 토월극장</span>
+                        <span id="step-two-concert-title">${concert.concertTitle}</span>
+                        <span class="step-two-top-span"> | ${concert.theaterName}</span>
                     </div>
                     <div>
                         <span class="step-two-top-span">선택한 일시: </span>
-                        <span class="step-two-top-span"> 0000-00-00 00시00분</span>
+                        <span class="step-two-top-span reserve-date">${reserveDate}</span>
                     </div>
                 </div>
-               
+               <input type="hidden" name="cNo" value="${concert.concertNo}">
+               <input type="hidden" name="theaterName" value="${concert.theaterName}">
             </div>
         </div>
         <div class="reserve-step-content-area">
             <div class="seat-choice-container">
-                <li class="seat-ui">
+                <div class="seat-ui">
                     <table>
                         <thead>
-                            <tr>
-                                <th></th>
+                            <tr class="thead-tr">
+                                <!-- <th></th>
                                 <th>1</th>
                                 <th>2</th>
                                 <th>3</th>
@@ -51,11 +52,11 @@
                                 <th>12</th>
                                 <th>13</th>
                                 <th>14</th>
-                                <th>15</th>
+                                <th>15</th> -->
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody class="tbody">
+                            <!-- <tr>
                                 <th>A</th>
                                 <th class="seat-no">&nbsp;</th>
                                 <th class="seat-no">&nbsp;</th>
@@ -72,82 +73,10 @@
                                 <th class="seat-yes">&nbsp;</th>
                                 <th class="seat-yes">&nbsp;</th>
                                 <th class="seat-yes">&nbsp;</th>
-                            </tr>
-                            <tr>
-                                <th>B</th>
-                                <th class="seat-no">&nbsp;</th>
-                                <th class="seat-no">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                            </tr>
-                            <tr>
-                                <th>C</th>
-                                <th class="seat-no">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                            </tr>
-                            <tr>
-                                <th>D</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                            </tr>
-                            <tr>
-                                <th>E</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                                <th class="seat-yes">&nbsp;</th>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
-                </li>
+                </div>
             </div>
             <div class="seat-choice-info-container">
                 <div class="seat-rating-choice-area">
@@ -155,45 +84,19 @@
                         <span>좌석등급/잔여석</span>
                     </div>
                     <div class="remaining-rating-info">
-                        <div class="rating-area">
-                            <div class="rating-color"></div>
-                            <span class="rating-name">R석</span>
-                            <img class="divide" src="${contextPath}/resources/img/concert/divide.png" alt="">
-                            <span class="seat-count">73석</span>
-                            <span class="seat-rating-mount">90,000원</span>
-                        </div>
-                        <div class="rating-area">
-                            <div class="rating-color"></div>
-                            <span class="rating-name">S석</span>
-                            <img class="divide" src="${contextPath}/resources/img/concert/divide.png" alt="">
-                            <span class="seat-count">73석</span>
-                            <span class="seat-rating-mount">60,000원</span>
-                        </div>
-                        <div class="rating-area">
-                            <div class="rating-color"></div>
-                            <span class="rating-name">A석</span>
-                            <img class="divide" src="${contextPath}/resources/img/concert/divide.png" alt="">
-                            <span class="seat-count">73석</span>
-                            <span class="seat-rating-mount">30,000원</span>
-                        </div>
+                        
                     </div>
                     <div class="remaining-seat-rating-area">
                         <span>선택좌석</span>
                     </div>
                     <div class="remaining-seat-info">
-                        <div>
-                            <div><span>좌석등급</span></div>
-                            <span class="choice-rating-value">R석</span>
-                        </div>
-                        <div>
-                            <div><span>좌석번호</span></div>
-                            <span  class="choice-seat-value">A열 1번</span>
-                        </div>
+                        <!-- <div class="seat-info"><span>1-1(R석)</span></div> -->
+
                     </div>
                     <div class="total-payment-amount-area">
                         <span>총 결제금액</span>
                         <div>
-                            <span id="amount">90,000</span>
+                            <span id="amount">0</span>
                             <span>원</span>
                         </div>
                     </div>
@@ -210,6 +113,7 @@
                 </div>
             </div> 
         </div>
+        <script src="${contextPath}/resources/js/api/concertReserveapi.js"></script>
         <script src="${contextPath}/resources/js/concert/concertReserveStepTwo.js"></script>
 	</div>
 </body>

@@ -19,14 +19,11 @@ document.addEventListener('DOMContentLoaded', function() {
     emailSecretCode();
     // 버튼 클릭시 색상변경
     checkButton();
-    // 모달) 로그인 버튼 클릭 이벤트
+    // 모달) 로그인 버튼 클릭 이벤트    
     LoginPage();
     // 모달) 비밀번호 찾기 클릭 이벤트
     PwdFindPage();
 });
-
-
-
 //인증 모달창
 function toggleAuthMethod(){
         // 페이지 로드 시 findId-div를 숨김
@@ -262,7 +259,7 @@ function clickGetId(){
     getIdbyEmail({checkFindEmail: email}, function(res){
         console.log(res)
         document.querySelector("#emailFindId").innerHTML = res;
-    })
+    });
 }
 
 // 로그인 버튼 클릭 이벤트

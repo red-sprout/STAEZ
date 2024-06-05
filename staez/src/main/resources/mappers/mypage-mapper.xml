@@ -177,7 +177,7 @@
 				c.concert_title AS concertTitle,
 			    t.theater_name AS theaterName,
 				r.concert_date AS concertDate,
-				cs.schedule,
+				r.schedule,
 				c.concert_runtime AS concertRuntime,
 					
 				r.reserve_no AS reserveNo,
@@ -196,7 +196,6 @@
 		JOIN concert_attachment ca ON c.concert_no = ca.concert_no
 		JOIN theater t ON c.theater_no = t.theater_no
 		JOIN seat s ON c.concert_no = s.concert_no
-		JOIN concert_schedule cs ON c.concert_no = cs.concert_no			
 					
 		WHERE r.user_no = #{userNo}
 		AND r.reserve_row BETWEEN seat_start_row AND seat_end_row 
@@ -261,7 +260,7 @@
 	
 	<select id="selectReviewList" resultType="Concert">
 		SELECT r.concert_date AS concertDate, 
-			   r.concert_times AS concertTimes,
+			   r.schedule,
 			   cr.score AS score,
 			   cr.review_content AS reviewContent,
 			   c.concert_no AS concertNo,
@@ -271,11 +270,11 @@
 			   ca.change_name AS changeName,
 			   ca.file_path AS filePath
 			
-		FROM (SELECT MAX(concert_date) AS concert_date, concert_times, concert_no, user_no
+		FROM (SELECT MAX(concert_date) AS concert_date, schedule, concert_no, user_no
 			  FROM reserve
 			  WHERE user_no = #{userNo}
 			  AND reserve_status = 'Y'
-			  GROUP BY concert_times, concert_no, user_no) r
+			  GROUP BY schedule, concert_no, user_no) r
 		
 		JOIN concert c 
 		ON r.concert_no = c.concert_no
@@ -289,8 +288,44 @@
 		LEFT JOIN concert_review cr
 		ON r.concert_no = cr.concert_no
 		
-		ORDER BY r.concert_date DESC, r.concert_times ASC
+		ORDER BY r.concert_date DESC, r.schedule DESC
 	</select>
+	
+	<select id="selectMyInquireCount" resultType="_int">
+		SELECT COUNT(board_no)
+		FROM board
+		WHERE board_code = 3
+		AND board_level = 1
+		AND user_no = #{userNo}
+		AND board_status = 'Y'
+	</select>
+	
+	<select id="selectMyInquireList" resultType="Board">
+		SELECT board_no AS boardNo, 
+			   board_write_date AS boardWriteDate, 
+			   board_title AS boardTitle, 
+			   board_content AS boardContent,
+			   category_no AS categoryNo,
+			   category_name AS categoryName
+		FROM board
+		JOIN board_category USING (board_no)
+		JOIN category USING (category_no)
+		WHERE board_code=3
+		AND board_level=1
+		AND user_no = #{userNo}
+		AND board_status = 'Y'
+	</select>
+	
+	<select id="loadAnswerAjax" resultType="Board">
+		SELECT board_content AS boardContent,
+		       board_write_date AS boardWriteDate
+		FROM board
+		WHERE board_code=3
+		AND board_level=2
+		AND ref_board_no = #{boardNo}
+		AND board_status = 'Y'
+	</select>
+	
 	
 	<update id="deleteMyScrapAjax">
 		UPDATE concert_like
@@ -300,16 +335,118 @@
 		AND status = 'Y'
 	</update>
 	
-	<select id="loadOneLineReviewAjax" resultType="Concert">
-		SELECT score, 
-			   file_path,
-			   change_name,
-			   concert_title
-			   theater_name
-			   
-		FROM concert_review
-		WHERE concert_no = #{concertNo}
-		AND user_no = #{userNo}
+	<select id="loadOneLineReviewAjax" resultType="ConcertReview">
+		SELECT cr.review_no AS reviewNo,
+			   c.concert_no AS concertNo,
+			   c.concert_title AS concertTitle,
+			   c.concert_members AS concertMembers,
+		       t.theater_name AS theaterName,
+		       cr.review_content AS reviewContent,
+		       cr.score, 
+		       cr.review_date AS reviewDate,
+		       ca.file_path AS filePath,
+		       ca.change_name AS changeName
+		FROM concert c
+		
+		LEFT JOIN concert_review cr ON cr.concert_no = c.concert_no 
+		AND cr.user_no = #{userNo}
+		
+		LEFT JOIN concert_attachment ca ON c.concert_no = ca.concert_no
+		
+		JOIN theater t ON c.theater_no = t.theater_no
+		
+		WHERE c.concert_no = #{concertNo}
+	</select>
+	
+	<insert id="insertOneLineReview">
+		INSERT INTO concert_review
+		VALUES (DEFAULT,
+				#{userNo},
+				#{concertNo},
+				#{reviewContent},
+				#{score},
+				DEFAULT,
+				DEFAULT)	
+	</insert>
+	
+	<update id="updateOneLineReview">
+		UPDATE concert_review 
+		SET review_content = #{reviewContent},
+			score = #{score},
+			review_date = DEFAULT
+		WHERE review_no = #{reviewNo}
+	</update>
+	
+	<!-- 마이페이지 메인에서 데이터들 불러오는 ajax -->	
+	<select id="loadMyPaymentsAjax" resultType="com.spring.staez.user.model.dto.PaymentsInfoDto">
+		SELECT ROW_NUMBER() OVER() AS rn, 
+			   reserve_date AS reserveDate, 
+			   concert_title AS concertTitle,
+			   concert_date AS concertDate,
+			   schedule,
+			   tickets
+		FROM (SELECT reserve_date, concert_title, concert_date, schedule, COUNT(*) AS tickets
+			  FROM reserve
+			  JOIN concert USING (concert_no)
+			  WHERE user_no = #{userNo}
+		      AND reserve_status = 'Y'
+			  GROUP BY reserve_date, concert_title, concert_date, schedule
+			  ORDER BY reserve_date DESC)
+		LIMIT 5
+	</select>
+	
+	<select id="loadMyScrapAjax" resultType="Concert">
+		SELECT ROW_NUMBER() OVER() AS rn, concertNo, concertTitle
+		FROM (SELECT cl.concert_no AS concertNo, 
+				     c.concert_title  AS concertTitle
+			  FROM concert_like cl
+			  JOIN concert c ON (cl.concert_no = c.concert_no)
+			  WHERE cl.user_no = #{userNo}
+		      AND cl.status = 'Y'
+			  ORDER BY cl.concert_like_date DESC)
+		LIMIT 5
+	</select>
+	
+	<select id="loadMyReviewAjax" resultType="ConcertReview">
+		SELECT ROW_NUMBER() OVER() AS rn, 
+			   review_no AS reviewNo, 
+			   review_content AS reviewContent,
+			   score
+		FROM (SELECT review_no, review_content, score
+			  FROM concert_review 
+			  WHERE user_no = #{userNo}
+		      AND review_status = 'Y'
+			  ORDER BY review_date DESC)
+		LIMIT 5
+	</select>
+	
+	<select id="loadMyBoardAjax" resultType="Board">
+		SELECT ROW_NUMBER() OVER() AS rn, 
+			   board_no AS boardNo, 
+			   board_title AS boardTitle, 
+			   board_write_date AS boardWriteDate
+		FROM (SELECT board_no, board_title, board_write_date
+			  FROM board 
+			  WHERE user_no = #{userNo}
+			  AND board_code = 2
+		      AND board_status = 'Y'
+			  ORDER BY board_write_date DESC)
+		LIMIT 5
+	</select>
+	
+	<select id="loadMyInquireAjax" resultType="Board">
+		SELECT ROW_NUMBER() OVER() AS rn,
+			   board_no AS boardNo,
+			   board_title AS boardTitle,
+			   board_write_date AS boardWriteDate
+		FROM (SELECT board_no, board_title, board_write_date
+			  FROM board 
+			  WHERE user_no = #{userNo}
+			  AND board_code = 3
+			  AND board_level = 1
+			  AND board_status = 'Y'
+			  ORDER BY board_write_date DESC)
+		LIMIT 5;
 	</select>
 </mapper>
 

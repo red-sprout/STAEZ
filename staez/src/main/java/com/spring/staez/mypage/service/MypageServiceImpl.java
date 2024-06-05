@@ -9,10 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.dto.BoardListDto;
+import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertLike;
+import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.mypage.model.dao.MypageDao;
 import com.spring.staez.user.model.dto.PaymentsInfoDto;
 import com.spring.staez.user.model.vo.ProfileImg;
+import com.spring.staez.user.model.vo.Reserve;
 import com.spring.staez.user.model.vo.User;
 
 @Service
@@ -114,10 +118,65 @@ public class MypageServiceImpl implements MypageService{
 	public ArrayList<Concert> selectReviewList(int userNo, PageInfo pi) {
 		return mpd.selectReviewList(sqlSession, userNo, pi);
 	}
+	
+	@Override
+	public int selectMyInquireCount(int userNo) {
+		return mpd.selectMyInquireCount(sqlSession, userNo);
+	}
+
+	@Override
+	public ArrayList<Board> selectMyInquireList(int userNo, PageInfo pi) {
+		return mpd.selectMyInquireList(sqlSession, userNo, pi);
+	}
 
 	@Override
 	public int deleteMyScrapAjax(Map<String, Integer> params) {
 		return mpd.deleteMyScrapAjax(sqlSession, params);
+	}
+
+	@Override
+	public ConcertReview loadOneLineReviewAjax(Map<String, Integer> params) {
+		return mpd.loadOneLineReviewAjax(sqlSession, params);
+	}
+
+	@Override
+	public int insertOneLineReview(ConcertReview concertReview) {
+		return mpd.insertOneLineReview(sqlSession, concertReview);
+	}
+
+	@Override
+	public int updateOneLineReview(ConcertReview concertReview) {
+		return mpd.updateOneLineReview(sqlSession, concertReview);
+	}
+
+	@Override
+	public Board loadAnswerAjax(int boardNo) {
+		return mpd.loadAnswerAjax(sqlSession, boardNo);
+	}
+
+	@Override
+	public ArrayList<PaymentsInfoDto> loadMyPaymentsAjax(int userNo) {
+		return mpd.loadMyPaymentsAjax(sqlSession, userNo);
+	}
+
+	@Override
+	public ArrayList<Concert> loadMyScrapAjax(int userNo) {
+		return mpd.loadMyScrapAjax(sqlSession, userNo);
+	}
+
+	@Override
+	public ArrayList<ConcertReview> loadMyReviewAjax(int userNo) {
+		return mpd.loadMyReviewAjax(sqlSession, userNo);
+	}
+
+	@Override
+	public ArrayList<Board> loadMyBoardAjax(int userNo) {
+		return mpd.loadMyBoardAjax(sqlSession, userNo);
+	}
+
+	@Override
+	public ArrayList<Board> loadMyInquireAjax(int userNo) {
+		return mpd.loadMyInquireAjax(sqlSession, userNo);
 	}
 
 
