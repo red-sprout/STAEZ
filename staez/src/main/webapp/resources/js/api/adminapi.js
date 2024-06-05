@@ -244,3 +244,47 @@ function noticeBoardCategory(data, callback) {
         }
     });
 }
+
+// 관리자의 유저 정보 조회
+// data - select : 검색 항목, keyword : 검색 키워드, currentPage : 현재 페이지
+function adminSelectUser(data, callback) {
+    $.ajax({
+        url: contextPath + "adminSelect.me",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("이용자 조회 실패");
+        }
+    });
+}
+
+// 유저 강퇴 api
+// data - userList : 체크한 userNo
+function deleteUser(data, callback) {
+    $.ajax({
+        url: contextPath + "adminDelete.me",
+        type: "POST",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("강퇴 api 요청 실패");
+        }
+    });
+}
+
+// 유저 권한 수정
+// data - userList, grade
+function updateGradeUser(data, callback) {
+    $.ajax({
+        url: contextPath + "adminUpdateGrade.me",
+        type: "POST",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("권한 수정 api 요청 실패");
+        }
+    });
+}

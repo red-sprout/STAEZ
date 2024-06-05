@@ -65,6 +65,22 @@
 	    <result column="category_name" property="categoryName"/>
 	    <result column="theater_name" property="theaterName"/>
    </resultMap>
+   	<resultMap type="User" id="userResult">
+		<result column="user_no" property="userNo" />
+		<result column="user_id" property="userId" />
+		<result column="user_pwd" property="userPwd" />
+		<result column="nickname" property="nickname" />
+		<result column="gender" property="gender" />
+		<result column="birth" property="birth" />
+		<result column="address" property="address" />
+		<result column="email" property="email" />
+		<result column="phone" property="phone" />
+		<result column="genre_like" property="genreLike" />
+		<result column="grade" property="grade" />
+		<result column="enroll_date" property="enrollDate" />
+		<result column="withdrawal_date" property="withdrawalDate" />
+		<result column="user_status" property="userStatus" />
+	</resultMap>
 
 	<select id="selectFaqCategory" resultMap="categoryResult">
 		SELECT
@@ -413,6 +429,79 @@
 		from theater
 		order by theater_no desc
 	</select>
-	
+	<!-- 관리자의 유저 정보 변경 페이지 -->
+	<select id="selectUserCnt" parameterType="com.spring.staez.admin.model.dto.AdminUserSearchDto" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM staez_user
+		WHERE user_status = 'Y'
+		AND
+		<choose>
+			<when test='select == "userId"'>
+				user_id LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "nickname"'>
+				nickname LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "phone"'>
+				phone LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				email LIKE '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+	</select>
+	<select id="selectUser" parameterType="com.spring.staez.admin.model.dto.AdminUserSearchDto" resultMap="userResult">
+		SELECT
+			user_no,
+			user_id,
+			nickname,
+			grade,
+			phone,
+			email,
+			enroll_date
+		FROM staez_user
+		WHERE user_status = 'Y'
+		AND
+		<choose>
+			<when test='select == "userId"'>
+				user_id LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "nickname"'>
+				nickname LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "grade"'>
+				grade LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "phone"'>
+				phone LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				email LIKE '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+		ORDER BY user_no DESC
+	</select>
+	<update id="deleterUser">
+		UPDATE staez_user
+		SET user_status = 'N',
+			withdrawal_date= NOW()
+		WHERE
+			user_no IN (
+				<foreach collection="userList" item="item" separator=",">
+					#{item}
+				</foreach>
+			)
+	</update>
+	<update id="updateGradeUser">
+		UPDATE staez_user
+		SET grade = #{grade}
+		WHERE
+			user_no IN (
+				<foreach collection="userList" item="item" separator=",">
+					#{item}
+				</foreach>
+			)
+	</update>
 </mapper>
 

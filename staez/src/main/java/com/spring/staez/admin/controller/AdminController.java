@@ -38,11 +38,6 @@ public class AdminController {
 	@Autowired
 	AdminService adminService;
 	
-	@GetMapping("userList.ad")
-	public String userMain() {
-		return "admin/userMain";
-	}
-	
 	@GetMapping("concertList.ad")
 	public String concertMain() {
 		return "admin/concertMain";
