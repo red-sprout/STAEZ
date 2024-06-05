@@ -81,8 +81,9 @@ select.box {
     color: #383838; /* 글자 색상을 지정합니다. */
     background-color: #ffffff; /* 배경 색상을 지정합니다. */
     font-family: 'Montserrat', 'Pretendard', sans-serif; /* 폰트를 지정합니다. */
-    margin: 0 5px; /* 좌우 여백을 줍니다. */
     height: 40px; /* 높이를 추가합니다. */
+    min-width: 90px;
+    margin: 0px;
 }
 
 /* 셀렉트 박스 옵션 */
@@ -162,7 +163,7 @@ hr{
     max-width: 950px;
 }
 
-/* 인증보내기 확인 재발송 */
+/* 인증번호 전송 인증확인 우편번호 버튼 */
 .check_button {
     border: 2px solid black; /* 테두리를 지정합니다. */
     height: 40px; /* 높이를 지정합니다. */
@@ -170,6 +171,9 @@ hr{
     background-color: #ffffff;
     border-radius: 10px;
     min-width: 68px;
+}
+.check_button.clicked {
+background-color: rgb(219, 219, 219); /* 클릭한 경우의 배경색 */
 }
 
 /* 이전 다음 */
@@ -215,4 +219,37 @@ span{
 
 #td-div{
     display: flex;
+}
+
+/* 시간초 */
+#timer{
+    display: inline-block;
+}
+
+/* 이메일 인증 시간초 감싸는 div */
+#emailTimeContainer{
+    width: 300px;
+    height: 35px;
+    position: relative;
+    display: flex;
+}
+/* 위에꺼랑 합치는거 */
+#emailTimeContainer input{
+    width: 100%;
+}
+/* 시간초만 */
+#emailTimeContainer div{
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    right: 5px;
+}
+
+/* 인증번호전송 우편번호찾기 버튼 */
+#emailCheckButton{
+    min-width: 95px;
+}
+
+.email-container{
+    min-width: 310px;
 }

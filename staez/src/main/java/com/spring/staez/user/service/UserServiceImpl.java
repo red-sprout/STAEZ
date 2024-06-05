@@ -1,6 +1,6 @@
 package com.spring.staez.user.service;
 
-import java.time.LocalDateTime;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +47,15 @@ public class UserServiceImpl implements UserService{
 
 	// 이메일 인증번호 저장을 위한 서비스
 	@Override
-	public int registerUser(String email, String authNo, LocalDateTime send_time) {
-        return userDao.registerUser(email, authNo, send_time);
+	public int registerUser(String email, String authNo ) {
+        return userDao.registerUser(email, authNo);
     }
+	
+	// 이메일 존재 여부 확인
+	@Override
+	public Map<String, Object> findEmail(String email) {
+	    return userDao.findEmail(sqlSession, email);
+	}
 	
 	//이메일 암호키 인증체크
 	@Override
@@ -75,6 +81,12 @@ public class UserServiceImpl implements UserService{
 	    // 디버깅: 입력값 출력
 	    System.out.println("Updating UserServiceImpl password for user_id: " + user_id + ", phone: " + phone + ", email: " + email + ", encPwd: " + encPwd);
 	    return userDao.updatePassword(sqlSession, user_id, phone, email, encPwd);
+	}
+
+	// 이메일 인증 완료하면 정보 업데이트(테이블에 이메일 데이터 있을때)
+	@Override
+	public int updateEmailAuth(String email, String authNo) {
+		return userDao.updateEmailAuth(sqlSession, email , authNo);
 	}
 
 }

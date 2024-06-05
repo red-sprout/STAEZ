@@ -31,7 +31,7 @@
                 <table>
                     <tr>
                         <th>아이디</th>
-                        <td colspan="2" class="email-container">
+                        <td  class="email-container">
                             <input type="text" id="input-value-id" name="userId" required>
                         </td>
                         <td></td>
@@ -42,7 +42,7 @@
                     </tr>
                     <tr>
                         <th>휴대폰 번호</th>
-                        <td class="email-container" colspan="2" >
+                        <td class="email-container"  >
                             <div id="td-div">
                                 <span id="phone-prefix">010</span>
                                 <span>-</span>
@@ -58,7 +58,7 @@
                     </tr>
                     <tr>
                         <th>이메일</th>
-                        <td colspan="1" class="email-container" id="insertEmail" name="insertEmail">
+                        <td class="email-container" id="insertEmail" name="insertEmail">
                             <div style="display: flex;">
                                 <input type="text" id="email-prefix" placeholder="이메일 아이디">
                                 <span id="email-prefix-shift2">@</span>
@@ -76,14 +76,16 @@
                                 <option value="kakao.com">kakao.com</option>
                             </select>
                         </td>
-                        <td colspan="">
+                        <td>
                             <input type="button" id="emailCheckButton" class="check_button" value="인증번호 전송">
                         </td>
                     </tr>
                     <tr>
                         <th>인증번호</th>
-                        <td>
-                            <input type="text" id="verification-code" required>
+                        <td >
+                            <div id="emailTimeContainer">
+                                <input type="text" id="verification-code" required><div id="timer"></div>
+                            </div>
                         </td>
                         <td>
                             <input type="button" class="check_button" id="check_emailSecretBtn" value="인증확인">
