@@ -34,7 +34,9 @@ function drawConNavi(conList){
 
   // 예매버튼 클릭
 function reservePage(){
-    window.open('/staez/selectDate.co' , "_blank", "width=1001, height=601, scrollbars=no");
+    const concertNo =  $("input[name='concertNo']").val();
+    const userNo =  $("input[name='userNo']").val();
+    window.open(`/staez/selectDate.co?concertNo=`+concertNo+`&`+`userNo=`+userNo+` , "_blank", "width=1001, height=601, scrollbars=no"`);
 }
 
 

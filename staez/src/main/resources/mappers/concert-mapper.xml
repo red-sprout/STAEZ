@@ -31,6 +31,7 @@
 		<result column="change_name" property="changeName"/>
 		<result column="file_path" property="filePath"/>
 		<result column="category_name" property="categoryName"/>
+		<result column="score" property="score"/>
 	</resultMap>
 		
 	<resultMap type="Category" id="categoryResult">
@@ -149,7 +150,7 @@
 		JOIN concert_category cc on  c.concert_no = cc.concert_no	
 		JOIN category ct ON cc.category_no = ct.category_no
 		WHERE c.concert_status = 'Y'
-		 AND cc.category_no =  #{categoryNo};	
+		 AND cc.category_no =  #{categoryNo};
 	</select> 
 	
 	<select id="selectCon" resultMap="concertResult" >
@@ -289,26 +290,113 @@
     </update>
     
     
-	<!-- 좋아요 구현 끝 -->
-	
-		<!-- selectconList
-		 SELECT c.concert_no,
+    
+    <!-- 공연메인페이지 정렬 -->
+    <select id="popularList" resultMap="concertResult" >
+		SELECT c.concert_no,
 		       c.concert_title,
-		       t.theater_name,
-		       cs.start_date,
-		       cs.end_date,
+		       sub.start_date,
+		       sub.end_date,
 		       ca.change_name,
-		       ca.file_path
+		       ca.file_path,
+			   ct.category_no,
+		       ct.category_name
 		FROM concert c
-		JOIN theater t ON c.theater_no = t.theater_no
-		JOIN concert_schedule cs ON c.concert_no = cs.concert_no
+		JOIN(SELECT concert_no,
+				count(DISTINCT concert_like_no) as countLike,
+				min(cs.start_date) as start_date,
+				max(cs.end_date) as end_date
+			FROM concert_like
+			JOIN concert_schedule cs USING (concert_no)
+			GROUP BY concert_no
+			ORDER BY concert_no) sub ON c.concert_no = sub.concert_no
 		JOIN concert_attachment ca ON c.concert_no = ca.concert_no
-		WHERE c.concert_no IN (
-		        SELECT concert_no
-		        FROM concert_category
-		    )
-	    AND c.concert_status = 'Y';
-	    
-	  -->
+		JOIN concert_category cc on c.concert_no = cc.concert_no	
+		JOIN category ct ON cc.category_no = ct.category_no
+		WHERE c.concert_status = 'Y'
+		 AND cc.category_no = #{categoryNo}
+	    ORDER BY sub.countLike desc
+	</select>
+	
+	<select id="latestList" resultMap="concertResult" >
+		SELECT c.concert_no,
+		       c.concert_title,
+		       sub.start_date,
+		       sub.end_date,
+		       ca.change_name,
+		       ca.file_path,
+			   ct.category_no,
+		       ct.category_name
+		FROM concert c
+		JOIN(SELECT concert_no,
+				count(DISTINCT concert_like_no) as countLike,
+				min(cs.start_date) as start_date,
+				max(cs.end_date) as end_date
+			FROM concert_like
+			JOIN concert_schedule cs USING (concert_no)
+			GROUP BY concert_no
+			ORDER BY concert_no) sub ON c.concert_no = sub.concert_no
+		JOIN concert_attachment ca ON c.concert_no = ca.concert_no
+		JOIN concert_category cc on c.concert_no = cc.concert_no	
+		JOIN category ct ON cc.category_no = ct.category_no
+		WHERE c.concert_status = 'Y'
+		 AND cc.category_no = #{categoryNo}
+	    ORDER BY sub.start_date desc
+	 </select>
+	 
+	 <!-- 콘서트 no 중복값있으니까 중복값은 그 중 하나만 보여주도록 프론트에서 처리할 필요 있음 -->
+	 <select id="highscoreList" resultMap="concertResult" >
+	 	SELECT c.concert_no,
+		       c.concert_title,
+		       sub.start_date,
+		       sub.end_date,
+			   cr.score,
+		       ca.change_name,
+		       ca.file_path,
+			   ct.category_no,
+		       ct.category_name
+		FROM concert c
+		JOIN(SELECT concert_no,
+				    count(DISTINCT concert_no) as concertNo,
+					min(cs.start_date) as start_date,
+					max(cs.end_date) as end_date
+			 FROM concert_schedule cs
+			 GROUP BY concert_no
+			 ORDER BY concert_no) sub ON c.concert_no = sub.concert_no
+		LEFT JOIN concert_review cr ON c.concert_no = cr.concert_no
+		JOIN concert_attachment ca ON c.concert_no = ca.concert_no
+		JOIN concert_category cc ON c.concert_no = cc.concert_no	
+		JOIN category ct ON cc.category_no = ct.category_no
+		WHERE c.concert_status = 'Y'
+		AND cc.category_no = #{categoryNo}
+		ORDER BY score DESC NULLS LAST
+	 </select>
+	 
+	  <select id="locationAllList" resultMap="concertResult" >
+	 	SELECT c.concert_no,
+		       c.concert_title,
+		       ca.change_name,
+			   cs.start_date,
+		       cs.end_date,
+		       ca.file_path,
+		       ct.category_name,
+			   t.address
+		FROM concert c
+		JOIN theater t USING (theater_no)
+		JOIN concert_schedule cs  USING (concert_no)
+		JOIN concert_attachment ca ON c.concert_no = ca.concert_no
+		JOIN concert_category cc on c.concert_no = cc.concert_no	
+		JOIN category ct ON cc.category_no = ct.category_no
+		WHERE c.concert_status = 'Y'
+		  AND cc.category_no = #{categoryNo}
+	 	  <if test="area != null and area != ''">
+ 		  AND address
+ 		  </if>
+          LIKE #{area} || '%'
+		
+	 </select>
+    
+    
+    
 
 </mapper>

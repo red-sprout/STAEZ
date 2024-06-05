@@ -166,26 +166,36 @@ public class ConcertController {
 	@ResponseBody
 	@RequestMapping(value = "popular.co", produces="application/json; charset=UTF-8")
 	public String popular(@RequestParam(value = "categoryNo")int categoryNo) {
-		ArrayList<Concert> list =  concertService.selectconList(categoryNo);
+		ArrayList<Concert> list =  concertService.popularList(categoryNo);
 		return new Gson().toJson(list);
 	}
 	@ResponseBody
 	@RequestMapping(value = "latest.co", produces="application/json; charset=UTF-8")
 	public String latest(@RequestParam(value = "categoryNo")int categoryNo) {
-		ArrayList<Concert> list =  concertService.selectconList(categoryNo);
+		ArrayList<Concert> list =  concertService.latestList(categoryNo);
 		return new Gson().toJson(list);
-	}
+	}	
+	
 	@ResponseBody
 	@RequestMapping(value = "highscore.co", produces="application/json; charset=UTF-8")
 	public String highscore(@RequestParam(value = "categoryNo")int categoryNo) {
-		ArrayList<Concert> list =  concertService.selectconList(categoryNo);
+		System.out.println(categoryNo);
+		ArrayList<Concert> list =  concertService.highscoreList(categoryNo);
+		
+		System.out.println(list);
 		return new Gson().toJson(list);
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "locationAll.co", produces="application/json; charset=UTF-8")
-	public String locationAll(@RequestParam(value = "categoryNo")int categoryNo) {
-		ArrayList<Concert> list =  concertService.selectconList(categoryNo);
+	public String locationAll(@RequestParam(value = "categoryNo")int categoryNo, @RequestParam(value = "area")String area) {
+		System.out.println("area:" + area);
+		
+		Map map = new HashMap();
+		map.put("categoryNo", categoryNo);
+		map.put("area", area);
+		
+		ArrayList<Concert> list =  concertService.locationAllList(map);
 		return new Gson().toJson(list);
 	}
 

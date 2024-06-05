@@ -64,7 +64,7 @@
             <table class="concert-detail-table">
                 <tr>
                     <td>
-                        <c:forEach var="i" begin="1" end="${com[0].score}">
+                        <c:forEach var="i" begin="1" end="${com[0].score}"> <!-- 배열 길이만큼 나눠서 avg 만들고, round 처리 필요-->
                             <img id="concert-detail-starImg" src="${pageContext.request.contextPath}/resources/img/concert/star.png" alt="">
                         </c:forEach>
                     </td>

@@ -82,6 +82,24 @@ public class ConcertDao {
 	public int insertConLike(SqlSessionTemplate sqlSession, ConcertLike like) {
 		return sqlSession.insert("concertMapper.insertConLike", like);
 	}
+
+	public ArrayList<Concert> popularList(SqlSessionTemplate sqlSession, int categoryNo) {
+		return (ArrayList)sqlSession.selectList("concertMapper.popularList", categoryNo);	
+	}
+
+	public ArrayList<Concert> latestList(SqlSessionTemplate sqlSession, int categoryNo) {
+		return (ArrayList)sqlSession.selectList("concertMapper.latestList", categoryNo);	
+	}
+
+	public ArrayList<Concert> highscoreList(SqlSessionTemplate sqlSession, int categoryNo) {
+		return (ArrayList)sqlSession.selectList("concertMapper.highscoreList", categoryNo);	
+	}
+
+
+
+	public ArrayList<Concert> locationAllList(SqlSessionTemplate sqlSession, Map map) {
+		return (ArrayList)sqlSession.selectList("concertMapper.locationAllList", map);	
+	}
 	
 	
 	

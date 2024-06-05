@@ -55,6 +55,14 @@ public interface ConcertService {
 
 	int insertConLike(ConcertLike like);
 
+	ArrayList<Concert> popularList(int categoryNo);
+
+	ArrayList<Concert> latestList(int categoryNo);
+
+	ArrayList<Concert> highscoreList(int categoryNo);
+
+	ArrayList<Concert> locationAllList(Map map);
+
 //	// 좋아요 insert, 
 //    int insertConLike(ConcertLike conL);
 //    int updateLikeYtoN(ConcertLike conL);
