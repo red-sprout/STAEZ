@@ -4,7 +4,7 @@ $(function() {
         // 현재 클릭된 메뉴 아이템을 제외한 모든 하위 메뉴 숨기기
         $('.menu-item .fold-content').not($(this).find('.fold-content')).hide();
         // 모든 이미지의 src를 초기 이미지로 변경
-        $('.menu-item img').attr('src', 'path/to/default/image.png');
+        $('.menu-item img').attr('src', './resources/img/inquire/up.png');
         
         // 현재 클릭된 메뉴 아이템의 하위 메뉴를 토글
         const subMenu = $(this).find('.fold-content');
@@ -21,36 +21,23 @@ $(function() {
 
 
     
-    // const boardNo = $('input[name=inquireBoardNo]');
-    // $('.answer>.fold-content').each(function(index, answer){
-    //     loadAnswerAjax(boardNo[index], (res) => {
-    //         console.log(boardNo[index]);
-    //         console.log(res.boardContent);
-    //         if(res.boardContent === null){
-    //             answer.html(`답변을 기다리는 중입니다...`);
-    //         } else{
-    //             answer.html(`${res.boardContent}`);
-    //         }
-    //     });
+    $('input[name="inquireBoardNo"]').each(function() {
+        const boardNo = $(this).val(); // 현재 input 요소의 값을 가져옴
+        const currentAnswer = $(this).closest('.answer').find('.fold-content'); // 해당 input 요소의 .answer > .fold-content 요소를 찾음
+        const answerDate = $(this).closest('.answer').find('.fold-answer-date');
 
-    // });
-});
-
-$(document).ready(function() {
-    const boardNo = $('input[name=inquireBoardNo]').map(function() {
-        return $(this).val();
-    }).get();
-
-    $('.answer>.fold-content').each(function(index, answer) {
-        const currentAnswer = $(answer);  // jQuery 객체로 변환
-        loadAnswerAjax(boardNo[index], (res) => {
-            console.log(boardNo[index]);
-            console.log(res.boardContent);
-            if (res.boardContent === null) {
-                currentAnswer.html('답변을 기다리는 중입니다...');
-            } else {
-                currentAnswer.html(res.boardContent);
+        loadAnswerAjax({boardNo: boardNo} , function(res) {
+            console.log('문의번호 : ' + boardNo);
+            
+            let date;
+            if(res !== null){
+                console.log('res: (' + res.boardWriteDate + ')' + res.boardContent);
+                date = new Date(res.boardWriteDate).toISOString().split('T');
             }
+
+
+            currentAnswer.html(res === null ? '답변을 기다리는 중입니다...' : res.boardContent);
+            answerDate.html(res === null ? '' : `<h5> ${date[0]} ${date[1].substring(0, 8)} </h5>`);
         });
     });
 });

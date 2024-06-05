@@ -19,7 +19,7 @@
             <c:forEach var="b" items="${blist}">
             <li class="menu-item">
                 <div class="inq-info">
-                    <span class="inq-cate">분류</span>
+                    <span class="inq-cate">${b.categoryName}</span>
                     <span class="inq-title">${b.boardTitle}</span>
                     <span class="inq-date"><fmt:formatDate value="${b.boardWriteDate}" pattern="yyyy-MM-dd" /></span>
                     <img src="${contextPath}/resources/img/inquire/up.png">
@@ -34,6 +34,7 @@
                         <input type="hidden" value="${b.boardNo}" name="inquireBoardNo">
                         <p class="fold-title"><h3>답변내용</h3></p>
                         <p class="fold-content"></p> <!--답변이 null 일 경우 '답변을 기다리는 중입니다.'-->
+                        <p class="fold-answer-date"></p>
                     </div>
                 </div>
             </li>

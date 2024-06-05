@@ -58,6 +58,7 @@ function loadAnswerAjax(data, callback){
     $.ajax({
         url: contextPath + 'loadAnswer.me',
         data,
+        dataType: 'json', 
         success: res => callback(res),
         error: () => {
             alert('문의 답변을 불러오는데 실패하였습니다');

@@ -304,16 +304,21 @@
 		SELECT board_no AS boardNo, 
 			   board_write_date AS boardWriteDate, 
 			   board_title AS boardTitle, 
-			   board_content AS boardContent
+			   board_content AS boardContent,
+			   category_no AS categoryNo,
+			   category_name AS categoryName
 		FROM board
-		WHERE board_code = 3
-		AND board_level = 1
+		JOIN board_category USING (board_no)
+		JOIN category USING (category_no)
+		WHERE board_code=3
+		AND board_level=1
 		AND user_no = #{userNo}
 		AND board_status = 'Y'
 	</select>
 	
-	<select id="loadAnswerAjax" resultType="string">
-		SELECT board_content AS boardContent
+	<select id="loadAnswerAjax" resultType="Board">
+		SELECT board_content AS boardContent,
+		       board_write_date AS boardWriteDate
 		FROM board
 		WHERE board_code=3
 		AND board_level=2

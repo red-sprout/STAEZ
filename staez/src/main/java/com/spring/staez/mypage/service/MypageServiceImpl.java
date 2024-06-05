@@ -148,7 +148,7 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public String loadAnswerAjax(int boardNo) {
+	public Board loadAnswerAjax(int boardNo) {
 		return mpd.loadAnswerAjax(sqlSession, boardNo);
 	}
 	

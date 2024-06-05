@@ -135,8 +135,8 @@ public class MypageDao {
 		return list;
 	}
 	
-	public String loadAnswerAjax(SqlSessionTemplate sqlSession, int boardNo) {
-		return (String)sqlSession.selectOne("mypageMapper.loadAnswerAjax", boardNo);
+	public Board loadAnswerAjax(SqlSessionTemplate sqlSession, int boardNo) {
+		return (Board)sqlSession.selectOne("mypageMapper.loadAnswerAjax", boardNo);
 	}
 	
 	public int deleteMyScrapAjax(SqlSessionTemplate sqlSession, Map<String, Integer> params){

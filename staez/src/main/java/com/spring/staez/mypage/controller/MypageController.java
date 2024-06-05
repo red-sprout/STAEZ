@@ -151,9 +151,11 @@ public class MypageController {
 	@ResponseBody
 	public String loadAnswerAjax(Integer boardNo) {
 		System.out.println(boardNo);
-		String inquireAnswer = mypageService.loadAnswerAjax(boardNo);
+		Board inquireAnswer = mypageService.loadAnswerAjax(boardNo);
 		
-		return inquireAnswer;
+		System.out.println(inquireAnswer);
+		
+		return new Gson().toJson(inquireAnswer);
 	}
 	
 	//나의 작성 게시글 리스트 페이지 출력
