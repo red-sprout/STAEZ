@@ -20,6 +20,7 @@ import com.spring.staez.common.template.MyFileRenamePolicy;
 import com.spring.staez.common.template.Pagination;
 import com.spring.staez.community.model.dto.BoardListDto;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.mypage.service.MypageService;
 import com.spring.staez.user.model.dto.PaymentsInfoDto;
 import com.spring.staez.user.model.vo.ProfileImg;
@@ -351,6 +352,7 @@ public class MypageController {
 		}
 	}
 	
+	//선택한 찜공연 삭제
 	@RequestMapping("deleteMyScrap.me")
 	@ResponseBody
 	public String deleteMyScrapAjax(int concertNo, HttpSession session) {
@@ -366,4 +368,47 @@ public class MypageController {
 		return result > 0 ? "NNNNY" : "NNNNN";
 	}
 
+
+	//공연 리뷰 정보 받아오기(+공연정보)
+	@RequestMapping("loadReview.me")
+	@ResponseBody
+	public String loadOneLineReviewAjax(int concertNo, HttpSession session) {
+		int userNo = ((User)session.getAttribute("loginUser")).getUserNo(); //로그인 된 유저의 고유번호 불러오기
+
+		Map<String, Integer> params = new HashMap<>();
+		params.put("userNo", userNo);
+		params.put("concertNo", concertNo);
+		
+		ConcertReview info = mypageService.loadOneLineReviewAjax(params);
+		
+		return info != null ? new Gson().toJson(info) : null;
+	}
+	
+	//한줄평 리뷰 저장 및 수정
+	@RequestMapping("saveReview.me")
+	public String saveOneLineReview(ConcertReview concertReview, HttpSession session, Model model) {
+		int userNo = ((User)session.getAttribute("loginUser")).getUserNo(); //로그인 된 유저의 고유번호 불러오기
+		concertReview.setUserNo(userNo);
+		
+		System.out.println(concertReview);
+		
+		int result = 0;
+		if(concertReview.getReviewNo() == 0) { //getReviewNo 값이 0이라면 작성된 리뷰가 없다는 뜻 => insert
+			result = mypageService.insertOneLineReview(concertReview);
+		} else { // 아닐 경우 => update
+			result = mypageService.updateOneLineReview(concertReview);			
+		}
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "저장되었습니다");
+			return "redirect:/reviewList.me?cpage=1";
+		}
+		
+		session.setAttribute("alertMsg", "수정에 실패하였습니다");
+		model.addAttribute("contentPage", "oneLineReview");
+		return "mypage/mypageLayout";
+	
+	}
+	
+	
 }

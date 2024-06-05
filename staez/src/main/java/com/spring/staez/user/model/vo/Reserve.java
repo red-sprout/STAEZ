@@ -23,6 +23,6 @@ public class Reserve {
 	private Timestamp reserveDate; //예매날짜
 	private String payMethod; //결제방법
 	private Date concertDate; //공연날짜
-	private Date concertTimes; //공연회차
+	private String concertTimes; //공연일정(시간)
 	private String reserveStatus; //예약활성화여부
 }

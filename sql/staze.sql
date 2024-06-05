@@ -699,7 +699,7 @@ COMMENT ON COLUMN public.concert_schedule.concert_no
     IS '공연번호';
 
 COMMENT ON COLUMN public.concert_schedule.schedule
-    IS '일정';
+    IS '일정(시간)';
 
 COMMENT ON COLUMN public.concert_schedule.start_date
     IS '시작날짜';
@@ -775,9 +775,9 @@ CREATE TABLE public.reserve
     reserve_date timestamp with time zone NOT NULL DEFAULT now(),
     pay_method character varying(20) NOT NULL CHECK(pay_method IN('무통장입금', '카카오', '네이버', '토스')),
     concert_date date NOT NULL,
-    concert_times integer NOT NULL DEFAULT 1,
-    reserve_status character varying(1) NOT NULL CHECK(reserve_status IN ('Y', 'U', 'N')) DEFAULT 'U'
+    reserve_status character varying(1) NOT NULL CHECK(reserve_status IN ('Y', 'U', 'N')) DEFAULT 'U',
 	/*활성화된(결제된)예약(Y), 결제전예약(U) 만료된예약(N)*/
+    schedule character varying(20) NOT NULL
 );
 
 ALTER TABLE IF EXISTS public.reserve
@@ -810,11 +810,11 @@ COMMENT ON COLUMN public.reserve.pay_method
 COMMENT ON COLUMN public.reserve.concert_date
     IS '공연날짜';
 
-COMMENT ON COLUMN public.reserve.concert_times
-    IS '공연회차';
-
 COMMENT ON COLUMN public.reserve.reserve_status
     IS '예약활성화여부';
+
+COMMENT ON COLUMN public.reserve.schedule
+    IS '일정(시간)';
 
 
 
