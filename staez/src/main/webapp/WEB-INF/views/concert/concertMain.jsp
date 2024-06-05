@@ -24,9 +24,11 @@
         <jsp:include page="../common/header.jsp" />
         <!-- 적용 자바스크립트 -->
         <script src="<c:url value='/resources/js/api/concertapi.js'/>"></script>
-        <script src="<c:url value='/resources/js/concert/concertMain.js'/>"></script>   
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+        <script src="<c:url value='/resources/js/concert/concertMain.js'/>"></script>
+        
         <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> 
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+
     </div>
     <!-- 공연 navi -->
     <div class="concert-navi-div">
