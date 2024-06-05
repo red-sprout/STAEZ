@@ -129,8 +129,25 @@
 	<select id="findEmailCheck" resultType="string">
 		SELECT user_id
 		  FROM staez_user
-		 WHERE email = #{email}
+		 WHERE email = #{email};
 	</select>
 	
+	<!-- 유효성 검사 및 사용자 정보 확인 -->
+	<select id="findUserByIdEmailPhone" resultType="string">
+	    SELECT user_id, phone, email
+	      FROM staez_user
+	     WHERE user_id = #{userId}
+	       AND phone = #{phone}
+	       AND email = #{email};
+	</select>
+	
+	<!-- 새로운 비밀번호 저장 -->
+	<update id="updatePassword">
+	    UPDATE staez_user
+	      SET user_pwd = #{encPwd}
+	    WHERE user_id = #{userId} 
+	      AND phone = #{phone} 
+	      AND email = #{email}
+	</update>
 </mapper>
 

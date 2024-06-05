@@ -34,7 +34,7 @@ p{
 
 /* 테이블 */
 table {
-    max-width: 480px;
+    max-width: 550px;
 }
 
 /* 폼태그 */
@@ -66,10 +66,6 @@ input[type=checkbox] {
     cursor: pointer;
     transition: background 0.2s;
     outline: none;
-}
-
-#input-value-phone{
-    display: none;
 }
 
 #phone-suffix1, #phone-suffix2{
@@ -153,6 +149,13 @@ table td {
     min-width: 100px;
 }
 
+/* 아이디 보여줄 div */
+#findId-div {
+    display: flex; /* 플렉스박스 사용 */
+    justify-content: center; /* 가운데 정렬 */
+    align-items: center; /* 중앙 정렬 */
+}
+
 hr{
     border: 0.8px solid rgb(124, 124, 124);
     width: 100%;
@@ -174,6 +177,7 @@ hr{
     display: flex;
     justify-content:right;
     margin-bottom: 150px;
+    margin-top: 60px;
 
 }
 /* 버튼 상세 */
@@ -199,4 +203,16 @@ span{
     justify-content: center; /* 수평 가운데 정렬합니다. */
     align-items: center; /* 수직 가운데 정렬합니다. */
     margin: 0px 10px;
+}
+
+/* 입력값 합친거 안보여주는거 */
+#input-value-address,
+#input-value-phone,
+#input-value-email,
+#input-value-genreLike {
+    display: none;
+}
+
+#td-div{
+    display: flex;
 }
