@@ -127,6 +127,7 @@
                             <tr>
                                 <th colspan="2" class="findId-label">새 비밀번호</th>
                                 <td colspan="5"><input type="password" id="newPassword" name="newPassword"></td>
+                                <img src="${contextPath}/resources/img/user/pwd.png" id="pwdImg" alt="비밀번호 보기">
                             </tr>
                             <tr>
                                 <th colspan="2" class="findId-label">새 비밀번호 확인</th>
