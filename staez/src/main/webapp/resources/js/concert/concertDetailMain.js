@@ -36,7 +36,7 @@ function drawConNavi(conList){
 function reservePage(){
     const concertNo =  $("input[name='concertNo']").val();
     const userNo =  $("input[name='userNo']").val();
-    window.open(`/staez/selectDate.co?concertNo=`+concertNo+`&`+`userNo=`+userNo+` , "_blank", "width=1001, height=601, scrollbars=no"`);
+    window.open(`/staez/selectDate.co?concertNo=`+concertNo+`&userNo=`+userNo , "_blank", "width=1001, height=601, scrollbars=no");
 }
 
 
