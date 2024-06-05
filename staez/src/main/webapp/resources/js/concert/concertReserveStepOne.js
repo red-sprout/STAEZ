@@ -209,7 +209,6 @@ navs.forEach(nav => {
         
     
         date = new Date(year, month, new Date().getDate());
-        // spanDayChange3(year, month);
         
     });
 });
