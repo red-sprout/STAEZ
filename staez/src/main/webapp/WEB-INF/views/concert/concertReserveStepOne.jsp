@@ -55,23 +55,20 @@
                     </div>
                     <div class="round-time-choice-area">
                         <div class="choice-date-span-area"><span class="choice-date-span"></span></div>
-                        <!-- <div class="round-area"><span>회차(관람시간)</span></div>
-                        <div class="round-time-area">
-                            <span>14시 00분</span>
+                        <div class="round-area hidden"><span>회차(관람시간)</span></div>
+                        <div class="schedule-container">
+                            <!-- <div class="round-time-area">
+                                <span>14시 00분</span>
+                            </div> -->
+                            
                         </div>
-                        <div class="round-time-area choice-time">
-                            <span>16시 00분</span>
-                        </div>
-                        <div class="round-time-area">
-                            <span>20시 00분</span>
-                        </div> -->
                     </div>
                     <div class="seat-rating-choice-area">
-                        <!-- <div class="remaining-seat-rating-area">
-                            <span>좌석등급/잔여석</span>
+                        <div class="remaining-seat-rating-area">
+                            
                         </div>
-                        <div class="remaining-seat-rating-info">
-                            <div class="rating-area">
+                        <div class="remaining-seat-rating-info hidden">
+                            <!-- <div class="rating-area">
                                 <div class="rating-color"></div>
                                 <span class="rating-name">R석</span>
                                 <img class="divide" src="${contextPath}/resources/img/concert/divide.png" alt="">
@@ -88,8 +85,8 @@
                                 <span class="rating-name">A석</span>
                                 <img class="divide" src="${contextPath}/resources/img/concert/divide.png" alt="">
                                 <span class="seat-count">73석</span>
-                            </div>
-                        </div> -->
+                            </div> -->
+                        </div>
                     </div>
                 </div>
                 <div class="precautions-area">
@@ -123,7 +120,7 @@
                         <div class="my-reserve-time">
                             <div><span>일시</span></div>
                             <span class="my-reserve-time-value">
-                                0000-00-00 00시00분
+                               
                             </span>
                         </div>       
                     </div>  
@@ -135,10 +132,14 @@
                         <span>원</span>
                     </div>
                 </div>
-                <div class="next-step-area" onclick="location.href='selectSeat.co'">
-                    <span>다음단계</span>
-                    <img src="${contextPath}/resources/img/concert/nextArrow.png" alt=""> 
-                </div>
+                <form class="next-step-container hidden" action="selectSeat.co" method="POST">
+                    <input type="hidden" name="concertNo" value="${concert.concertNo}">
+                    <input type="hidden" name="reserveDate" value="">
+                    <div class="next-step-area">
+                        <button type="submit">다음단계</button>
+                        <img src="${contextPath}/resources/img/concert/nextArrow.png" alt=""> 
+                    </div>
+                </form>
             </div>
         </div>
         <script src="${contextPath}/resources/js/api/concertReserveapi.js"></script>

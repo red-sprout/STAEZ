@@ -25,6 +25,59 @@
 	    <result column="path" property="path"/>
    </resultMap>
    
+   <resultMap type="ConcertSchedule" id="ConcertScheduleResult">
+	    <result column="schedule_no" property="scheduleNo"/>
+	    <result column="concert_no" property="concertNo"/>
+	    <result column="schedule" property="schedule"/>
+	    <result column="start_date" property="startDate"/>
+	    <result column="end_date" property="endDate"/>
+	    <result column="concert_times" property="concertTimes"/>
+	    <result column="status" property="status"/>
+   </resultMap>
+   
+   <resultMap type="Seat" id="SeatResult">
+	    <result column="seat_id" property="seatId"/>
+	    <result column="concert_no" property="concertNo"/>
+	    <result column="grade" property="grade"/>
+	    <result column="price" property="price"/>
+	    <result column="concert_date" property="concertDate"/>
+	    <result column="seat_start_row" property="seatStartRow"/>
+	    <result column="seat_end_row" property="seatEndRow"/>
+	    <result column="seat_start_col" property="seatStartCol"/>
+	    <result column="seat_end_col" property="seatEndCol"/>
+	    <result column="status" property="status"/>
+	    <result column="seat_count" property="seatCount"/>
+   </resultMap>
+   
+   <resultMap type="Theater" id="theaterResult">
+		<result column="theater_no" property="theaterNo"/>
+		<result column="theater_name" property="theaterName"/>
+		<result column="theater_row" property="theaterRow"/>
+		<result column="theater_col" property="theaterCol"/>
+		<result column="address" property="address"/>
+		<result column="telno" property="telno"/>
+	</resultMap>
+	
+	<resultMap type="ImpossibleSeat" id="impossibleSeatResult">
+		<result column="impossible_seat_no" property="impossibleSeatNo"/>
+		<result column="theater_no" property="theaterNo"/>
+		<result column="impossible_seat_row" property="impossibleSeatRow"/>
+		<result column="impossible_seat_col" property="impossibleSeatCol"/>
+	</resultMap>
+	
+	<resultMap type="Reserve" id="reserveResult">
+		<result column="reserve_no" property="reserveNo" />
+		<result column="concert_no" property="concertNo" />
+		<result column="user_no" property="userNo" />
+		<result column="reserve_row" property="reserveRow" />
+		<result column="reserve_col" property="reserveCol" />
+		<result column="reserve_date" property="reserveDate" />
+		<result column="pay_method" property="payMethod" />
+		<result column="concert_date" property="concertDate" />
+		<result column="concert_times" property="concertTimes" />
+		<result column="reserve_status" property="reserveStatus" />
+	</resultMap>
+   
    <select id="reserveConcertInfo" resultMap="concertResult">
 		select 
 			c.concert_no, 
@@ -45,10 +98,76 @@
    </select>
    
    <select id="selectConcertPeriod" resultMap="concertResult">
-   select concert_no, min(start_date) start_date, max(end_date) end_Date 
-	from concert_schedule
-	where concert_no = #{cNo}
-	and schedule != 'N'
-	group by concert_no
+	   select concert_no, min(start_date) start_date, max(end_date) end_Date 
+		from concert_schedule
+		where concert_no = #{cNo}
+		and schedule != 'N'
+		group by concert_no
+   </select>
+   
+   <select id="selectConcertDayOff" resultMap="concertResult">
+	   select concert_no, start_date, end_date  
+		from concert_schedule
+		where concert_no = #{cNo}
+		and schedule = 'N'
+   </select>
+   
+   <select id="selectChoiceDateSchedule" resultMap="ConcertScheduleResult"  parameterType="Map">
+		select concert_no, schedule
+		from concert_schedule
+		where concert_no = #{cNo}
+		and schedule != 'N'
+		and #{date}::date between start_date and end_date 
+   </select>
+   
+   <select id="selectRatingTotalSeat" resultMap="SeatResult" parameterType="Map">
+	   select concert_no,
+			grade,
+			price,
+			concert_date,
+			((seat_end_row - seat_start_row + 1) * (seat_end_col - seat_start_col + 1)) seat_count,
+			seat_start_row,
+			seat_start_col,
+			seat_end_row,
+			seat_end_col
+		from seat 
+		where concert_no = #{cNo}
+		and concert_date = #{date}::date
+   </select>
+   
+   <select id="selectReserveRatingSeat" resultMap="SeatResult" parameterType="Map">
+	   select  s.grade, count(r.reserve_no) seat_count
+		from(select reserve_no, concert_no, reserve_row, reserve_col, concert_date, schedule
+				from reserve
+				where concert_no = #{cNo}
+				and concert_date = #{date}::date
+				and schedule = #{time}
+				and (reserve_status = 'Y' or reserve_status = 'U')) r
+		join seat s on (r.concert_no = s.concert_no)
+		where r.reserve_row between s.seat_start_row and s.seat_end_row
+		and r.reserve_col between s.seat_start_col and s.seat_end_col
+		and s.concert_Date = #{date}::date
+		group by s.grade
+   </select>
+   
+   <select id="selectTheaterSeatInfo" resultMap="theaterResult">
+	   select theater_no, theater_name, theater_row, theater_col, address, telno
+		from theater
+		where theater_name = #{theaterName}
+   </select>
+   
+   <select id="selectImpossibleSeatInfo" resultMap="impossibleSeatResult">
+	   select impossible_seat_no, theater_no, impossible_seat_row, impossible_seat_col
+		from impossible_seat
+		where theater_no = #{theaterNo}
+   </select>
+   
+   <select id="selectReserveSeatInfo" resultMap="reserveResult" parameterType="Map">
+   select concert_no, reserve_row, reserve_col
+	from reserve
+	where (reserve_status = 'Y' or reserve_status = 'U')
+	and schedule = #{time}
+	and concert_date = #{date}::date
+	and concert_no = #{cNo}
    </select>
 </mapper>
