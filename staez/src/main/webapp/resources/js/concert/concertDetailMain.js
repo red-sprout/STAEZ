@@ -5,10 +5,10 @@ $(function() {
     conNaviDraw(conList => drawConNavi(conList));
 
     // 하트 insert, update
-    likeUpdate({ "userNo" : userNo, "concertNo" : concertNo}, (result) => drawLikeUpdate(result))
+    // likeUpdate({ "userNo" : userNo, "concertNo" : concertNo}, (result) => drawLikeUpdate(result))
     
     //하트 카운트
-    likeCount({"concertNo" : concertNo}, (result) => drawLikeCount(result))
+    likeCount({ "userNo" : userNo, "concertNo" : concertNo}, (result) => drawLikeCount(result))
     
     conDetail({"concertNo" : concertNo}, (result) => drawConDetail(result))
 });
@@ -34,10 +34,13 @@ function drawConNavi(conList){
 
   // 예매버튼 클릭
 function reservePage(){
-    window.open('/staez/selectDate.co' , "_blank", "width=1001, height=601, scrollbars=no");
+    const concertNo =  $("input[name='concertNo']").val();
+    const userNo =  $("input[name='userNo']").val();
+    window.open(`/staez/selectDate.co?concertNo=`+concertNo+`&userNo=`+userNo , "_blank", "width=1001, height=601, scrollbars=no");
 }
 
 
+// 세부 내용 ajax로 값받아오기
 function goSellDetail(){
     const concertNo =  $("input[name='concertNo']").val();
     conSellDetail({"concertNo" : concertNo}, (result) => drawConSellDetail(result))
@@ -56,44 +59,51 @@ function goReviewDetail(){
 
 
 
-// let heartClick = document.getElementsByClassName("concert-detail-like-button");
-// heartClick.addEventListener("click", function(){
-// });
-
-
 
 // 좋아요 누르기 구현
 function drawLikeCount(result){
 
-    console.log(result)
-    const likeSection = document.querySelector(".concert-detail-like-button");
-    // drawSpan.innerHTML = insertLike.length;
-    // likeSection.innerHTML = ``;
-    for(let c of insertLike){
-        likeSection.innerHTML = `<i class="fa-regular fa-heart"></i>
-                                 <input type="checkbox" class="hidden" name="conHeart">
-                                 <span class="concert-likeCount">`+ insertLike.length +`</span>` 
-    }
-    const emptyLike = likeSection.children[0].classList.toggle("fa-solid");
-    const fillLike = likeSection.children[0].classList.toggle("fa-regular");
+    // const empty = document.querySelector(".fa-regular");
+    // const fill = document.querySelector(".fa-solid");
+    const heart = document.querySelector(".fa-heart");
+    const span = document.querySelector(".concert-likeCount");
+    console.log("userConLikeCount:" + result.userConLikeCount)
 
-    likeSection.addEventListener("click", function(event) {
-        likeToggle(event.currentTarget, userNo);
-    });
-}
-  
-    // 찜버튼(하트)눌러서 색 채우기
-function likeToggle(target, userNo){
-    console.log("target" + target.children[0]);
-    if(userNo == null){
-
-        target.children[0].classList.toggle("fa-solid");
-
+    if(result.userConLikeCount == 1){ // 좋아요 한 적 있으면: 1이랑 0으로 오는구나
+        heart.classList.add("fa-solid"); // 하트 채워라
+        heart.classList.remove("fa-regular");
     } else {
-        target.children[0].classList.toggle("fa-regular");
+        heart.classList.remove("fa-solid");
+        heart.classList.add("fa-regular");
     }
 
- }
+    // const heart = result.userConLikeCount ? fill : empty // a유저가 1이라는 콘서트에 좋아요한 갯수 status Y
+    span.innerHTML = result.conLikeCount // 콘서트가 가진 좋아요 총 갯수 status Y
+}
+
+    // 찜버튼(하트)눌러서 색 채우기
+
+    function likeToggle(_this) {
+        _this.children[0].classList.toggle("fa-solid");
+        _this.children[0].classList.toggle("fa-regular");
+        const span = document.querySelector(".concert-likeCount");
+
+        const data = {
+            "concertNo": document.querySelector("input[name=concertNo]").value,
+            "userNo": document.querySelector("input[name=userNo]").value
+        };    
+
+        if(_this.children[0].classList.contains('fa-solid')) { // fa-regular이 하트 빈상태
+            // ajax 요청 보내기
+            data.status = "Y";
+            likeUpdate(data, (result) => span.innerHTML = result);
+        } else {
+            // ajax 요청 보내기
+            data.status = "N";
+            likeUpdate(data, (result) => span.innerHTML = result);
+        }
+    }
+
 
 
 function drawConDetail(result){
@@ -116,6 +126,7 @@ function drawConDetail(result){
                                   `</div>
                                 </div>
                               <br><br>`
+
 conDetail1.onclick = function goConDetail(){
     location.href = 'detail.co?concertNo=' + c.concertNo;
     }
@@ -259,6 +270,8 @@ function drawConSellDetail(result){
 
                           }
     }
+
+
 
 function drawCommentDetail(result){
     const drawSection = document.querySelector(".concert-detail-down-section");

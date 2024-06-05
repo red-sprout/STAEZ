@@ -95,7 +95,7 @@
 				cl.concert_no, 
 				min(cs.start_date) as start_date,
 				max(cs.end_date) as end_date,
-				count(cl.concert_no) as countlike
+				count(distinct cl.concert_like_no) as countlike
 				from concert_like cl
 				join concert c using (concert_no)
 				join concert_schedule cs on (c.concert_no = cs.concert_no)
