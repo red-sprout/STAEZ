@@ -13,9 +13,8 @@
     <link rel="stylesheet" href="${contextPath}/resources/css/main.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/user/findPwd.css">
     <!-- Bootstrap 4 Tutorial -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <title>비밀번호 찾기</title>
 </head>
 <body onload="init()">
@@ -23,7 +22,6 @@
         <!-- js -->
         <script src="${contextPath}/resources/js/api/userapi.js"></script>
         <script src="${contextPath}/resources/js/user/findPwdForm.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </header>
     <main>
         <a href="${contextPath}/index.jsp"><img src="${contextPath}/resources/img/user/STAEZ_logo.png" alt="STAEZ로고"></a>
@@ -103,45 +101,46 @@
                         <td colspan="4">
                             <div class="insert-member-div">
                                 <button type="button" id="backButton">이전</button>
-                                <button type="button" id="findEmailCheck" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clickIdPhoneEmail()">다음</button>
+                                <button type="button" id="findEmailCheck" class="btn btn-primary" onclick="clickIdPhoneEmail()" disabled>다음</button>
                             </div>
                         </td>
                     </tr>
                 </table>
             </div>
-            <!-- The Modal -->
-            <div class="modal" id="myModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+        </form>
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">새로운 비밀번호를 입력하세요.</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
                     
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">새로운 비밀번호를 입력하세요.</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        
-                        <!-- Modal body -->
-                        <div id="emailNewPwd" class="modal-body">
-                            <table id="findId-div">
-                                <tr>
-                                    <th colspan="2" class="findId-label">새 비밀번호</th>
-                                    <td colspan="5"><input type="password" id="newPassword" name="newPassword"></td>
-                                </tr>
-                                <tr>
-                                    <th colspan="2" class="findId-label">새 비밀번호 확인</th>
-                                    <td colspan="5"><input type="password" id="confirmNewPassword" name="confirmNewPassword"></td>
-                                </tr>
-                            </table>
-                        </div>
-                        
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="button" id="loginButton" class="btn btn-danger" onclick="clickNewPwd()">변경하기</button>
-                        </div>
+                    <!-- Modal body -->
+                    <div id="emailNewPwd" class="modal-body">
+                        <table id="findId-div">
+                            <tr>
+                                <th colspan="2" class="findId-label">새 비밀번호</th>
+                                <td colspan="5"><input type="password" id="newPassword" name="newPassword"></td>
+                            </tr>
+                            <tr>
+                                <th colspan="2" class="findId-label">새 비밀번호 확인</th>
+                                <td colspan="5"><input type="password" id="confirmNewPassword" name="confirmNewPassword"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" id="loginButton" class="btn btn-danger" onclick="clickNewPwd()">변경하기</button>
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
+
     </main>
     <footer>
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />

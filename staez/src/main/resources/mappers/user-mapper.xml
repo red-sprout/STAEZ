@@ -145,7 +145,7 @@
 	<update id="updatePassword">
 	    UPDATE staez_user
 	      SET user_pwd = #{encPwd}
-	    WHERE user_id = #{user_id} 
+	    WHERE user_id = #{userId} 
 	      AND phone = #{phone} 
 	      AND email = #{email}
 	</update>

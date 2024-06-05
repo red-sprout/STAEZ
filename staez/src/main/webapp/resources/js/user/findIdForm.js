@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     emailSecretCode();
     // 버튼 클릭시 색상변경
     checkButton();
-    // 모달) 로그인 버튼 클릭 이벤트
+    // 모달) 로그인 버튼 클릭 이벤트    
     LoginPage();
     // 모달) 비밀번호 찾기 클릭 이벤트
     PwdFindPage();

@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
     emailSecretCode();
     // 핸드폰 번호 전송 처리
     signinPhoneNumber();
+    // 버튼 클릭시 색상변경
+    checkButton();
 });
 //이전페이지
 function backPage(){
@@ -204,7 +206,8 @@ function clickIdPhoneEmail() {
     clickIdPhoneEmailSelect({ userId: id, phone: phone, email: email }, function(res) {
         console.log(res);
         if (res.trim() === "New Pwd Go") {
-            $('#myModal').modal('show');
+            // 모달 대신에 스타일을 변경하여 모달을 보이게 함
+            document.getElementById("myModal").style.display = "block";
         } else {
             alert("사용자 정보를 찾을 수 없습니다.");
         }
@@ -232,6 +235,7 @@ function clickNewPwd() {
         console.log(res);
         if (res.trim() === "Password Changed") {
             alert("비밀번호가 성공적으로 변경되었습니다.");
+            window.location.href = "/staez/loginForm.me"; // 변경 성공 시 로그인 페이지로 이동
         } else {
             alert("비밀번호 변경에 실패했습니다.");
         }
@@ -282,4 +286,24 @@ function sendPhoneNumber() {
 
     // input-value-phone 필드에 번호 설정
     inputValueElement.value = phoneNumber;
+}
+
+// 버튼 클릭시 색상변경
+function checkButton(){
+    var buttons = document.querySelectorAll(".check_button");
+
+    // 각 버튼에 대해 반복
+    buttons.forEach(function(button) {
+        // 클릭 이벤트 리스너 추가
+        button.addEventListener("mousedown", function() {
+        // 버튼에 clicked 클래스 추가
+        button.classList.add("clicked");
+        });
+        
+        // 마우스 버튼에서 떼었을 때
+        button.addEventListener("mouseup", function() {
+        // 버튼에 clicked 클래스 제거
+        button.classList.remove("clicked");
+        });
+    });
 }

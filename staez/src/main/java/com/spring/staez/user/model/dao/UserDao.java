@@ -74,14 +74,20 @@ public class UserDao {
 	}
 
 	//새로운 비밀번호 저장
-	public int updatePassword(String user_id, String phone, String email, String encPwd) {
+	public int updatePassword(SqlSessionTemplate sqlSession, String user_id, String phone, String email, String encPwd) {
 	    Map<String, Object> params = new HashMap<>();
-	    params.put("user_id", user_id);
+	    params.put("userId", user_id);
 	    params.put("phone", phone);
 	    params.put("email", email);
-	    params.put("password", encPwd);
+	    params.put("encPwd", encPwd);
 
-	    return sqlSession.update("UserMapper.updatePassword", params);
+	    // 디버깅: 파라미터 출력
+	    System.out.println("updatePassword params: " + params);
+
+	    int result = sqlSession.update("userMapper.updatePassword", params);
+	    System.out.println("update Dao result: " + result);
+
+	    return result;
 	}
 
 }

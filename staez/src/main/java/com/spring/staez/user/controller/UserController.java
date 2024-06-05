@@ -222,15 +222,15 @@ public class UserController {
 
         // 암호화 작업
         String encPwd = bcryptPasswordEncoder.encode(newPassword);
+        System.out.println("암호화된 비밀번호 : " + encPwd);
 
         // 새로운 비밀번호와 함께 유저 정보를 업데이트
         int result = userService.updatePassword(user_id, phone, email, encPwd);
+        System.out.println("받아온 result : " + result);
 
         if (result > 0) {
-            session.setAttribute("alertMsg", "성공적으로 비밀번호 변경이 완료되었습니다.");
-            return "redirect:/";
+            return "Password Changed";
         } else {
-            session.setAttribute("alertMsg", "비밀번호 변경에 실패하였습니다.");
             return "no";
         }
     }
