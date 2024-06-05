@@ -323,27 +323,10 @@
     line-height: 1;
 }
 
-.remaining-seat-rating-info .rating-area:nth-child(1)>div{
+.rating-color{
     width: 20px;
     height: 20px;
     border: none;
-    background: #640D6B;
-    margin: 0px 5px;
-}
-
-.remaining-seat-rating-info .rating-area:nth-child(2)>div{
-    width: 20px;
-    height: 20px;
-    border: none;
-    background: #42FF00;
-    margin: 0px 5px;
-}
-
-.remaining-seat-rating-info .rating-area:nth-child(3)>div{
-    width: 20px;
-    height: 20px;
-    border: none;
-    background: #1400FF;
     margin: 0px 5px;
 }
 
@@ -525,7 +508,6 @@
 
 .next-step-area{
     width: 100%;
-    height: 8%;
     background: #E65C19;
     display: flex;
     align-items: center;
@@ -562,9 +544,15 @@
     right: 5px;
 }
 
-.next-step-area span{
+.next-step-area button{
     font-size: 24px;
     color: white;
+    background: none;
+    border: none;
+}   
+
+.hidden{
+    display: none;
 }
 
 

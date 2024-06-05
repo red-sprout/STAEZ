@@ -33,7 +33,7 @@ public class Concert {
 	private int categoryNo; //카테고리번호
 	private String categoryName; //카테고리이름
 	private String theaterName; //공영장명
-	
+	private String path;  //filePath+changeName
 	private String reviewContent; //한줄평 내용
 	private String concertDate; //예약한 공연날짜
 	private int score; //별점

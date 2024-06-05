@@ -25,4 +25,5 @@ public class Seat {
 	private int seatStartCol; //좌석시작열
 	private int seatEndCol; //좌석끝열
 	private String status; //좌석활성화여부
+	private int seatCount; //sql문 조건에 맞는 좌석개수
 }
