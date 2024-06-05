@@ -5,6 +5,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <link rel="stylesheet" href="${contextPath}/resources/css/mypage/myInquireList.css">
 <script src="${contextPath}/resources/js/mypage/myInquireList.js"></script>
+<script src="${contextPath}/resources/js/api/mypageapi.js"></script>
 
 <div class="main-content">
     <div class="section-title">문의</div>
@@ -15,23 +16,25 @@
 
     <div id="inq-section">
         <ul>
-            <c:forEach var="i" begin="0" end="7">
+            <c:forEach var="b" items="${blist}">
             <li class="menu-item">
                 <div class="inq-info">
-                    <span class="inq-cate">분류</span>
-                    <span class="inq-title">환불 가능할까요?</span>
-                    <span class="inq-date">2024-04-01</span>
-                    <span class="folding-icon">▼</span>
+                    <span class="inq-cate">${b.categoryName}</span>
+                    <span class="inq-title">${b.boardTitle}</span>
+                    <span class="inq-date"><fmt:formatDate value="${b.boardWriteDate}" pattern="yyyy-MM-dd" /></span>
+                    <img src="${contextPath}/resources/img/inquire/up.png">
                 </div>
                 <div class="fold-content hidden">
                     <div class="inquire">
                         <p class="fold-title"><h3>문의내용</h3></p>
-                        <p>급한 사정이 생겨 예매 날짜에 가지 못하게됐습니다. 환불해주세요</p>
+                        <p class="fold-content">${b.boardContent}</p>
                     </div>
                     <hr>
                     <div class="answer">
+                        <input type="hidden" value="${b.boardNo}" name="inquireBoardNo">
                         <p class="fold-title"><h3>답변내용</h3></p>
-                        <p>안됩니다</p> <!--답변이 null 일 경우 '답변을 기다리는 중입니다.'-->
+                        <p class="fold-content"></p> <!--답변이 null 일 경우 '답변을 기다리는 중입니다.'-->
+                        <p class="fold-answer-date"></p>
                     </div>
                 </div>
             </li>
@@ -44,22 +47,32 @@
 
 
     <div class="page-list">
-        <div class="pagination">
-            <img src="${contextPath}/resources/img/main/before.png">
-        </div>
-        <div class="pagination current"><h4>1</h4></div>
-        <div class="pagination"><h4>2</h4></div>
-        <div class="pagination"><h4>3</h4></div>
-        <div class="pagination"><h4>4</h4></div>
-        <div class="pagination"><h4>5</h4></div>
-        <div class="pagination"><h4>6</h4></div>
-        <div class="pagination"><h4>7</h4></div>
-        <div class="pagination"><h4>8</h4></div>
-        <div class="pagination"><h4>9</h4></div>
-        <div class="pagination"><h4>10</h4></div>
-        <div class="pagination">
-            <img src="${contextPath}/resources/img/main/after.png">
-        </div>
+        <c:if test="${pi.listCount != 0}">
+            <c:if test="${pi.currentPage != 1}">
+                <div class="pagination">
+                    <img src="${contextPath}/resources/img/main/before.png" 
+                         onclick='location.href="${contextPath}/inquireList.me?cpage=${pi.currentPage - 1}"'>
+                </div>
+            </c:if>
+            
+            <c:forEach var="i" begin="${pi.startPage}" end="${pi.endPage}">
+                <c:choose>
+                    <c:when test="${pi.currentPage eq i}">
+                        <div class="pagination current" onclick="location.href='${contextPath}/inquireList.me?cpage=${i}'"><h4>${i}</h4></div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="pagination" onclick="location.href='${contextPath}/inquireList.me?cpage=${i}'"><h4>${i}</h4></div>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+            
+            <c:if test="${pi.currentPage ne pi.maxPage}">
+                <div class="pagination">
+                    <img src="${contextPath}/resources/img/main/after.png" 
+                         onclick='location.href="${contextPath}/inquireList.me?cpage=${pi.currentPage + 1}"'>
+                </div>
+            </c:if>
+        </c:if>
     </div>
 
 </div>

@@ -47,12 +47,12 @@ $(function() {
                 profileImg.attr('src', $('#contextPath').val() + res.filePath + res.changeName); 
                 profilePreview.attr('src', $('#contextPath').val() + res.filePath + res.changeName); 
             } else{
-                profileImg.attr('src', $('#contextPath').val() + res.filePath + 'profile_img_default.png'); 
-                profilePreview.attr('src', $('#contextPath').val() + res.filePath + 'profile_img_default.png'); 
+                profileImg.attr('src', $('#contextPath').val() + res.filePath + 'basic_profile.jpg'); 
+                profilePreview.attr('src', $('#contextPath').val() + res.filePath + 'basic_profile.jpg'); 
             }
         } else{
-            profileImg.attr('src', $('#contextPath').val() + res.filePath + 'profile_img_default.png'); 
-            profilePreview.attr('src', $('#contextPath').val() + res.filePath + 'profile_img_default.png');         }
+            profileImg.attr('src', $('#contextPath').val() + res.filePath + 'basic_profile.jpg'); 
+            profilePreview.attr('src', $('#contextPath').val() + res.filePath + 'basic_profile.jpg');         }
     });
 });
 
@@ -72,10 +72,10 @@ $(function() {
             if(res.changeName !== undefined){
                 currentImageSrc = $('#contextPath').val() + res.filePath + res.changeName; 
             } else{
-                currentImageSrc = $('#contextPath').val() + res.filePath + 'profile_img_default.png'; 
+                currentImageSrc = $('#contextPath').val() + res.filePath + 'basic_profile.jpg'; 
             }
         } else{
-            currentImageSrc = $('#contextPath').val() + res.filePath + 'profile_img_default.png'; 
+            currentImageSrc = $('#contextPath').val() + res.filePath + 'basic_profile.jpg'; 
         }
          
     });
