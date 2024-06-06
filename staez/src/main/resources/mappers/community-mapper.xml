@@ -7,23 +7,24 @@
 <mapper namespace="communityMapper">
 	<resultMap type="Board" id="boardResult">
 		<result column="board_no" property="boardNo" />
+		<result column="ref_board_no" property="refboardNo" />
 		<result column="user_no" property="userNo" />
-		<result column="refBoardNo" property="userId" />
-		<result column="user_pwd" property="userPwd" />
+		<result column="user_Id" property="userId" />
 		<result column="nickname" property="nickname" />
-		<result column="gender" property="gender" />
-		<result column="birth" property="birth" />
-		<result column="address" property="address" />
-		<result column="email" property="email" />
-		<result column="phone" property="phone" />
-		<result column="genre_like" property="genreLike" />
-		<result column="grade" property="grade" />
-		<result column="enroll_date" property="enrollDate" />
-		<result column="withdrawal_date" property="withdrawalDate" />
-		<result column="user_status" property="userStatus" />
+		<result column="board_level" property="boardLevel" />
+		<result column="board_code" property="boardCode" />
 		<result column="board_write_date" property="boardWriteDate" />
 		<result column="board_title" property="boardTitle" />
 		<result column="board_content" property="boardContent" />
+		<result column="board_count" property="boardCount" />
+		<result column="board_status" property="boardStatus" />
+		<result column="category_no" property="categoryNo" />
+		<result column="category_name" property="categoryName" />
+		<result column="ref_category_no" property="refCategoryNo" />
+		<result column="category_level" property="categoryLevel" />
+		<result column="concert_no" property="concertNo" />
+		<result column="like_count" property="likeCount" />
+		<result column="path" property="path" />
 	</resultMap>
 	<resultMap type="Category" id="categoryResult">
 		<result column="category_no" property="categoryNo"/>

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.spring.staez.admin.model.dto.AdminUserSearchDto;
+import com.spring.staez.admin.model.dto.AdminSearchDto;
 import com.spring.staez.admin.model.dto.AdminUserSelectDto;
 import com.spring.staez.admin.service.AdminUserService;
 import com.spring.staez.common.model.vo.PageInfo;
@@ -33,7 +33,7 @@ public class AdminUserController {
 	
 	@ResponseBody
 	@GetMapping(value = "adminSelect.me", produces = "application/json; charset-UTF-8")
-	public String adminSelectUser(AdminUserSearchDto dto, String currentPage) {
+	public String adminSelectUser(AdminSearchDto dto, String currentPage) {
 		int listCount = adminUserService.selectUserCnt(dto);
 		int cPage = Integer.parseInt(currentPage);
 		

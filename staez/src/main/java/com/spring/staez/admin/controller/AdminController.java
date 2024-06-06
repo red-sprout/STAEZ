@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -19,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.spring.staez.admin.model.dto.AdminBoardSelectDto;
+import com.spring.staez.admin.model.dto.AdminSearchDto;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.admin.model.vo.ConcertSchedule;
 import com.spring.staez.admin.model.vo.ImpossibleSeat;
@@ -27,10 +28,10 @@ import com.spring.staez.admin.service.AdminService;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.common.template.MyFileRenamePolicy;
 import com.spring.staez.common.template.Pagination;
-import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.Theater;
+import com.spring.staez.user.model.vo.User;
 
 @Controller
 public class AdminController {
@@ -115,10 +116,51 @@ public class AdminController {
 	
 	// 카테고리 정보 불러오기
 	@ResponseBody
-	@GetMapping(value = "category.ad", produces = "application/json; charset-UTF-8")
+	@GetMapping(value = "category.ad", produces = "application/json; charset=UTF-8")
 	public String ajaxCategory(String refCategoryNo) {
 		ArrayList<Category> list = adminService.selectFaqCategory(Integer.parseInt(refCategoryNo));
 		return new Gson().toJson(list);
+	}
+	
+	// 커뮤니티 정보 불러오기
+	@ResponseBody
+	@GetMapping(value = "adminSelect.cm", produces = "application/json; charset=UTF-8")
+	public String adminSelectCommunity(AdminSearchDto dto, String currentPage) {
+		int listCount = adminService.selectBoardCnt(dto);
+		int cPage = Integer.parseInt(currentPage);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, cPage, 10, 10);
+		ArrayList<User> list = adminService.selectBoard(dto, pi);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("pagination", pi);
+		map.put("communityList", list);
+		
+		return new Gson().toJson(map);
+	}
+	
+	// 선택한 게시글 삭제
+	@ResponseBody
+	@PostMapping(value = "adminDelete.cm", produces = "text/plain; charset=utf-8")
+	public String adminDeleteUser(AdminBoardSelectDto dto) {
+		int result = adminService.deleteBoard(dto);
+		if(result == 0) {
+			return "게시글 삭제 실패";
+		} else {
+			return "성공적으로 삭제 처리하였습니다.";
+		}
+	}
+	
+	// 선택한 카테고리 수정
+	@ResponseBody
+	@PostMapping(value = "adminUpdateCategory.cm", produces = "text/plain; charset=utf-8")
+	public String adminUpdateCategory(AdminBoardSelectDto dto) {
+		int result = adminService.updateBoardCategory(dto);
+		if(result == 0) {
+			return "카테고리 수정 실패";
+		} else {
+			return "성공적으로 수정하였습니다.";
+		}
 	}
 	
 	// FAQ 등록

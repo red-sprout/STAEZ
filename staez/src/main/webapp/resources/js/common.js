@@ -16,6 +16,8 @@ const boardCodeMap = {
     report: 5
 }
 
+const removableTags = ["<p>", "</p>", "<div>", "</div>"];
+
 function init() {
     const url = window.location.pathname.split("/")[2];
     const menubarArr = ["main.co", "main.cm", "main.no", "main.iq", "userList.ad"];

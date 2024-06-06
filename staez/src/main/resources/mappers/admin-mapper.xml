@@ -7,24 +7,24 @@
 <mapper namespace="adminMapper">
 	<resultMap type="Board" id="boardResult">
 		<result column="board_no" property="boardNo" />
+		<result column="ref_board_no" property="refboardNo" />
 		<result column="user_no" property="userNo" />
-		<result column="user_pwd" property="userPwd" />
+		<result column="user_Id" property="userId" />
 		<result column="nickname" property="nickname" />
-		<result column="gender" property="gender" />
-		<result column="birth" property="birth" />
-		<result column="address" property="address" />
-		<result column="email" property="email" />
-		<result column="phone" property="phone" />
-		<result column="genre_like" property="genreLike" />
-		<result column="grade" property="grade" />
-		<result column="enroll_date" property="enrollDate" />
-		<result column="withdrawal_date" property="withdrawalDate" />
-		<result column="user_status" property="userStatus" />
-		<result column="board_title" property="boardTitle" />
+		<result column="board_level" property="boardLevel" />
+		<result column="board_code" property="boardCode" />
 		<result column="board_write_date" property="boardWriteDate" />
+		<result column="board_title" property="boardTitle" />
 		<result column="board_content" property="boardContent" />
-		<result column="category_no" property="categoryNo"/>
-		<result column="category_name" property="categoryName"/>
+		<result column="board_count" property="boardCount" />
+		<result column="board_status" property="boardStatus" />
+		<result column="category_no" property="categoryNo" />
+		<result column="category_name" property="categoryName" />
+		<result column="ref_category_no" property="refCategoryNo" />
+		<result column="category_level" property="categoryLevel" />
+		<result column="concert_no" property="concertNo" />
+		<result column="like_count" property="likeCount" />
+		<result column="path" property="path" />
 	</resultMap>
 	<resultMap type="Category" id="categoryResult">
 		<result column="category_no" property="categoryNo"/>
@@ -430,7 +430,7 @@
 		order by theater_no desc
 	</select>
 	<!-- 관리자의 유저 정보 변경 페이지 -->
-	<select id="selectUserCnt" parameterType="com.spring.staez.admin.model.dto.AdminUserSearchDto" resultType="_int">
+	<select id="selectUserCnt" parameterType="com.spring.staez.admin.model.dto.AdminSearchDto" resultType="_int">
 		SELECT
 			COUNT(*)
 		FROM staez_user
@@ -451,7 +451,7 @@
 			</otherwise>
 		</choose>
 	</select>
-	<select id="selectUser" parameterType="com.spring.staez.admin.model.dto.AdminUserSearchDto" resultMap="userResult">
+	<select id="selectUser" parameterType="com.spring.staez.admin.model.dto.AdminSearchDto" resultMap="userResult">
 		SELECT
 			user_no,
 			user_id,
@@ -503,5 +503,90 @@
 				</foreach>
 			)
 	</update>
+	<!-- 관리자의 커뮤니티 정보 변경 페이지 -->
+	<select id="selectBoardCnt" parameterType="com.spring.staez.admin.model.dto.AdminSearchDto" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM board b
+		JOIN staez_user u ON (b.user_no = u.user_no)
+		WHERE b.board_status = 'Y'
+		AND b.board_code = 2
+		AND
+		<choose>
+			<when test='select == "userId"'>
+				u.user_id LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "nickname"'>
+				u.nickname LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "title"'>
+				b.board_title LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				b.board_content LIKE '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+	</select>
+	<select id="selectBoard" parameterType="com.spring.staez.admin.model.dto.AdminSearchDto" resultMap="boardResult">
+		SELECT
+			b.board_no,
+			u.user_id,
+			u.nickname,
+			b.board_title,
+			b.board_content
+		FROM board b
+		JOIN staez_user u ON (b.user_no = u.user_no)
+		WHERE b.board_status = 'Y'
+		AND b.board_code = 2
+		AND
+		<choose>
+			<when test='select == "userId"'>
+				u.user_id LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "nickname"'>
+				u.nickname LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "title"'>
+				b.board_title LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				b.board_content LIKE '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+		ORDER BY b.board_no DESC
+	</select>
+	<update id="deleteBoard">
+		UPDATE board
+		SET board_status = 'N'
+		WHERE
+			board_no IN (
+				<foreach collection="boardList" item="item" separator=",">
+					#{item}
+				</foreach>
+			)
+	</update>
+	<delete id="deleteBoardCategory">
+		DELETE FROM board_category
+		WHERE category_no = #{categoryNo} 
+		AND board_no = #{boardNo}
+	</delete>
+	<insert id="insertBoardCategory">
+		INSERT INTO board_category
+		(
+			board_no,
+			category_no
+		) VALUES (
+			#{boardNo},
+			#{categoryNo}
+		)
+	</insert>
+	<select id="selectBoardCategory" resultType="_int">
+		SELECT 
+			c.category_no 
+		FROM category c
+		JOIN board_category bc USING (category_no)
+		WHERE board_no = #{boardNo} 
+		AND category_level = #{categoryLevel}
+	</select>
 </mapper>
 

@@ -1,12 +1,16 @@
 package com.spring.staez.admin.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.spring.staez.admin.model.dto.AdminBoardSelectDto;
+import com.spring.staez.admin.model.dto.AdminSearchDto;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.admin.model.vo.ConcertSchedule;
 import com.spring.staez.admin.model.vo.ImpossibleSeat;
@@ -16,6 +20,7 @@ import com.spring.staez.common.template.ImpossibleSeatList;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.Theater;
+import com.spring.staez.user.model.vo.User;
 
 @Repository
 public class AdminDao {
@@ -86,7 +91,7 @@ public class AdminDao {
 	}
 	
 	public ArrayList<Concert> selectConcertImgList(SqlSessionTemplate sqlSession, PageInfo pi){
-		int offset = (pi.getCurrentPage()-1)* pi.getBoardLimit();
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
@@ -102,11 +107,46 @@ public class AdminDao {
 	}
 	
 	public ArrayList<Theater> selectTheaterList(SqlSessionTemplate sqlSession, PageInfo pi) {
-		int offset = (pi.getCurrentPage()-1)* pi.getBoardLimit();
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return (ArrayList)sqlSession.selectList("adminMapper.selectMainTheaterList", null, rowBounds);
 	}
-	
+
+	public int selectBoardCnt(SqlSessionTemplate sqlSession, AdminSearchDto dto) {
+		return sqlSession.selectOne("adminMapper.selectBoardCnt", dto);
+	}
+
+	public ArrayList<User> selectBoard(SqlSessionTemplate sqlSession, AdminSearchDto dto, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("adminMapper.selectBoard", dto, rowBounds);
+	}
+
+	public int deleteBoard(SqlSessionTemplate sqlSession, AdminBoardSelectDto dto) {
+		return sqlSession.update("adminMapper.deleteBoard", dto);
+	}
+
+	public int deleteBoardCategory(SqlSessionTemplate sqlSession, Map<String, Integer> boardInfoOrigin) {
+		return sqlSession.delete("adminMapper.deleteBoardCategory", boardInfoOrigin);
+	}
+
+	public int insertBoardCategory(SqlSessionTemplate sqlSession, AdminBoardSelectDto dto) {
+		int result = 1;
+		Map<String, Integer> map = new HashMap<>();
+		map.put("categoryNo", dto.getCategoryNo());
+		for(int boardNo : dto.getBoardList()) {
+			map.put("boardNo", boardNo);
+			result *= sqlSession.insert("adminMapper.insertBoardCategory", map);
+		}
+		return result;
+	}
+
+	public int selectBoardCategory(SqlSessionTemplate sqlSession, Map<String, Integer> boardCategoryLevel) {
+		return sqlSession.selectOne("adminMapper.selectBoardCategory", boardCategoryLevel);
+	}
+
 }

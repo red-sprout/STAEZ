@@ -288,3 +288,61 @@ function updateGradeUser(data, callback) {
         }
     });
 }
+
+// 관리자의 커뮤니티 정보 조회
+// data - select : 검색 항목, keyword : 검색 키워드, currentPage : 현재 페이지
+function adminSelectCommunity(data, callback) {
+    $.ajax({
+        url: contextPath + "adminSelect.cm",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("커뮤니티 조회 실패");
+        }
+    });
+}
+
+// 커뮤니티 카테고리 정보 조회
+// data - refCategoryNo, categoryLevel
+function communityCategory(data, callback) {
+    $.ajax({
+        url: contextPath + "category.ct",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("카테고리 요청 실패");
+        }
+    });
+}
+
+// 커뮤니티 게시글 삭제 api
+// data - boardList
+function deleteCommunity(data, callback) {
+    $.ajax({
+        url: contextPath + "adminDelete.cm",
+        type: "POST",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("강퇴 api 요청 실패");
+        }
+    });
+}
+
+// 커뮤니티 카테고리 업데이트 api
+// data - boardList, categoryNo
+function updateCategoryCommunity(data, callback) {
+    $.ajax({
+        url: contextPath + "adminUpdateCategory.cm",
+        type: "POST",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("강퇴 api 요청 실패");
+        }
+    });
+}

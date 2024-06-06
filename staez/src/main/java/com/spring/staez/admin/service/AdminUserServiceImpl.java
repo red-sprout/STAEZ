@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.staez.admin.model.dao.AdminUserDao;
-import com.spring.staez.admin.model.dto.AdminUserSearchDto;
+import com.spring.staez.admin.model.dto.AdminSearchDto;
 import com.spring.staez.admin.model.dto.AdminUserSelectDto;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.user.model.vo.User;
@@ -24,13 +24,13 @@ public class AdminUserServiceImpl implements AdminUserService{
 	
 	@Transactional(readOnly = true)
 	@Override
-	public int selectUserCnt(AdminUserSearchDto dto) {
+	public int selectUserCnt(AdminSearchDto dto) {
 		return adminUserDao.selectUserCnt(sqlSession, dto);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public ArrayList<User> selectUser(AdminUserSearchDto dto, PageInfo pi) {
+	public ArrayList<User> selectUser(AdminSearchDto dto, PageInfo pi) {
 		return adminUserDao.selectUser(sqlSession, dto, pi);
 	}
 

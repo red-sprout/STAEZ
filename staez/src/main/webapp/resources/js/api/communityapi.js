@@ -28,6 +28,8 @@ function insertFileApi(data, callback) {
     })
 }
 
+// 커뮤니티 카테고리 정보 조회
+// data - refCategoryNo, categoryLevel
 function communityCategory(data, callback) {
     $.ajax({
         url: contextPath + "category.ct",
