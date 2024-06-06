@@ -70,6 +70,22 @@ function drawBoard(board) {
     content.innerText = simpleTextView(board.boardContent);
     tr.appendChild(content);
 
+
+    tr.style.cursor = "pointer";
+    tr.addEventListener("click", (ev) => {
+        const boardNo = ev.currentTarget.children[0].children[1].value
+        location.href = contextPath + `detail.cm?boardNo=${boardNo}`;
+    });
+    tr.addEventListener("mouseenter", (ev) => {
+        ev.currentTarget.style.background = "#d9d9d9";
+    });
+    tr.addEventListener("mouseleave", (ev) => {
+        ev.currentTarget.style.background = "none";
+    });
+    checkbox.addEventListener("click", (ev) => {
+        ev.stopPropagation();
+    });
+
     return tr;
 }
 
