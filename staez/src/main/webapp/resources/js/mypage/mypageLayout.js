@@ -18,10 +18,10 @@ $(function() {
             if(res.changeName !== undefined){
                 profileImg.attr('src', $('#contextPath').val() + res.filePath + res.changeName); 
             } else{
-                profileImg.attr('src' , $('#contextPath').val() + res.filePath + 'profile_img_default.png'); 
+                profileImg.attr('src' , $('#contextPath').val() + res.filePath + 'basic_profile.jpg'); 
             }
         } else{
-            profileImg.attr('src' , $('#contextPath').val() + res.filePath + 'profile_img_default.png'); 
+            profileImg.attr('src' , $('#contextPath').val() + res.filePath + 'basic_profile.jpg'); 
         }
     });
 });

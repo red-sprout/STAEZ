@@ -27,5 +27,5 @@ public class PaymentsInfoDto {
 	private String filePath;
 	private String changeName;
 	
-
+	private int tickets; //같은 결제에서 예매한 자리수
 }

@@ -63,7 +63,7 @@
     background: rgb(245, 245, 245);
 }
 
-.main-content>table #btitle:hover {
+.main-content>table .btitle:hover {
     text-decoration: underline;
 }
 
@@ -111,7 +111,7 @@
     width: 80px;
 }
 
-.tb-content>#btitle{
+.tb-content>.btitle{
     text-align: left;
     padding-left: 20px;
     /*텍스트 넘치면 ...표시되도록 해야됨*/
