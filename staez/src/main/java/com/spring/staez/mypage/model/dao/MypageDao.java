@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.dto.BoardListDto;
+import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.user.model.dto.PaymentsInfoDto;
@@ -122,6 +123,22 @@ public class MypageDao {
 		return list;
 	}
 	
+	public int selectMyInquireCount(SqlSessionTemplate sqlSession, int userNo) {
+		int count = sqlSession.selectOne("mypageMapper.selectMyInquireCount", userNo);
+		return count;	
+	}
+
+	public ArrayList<Board> selectMyInquireList(SqlSessionTemplate sqlSession, int userNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		ArrayList<Board> list = (ArrayList)sqlSession.selectList("mypageMapper.selectMyInquireList", userNo, rowBounds);
+		return list;
+	}
+	
+	public Board loadAnswerAjax(SqlSessionTemplate sqlSession, int boardNo) {
+		return (Board)sqlSession.selectOne("mypageMapper.loadAnswerAjax", boardNo);
+	}
+	
 	public int deleteMyScrapAjax(SqlSessionTemplate sqlSession, Map<String, Integer> params){
 		return sqlSession.update("mypageMapper.deleteMyScrapAjax", params);
 	}
@@ -136,6 +153,23 @@ public class MypageDao {
 
 	public int updateOneLineReview(SqlSessionTemplate sqlSession, ConcertReview concertReview) {
 		return sqlSession.update("mypageMapper.updateOneLineReview", concertReview);
+	}
+	
+	
+	public ArrayList<PaymentsInfoDto> loadMyPaymentsAjax(SqlSessionTemplate sqlSession, int userNo) {
+		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyPaymentsAjax", userNo);
+	}
+	public ArrayList<Concert> loadMyScrapAjax(SqlSessionTemplate sqlSession, int userNo) {
+		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyPaymentsAjax", userNo);
+	}
+	public ArrayList<ConcertReview> loadMyReviewAjax(SqlSessionTemplate sqlSession, int userNo) {
+		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyPaymentsAjax", userNo);
+	}
+	public ArrayList<Board> loadMyBoardAjax(SqlSessionTemplate sqlSession, int userNo) {
+		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyPaymentsAjax", userNo);
+	}
+	public ArrayList<Board> loadMyInquireAjax(SqlSessionTemplate sqlSession, int userNo) {
+		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyPaymentsAjax", userNo);
 	}
 	
 }

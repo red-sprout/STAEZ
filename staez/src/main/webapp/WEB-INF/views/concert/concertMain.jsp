@@ -84,24 +84,26 @@
     </section>
     <hr class="concert-main-hr">
 
-
     <section class="concert-main-list-section">
         <ul class="concert-main-list-ul">
-            <li><button class="concert-main-list-button" onclick=""><h3><span>전체보기</span></h3></button></li>
-            <li><button class="concert-main-list-button" onclick=""><h3><span>인기순위</span></h3></button></li>
-            <li><button class="concert-main-list-button" onclick=""><h3><span>최신공연</span></h3></button></li>
-            <li><button class="concert-main-list-button" onclick=""><h3><span>별점높은</span></h3></button></li>
-            <li id="concert-main-list-area-parent"><button class="concert-main-list-button area" onclick=""><h3><span>지역전체 ▼</span></h3></button>
-                <ul class="concert-main-list-area">
-                    <li><a href="">서울</a></li>
-                    <li><a href="">경기</a></li>
-                    <li><a href="">강원</a></li>
-                    <li><a href="">충청</a></li>
-                    <li><a href="">전라</a></li>
-                    <li><a href="">경상</a></li>
-                    <li><a href="">제주</a></li>
-                </ul>
-            </li>
+            <li><button class="concert-main-list-button" onclick="all()"><h3><span>전체보기</span></h3></button></li>
+            <li><button class="concert-main-list-button" onclick="popularClick()"><h3><span>인기순위</span></h3></button></li>
+            <li><button class="concert-main-list-button" onclick="latestClick()"><h3><span>최신공연</span></h3></button></li>
+            <li><button class="concert-main-list-button" onclick="highscoreClick()"><h3><span>별점높은</span></h3></button></li>
+            <form action="">
+                <input type="hidden" name="locationArea" id="location">
+                <li id="concert-main-list-area-parent"><button type="submit" class="concert-main-list-button area" onclick="locationClick()"><h3><span>지역전체 ▼</span></h3></button>
+                    <ul class="concert-main-list-area"> 
+                        <li><a onclick="locationArea('서울')">서울</a></li>
+                        <li><a onclick="locationArea('경기')">경기</a></li>
+                        <li><a onclick="locationArea('강원')">강원</a></li>
+                        <li><a onclick="locationArea('충청')">충청</a></li>
+                        <li><a onclick="locationArea('전라')">전라</a></li>
+                        <li><a onclick="locationArea('경상')">경상</a></li>
+                        <li><a onclick="locationArea('제주')">제주</a></li>
+                    </ul>
+                </li>
+            </form>
         </ul>
     </section>
     

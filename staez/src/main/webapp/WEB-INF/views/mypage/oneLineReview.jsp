@@ -18,7 +18,7 @@
             
             <c:forEach var="c" items="${clist}">
             <c:choose>
-                <c:when test="${not empty c.reviewContent}">
+                <c:when test="${not empty c.score}">
                     <tr>
                         <td class="concert-img"  onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
                             <img src="${contextPath}${c.filePath}${c.changeName}">
