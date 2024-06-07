@@ -43,7 +43,7 @@
 						</div>
 						<div class="deposit-amount-area">
 							<div><span>입금액</span></div>
-							<span class="deposit-amount">90,000</span>
+							<span class="deposit-amount">${totalAmount}</span>
 							<span>원</span>
 						</div>
 						<div class="deposit-bank-area">
@@ -52,24 +52,25 @@
 						</div>
 						<div class="deposit-closing-time-area">
 							<div><span>입금마감시간</span></div>
-							<span class="deposit-closing-time">현제시간+1일</span>
+							<span class="deposit-closing-time"></span>
 						</div>
 						<div class="deposit-name-area">
 							<div><span>예금주명</span></div>
 							<span class="deposit-name">김효영</span>
 						</div>
+                        <span class="emphasis-text">*입금계좌는 예매하기 완료 후 결제내역에서 확인!</span>
                     </div>
                 </div>
             </div>
             <div class="concert-reserve-area">
                 <div class="concert-reserve-info-area">
-                    <img class="concert-reserve-info-img" src="${contextPath}/resources/img/concert/reserveConcert1.png" alt="">
+                    <img class="concert-reserve-info-img" src="${contextPath}${concert.path}" alt="">
                     <div class="concert-reserve-info-content">
-                        <span>뮤지컬 <천개의 파랑></span>
-                        <span>2024.05.12 ~ 2024.05.26</span>
-                        <span>예술의전당 CJ 토월극장</span>
-                        <span>초등학생이상 관람가</span>
-                        <span>관람시간 : 140분</span>
+                        <span>${concert.concertTitle}</span>
+                        <span>${concert.startDate} ~ ${concert.endDate}</span>
+                        <span>${concert.theaterName}</span>
+                        <span>${concert.ageLimit}</span>
+                        <span>관람시간 : ${concert.concertRuntime}분</span>
                     </div>
                 </div>
                 <div class="my-reserve-info-area">
@@ -77,24 +78,28 @@
                     <div class="my-reserve-info">
                         <div class="my-reserve-time">
                             <div><span>일시</span></div>
-                            <span class="my-reserve-time-value">
-                                0000-00-00 00시00분
-                            </span>
+                            <span class="my-reserve-time-value">${reserveDate}</span>
                         </div>       
                     </div>  
                     <div class="my-reserve-info plus-css">
                         <div class="my-reserve-time">
                             <div><span>선택좌석</span></div>
-                            <span class="my-reserve-time-value">
-                                R석 A열 1번
-                            </span>
+                            <div class="my-reserve-time-area">
+                             
+                                <c:forEach var="s" items="${seatList}">
+                                    <div class="my-seat-info">
+                                        <span class="my-seat-info-span">${s.seat}</span>
+                                    </div>
+                                </c:forEach>
+
+                            </div>
                         </div>       
                     </div>  
                 </div>
                 <div class="total-payment-amount-area">
                     <span>총 결제금액</span>
                     <div>
-                        <span id="amount">90,000</span>
+                        <span id="amount">${totalAmount}</span>
                         <span>원</span>
                     </div>
                 </div>
@@ -103,10 +108,20 @@
                         <img src="${contextPath}/resources/img/concert/nextArrow.png" alt=""> 
                         <span>이전단계</span>
                     </div>
-                    <div class="next-step-area"  onclick="location.href='insertReserve.co'">
-                        <span>예매하기</span>
-                        <img src="${contextPath}/resources/img/concert/nextArrow.png" alt=""> 
-                    </div>
+                    <form action="insertReserve.co" class="next-step-form">
+                        <input type="hidden" name="userNo" value="${userNo}">
+                        <input type="hidden" name="concertNo" value="${concert.concertNo}">
+                        <input type="hidden" name="recipientName" value="${recipientName}">
+                        <input type="hidden" name="recipientPhone" value="${recipientPhone}">
+                        <input type="hidden" name="recipientBirth" value="${recipientBirth}">
+                        <input type="hidden" name="concertDate">
+                        <input type="hidden" name="schedule">
+                        <input type="hidden" name="seatList">
+                        <button class="next-step-area" onclick="insertReserve()">
+                            <span>예매하기</span>
+                            <img src="${contextPath}/resources/img/concert/nextArrow.png" alt=""> 
+                        </button>
+                    </form>
               </div>
             </div>
          </div>

@@ -16,6 +16,7 @@ import com.spring.staez.concert.model.dao.ConcertReserveDao;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.Theater;
 import com.spring.staez.user.model.vo.Reserve;
+import com.spring.staez.user.model.vo.User;
 
 @Service
 public class ConcertReserveServiceImpl implements ConcertReserveService{
@@ -92,5 +93,10 @@ public class ConcertReserveServiceImpl implements ConcertReserveService{
 		data.put("cNo", concertNo);
 		data.put("date", choiceDate);
 		return crDao.selectRatingTotalSeat(sqlSession, data);
+	}
+
+	@Override
+	public User userInfo(int uNo) {
+		return crDao.userInfo(sqlSession, uNo);
 	}
 }

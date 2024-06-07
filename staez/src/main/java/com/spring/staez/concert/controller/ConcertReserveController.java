@@ -1,7 +1,9 @@
 package com.spring.staez.concert.controller;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -11,10 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.spring.staez.admin.model.vo.ConcertSchedule;
 import com.spring.staez.admin.model.vo.ImpossibleSeat;
 import com.spring.staez.admin.model.vo.Seat;
@@ -22,6 +24,7 @@ import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.Theater;
 import com.spring.staez.concert.service.ConcertReserveService;
 import com.spring.staez.user.model.vo.Reserve;
+import com.spring.staez.user.model.vo.User;
 
 @Controller
 public class ConcertReserveController {
@@ -40,27 +43,64 @@ public class ConcertReserveController {
 	}
 	
 	@PostMapping("selectSeat.co")
-	public String concertReserveStepTwo(Model model, String concertNo, String reserveDate) {
+	public String concertReserveStepTwo(Model model, String concertNo, String reserveDate, String userNo) {
 		int cNo = Integer.parseInt(concertNo);
+		int uNo = Integer.parseInt(userNo);
 		Concert concert = crService.reserveConcertInfo(cNo);
 		
 		model.addAttribute("concert", concert);
+		model.addAttribute("userNo", uNo);
 		model.addAttribute("reserveDate", reserveDate);
 		return "concert/concertReserveStepTwo";
 	}
 	
-	@GetMapping("selectMember.co")
-	public String concertReserveStepThree() {
+	@PostMapping("selectMember.co")
+	public String concertReserveStepThree(Model model, String cNo, String reserveDate,
+			String userNo, String totalAmount, String seatList) {
+		int concertNo = Integer.parseInt(cNo);
+		int uNo = Integer.parseInt(userNo);
+		Concert concert = crService.reserveConcertInfo(concertNo);
+		User user = crService.userInfo(uNo);
+		Gson gson = new Gson();
+	    Type type = new TypeToken<List>(){}.getType();
+	    List sList = gson.fromJson(seatList, type);
+
+		
+		model.addAttribute("seatList", sList);
+		model.addAttribute("concert", concert);
+		model.addAttribute("user", user);
+		model.addAttribute("totalAmount", totalAmount);
+		model.addAttribute("reserveDate", reserveDate);
+		
 		return "concert/concertReserveStepThree";
 	}
 	
 	@GetMapping("selectPayment.co")
-	public String concertReserveLastStep() {
+	public String concertReserveLastStep(Model model, String concertNo, String recipientName, String recipientPhone, String recipientBirth,
+			String seatList, String totalAmount, String reserveDate, String userNo) {
+		int cNo = Integer.parseInt(concertNo);
+		int uNo = Integer.parseInt(userNo);
+		Concert concert = crService.reserveConcertInfo(cNo);
+		Gson gson = new Gson();
+	    Type type = new TypeToken<List>(){}.getType();
+	    List sList = gson.fromJson(seatList, type);
+	    
+	    
+	    model.addAttribute("recipientName", recipientName);
+	    model.addAttribute("recipientPhone", recipientPhone);
+	    model.addAttribute("recipientBirth", recipientBirth);
+	    model.addAttribute("seatList", sList);
+	    model.addAttribute("concert", concert);
+	    model.addAttribute("userNo", uNo);
+	    model.addAttribute("totalAmount", totalAmount);
+		model.addAttribute("reserveDate", reserveDate);
+	    
 		return "concert/concertReserveLastStep";
 	}
 	
 	@GetMapping("insertReserve.co")
-	public String insertReserve(HttpSession session) {
+	public String insertReserve(HttpSession session, String concertNo, String recipientName, String recipientPhone, String recipientBirth,
+			String seatList, String concertDate, String schedule, String userNo) {
 		
 		
 		session.setAttribute("alertMsg", "예매에 성공하셨습니다.");

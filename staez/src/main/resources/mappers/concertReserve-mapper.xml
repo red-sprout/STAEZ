@@ -77,6 +77,23 @@
 		<result column="concert_times" property="concertTimes" />
 		<result column="reserve_status" property="reserveStatus" />
 	</resultMap>
+	
+	<resultMap type="User" id="userResult">
+		<result column="user_no" property="userNo" />
+		<result column="user_id" property="userId" />
+		<result column="user_pwd" property="userPwd" />
+		<result column="nickname" property="nickname" />
+		<result column="gender" property="gender" />
+		<result column="birth" property="birth" />
+		<result column="address" property="address" />
+		<result column="email" property="email" />
+		<result column="phone" property="phone" />
+		<result column="genre_like" property="genreLike" />
+		<result column="grade" property="grade" />
+		<result column="enroll_date" property="enrollDate" />
+		<result column="withdrawal_date" property="withdrawalDate" />
+		<result column="user_status" property="userStatus" />
+	</resultMap>
    
    <select id="reserveConcertInfo" resultMap="concertResult">
 		select 
@@ -163,11 +180,17 @@
    </select>
    
    <select id="selectReserveSeatInfo" resultMap="reserveResult" parameterType="Map">
-   select concert_no, reserve_row, reserve_col
-	from reserve
-	where (reserve_status = 'Y' or reserve_status = 'U')
-	and schedule = #{time}
-	and concert_date = #{date}::date
-	and concert_no = #{cNo}
+	   select concert_no, reserve_row, reserve_col
+		from reserve
+		where (reserve_status = 'Y' or reserve_status = 'U')
+		and schedule = #{time}
+		and concert_date = #{date}::date
+		and concert_no = #{cNo}
+   </select>
+   
+   <select id="userInfo" resultMap="userResult">
+   	select user_no, nickname, gender, birth, address, email, phone, grade
+	from staez_user
+	where user_no = #{uNo}
    </select>
 </mapper>

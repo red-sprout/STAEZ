@@ -12,6 +12,7 @@ import com.spring.staez.admin.model.vo.Seat;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.Theater;
 import com.spring.staez.user.model.vo.Reserve;
+import com.spring.staez.user.model.vo.User;
 
 @Repository
 public class ConcertReserveDao {
@@ -50,5 +51,9 @@ public class ConcertReserveDao {
 	
 	public ArrayList<Reserve> selectReserveSeatInfo(SqlSessionTemplate sqlSession, Map data){
 		return (ArrayList)sqlSession.selectList("concertReserveMapper.selectReserveSeatInfo", data);
+	}
+	
+	public User userInfo(SqlSessionTemplate sqlSession, int uNo) {
+		return sqlSession.selectOne("concertReserveMapper.userInfo", uNo);
 	}
 }

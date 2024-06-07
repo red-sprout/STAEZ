@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const navs = document.querySelectorAll("#previous, #next");
     const concertNo = document.querySelector("input[name = 'concertNo']").value;
 
-
    
 
     const months = [
@@ -178,7 +177,7 @@ function spanDayChange2(y, m, d){
     const concertNo = document.querySelector("input[name = 'concertNo']").value;
     
     ajaxChoiceDateSchedule({
-        concertNo,
+    concertNo,
         choiceDate
     },(schedules) => drawChoiceDateSchedule(concertNo, choiceDate, schedules))
 }

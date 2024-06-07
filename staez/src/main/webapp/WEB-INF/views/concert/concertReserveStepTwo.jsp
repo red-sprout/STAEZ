@@ -27,7 +27,7 @@
                         <span class="step-two-top-span reserve-date">${reserveDate}</span>
                     </div>
                 </div>
-               <input type="hidden" name="cNo" value="${concert.concertNo}">
+               
                <input type="hidden" name="theaterName" value="${concert.theaterName}">
             </div>
         </div>
@@ -105,10 +105,17 @@
                             <img src="${contextPath}/resources/img/concert/nextArrow.png" alt=""> 
                             <span>이전단계</span>
                         </div>
-                        <div class="next-step-area"  onclick="location.href='selectMember.co'">
-                            <span>다음단계</span>
-                            <img src="${contextPath}/resources/img/concert/nextArrow.png" alt=""> 
-                        </div>
+                        <form action="selectMember.co" class="next-btn-form hidden" method="POST">
+                            <input type="hidden" name="userNo" value="${userNo}">
+                            <input type="hidden" name="cNo" value="${concert.concertNo}">
+                            <input type="hidden" name="reserveDate" value="${reserveDate}">
+                            <input type="hidden" name="totalAmount" value="" >
+                            <input type="hidden" name="seatList" value="">
+                            <div class="next-step-area">
+                                <button id="next-btn">다음단계</button>
+                                <img src="${contextPath}/resources/img/concert/nextArrow.png" alt=""> 
+                            </div>
+                        </form>
                   </div>
                 </div>
             </div> 
