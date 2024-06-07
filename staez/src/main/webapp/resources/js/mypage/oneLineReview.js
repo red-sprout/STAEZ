@@ -1,4 +1,4 @@
-const starRating = value => {
+const starRating = value => { //value(별점)만큼 별UI 표현
     const val = value - 1;
     const starlist = $(".star-label .star-icon");
 
@@ -38,12 +38,11 @@ function loadOneLineReview(concertNo){
     loadOneLineReviewAjax({concertNo}, function(res){
         const table = $('.concert-tag>table>tbody');
         const reviewContent = $('textarea');
+
         table.html(`<tr>
-                        <td rowspan="4">
+                        <td rowspan="3">
                             <img src="${contextPath}${res.filePath}${res.changeName}">
                         </td>
-                    </tr>
-                    <tr>
                         <td><h2>${res.concertTitle}</h2></td>
                     </tr>
                     <tr>
@@ -52,6 +51,15 @@ function loadOneLineReview(concertNo){
                     <tr>
                         <td><h4>출연진 : ${res.concertMembers}</h4></td>
                     </tr>`);
+
+        //받아온 별점 radio체크
+        $('input[name=score]').each(function(index, radio){
+            //radio.value =>string
+            //res.score => number
+            if(Number(radio.value) === res.score){
+                $(radio).prop("checked", true); 
+            }
+        });
 
         //받아온 별점 ui적용
         starRating(res.score);

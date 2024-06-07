@@ -21,10 +21,11 @@ $(function(){
 function deleteMyScrap(){
     //각 체크박스에 value = concertNo
     let checkElList = $('.age-checkbox input:checkbox');
-
+    let checkedCount = 0;
+    
     $.each(checkElList, function(index, checkbox){
-
         if($(checkbox).is(':checked')){            
+            checkedCount++;
             deleteMyScrapAjax({concertNo : checkbox.value,}, function(res){
                 if(res === "NNNNY"){
                     location.reload();
@@ -34,4 +35,9 @@ function deleteMyScrap(){
             });
         }
     });
+
+    if(checkedCount === 0){
+        alert('선택된 공연이 없습니다');
+    }
+    
 }
