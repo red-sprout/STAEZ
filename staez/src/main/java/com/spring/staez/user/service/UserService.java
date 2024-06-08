@@ -1,6 +1,7 @@
 package com.spring.staez.user.service;
 
-import java.time.LocalDateTime;
+
+import java.util.Map;
 
 import com.spring.staez.user.model.vo.User;
 
@@ -21,10 +22,14 @@ public interface UserService {
 	User findUserByEmail(String email);
 	
 	// 이메일 인증번호 저장을 위한 서비스
-	 int registerUser(String email, String authNo, LocalDateTime send_time);
+	 int registerUser(String email, String authNo);
 
 	 // 이메일 암호키 인증체크
 	int emailSecretCodeCheck(String authNo, String email);
+	
+	// 이메일 존재 여부 확인
+	Map<String, Object> findEmail(String email);
+
 	
 	//이메일로 아이디찾기
 	String findEmailCheck(String checkFindEmail);
@@ -34,5 +39,8 @@ public interface UserService {
 
 	//새로운 비밀번호 저장
 	int updatePassword(String user_id, String phone, String email, String encPwd);
+
+	// 이메일 인증 완료하면 정보 업데이트(테이블에 이메일 데이터 있을때)
+	int updateEmailAuth(String email, String authNo);
 
 }

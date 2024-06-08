@@ -1,27 +1,45 @@
 document.addEventListener('DOMContentLoaded', function() {
-    //이전페이지로 돌아가는
+    // 이전페이지로 돌아가는
     backPage();
     // 이메일
     sgininemail();
-    // 이메일 아이디적을때 한글안되고 영어만 가능하게
+    // 이메일 아이디 적을 때 한글 안 되고 영어만 가능하게
     sgininemailEng();
     // 입력 시 2초 후에 콘솔에 이메일 값을 출력하는 기능입니다.
     emailTimeTwo();
     // 이메일 인증 전송 버튼 이벤트 리스너 등록
+    const emailCheckButton = document.getElementById("emailCheckButton");
+    emailCheckButton.addEventListener('click', sendVerificationCode);
     $("#emailCheckButton").on('click', (ev) => {
-        // 클릭 이벤트 발생 시 서버로 이메일 인증 요청 보내기
-        const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
-        sendEmailVerificationRequest(emailInput); // 이메일 인증 요청 보내는 함수 호출
+        nicknameCheck();
     });
     // UUID 이메일 체크
     emailSecretCode();
     // 핸드폰 번호 전송 처리
     signinPhoneNumber();
-    // 버튼 클릭시 색상변경
+    // 버튼 클릭 시 색상변경
     checkButton();
+    // 비밀번호 관련 이벤트 리스너 추가
+    newPwd();
 });
-//이전페이지
-function backPage(){
+
+// 이메일 인증시 다음 버튼 열림
+function emailNo(){
+    const emailCheckButton = document.getElementById("emailCheckButton");
+    // 클릭 이벤트 핸들러
+    function handleClick() {
+        emailCheckButton.disabled = true; // 버튼을 비활성화합니다.
+        emailCheckButton.removeEventListener('click', handleClick); // 클릭 이벤트 리스너 삭제
+    }
+    // 이메일 인증 전송 버튼 클릭 이벤트 리스너 등록
+    emailCheckButton.addEventListener('click', handleClick);
+
+    // 이메일 인증 전송 버튼 클릭 시 인증번호 전송 함수 호출
+    emailCheckButton.addEventListener('click', sendVerificationCode);
+}
+
+// 이전페이지로 돌아가는
+function backPage() {
     var backButton = document.getElementById('backButton');
     backButton.addEventListener('click', function() {
         window.history.back();
@@ -45,6 +63,8 @@ function handleEmailCheckResponse(response) {
         alert("인증번호 전송이 실패했습니다 다시 입력해주세요!");
     } else if (response === "emailCheck Yes") {
         alert("인증번호가 성공적으로 전송되었습니다!");
+        // 카운트 다운 시작
+        startTimer();
     }
 }
 
@@ -73,6 +93,37 @@ function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput, e
         findEmailCheckButton.style.backgroundColor = "white";
     }
     emailSecretErrorMessage.style.display = "none"; // 에러 메시지 숨기기
+}
+
+let timer; // 전역 변수로 타이머 변수를 선언합니다.
+
+// 카운트 다운 시작 함수
+function startTimer() {
+    clearInterval(timer); // 이전에 실행 중이던 타이머를 초기화합니다.
+
+    var duration = 5 * 60;
+    var timerDisplay = document.getElementById('timer');
+
+    // 카운트 다운 시작
+    timer = setInterval(function () {
+        var minutes = parseInt(duration / 60, 10);
+        var seconds = parseInt(duration % 60, 10);
+
+        // 남은 시간을 표시
+        timerDisplay.textContent = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
+
+        // 시간을 1초씩 감소
+        duration--;
+
+        // 카운트 다운이 끝나면 clearInterval을 호출하여 타이머를 멈춤
+        if (duration < 0) {
+            clearInterval(timer);
+            timerDisplay.textContent = "시간 초과";
+
+            // 시간 초과 시 데이터베이스로 업데이트 요청 보내기 (Ajax를 사용하여 비동기 요청)
+            updateVerificationCode();
+        }
+    }, 1000);
 }
 
 // UUID 이메일 체크
@@ -192,6 +243,27 @@ function sgininemailEng() {
     });
 }
 
+// 비밀번호 관련 이벤트 리스너 추가
+function newPwd(){
+    const newPasswordInput = document.getElementById("newPassword");
+    const confirmNewPasswordInput = document.getElementById("confirmNewPassword");
+
+    if (newPasswordInput && confirmNewPasswordInput) {
+        newPasswordInput.addEventListener('input', validatePassword);
+        confirmNewPasswordInput.addEventListener('input', validatePassword);
+    }
+
+    const pwdImgElement = document.getElementById("pwdImg");
+    if (pwdImgElement) {
+        pwdImgElement.addEventListener("mousedown", function() {
+            togglePasswordVisibility(newPasswordInput, true);
+        });
+        pwdImgElement.addEventListener("mouseup", function() {
+            togglePasswordVisibility(newPasswordInput, false);
+        });
+    }
+}
+
 // 비번 바꾸기 전 아이디 핸드폰 이메일 확인 맞는지
 function clickIdPhoneEmail() {
     let id = document.getElementById("input-value-id").value;
@@ -214,6 +286,53 @@ function clickIdPhoneEmail() {
     });
 }
 
+// 전역 범위에 timeout 변수를 선언합니다.
+var timeout;
+
+// 비밀번호 / 비밀번호 확인이 서로 틀릴 경우를 처리하는 함수
+function validatePassword() {
+    clearTimeout(timeout); // 이전에 예약된 작업이 있다면 취소합니다.
+
+    timeout = setTimeout(function() {
+        var newPassword = document.getElementById("newPassword").value;
+        var confirmNewPassword = document.getElementById("confirmNewPassword").value;
+
+        // 입력값이 모두 비어있으면 메시지를 숨깁니다.
+        if (newPassword === "" && confirmNewPassword === "") {
+            document.getElementById("passwordMessage").innerHTML = "";
+            return;
+        }
+        // 비밀번호가 서로 다른 경우
+        if (newPassword !== confirmNewPassword) {
+            document.getElementById("passwordMessage").innerHTML = "비밀번호가 다릅니다.";
+            document.getElementById("passwordMessage").classList.remove("passwordCorrect");
+            document.getElementById("passwordMessage").classList.add("passwordIncorrect");
+        } else {
+            // 비밀번호가 일치하는 경우
+            // 비밀번호 유효성 검사: 영문, 숫자, 특수문자 포함, 8글자 이상
+            var regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+            if (!regex.test(newPassword)) {
+                document.getElementById("passwordMessage").innerHTML = "영문, 숫자, 특수문자를 넣어주세요";
+                document.getElementById("passwordMessage").classList.remove("passwordCorrect");
+                document.getElementById("passwordMessage").classList.add("passwordIncorrect");
+            } else {
+                document.getElementById("passwordMessage").innerHTML = "비밀번호가 일치합니다.";
+                document.getElementById("passwordMessage").classList.remove("passwordIncorrect");
+                document.getElementById("passwordMessage").classList.add("passwordCorrect");
+            }
+        }
+    });
+}
+
+// 비밀번호 클릭시 보이도록 (마우스가 눌린 상태에서만)
+function togglePasswordVisibility(inputField, isMouseDown) {
+    if (isMouseDown && inputField.type === "password") {
+        inputField.type = "text";
+    } else {
+        inputField.type = "password";
+    }
+}
+
 // 비밀번호 변경
 function clickNewPwd() {
     let newPassword = document.getElementById("newPassword").value;
@@ -221,6 +340,13 @@ function clickNewPwd() {
 
     if (newPassword !== confirmNewPassword) {
         alert("새 비밀번호가 일치하지 않습니다.");
+        return;
+    }
+
+    // 비밀번호 유효성 검사
+    var regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+    if (!regex.test(newPassword)) {
+        alert("비밀번호는 영문, 숫자, 특수문자를 포함한 8글자 이상이어야 합니다.");
         return;
     }
 
@@ -243,7 +369,7 @@ function clickNewPwd() {
 }
 
 // 핸드폰 번호 전송 처리
-function signinPhoneNumber (){
+function signinPhoneNumber() {
     const prefixElement = document.getElementById("phone-prefix");
     const suffix1Element = document.getElementById("phone-suffix1");
     const suffix2Element = document.getElementById("phone-suffix2");
@@ -259,6 +385,7 @@ function signinPhoneNumber (){
     suffix1Element.addEventListener('input', updatePhoneNumber);
     suffix2Element.addEventListener('input', updatePhoneNumber);
 }
+
 // 핸드폰 번호 전송 처리
 function sendPhoneNumber() {
     // input-value-phone 요소를 가져옵니다.
@@ -282,28 +409,28 @@ function sendPhoneNumber() {
 
     // 전체 번호 조합하여 표시
     var phoneNumber = prefix + suffix1 + suffix2;
-    //console.log(phoneNumber); // 번호 확인용, 실제 사용시 주석처리해도 됩니다.
+    // console.log(phoneNumber); // 번호 확인용, 실제 사용시 주석처리해도 됩니다.
 
     // input-value-phone 필드에 번호 설정
     inputValueElement.value = phoneNumber;
 }
 
-// 버튼 클릭시 색상변경
-function checkButton(){
+// 버튼 클릭 시 색상 변경
+function checkButton() {
     var buttons = document.querySelectorAll(".check_button");
 
     // 각 버튼에 대해 반복
     buttons.forEach(function(button) {
         // 클릭 이벤트 리스너 추가
         button.addEventListener("mousedown", function() {
-        // 버튼에 clicked 클래스 추가
-        button.classList.add("clicked");
+            // 버튼에 clicked 클래스 추가
+            button.classList.add("clicked");
         });
         
         // 마우스 버튼에서 떼었을 때
         button.addEventListener("mouseup", function() {
-        // 버튼에 clicked 클래스 제거
-        button.classList.remove("clicked");
+            // 버튼에 clicked 클래스 제거
+            button.classList.remove("clicked");
         });
     });
 }

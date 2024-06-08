@@ -103,17 +103,12 @@
 	</select>
 	
 	<!-- 이메일 인증번호 저장을 위한 서비스 -->
+	<!-- 이메일 인증 완료하면 정보 인설트(테이블에 이메일 데이터 처음 넣을때) -->
 	<insert id="registerUser" parameterType="com.spring.staez.user.model.vo.User">
-    INSERT INTO 
-           email_auth(
-                      email, 
-                      authNo, 
-                      send_time
-                     )
-           VALUES (
-                   #{email}, 
-                   #{authNo}, 
-                   #{send_time})
+    	INSERT INTO email_auth
+        VALUES (#{email}, 
+         		#{authNo}, 
+           		now())
 	</insert>
 	
 	<!-- 이메일 암호키 인증체크 -->
@@ -122,7 +117,7 @@
 		  FROM email_auth
 		 WHERE authNo = #{authNo}
 		   AND email = #{email}
-		   AND send_time >= CURRENT_TIMESTAMP - INTERVAL '5 minutes';
+		   AND send_time >= CURRENT_TIMESTAMP - INTERVAL '3 minutes';
 	</select>
 	
 	<!-- 이메일로 아이디찾기 -->
@@ -149,5 +144,20 @@
 	      AND phone = #{phone} 
 	      AND email = #{email}
 	</update>
+	
+	<!-- 이메일 존재 여부 확인 -->
+	<select id="findEmail" parameterType="String" resultMap="emailResult">
+	    SELECT email, authNo, send_time
+	    FROM email_auth
+	    WHERE email = #{email}
+	</select>
+	
+	<!-- 이메일 인증 완료하면 정보 업데이트(테이블에 이메일 데이터 있을때) -->
+	<update id="updateEmailAuth">
+	    UPDATE email_auth
+	    SET authNo = #{authNo}, send_time = NOW()
+	    WHERE email = #{email}
+	</update>
+	
 </mapper>
 

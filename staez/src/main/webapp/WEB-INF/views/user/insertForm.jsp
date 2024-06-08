@@ -124,7 +124,9 @@
                     <tr>
                         <th></th>
                         <td>
-                            <input type="text" id="verification-code" required>
+                            <div id="emailTimeContainer">
+                                <input type="text" id="verification-code" required><div id="timer"></div>
+                            </div>
                         </td>
                         <td>
                             <input type="button" class="check_button" id="check_emailSecretBtn" value="인증확인">
@@ -157,7 +159,6 @@
                         <th></th>
                         <td colspan="1"><input type="text" class="detailAddressInput" id="sample6_detailAddress" placeholder="자세한 주소 : 동 / 호수" name="address-detail"></td>
                         <td colspan="1"><input type="text" id="sample6_postcode" placeholder="우편번호"></td>
-                        <td><input type="button" class="check_button" value="확인" onclick="checkAddress()"></td>
                     </tr>
                     <tr>
                         <td colspan="4"><input type="text" name="address" id="input-value-address" readonly></td>

@@ -24,6 +24,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // 모달) 비밀번호 찾기 클릭 이벤트
     PwdFindPage();
 });
+
+
+function emailNo(){
+        const emailCheckButton = document.getElementById("emailCheckButton");
+        // 클릭 이벤트 핸들러
+        function handleClick() {
+            emailCheckButton.disabled = true; // 버튼을 비활성화합니다.
+            emailCheckButton.removeEventListener('click', handleClick); // 클릭 이벤트 리스너 삭제
+        }
+        // 이메일 인증 전송 버튼 클릭 이벤트 리스너 등록
+        emailCheckButton.addEventListener('click', handleClick);
+
+        // 이메일 인증 전송 버튼 클릭 시 인증번호 전송 함수 호출
+        emailCheckButton.addEventListener('click', sendVerificationCode);
+}
+
 //인증 모달창
 function toggleAuthMethod(){
         // 페이지 로드 시 findId-div를 숨김
@@ -86,6 +102,8 @@ function handleEmailCheckResponse(response) {
         alert("인증번호 전송이 실패했습니다 다시 입력해주세요!");
     } else if (response === "emailCheck Yes") {
         alert("인증번호가 성공적으로 전송되었습니다!");
+        // 카운트 다운 시작
+        startTimer();
     }
 }
 
@@ -114,6 +132,37 @@ function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput, e
         findEmailCheckButton.style.backgroundColor = "white";
     }
     emailSecretErrorMessage.style.display = "none"; // 에러 메시지 숨기기
+}
+
+let timer; // 전역 변수로 타이머 변수를 선언합니다.
+
+// 카운트 다운 시작 함수
+function startTimer() {
+    clearInterval(timer); // 이전에 실행 중이던 타이머를 초기화합니다.
+
+    var duration = 5 * 60;
+    var timerDisplay = document.getElementById('timer');
+
+    // 카운트 다운 시작
+    timer = setInterval(function () {
+        var minutes = parseInt(duration / 60, 10);
+        var seconds = parseInt(duration % 60, 10);
+
+        // 남은 시간을 표시
+        timerDisplay.textContent = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
+
+        // 시간을 1초씩 감소
+        duration--;
+
+        // 카운트 다운이 끝나면 clearInterval을 호출하여 타이머를 멈춤
+        if (duration < 0) {
+            clearInterval(timer);
+            timerDisplay.textContent = "시간 초과";
+
+            // 시간 초과 시 데이터베이스로 업데이트 요청 보내기 (Ajax를 사용하여 비동기 요청)
+            updateVerificationCode();
+        }
+    }, 1000);
 }
 
 // UUID 이메일 체크
@@ -258,7 +307,12 @@ function clickGetId(){
     let email = document.getElementById("input-value-email").value;
     getIdbyEmail({checkFindEmail: email}, function(res){
         console.log(res)
-        document.querySelector("#emailFindId").innerHTML = res;
+        if (res !== "emailSecretCodeCheck No"){
+            document.querySelector("#emailFindId").innerHTML = res;
+        } else {
+            console.log(document.querySelector("#emailFindId"));
+            document.querySelector("#emailFindId").innerText = "해당 이메일이 등록된 아이디가 없습니다.";
+        }
     });
 }
 
