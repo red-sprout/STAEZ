@@ -3,6 +3,8 @@ package com.spring.staez.admin.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.JsonElement;
+import com.spring.staez.admin.model.dto.AdminBoardDto;
 import com.spring.staez.admin.model.dto.AdminBoardSelectDto;
 import com.spring.staez.admin.model.dto.AdminSearchDto;
 import com.spring.staez.admin.model.vo.Category;
@@ -17,11 +19,11 @@ import com.spring.staez.user.model.vo.User;
 
 public interface AdminService {
 
-	int faqIncert(Board b, int categoryNo);
+	int faqInsert(Board b, int categoryNo);
 
 	ArrayList<Category> selectFaqCategory(int refCategoryNo);
 
-	int incertTheater(Theater t);
+	int insertTheater(Theater t);
 
 	int toggleSeat(ImpossibleSeat seat, String status);
 
@@ -46,5 +48,23 @@ public interface AdminService {
 	int deleteBoard(AdminBoardSelectDto dto);
 
 	int updateBoardCategory(AdminBoardSelectDto dto);
+
+	int selectFaqCnt(AdminSearchDto dto);
+
+	ArrayList<Board> selectFaq(AdminSearchDto dto, PageInfo pi);
+
+	Board selectOneBoard(int boardNo);
+
+	int updateOneBoard(AdminBoardDto dto);
+
+	int insertOneBoard(Board board);
+
+	int selectInquireCnt(AdminSearchDto dto);
+
+	ArrayList<Board> selectInquire(AdminSearchDto dto, PageInfo pi);
+
+	int selectReportCnt(AdminSearchDto dto);
+
+	ArrayList<Board> selectReport(AdminSearchDto dto, PageInfo pi);
 
 }

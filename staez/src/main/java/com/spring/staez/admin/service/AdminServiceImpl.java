@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.pbkdf2.RuntimeCryptoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.staez.admin.model.dao.AdminDao;
+import com.spring.staez.admin.model.dto.AdminBoardDto;
 import com.spring.staez.admin.model.dto.AdminBoardSelectDto;
 import com.spring.staez.admin.model.dto.AdminSearchDto;
 import com.spring.staez.admin.model.vo.Category;
@@ -41,17 +43,17 @@ public class AdminServiceImpl implements AdminService {
 
 	@Transactional(rollbackFor = {Exception.class})
 	@Override
-	public int faqIncert(Board b, int categoryNo) {
-		int result1 = adminDao.faqIncert(sqlSession, b);
-		int result2 = adminDao.faqCategoryIncert(sqlSession, categoryNo);
+	public int faqInsert(Board b, int categoryNo) {
+		int result1 = adminDao.faqInsert(sqlSession, b);
+		int result2 = adminDao.faqCategoryInsert(sqlSession, categoryNo);
 		return result1 * result2;
 	}
 
 	@Transactional(rollbackFor = {Exception.class})
 	@Override
-	public int incertTheater(Theater t) {
-		int result1 = adminDao.incertTheater(sqlSession, t);
-		int result2 = adminDao.incertImpossibleSeat(sqlSession);
+	public int insertTheater(Theater t) {
+		int result1 = adminDao.insertTheater(sqlSession, t);
+		int result2 = adminDao.insertImpossibleSeat(sqlSession);
 		ImpossibleSeatList.clear();
 		return result1 * result2;
 	}
@@ -137,13 +139,15 @@ public class AdminServiceImpl implements AdminService {
 			boardInfoOrigin.put("categoryNo", selectBoardCategory(boardNo, dto.getCategoryNo(), dto.getCategoryLevel()));
 			
 			deleteResult *= adminDao.deleteBoardCategory(sqlSession, boardInfoOrigin);
-			if(deleteResult == 0)
-				throw new RuntimeException("카테고리 삭제 실패");
 		}
 		
+		if(deleteResult == 0)
+			throw new RuntimeException("관리자 - 카테고리 삭제 실패");
+
 		int insertResult = adminDao.insertBoardCategory(sqlSession, dto);
+		
 		if(insertResult == 0)
-			throw new RuntimeException("카테고리 삽입 실패");
+			throw new RuntimeException("관리자 - 카테고리 삽입 실패");
 		
 		return deleteResult * insertResult;
 	}
@@ -156,5 +160,68 @@ public class AdminServiceImpl implements AdminService {
 		int categoryNoOrigin = adminDao.selectBoardCategory(sqlSession, boardCategoryLevel);
 		
 		return categoryNoOrigin;
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public int selectFaqCnt(AdminSearchDto dto) {
+		return adminDao.selectFaqCnt(sqlSession, dto);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public ArrayList<Board> selectFaq(AdminSearchDto dto, PageInfo pi) {
+		return adminDao.selectFaq(sqlSession, dto, pi);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public Board selectOneBoard(int boardNo) {
+		return adminDao.selectOneBoard(sqlSession, boardNo);
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int updateOneBoard(AdminBoardDto dto) {
+		int updateBoardResult = adminDao.updateOneBoard(sqlSession, dto);
+		int updateCategoryResult = adminDao.updateOneCategory(sqlSession, dto);
+		
+		if(updateBoardResult == 0) 
+			throw new RuntimeException("보드 정보 수정 실패");
+		
+		if(updateCategoryResult == 0) 
+			throw new RuntimeException("보드 카테고리 수정 실패");
+		
+		return updateBoardResult * updateCategoryResult;
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int insertOneBoard(Board board) {
+		return adminDao.insertOneBoard(sqlSession, board);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public int selectInquireCnt(AdminSearchDto dto) {
+		return adminDao.selectInquireCnt(sqlSession, dto);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public ArrayList<Board> selectInquire(AdminSearchDto dto, PageInfo pi) {
+		return adminDao.selectInquire(sqlSession, dto, pi);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public int selectReportCnt(AdminSearchDto dto) {
+		return adminDao.selectReportCnt(sqlSession, dto);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public ArrayList<Board> selectReport(AdminSearchDto dto, PageInfo pi) {
+		return adminDao.selectReport(sqlSession, dto, pi);
 	}
 }

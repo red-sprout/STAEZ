@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.spring.staez.admin.model.dto.AdminBoardDto;
 import com.spring.staez.admin.model.dto.AdminBoardSelectDto;
 import com.spring.staez.admin.model.dto.AdminSearchDto;
 import com.spring.staez.admin.model.vo.Category;
@@ -74,9 +75,9 @@ public class AdminController {
 		return "admin/reportMain";
 	}
 	
-	@GetMapping("faqIncertForm.ad")
-	public String faqIncertForm() {
-		return "admin/faqIncertForm";
+	@GetMapping("faqInsertForm.ad")
+	public String faqInsertForm() {
+		return "admin/faqInsertForm";
 	}
 	
 	@GetMapping("faqUpdateForm.ad")
@@ -84,19 +85,19 @@ public class AdminController {
 		return "admin/faqUpdateForm";
 	}
 	
-	@GetMapping("inquireIncertForm.ad")
-	public String inquireIncertForm() {
-		return "admin/inquireIncertForm";
+	@GetMapping("inquireInsertForm.ad")
+	public String inquireInsertForm() {
+		return "admin/inquireInsertForm";
 	}
 	
-	@GetMapping("reportIncertForm.ad")
-	public String reportIncertForm() {
-		return "admin/reportIncertForm";
+	@GetMapping("reportInsertForm.ad")
+	public String reportInsertForm() {
+		return "admin/reportInsertForm";
 	}
 	
-	@GetMapping("concertIncertForm.ad")
-	public String concertIncertForm() {
-		return "admin/concertIncertForm";
+	@GetMapping("concertInsertForm.ad")
+	public String concertInsertForm() {
+		return "admin/concertInsertForm";
 	}
 	
 	@GetMapping("concertUpdateForm.ad")
@@ -104,9 +105,9 @@ public class AdminController {
 		return "admin/concertUpdateForm";
 	}
 	
-	@GetMapping("theaterIncertForm.ad")
-	public String theaterIncertForm() {
-		return "admin/theaterIncertForm";
+	@GetMapping("theaterInsertForm.ad")
+	public String theaterInsertForm() {
+		return "admin/theaterInsertForm";
 	}
 	
 	@GetMapping("theaterUpdateForm.ad")
@@ -163,22 +164,10 @@ public class AdminController {
 		}
 	}
 	
-	// FAQ 등록
-	@PostMapping("faqIncert.ad")
-	public String faqIncert(Board b, int categoryNo, HttpSession session) {
-		int result = adminService.faqIncert(b, categoryNo);
-		if(result == 0) {
-			session.setAttribute("alertMsg", "FAQ 작성에 실패하였습니다.");
-		} else {
-			session.setAttribute("alertMsg", "작성 완료하였습니다.");
-		}
-		return "redirect:/faqList.ad";
-	}
-	
 	// 공연장 등록
-	@PostMapping("theaterIncert.ad")
-	public String theaterIncert(Theater t, HttpSession session) {
-		int result = adminService.incertTheater(t);
+	@PostMapping("theaterInsert.ad")
+	public String theaterInsert(Theater t, HttpSession session) {
+		int result = adminService.insertTheater(t);
 		if(result == 0) {
 			session.setAttribute("alertMsg", "공연장 등록 에 실패하였습니다.");
 		} else {
@@ -307,5 +296,93 @@ public class AdminController {
 		resMap.put("pi", pi);
 		
 		return new Gson().toJson(resMap);
+	}
+	
+	//Faq 리스트 불러오기
+	@ResponseBody
+	@GetMapping(value = "adminSelect.fq", produces = "application/json; charset-UTF-8")
+	public String adminSelectFaq(AdminSearchDto dto, String currentPage) {
+		int listCount = adminService.selectFaqCnt(dto);
+		int cPage = Integer.parseInt(currentPage);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, cPage, 10, 10);
+		ArrayList<Board> list = adminService.selectFaq(dto, pi);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("pagination", pi);
+		map.put("faqList", list);
+		
+		return new Gson().toJson(map);
+	}
+	
+	// FAQ 등록
+	@PostMapping("faqInsert.ad")
+	public String faqInsert(Board b, int categoryNo, HttpSession session) {
+		int result = adminService.faqInsert(b, categoryNo);
+		if(result == 0) {
+			session.setAttribute("alertMsg", "FAQ 작성에 실패하였습니다.");
+		} else {
+			session.setAttribute("alertMsg", "작성 완료하였습니다.");
+		}
+		return "redirect:/faqList.ad";
+	}
+	
+	// 게시글 번호로만 게시글 조회시 사용되는 컨트롤러
+	@ResponseBody
+	@GetMapping(value = "select.bo", produces = "application/json; charset-UTF-8")
+	public String selectOneBoard(int boardNo) {
+		return new Gson().toJson(adminService.selectOneBoard(boardNo));
+	}
+	
+	// 카테고리가 하나인 게시글 수정시 사용되는 컨트롤러
+	@PostMapping("update.bo")
+	public String updateOneBoard(AdminBoardDto dto, String url, HttpSession session) {
+		session.setAttribute("alertMsg"
+				, adminService.updateOneBoard(dto) == 1
+				? "성공적으로 수정 완료하였습니다."
+				: "수정 실패하였습니다.");
+		return "redirect:/" + url;
+	}
+	
+	// 카테고리가 하나인 게시글 삽입시 사용되는 컨트롤러
+	@PostMapping("insert.bo")
+	public String insertOneBoard(Board board, String url, HttpSession session) {
+		session.setAttribute("alertMsg"
+				, adminService.insertOneBoard(board) == 1
+				? "성공적으로 등록 완료하였습니다."
+				: "등록 실패하였습니다.");
+		return "redirect:/" + url;
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "adminSelect.iq", produces = "application/json; charset-UTF-8")
+	public String adminSelectInquire(AdminSearchDto dto, String currentPage) {
+		int listCount = adminService.selectInquireCnt(dto);
+		int cPage = Integer.parseInt(currentPage);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, cPage, 10, 10);
+		ArrayList<Board> list = adminService.selectInquire(dto, pi);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("pagination", pi);
+		map.put("inquireList", list);
+		
+		return new Gson().toJson(map);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "adminSelect.rp", produces = "application/json; charset-UTF-8")
+	public String adminSelectReport(AdminSearchDto dto, String currentPage) {
+		int listCount = adminService.selectReportCnt(dto);
+		int cPage = Integer.parseInt(currentPage);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, cPage, 10, 10);
+		ArrayList<Board> list = adminService.selectReport(dto, pi);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("pagination", pi);
+		map.put("reportList", list);
+		
+		return new Gson().toJson(map);
 	}
 }

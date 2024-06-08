@@ -9,6 +9,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.spring.staez.admin.model.dto.AdminBoardDto;
 import com.spring.staez.admin.model.dto.AdminBoardSelectDto;
 import com.spring.staez.admin.model.dto.AdminSearchDto;
 import com.spring.staez.admin.model.vo.Category;
@@ -29,22 +30,22 @@ public class AdminDao {
 		return (ArrayList)sqlSession.selectList("adminMapper.selectFaqCategory", refCategoryNo);
 	}
 	
-	public int faqIncert(SqlSessionTemplate sqlSession, Board b) {
-		return sqlSession.insert("adminMapper.faqIncert", b);
+	public int faqInsert(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("adminMapper.faqInsert", b);
 	}
 
-	public int faqCategoryIncert(SqlSessionTemplate sqlSession, int categoryNo) {
-		return sqlSession.insert("adminMapper.faqCategoryIncert", categoryNo);
+	public int faqCategoryInsert(SqlSessionTemplate sqlSession, int categoryNo) {
+		return sqlSession.insert("adminMapper.faqCategoryInsert", categoryNo);
 	}
 
-	public int incertTheater(SqlSessionTemplate sqlSession, Theater t) {
-		return sqlSession.insert("adminMapper.incertTheater", t);
+	public int insertTheater(SqlSessionTemplate sqlSession, Theater t) {
+		return sqlSession.insert("adminMapper.insertTheater", t);
 	}
 
-	public int incertImpossibleSeat(SqlSessionTemplate sqlSession) {
+	public int insertImpossibleSeat(SqlSessionTemplate sqlSession) {
 		int result = 1;
 		for(ImpossibleSeat i : ImpossibleSeatList.getList()) {
-			result *= sqlSession.insert("adminMapper.incertImpossibleSeat", i);
+			result *= sqlSession.insert("adminMapper.insertImpossibleSeat", i);
 		}
 		return result;
 	}
@@ -147,6 +148,58 @@ public class AdminDao {
 
 	public int selectBoardCategory(SqlSessionTemplate sqlSession, Map<String, Integer> boardCategoryLevel) {
 		return sqlSession.selectOne("adminMapper.selectBoardCategory", boardCategoryLevel);
+	}
+
+	public int selectFaqCnt(SqlSessionTemplate sqlSession, AdminSearchDto dto) {
+		return sqlSession.selectOne("adminMapper.selectFaqCnt", dto);
+	}
+
+	public ArrayList<Board> selectFaq(SqlSessionTemplate sqlSession, AdminSearchDto dto, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("adminMapper.selectFaq", dto, rowBounds);
+	}
+
+	public Board selectOneBoard(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("adminMapper.selectOneBoard", boardNo);
+	}
+
+	public int updateOneBoard(SqlSessionTemplate sqlSession, AdminBoardDto dto) {
+		return sqlSession.update("adminMapper.updateOneBoard", dto);
+	}
+
+	public int updateOneCategory(SqlSessionTemplate sqlSession, AdminBoardDto dto) {
+		return sqlSession.update("adminMapper.updateOneCategory", dto);
+	}
+
+	public int insertOneBoard(SqlSessionTemplate sqlSession, Board board) {
+		return sqlSession.insert("adminMapper.insertOneBoard", board);
+	}
+
+	public int selectInquireCnt(SqlSessionTemplate sqlSession, AdminSearchDto dto) {
+		return sqlSession.selectOne("adminMapper.selectInquireCnt", dto);
+	}
+
+	public ArrayList<Board> selectInquire(SqlSessionTemplate sqlSession, AdminSearchDto dto, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("adminMapper.selectInquire", dto, rowBounds);
+	}
+
+	public int selectReportCnt(SqlSessionTemplate sqlSession, AdminSearchDto dto) {
+		return sqlSession.selectOne("adminMapper.selectReportCnt", dto);
+	}
+
+	public ArrayList<Board> selectReport(SqlSessionTemplate sqlSession, AdminSearchDto dto, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("adminMapper.selectReport", dto, rowBounds);
 	}
 
 }

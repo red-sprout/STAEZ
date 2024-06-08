@@ -342,7 +342,100 @@ function updateCategoryCommunity(data, callback) {
         success: function (res) {
             callback(res);
         }, error() {
-            console.log("강퇴 api 요청 실패");
+            console.log("커뮤니티 삭제 api 요청 실패");
+        }
+    });
+}
+
+// 관리자의 Faq 정보 조회
+// data - select : 검색 항목, keyword : 검색 키워드, currentPage : 현재 페이지
+function adminSelectFaq(data, callback) {
+    $.ajax({
+        url: contextPath + "adminSelect.fq",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("Faq 조회 실패");
+        }
+    });
+}
+
+// Faq 삭제 api
+// data - boardList
+function deleteFaq(data, callback) {
+    $.ajax({
+        url: contextPath + "adminDelete.cm",
+        type: "POST",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("Faq 삭제 api 요청 실패");
+        }
+    });
+}
+
+// 게시글을 번호로 조회시 사용
+// data - boardNo
+function selectOneBoard(data, callback) {
+    $.ajax({
+        url: contextPath + "select.bo",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("board 한 개 api 요청 실패");
+        }
+    });
+}
+
+function adminSelectInquire(data, callback) {
+    $.ajax({
+        url: contextPath + "adminSelect.iq",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("Inquire 조회 실패");
+        }
+    });
+}
+
+function deleteInquire(data, callback) {
+    $.ajax({
+        url: contextPath + "adminDelete.cm",
+        type: "POST",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("Inquire 삭제 api 요청 실패");
+        }
+    });
+}
+
+function adminSelectReport(data, callback) {
+    $.ajax({
+        url: contextPath + "adminSelect.rp",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("Report 조회 실패");
+        }
+    });
+}
+
+function deleteReport(data, callback) {
+    $.ajax({
+        url: contextPath + "adminDelete.cm",
+        type: "POST",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("Report 삭제 api 요청 실패");
         }
     });
 }
