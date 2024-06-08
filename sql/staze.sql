@@ -73,6 +73,7 @@ CREATE TABLE public.staez_user
     user_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_user'),
     user_id character varying(20) NOT NULL UNIQUE,
     user_pwd character varying(100) NOT NULL,
+	user_name character varying(50) NOT NULL,
     nickname character varying(50) NOT NULL UNIQUE,
     gender character varying(1) NOT NULL CHECK(gender IN ('M', 'F')),
     birth date NOT NULL,
@@ -101,6 +102,9 @@ COMMENT ON COLUMN public.staez_user.user_id
 
 COMMENT ON COLUMN public.staez_user.user_pwd
     IS '비밀번호';
+
+COMMENT ON COLUMN public.staez_user.user_name
+    IS '이름(실명)';
 
 COMMENT ON COLUMN public.staez_user.nickname
     IS '닉네임';
@@ -770,6 +774,9 @@ CREATE TABLE public.reserve
     reserve_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_reserve'),
     concert_no integer NOT NULL,
     user_no integer NOT NULL,
+	r_name character varying(50) NOT NULL, /*staez_user테이블의 정보와 다를 수 있음*/
+	r_birth date NOT NULL, /*staez_user테이블의 정보와 다를 수 있음*/
+	r_phone character varying(11) NOT NULL, /*staez_user테이블의 정보와 다를 수 있음*/  
     reserve_row integer NOT NULL,
     reserve_col integer NOT NULL,
     reserve_date timestamp with time zone NOT NULL DEFAULT now(),
@@ -794,6 +801,15 @@ COMMENT ON COLUMN public.reserve.concert_no
 
 COMMENT ON COLUMN public.reserve.user_no
     IS '예매회원번호';
+
+COMMENT ON COLUMN public.reserve.r_name
+	IS '예매자이름(실명)';
+
+COMMENT ON COLUMN public.reserve.r_birth
+    IS '예매자생년월일';
+
+COMMENT ON COLUMN public.reserve.r_phone
+    IS '예매자휴대폰번호';
 
 COMMENT ON COLUMN public.reserve.reserve_row
     IS '좌석행';
