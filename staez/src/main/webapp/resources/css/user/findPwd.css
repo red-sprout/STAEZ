@@ -32,6 +32,18 @@ p{
     margin-bottom: 40px;
 }
 
+/* 비밀번호 보여주기 버튼 이미지 */
+#pwdImg {
+    position: absolute; /* 이미지의 위치를 설정합니다. */
+    right: 10px; /* 오른쪽에서 10px만큼 떨어진 위치에 배치합니다. */
+    top: 50%; /* 부모 요소의 위쪽에서 50%만큼 떨어진 위치에 배치합니다. */
+    transform: translateY(-50%); /* 수직 방향으로 자신의 높이의 절반만큼 위로 이동합니다. */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경하여 클릭 가능한 것임을 나타냅니다. */
+    width: 24px; /* 이미지의 너비를 지정합니다. */
+    height: 25px;
+    margin-top: 7px;
+}
+
 /* 테이블 */
 table {
     max-width: 550px;

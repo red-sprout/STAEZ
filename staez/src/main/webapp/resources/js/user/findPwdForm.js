@@ -19,26 +19,24 @@ document.addEventListener('DOMContentLoaded', function() {
     signinPhoneNumber();
     // 버튼 클릭 시 색상변경
     checkButton();
-
     // 비밀번호 관련 이벤트 리스너 추가
-    const newPasswordInput = document.getElementById("newPassword");
-    const confirmNewPasswordInput = document.getElementById("confirmNewPassword");
-
-    if (newPasswordInput && confirmNewPasswordInput) {
-        newPasswordInput.addEventListener('input', validatePassword);
-        confirmNewPasswordInput.addEventListener('input', validatePassword);
-    }
-
-    const pwdImgElement = document.getElementById("pwdImg");
-    if (pwdImgElement) {
-        pwdImgElement.addEventListener("mousedown", function() {
-            togglePasswordVisibility(newPasswordInput, true);
-        });
-        pwdImgElement.addEventListener("mouseup", function() {
-            togglePasswordVisibility(newPasswordInput, false);
-        });
-    }
+    newPwd();
 });
+
+// 이메일 인증시 다음 버튼 열림
+function emailNo(){
+    const emailCheckButton = document.getElementById("emailCheckButton");
+    // 클릭 이벤트 핸들러
+    function handleClick() {
+        emailCheckButton.disabled = true; // 버튼을 비활성화합니다.
+        emailCheckButton.removeEventListener('click', handleClick); // 클릭 이벤트 리스너 삭제
+    }
+    // 이메일 인증 전송 버튼 클릭 이벤트 리스너 등록
+    emailCheckButton.addEventListener('click', handleClick);
+
+    // 이메일 인증 전송 버튼 클릭 시 인증번호 전송 함수 호출
+    emailCheckButton.addEventListener('click', sendVerificationCode);
+}
 
 // 이전페이지로 돌아가는
 function backPage() {
@@ -78,13 +76,21 @@ function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput, e
     if (result === "emailSecretCodeCheck No") { // 입력값이 데이터베이스 값과 일치하지 않을 때
         emailSecretCheckResult.style.color = "red";
         emailSecretCheckResult.innerText = "인증 코드가 일치하지 않습니다.";
+        // 다음 버튼 비활성화
+        document.getElementById("findEmailCheck").disabled = true;
+        findEmailCheckButton.style.backgroundColor = "white";
     } else if (result === "emailSecretCodeCheck Yes") { // 입력값이 데이터베이스 값과 일치할 때
         emailSecretCheckResult.style.color = "green";
         emailSecretCheckResult.innerText = "인증이 확인되었습니다.";
         console.log("이메일 확인:", emailSecretInput.value);
+        // 다음 버튼 활성화
+        document.getElementById("findEmailCheck").disabled = false;
     } else { // 그 외의 경우 (예: 서버 오류 등)
         emailSecretCheckResult.style.color = "red";
         emailSecretCheckResult.innerText = "인증을 확인할 수 없습니다.";
+        // 다음 버튼 비활성화
+        document.getElementById("findEmailCheck").disabled = true;
+        findEmailCheckButton.style.backgroundColor = "white";
     }
     emailSecretErrorMessage.style.display = "none"; // 에러 메시지 숨기기
 }
@@ -95,7 +101,7 @@ let timer; // 전역 변수로 타이머 변수를 선언합니다.
 function startTimer() {
     clearInterval(timer); // 이전에 실행 중이던 타이머를 초기화합니다.
 
-    var duration = 3 * 60;
+    var duration = 5 * 60;
     var timerDisplay = document.getElementById('timer');
 
     // 카운트 다운 시작
@@ -114,8 +120,8 @@ function startTimer() {
             clearInterval(timer);
             timerDisplay.textContent = "시간 초과";
 
-            // 시간 초과 시 데이터베이스로 삭제 요청 보내기 (Ajax를 사용하여 비동기 요청)
-            deleteVerificationCode();
+            // 시간 초과 시 데이터베이스로 업데이트 요청 보내기 (Ajax를 사용하여 비동기 요청)
+            updateVerificationCode();
         }
     }, 1000);
 }
@@ -131,7 +137,8 @@ function emailSecretCode() {
     checkButton.addEventListener("click", function() {
         const verificationCodeValue = verificationCodeInput.value.trim();
         
-        if (verificationCodeValue.length === 6) { // 인증 코드는 정확히 6자리여야 함
+        if (verificationCodeValue.length >= 6 && verificationCodeValue.length <= 6) {
+            // 입력된 이메일과 입력된 값을 서버로 보냄
             const emailValue = checkEmail.value;
             // console.log("Email: " + emailValue);
             // console.log("Verification Code: " + verificationCodeValue);
@@ -139,15 +146,14 @@ function emailSecretCode() {
                 callbackEmailSecret(result, emailSecretCheckResult, verificationCodeInput, emailSecretErrorMessage);
             });
         } else {
-            console.log("인증코드는 6자리여야 합니다.");
-            emailSecretCheckResult.innerText = "인증코드는 6자리여야 합니다.";
+            console.log("인증코드는 6자리 이상이어야 합니다.");
+            emailSecretCheckResult.innerText = "인증코드는 6자리 이상이어야 합니다.";
             emailSecretCheckResult.style.color = "red";
             emailSecretCheckResult.style.display = "block"; // 에러 메시지 표시
             emailSecretErrorMessage.style.display = "none";
         }
     });
 }
-
 // 이메일
 function sgininemail() {
     // 필요한 요소들을 가져옵니다.
@@ -169,7 +175,7 @@ function sgininemail() {
         } else {
             inputValueElement.value = "";
         }
-        // console.log(prefix + "@" + domain);
+        //console.log(prefix + "@" + domain);
     }
     // 도메인 리스트 변경 시 처리하는 함수를 정의합니다.
     function handleDomainListChange() {
@@ -203,13 +209,13 @@ function emailTimeTwo() {
     emailInput.addEventListener('input', function() {
         const emailPrefix = emailInput.value;
         const emailSuffix = suffixInput.value;
-        // console.log(emailPrefix + "@" + emailSuffix);
+        //console.log(emailPrefix + "@" + emailSuffix);
     });
 
     suffixInput.addEventListener('input', function() {
         const emailPrefix = emailInput.value;
         const emailSuffix = suffixInput.value;
-        // console.log(emailPrefix + "@" + emailSuffix);
+        //console.log(emailPrefix + "@" + emailSuffix);
     });
 }
 
@@ -235,6 +241,27 @@ function sgininemailEng() {
             }
         }
     });
+}
+
+// 비밀번호 관련 이벤트 리스너 추가
+function newPwd(){
+    const newPasswordInput = document.getElementById("newPassword");
+    const confirmNewPasswordInput = document.getElementById("confirmNewPassword");
+
+    if (newPasswordInput && confirmNewPasswordInput) {
+        newPasswordInput.addEventListener('input', validatePassword);
+        confirmNewPasswordInput.addEventListener('input', validatePassword);
+    }
+
+    const pwdImgElement = document.getElementById("pwdImg");
+    if (pwdImgElement) {
+        pwdImgElement.addEventListener("mousedown", function() {
+            togglePasswordVisibility(newPasswordInput, true);
+        });
+        pwdImgElement.addEventListener("mouseup", function() {
+            togglePasswordVisibility(newPasswordInput, false);
+        });
+    }
 }
 
 // 비번 바꾸기 전 아이디 핸드폰 이메일 확인 맞는지

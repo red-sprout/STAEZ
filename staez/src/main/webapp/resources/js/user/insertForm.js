@@ -9,16 +9,16 @@ document.addEventListener('DOMContentLoaded', function() {
     signinPwdCheck();
     // SubmitButton 제출
     signinSubmitButton();
+    // 이전페이지로 돌아가는
+    backPage();
+    // 관심장르 3개이상 못고르게하면서 값 출력되도록
+    sginingenreLike();
     // 이메일
     sgininemail();
     // 이메일 아이디적을때 한글안되고 영어만 가능하게
     sgininemailEng();
     // 이메일 다 입력됬나 콘솔
     emailTimeTwo();
-    // 이전페이지로 돌아가는
-    backPage();
-    // 관심장르 3개이상 못고르게하면서 값 출력되도록
-    sginingenreLike();
     // 이메일 인증 전송 버튼 이벤트 리스너 등록
     const emailCheckButton = document.getElementById("emailCheckButton");
     emailCheckButton.addEventListener('click', sendVerificationCode);
