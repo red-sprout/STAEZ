@@ -35,7 +35,9 @@ function sendEmailVerificationRequest(emailInput) {
             handleEmailCheckResponse(response);
         },
         error: function() {
-            alert("이미 전송 처리했습니다 재전송을 누른 후 조금만 기다려주세요.");
+                    //인증하기 버튼 비활성화
+        emailBtnNo();
+            alert("이미 전송 처리했습니다. 번호가 틀리다면 재전송을 누른 후 다시 전송버튼을 누르세요.");
         }
     });
 }
@@ -109,6 +111,25 @@ function clickNewPwdInsert(data, callback) {
             console.log("Status:", textStatus);
             console.log("Error:", errorThrown);
             console.log("Response Text:", jqXHR.responseText);
+        }
+    });
+}
+
+// 시간 초과 시 데이터베이스로 삭제 요청을 보내는 함수
+function deleteVerificationCode() {
+    var verificationCode = document.getElementById('verification-code').value;
+
+    // Ajax를 사용하여 데이터베이스로 삭제 요청 보내기
+    // 예시: jQuery를 사용한 Ajax 요청
+    $.ajax({
+        url: "deleteEmailAuth.me",
+        type: "POST",
+        data: { verificationCode: verificationCode },
+        success: function(response) {
+            console.log("Verification code deleted successfully.");
+        },
+        error: function(xhr, status, error) {
+            console.error("Error deleting verification code:", error);
         }
     });
 }
