@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="<c:url value='/resources/css/admin/reportIncertForm.css'/>">
+<link rel="stylesheet" href="<c:url value='/resources/css/admin/reportInsertForm.css'/>">
 </head>
 <body>
     <header>
