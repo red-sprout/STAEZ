@@ -73,7 +73,7 @@ function loadMainPageAjax(data, callback){
         dataType: 'json', 
         success: res => callback(res),
         error: () => {
-            alert('문의 답변을 불러오는데 실패하였습니다');
+            alert(data + '를 불러오는데 실패하였습니다');
         }
     });
 }

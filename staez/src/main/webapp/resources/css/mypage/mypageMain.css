@@ -153,6 +153,12 @@
 .main-content table{
     width: 400px;
 }
+.main-content table tbody{
+    width: 100%;
+}
+.main-content table tr{
+    width: 100%;
+}
 
 .main-content table td{
     height: 40px;
@@ -166,6 +172,9 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+
+    display: block;
+    line-height: 40px;
 }
 
 .main-content table .short-td{

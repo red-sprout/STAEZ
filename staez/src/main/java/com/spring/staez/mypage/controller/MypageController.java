@@ -449,7 +449,7 @@ public class MypageController {
 			ArrayList<Board> inquirelist = mypageService.loadMyInquireAjax(userNo);
 			return new Gson().toJson(inquirelist);
 		default :
-			return null;
+			return null; //
 		}
 		
 	}

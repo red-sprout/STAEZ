@@ -22,14 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="i" begin="0" end="4">
-                    <tr>
-                        <td>24.04.04</td>
-                        <td align="left">꽃 별이지나</td>
-                        <td>24.04.16</td>
-                        <td>2</td>
-                    </tr>
-                </c:forEach>
+                    <!-- 최근 예매한 공연정보 (결제정보) 5개 -->
             </tbody>
         </table>
         <div class="more-btn"><a href="${contextPath}/paymentList.me?cpage=1">더보기</a></div> 
@@ -40,11 +33,7 @@
             <div class="table-title">최근 찜목록</div>
             <table>
                 <tbody>
-                    <c:forEach var="i" begin="0" end="4">
-                    <tr>
-                        <td class="long-td">2024 최현우 Answer - 여수</td>
-                    </tr>
-                    </c:forEach>
+                    <!-- 최근 찜한 공연 리스트 5개 -->
                 </tbody>
             </table>
             <div class="more-btn"><a href="${contextPath}/scrapList.me?cpage=1">더보기</a></div> 
@@ -53,17 +42,7 @@
             <div class="table-title">한줄평</div>
             <table>
                 <tbody>
-                    <c:forEach var="i" begin="0" end="4">      
-                    <tr>
-                        <td class="long-td">2024 최현우 Answer - 여수</td>     
-                        <td class="short-td">
-                            <span>
-                                <img src="${contextPath}/resources/img/mypage/star-filled.png">
-                                <h4>5</h4>
-                            </span>
-                        </td>
-                    </tr>
-                    </c:forEach>
+                    <!-- 최근 작성한 한줄평 리스트 5개-->
                 </tbody>
             </table>
             <div class="more-btn"><a href="${contextPath}/reviewList.me?cpage=1">더보기</a></div> 
@@ -78,12 +57,7 @@
             </div>
             <table>
                 <tbody>
-                    <c:forEach var="i" begin="0" end="4">      
-                    <tr>
-                        <td class="long-td">〈웨스턴 스토리〉재밌어요</td>     
-                        <td class="short-td">24.04.01</td>
-                    </tr>
-                    </c:forEach>
+                    <!-- 최근 나의 작성글 5개 -->
                 </tbody>
             </table>
             <div class="more-btn"><a href="${contextPath}/boardList.me?cpage=1">더보기</a></div> 
@@ -95,12 +69,7 @@
             </div>
             <table>
                 <tbody>
-                    <c:forEach var="i" begin="0" end="4">      
-                    <tr>
-                        <td class="long-td">환불 가능할까요?</td>     
-                        <td class="short-td">24.04.01</td>
-                    </tr>
-                    </c:forEach>
+                    <!-- 최근 나의 문의글 5개 -->
                 </tbody>
             </table>
             <div class="more-btn"><a href="${contextPath}/inquireList.me?cpage=1">더보기</a></div> 
