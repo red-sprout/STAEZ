@@ -160,16 +160,16 @@ public class MypageDao {
 		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyPaymentsAjax", userNo);
 	}
 	public ArrayList<Concert> loadMyScrapAjax(SqlSessionTemplate sqlSession, int userNo) {
-		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyPaymentsAjax", userNo);
+		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyScrapAjax", userNo);
 	}
 	public ArrayList<ConcertReview> loadMyReviewAjax(SqlSessionTemplate sqlSession, int userNo) {
-		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyPaymentsAjax", userNo);
+		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyReviewAjax", userNo);
 	}
 	public ArrayList<Board> loadMyBoardAjax(SqlSessionTemplate sqlSession, int userNo) {
-		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyPaymentsAjax", userNo);
+		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyBoardAjax", userNo);
 	}
 	public ArrayList<Board> loadMyInquireAjax(SqlSessionTemplate sqlSession, int userNo) {
-		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyPaymentsAjax", userNo);
+		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyInquireAjax", userNo);
 	}
 	
 }

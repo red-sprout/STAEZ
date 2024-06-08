@@ -6,20 +6,20 @@ staez_user(회원)
 - 관리자 계정을 제외하고는 아이디 뒤에 유저 번호를 붙힘
 */
 INSERT INTO staez_user
-VALUES (DEFAULT, 'admin', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '관리자', 'M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user@gmail.com', '01011111111','', 1, DEFAULT, NULL, DEFAULT);
+VALUES (DEFAULT, 'admin', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '관리자', '관리자','M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user@gmail.com', '01011111111','', 1, DEFAULT, NULL, DEFAULT);
 --관리자계정(userNo : 1)
 INSERT INTO staez_user
-VALUES (DEFAULT, 'user02', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', 'wg', 'M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user01@gmail.com', '01022222222','', 2, DEFAULT, NULL, DEFAULT);
+VALUES (DEFAULT, 'user02', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '이원기','wg', 'M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user01@gmail.com', '01022222222','', 2, DEFAULT, NULL, DEFAULT);
 INSERT INTO staez_user
-VALUES (DEFAULT, 'user03', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', 'hyo', 'M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user02@gmail.com', '01033333333','', 2, DEFAULT, NULL, DEFAULT);
+VALUES (DEFAULT, 'user03', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '김효영','hyo', 'M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user02@gmail.com', '01033333333','', 2, DEFAULT, NULL, DEFAULT);
 INSERT INTO staez_user
-VALUES (DEFAULT, 'user04', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', 'joo', 'M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user03@gmail.com', '01044444444','', 2, DEFAULT, NULL, DEFAULT);
+VALUES (DEFAULT, 'user04', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '주재완','joo', 'M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user03@gmail.com', '01044444444','', 2, DEFAULT, NULL, DEFAULT);
 INSERT INTO staez_user
-VALUES (DEFAULT, 'user05', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', 'joon', 'M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user04@gmail.com', '01055555555','', 2, DEFAULT, NULL, DEFAULT);
+VALUES (DEFAULT, 'user05', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '장용준','joon', 'M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user04@gmail.com', '01055555555','', 2, DEFAULT, NULL, DEFAULT);
 INSERT INTO staez_user
-VALUES (DEFAULT, 'user06', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', 'nam', 'F', '1998-08-31', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user05@naver.com', '01066666666', '', 2, DEFAULT, NULL, DEFAULT);
+VALUES (DEFAULT, 'user06', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '김남주','nam', 'F', '1998-08-31', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user05@naver.com', '01066666666', '', 2, DEFAULT, NULL, DEFAULT);
 INSERT INTO staez_user
-VALUES (DEFAULT, 'user07', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '탈퇴한놈', 'M', '1991-11-11', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'withdrawal@gmail.com', '01099999999','', 2, '2024-01-01 17:41:18.955208+09', '2024-06-01 11:36:11.264208+09', 'N');
+VALUES (DEFAULT, 'user07', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '탈주자','탈퇴한놈', 'M', '1991-11-11', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'withdrawal@gmail.com', '01099999999','', 2, '2024-01-01 17:41:18.955208+09', '2024-06-01 11:36:11.264208+09', 'N');
 --탈퇴회원(userNo : 7)
 
 SELECT * FROM staez_user;
@@ -38,15 +38,15 @@ profile_img(프로필사진)
 INSERT INTO profile_img
 VALUES (DEFAULT, 1, '원래이름.png', '2024053118061362372.jpg', '/resources/uploadfiles/profile/', DEFAULT, DEFAULT);
 INSERT INTO profile_img
-VALUES (DEFAULT, 2, NULL, NULL, '/resources/img/mypage/profile/', DEFAULT, DEFAULT);
+VALUES (DEFAULT, 2, NULL, NULL, '/resources/uploadfiles/profile/', DEFAULT, DEFAULT);
 INSERT INTO profile_img
-VALUES (DEFAULT, 3, NULL, NULL, '/resources/img/mypage/profile/',DEFAULT, DEFAULT);
+VALUES (DEFAULT, 3, NULL, NULL, '/resources/uploadfiles/profile/',DEFAULT, DEFAULT);
 INSERT INTO profile_img
-VALUES (DEFAULT, 4, NULL, NULL, '/resources/img/mypage/profile/', DEFAULT, DEFAULT);
+VALUES (DEFAULT, 4, NULL, NULL, '/resources/uploadfiles/profile/', DEFAULT, DEFAULT);
 INSERT INTO profile_img
-VALUES (DEFAULT, 5, NULL, NULL, '/resources/img/mypage/profile/', DEFAULT, DEFAULT);
+VALUES (DEFAULT, 5, NULL, NULL, '/resources/uploadfiles/profile/', DEFAULT, DEFAULT);
 INSERT INTO profile_img
-VALUES (DEFAULT, 6, NULL, NULL, '/resources/img/mypage/profile/', DEFAULT, DEFAULT);
+VALUES (DEFAULT, 6, NULL, NULL, '/resources/uploadfiles/profile/', DEFAULT, DEFAULT);
 
 SELECT * FROM profile_img;
 
@@ -1075,29 +1075,29 @@ reserve(예매정보)
 - reserve_status : 결제된예약(Y), 결제전예약(U), 만료된예약(N) => DEFAULT는 'U'
 */
 INSERT INTO reserve
-VALUES (DEFAULT, 1, 2, 2, 3, '2024-05-27 19:01:40.193236+09','무통장입금', '2024-07-07', 'Y', '20:00-22:00');
+VALUES (DEFAULT, 1, 2, '이원기', '1997-04-23', '01023451234', 2, 3, '2024-05-27 19:01:40.193236+09','무통장입금', '2024-07-07', 'Y', '20:00-22:00');
 INSERT INTO reserve
-VALUES (DEFAULT, 1, 2, 2, 4, '2024-05-27 19:01:40.193236+09','무통장입금', '2024-07-07', 'Y', '20:00-22:00');
+VALUES (DEFAULT, 1, 2, '이원기', '1997-04-23', '01023451234', 2, 4, '2024-05-27 19:01:40.193236+09','무통장입금', '2024-07-07', 'Y', '20:00-22:00');
 INSERT INTO reserve
-VALUES (DEFAULT, 1, 2, 2, 5, '2024-05-27 19:01:40.193236+09','무통장입금', '2024-07-07', 'Y', '20:00-22:00');
+VALUES (DEFAULT, 1, 2, '이원기', '1997-04-23', '01023451234', 2, 5, '2024-05-27 19:01:40.193236+09','무통장입금', '2024-07-07', 'Y', '20:00-22:00');
 INSERT INTO reserve
-VALUES (DEFAULT, 3, 4, 3, 2, '2024-05-26 19:01:40.193236+09','무통장입금', '2024-07-08', 'Y', '20:00-22:40');
+VALUES (DEFAULT, 4, 3, '홍길동', '2000-01-15', '01012345678', 3, 2, '2024-05-26 19:01:40.193216+09','무통장입금', '2024-07-08', 'Y', '20:00-22:40');
 INSERT INTO reserve
-VALUES (DEFAULT, 3, 4, 3, 3, '2024-05-26 19:01:40.193236+09','무통장입금', '2024-07-08', 'Y', '20:00-22:40');
+VALUES (DEFAULT, 4, 3, '홍길동', '2000-01-15', '01012345678', 3, 3, '2024-05-26 19:01:40.193216+09','무통장입금', '2024-07-08', 'Y', '20:00-22:40');
 INSERT INTO reserve
-VALUES (DEFAULT, 4, 5, 5, 6, '2024-05-24 12:01:40.193236+09','무통장입금', '2024-07-08', 'Y', '20:00-22:30');
+VALUES (DEFAULT, 4, 4, '주재완', '1998-01-01', '01044978488', 5, 6, '2024-05-24 12:01:40.123236+09','무통장입금', '2024-07-08', 'Y', '20:00-22:30');
 INSERT INTO reserve
-VALUES (DEFAULT, 4, 5, 5, 7, '2024-05-24 12:01:40.193236+09','무통장입금', '2024-07-08', 'Y', '20:00-22:30');
+VALUES (DEFAULT, 4, 4, '주재완', '1998-01-01', '01044978488', 5, 7, '2024-05-24 12:01:40.123236+09','무통장입금', '2024-07-08', 'Y', '20:00-22:30');
 INSERT INTO reserve
-VALUES (DEFAULT, 4, 5, 5, 8, '2024-05-24 12:01:40.193236+09','무통장입금', '2024-07-08', 'Y', '20:00-22:30');
+VALUES (DEFAULT, 4, 4, '주재완', '1998-01-01', '01044978488', 5, 8, '2024-05-24 12:01:40.123236+09','무통장입금', '2024-07-08', 'Y', '20:00-22:30');
 INSERT INTO reserve
-VALUES (DEFAULT, 4, 5, 5, 9, '2024-05-24 12:01:40.193236+09','무통장입금', '2024-07-08', 'Y', '20:00-22:30');
+VALUES (DEFAULT, 4, 4, '주재완', '1998-01-01', '01044978488', 5, 9, '2024-05-24 12:01:40.123236+09','무통장입금', '2024-07-08', 'Y', '20:00-22:30');
 INSERT INTO reserve
-VALUES (DEFAULT, 5, 2, 10, 4, '2024-05-21 12:01:40.193236+09','무통장입금', '2024-07-08', 'Y', '20:00-23:00');
+VALUES (DEFAULT, 5, 2, '이원기', '1997-04-23', '01023451234', 10, 4, '2024-05-21 12:01:40.193236+09','무통장입금', '2024-07-08', 'Y', '20:00-23:00');
 INSERT INTO reserve
-VALUES (DEFAULT, 5, 2, 10, 3, '2024-05-21 12:01:40.193236+09','무통장입금', '2024-07-08', 'Y', '20:00-23:00');
+VALUES (DEFAULT, 5, 2, '이원기', '1997-04-23', '01023451234', 10, 3, '2024-05-21 12:01:40.193236+09','무통장입금', '2024-07-08', 'Y', '20:00-23:00');
 INSERT INTO reserve
-VALUES (DEFAULT, 1, 2, 4, 5, '2024-05-27 19:01:40.193236+09','무통장입금', '2024-07-08', 'Y', '20:00-22:00');
+VALUES (DEFAULT, 1, 2, '장용준', '1998-01-03', '01064545111', 4, 5, '2024-05-27 11:31:48.193236+09','무통장입금', '2024-07-08', 'Y', '20:00-22:00');
 
 SELECT * FROM reserve;
 
