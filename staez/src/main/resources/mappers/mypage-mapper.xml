@@ -396,11 +396,14 @@
 	</select>
 	
 	<select id="loadMyScrapAjax" resultType="Concert">
-		SELECT ROW_NUMBER() OVER() AS rn, concertNo, concertTitle
+		SELECT ROW_NUMBER() OVER() AS rn, concertNo, concertTitle, categoryName
 		FROM (SELECT cl.concert_no AS concertNo, 
-				     c.concert_title  AS concertTitle
+				     c.concert_title  AS concertTitle,
+				     ca.category_name AS categoryName
 			  FROM concert_like cl
 			  JOIN concert c ON (cl.concert_no = c.concert_no)
+			  JOIN concert_category cc ON (cc.concert_no = c.concert_no)
+			  JOIN category ca ON (cc.category_no = ca.category_no)
 			  WHERE cl.user_no = #{userNo}
 		      AND cl.status = 'Y'
 			  ORDER BY cl.concert_like_date DESC)
