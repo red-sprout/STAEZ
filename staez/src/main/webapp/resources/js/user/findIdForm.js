@@ -140,7 +140,7 @@ let timer; // 전역 변수로 타이머 변수를 선언합니다.
 function startTimer() {
     clearInterval(timer); // 이전에 실행 중이던 타이머를 초기화합니다.
 
-    var duration = 5 * 60;
+    var duration = 3 * 60;
     var timerDisplay = document.getElementById('timer');
 
     // 카운트 다운 시작
@@ -305,7 +305,8 @@ function checkButton(){
 // 이메일로 아이디 찾기 불러오기
 function clickGetId(){
     let email = document.getElementById("input-value-email").value;
-    getIdbyEmail({checkFindEmail: email}, function(res){
+    let userName = document.getElementById("user_name").value;
+    getIdbyEmail({checkFindEmail: email, userName}, function(res){
         console.log(res)
         if (res !== "emailSecretCodeCheck No"){
             document.querySelector("#emailFindId").innerHTML = res;

@@ -9,6 +9,7 @@
 		<result column="user_no" property="userNo" />
 		<result column="user_id" property="userId" />
 		<result column="user_pwd" property="userPwd" />
+		<result column="user_name" property="userName" />
 		<result column="nickname" property="nickname" />
 		<result column="gender" property="gender" />
 		<result column="birth" property="birth" />
@@ -38,6 +39,7 @@
 			user_no,
 			user_id,
 			user_pwd,
+			user_name,
 			nickname,
 			gender,
 			birth,
@@ -72,6 +74,7 @@
 		INSERT INTO staez_user(
 		   user_id,
 		   user_pwd,
+		   user_name,
 		   nickname,
 		   gender,
 		   birth,
@@ -84,6 +87,7 @@
 		VALUES(
 		   #{userId},
 		   #{userPwd},
+		   #{userName},
 		   #{nickname},
 		   #{gender},
 		   #{birth},
@@ -124,7 +128,8 @@
 	<select id="findEmailCheck" resultType="string">
 		SELECT user_id
 		  FROM staez_user
-		 WHERE email = #{email};
+		 WHERE email = #{email}
+		   AND user_name = #{userName};
 	</select>
 	
 	<!-- 유효성 검사 및 사용자 정보 확인 -->
@@ -133,7 +138,8 @@
 	      FROM staez_user
 	     WHERE user_id = #{userId}
 	       AND phone = #{phone}
-	       AND email = #{email};
+	       AND email = #{email}
+	       AND user_name = #{user_name};
 	</select>
 	
 	<!-- 새로운 비밀번호 저장 -->
@@ -143,6 +149,7 @@
 	    WHERE user_id = #{userId} 
 	      AND phone = #{phone} 
 	      AND email = #{email}
+	      AND user_name = #{user_name};
 	</update>
 	
 	<!-- 이메일 존재 여부 확인 -->

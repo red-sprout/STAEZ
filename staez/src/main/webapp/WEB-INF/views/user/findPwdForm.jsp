@@ -38,11 +38,14 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th></th>
-                    </tr>
+                        <th>이름</th>
+                        <td colspan="1">
+                            <input type="text" name="user_name" id="user_name"  required >
+                        </td>
+                    </tr>    
                     <tr>
                         <th>휴대폰 번호</th>
-                        <td class="email-container"  >
+                        <td class="email-container">
                             <div id="td-div">
                                 <span id="phone-prefix">010</span>
                                 <span>-</span>
@@ -54,11 +57,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <th></th>
-                    </tr>
-                    <tr>
                         <th>이메일</th>
-                        <td colspan="5" class="email-container" id="insertEmail" name="insertEmail">
+                        <td colspan="1" class="email-container" id="insertEmail" name="insertEmail">
                             <div style="display: flex;">
                                 <input type="text" id="email-prefix" placeholder="이메일 아이디">
                                 <span id="email-prefix-shift2">@</span>
@@ -81,9 +81,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>인증번호</th>
+                        <th></th>
                         <td>
-                            <input type="text" id="verification-code" required>
+                            <div id="emailTimeContainer">
+                                <input type="text" id="verification-code" required><div id="timer"></div>
+                            </div>
                         </td>
                         <td>
                             <input type="button" class="check_button" id="check_emailSecretBtn" value="인증확인">

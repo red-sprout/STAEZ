@@ -3,15 +3,15 @@ document.addEventListener('DOMContentLoaded', function() {
     backPage();
     // 이메일
     sgininemail();
-    // 이메일 아이디 적을 때 한글 안 되고 영어만 가능하게
+    // 이메일 아이디적을때 한글안되고 영어만 가능하게
     sgininemailEng();
-    // 입력 시 2초 후에 콘솔에 이메일 값을 출력하는 기능입니다.
+    // 이메일 다 입력됬나 콘솔
     emailTimeTwo();
     // 이메일 인증 전송 버튼 이벤트 리스너 등록
-    const emailCheckButton = document.getElementById("emailCheckButton");
-    emailCheckButton.addEventListener('click', sendVerificationCode);
     $("#emailCheckButton").on('click', (ev) => {
-        nicknameCheck();
+        // 클릭 이벤트 발생 시 서버로 이메일 인증 요청 보내기
+        const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
+        sendEmailVerificationRequest(emailInput); // 이메일 인증 요청 보내는 함수 호출
     });
     // UUID 이메일 체크
     emailSecretCode();
@@ -76,21 +76,13 @@ function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput, e
     if (result === "emailSecretCodeCheck No") { // 입력값이 데이터베이스 값과 일치하지 않을 때
         emailSecretCheckResult.style.color = "red";
         emailSecretCheckResult.innerText = "인증 코드가 일치하지 않습니다.";
-        // 다음 버튼 비활성화
-        document.getElementById("findEmailCheck").disabled = true;
-        findEmailCheckButton.style.backgroundColor = "white";
     } else if (result === "emailSecretCodeCheck Yes") { // 입력값이 데이터베이스 값과 일치할 때
         emailSecretCheckResult.style.color = "green";
         emailSecretCheckResult.innerText = "인증이 확인되었습니다.";
         console.log("이메일 확인:", emailSecretInput.value);
-        // 다음 버튼 활성화
-        document.getElementById("findEmailCheck").disabled = false;
     } else { // 그 외의 경우 (예: 서버 오류 등)
         emailSecretCheckResult.style.color = "red";
         emailSecretCheckResult.innerText = "인증을 확인할 수 없습니다.";
-        // 다음 버튼 비활성화
-        document.getElementById("findEmailCheck").disabled = true;
-        findEmailCheckButton.style.backgroundColor = "white";
     }
     emailSecretErrorMessage.style.display = "none"; // 에러 메시지 숨기기
 }
@@ -101,7 +93,7 @@ let timer; // 전역 변수로 타이머 변수를 선언합니다.
 function startTimer() {
     clearInterval(timer); // 이전에 실행 중이던 타이머를 초기화합니다.
 
-    var duration = 5 * 60;
+    var duration = 3 * 60;
     var timerDisplay = document.getElementById('timer');
 
     // 카운트 다운 시작
@@ -120,11 +112,12 @@ function startTimer() {
             clearInterval(timer);
             timerDisplay.textContent = "시간 초과";
 
-            // 시간 초과 시 데이터베이스로 업데이트 요청 보내기 (Ajax를 사용하여 비동기 요청)
-            updateVerificationCode();
+            // 시간 초과 시 데이터베이스로 삭제 요청 보내기 (Ajax를 사용하여 비동기 요청)
+            deleteVerificationCode();
         }
     }, 1000);
 }
+
 
 // UUID 이메일 체크
 function emailSecretCode() {
@@ -269,13 +262,15 @@ function clickIdPhoneEmail() {
     let id = document.getElementById("input-value-id").value;
     let phone = document.getElementById("input-value-phone").value;
     let email = document.getElementById("input-value-email").value;
+    let userName = document.getElementById("user_name").value;
 
     // 데이터 확인
     console.log("ID:", id);
     console.log("Phone:", phone);
     console.log("Email:", email);
+    console.log("user_name:", userName);
 
-    clickIdPhoneEmailSelect({ userId: id, phone: phone, email: email }, function(res) {
+    clickIdPhoneEmailSelect({ userId: id, phone: phone, email: email, user_name: userName }, function(res) {
         console.log(res);
         if (res.trim() === "New Pwd Go") {
             // 모달 대신에 스타일을 변경하여 모달을 보이게 함
@@ -353,11 +348,12 @@ function clickNewPwd() {
     let id = document.getElementById("input-value-id").value;
     let phone = document.getElementById("input-value-phone").value;
     let email = document.getElementById("input-value-email").value;
+    let userName = document.getElementById("user_name").value;
 
     // 데이터 확인
     console.log("New Password:", newPassword);
 
-    clickNewPwdInsert({ userId: id, phone: phone, email: email, newPassword: newPassword }, function(res) {
+    clickNewPwdInsert({ userId: id, phone: phone, email: email,userName:userName, newPassword: newPassword }, function(res) {
         console.log(res);
         if (res.trim() === "Password Changed") {
             alert("비밀번호가 성공적으로 변경되었습니다.");
