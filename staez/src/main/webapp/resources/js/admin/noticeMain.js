@@ -92,7 +92,7 @@ function tableRows(board) {
     result.appendChild(profileArea);
 
     const writeDate = document.createElement("tr");
-    writeDate.innerHTML += `<td>${board.boardWriteDate}</td>`;
+    writeDate.innerHTML += `<td>${timeFormatForSeconds(board.boardWriteDate)}</td>`;
     result.appendChild(writeDate);
 
     const boardTitle = document.createElement("tr");

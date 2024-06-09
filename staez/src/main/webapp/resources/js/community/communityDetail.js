@@ -33,9 +33,14 @@ $(function(){
     });
 
     const concertNo = document.querySelector("input[name='tag']").value;
+    const dateTd = document.getElementById("detail-write-date");
+    const boardWriteDate = document.querySelector("input[name=boardWriteDate]");
+
     if(concertNo) {
         setTag(concertNo);
     }
+
+    dateTd.innerText = timeFormatForSeconds(boardWriteDate.value);
 });
 
 function imgsrc(str) {

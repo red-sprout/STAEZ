@@ -13,6 +13,9 @@ $(function(){
         likeStatus(res);
     });
 
+    const dateTd = document.getElementById("detail-write-date");
+    const boardWriteDate = document.querySelector("input[name=boardWriteDate]");
+    dateTd.innerText = timeFormatForSeconds(boardWriteDate.value);
 });
 
 function imgsrc(str) {
