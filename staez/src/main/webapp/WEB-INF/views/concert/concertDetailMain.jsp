@@ -30,8 +30,7 @@
         <jsp:include page="../common/header.jsp" />
 
         <!-- 적용 자바스크립트 -->
-        <script src="<c:url value='/resources/js/api/concertapi.js'/>"></script>
-        <script src="<c:url value='/resources/js/concert/concertDetailMain.js'/>"></script>
+
     </div>
 
     <!-- 공연 navi -->
@@ -57,7 +56,7 @@
                     <i class="fa-regular fa-heart"></i>
                     <span class="concert-likeCount"></span>
                 </button> <!-- 길이조절필요 -->
-                <div class="concert-detail-like-commu"><a href="main.cm"><span><b>${con.concertTitle} 커뮤니티로 가기</b></span></a></div>
+                <div class="concert-detail-like-commu"><a href="main.cm"><span><b>${con.concertTitle}<br>커뮤니티로 가기</b></span></a></div>
             </div>
         </div>
         <div class="concert-detail-body-div">
@@ -151,6 +150,7 @@
         <br>
 
     <section class="concert-detail-down-section">
+
         <!-- <div>
             <div class="concert-detail-subject">
                 <br>
@@ -166,10 +166,50 @@
             </div>
             <br><br>
         </div> -->
+
     </section>
+
+    <div class="page-list" align="center">
+        <!-- <div class="pagination">
+            <c:choose>
+                <c:when test="${ pi.currentPage eq 1 }">
+                    <a href="#" disabled>
+                    <img src="${pageContext.request.contextPath}/resources/img/main/before.png">
+                    </a>
+                </c:when>
+                <c:otherwise>
+                    <a href="commentDetail.co?cpage=${pi.currentPage - 1}">
+                    <img src="${pageContext.request.contextPath}/resources/img/main/before.png">
+                    </a>
+                </c:otherwise>
+            </c:choose>
+
+            <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                <div class="pagination current"><h4><a class="page-link" href="commentDetail.co?cpage=${p}">${p}${p}${p}${p}${p}</a></h4></div>
+            </c:forEach>
+
+            <c:choose>
+                <c:when test="${ pi.currentPage eq pi.maxPage }">
+                    <a href="#" disabled>
+                        <img src="${pageContext.request.contextPath}/resources/img/main/after.png">
+                        </a>
+                </c:when>
+                <c:otherwise>
+                    <a href="commentDetail.co?cpage=${pi.currentPage + 1}">
+                        <img src="${pageContext.request.contextPath}/resources/img/main/after.png">
+                    </a>
+                </c:otherwise>
+            </c:choose>
+        </div>     -->
+    </div>
+
+
+    <br>
 
     <div>
         <jsp:include page="../common/footer.jsp" />
     </div>
+    <script src="<c:url value='/resources/js/api/concertapi.js'/>"></script>
+    <script src="<c:url value='/resources/js/concert/concertDetailMain.js'/>"></script>
 </body>
 </html>

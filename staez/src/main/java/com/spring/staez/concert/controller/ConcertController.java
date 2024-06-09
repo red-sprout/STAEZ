@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.common.model.vo.PageInfo;
+import com.spring.staez.common.template.Pagination;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.ConcertLike;
@@ -25,12 +27,9 @@ public class ConcertController {
 	@Autowired
 	private ConcertService concertService;
 	
-	// 공연 누르면 보여주는 공연 메인 페이지
-//	@GetMapping("main.co")
-//	public String concertMain() {
-//		
-//		return "concert/concertMain";
-//	}
+//	@Autowired
+//	private PageInfo page;
+
 	
 	// category를 가져와라 콘서트 '네비'에 뿌려주기
 	@ResponseBody
@@ -57,7 +56,7 @@ public class ConcertController {
 	}
 		
 		
-	// 공연을 concertNo로 가져와서 공연세부페이지로
+	// 공연을 concertNo로 가져와서 공연세부페이지로: 한줄평이랑 리뷰
 	@RequestMapping(value = "detail.co", produces="application/json; charset=UTF-8")
 	public String selectCon(@RequestParam(value = "concertNo") String concertNo, Model model) {
 		Concert con = concertService.selectCon(Integer.parseInt(concertNo));
@@ -121,11 +120,8 @@ public class ConcertController {
 		} else {
 			return "좋아요 실패";
 		}
-
-
 	}
 	
-
 	
 	// 공연을 concertNo로 가져와서 공연세부페이지로
 	@ResponseBody
@@ -143,21 +139,65 @@ public class ConcertController {
 		return new Gson().toJson(conDlist);
 	}
 	
-	// 공연을 concertNo로 가져와서 한줄평 페이지로
+	
+	
+	// 공연을 concertNo로 가져와서 한줄평 페이지로 + 페이지네이션
 	@ResponseBody
 	@RequestMapping(value = "commentDetail.co", produces="application/json; charset=UTF-8")
-	public String commentDetail(@RequestParam(value = "concertNo") String concertNo) {
-		ArrayList<ConcertReview> conComDlist =  concertService.selectComDetail(Integer.parseInt(concertNo));
-		return new Gson().toJson(conComDlist);
+	public String commentDetail(@RequestParam(value = "concertNo") String concertNo,
+								@RequestParam(value="cpage", defaultValue="1" )int cpage) {
+		
+		// 한줄평 총 갯수 가져오기
+		int currentPage = cpage;
+		int comCount = concertService.selectComCount(Integer.parseInt(concertNo));
+		PageInfo pi = Pagination.getPageInfo(comCount, currentPage, 5, 10);
+		ArrayList<ConcertReview> crList =  concertService.selectComList(pi, Integer.parseInt(concertNo));
+		
+		
+	    Map<String, Object> result = new HashMap<>();
+	    result.put("pi", pi);
+	    result.put("crList", crList);
+
+	    return new Gson().toJson(result);
 	}
+		
+////		ArrayList<ConcertReview> comList =  concertService.selectComDetail(Integer.parseInt(concertNo));
+//		
+////		model.addAttribute("comList", comList);
+//		model.addAttribute("pi", pi);
+//		model.addAttribute("crList", crList);
+//		
+//		System.out.println("comCount:" + comCount);
+////		System.out.println("comList:"+ comList);
+//		System.out.println("pi:" + pi);
+//		System.out.println("crList:" + crList);
+//		
+//		
+//		return new Gson().toJson(crList);  // "concert/concertDetailMain";
+//	}
+//	
 	
-	// 공연을 concertNo로 가져와서 리뷰 페이지로
+	
+	// 공연을 concertNo로 가져와서 리뷰 페이지로: 리뷰페이지 페이지네이션
 	@ResponseBody
 	@RequestMapping(value = "reviewDetail.co", produces="application/json; charset=UTF-8")
-	public String reviewDetail(@RequestParam(value = "concertNo") String concertNo) {
-		ArrayList<Board> conRevDlist =  concertService.selectRevDetail(Integer.parseInt(concertNo));
-		return new Gson().toJson(conRevDlist);
+	public String reviewDetail(@RequestParam(value = "concertNo") String concertNo,
+							   @RequestParam(value="rpage", defaultValue="1" )int rpage) {
+		
+		
+		int currentPage = rpage;
+		int revCount = concertService.selectRevCount(Integer.parseInt(concertNo));
+		PageInfo pi = Pagination.getPageInfo(revCount, currentPage, 5, 10);
+		ArrayList<Board> rList =  concertService.selectRevList(pi, Integer.parseInt(concertNo));
+		
+	    Map<String, Object> result = new HashMap<>();
+	    result.put("pi", pi);
+	    result.put("rList", rList);
+		
+		return new Gson().toJson(result);
 	}
+	
+	
 	
 	
 	
@@ -186,6 +226,22 @@ public class ConcertController {
 		return new Gson().toJson(list);
 	}
 
+//	@ResponseBody
+//	@RequestMapping(value = "locationAll.co", produces="application/json; charset=UTF-8")
+//	public String locationAll(@RequestParam(value = "categoryNo")int categoryNo, @RequestParam(value = "area")String area) {
+//		System.out.println("area:" + area);
+//		
+//		Map map = new HashMap();
+//		map.put("categoryNo", categoryNo);
+//		map.put("area", area);
+//		
+//		ArrayList<Concert> list =  concertService.locationAllList(map);
+//		return new Gson().toJson(list);
+//	}
+	
+	
+	
+	// 페이지네이션
 	@ResponseBody
 	@RequestMapping(value = "locationAll.co", produces="application/json; charset=UTF-8")
 	public String locationAll(@RequestParam(value = "categoryNo")int categoryNo, @RequestParam(value = "area")String area) {
@@ -198,5 +254,13 @@ public class ConcertController {
 		ArrayList<Concert> list =  concertService.locationAllList(map);
 		return new Gson().toJson(list);
 	}
+	
+	
 
+	// 공연 누르면 보여주는 공연 메인 페이지
+//	@GetMapping("main.co")
+//	public String concertMain() {
+//		
+//		return "concert/concertMain";
+//	}
 }

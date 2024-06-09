@@ -99,13 +99,8 @@
 		<result column="user_no" property="userNo" />
 		<result column="nickname" property="nickname" />
 		<result column="board_title" property="boardTitle" />
-		<result column="gender" property="gender" />
-		<result column="birth" property="birth" />
-		<result column="address" property="address" />
-		<result column="email" property="email" />
-		<result column="phone" property="phone" />
 		<result column="genre_like" property="genreLike" />
-		<result column="grade" property="grade" />
+		<result column="concert_no" property="concertNo" />
 		<result column="enroll_date" property="enrollDate" />
 		<result column="withdrawal_date" property="withdrawalDate" />
 		<result column="user_status" property="userStatus" />
@@ -213,9 +208,18 @@
 		LIMIT 1 OFFSET 0;
 	</select>
 	
+	
+	<select id="selectComCount" resultType="_int">
+	SELECT COUNT(*)
+	FROM concert_review
+	WHERE concert_no = #{concertNo}
+	  AND review_status = 'Y'
+	</select>
+	
 	<select id="selectComDetail" resultMap="concertReviewResult" >
 	    SELECT user_no,
 				concert_no,
+				review_no,
 				review_content,
 				score,
 				nickname,
@@ -243,8 +247,7 @@
 		WHERE concert_no = #{concertNo}
 		  AND board_status = 'Y';
 	</select>
-	
-	
+		
 	
 	
 	<!-- 좋아요 구현 -->
@@ -393,8 +396,49 @@
  		  AND address
  		  </if>
           LIKE #{area} || '%'
-		
 	 </select>
+	 
+	 <select id="selectComList"  resultMap="concertReviewResult" >
+	    SELECT user_no,
+				concert_no,
+				review_no,
+				review_content,
+				score,
+				nickname,
+				review_date,
+				concert_members
+		 FROM concert_review
+		 JOIN staez_user USING (user_no)
+		 JOIN concert USING (concert_no)
+		WHERE review_status = 'Y'
+		  AND concert_no = #{concertNo}
+	    ORDER BY review_no
+	 </select>
+	 
+	<select id="selectRevCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM board
+		WHERE concert_no = #{concertNo}
+		  AND board_status = 'Y'
+	</select>
+	
+	 <select id="selectRevList"  resultMap="boardResult" >
+	 	SELECT user_no,
+				board_no,
+				nickname,
+			    concert_no,
+				board_write_date,
+				board_title,
+				board_content
+		 FROM board
+		 JOIN staez_user USING (user_no)
+		 JOIN tag USING (board_no)
+		 JOIN concert USING (concert_no)
+		WHERE concert_no = #{concertNo}
+		  AND board_status = 'Y'
+	    ORDER BY board_no
+	 </select>
+
     
     
     
