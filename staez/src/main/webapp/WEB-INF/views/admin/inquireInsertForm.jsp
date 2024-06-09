@@ -20,6 +20,7 @@
                 <input type="hidden" name="userNo" value="${loginUser.userNo}">
                 <input type="hidden" name="refBoardNo">
                 <input type="hidden" name="boardCode" value="3">
+                <input type="hidden" name="boardLevel" value="2">
                 <input type="hidden" name="url" value="inquireList.ad">
                 <h1>문의하기</h1>
                 <hr>
