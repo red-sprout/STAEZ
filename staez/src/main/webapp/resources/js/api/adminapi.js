@@ -452,15 +452,15 @@ function adminSelectReserve(data, callback) {
     });
 }
 
-function deleteReserve(data, callback) {
+function updateReserve(data, callback) {
     $.ajax({
-        url: contextPath + "adminDelete.re",
+        url: contextPath + "adminUpdate.re",
         type: "POST",
         data: data,
         success: function (res) {
             callback(res);
         }, error() {
-            console.log("Reserve 삭제 api 요청 실패");
+            console.log("Reserve 상태 수정 api 요청 실패");
         }
     });
 }

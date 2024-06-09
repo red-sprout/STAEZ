@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.pbkdf2.RuntimeCryptoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +14,7 @@ import com.spring.staez.admin.model.dao.AdminDao;
 import com.spring.staez.admin.model.dto.AdminBoardDto;
 import com.spring.staez.admin.model.dto.AdminBoardSelectDto;
 import com.spring.staez.admin.model.dto.AdminSearchDto;
+import com.spring.staez.admin.model.dto.AdminUpdateDto;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.admin.model.vo.ConcertSchedule;
 import com.spring.staez.admin.model.vo.ImpossibleSeat;
@@ -240,7 +240,16 @@ public class AdminServiceImpl implements AdminService {
 
 	@Transactional(rollbackFor = {Exception.class})
 	@Override
-	public int deleteReserve(AdminBoardSelectDto dto) {
-		return adminDao.deleteReserve(sqlSession, dto);
+	public int updateReserve(AdminUpdateDto dto) {
+		int result = 1;
+		Map<String, Object> map = new HashMap<>();
+		map.put("reserveStatus", dto.getReserveStatus());
+		for(int reserveNo : dto.getReserveList()) {
+			map.put("reserveNo", reserveNo);
+			result *= adminDao.updateReserve(sqlSession, map);
+			if (result == 0) 
+				throw new RuntimeException("Reserve update 실패");
+		}
+		return result;
 	}
 }

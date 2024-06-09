@@ -10,8 +10,8 @@ $(function () {
 
     document.querySelector("#admin-search button").addEventListener("click", (ev) => searchEvent(ev));
     document.querySelector("#admin-search input").addEventListener("keypress", (ev) => searchEventEnter(ev));
-    document.querySelector("#admin-update-reserve").addEventListener("click", updateModal);
-    document.querySelector("#admin-delete-reserve").addEventListener("click", deleteReserveEvent);
+    document.querySelector("#admin-update-reserve").addEventListener("click", () => updateReserveEvent("Y"));
+    document.querySelector("#admin-delete-reserve").addEventListener("click", () => updateReserveEvent("N"));
 })
 
 function getSelect() {
@@ -229,63 +229,16 @@ function getCategoryChecked(id) {
     return result;
 }
 
-// 삭제
-function deleteReserveEvent() {
-    const boardList = getCheckboxChecked();
-    if (boardList.length === 0) {
+function updateReserveEvent(reserveStatus) {
+    const reserveList = getCheckboxChecked();
+    if (reserveList.length === 0) {
         alert("하나 이상의 예매내역을 선택해주세요.")
         return;
     }
-    deleteReserve({
-        boardList,
+    updateReserve({
+        reserveList, reserveStatus
     }, (msg) => {
         alert(msg);
         location.reload();
     })
-}
-
-// 상태 수정 모달 제어
-function updateModal() {
-    const boardList = getCheckboxChecked();
-    if (boardList.length !== 1) {
-        alert("예매내역 상태 수정시 하나만 선택하기 바랍니다.");
-        ev.currentTarget.removeAttribute("data-toggle");
-        ev.currentTarget.removeAttribute("data-target");
-        return;
-    }
-    ev.currentTarget.setAttribute("data-toggle", "modal");
-    ev.currentTarget.setAttribute("data-target", `#status-modal`);
-
-    const modalBody = document.querySelector(`#status-modal .modal-body`);
-    modalBody.innerHTML = "";
-
-    updateModalButton(modalBody, "결제완료", "Y");
-    updateModalButton(modalBody, "결제대기", "U");
-    updateModalButton(modalBody, "예매취소", "N");
-}
-
-// 상태 수정 모달의 권한 버튼 추가 및 이벤트 부여
-function updateModalButton(parent, name, value) {
-    const btn = document.createElement("button");
-    btn.setAttribute("class", "btn-staez");
-    btn.setAttribute("type", "button");
-    btn.innerHTML += `<h3>${name}</h3><input type="radio" class="hidden" value="${value}">`
-    parent.appendChild(btn);
-
-    btn.addEventListener("click", (ev) => {
-        updateGradeBtnToggle(ev.currentTarget);
-    });
-}
-
-// 상태 수정 버튼 토클
-function updateGradeBtnToggle(target) {
-    const modalBody = document.querySelector("#grade-modal .modal-body").children;
-
-    for (let ele of modalBody) {
-        ele.classList.remove("checked");
-        ele.children[1].removeAttribute("checked");
-    }
-
-    target.classList.add("checked");
-    target.children[1].setAttribute("checked", true);
 }

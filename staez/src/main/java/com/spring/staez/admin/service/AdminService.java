@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.spring.staez.admin.model.dto.AdminBoardDto;
 import com.spring.staez.admin.model.dto.AdminBoardSelectDto;
 import com.spring.staez.admin.model.dto.AdminSearchDto;
+import com.spring.staez.admin.model.dto.AdminUpdateDto;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.admin.model.vo.ConcertSchedule;
 import com.spring.staez.admin.model.vo.ImpossibleSeat;
@@ -72,6 +73,6 @@ public interface AdminService {
 
 	ArrayList<Reserve> selectReserve(AdminSearchDto dto, PageInfo pi);
 
-	int deleteReserve(AdminBoardSelectDto dto);
+	int updateReserve(AdminUpdateDto dto);
 
 }

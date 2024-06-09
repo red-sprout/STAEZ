@@ -21,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 import com.spring.staez.admin.model.dto.AdminBoardDto;
 import com.spring.staez.admin.model.dto.AdminBoardSelectDto;
 import com.spring.staez.admin.model.dto.AdminSearchDto;
+import com.spring.staez.admin.model.dto.AdminUpdateDto;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.admin.model.vo.ConcertSchedule;
 import com.spring.staez.admin.model.vo.ImpossibleSeat;
@@ -404,13 +405,13 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@PostMapping(value = "adminDelete.re", produces = "text/plain; charset=utf-8")
-	public String adminDeleteReserve(AdminBoardSelectDto dto) {
-		int result = adminService.deleteReserve(dto);
+	@PostMapping(value = "adminUpdate.re", produces = "text/plain; charset=utf-8")
+	public String adminUpdateReserve(AdminUpdateDto dto) {
+		int result = adminService.updateReserve(dto);
 		if(result == 0) {
-			return "예약내역 삭제 실패";
+			return "예약내역 수정 실패";
 		} else {
-			return "성공적으로 삭제 처리하였습니다.";
+			return "성공적으로 수정하였습니다.";
 		}
 	}
 }

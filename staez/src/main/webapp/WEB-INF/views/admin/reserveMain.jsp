@@ -34,10 +34,10 @@
             </li>
             <li>
                 <button class="btn-staez purple" id="admin-update-reserve">
-                    <h4>상태 변경</h4>
+                    <h4>결제 완료</h4>
                 </button>
                 <button class="btn-staez purple" id="admin-delete-reserve">
-                    <h4>삭제</h4>
+                    <h4>예매 취소</h4>
                 </button>
             </li>
             <li id="admin-table" class="admin-middle">
@@ -63,27 +63,6 @@
             </li>
         </ul>
     </main>
-    <!-- The Modal -->
-    <div class="modal" id="status-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h3 class="modal-title">예매내역 상태 선택</h3>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-    
-                <!-- Modal body -->
-                <div class="modal-body" id="reserve-status"></div>
-    
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="updateStatusEvent()">수정</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <footer>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</footer>

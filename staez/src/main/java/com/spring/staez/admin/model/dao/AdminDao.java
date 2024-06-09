@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.staez.admin.model.dto.AdminBoardDto;
 import com.spring.staez.admin.model.dto.AdminBoardSelectDto;
 import com.spring.staez.admin.model.dto.AdminSearchDto;
+import com.spring.staez.admin.model.dto.AdminUpdateDto;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.admin.model.vo.ConcertSchedule;
 import com.spring.staez.admin.model.vo.ImpossibleSeat;
@@ -215,8 +216,8 @@ public class AdminDao {
 		return (ArrayList)sqlSession.selectList("adminMapper.selectReserve", dto, rowBounds);
 	}
 
-	public int deleteReserve(SqlSessionTemplate sqlSession, AdminBoardSelectDto dto) {
-		return 0;
+	public int updateReserve(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("adminMapper.updateReserve", map);
 	}
 
 }

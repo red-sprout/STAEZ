@@ -874,5 +874,10 @@
 		</choose>
 		ORDER BY r.reserve_no DESC
 	</select>
+	<update id="updateReserve">
+		UPDATE reserve
+		SET reserve_status = #{reserveStatus}
+		WHERE reserve_no = #{reserveNo}
+	</update>
 </mapper>
 
