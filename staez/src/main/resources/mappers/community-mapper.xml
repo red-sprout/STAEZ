@@ -331,5 +331,28 @@
 		WHERE r.board_no = #{boardNo}
 		AND r.reply_status = 'Y'
 	</select>
+	<insert id="insertReport">
+		INSERT INTO board
+		(
+			ref_board_no,
+			user_no, 
+			board_level,
+			board_code,
+			board_title,
+			board_content
+		) VALUES (
+			#{refBoardNo},
+			#{userNo},
+			2,
+			5,
+			#{boardTitle},
+			#{boardContent}
+		)
+	</insert>
+	<update id="updateBoardCnt">
+		UPDATE board
+		SET board_count = board_count + 1
+		WHERE board_no = #{boardNo}
+	</update>
 </mapper>
 

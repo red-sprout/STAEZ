@@ -57,4 +57,8 @@ public interface CommunityService {
 
 	int selectBoardCnt(String keyword);
 
+	int insertReport(Board report);
+
+	int updateBoardCnt(int boardNo);
+
 }

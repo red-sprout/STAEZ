@@ -45,12 +45,18 @@ public class CommunityController {
 	}
 	
 	@GetMapping("detail.cm")
-	public String communityDetail(int boardNo, Model model) {
-		Board board = communityService.boardDetail(boardNo);
-		Tag tag = communityService.selectTag(boardNo);
-		model.addAttribute("board", board);
-		model.addAttribute("tag", tag);
-		return "community/communityDetail";
+	public String communityDetail(int boardNo, Model model, HttpSession session) {
+		int result = communityService.updateBoardCnt(boardNo);
+		if(result > 0) {			
+			Board board = communityService.boardDetail(boardNo);
+			Tag tag = communityService.selectTag(boardNo);
+			model.addAttribute("board", board);
+			model.addAttribute("tag", tag);
+			return "community/communityDetail";
+		} else {
+			session.setAttribute("alertMsg", "서버 에러입니다. 나중에 다시 접속하세요.");
+			return "redirect:/main.cm";
+		}
 	}
 	
 	@GetMapping("incertForm.cm")
@@ -255,5 +261,17 @@ public class CommunityController {
 	public String selectReplyAll(int boardNo) {
 		ArrayList<Reply> list = communityService.selectReplyAll(boardNo);
 		return new Gson().toJson(list);
+	}
+	
+	@PostMapping("insert.rp")
+	public String insertReport(Board report, HttpSession session) {
+		int result = communityService.insertReport(report);
+		if(result == 0) {
+			session.setAttribute("alertMsg", "게시글 신고 실패");
+		} else {
+			session.setAttribute("alertMsg", "신고 완료하였습니다.");
+		}
+		
+		return "redirect:/main.cm";
 	}
 }

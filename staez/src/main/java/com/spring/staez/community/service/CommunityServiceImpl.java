@@ -169,13 +169,27 @@ public class CommunityServiceImpl implements CommunityService {
 		return list;
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public int selectBoardCnt(CategoryDto categoryDto) {
 		return communityDao.selectBoardCnt(sqlSession, categoryDto);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public int selectBoardCnt(String keyword) {
 		return communityDao.selectBoardCnt(sqlSession, keyword);
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int insertReport(Board report) {
+		return communityDao.insertReport(sqlSession, report);
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int updateBoardCnt(int boardNo) {
+		return communityDao.updateBoardCnt(sqlSession, boardNo);
 	}
 }

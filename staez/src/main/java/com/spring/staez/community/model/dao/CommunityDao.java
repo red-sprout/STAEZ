@@ -145,5 +145,13 @@ public class CommunityDao {
 	public int selectBoardCnt(SqlSessionTemplate sqlSession, String keyword) {
 		return sqlSession.selectOne("communityMapper.selectBoardCntAll", keyword);
 	}
+
+	public int insertReport(SqlSessionTemplate sqlSession, Board report) {
+		return sqlSession.insert("communityMapper.insertReport", report);
+	}
+
+	public int updateBoardCnt(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.update("communityMapper.updateBoardCnt", boardNo);
+	}
 	
 }
