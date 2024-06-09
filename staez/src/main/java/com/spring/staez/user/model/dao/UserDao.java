@@ -1,6 +1,4 @@
 package com.spring.staez.user.model.dao;
-
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,12 +38,16 @@ public class UserDao {
     }
 
  // 이메일 인증번호 저장을 위한 서비스
-    public int registerUser(String email, String authNo, LocalDateTime send_time) {
+    public int registerUser(String email, String authNo ) {
         Map<String, Object> params = new HashMap<>();
         params.put("email", email);
         params.put("authNo", authNo);
-        params.put("send_time", send_time);
         return sqlSession.insert("userMapper.registerUser", params);
+    }
+    
+ // 이메일 존재 여부 확인
+    public Map<String, Object> findEmail(SqlSessionTemplate sqlSession, String email) {
+        return sqlSession.selectOne("userMapper.findEmail", email);
     }
     
    //이메일 암호키 인증체크
@@ -88,6 +90,14 @@ public class UserDao {
 	    System.out.println("update Dao result: " + result);
 
 	    return result;
+	}
+	
+	// 이메일 인증 완료하면 정보 업데이트(테이블에 이메일 데이터 있을때)
+	public int updateEmailAuth(SqlSessionTemplate sqlSession, String email, String authNo) {
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("email", email);
+	    params.put("authNo", authNo);
+		return sqlSession.insert("userMapper.updateEmailAuth", params);
 	}
 
 }

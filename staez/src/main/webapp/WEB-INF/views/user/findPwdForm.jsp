@@ -31,7 +31,7 @@
                 <table>
                     <tr>
                         <th>아이디</th>
-                        <td colspan="2" class="email-container">
+                        <td  class="email-container">
                             <input type="text" id="input-value-id" name="userId" required>
                         </td>
                         <td></td>
@@ -42,7 +42,7 @@
                     </tr>
                     <tr>
                         <th>휴대폰 번호</th>
-                        <td class="email-container" colspan="2" >
+                        <td class="email-container"  >
                             <div id="td-div">
                                 <span id="phone-prefix">010</span>
                                 <span>-</span>
@@ -58,7 +58,7 @@
                     </tr>
                     <tr>
                         <th>이메일</th>
-                        <td colspan="1" class="email-container" id="insertEmail" name="insertEmail">
+                        <td colspan="5" class="email-container" id="insertEmail" name="insertEmail">
                             <div style="display: flex;">
                                 <input type="text" id="email-prefix" placeholder="이메일 아이디">
                                 <span id="email-prefix-shift2">@</span>
@@ -124,7 +124,12 @@
                         <table id="findId-div">
                             <tr>
                                 <th colspan="2" class="findId-label">새 비밀번호</th>
-                                <td colspan="5"><input type="password" id="newPassword" name="newPassword"></td>
+                                <td colspan="5">
+                                    <div style="position: relative;">
+                                        <input type="password" class="password1" id="newPassword" name="newPassword">
+                                        <img src="${contextPath}/resources/img/user/pwd.png" id="pwdImg" alt="비밀번호 보기">
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <th colspan="2" class="findId-label">새 비밀번호 확인</th>

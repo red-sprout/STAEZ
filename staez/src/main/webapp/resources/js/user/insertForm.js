@@ -9,16 +9,16 @@ document.addEventListener('DOMContentLoaded', function() {
     signinPwdCheck();
     // SubmitButton 제출
     signinSubmitButton();
+    // 이전페이지로 돌아가는
+    backPage();
+    // 관심장르 3개이상 못고르게하면서 값 출력되도록
+    sginingenreLike();
     // 이메일
     sgininemail();
     // 이메일 아이디적을때 한글안되고 영어만 가능하게
     sgininemailEng();
     // 이메일 다 입력됬나 콘솔
     emailTimeTwo();
-    // 이전페이지로 돌아가는
-    backPage();
-    // 관심장르 3개이상 못고르게하면서 값 출력되도록
-    sginingenreLike();
     // 이메일 인증 전송 버튼 이벤트 리스너 등록
     const emailCheckButton = document.getElementById("emailCheckButton");
     emailCheckButton.addEventListener('click', sendVerificationCode);
@@ -242,6 +242,8 @@ function handleEmailCheckResponse(response) {
         alert("인증번호 전송이 실패했습니다 다시 입력해주세요!");
     } else if (response === "emailCheck Yes") {
         alert("인증번호가 성공적으로 전송되었습니다!");
+        // 카운트 다운 시작
+        startTimer();
     }
 }
 
@@ -263,6 +265,38 @@ function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput, e
     }
     emailSecretErrorMessage.style.display = "none"; // 에러 메시지 숨기기
 }
+
+let timer; // 전역 변수로 타이머 변수를 선언합니다.
+
+// 카운트 다운 시작 함수
+function startTimer() {
+    clearInterval(timer); // 이전에 실행 중이던 타이머를 초기화합니다.
+
+    var duration = 3 * 60;
+    var timerDisplay = document.getElementById('timer');
+
+    // 카운트 다운 시작
+    timer = setInterval(function () {
+        var minutes = parseInt(duration / 60, 10);
+        var seconds = parseInt(duration % 60, 10);
+
+        // 남은 시간을 표시
+        timerDisplay.textContent = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
+
+        // 시간을 1초씩 감소
+        duration--;
+
+        // 카운트 다운이 끝나면 clearInterval을 호출하여 타이머를 멈춤
+        if (duration < 0) {
+            clearInterval(timer);
+            timerDisplay.textContent = "시간 초과";
+
+            // 시간 초과 시 데이터베이스로 삭제 요청 보내기 (Ajax를 사용하여 비동기 요청)
+            deleteVerificationCode();
+        }
+    }, 1000);
+}
+
 
 // UUID 이메일 체크
 function emailSecretCode() {
@@ -380,6 +414,7 @@ function sgininemailEng() {
         }
     });
 }
+
 //주소 불러오기 - kakao 우편번호 서비스 api (https://postcode.map.daum.net/guide)
 function sample6_execDaumPostcode() {
     new daum.Postcode({
@@ -538,7 +573,6 @@ function signinSubmitButton(){
         });
     });
 }
-
 
 
 
