@@ -59,10 +59,16 @@
                                 <span id="userIdErrorMessage"></span>
                             </div>
                         </td>
-                    </tr>                                                  
+                    </tr>
+                    <tr>
+                        <th>이름</th>
+                        <td colspan="1">
+                            <input type="text" name="userName" id="user_name"  required >
+                        </td>
+                    </tr>                                             
                     <tr>
                         <th>비밀번호</th>
-                        <td colspan="2">
+                        <td colspan="1">
                             <div style="position: relative;">
                                 <input type="password" id="password1" name="userPwd" placeholder="영문 숫자 특수문자 포함 8글자 이상" required >
                                 <img src="${contextPath}/resources/img/user/pwd.png" id="pwdImg" alt="비밀번호 보기">
@@ -152,7 +158,7 @@
                     </tr>
                     <tr>
                         <th>주소</th>
-                        <td colspan="2"><input type="text" class="addressInput" id="sample6_address" readonly></td>
+                        <td colspan="1"><input type="text" class="addressInput" id="sample6_address" readonly></td>
                         <td><input type="button" class="check_button" value="우편번호 찾기" onclick="sample6_execDaumPostcode()" required></td>
                     </tr>
                     <tr>

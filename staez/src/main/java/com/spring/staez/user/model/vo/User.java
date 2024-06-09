@@ -19,6 +19,7 @@ public class User {
 	private String userId; //아이디
 	private String userPwd; //비밀번호
 	private String nickname; //닉네임
+	private String userName; // 이름
 	private String gender; //성별
 	private Date birth; //생년월일(나이)
 	private String address; //주소
