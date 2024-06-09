@@ -65,6 +65,10 @@ function drawBoard(board) {
     content.innerText = simpleTextView(board.boardContent);
     tr.appendChild(content);
 
+    const boardDetail = document.createElement("td");
+    boardDetail.innerHTML = `<a href="detail.cm?boardNo=${board.refBoardNo}">해당 게시글로 바로가기 &gt</a>`;
+    tr.appendChild(boardDetail);
+
     const boardWriteDate = document.createElement("td");
     boardWriteDate.innerText = timeFormatForSeconds(board.boardWriteDate);
     tr.appendChild(boardWriteDate);
