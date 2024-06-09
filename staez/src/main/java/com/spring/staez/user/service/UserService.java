@@ -29,16 +29,15 @@ public interface UserService {
 	
 	// 이메일 존재 여부 확인
 	Map<String, Object> findEmail(String email);
-
 	
 	//이메일로 아이디찾기
-	String findEmailCheck(String checkFindEmail);
+	String findEmailCheck(String checkFindEmail, String userName);
 
 	// 유효성 검사 및 사용자 정보 확인
-	String findUserByIdEmailPhone(String user_id, String phone, String email);
+	String findUserByIdEmailPhone(String user_id, String phone, String email, String user_name);
 
-	//새로운 비밀번호 저장
-	int updatePassword(String user_id, String phone, String email, String encPwd);
+	// 새로운 비밀번호 저장
+	int updatePassword(String user_id, String phone, String email, String user_name, String encPwd);
 
 	// 이메일 인증 완료하면 정보 업데이트(테이블에 이메일 데이터 있을때)
 	int updateEmailAuth(String email, String authNo);
