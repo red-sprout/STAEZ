@@ -38,7 +38,7 @@
                 <div class="reservation-check-area">
                     <span>예매자확인</span>
                     <p class="important-span">(현장 수령받을 실 분의 정보)</p>
-                    <button class="before-info">이전 정보 불러오기</button>
+                    <button class="before-info">예매자 정보와 동일</button>
                     <div class="reservation-input-area">
                         <div class="reservation-user-name">
                             <div><span>이름</span><span class="important-star">*</span></div>
@@ -50,10 +50,6 @@
                             <span>예) 1985-01-01(YYYY-MM-DD)</span>
                         </div>
                         <div class="check-birth check hidden"><span>생년월일을 YYYY-MM-DD 형식에 맞게 입력해주세요.</span></div>
-                        <!-- <div class="reservation-user-phoneNumber">
-                            <div><span>전화번호</span></div>
-                            <input type="text" maxlength="15" placeholder="- 제외" >
-                        </div> -->
                         <div class="reservation-user-phone">
                             <div><span>휴대폰</span><span class="important-star">*</span></div>
                             <input type="text" name="phone" maxlength="15" placeholder="- 제외" value="" onblur="checkPhone(this)">
@@ -62,7 +58,7 @@
                         <div class="emphasis-text"><span>현장수령 및 고객문의시 본인확인을 위해 정확한 정보를 입력해주세요.</span></div>
                         <div class="reservation-user-email">
                             <div><span>이메일</span><span class="important-star">*</span></div>
-                            <input type="text" placeholder="@ 포함" value="${user.email}">
+                            <input type="text" placeholder="@ 포함" value="">
                         </div>
                         <div class="info-send-text"><span>SMS 문자와 이메일로 예매 정보를 보내드립니다.</span></div>
                     </div>
