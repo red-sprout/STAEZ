@@ -1,0 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin: 30px 0;
+}
+
+/*문의 내용*/
+#inquire-section{
+    width: 90%;
+    height: auto;
+
+    border: 1px solid black;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+#inquire-header{
+    height: 70px;
+    width: 95%;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid gray;
+}
+
+#inquire-category{
+    width: 100px;
+    height: 40px;
+
+    background: white;
+    border: 1px solid black;
+    border-radius: 10px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    text-align: center;
+    line-height: 40px;
+}
+
+#inquire-title{    
+    width: 450px;
+    height: 70px;
+
+    text-align: left;
+    line-height: 70px;
+    padding: 0 10px;
+}
+
+#inquire-date{
+    width: 100px;
+    height: 70px;
+
+    line-height: 70px;
+    text-align: center;
+}
+
+#inquire-content{
+    width: 90%;
+    height: auto;
+
+    text-align: left;
+    padding: 20px 10px;
+}
+
+/*답변 내용*/
+#answer-section{
+    width: 90%;
+    height: auto;
+
+    border: 1px solid black;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 50px;
+}
+
+#answer-header{
+    height: 70px;
+    width: 95%;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid gray;
+}
+
+#answer-category{
+    width: 100px;
+    height: 40px;
+
+    background: white;
+    border: 1px solid black;
+    border-radius: 10px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    text-align: center;
+    line-height: 40px;
+}
+
+
+#answer-title{
+    width: 450px;
+    height: 70px;
+
+    text-align: left;
+    line-height: 70px;
+    padding: 0 10px;
+}
+
+#answer-date{
+    width: 100px;
+    height: 70px;
+
+    line-height: 70px;
+    text-align: center;
+}
+
+#answer-content{
+    width: 90%;
+    height: auto;
+
+    text-align: left;
+    padding: 20px 10px;
+}

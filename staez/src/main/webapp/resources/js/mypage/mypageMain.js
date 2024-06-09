@@ -33,7 +33,9 @@ $(function(){
         const like = $('#like tbody');
         $(res).each(function(index, myScrap){
             $(like).append(`<tr onclick='location.href="${contextPath}/detail.co?concertNo=${myScrap.concertNo}"'>
-                                <td class="long-td">[${myScrap.categoryName}] ${myScrap.concertTitle}</td>
+                                <td class="long-td">
+                                    <span class="font-purple">[${myScrap.categoryName}]</span> ${myScrap.concertTitle}
+                                </td>
                             </tr>`);
         });
     });

@@ -135,6 +135,11 @@ public class MypageDao {
 		return list;
 	}
 	
+	public Board selectMyInquireDetail(SqlSessionTemplate sqlSession, int boardNo) {
+		Board inquire = (Board)sqlSession.selectOne("mypageMapper.selectMyInquireDetail", boardNo);
+		return inquire;
+	}
+	
 	public Board loadAnswerAjax(SqlSessionTemplate sqlSession, int boardNo) {
 		return (Board)sqlSession.selectOne("mypageMapper.loadAnswerAjax", boardNo);
 	}
