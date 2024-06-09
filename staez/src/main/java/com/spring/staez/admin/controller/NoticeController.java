@@ -51,12 +51,17 @@ public class NoticeController {
 	}
 	
 	@GetMapping("updateForm.no")
-	public String noticeUpdateForm(HttpSession session) {
+	public String noticeUpdateForm(int boardNo, Model model, HttpSession session) {
 		User loginUser = (User)session.getAttribute("loginUser");
 		if(!loginUser.getGrade().equals("1")) {
 			session.setAttribute("alertMsg", "접근 권한이 없습니다.");
 			return "redirect: main.no";
 		}
+		
+		Board notice = noticeService.noticeDetail(boardNo);
+		String category = noticeService.selectCategory(boardNo).get(0).getCategoryName();
+		model.addAttribute("n", notice);
+		model.addAttribute("category", category);
 		return "admin/noticeUpdateForm";
 	}
 	

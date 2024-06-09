@@ -464,3 +464,16 @@ function updateReserve(data, callback) {
         }
     });
 }
+
+function updateNotice(data, callback) {
+    $.ajax({
+        url: contextPath + "update.cm",
+        type: "POST",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("공지사항 update api 요청 실패");
+        }
+    });
+}
