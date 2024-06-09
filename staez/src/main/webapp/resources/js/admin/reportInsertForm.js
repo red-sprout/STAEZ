@@ -1,6 +1,5 @@
 $(function () {
-    category({ refCategoryNo: 3 }, (res) => {
-        setCategory(res, 'report-category')
+    category({ refCategoryNo: 5 }, (res) => {
         getOrigin();
     });
 });
@@ -11,7 +10,7 @@ function getOrigin() {
         document.querySelector("input[name=refBoardNo]").value = result.boardNo;
         setOriginTitle(result.boardTitle);
         setOriginWriter(result.userId);
-        setOriginCategory(result.categoryNo);
+        document.getElementById("ref-board-link").href = `detail.cm?boardNo=${result.refBoardNo}`
         setOriginContent(result.boardContent);
     });
 }

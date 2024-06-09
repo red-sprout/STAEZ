@@ -48,6 +48,7 @@
                                 <td>신고자</td>
                                 <td>제목</td>
                                 <td>내용</td>
+                                <td>바로가기</td>
                                 <td>답변날짜</td>
                             </tr>
                         </thead>

@@ -24,6 +24,7 @@ import com.spring.staez.common.template.ImpossibleSeatList;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.Theater;
+import com.spring.staez.user.model.vo.Reserve;
 import com.spring.staez.user.model.vo.User;
 
 @Service
@@ -223,5 +224,23 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public ArrayList<Board> selectReport(AdminSearchDto dto, PageInfo pi) {
 		return adminDao.selectReport(sqlSession, dto, pi);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public int selectReserveCnt(AdminSearchDto dto) {
+		return adminDao.selectReserveCnt(sqlSession, dto);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public ArrayList<Reserve> selectReserve(AdminSearchDto dto, PageInfo pi) {
+		return adminDao.selectReserve(sqlSession, dto, pi);
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int deleteReserve(AdminBoardSelectDto dto) {
+		return adminDao.deleteReserve(sqlSession, dto);
 	}
 }

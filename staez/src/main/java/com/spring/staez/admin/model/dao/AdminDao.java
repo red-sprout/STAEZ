@@ -21,6 +21,7 @@ import com.spring.staez.common.template.ImpossibleSeatList;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.Theater;
+import com.spring.staez.user.model.vo.Reserve;
 import com.spring.staez.user.model.vo.User;
 
 @Repository
@@ -200,6 +201,22 @@ public class AdminDao {
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return (ArrayList)sqlSession.selectList("adminMapper.selectReport", dto, rowBounds);
+	}
+
+	public int selectReserveCnt(SqlSessionTemplate sqlSession, AdminSearchDto dto) {
+		return sqlSession.selectOne("adminMapper.selectReserveCnt", dto);
+	}
+
+	public ArrayList<Reserve> selectReserve(SqlSessionTemplate sqlSession, AdminSearchDto dto, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("adminMapper.selectReserve", dto, rowBounds);
+	}
+
+	public int deleteReserve(SqlSessionTemplate sqlSession, AdminBoardSelectDto dto) {
+		return 0;
 	}
 
 }

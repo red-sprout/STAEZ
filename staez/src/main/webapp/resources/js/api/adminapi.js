@@ -439,3 +439,28 @@ function deleteReport(data, callback) {
         }
     });
 }
+
+function adminSelectReserve(data, callback) {
+    $.ajax({
+        url: contextPath + "adminSelect.re",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("Reserve 조회 실패");
+        }
+    });
+}
+
+function deleteReserve(data, callback) {
+    $.ajax({
+        url: contextPath + "adminDelete.re",
+        type: "POST",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("Reserve 삭제 api 요청 실패");
+        }
+    });
+}

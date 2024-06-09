@@ -32,6 +32,7 @@ import com.spring.staez.common.template.Pagination;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.Theater;
+import com.spring.staez.user.model.vo.Reserve;
 import com.spring.staez.user.model.vo.User;
 
 @Controller
@@ -55,9 +56,9 @@ public class AdminController {
 		return "admin/communityMain";
 	}
 	
-	@GetMapping("categoryList.ad")
+	@GetMapping("reserveList.ad")
 	public String categoryMain() {
-		return "admin/categoryMain";
+		return "admin/reserveMain";
 	}
 	
 	@GetMapping("faqList.ad")
@@ -384,5 +385,32 @@ public class AdminController {
 		map.put("reportList", list);
 		
 		return new Gson().toJson(map);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "adminSelect.re", produces = "application/json; charset-UTF-8")
+	public String adminSelectReserve(AdminSearchDto dto, String currentPage) {
+		int listCount = adminService.selectReserveCnt(dto);
+		int cPage = Integer.parseInt(currentPage);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, cPage, 10, 10);
+		ArrayList<Reserve> list = adminService.selectReserve(dto, pi);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("pagination", pi);
+		map.put("reserveList", list);
+		
+		return new Gson().toJson(map);
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "adminDelete.re", produces = "text/plain; charset=utf-8")
+	public String adminDeleteReserve(AdminBoardSelectDto dto) {
+		int result = adminService.deleteReserve(dto);
+		if(result == 0) {
+			return "예약내역 삭제 실패";
+		} else {
+			return "성공적으로 삭제 처리하였습니다.";
+		}
 	}
 }

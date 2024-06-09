@@ -15,6 +15,7 @@ import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.Theater;
+import com.spring.staez.user.model.vo.Reserve;
 import com.spring.staez.user.model.vo.User;
 
 public interface AdminService {
@@ -66,5 +67,11 @@ public interface AdminService {
 	int selectReportCnt(AdminSearchDto dto);
 
 	ArrayList<Board> selectReport(AdminSearchDto dto, PageInfo pi);
+
+	int selectReserveCnt(AdminSearchDto dto);
+
+	ArrayList<Reserve> selectReserve(AdminSearchDto dto, PageInfo pi);
+
+	int deleteReserve(AdminBoardSelectDto dto);
 
 }

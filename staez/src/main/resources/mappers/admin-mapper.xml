@@ -7,7 +7,7 @@
 <mapper namespace="adminMapper">
 	<resultMap type="Board" id="boardResult">
 		<result column="board_no" property="boardNo" />
-		<result column="ref_board_no" property="refboardNo" />
+		<result column="ref_board_no" property="refBoardNo" />
 		<result column="user_no" property="userNo" />
 		<result column="user_Id" property="userId" />
 		<result column="nickname" property="nickname" />
@@ -81,7 +81,23 @@
 		<result column="withdrawal_date" property="withdrawalDate" />
 		<result column="user_status" property="userStatus" />
 	</resultMap>
-
+	<resultMap type="Reserve" id="reserveResult">
+		<result column="reserve_no" property="reserveNo" />
+		<result column="concert_no" property="concertNo" />
+		<result column="concert_title" property="concertTitle" />
+		<result column="user_no" property="userNo" />
+		<result column="reserve_row" property="reserveRow" />
+		<result column="reserve_col	" property="reserveCol" />
+		<result column="reserve_date" property="reserveDate" />
+		<result column="pay_method" property="payMethod" />
+		<result column="concert_date" property="concertDate" />
+		<result column="concert_times" property="concertTimes" />
+		<result column="reserve_status" property="reserveStatus" />
+		<result column="r_name" property="rName" />
+		<result column="r_birth" property="rbirth" />
+		<result column="r_phone" property="rPhone" />
+		<result column="schedule" property="schedule" />
+	</resultMap>
 	<select id="selectFaqCategory" resultMap="categoryResult">
 		SELECT
 			category_no,
@@ -648,6 +664,7 @@
 	<select id="selectOneBoard" resultMap="boardResult">
 		SELECT 
 			b.board_no,
+			b.ref_board_no,
 			b.board_title,
 			bc.category_no,
 			b.board_content,
@@ -680,7 +697,7 @@
 		) VALUES (
 			#{refBoardNo},
 			#{userNo},
-			2,
+			#{boardLevel},
 			#{boardCode},
 			#{boardTitle},
 			#{boardContent}
@@ -701,8 +718,8 @@
 			WHERE board_code = 3 AND ref_board_no IS NOT NULL) s
 		ON (b.board_no = s.ref_board_no)
 		WHERE b.board_status = 'Y'
-		and b.board_code = 3
-		AND b.ref_board_no IS NULL
+		AND b.board_code = 3
+		AND b.board_level = 1
 		AND
 		<choose>
 			<when test='select == "userId"'>
@@ -739,8 +756,8 @@
 			WHERE board_code = 3 AND ref_board_no IS NOT NULL) s
 		ON (b.board_no = s.ref_board_no)
 		WHERE b.board_status = 'Y'
-		and b.board_code = 3
-		AND b.ref_board_no IS NULL
+		AND b.board_code = 3
+		AND b.board_level = 1
 		AND
 		<choose>
 			<when test='select == "userId"'>
@@ -772,7 +789,7 @@
 		ON (b.board_no = s.ref_board_no)
 		WHERE b.board_status = 'Y'
 		and b.board_code = 5
-		AND b.ref_board_no IS NULL
+		AND b.board_level = 2
 		AND
 		<choose>
 			<when test='select == "userId"'>
@@ -789,6 +806,7 @@
 	<select id="selectReport" parameterType="com.spring.staez.admin.model.dto.AdminSearchDto" resultMap="boardResult">
 		SELECT
 			b.board_no,
+			b.ref_board_no,
 			u.user_id,
 			b.board_title,
 			b.board_content,
@@ -804,7 +822,7 @@
 		ON (b.board_no = s.ref_board_no)
 		WHERE b.board_status = 'Y'
 		and b.board_code = 5
-		AND b.ref_board_no IS NULL
+		AND b.board_level = 2
 		AND
 		<choose>
 			<when test='select == "userId"'>
@@ -818,6 +836,43 @@
 			</otherwise>
 		</choose>
 		ORDER BY b.board_no DESC
+	</select>
+	<select id="selectReserveCnt" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM reserve r
+		JOIN concert c ON (r.concert_no = c.concert_no)
+		AND
+		<choose>
+			<when test='select == "concertTitle"'>
+				c.concert_title LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				r.r_name LIKE '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+	</select>
+	<select id="selectReserve" resultMap="reserveResult">
+		SELECT
+			r.reserve_no,
+			c.concert_title,
+			r.r_name,
+			r.reserve_date,
+			r.pay_method,
+			r.reserve_status,
+			r.schedule
+		FROM reserve r
+		JOIN concert c ON (r.concert_no = c.concert_no)
+		AND
+		<choose>
+			<when test='select == "concertTitle"'>
+				c.concert_title LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				r.r_name LIKE '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+		ORDER BY r.reserve_no DESC
 	</select>
 </mapper>
 
