@@ -70,6 +70,12 @@
             <div id="findemail-div">
                 <table>
                     <tr>
+                        <th>이름</th>
+                        <td>
+                            <input type="text" id="user_name" required>
+                        </td>
+                    </tr>
+                    <tr>
                         <th>이메일</th>
                         <td colspan="5" class="email-container" id="insertEmail" name="insertEmail">
                             <div style="display: flex;">
@@ -96,7 +102,9 @@
                     <tr>
                         <th>인증번호</th>
                         <td>
-                            <input type="text" id="verification-code" required>
+                            <div id="emailTimeContainer">
+                                <input type="text" id="verification-code" required><div id="timer"></div>
+                            </div>
                         </td>
                         <td>
                             <input type="button" class="check_button" id="check_emailSecretBtn" value="인증확인">

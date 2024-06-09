@@ -65,22 +65,22 @@ public class UserServiceImpl implements UserService{
 	
 	//이메일로 아이디찾기
 	@Override
-	public String findEmailCheck(String checkFindEmail) {
-		return userDao.findEmailCheck(sqlSession, checkFindEmail);
+	public String findEmailCheck(String checkFindEmail, String userName) {
+		return userDao.findEmailCheck(sqlSession, checkFindEmail, userName);
 	}
 	
 	// 유효성 검사 및 사용자 정보 확인
 	@Override
-	public String findUserByIdEmailPhone(String user_id, String phone, String email) {
-	    return userDao.findUserByIdEmailPhone(sqlSession, user_id, phone, email);
+	public String findUserByIdEmailPhone(String user_id, String phone, String email, String user_name) {
+	    return userDao.findUserByIdEmailPhone(sqlSession, user_id, phone, email, user_name);
 	}
 
 	//새로운 비밀번호 저장
 	@Override
-	public int updatePassword(String user_id, String phone, String email, String encPwd) {
+	public int updatePassword(String user_id, String phone, String email, String user_name, String encPwd) {
 	    // 디버깅: 입력값 출력
 	    System.out.println("Updating UserServiceImpl password for user_id: " + user_id + ", phone: " + phone + ", email: " + email + ", encPwd: " + encPwd);
-	    return userDao.updatePassword(sqlSession, user_id, phone, email, encPwd);
+	    return userDao.updatePassword(sqlSession, user_id, phone, email, user_name, encPwd);
 	}
 
 	// 이메일 인증 완료하면 정보 업데이트(테이블에 이메일 데이터 있을때)
