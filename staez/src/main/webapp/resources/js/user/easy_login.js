@@ -1,4 +1,5 @@
 import config from './config.js';
+
 document.addEventListener('DOMContentLoaded', function() {
     // 아이디 찾기 버튼
     var findIdButton = document.getElementById('findIdButton');
