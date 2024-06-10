@@ -9,15 +9,15 @@ INSERT INTO staez_user
 VALUES (DEFAULT, 'admin', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '관리자', '관리자','M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user@gmail.com', '01011111111','', 1, DEFAULT, NULL, DEFAULT);
 --관리자계정(userNo : 1)
 INSERT INTO staez_user
-VALUES (DEFAULT, 'user02', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '이원기','wg', 'M', '1997-04-23', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user01@gmail.com', '01022222222','', 2, DEFAULT, NULL, DEFAULT);
+VALUES (DEFAULT, 'user02', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '이원기','wg', 'M', '1997-04-23', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user02@gmail.com', '01022222222','', 2, DEFAULT, NULL, DEFAULT);
 INSERT INTO staez_user
-VALUES (DEFAULT, 'user03', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '김효영','hyo', 'M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user02@gmail.com', '01033333333','', 2, DEFAULT, NULL, DEFAULT);
+VALUES (DEFAULT, 'user03', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '김효영','hyo', 'M', '2000-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user03@gmail.com', '01033333333','', 2, DEFAULT, NULL, DEFAULT);
 INSERT INTO staez_user
-VALUES (DEFAULT, 'user04', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '주재완','joo', 'M', '1998-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user03@gmail.com', '01044444444','', 2, DEFAULT, NULL, DEFAULT);
+VALUES (DEFAULT, 'user04', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '주재완','joo', 'M', '1998-01-01', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user04@gmail.com', '01044444444','', 2, DEFAULT, NULL, DEFAULT);
 INSERT INTO staez_user
-VALUES (DEFAULT, 'user05', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '장용준','joon', 'M', '1998-01-03', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user04@gmail.com', '01055555555','', 2, DEFAULT, NULL, DEFAULT);
+VALUES (DEFAULT, 'user05', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '장용준','joon', 'M', '1998-01-03', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user05@gmail.com', '01055555555','', 2, DEFAULT, NULL, DEFAULT);
 INSERT INTO staez_user
-VALUES (DEFAULT, 'user06', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '김남주','nam', 'F', '1998-08-31', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user05@naver.com', '01066666666', '', 2, DEFAULT, NULL, DEFAULT);
+VALUES (DEFAULT, 'user06', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '김남주','nam', 'F', '1998-08-31', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'user06@naver.com', '01066666666', '', 2, DEFAULT, NULL, DEFAULT);
 INSERT INTO staez_user
 VALUES (DEFAULT, 'user07', '$2a$10$L0auCsxEDtxecgyW5Q/eP.4QWJGb3HCpuiPq1q28l8KSetOqJ6sgK', '탈주자','탈퇴한놈', 'M', '1991-11-11', '[06234] 서울 강남구 테헤란로14길 6 (역삼동)/kh정보교육원', 'withdrawal@gmail.com', '01099999999','', 2, '2024-01-01 17:41:18.955208+09', '2024-06-01 11:36:11.264208+09', 'N');
 --탈퇴회원(userNo : 7)
@@ -38,9 +38,9 @@ profile_img(프로필사진)
 INSERT INTO profile_img
 VALUES (DEFAULT, 1, '원래이름.png', '2024053118061362372.jpg', '/resources/uploadfiles/profile/', DEFAULT, DEFAULT);
 INSERT INTO profile_img
-VALUES (DEFAULT, 2, NULL, NULL, '/resources/uploadfiles/profile/', DEFAULT, DEFAULT);
+VALUES (DEFAULT, 2, '깻잎이.jpg', '2024060512205164547.jpg', '/resources/uploadfiles/profile/', DEFAULT, DEFAULT);
 INSERT INTO profile_img
-VALUES (DEFAULT, 3, NULL, NULL, '/resources/uploadfiles/profile/',DEFAULT, DEFAULT);
+VALUES (DEFAULT, 3, '슬라임.jpg', '2024053118400375937.jpg', '/resources/uploadfiles/profile/',DEFAULT, DEFAULT);
 INSERT INTO profile_img
 VALUES (DEFAULT, 4, NULL, NULL, '/resources/uploadfiles/profile/', DEFAULT, DEFAULT);
 INSERT INTO profile_img
@@ -246,9 +246,9 @@ reply(댓글)
 (reply_no, ref_reply_no, board_no, user_no, reply_content, reply_write_date, reply_status)
 */
 INSERT INTO reply
-VALUES (DEFAULT, NULL, 1, 2, '잘보고 갑니다', '2024-05-29 09:45:52.783686+09', DEFAULT);
+VALUES (DEFAULT, NULL, 1, 3, '잘보고 갑니다', '2024-05-29 09:45:52.783686+09', DEFAULT);
 INSERT INTO reply
-VALUES (DEFAULT, 1, 1, 3, '감사합니다', '2024-05-30 09:45:52.783686+09', DEFAULT);
+VALUES (DEFAULT, 1, 1, 2, '감사합니다', '2024-05-30 09:45:52.783686+09', DEFAULT);
 INSERT INTO reply
 VALUES (DEFAULT, NULL, 3, 2, '댓글입니다', '2024-05-29 09:45:52.783686+09', DEFAULT);
 INSERT INTO reply

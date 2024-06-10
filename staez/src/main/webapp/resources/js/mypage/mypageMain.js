@@ -117,7 +117,7 @@ $(function(){
                 $(inquire).append(`<tr></tr>`);
             } else{
                 const writeDate = changeDateFormat(res[i].boardWriteDate);
-                $(inquire).append(`<tr onclick='window.open("${contextPath}inquireDetail.me?boardNo=${res[i].boardNo}", "_blank", "width=800,height=700")'>
+                $(inquire).append(`<tr onclick='window.open("${contextPath}inquireDetail.me?boardNo=${res[i].boardNo}", "_blank", "width=800,height=700,resizable=no,location=no")'>
                                         <td class="long-td">${res[i].boardTitle}</td>
                                         <td class="short-td"><h5>${writeDate}</h5></td>
                                    </tr>`);

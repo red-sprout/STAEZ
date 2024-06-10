@@ -20,7 +20,7 @@
             <li class="menu-item">
                 <input type="hidden" value="${contextPath}" name="contextPath">
                 <input type="hidden" value="${b.boardNo}" name="boardNo">
-                <a class="inq-info" onclick="iquireDetailPage('${b.boardNo}')" target="_parent">
+                <a class="inq-info" onclick="iquireDetailPage('${b.boardNo}')" target="_blank">
                     <span class="inq-cate">${b.categoryName}</span>
                     <span class="inq-title">${b.boardTitle}</span>
                     <span class="inq-date">
