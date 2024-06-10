@@ -66,8 +66,9 @@
                                     </div>
                                 </td>
                             </tr>
+                            <input type="hidden" name="boardWriteDate" value="${board.boardWriteDate}">
                             <tr class="profile-area">
-                                <td>${board.boardWriteDate}</td>
+                                <td id="detail-write-date"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -109,17 +110,19 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 
-                <form method="POST">
+                <form method="POST" action="insert.rp">
                     <!-- Modal body -->
                     <div class="modal-body">
+                        <input type="hidden" name="userNo" value="${loginUser.userNo}">
+                        <input type="hidden" name="refBoardNo" value="${board.boardNo}">
                         <ul>
                             <li>
                                 <h3>제목</h3>
-                                <input type="text" name="">
+                                <input type="text" name="boardTitle">
                             </li>
                             <li>
                                 <h3>내용</h3>
-                                <textarea name=""></textarea>
+                                <textarea name="boardContent"></textarea>
                             </li>
                         </ul>
                     </div>

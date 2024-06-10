@@ -22,29 +22,9 @@
 					<button>
 						<img src="<c:url value='/resources/img/community/communityMain/search-icon.png'/>" alt="">
 					</button>
-					<input type="text" name="keyword">
+					<input type="text" name="keyword" value="">
 				</li>
 				<li id="community-category"></li>
-				<!-- <li id="community-pagination">
-					<div class="page-list">
-						<div class="pagination">
-							<img src="<c:url value='/resources/img/main/before.png'/>">
-						</div>
-						<div class="pagination current"><h4>1</h4></div>
-						<div class="pagination"><h4>2</h4></div>
-						<div class="pagination"><h4>3</h4></div>
-						<div class="pagination"><h4>4</h4></div>
-						<div class="pagination"><h4>5</h4></div>
-						<div class="pagination"><h4>6</h4></div>
-						<div class="pagination"><h4>7</h4></div>
-						<div class="pagination"><h4>8</h4></div>
-						<div class="pagination"><h4>9</h4></div>
-						<div class="pagination"><h4>10</h4></div>
-						<div class="pagination">
-							<img src="<c:url value='/resources/img/main/after.png'/>">
-						</div>
-					</div>
-				</li> -->
 			</ul>
 		</div>
 	</main>

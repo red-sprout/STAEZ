@@ -37,15 +37,16 @@
                                 <td rowspan="2">
                                     <div>
                                         <c:if test="${loginUser.userNo eq n.userNo}">
-                                            <button class="function" onclick="location.href='updateForm.no'">수정</button>
+                                            <button class="function" onclick="location.href='updateForm.no?boardNo=${n.boardNo}'">수정</button>
                                             <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
                                             <button class="function">삭제</button>
                                         </c:if>
                                     </div>
                                 </td>
                             </tr>
+                            <input type="hidden" name="boardWriteDate" value="${n.boardWriteDate}">
                             <tr class="profile-area">
-                                <td>${n.boardWriteDate}</td>
+                                <td id="detail-write-date"></td>
                             </tr>
                         </tbody>
                     </table>

@@ -16,6 +16,8 @@ const boardCodeMap = {
     report: 5
 }
 
+const removableTags = ["<p>", "</p>", "<div>", "</div>"];
+
 function init() {
     const url = window.location.pathname.split("/")[2];
     const menubarArr = ["main.co", "main.cm", "main.no", "main.iq", "userList.ad"];
@@ -40,7 +42,23 @@ function setCategory(result, id) {
     }
 }
 
+// 버튼 색, checked 속성 제거 및 초기화
+function initBtnAttributes(id) {
+    // 버튼 색 초기화
+    const btnStaez = document.querySelectorAll(`#${id} button`);
+    for(let ele of btnStaez) {
+        ele.classList.remove("checked");
+    }
+
+    // checked 속성 제거
+    const radioAll = document.querySelectorAll(`#${id} input[type=radio]`);
+    for(let radio of radioAll) {
+        radio.removeAttribute("checked");
+    }
+}
+
 function toggleCategory(_this, id) {
+    initBtnAttributes(id);
     const categoryBtn = document.querySelectorAll(`#${id}>.btn-staez`);
     const categoryRadio = document.querySelectorAll(`#${id} input[name='categoryNo']`);
     for(let i in categoryBtn) {
@@ -49,8 +67,6 @@ function toggleCategory(_this, id) {
             if(categoryBtn[i] === _this) {
                 _this.classList.add("checked");
                 categoryRadio[i].setAttribute("checked", true);
-            } else {
-                categoryRadio[i].removeAttribute("checked");
             }
         } catch (error) {
             continue;
@@ -98,4 +114,32 @@ function decimalToBase26(num) {
     }
 
     return result;
+}
+
+// 날짜 형변환, null일 경우 '-'
+function timeFormatForDate(timestamp) {
+    if (!timestamp) return '-';
+
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+
+    return formattedDate;
+}
+
+function timeFormatForSeconds(timestamp) {
+    if (!timestamp) return '-';
+
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hour = String(date.getHours()).padStart(2, '0');
+    const minute = String(date.getMinutes()).padStart(2, '0');
+    const second = String(date.getSeconds()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+
+    return formattedDate;
 }

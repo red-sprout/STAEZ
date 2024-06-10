@@ -12,11 +12,11 @@
     <header>
         <jsp:include page="/WEB-INF/views/common/header.jsp" />
         <script src="<c:url value='/resources/js/api/adminapi.js'/>"></script>
-        <script src="<c:url value='/resources/js/admin/faqIncertForm.js'/>"></script>
+        <script src="<c:url value='/resources/js/admin/faqInsertForm.js'/>"></script>
     </header>
     <main>
         <div id="community-wrapper">
-            <form id="community-contents" align="left" method="post" action="faqIncert.ad">
+            <form id="community-contents" align="left" method="post" action="faqInsert.ad">
                 <h1>FAQ</h1>
                 <hr>
                 <li>
