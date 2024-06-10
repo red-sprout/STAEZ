@@ -1,6 +1,4 @@
-package com.spring.staez.community.model.dto;
-
-import java.util.ArrayList;
+package com.spring.staez.admin.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +13,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CategoryDto {
-	private ArrayList<Integer> categoryNo;
+public class AdminCategoryDto {
+	private String select;
+	private String categoryNo;
 	private String keyword;
 }

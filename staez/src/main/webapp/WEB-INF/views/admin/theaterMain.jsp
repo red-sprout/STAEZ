@@ -53,42 +53,12 @@
                                 <td>전화번호</td>
                             </tr>
                         </thead>
-                        <tbody class="admin-theater-container">
-
-                            <tr>
-                                <td class="admin-checkbox">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td>예술의전당 리사이틀홀</td>
-                                <td>A - J</td>
-                                <td>1 - 15</td>
-                                <td>서울특별시 서초구</td>
-                                <td>02-1111-1111</td>
-                            </tr>
-                            
-                        </tbody>
+                        <tbody class="admin-theater-container"></tbody>
                     </table>
                 </form>
             </li>
             <li class="admin-middle">
-                <div class="page-list">
-                    <div class="pagination">
-                        <img src="<c:url value='/resources/img/main/before.png'/>">
-                    </div>
-                    <div class="pagination current"><h4>1</h4></div>
-                    <div class="pagination"><h4>2</h4></div>
-                    <div class="pagination"><h4>3</h4></div>
-                    <div class="pagination"><h4>4</h4></div>
-                    <div class="pagination"><h4>5</h4></div>
-                    <div class="pagination"><h4>6</h4></div>
-                    <div class="pagination"><h4>7</h4></div>
-                    <div class="pagination"><h4>8</h4></div>
-                    <div class="pagination"><h4>9</h4></div>
-                    <div class="pagination"><h4>10</h4></div>
-                    <div class="pagination">
-                        <img src="<c:url value='/resources/img/main/after.png'/>">
-                    </div>
-                </div>
+                <div class="page-list"></div>
             </li>
         </ul>
     </main>
