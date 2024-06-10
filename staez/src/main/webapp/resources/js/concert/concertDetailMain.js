@@ -49,7 +49,6 @@ function goSellDetail(){
 function goCommentDetail(_this, cpage){
 console.log(_this)
 console.log(cpage)
-
     const concertNo =  $("input[name='concertNo']").val();
     // const cpage = $(this).data('cpage');
     commentDetail({"concertNo" : concertNo, "cpage" : cpage}, (result) => drawCommentDetail(result))
@@ -57,6 +56,8 @@ console.log(cpage)
 
 
 function goReviewDetail(_this, rpage){
+    console.log(_this)
+    console.log(rpage)
     const concertNo =  $("input[name='concertNo']").val();
     // const cpage = $(this).data('rpage');
     reviewDetail({"concertNo" : concertNo, "rpage" : rpage}, (result) => drawReviewDetail(result))
@@ -357,7 +358,7 @@ function drawCPagination(result){
         
         for(let i = pi.startPage; i <= pi.endPage; i++){
             drawPagination.innerHTML +=
-            `<div class="pagination current"><a data-cpage="` + i + `" class="page-link" onclick="goCommentDetail(this, ` + i + `)"
+            `<div class="pagination current"><a class="page-link" onclick="goCommentDetail(this, ` + i + `)"
             style="text-decoration: none;  background-color:#b51b75; border: #b51b75;">
             <h4>` + i + `</h4></a></div>`
 
@@ -439,10 +440,12 @@ function drawCPagination(result){
 
 function drawReviewDetail(result){
     const drawSection = document.querySelector(".concert-detail-down-section");
-    const drawPagination = document.querySelector(".concert-detail-comment-page-list");
+    const rList = result.rList;
     drawSection.innerHTML = ``;
+    console.log(result.rList)
+    console.log(rList)
 
-    if(result.length === 0){
+    if(rList.length === 0){
         let divEmpty = document.createElement('p');
         drawSection.appendChild(divEmpty);
         divEmpty.innerHTML += "등록된 관람후기가 없습니다.";
@@ -450,9 +453,9 @@ function drawReviewDetail(result){
         divEmpty.style.padding = `15% 0 15% 0`;
 
     } else {
-        for(let c of result){
+        for(let c of result.rList){
             let str = c.boardContent;
-            let boardContentCut = str.substr(0, 50)
+            let boardContentCut = str.substr(0, 50);
             drawSection.innerHTML += `<div>
                                                 <p><h4><b>글쓰기 전 주의사항</b></h4></p>
                                                 <p>※ 저속한 표현, 타인의 명예훼손, 광고성 게시물 등 게시판 운영규정에 어긋나는 글은 통보 없이 삭제될 수 있습니다.</p>
@@ -516,7 +519,7 @@ function drawRPagination(result){
             </a>`
         } else {
             drawPagination.innerHTML += 
-            `<a onclick="goCommentDetail(this, ` + (pi.currentPage-1) + `)">
+            `<a onclick="goReviewDetail(this, ` + (pi.currentPage-1) + `)">
                 <div class="pagination">
                     <img src="` + contextPath + `/resources/img/main/before.png">
                 </div>
@@ -525,8 +528,8 @@ function drawRPagination(result){
         
         for(let i = pi.startPage; i <= pi.endPage; i++){
             drawPagination.innerHTML +=
-            `<div class="pagination current"><a data-cpage="` + i + `" class="page-link" onclick="goCommentDetail(this, ` + i + `)"
-            style="text-decoration: none;  background-color:#b51b75; border: #b51b75;">
+            `<div class="pagination current"><a class="page-link" onclick="goReviewDetail(this, `+ i +`)"
+            style="text-decoration: none; background-color:#b51b75; border: #b51b75;">
             <h4>` + i + `</h4></a></div>`
         }
 
@@ -539,7 +542,7 @@ function drawRPagination(result){
             </a>`
         } else{
             drawPagination.innerHTML += 
-            `<a onclick="goCommentDetail(this, ` + (pi.currentPage+1) + `)">
+            `<a onclick="goReviewDetail(this, ` + (pi.currentPage+1) + `)">
                 <div class="pagination">
                     <img src="` + contextPath + `/resources/img/main/after.png">
                 </div>
@@ -548,24 +551,3 @@ function drawRPagination(result){
         }
     }
 }
-
- 
-
-
-
-
-
-
-
-
-// 세부페이지 노란부분
-// window.onload = function() {
-//     const detailPic = document.querySelector(".concert-detail-pic");
-//     detailPic.innerHTML = `<img src="` + contextPath + con.filePath + con.changeName + `"alt="">`    
-// }
-
-
-
-
-
-

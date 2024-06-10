@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.admin.model.vo.Seat;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.dao.ConcertDao;
@@ -127,5 +128,12 @@ public class ConcertServiceImpl implements ConcertService {
 	public ArrayList<Board> selectRevList(PageInfo pi, int concertNo) {
 		return concertDao.selectRevList(sqlSession, pi, concertNo);
 	}
+
+	@Override
+	public ArrayList<Seat> selectSeatPrice(int concertNo) {
+		return concertDao.selectSeatPrice(sqlSession, concertNo);
+	}
+
+
 
 }

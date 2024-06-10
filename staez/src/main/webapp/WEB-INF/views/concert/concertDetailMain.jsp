@@ -74,7 +74,8 @@
                 <tr>                    
                     <td></td>
                 <tr>
-                    <td><b><span>공연기간&nbsp&nbsp</span></b><span>${con.startDate} ~ ${con.endDate}</span></td>
+                    <td><b><span>공연기간&nbsp&nbsp</span></b>
+                        <span id="conStartDate">${con.startDate}</span> ~ <span id="conEndDate">${con.endDate}</span></td>
                 </tr>
                 <tr>
                     <td><b><span>공연장소&nbsp&nbsp</span></b><span>${con.theaterName}</span></td>
@@ -86,7 +87,11 @@
                     <td><b><span>관람연령&nbsp&nbsp</span></b><span>${con.ageLimit}</span></td>
                 </tr>
                 <tr><!-- 가격??? -->
-                    <td><b><span>가격&nbsp&nbsp</span></b><span>R석 90,000원 | S석 60,000원 | A석 30,000원</span></td>
+                    <td><b><span>가격&nbsp&nbsp</span></b><span>
+                        <c:forEach var="s" items="${s}">
+                            ${s.grade}석 ${s.price}원&nbsp&nbsp
+                        </c:forEach>
+                    </span></td>
                     <!-- 가격을세로로 적고싶을 때 -->
                     <!-- <td colspan="2">
                         <table>
@@ -170,37 +175,7 @@
     </section>
 
     <div class="page-list" align="center">
-        <!-- <div class="pagination">
-            <c:choose>
-                <c:when test="${ pi.currentPage eq 1 }">
-                    <a href="#" disabled>
-                    <img src="${pageContext.request.contextPath}/resources/img/main/before.png">
-                    </a>
-                </c:when>
-                <c:otherwise>
-                    <a href="commentDetail.co?cpage=${pi.currentPage - 1}">
-                    <img src="${pageContext.request.contextPath}/resources/img/main/before.png">
-                    </a>
-                </c:otherwise>
-            </c:choose>
-
-            <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                <div class="pagination current"><h4><a class="page-link" href="commentDetail.co?cpage=${p}">${p}${p}${p}${p}${p}</a></h4></div>
-            </c:forEach>
-
-            <c:choose>
-                <c:when test="${ pi.currentPage eq pi.maxPage }">
-                    <a href="#" disabled>
-                        <img src="${pageContext.request.contextPath}/resources/img/main/after.png">
-                        </a>
-                </c:when>
-                <c:otherwise>
-                    <a href="commentDetail.co?cpage=${pi.currentPage + 1}">
-                        <img src="${pageContext.request.contextPath}/resources/img/main/after.png">
-                    </a>
-                </c:otherwise>
-            </c:choose>
-        </div>     -->
+        <!-- 자스 -->
     </div>
 
 

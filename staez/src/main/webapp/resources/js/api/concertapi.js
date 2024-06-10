@@ -104,6 +104,7 @@ function commentDetail(data, callback){
 function reviewDetail(data, callback){
     $.ajax({
         url: contextPath + "reviewDetail.co",
+        type: 'POST',
         data: data,
         success : function(result){
             console.log(result);
@@ -172,17 +173,3 @@ function locationAll(data, callback){
         }
     });
 }
-
-// // pagination
-// function conPagination(data, callback){
-//     $.ajax({
-//         url: contextPath + "conpagination.co",
-//         data: data,
-//         success : function(result){
-//             console.log(result);
-//             callback(result);
-//         }, error(){
-//             console.log("실패");
-//         }
-//     });
-// }

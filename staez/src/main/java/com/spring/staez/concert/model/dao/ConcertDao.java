@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.admin.model.vo.Seat;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
@@ -110,7 +111,12 @@ public class ConcertDao {
 		return (ArrayList)sqlSession.selectList("concertMapper.selectRevList", concertNo, rowBounds);
 	}
 
+	public ArrayList<Seat> selectSeatPrice(SqlSessionTemplate sqlSession, int concertNo) {
+		return (ArrayList)sqlSession.selectList("concertMapper.selectSeatPrice", concertNo);	
+	}
 
+
+	
 	
 	
 	

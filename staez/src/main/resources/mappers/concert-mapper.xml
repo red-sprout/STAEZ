@@ -112,6 +112,13 @@
 		<result column="board_status" property="boardStatus" />
 		<result column="board_write_date" property="boardWriteDate" />
 	</resultMap>
+	
+	<resultMap type="Seat" id="SeatResult">
+	    <result column="seat_id" property="seatId"/>
+	    <result column="concert_no" property="concertNo"/>
+	    <result column="grade" property="grade"/>
+	    <result column="price" property="price"/>
+   </resultMap>
 
 	<select id="selectCate" resultMap="categoryResult" >
  	    SELECT category_no,
@@ -132,15 +139,21 @@
 		SELECT c.concert_no,
 		       c.concert_title,
 		       t.theater_name,
-		       cs.start_date,
-		       cs.end_date,
+		       sub.start_date,
+		       sub.end_date,
 		       ca.change_name,
 		       ca.file_path,
 			   ct.category_no,
 		       ct.category_name
 		FROM concert c
+		JOIN(SELECT concert_no,
+				    count(DISTINCT concert_no) as concertNo,
+					min(cs.start_date) as start_date,
+					max(cs.end_date) as end_date
+			 FROM concert_schedule cs
+			 GROUP BY concert_no
+			 ORDER BY concert_no) sub ON c.concert_no = sub.concert_no
 		JOIN theater t ON c.theater_no = t.theater_no
-		JOIN concert_schedule cs ON c.concert_no = cs.concert_no
 		JOIN concert_attachment ca ON c.concert_no = ca.concert_no
 		JOIN concert_category cc on  c.concert_no = cc.concert_no	
 		JOIN category ct ON cc.category_no = ct.category_no
@@ -210,26 +223,39 @@
 	
 	
 	<select id="selectComCount" resultType="_int">
-	SELECT COUNT(*)
-	FROM concert_review
-	WHERE concert_no = #{concertNo}
-	  AND review_status = 'Y'
+		SELECT COUNT(*)
+		FROM concert_review
+		WHERE concert_no = #{concertNo}
+		  AND review_status = 'Y'
 	</select>
 	
 	<select id="selectComDetail" resultMap="concertReviewResult" >
-	    SELECT user_no,
+		SELECT su.user_no,
+				c.concert_no,
+				sub.review_no,
+				sub.review_content,
+				sub.score,
+				su.nickname,
+				sub.review_date,
+				c.concert_members
+		 FROM (	SELECT round(avg(score)) AS score,
+				user_no,
 				concert_no,
 				review_no,
 				review_content,
-				score,
-				nickname,
 				review_date,
-				concert_members
-		 FROM concert_review
-		 JOIN staez_user USING (user_no)
-		 JOIN concert USING (concert_no)
-		WHERE concert_no = #{concertNo}
-		  AND review_status = 'Y'
+				review_status
+				 FROM concert_review
+				WHERE concert_no = #{concertNo}
+				GROUP BY user_no,
+						concert_no,
+						review_no,
+						review_content,
+						review_date,
+						review_status) sub
+		 JOIN staez_user su on su.user_no = sub.user_no
+		 JOIN concert c on c.concert_no = sub.concert_no
+		WHERE sub.review_status = 'Y'
 	</select>
 	
 	<select id="selectRevDetail" resultMap="boardResult" >
@@ -418,6 +444,8 @@
 	<select id="selectRevCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM board
+		JOIN tag USING (board_no)
+		JOIN concert USING (concert_no)
 		WHERE concert_no = #{concertNo}
 		  AND board_status = 'Y'
 	</select>
@@ -437,6 +465,14 @@
 		WHERE concert_no = #{concertNo}
 		  AND board_status = 'Y'
 	    ORDER BY board_no
+	 </select>
+	 
+	  <select id="selectSeatPrice"  resultMap="SeatResult" >
+		SELECT concert_no, grade, price
+		FROM seat
+		GROUP BY concert_no, grade, price
+		HAVING concert_no = #{concertNo}
+		ORDER BY price DESC
 	 </select>
 
     

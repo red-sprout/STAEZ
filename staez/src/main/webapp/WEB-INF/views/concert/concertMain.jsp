@@ -20,8 +20,6 @@
 <body>
     <div>
         <jsp:include page="../common/header.jsp" />
-
-
     </div>
     <!-- 공연 navi -->
     <div class="concert-navi-div">
@@ -30,6 +28,7 @@
         </ul>
     </div>
     <input type="hidden" name="categoryNo" value="${cat.categoryNo}">
+
     <section class="concert-main-upper-section">
 
         <div class="concert-main-upper-before">
@@ -72,7 +71,7 @@
         </div>
     </section>
 
-    <section>
+    <section class="running-concert">
         <br><br>
         <h3>현재 진행중인&nbsp; <b id="concert-genre">${cat.categoryName}</b></h3>
         <br>
@@ -101,8 +100,6 @@
     
 
     <section class="concert-main-grid-section">
-        <div class="no-concert">
-        </div>
         <div class="concert-main-grid">
             <!-- <div onclick="">
                 </div>

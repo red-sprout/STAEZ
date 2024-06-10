@@ -44,6 +44,10 @@ function drawSliderMain(list, sliderContent){
   // const gridContentDiv = document.createElement('div');
   
   sliderContent.innerHTML =``;
+
+  if(list.length === 0){
+    sliderContent.innerHTML =``;
+  }
   
   for (let c of list) {
 
@@ -81,6 +85,12 @@ function drawGridMain(list, gridContent){
   // const gridContentDiv = document.createElement('div');
   
   gridContent.innerHTML = ``;
+
+  if(list.length > 0){
+    gridContent.style.display = '';
+    gridContent.style.justifyContent = '';
+    gridContent.style.alignItems = '';
+    gridContent.style.height = '';
   
   for (let c of list) {
 
@@ -100,6 +110,22 @@ function drawGridMain(list, gridContent){
       location.href = 'detail.co?concertNo=' + c.concertNo;
     }
   }
+
+} else {
+  gridContent.style.display = 'flex';
+  gridContent.style.justifyContent = 'center';
+  gridContent.style.alignItems = 'center';
+  gridContent.style.height = '100%';
+
+  const concertGridDiv = document.createElement('div');
+  concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
+  concertGridDiv.style.fontSize = '24px';
+  concertGridDiv.style.padding = '40% 0 50% 0';
+  concertGridDiv.style.textAlign = 'center';
+
+  gridContent.appendChild(concertGridDiv);
+
+}
 }
 
 
@@ -139,28 +165,58 @@ function highscoreClick() {
 
 function drawAllList(list, gridContent){
   gridContent.innerHTML = ``;
-  for (let c of list) {
-    const concertGridDiv = document.createElement('div');
-    concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
-                              + `<div>`
-                              +     `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
+
+  if(list.length > 0){
+    gridContent.style.display = '';
+    gridContent.style.justifyContent = '';
+    gridContent.style.alignItems = '';
+    gridContent.style.height = '';
+
+    for (let c of list) {
+      const concertGridDiv = document.createElement('div');
+      concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
+                                + `<div>`
+                                +     `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
+                                + `</div>`
+                                + `<div>`
+                                +     `<p><span>` + c.categoryName + `</span></p>`
+                                +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 전체
+                                      <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
                               + `</div>`
-                              + `<div>`
-                              +     `<p><span>` + c.categoryName + `</span></p>`
-                              +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 전체
-                                    <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
-                            + `</div>`
-                            
-    gridContent.appendChild(concertGridDiv);                   
-    concertGridDiv.onclick = function goDetail(){
-      location.href = 'detail.co?concertNo=' + c.concertNo;
+                              
+      gridContent.appendChild(concertGridDiv);                   
+      concertGridDiv.onclick = function goDetail(){
+        location.href = 'detail.co?concertNo=' + c.concertNo;
+      }
     }
+  } else {
+    gridContent.style.display = 'flex';
+    gridContent.style.justifyContent = 'center';
+    gridContent.style.alignItems = 'center';
+    gridContent.style.height = '100%';
+  
+    const concertGridDiv = document.createElement('div');
+    concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
+    concertGridDiv.style.fontSize = '24px';
+    concertGridDiv.style.padding = '40% 0 50% 0';
+    concertGridDiv.style.textAlign = 'center';
+  
+    gridContent.appendChild(concertGridDiv);
+  
   }
 }
 
 
+
 function drawPopular(list, gridContent){
   gridContent.innerHTML = ``;
+
+  if(list.length > 0){
+    gridContent.style.display = '';
+    gridContent.style.justifyContent = '';
+    gridContent.style.alignItems = '';
+    gridContent.style.height = '';
+
   for (let c of list) {
     const concertGridDiv = document.createElement('div');
     concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
@@ -178,48 +234,109 @@ function drawPopular(list, gridContent){
       location.href = 'detail.co?concertNo=' + c.concertNo;
     }
   }
+
+} else {
+  gridContent.style.display = 'flex';
+  gridContent.style.justifyContent = 'center';
+  gridContent.style.alignItems = 'center';
+  gridContent.style.height = '100%';
+
+  const concertGridDiv = document.createElement('div');
+  concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
+  concertGridDiv.style.fontSize = '24px';
+  concertGridDiv.style.padding = '40% 0 50% 0';
+  concertGridDiv.style.textAlign = 'center';
+
+  gridContent.appendChild(concertGridDiv);
+
+}
 }
 
 function drawLatest(list, gridContent){
   gridContent.innerHTML = ``;
-  for (let c of list) {
-    const concertGridDiv = document.createElement('div');
-    concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
-                              + `<div>`
-                              +     `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
+
+  if(list.length > 0){
+    gridContent.style.display = '';
+    gridContent.style.justifyContent = '';
+    gridContent.style.alignItems = '';
+    gridContent.style.height = '';
+
+    for (let c of list) {
+      const concertGridDiv = document.createElement('div');
+      concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
+                                + `<div>`
+                                +     `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
+                                + `</div>`
+                                + `<div>`
+                                +     `<p><span>` + c.categoryName + `</span></p>`
+                                +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 최신
+                                      <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
                               + `</div>`
-                              + `<div>`
-                              +     `<p><span>` + c.categoryName + `</span></p>`
-                              +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 최신
-                                    <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
-                            + `</div>`
-                            
-    gridContent.appendChild(concertGridDiv);                   
-    concertGridDiv.onclick = function goDetail(){
-      location.href = 'detail.co?concertNo=' + c.concertNo;
+                              
+      gridContent.appendChild(concertGridDiv);                   
+      concertGridDiv.onclick = function goDetail(){
+        location.href = 'detail.co?concertNo=' + c.concertNo;
+      }
     }
+  } else {
+    gridContent.style.display = 'flex';
+    gridContent.style.justifyContent = 'center';
+    gridContent.style.alignItems = 'center';
+    gridContent.style.height = '100%';
+
+    const concertGridDiv = document.createElement('div');
+    concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
+    concertGridDiv.style.fontSize = '24px';
+    concertGridDiv.style.padding = '40% 0 50% 0';
+    concertGridDiv.style.textAlign = 'center';
+
+    gridContent.appendChild(concertGridDiv);
+
   }
   
 }
 
 function drawHighscore(list, gridContent){
   gridContent.innerHTML = ``;
-  for (let c of list) {
-    const concertGridDiv = document.createElement('div');
-    concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
-                              + `<div>`
-                              +     `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
+
+  if(list.length > 0){
+    gridContent.style.display = '';
+    gridContent.style.justifyContent = '';
+    gridContent.style.alignItems = '';
+    gridContent.style.height = '';
+
+    for (let c of list) {
+      const concertGridDiv = document.createElement('div');
+      concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
+                                + `<div>`
+                                +     `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
+                                + `</div>`
+                                + `<div>`
+                                +     `<p><span>` + c.categoryName + `</span></p>`
+                                +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 별점
+                                      <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
                               + `</div>`
-                              + `<div>`
-                              +     `<p><span>` + c.categoryName + `</span></p>`
-                              +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 별점
-                                    <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
-                            + `</div>`
-                            
-    gridContent.appendChild(concertGridDiv);                   
-    concertGridDiv.onclick = function goDetail(){
-      location.href = 'detail.co?concertNo=' + c.concertNo;
+                              
+      gridContent.appendChild(concertGridDiv);                   
+      concertGridDiv.onclick = function goDetail(){
+        location.href = 'detail.co?concertNo=' + c.concertNo;
+      }
     }
+
+  } else {
+    gridContent.style.display = 'flex';
+    gridContent.style.justifyContent = 'center';
+    gridContent.style.alignItems = 'center';
+    gridContent.style.height = '100%';
+
+    const concertGridDiv = document.createElement('div');
+    concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
+    concertGridDiv.style.fontSize = '24px';
+    concertGridDiv.style.padding = '40% 0 50% 0';
+    concertGridDiv.style.textAlign = 'center';
+
+    gridContent.appendChild(concertGridDiv);
+
   }
 }
 
@@ -234,22 +351,45 @@ function locationClick() {
 
 function drawLocation(list, gridContent){
   gridContent.innerHTML = ``;
-  for (let c of list) {
-    const concertGridDiv = document.createElement('div');
-    concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
-                              + `<div>`
-                              +     `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
+
+  if(list.length > 0){
+    gridContent.style.display = '';
+    gridContent.style.justifyContent = '';
+    gridContent.style.alignItems = '';
+    gridContent.style.height = '';
+
+    for (let c of list) {
+      const concertGridDiv = document.createElement('div');
+      concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
+                                + `<div>`
+                                +     `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
+                                + `</div>`
+                                + `<div>`
+                                +     `<p><span>` + c.categoryName + `</span></p>`
+                                +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 지역전체
+                                      <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
                               + `</div>`
-                              + `<div>`
-                              +     `<p><span>` + c.categoryName + `</span></p>`
-                              +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 지역전체
-                                    <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
-                            + `</div>`
-                            
-    gridContent.appendChild(concertGridDiv);                   
-    concertGridDiv.onclick = function goDetail(){
-      location.href = 'detail.co?concertNo=' + c.concertNo;
-    }
+                              
+      gridContent.appendChild(concertGridDiv);                   
+      concertGridDiv.onclick = function goDetail(){
+        location.href = 'detail.co?concertNo=' + c.concertNo;
+      }
+  }
+
+  } else {
+    gridContent.style.display = 'flex';
+    gridContent.style.justifyContent = 'center';
+    gridContent.style.alignItems = 'center';
+    gridContent.style.height = '100%';
+
+    const concertGridDiv = document.createElement('div');
+    concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
+    concertGridDiv.style.fontSize = '24px';
+    concertGridDiv.style.padding = '40% 0 50% 0';
+    concertGridDiv.style.textAlign = 'center';
+
+    gridContent.appendChild(concertGridDiv);
+
   }
 }
 
@@ -278,6 +418,7 @@ function drawLocationAll(list, gridContent){
     gridContent.style.justifyContent = '';
     gridContent.style.alignItems = '';
     gridContent.style.height = '';
+
   for (let c of list) {
     const concertGridDiv = document.createElement('div');
     concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
@@ -314,6 +455,7 @@ function drawLocationAll(list, gridContent){
 
     // 이렇게 하면 grid가 아닌 아래상태에 적용이 되는데 어떻게 해야하져?
     // 아하 스타일도 초기화해 줘야함!!
+    
     gridContent.style.display = 'flex';
     gridContent.style.justifyContent = 'center';
     gridContent.style.alignItems = 'center';

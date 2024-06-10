@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.admin.model.vo.Seat;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
@@ -70,7 +71,9 @@ public interface ConcertService {
 	int selectRevCount(int concertNo);
 	ArrayList<Board> selectRevList(PageInfo pi, int concertNo);
 
+	ArrayList<Seat> selectSeatPrice(int concertNo);
 
+	
 
 	
 

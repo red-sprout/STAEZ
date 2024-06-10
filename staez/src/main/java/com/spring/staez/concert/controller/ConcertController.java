@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.admin.model.vo.Seat;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.common.template.Pagination;
 import com.spring.staez.community.model.vo.Board;
@@ -57,15 +58,20 @@ public class ConcertController {
 		
 		
 	// 공연을 concertNo로 가져와서 공연세부페이지로: 한줄평이랑 리뷰
+	// model로 내려줄 때는 한 메서드에 다 몰아서 해줘야하는군
 	@RequestMapping(value = "detail.co", produces="application/json; charset=UTF-8")
 	public String selectCon(@RequestParam(value = "concertNo") String concertNo, Model model) {
 		Concert con = concertService.selectCon(Integer.parseInt(concertNo));
 		ArrayList<ConcertReview> conComDlist =  concertService.selectComDetail(Integer.parseInt(concertNo));
 		ArrayList<Board> conRevDlist =  concertService.selectRevDetail(Integer.parseInt(concertNo));
+		// 공연세부페이지 공연 가격
+		ArrayList<Seat> s =  concertService.selectSeatPrice(Integer.parseInt(concertNo));
+
 		
 		model.addAttribute("rev", conRevDlist);
 		model.addAttribute("com", conComDlist);
 		model.addAttribute("con", con);
+		model.addAttribute("s", s);
 		
 		return "concert/concertDetailMain";
 	}
@@ -193,14 +199,10 @@ public class ConcertController {
 	    Map<String, Object> result = new HashMap<>();
 	    result.put("pi", pi);
 	    result.put("rList", rList);
+	    System.out.println("rList:" + rList);
 		
 		return new Gson().toJson(result);
 	}
-	
-	
-	
-	
-	
 	
 	
 	@ResponseBody
@@ -254,6 +256,8 @@ public class ConcertController {
 		ArrayList<Concert> list =  concertService.locationAllList(map);
 		return new Gson().toJson(list);
 	}
+	
+
 	
 	
 
