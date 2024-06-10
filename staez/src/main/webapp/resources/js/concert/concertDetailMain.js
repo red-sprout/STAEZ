@@ -454,6 +454,7 @@ function drawReviewDetail(result){
 
     } else {
         for(let c of result.rList){
+            console.log(c.path);
             let str = c.boardContent;
             let boardContentCut = str.substr(0, 50);
             drawSection.innerHTML += `<div>
@@ -467,27 +468,30 @@ function drawReviewDetail(result){
                                                     <table class="concert-detail-review-table">
                                                             <tbody class="concert-detail-review-tbody">
                                                                 <tr>
-                                                                    <td rowspan="3"><img align="left" src="`+ contextPath + `/resources/img/concert/heart-background.png" alt=""></td>
+                                                                    <td rowspan="3"><img align="left" src="`+ contextPath + c.path + `"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left"><b>`+ c.nickname + `</b></td>
-                                                                    <td rowspan="4" class="concert-detail-review-table-img"><img align="center" src="`+ contextPath + `/resources/img/concert/heart-background.png" alt=""></td>
+                                                                    
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left">` + c.boardWriteDate + `</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td align="left" colspan="2"><h3>` + c.boardTitle + `</h3>
+                                                                    <td align="left" colspan="2"><h3><a href="detail.cm?boardNo=` + c.boardNo +`">` + c.boardTitle + `</a></h3>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td align="left" colspan="2">` + boardContentCut + `...</td>
+                                                                    <td align="left" colspan="2"><a href="detail.cm?boardNo=` + c.boardNo +`">` + boardContentCut + `...</a></td>
                                                                 </tr>
                                                             </tbody>
                                                     </table>
                                                 </div>
                                                 <br>`
-        
+
+                                                // <td rowspan="4" class="concert-detail-review-table-img"><img align="center" src="`+ contextPath + c.path + `"></td>
+
+
         }   
     }
 
