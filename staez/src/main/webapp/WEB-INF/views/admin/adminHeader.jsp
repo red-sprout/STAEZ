@@ -17,7 +17,7 @@
                 <li onclick="location.href='concertList.ad'"><h2>공연</h2></li>
                 <li onclick="location.href='theaterList.ad'"><h2>공연장</h2></li>
                 <li onclick="location.href='communityList.ad'"><h2>커뮤니티</h2></li>
-                <li onclick="location.href='categoryList.ad'"><h2>카테고리</h2></li>
+                <li onclick="location.href='reserveList.ad'"><h2>예약내역</h2></li>
                 <li onclick="location.href='faqList.ad'"><h2>FAQ</h2></li>
                 <li onclick="location.href='inquireList.ad'"><h2>문의</h2></li>
                 <li onclick="location.href='reportList.ad'"><h2>신고</h2></li>
