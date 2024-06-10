@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.staez.admin.model.vo.ConcertSchedule;
 import com.spring.staez.admin.model.vo.ImpossibleSeat;
 import com.spring.staez.admin.model.vo.Seat;
+import com.spring.staez.concert.model.dto.ReserveInsertDTO;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.Theater;
 import com.spring.staez.user.model.vo.Reserve;
@@ -41,6 +42,10 @@ public class ConcertReserveDao {
 		return (ArrayList)sqlSession.selectList("concertReserveMapper.selectReserveRatingSeat", data);
 	}
 	
+	public ArrayList<Seat> selectImpossibleRatingSeat(SqlSessionTemplate sqlSession, Map data){
+		return (ArrayList)sqlSession.selectList("concertReserveMapper.selectImpossibleSeatCount", data);
+	}
+	
 	public Theater selectTheaterSeatInfo(SqlSessionTemplate sqlSession, String theaterName) {
 		return sqlSession.selectOne("concertReserveMapper.selectTheaterSeatInfo", theaterName);
 	}
@@ -55,5 +60,9 @@ public class ConcertReserveDao {
 	
 	public User userInfo(SqlSessionTemplate sqlSession, int uNo) {
 		return sqlSession.selectOne("concertReserveMapper.userInfo", uNo);
+	}
+	
+	public int insertReserve(SqlSessionTemplate sqlSession, ReserveInsertDTO rid) {
+		return sqlSession.insert("concertReserveMapper.insertReserve", rid);
 	}
 }

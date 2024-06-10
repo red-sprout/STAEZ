@@ -12,6 +12,13 @@
 <title>Insert title here</title>
 </head>
 <body>
+    <c:if test="${not empty alertMsg}">
+        <script>
+            alert("${alertMsg}");
+    
+            session.removeAttribute("alertMsg"); 
+        </script>
+    </c:if>
 	<div class="container">
 		<div class="reserve-step-area-top">
             <span>STAEZ 티켓예매</span>
@@ -28,7 +35,7 @@
                     <span>결제방식선택</span>
                     <div class="receive-way-box">
                         <div class="check-div"><div></div></div>
-                        <span>무통장입금</span>
+                        <span class="pay-method">무통장입금</span>
                     </div>
                 </div>
                 <div class="line">
@@ -108,24 +115,26 @@
                         <img src="${contextPath}/resources/img/concert/nextArrow.png" alt=""> 
                         <span>이전단계</span>
                     </div>
-                    <form action="insertReserve.co" class="next-step-form">
+                    <div class="next-step-form">
                         <input type="hidden" name="userNo" value="${userNo}">
                         <input type="hidden" name="concertNo" value="${concert.concertNo}">
                         <input type="hidden" name="recipientName" value="${recipientName}">
                         <input type="hidden" name="recipientPhone" value="${recipientPhone}">
                         <input type="hidden" name="recipientBirth" value="${recipientBirth}">
+                        <input type="hidden" name="recipientEmail" value="${recipientEmail}">
+                        <input type="hidden" name="payMethod" value="">
                         <input type="hidden" name="concertDate">
                         <input type="hidden" name="schedule">
                         <input type="hidden" name="seatList">
-                        <button class="next-step-area" onclick="insertReserve()">
+                        <button type="button" class="next-step-area" onclick="insertReserve()">
                             <span>예매하기</span>
                             <img src="${contextPath}/resources/img/concert/nextArrow.png" alt=""> 
                         </button>
-                    </form>
+                    </div>
               </div>
             </div>
          </div>
-	
+        <script src="${contextPath}/resources/js/api/concertReserveapi.js"></script>
 		<script src="${contextPath}/resources/js/concert/concertReserveLastStep.js"></script>
 	</div>
 

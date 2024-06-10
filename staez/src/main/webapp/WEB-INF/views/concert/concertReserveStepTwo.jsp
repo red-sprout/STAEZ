@@ -27,7 +27,7 @@
                         <span class="step-two-top-span reserve-date">${reserveDate}</span>
                     </div>
                 </div>
-               
+                <input type="hidden" name="theaterNo" value="${concert.theaterNo}">
                <input type="hidden" name="theaterName" value="${concert.theaterName}">
             </div>
         </div>

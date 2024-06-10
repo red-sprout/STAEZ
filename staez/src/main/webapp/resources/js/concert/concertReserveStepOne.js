@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         recalendar();
         // 현재 달의 날짜들
         function recalendar(){
-            console.log(dayOffs)
             const conStartDate = new Date(concertPeriod.startDate);
             const conEndDate = new Date(concertPeriod.endDate);
             conStartDate.setHours(0, 0, 0, 0);
@@ -166,7 +165,6 @@ const months = [
     "07", "08", "09", "10", "11", "12"
 ];
 function spanDayChange2(y, m, d){
-    console.log(clickedDate);
 
     
     clickedDate.innerHTML = ``; 
@@ -177,7 +175,7 @@ function spanDayChange2(y, m, d){
     const concertNo = document.querySelector("input[name = 'concertNo']").value;
     
     ajaxChoiceDateSchedule({
-    concertNo,
+        concertNo,
         choiceDate
     },(schedules) => drawChoiceDateSchedule(concertNo, choiceDate, schedules))
 }
@@ -237,8 +235,10 @@ function choiceDateSchedule(_this, cNo, choiceDate, schedule){
     reserveTimeValue.innerHTML = choiceDate + ` ` + schedule;
     
     const reserveDate = reserveTimeValue.innerHTML;
+    const tNo = document.querySelector("input[name='theaterNo']").value
     ajaxChoiceScheduleSeat({
         cNo,
+        tNo,
         choiceDate,
         schedule
     },(resMap)=>drawSeatRatingInfo(resMap, reserveDate));
@@ -247,6 +247,7 @@ function choiceDateSchedule(_this, cNo, choiceDate, schedule){
 function drawSeatRatingInfo(resMap, reserveDate){
     const totalSeat = resMap.totalSeat;
     const reserveSeat = resMap.reserveSeat;
+    const impossibleSeat = resMap.impossibleSeat;
     
     const seatRatingInfoTitle = document.querySelector(".remaining-seat-rating-area");
     seatRatingInfoTitle.innerHTML = `<span>좌석등급/잔여석</span>`;
@@ -259,8 +260,8 @@ function drawSeatRatingInfo(resMap, reserveDate){
     const seatRatingInfoArea = document.querySelector(".remaining-seat-rating-info");
     seatRatingInfoArea.classList.remove("hidden");
 
-    const toSeat = residualSeats(totalSeat, reserveSeat);
-
+    let toSeat = residualSeats(totalSeat, reserveSeat);
+    toSeat = residualSeats(toSeat, impossibleSeat);
     seatRatingInfoArea.innerHTML = ``;
     for(let i = 0; i < toSeat.length; i++){
         seatRatingInfoArea.innerHTML += `<div class="rating-area">

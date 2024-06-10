@@ -387,7 +387,7 @@
     margin-right: 10px;
 }
 
-.check-div>div{
+.checked{
     width: 10px;
     height: 10px;
     border-radius: 50px;
@@ -641,5 +641,11 @@
 .hidden{
     display: none;
 }
+
+.clicked{
+    background: #F8D082;
+}
+
+
 
 

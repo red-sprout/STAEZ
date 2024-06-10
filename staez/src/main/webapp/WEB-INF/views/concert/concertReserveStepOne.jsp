@@ -14,7 +14,7 @@
 <body>
 	<div class="container">
         <div class="reserve-step-area-top">
-            <!-- <input type="hidden" name="userNo" value="${loginUser.userNo}"> -->
+            <input type="hidden" name="theaterNo" value="${concert.theaterNo}">
             <input type="hidden" name="concertNo" value="${concert.concertNo}">
             <span>STAEZ 티켓예매</span>
             <div class="reserve-step-area">

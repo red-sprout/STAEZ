@@ -1,12 +1,13 @@
 package com.spring.staez.concert.controller;
 
 import java.lang.reflect.Type;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.spring.staez.admin.model.vo.ConcertSchedule;
 import com.spring.staez.admin.model.vo.ImpossibleSeat;
 import com.spring.staez.admin.model.vo.Seat;
+import com.spring.staez.concert.model.dto.ReserveInsertDTO;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.Theater;
 import com.spring.staez.concert.service.ConcertReserveService;
@@ -75,9 +81,9 @@ public class ConcertReserveController {
 		return "concert/concertReserveStepThree";
 	}
 	
-	@GetMapping("selectPayment.co")
+	@PostMapping("selectPayment.co")
 	public String concertReserveLastStep(Model model, String concertNo, String recipientName, String recipientPhone, String recipientBirth,
-			String seatList, String totalAmount, String reserveDate, String userNo) {
+			String recipientEmail, String seatList, String totalAmount, String reserveDate, String userNo) {
 		int cNo = Integer.parseInt(concertNo);
 		int uNo = Integer.parseInt(userNo);
 		Concert concert = crService.reserveConcertInfo(cNo);
@@ -85,7 +91,7 @@ public class ConcertReserveController {
 	    Type type = new TypeToken<List>(){}.getType();
 	    List sList = gson.fromJson(seatList, type);
 	    
-	    
+	    model.addAttribute("recipientEmail", recipientEmail);
 	    model.addAttribute("recipientName", recipientName);
 	    model.addAttribute("recipientPhone", recipientPhone);
 	    model.addAttribute("recipientBirth", recipientBirth);
@@ -98,13 +104,43 @@ public class ConcertReserveController {
 		return "concert/concertReserveLastStep";
 	}
 	
-	@GetMapping("insertReserve.co")
-	public String insertReserve(HttpSession session, String concertNo, String recipientName, String recipientPhone, String recipientBirth,
-			String seatList, String concertDate, String schedule, String userNo) {
+	@ResponseBody
+	@PostMapping(value = "insertReserve.co" , produces="application/json; charset-UTF-8")
+	public String insertReserve(String rids) {
+	
+		System.out.println(rids);
+		JsonObject totalObj = JsonParser.parseString(rids).getAsJsonObject();
 		
+
 		
-		session.setAttribute("alertMsg", "예매에 성공하셨습니다.");
-		return "redirect:/";
+		int concertNo = Integer.parseInt(totalObj.get("concertNo").getAsString()); 
+		
+		ReserveInsertDTO rid = new ReserveInsertDTO();
+		rid.setUserNo(Integer.parseInt(totalObj.get("userNo").getAsString()));
+		rid.setConcertNo(Integer.parseInt(totalObj.get("concertNo").getAsString()));
+		rid.setConcertDate(totalObj.get("concertDate").getAsString());
+	    rid.setSchedule(totalObj.get("schedule").getAsString());
+	    rid.setPayMethod(totalObj.get("payMethod").getAsString());
+	    rid.setRecipientName(totalObj.get("recipientName").getAsString());
+	    rid.setRecipientPhone(totalObj.get("recipientPhone").getAsString());
+	    rid.setRecipientBirth(totalObj.get("recipientBirth").getAsString());
+	   
+	    JsonArray seatListArray = totalObj.getAsJsonArray("seatList");
+	    System.out.println(seatListArray.size());
+        List<String> seatList = new ArrayList<>();
+        for (JsonElement seatInformation : seatListArray) {
+            seatList.add(seatInformation.getAsString());
+        }
+        rid.setSeatList(seatList);
+	
+		int result = crService.insertReserve(rid);
+		System.out.println("컨트롤러 : " + result);
+		if(result > 0) {
+			 return new Gson().toJson("good");
+		} else {
+			return new Gson().toJson("no");
+		}
+
 	}
 	
 	@ResponseBody
@@ -139,15 +175,18 @@ public class ConcertReserveController {
 	
 	@ResponseBody
 	@GetMapping(value = "ajaxChoiceScheduleSeat.co" , produces="application/json; charset-UTF-8")
-	public String ajaxChoiceScheduleSeat(String cNo, String choiceDate, String schedule) {
+	public String ajaxChoiceScheduleSeat(String cNo, String tNo, String choiceDate, String schedule) {
 		int concertNo = Integer.parseInt(cNo);
+		int theaterNo = Integer.parseInt(tNo);
 		
 		ArrayList<Seat> ratingTotalSeat = crService.selectRatingTotalSeat(concertNo, choiceDate, schedule);
 		ArrayList<Seat> reserveRatingSeat = crService.selectReserveRatingSeat(concertNo, choiceDate, schedule);
+		ArrayList<Seat> impossibleRatingSeat = crService.selectImpossibleRatingSeat(theaterNo, choiceDate);
 		
 		Map resMap = new HashMap();
 		resMap.put("totalSeat", ratingTotalSeat);
 		resMap.put("reserveSeat", reserveRatingSeat);
+		resMap.put("impossibleSeat", impossibleRatingSeat);
 		
 		return  new Gson().toJson(resMap);
 	}

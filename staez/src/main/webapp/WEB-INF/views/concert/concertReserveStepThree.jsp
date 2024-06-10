@@ -27,7 +27,7 @@
                 <div class="receive-way-area">
                     <span>티켓수령방법</span>
                     <div class="receive-way-box">
-                        <div class="check-div"><div></div></div>
+                        <div class="check-div"><div class="checked"></div></div>
                         <span>현장수령</span>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                 <div class="reservation-check-area">
                     <span>예매자확인</span>
                     <p class="important-span">(현장 수령받을 실 분의 정보)</p>
-                    <button class="before-info">예매자 정보와 동일</button>
+                    <button class="before-info" onclick="reserveInfoSame(this)">예매자 정보와 동일</button>
                     <div class="reservation-input-area">
                         <div class="reservation-user-name">
                             <div><span>이름</span><span class="important-star">*</span></div>
@@ -58,12 +58,16 @@
                         <div class="emphasis-text"><span>현장수령 및 고객문의시 본인확인을 위해 정확한 정보를 입력해주세요.</span></div>
                         <div class="reservation-user-email">
                             <div><span>이메일</span><span class="important-star">*</span></div>
-                            <input type="text" placeholder="@ 포함" value="">
+                            <input type="text" name="email" placeholder="@ 포함" value="">
                         </div>
                         <div class="info-send-text"><span>SMS 문자와 이메일로 예매 정보를 보내드립니다.</span></div>
                     </div>
                 </div>
             </div>
+            <input type="hidden" name="userName" value="${user.userName}">
+            <input type="hidden" name="userBirth" value="${user.birth}">
+            <input type="hidden" name="userPhone" value="${user.phone}">
+            <input type="hidden" name="userEmail" value="${user.email}">
             <div class="concert-reserve-area">
                 <div class="concert-reserve-info-area">
                     <img class="concert-reserve-info-img" src="${contextPath}${concert.path}" alt="">
@@ -110,11 +114,12 @@
                         <img src="${contextPath}/resources/img/concert/nextArrow.png" alt=""> 
                         <span>이전단계</span>
                     </div>
-                    <form class="next-form" action="selectPayment.co">
+                    <form class="next-form" action="selectPayment.co" method="POST">
                         <input type="hidden" name="concertNo" value="${concert.concertNo}">
                         <input type="hidden" name="recipientName">
                         <input type="hidden" name="recipientPhone">
                         <input type="hidden" name="recipientBirth">
+                        <input type="hidden" name="recipientEmail">
                         <input type="hidden" name="seatList">
                         <input type="hidden" name="totalAmount" value="${totalAmount}">
                         <input type="hidden" name="reserveDate" value="${reserveDate}">

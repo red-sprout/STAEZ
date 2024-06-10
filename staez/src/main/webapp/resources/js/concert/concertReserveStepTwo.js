@@ -5,8 +5,10 @@ window.onload = function(){
 
 
     const cNo = document.querySelector("input[name = 'cNo']").value;
+    const tNo = document.querySelector("input[name='theaterNo']").value
     ajaxChoiceScheduleSeat({
         cNo,
+        tNo,
         choiceDate,
         schedule
     },(resMap)=>drawSeatRatingInfo(resMap));
@@ -20,13 +22,15 @@ window.onload = function(){
 function drawSeatRatingInfo(resMap){
     const totalSeat = resMap.totalSeat;
     const reserveSeat = resMap.reserveSeat;
+    const impossibleSeat = resMap.impossibleSeat;
+
     const gradeColor = [
         "#640D6B", "#42FF00", "#1400FF", "#ffaa00", "#ff0000",
         "#ffc0cb", "#008000", "#4e1a1a", "#87ceeb", "#966d99"
     ]
 
-    const toSeat = residualSeats(totalSeat, reserveSeat);
-
+    let toSeat = residualSeats(totalSeat, reserveSeat);
+    toSeat = residualSeats(toSeat, impossibleSeat);
     const seatRatingArea = document.querySelector(".remaining-rating-info");
     seatRatingArea.innerHTML = ``;
 
