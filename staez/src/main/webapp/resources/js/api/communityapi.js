@@ -28,9 +28,11 @@ function insertFileApi(data, callback) {
     })
 }
 
+// 커뮤니티 카테고리 정보 조회
+// data - refCategoryNo, categoryLevel
 function communityCategory(data, callback) {
     $.ajax({
-        url: contextPath + "category.cm",
+        url: contextPath + "category.ct",
         data: data,
         success : function(res) {
             callback(res);
@@ -38,6 +40,18 @@ function communityCategory(data, callback) {
             console.log("카테고리 요청 실패");
         }
     });
+}
+
+function communityMainList(data, callback) {
+    $.ajax({
+        url: contextPath + "list.bo",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("게시판 요청 실패");
+        }
+    })
 }
 
 function searchConcertList(data, callback) {
@@ -166,8 +180,4 @@ function selectReplyAll(data, callback) {
             console.log("댓글 요청 실패");
         }
     });
-}
-
-function insertReply(data, callback) {
-    
 }

@@ -7,24 +7,24 @@
 <mapper namespace="adminMapper">
 	<resultMap type="Board" id="boardResult">
 		<result column="board_no" property="boardNo" />
+		<result column="ref_board_no" property="refBoardNo" />
 		<result column="user_no" property="userNo" />
-		<result column="user_pwd" property="userPwd" />
+		<result column="user_Id" property="userId" />
 		<result column="nickname" property="nickname" />
-		<result column="gender" property="gender" />
-		<result column="birth" property="birth" />
-		<result column="address" property="address" />
-		<result column="email" property="email" />
-		<result column="phone" property="phone" />
-		<result column="genre_like" property="genreLike" />
-		<result column="grade" property="grade" />
-		<result column="enroll_date" property="enrollDate" />
-		<result column="withdrawal_date" property="withdrawalDate" />
-		<result column="user_status" property="userStatus" />
-		<result column="board_title" property="boardTitle" />
+		<result column="board_level" property="boardLevel" />
+		<result column="board_code" property="boardCode" />
 		<result column="board_write_date" property="boardWriteDate" />
+		<result column="board_title" property="boardTitle" />
 		<result column="board_content" property="boardContent" />
-		<result column="category_no" property="categoryNo"/>
-		<result column="category_name" property="categoryName"/>
+		<result column="board_count" property="boardCount" />
+		<result column="board_status" property="boardStatus" />
+		<result column="category_no" property="categoryNo" />
+		<result column="category_name" property="categoryName" />
+		<result column="ref_category_no" property="refCategoryNo" />
+		<result column="category_level" property="categoryLevel" />
+		<result column="concert_no" property="concertNo" />
+		<result column="like_count" property="likeCount" />
+		<result column="path" property="path" />
 	</resultMap>
 	<resultMap type="Category" id="categoryResult">
 		<result column="category_no" property="categoryNo"/>
@@ -65,7 +65,39 @@
 	    <result column="category_name" property="categoryName"/>
 	    <result column="theater_name" property="theaterName"/>
    </resultMap>
-
+   	<resultMap type="User" id="userResult">
+		<result column="user_no" property="userNo" />
+		<result column="user_id" property="userId" />
+		<result column="user_pwd" property="userPwd" />
+		<result column="nickname" property="nickname" />
+		<result column="gender" property="gender" />
+		<result column="birth" property="birth" />
+		<result column="address" property="address" />
+		<result column="email" property="email" />
+		<result column="phone" property="phone" />
+		<result column="genre_like" property="genreLike" />
+		<result column="grade" property="grade" />
+		<result column="enroll_date" property="enrollDate" />
+		<result column="withdrawal_date" property="withdrawalDate" />
+		<result column="user_status" property="userStatus" />
+	</resultMap>
+	<resultMap type="Reserve" id="reserveResult">
+		<result column="reserve_no" property="reserveNo" />
+		<result column="concert_no" property="concertNo" />
+		<result column="concert_title" property="concertTitle" />
+		<result column="user_no" property="userNo" />
+		<result column="reserve_row" property="reserveRow" />
+		<result column="reserve_col	" property="reserveCol" />
+		<result column="reserve_date" property="reserveDate" />
+		<result column="pay_method" property="payMethod" />
+		<result column="concert_date" property="concertDate" />
+		<result column="concert_times" property="concertTimes" />
+		<result column="reserve_status" property="reserveStatus" />
+		<result column="r_name" property="rName" />
+		<result column="r_birth" property="rbirth" />
+		<result column="r_phone" property="rPhone" />
+		<result column="schedule" property="schedule" />
+	</resultMap>
 	<select id="selectFaqCategory" resultMap="categoryResult">
 		SELECT
 			category_no,
@@ -76,7 +108,7 @@
 		WHERE ref_category_no = #{refCategoryNo}
 	</select>
 	
-	<insert id="faqIncert">
+	<insert id="faqInsert">
 		INSERT INTO board
 		(
 			user_no,
@@ -91,18 +123,18 @@
 		)
 	</insert>
 	
-	<insert id="faqCategoryIncert">
+	<insert id="faqCategoryInsert">
 		INSERT INTO board_category
 		(
 			board_no,
 			category_no
 		) values (
-			CURRVAL('board_board_no_seq'::regclass),
+			CURRVAL('seq_board'::regclass),
 			#{categoryNo}
 		)
 	</insert>
 	
-	<insert id="incertTheater">
+	<insert id="insertTheater">
 		INSERT INTO theater
 		(
 			theater_name,
@@ -119,14 +151,14 @@
 		)
 	</insert>
 	
-	<insert id="incertImpossibleSeat">
+	<insert id="insertImpossibleSeat">
 		INSERT INTO impossible_seat
 		(
 			theater_no,
 			impossible_seat_row,
 			impossible_seat_col
 		) VALUES (
-			CURRVAL('theater_theater_no_seq'::regclass),
+			CURRVAL('seq_theater'::regclass),
 			${impossibleSeatRow},
 			${impossibleSeatCol}
 		)
@@ -139,7 +171,7 @@
 			theater_row,
 			theater_col
 		FROM theater
-		WHERE theater_name LIKE '%${keyword}%'
+		WHERE theater_name LIKE '%' || #{keyword} || '%'
 		LIMIT 5
 	</select>
 	
@@ -170,7 +202,7 @@
 			concert_no,
 			category_no
 		) VALUES (
-			CURRVAL('concert_concert_no_seq'::regclass),
+			CURRVAL('seq_concert'::regclass),
 			#{categoryNo}
 		)
 	</insert>
@@ -183,7 +215,7 @@
 			change_name,
 			file_path
 		) VALUES (
-			CURRVAL('concert_concert_no_seq'::regclass),
+			CURRVAL('seq_concert'::regclass),
 			#{originName},
 			#{changeName},
 			#{filePath}
@@ -198,7 +230,7 @@
 			start_date,
 			end_date
 		) VALUES (
-			CURRVAL('concert_concert_no_seq'::regclass),
+			CURRVAL('seq_concert'::regclass),
 			#{schedule},
 			#{startDate},
 			#{endDate}
@@ -217,7 +249,7 @@
 			seat_start_col,
 			seat_end_col
 		) VALUES (
-			CURRVAL('concert_concert_no_seq'::regclass),
+			CURRVAL('seq_concert'::regclass),
 			#{grade},
 			#{price},
 			#{concertDate},
@@ -227,8 +259,69 @@
 			#{seatEndCol}
 		)
 	</insert>
-	
-	<select id="selectNotice" resultMap="boardResult">
+	<select id="selectNoticeCnt" parameterType="com.spring.staez.admin.model.dto.AdminCategoryDto" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM board b
+		JOIN board_category bc on (b.board_no = bc.board_no)
+		WHERE b.board_status = 'Y'
+		AND
+	    <choose>
+	        <when test='select != null and select == "title"'>
+	            b.board_title LIKE '%' || #{keyword} || '%'
+	        </when>
+	        <otherwise>
+	            b.board_content LIKE '%' || #{keyword} || '%'
+	        </otherwise>
+	    </choose>
+		AND b.board_code = 1
+		AND bc.category_no = ${categoryNo}
+	</select>
+	<select id="selectNoticeCntAll" parameterType="com.spring.staez.admin.model.dto.AdminCategoryDto" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM board b
+		JOIN board_category bc on (b.board_no = bc.board_no)
+		WHERE b.board_status = 'Y'
+		AND 
+	    <choose>
+	        <when test='select != null and select == "title"'>
+	            b.board_title LIKE '%' || #{keyword} || '%'
+	        </when>
+	        <otherwise>
+	            b.board_content LIKE '%' || #{keyword} || '%'
+	        </otherwise>
+	    </choose>
+		AND b.board_code = 1
+	</select>
+	<select id="selectNotice" parameterType="com.spring.staez.admin.model.dto.AdminCategoryDto" resultMap="boardResult">
+	    SELECT
+	        b.board_no,
+	        u.user_no,
+	        u.nickname,
+	        b.board_level,
+	        b.board_write_date,
+	        b.board_title,
+	        b.board_content,
+	        b.board_count
+	    FROM board b
+	    JOIN staez_user u on (b.user_no = u.user_no)
+	    JOIN board_category bc on (b.board_no = bc.board_no)
+	    WHERE b.board_status = 'Y'
+	    AND 
+	    <choose>
+	        <when test='select != null and select == "title"'>
+	            b.board_title LIKE '%' || #{keyword} || '%'
+	        </when>
+	        <otherwise>
+	            b.board_content LIKE '%' || #{keyword} || '%'
+	        </otherwise>
+	    </choose>
+	    AND b.board_code = 1
+	    AND bc.category_no = ${categoryNo}
+	    ORDER BY b.board_no DESC
+	</select>
+	<select id="selectNoticeAll" parameterType="com.spring.staez.admin.model.dto.AdminCategoryDto" resultMap="boardResult">
 		SELECT
 			b.board_no,
 			u.user_no,
@@ -237,40 +330,31 @@
 			b.board_write_date,
 			b.board_title,
 			b.board_content,
-			b.board_count,
-			bc.category_no,
-			c.category_name
+			b.board_count
 		FROM board b
 		JOIN staez_user u on (b.user_no = u.user_no)
 		JOIN board_category bc on (b.board_no = bc.board_no)
-		JOIN category c on (bc.category_no = c.category_no)
 		WHERE b.board_status = 'Y'
-		and b.board_code = 1
+		AND
+	    <choose>
+	        <when test='select != null and select == "title"'>
+	            b.board_title LIKE '%' || #{keyword} || '%'
+	        </when>
+	        <otherwise>
+	            b.board_content LIKE '%' || #{keyword} || '%'
+	        </otherwise>
+	    </choose>
+		AND b.board_code = 1
 		ORDER BY b.board_no DESC
 	</select>
-	
-	<select id="selectNoticeByCategory" resultMap="boardResult">
+	<select id="selectNoticeCategory" resultMap="categoryResult">
 		SELECT
-			b.board_no,
-			u.user_no,
-			u.nickname,
-			b.board_level,
-			b.board_write_date,
-			b.board_title,
-			b.board_content,
-			b.board_count,
-			bc.category_no,
+			c.category_no,
 			c.category_name
-		FROM board b
-		JOIN staez_user u on (b.user_no = u.user_no)
-		JOIN board_category bc on (b.board_no = bc.board_no)
-		JOIN category c on (bc.category_no = c.category_no)
-		WHERE b.board_status = 'Y'
-		and b.board_code = 1
-		and c.category_no = ${categoryNo}
-		ORDER BY b.board_no DESC
+		FROM board_category bc
+		JOIN category c ON (bc.category_no = c.category_no)
+		WHERE bc.board_no = #{boardNo}
 	</select>
-	
 	<insert id="insertNotice">
 		INSERT INTO board
 		(
@@ -361,6 +445,439 @@
 		from theater
 		order by theater_no desc
 	</select>
-	
+	<!-- 관리자의 유저 정보 변경 페이지 -->
+	<select id="selectUserCnt" parameterType="com.spring.staez.admin.model.dto.AdminSearchDto" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM staez_user
+		WHERE user_status = 'Y'
+		AND
+		<choose>
+			<when test='select == "userId"'>
+				user_id LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "nickname"'>
+				nickname LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "phone"'>
+				phone LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				email LIKE '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+	</select>
+	<select id="selectUser" parameterType="com.spring.staez.admin.model.dto.AdminSearchDto" resultMap="userResult">
+		SELECT
+			user_no,
+			user_id,
+			nickname,
+			grade,
+			phone,
+			email,
+			enroll_date
+		FROM staez_user
+		WHERE user_status = 'Y'
+		AND
+		<choose>
+			<when test='select == "userId"'>
+				user_id LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "nickname"'>
+				nickname LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "grade"'>
+				grade LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "phone"'>
+				phone LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				email LIKE '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+		ORDER BY user_no DESC
+	</select>
+	<update id="deleterUser">
+		UPDATE staez_user
+		SET user_status = 'N',
+			withdrawal_date= NOW()
+		WHERE
+			user_no IN (
+				<foreach collection="userList" item="item" separator=",">
+					#{item}
+				</foreach>
+			)
+	</update>
+	<update id="updateGradeUser">
+		UPDATE staez_user
+		SET grade = #{grade}
+		WHERE
+			user_no IN (
+				<foreach collection="userList" item="item" separator=",">
+					#{item}
+				</foreach>
+			)
+	</update>
+	<!-- 관리자의 커뮤니티 정보 변경 페이지 -->
+	<select id="selectBoardCnt" parameterType="com.spring.staez.admin.model.dto.AdminSearchDto" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM board b
+		JOIN staez_user u ON (b.user_no = u.user_no)
+		WHERE b.board_status = 'Y'
+		AND b.board_code = 2
+		AND
+		<choose>
+			<when test='select == "userId"'>
+				u.user_id LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "nickname"'>
+				u.nickname LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "title"'>
+				b.board_title LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				b.board_content LIKE '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+	</select>
+	<select id="selectBoard" parameterType="com.spring.staez.admin.model.dto.AdminSearchDto" resultMap="boardResult">
+		SELECT
+			b.board_no,
+			u.user_id,
+			u.nickname,
+			b.board_title,
+			b.board_content
+		FROM board b
+		JOIN staez_user u ON (b.user_no = u.user_no)
+		WHERE b.board_status = 'Y'
+		AND b.board_code = 2
+		AND
+		<choose>
+			<when test='select == "userId"'>
+				u.user_id LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "nickname"'>
+				u.nickname LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "title"'>
+				b.board_title LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				b.board_content LIKE '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+		ORDER BY b.board_no DESC
+	</select>
+	<update id="deleteBoard">
+		UPDATE board
+		SET board_status = 'N'
+		WHERE
+			board_no IN (
+				<foreach collection="boardList" item="item" separator=",">
+					#{item}
+				</foreach>
+			)
+	</update>
+	<delete id="deleteBoardCategory">
+		DELETE FROM board_category
+		WHERE category_no = #{categoryNo} 
+		AND board_no = #{boardNo}
+	</delete>
+	<insert id="insertBoardCategory">
+		INSERT INTO board_category
+		(
+			board_no,
+			category_no
+		) VALUES (
+			#{boardNo},
+			#{categoryNo}
+		)
+	</insert>
+	<select id="selectBoardCategory" resultType="_int">
+		SELECT 
+			c.category_no 
+		FROM category c
+		JOIN board_category bc USING (category_no)
+		WHERE board_no = #{boardNo} 
+		AND category_level = #{categoryLevel}
+	</select>
+	<!-- 관리자의 Faq 정보 변경 페이지 -->
+	<select id="selectFaqCnt" parameterType="com.spring.staez.admin.model.dto.AdminSearchDto" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM board b
+		JOIN staez_user u ON (b.user_no = u.user_no)
+		JOIN board_category bc ON (b.board_no = bc.board_no)
+		JOIN category c ON (bc.category_no = c.category_no)
+		WHERE b.board_status = 'Y'
+		AND b.board_code = 4
+		AND
+		<choose>
+			<when test='select == "userId"'>
+				u.user_id LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "categoryName"'>
+				c.category_name LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "title"'>
+				b.board_title LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				b.board_content LIKE '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+	</select>
+	<select id="selectFaq" parameterType="com.spring.staez.admin.model.dto.AdminSearchDto" resultMap="boardResult">
+		SELECT
+			b.board_no,
+			u.user_id,
+			b.board_title,
+			b.board_content,
+			c.category_name
+		FROM board b
+		JOIN staez_user u ON (b.user_no = u.user_no)
+		JOIN board_category bc ON (b.board_no = bc.board_no)
+		JOIN category c ON (bc.category_no = c.category_no)
+		WHERE b.board_status = 'Y'
+		AND b.board_code = 4
+		AND
+		<choose>
+			<when test='select == "userId"'>
+				u.user_id LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "categoryName"'>
+				c.category_name LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "title"'>
+				b.board_title LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				b.board_content LIKE '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+		ORDER BY b.board_no DESC
+	</select>
+	<!-- 공용으로 사용 - 게시판을 게시판 번호로 조회 -->
+	<select id="selectOneBoard" resultMap="boardResult">
+		SELECT 
+			b.board_no,
+			b.ref_board_no,
+			b.board_title,
+			bc.category_no,
+			b.board_content,
+			u.user_id
+		FROM board b
+		JOIN board_category bc ON (b.board_no = bc.board_no)
+		JOIN staez_user u on (b.user_no = u.user_no)
+		WHERE b.board_no = #{boardNo}
+	</select>
+	<update id="updateOneBoard">
+		UPDATE board
+		SET board_title = #{boardTitle},
+			board_content = #{boardContent}
+		WHERE board_no = #{boardNo}
+	</update>
+	<update id="updateOneCategory">
+		UPDATE board_category
+		SET category_no = #{categoryNo}
+		WHERE board_no = #{boardNo}
+	</update>
+	<insert id="insertOneBoard">
+		INSERT INTO board 
+		(
+			ref_board_no,
+			user_no,
+			board_level,
+			board_code,
+			board_title,
+			board_content
+		) VALUES (
+			#{refBoardNo},
+			#{userNo},
+			#{boardLevel},
+			#{boardCode},
+			#{boardTitle},
+			#{boardContent}
+		)
+	</insert>
+	<select id="selectInquireCnt" parameterType="com.spring.staez.admin.model.dto.AdminSearchDto" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM board b
+		JOIN staez_user u ON (b.user_no = u.user_no)
+		JOIN board_category bc ON (b.board_no = bc.board_no)
+		JOIN category c ON (bc.category_no = c.category_no)
+		LEFT JOIN 
+			(SELECT
+				ref_board_no, 
+				board_write_date 
+			FROM board 
+			WHERE board_code = 3 AND ref_board_no IS NOT NULL) s
+		ON (b.board_no = s.ref_board_no)
+		WHERE b.board_status = 'Y'
+		AND b.board_code = 3
+		AND b.board_level = 1
+		AND
+		<choose>
+			<when test='select == "userId"'>
+				u.user_id LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "categoryName"'>
+				c.category_name LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "title"'>
+				b.board_title LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				b.board_content LIKE '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+	</select>
+	<select id="selectInquire" parameterType="com.spring.staez.admin.model.dto.AdminSearchDto" resultMap="boardResult">
+		SELECT
+			b.board_no,
+			u.user_id,
+			b.board_title,
+			b.board_content,
+			c.category_name,
+			s.board_write_date
+		FROM board b
+		JOIN staez_user u ON (b.user_no = u.user_no)
+		JOIN board_category bc ON (b.board_no = bc.board_no)
+		JOIN category c ON (bc.category_no = c.category_no)
+		LEFT JOIN 
+			(SELECT
+				ref_board_no, 
+				board_write_date 
+			FROM board 
+			WHERE board_code = 3 AND ref_board_no IS NOT NULL) s
+		ON (b.board_no = s.ref_board_no)
+		WHERE b.board_status = 'Y'
+		AND b.board_code = 3
+		AND b.board_level = 1
+		AND
+		<choose>
+			<when test='select == "userId"'>
+				u.user_id LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "categoryName"'>
+				c.category_name LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "title"'>
+				b.board_title LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				b.board_content LIKE '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+		ORDER BY b.board_no DESC
+	</select>
+		<select id="selectReportCnt" parameterType="com.spring.staez.admin.model.dto.AdminSearchDto" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM board b
+		JOIN staez_user u ON (b.user_no = u.user_no)
+		LEFT JOIN 
+			(SELECT
+				ref_board_no, 
+				board_write_date 
+			FROM board 
+			WHERE board_code = 5 AND ref_board_no IS NOT NULL) s
+		ON (b.board_no = s.ref_board_no)
+		WHERE b.board_status = 'Y'
+		and b.board_code = 5
+		AND b.board_level = 2
+		AND
+		<choose>
+			<when test='select == "userId"'>
+				u.user_id LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "title"'>
+				b.board_title LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				b.board_content LIKE '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+	</select>
+	<select id="selectReport" parameterType="com.spring.staez.admin.model.dto.AdminSearchDto" resultMap="boardResult">
+		SELECT
+			b.board_no,
+			b.ref_board_no,
+			u.user_id,
+			b.board_title,
+			b.board_content,
+			s.board_write_date
+		FROM board b
+		JOIN staez_user u ON (b.user_no = u.user_no)
+		LEFT JOIN 
+			(SELECT
+				ref_board_no, 
+				board_write_date 
+			FROM board 
+			WHERE board_code = 5 AND ref_board_no IS NOT NULL) s
+		ON (b.board_no = s.ref_board_no)
+		WHERE b.board_status = 'Y'
+		and b.board_code = 5
+		AND b.board_level = 2
+		AND
+		<choose>
+			<when test='select == "userId"'>
+				u.user_id LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test='select == "title"'>
+				b.board_title LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				b.board_content LIKE '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+		ORDER BY b.board_no DESC
+	</select>
+	<select id="selectReserveCnt" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM reserve r
+		JOIN concert c ON (r.concert_no = c.concert_no)
+		AND
+		<choose>
+			<when test='select == "concertTitle"'>
+				c.concert_title LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				r.r_name LIKE '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+	</select>
+	<select id="selectReserve" resultMap="reserveResult">
+		SELECT
+			r.reserve_no,
+			c.concert_title,
+			r.r_name,
+			r.reserve_date,
+			r.pay_method,
+			r.reserve_status,
+			r.schedule
+		FROM reserve r
+		JOIN concert c ON (r.concert_no = c.concert_no)
+		AND
+		<choose>
+			<when test='select == "concertTitle"'>
+				c.concert_title LIKE '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				r.r_name LIKE '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+		ORDER BY r.reserve_no DESC
+	</select>
+	<update id="updateReserve">
+		UPDATE reserve
+		SET reserve_status = #{reserveStatus}
+		WHERE reserve_no = #{reserveNo}
+	</update>
 </mapper>
 

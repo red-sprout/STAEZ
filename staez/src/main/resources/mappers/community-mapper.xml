@@ -7,23 +7,24 @@
 <mapper namespace="communityMapper">
 	<resultMap type="Board" id="boardResult">
 		<result column="board_no" property="boardNo" />
+		<result column="ref_board_no" property="refboardNo" />
 		<result column="user_no" property="userNo" />
-		<result column="refBoardNo" property="userId" />
-		<result column="user_pwd" property="userPwd" />
+		<result column="user_Id" property="userId" />
 		<result column="nickname" property="nickname" />
-		<result column="gender" property="gender" />
-		<result column="birth" property="birth" />
-		<result column="address" property="address" />
-		<result column="email" property="email" />
-		<result column="phone" property="phone" />
-		<result column="genre_like" property="genreLike" />
-		<result column="grade" property="grade" />
-		<result column="enroll_date" property="enrollDate" />
-		<result column="withdrawal_date" property="withdrawalDate" />
-		<result column="user_status" property="userStatus" />
+		<result column="board_level" property="boardLevel" />
+		<result column="board_code" property="boardCode" />
 		<result column="board_write_date" property="boardWriteDate" />
 		<result column="board_title" property="boardTitle" />
 		<result column="board_content" property="boardContent" />
+		<result column="board_count" property="boardCount" />
+		<result column="board_status" property="boardStatus" />
+		<result column="category_no" property="categoryNo" />
+		<result column="category_name" property="categoryName" />
+		<result column="ref_category_no" property="refCategoryNo" />
+		<result column="category_level" property="categoryLevel" />
+		<result column="concert_no" property="concertNo" />
+		<result column="like_count" property="likeCount" />
+		<result column="path" property="path" />
 	</resultMap>
 	<resultMap type="Category" id="categoryResult">
 		<result column="category_no" property="categoryNo"/>
@@ -118,13 +119,15 @@
 	</insert>
 	<select id="selectBoardCnt" resultType="_int">
 		SELECT
-			COUNT(*)
+			COUNT(DISTINCT b.board_no)
 		FROM board b
 		JOIN board_category bc on (b.board_no = bc.board_no)
 		WHERE b.board_status = 'Y'
-		and bc.category_no IN
-		<foreach collection="categoryNo" item="item" open="(" close=")" separator=",">
-			#{item}
+		AND (b.board_title LIKE '%${keyword}%' OR b.board_content LIKE '%${keyword}%')
+		AND b.board_code = 2
+		AND 
+		<foreach collection="categoryNo" item="item" separator="AND">
+			b.board_no IN (SELECT board_no FROM board_category WHERE category_no = #{item})
 		</foreach>
 	</select>
 	<select id="selectBoardCntAll" resultType="_int">
@@ -132,7 +135,8 @@
 			COUNT(*)
 		FROM board b
 		WHERE b.board_status = 'Y'
-		and b.board_code = 2
+		AND (b.board_title LIKE '%${keyword}%' OR b.board_content LIKE '%${keyword}%')
+		AND b.board_code = 2
 	</select>
 	<select id="selectBoard" resultMap="boardResult">
 		SELECT
@@ -148,10 +152,21 @@
 		JOIN staez_user u on (b.user_no = u.user_no)
 		JOIN board_category bc on (b.board_no = bc.board_no)
 		WHERE b.board_status = 'Y'
-		and bc.category_no IN
-		<foreach collection="categoryNo" item="item" open="(" close=")" separator=",">
-			#{item}
+		AND (b.board_title LIKE '%${keyword}%' OR b.board_content LIKE '%${keyword}%')
+		AND b.board_code = 2
+		AND
+		<foreach collection="categoryNo" item="item" separator="AND">
+			b.board_no IN (SELECT board_no FROM board_category WHERE category_no = #{item})
 		</foreach>
+		GROUP BY
+			b.board_no,
+			u.user_no,
+			u.nickname,
+			b.board_level,
+			b.board_write_date,
+			b.board_title,
+			b.board_content,
+			b.board_count
 		ORDER BY b.board_no DESC
 	</select>
 	<select id="selectBoardAll" resultMap="boardResult">
@@ -166,8 +181,19 @@
 			b.board_count
 		FROM board b
 		JOIN staez_user u on (b.user_no = u.user_no)
+		JOIN board_category bc on (b.board_no = bc.board_no)
 		WHERE b.board_status = 'Y'
-		and b.board_code = 2
+		AND (b.board_title LIKE '%${keyword}%' OR b.board_content LIKE '%${keyword}%')
+		AND b.board_code = 2
+		GROUP BY
+			b.board_no,
+			u.user_no,
+			u.nickname,
+			b.board_level,
+			b.board_write_date,
+			b.board_title,
+			b.board_content,
+			b.board_count
 		ORDER BY b.board_no DESC
 	</select>
 	<select id="selectBoardCategory" resultMap="categoryResult">
@@ -305,5 +331,28 @@
 		WHERE r.board_no = #{boardNo}
 		AND r.reply_status = 'Y'
 	</select>
+	<insert id="insertReport">
+		INSERT INTO board
+		(
+			ref_board_no,
+			user_no, 
+			board_level,
+			board_code,
+			board_title,
+			board_content
+		) VALUES (
+			#{refBoardNo},
+			#{userNo},
+			2,
+			5,
+			#{boardTitle},
+			#{boardContent}
+		)
+	</insert>
+	<update id="updateBoardCnt">
+		UPDATE board
+		SET board_count = board_count + 1
+		WHERE board_no = #{boardNo}
+	</update>
 </mapper>
 

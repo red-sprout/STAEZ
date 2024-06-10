@@ -56,45 +56,12 @@
                                 <td>장소</td>
                             </tr>
                         </thead>
-                        <tbody class="admin-concert-container">
-
-                            <!-- <tr>
-                                <td class="admin-checkbox">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td>뮤지컬</td>
-                                <td>천개의 파랑</td>
-                                <td class="admin-poster">
-                                    <img src="<c:url value='/resources/img/admin/poster-example.png'/>" alt="">
-                                </td>
-                                <td>2024.05.12</td>
-                                <td>2024.05.26</td>
-                                <td>예술의전당 CJ토월극장</td>
-                            </tr> -->
-            
-                        </tbody>
+                        <tbody class="admin-concert-container"></tbody>
                     </table>
                 </form>
             </li>
             <li class="admin-middle">
-                <div class="page-list">
-                    <!-- <div class="pagination">
-                        <img src="<c:url value='/resources/img/main/before.png'/>">
-                    </div>
-                    <div class="pagination current"><h4>1</h4></div>
-                    <div class="pagination"><h4>2</h4></div>
-                    <div class="pagination"><h4>3</h4></div>
-                    <div class="pagination"><h4>4</h4></div>
-                    <div class="pagination"><h4>5</h4></div>
-                    <div class="pagination"><h4>6</h4></div>
-                    <div class="pagination"><h4>7</h4></div>
-                    <div class="pagination"><h4>8</h4></div>
-                    <div class="pagination"><h4>9</h4></div>
-                    <div class="pagination"><h4>10</h4></div>
-                    <div class="pagination">
-                        <img src="<c:url value='/resources/img/main/after.png'/>">
-                    </div> -->
-                </div>
+                <div class="page-list"></div>
             </li>
         </ul>
     </main>
