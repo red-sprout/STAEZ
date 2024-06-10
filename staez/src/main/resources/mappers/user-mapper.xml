@@ -99,7 +99,7 @@
 		)
 	</insert>
 	
-	<!-- 네이버 로그인유무 이메일 체크 -->
+	<!-- 간편로그인 이메일 유무 확인 (네이버, 카카오, 구글) -->
 	<select id="findUserByEmail" parameterType="string" resultType="com.spring.staez.user.model.vo.User">
 	    SELECT * 
 	    FROM staez_user 

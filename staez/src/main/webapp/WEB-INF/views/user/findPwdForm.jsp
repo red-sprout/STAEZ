@@ -76,7 +76,7 @@
                                 <option value="kakao.com">kakao.com</option>
                             </select>
                         </td>
-                        <td colspan="">
+                        <td     >
                             <input type="button" id="emailCheckButton" class="check_button" value="인증번호 전송">
                         </td>
                     </tr>
