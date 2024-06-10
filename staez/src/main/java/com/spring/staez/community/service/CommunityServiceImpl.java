@@ -192,4 +192,22 @@ public class CommunityServiceImpl implements CommunityService {
 	public int updateBoardCnt(int boardNo) {
 		return communityDao.updateBoardCnt(sqlSession, boardNo);
 	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int insertReply(Reply r) {
+		return communityDao.insertReply(sqlSession, r);
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int updateReply(Reply r) {
+		return communityDao.updateReply(sqlSession, r);
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int deleteReply(int replyNo) {
+		return communityDao.deleteReply(sqlSession, replyNo);
+	}
 }

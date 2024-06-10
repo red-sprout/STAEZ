@@ -196,15 +196,7 @@ public class CommunityController {
 		
 		return new Gson().toJson(map);
 	}
-	
-	// 댓글 갯수 가져오기
-	@ResponseBody
-	@GetMapping(value = "select.rp", produces = "application/json; charset-UTF-8")
-	public String selectReply(int boardNo) {
-		int replyCnt = communityService.selectReplyCnt(boardNo);
-		return String.valueOf(replyCnt);
-	}
-	
+
 	// 게시글 업데이트
 	@ResponseBody
 	@PostMapping(value = "update.cm")
@@ -255,9 +247,17 @@ public class CommunityController {
 		}
 	}
 	
+	// 댓글 갯수 가져오기
+	@ResponseBody
+	@GetMapping(value = "select.ry", produces = "application/json; charset-UTF-8")
+	public String selectReply(int boardNo) {
+		int replyCnt = communityService.selectReplyCnt(boardNo);
+		return String.valueOf(replyCnt);
+	}
+	
 	// 댓글 select
 	@ResponseBody
-	@GetMapping(value = "selectAll.rp", produces = "application/json; charset-UTF-8")
+	@GetMapping(value = "selectAll.ry", produces = "application/json; charset-UTF-8")
 	public String selectReplyAll(int boardNo) {
 		ArrayList<Reply> list = communityService.selectReplyAll(boardNo);
 		return new Gson().toJson(list);
@@ -273,5 +273,27 @@ public class CommunityController {
 		}
 		
 		return "redirect:/main.cm";
+	}
+	
+	// 댓글 & 대댓글
+	@ResponseBody
+	@PostMapping(value = "insert.ry", produces = "application/json; charset-UTF-8")
+	public String insertReply(Reply r) {
+		int result = communityService.insertReply(r);
+		return selectReplyAll(r.getBoardNo());
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "update.ry", produces = "application/json; charset-UTF-8")
+	public String updateReply(Reply r) {
+		int result = communityService.updateReply(r);
+		return selectReplyAll(r.getBoardNo());
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "delete.ry", produces = "application/json; charset-UTF-8")
+	public String deleteReply(int boardNo, int replyNo) {
+		int result = communityService.deleteReply(replyNo);
+		return selectReplyAll(boardNo);
 	}
 }
