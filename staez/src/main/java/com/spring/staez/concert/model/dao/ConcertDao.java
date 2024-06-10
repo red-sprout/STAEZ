@@ -3,10 +3,13 @@ package com.spring.staez.concert.model.dao;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.admin.model.vo.Seat;
+import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.ConcertLike;
@@ -15,15 +18,6 @@ import com.spring.staez.concert.model.vo.ConcertReview;
 @Repository
 public class ConcertDao {
 	
-//	// 콘서트가 총 몇개인가
-//	public int selectConCount(SqlSessionTemplate sqlSession) {
-//		return sqlSession.selectOne("concertMapper.selectConCount");
-//	}
-//	
-//	 //콘서트 골라서 가져와라
-//	public ArrayList<Concert> concertList(SqlSessionTemplate sqlSession) {
-//		return (ArrayList)sqlSession.selectList("concertMapper.concertList");
-//	}
 	
 	public Category selectCate(SqlSessionTemplate sqlSession, int categoryNo) {
 		return sqlSession.selectOne("concertMapper.selectCate", categoryNo);
@@ -41,16 +35,16 @@ public class ConcertDao {
 		return sqlSession.selectOne("concertMapper.selectCon", concertNo);
 	}
 
-	
-//	// 좋아요 버튼 클릭한 적 있냐?
-//	public ArrayList<ConcertLike> checkConLike(SqlSessionTemplate sqlSession, String userNo, String concertNo) {
-//		return (ArrayList)sqlSession.selectList("concertMapper.checkConLike", concertNo);
-//	}
 
 	public ArrayList<Concert> selectConDetail(SqlSessionTemplate sqlSession, int concertNo) {
 		return (ArrayList)sqlSession.selectList("concertMapper.selectConDetail", concertNo);
 	}
 
+	
+	public int selectComCount(SqlSessionTemplate sqlSession, int concertNo) {
+		return sqlSession.selectOne("concertMapper.selectComCount", concertNo);
+	}
+	
 	public ArrayList<ConcertReview> selectComDetail(SqlSessionTemplate sqlSession, int concertNo) {
 		return (ArrayList)sqlSession.selectList("concertMapper.selectComDetail", concertNo);
 	}
@@ -100,6 +94,28 @@ public class ConcertDao {
 	public ArrayList<Concert> locationAllList(SqlSessionTemplate sqlSession, Map map) {
 		return (ArrayList)sqlSession.selectList("concertMapper.locationAllList", map);	
 	}
+
+	public ArrayList<ConcertReview> selectComList(SqlSessionTemplate sqlSession, PageInfo pi, int concertNo) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();	
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("concertMapper.selectComList", concertNo, rowBounds);
+	}
+
+	public int selectRevCount(SqlSessionTemplate sqlSession, int concertNo) {
+		return sqlSession.selectOne("concertMapper.selectRevCount", concertNo);
+	}
+
+	public ArrayList<Board> selectRevList(SqlSessionTemplate sqlSession, PageInfo pi, int concertNo) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();	
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("concertMapper.selectRevList", concertNo, rowBounds);
+	}
+
+	public ArrayList<Seat> selectSeatPrice(SqlSessionTemplate sqlSession, int concertNo) {
+		return (ArrayList)sqlSession.selectList("concertMapper.selectSeatPrice", concertNo);	
+	}
+
+
 	
 	
 	
