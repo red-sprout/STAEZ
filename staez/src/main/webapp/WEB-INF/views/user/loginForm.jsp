@@ -58,7 +58,7 @@
         <div id="External-login">
             <a id="kakaoLoginLink"><img src="${contextPath}/resources/img/user/kakao_login_large_narrow 1.png" alt="카카오 로그인"></a>
             <a id="naverLoginLink"><img src="${contextPath}/resources/img/user/btnG_icon_square 1.png" alt="네이버로그인"></a>
-            <a href=""><img src="${contextPath}/resources/img/user/web_neutral_sq_na@3x 1.png" alt="구글 로그인"></a>
+            <a id="googleLoginLink"><img src="${contextPath}/resources/img/user/web_neutral_sq_na@3x 1.png" alt="구글 로그인"></a>
         </div>
         
         <footer>

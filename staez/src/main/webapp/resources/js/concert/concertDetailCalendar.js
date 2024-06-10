@@ -3,6 +3,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const dates = document.querySelector(".dates");
     const navs = document.querySelectorAll("#previous, #next");
 
+    const conStartDate = document.getElementById('conStartDate').innerHTML;
+    const conEndDate = document.getElementById('conEndDate').innerHTML;
+
+    const sDateSplit = conStartDate.split('-');
+    const sYear = sDateSplit[0];
+    const sMonth = sDateSplit[1];
+    const sdate = sDateSplit[2];
+
+    const eDateSplit = conEndDate.split('-');
+    const eYear = eDateSplit[0];
+    const eMonth = eDateSplit[1];
+    const edate = eDateSplit[2];
+
     const months = [
         "1월", "2월", "3월", "4월", "5월", "6월",
         "7월", "8월", "9월", "10월", "11월", "12월"
@@ -58,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         dates.innerHTML = datesHtml;
         tophtml.textContent = `${year}년 ${months[month]}`;
+
     }
 
     navs.forEach(nav => {

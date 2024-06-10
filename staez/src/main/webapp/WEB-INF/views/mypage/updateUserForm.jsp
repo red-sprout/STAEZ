@@ -58,6 +58,16 @@
 
                         <tr>
                             <th>
+                                <h3>이름</h3>
+                            </th>
+                            <td class="input-box">
+                                <input type="text" name="userName" value="${loginUser.userName}" readonly>
+                            </td>
+                            <td class="input-btn"></td>
+                        </tr>
+
+                        <tr>
+                            <th>
                                 <h3>생년월일</h3>
                             </th>
                             <td class="input-box">

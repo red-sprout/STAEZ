@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService{
 		return userDao.insertUser(sqlSession, u);
 	}
 
-	// 간편로그인 이메일 유무 확인 (네이버, 카카오)
+	// 간편로그인 이메일 유무 확인 (네이버, 카카오, 구글)
 	@Override
 	public User findUserByEmail(String email) {
         return userDao.findUserByEmail(sqlSession,email);

@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+
+body{
+    margin: 30px 0;
+}
+
+main{
+    width: 90%;
+}
+
+/*문의 내용*/
+#inquire-section{
+    width: 100%;
+    height: auto;
+
+    border: 1px solid black;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+/*답변 내용*/
+#answer-section{
+    width: 100%;
+    height: auto;
+
+    border: 1px solid black;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 50px;
+}
+
+.header{
+    background: #B51B75;
+
+    height: 60px;
+    width: 95%;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    border-radius: 15px;
+    margin: 10px 0;
+}
+
+.category{
+    width: 100px;
+    height: 35px;
+
+    background: white;
+    border: 1px solid black;
+    border-radius: 10px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    text-align: center;
+    line-height: 40px;
+
+    margin: 0 10px;
+}
+
+.category>h4{
+    margin: 0;
+    height: 35px;
+    line-height: 35px;
+
+}
+
+.title{    
+    width: 90%;
+    height: 70px;
+
+    color: white;
+    
+    text-align: left;
+    line-height: 70px;
+    padding-right: 10px;
+}
+
+.title>h3{
+    margin: 0;
+}
+
+.content{
+    width: 90%;
+    height: auto;
+
+    text-align: left;
+    padding: 20px 0;
+}
+
+.date{
+    width: 90%;
+    height: 40px;
+
+    text-align: left;
+    
+    position: relative;
+}
+
+.date>h5{
+    position: absolute;
+    right: 0;
+    top: 5px;    
+}
+
+button{
+    width: 80px;
+    height: 30px;
+}
+

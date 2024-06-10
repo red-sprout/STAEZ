@@ -32,7 +32,7 @@ public class UserDao {
 		return sqlSession.insert("userMapper.insertUser", u);
 	}
 	
-	// 네이버로그인 이메일 유무 확인
+	// 간편로그인 이메일 유무 확인 (네이버, 카카오, 구글)
     public User findUserByEmail(SqlSessionTemplate sqlSession, String email) {
         return sqlSession.selectOne("userMapper.findUserByEmail", email);
     }

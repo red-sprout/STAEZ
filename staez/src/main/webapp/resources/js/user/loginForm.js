@@ -1,3 +1,5 @@
+import config from './config.js';
+
 document.addEventListener('DOMContentLoaded', function() {
     // 아이디 찾기 버튼
     var findIdButton = document.getElementById('findIdButton');
@@ -23,9 +25,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 네이버 로그인 설정
-    const naverClientId = "qmp5nqG9EBf9YYN33GKV";
-    const naverRedirectURI = encodeURIComponent("http://localhost:8888/staez/naver-login");
+    // 네이버 간편로그인
+    naverLogin();
+    // 카카오 간편로그인
+    kakaoLogin();
+    // 구글 간편로그인
+    googleLogin();
+});
+
+// 네이버 로그인 설정
+function naverLogin(){
+    const naverClientId = config.naverClientId;
+    const naverRedirectURI = encodeURIComponent(config.naverRedirectURI);
     const naverState = Math.random().toString(36).substring(2);
     const naverApiURL = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&'
         + 'client_id=' + naverClientId + "&redirect_uri=" + naverRedirectURI + '&state=' + naverState;
@@ -35,10 +46,12 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.log("네이버 로그인 버튼을 찾을 수 없습니다."); // 디버깅용 콘솔 로그
     }
+}
 
-    // 카카오 로그인 설정
-    const kakaoClientId = "3d0c80afec61216e697bdf6104040191";
-    const kakaoRedirectURI = encodeURIComponent("http://localhost:8888/staez/kakao-login");
+// 카카오 로그인 설정
+function kakaoLogin(){
+    const kakaoClientId = config.kakaoClientId;
+    const kakaoRedirectURI = encodeURIComponent(config.kakaoRedirectURI);
     const kakaoState = Math.random().toString(36).substring(2);
     const kakaoApiURL = 'https://kauth.kakao.com/oauth/authorize?response_type=code&'
         + 'client_id=' + kakaoClientId + "&redirect_uri=" + kakaoRedirectURI + '&state=' + kakaoState;
@@ -48,5 +61,20 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.log("카카오 로그인 버튼을 찾을 수 없습니다."); // 디버깅용 콘솔 로그
     }
+}
 
-});
+// 구글 로그인 설정
+function googleLogin(){
+    const googleClientId = config.googleClientId;
+    const googleRedirectURI = encodeURIComponent(config.googleRedirectURI);
+    const googleState = Math.random().toString(36).substring(2);
+    const googleApiURL = 'https://accounts.google.com/o/oauth2/auth?response_type=code&'
+        + 'client_id=' + googleClientId + "&redirect_uri=" + googleRedirectURI + '&state=' + googleState
+        + '&scope=email%20profile';
+    const googleLoginBtn = document.getElementById('googleLoginLink');
+    if (googleLoginBtn) {
+        googleLoginBtn.href = googleApiURL;
+    } else {
+        console.log("구글 로그인 버튼을 찾을 수 없습니다."); // 디버깅용 콘솔 로그
+    }
+}

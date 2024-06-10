@@ -1,6 +1,7 @@
+import config from './config.js';
 // 카카오 로그인 설정
 window.onload = function() {
-    const clientId= "02075b0ed76fc991f6b4399d58904bfb";
+    const kakaoClientId = config.kakaoClientId;
     // 리다이렉트 URI를 UTF-8로 인코딩(encodeURIComponent)해서 저장
     const redirectURI = encodeURIComponent("http://localhost:8888/staez/kakao-login")
 
@@ -9,7 +10,7 @@ window.onload = function() {
 
     //로그인 api url
     const apiURL = 'https://kauth.kakao.com/oauth/authorize?response_type=code&'
-        + 'client_id=' + clientId + "&redirect_uri=" +  redirectURI + '&state=' + state;
+        + 'client_id=' + kakaoClientId + "&redirect_uri=" +  redirectURI + '&state=' + state;
 
     const loginBtn = document.getElementById('kakaoLoginLink');
     loginBtn.href = apiURL;

@@ -15,9 +15,9 @@
         <table>
             <thead>
                 <tr>
-                    <th id="reserve-date">예매일</th>
+                    <th id="reserve-time">예매시간</th>
                     <th id="concert-title">공연명</th>
-                    <th id="watch-date">상연일</th>
+                    <th id="watch-date">상연시간</th>
                     <th id="ticket-amount">매수</th>
                 </tr>
             </thead>
@@ -39,7 +39,7 @@
             <div class="more-btn"><a href="${contextPath}/scrapList.me?cpage=1">더보기</a></div> 
         </div>
         <div id="review">
-            <div class="table-title">한줄평</div>
+            <div class="table-title">작성 한줄평</div>
             <table>
                 <tbody>
                     <!-- 최근 작성한 한줄평 리스트 5개-->

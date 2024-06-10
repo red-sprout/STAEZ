@@ -168,20 +168,20 @@
     }
 
 
-    .concert-main-list-ul>form>li>ul li a{
+    .concert-main-list-ul>li>ul li a{
         cursor: pointer;
     }
     /* li내의 ul요소 숨기기 */
-    .concert-main-list-ul>form>li>ul{
+    .concert-main-list-ul>li>ul{
         display: none;
         text-align: center;
     }
     /* hover로 .area인 곳에 마우스 올리면 ul 요소 보여주기 */
-    .concert-main-list-ul>form>li>.area:hover+ul{
+    .concert-main-list-ul>li>.area:hover+ul{
         display: block;
     }
     /* 호버 하는 동안 ul 요소 계속 보여주기 */
-    .concert-main-list-ul>form>li>ul:hover{
+    .concert-main-list-ul>li>ul:hover{
         display: block;
     }
     .concert-main-list-area>li>a:hover{

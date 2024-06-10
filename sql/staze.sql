@@ -337,7 +337,7 @@ CREATE TABLE public.reply
     board_no integer NOT NULL,
     user_no integer NOT NULL,
     reply_content text NOT NULL,
-    reply_write_date timestamp with time zone NOT NULL,
+    reply_write_date timestamp with time zone NOT NULL DEFAULT now(),
     reply_status character varying(1) NOT NULL CHECK(reply_status IN('Y', 'N')) DEFAULT 'Y' 
 	/*일반댓글(Y), 삭제댓글(N)*/
 );

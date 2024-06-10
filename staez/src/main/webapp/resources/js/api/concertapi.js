@@ -89,6 +89,7 @@ function conSellDetail(data, callback){
 function commentDetail(data, callback){
     $.ajax({
         url: contextPath + "commentDetail.co",
+        type: 'POST',
         data: data,
         success : function(result){
             console.log(result);
@@ -103,6 +104,7 @@ function commentDetail(data, callback){
 function reviewDetail(data, callback){
     $.ajax({
         url: contextPath + "reviewDetail.co",
+        type: 'POST',
         data: data,
         success : function(result){
             console.log(result);
@@ -112,9 +114,6 @@ function reviewDetail(data, callback){
         }
     });
 }
-
-
-
 
 
 
