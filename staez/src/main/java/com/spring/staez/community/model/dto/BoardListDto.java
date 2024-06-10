@@ -15,6 +15,7 @@ import lombok.ToString;
 @ToString
 public class BoardListDto {
 	private String userId; //작성자
+	private String nickname;
 	private int boardNo;
 	private String boardTitle;
 	private String boardWriteDate;

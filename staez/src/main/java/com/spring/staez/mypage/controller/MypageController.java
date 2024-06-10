@@ -162,16 +162,20 @@ public class MypageController {
 	@RequestMapping("loadAnswer.me")
 	@ResponseBody
 	public String loadAnswerAjax(int boardNo) {
-		System.out.println(boardNo);
-		Board inquireAnswer = mypageService.loadAnswerAjax(boardNo);
+		Board answer = mypageService.loadAnswerAjax(boardNo);
 		
-		System.out.println(inquireAnswer);
-		
-		return new Gson().toJson(inquireAnswer);
+		return new Gson().toJson(answer);
 	}
 	
-
-	
+	//문의글 답변있는지 판별 ajax
+	@RequestMapping("answerCheck.me")
+	@ResponseBody
+	public String answerCheckAjax(int boardNo) {
+		System.out.println(boardNo);
+		Board answer = mypageService.loadAnswerAjax(boardNo);
+			
+		return answer == null ? "NNNNN" : "NNNNY";
+	}
 	
 	//나의 작성 게시글 리스트 페이지 출력
 	@RequestMapping("boardList.me")

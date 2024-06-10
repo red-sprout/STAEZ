@@ -16,29 +16,17 @@
 
     <div id="inq-section">
         <ul>
-            <c:forEach var="b" items="${blist}">
-            <input type="hidden" value="${contextPath}" name="contextPath">
-            <!-- <input type="hidden" value="${b.boardNo}" name="inquireBoardNo"> -->
-
+            <c:forEach var="b" items="${blist}">                
             <li class="menu-item">
+                <input type="hidden" value="${contextPath}" name="contextPath">
+                <input type="hidden" value="${b.boardNo}" name="boardNo">
                 <a class="inq-info" onclick="iquireDetailPage('${b.boardNo}')" target="_parent">
                     <span class="inq-cate">${b.categoryName}</span>
                     <span class="inq-title">${b.boardTitle}</span>
                     <span class="inq-date">
                         <fmt:formatDate value="${b.boardWriteDate}" pattern="yyyy-MM-dd"/>
                     </span>
-                    <c:choose>
-                        <c:when test="{없을때}">
-                            <span class="isAnswer btn-staez">
-                                답변대기중
-                            </span>             
-                        </c:when>                        
-                        <c:otherwise>
-                            <span class="isAnswer btn-staez complete">
-                                답변완료
-                            </span>                        
-                        </c:otherwise>
-                    </c:choose>
+                    <span class="isAnswer btn-staez"></span>             
                 </a>
             </li>
             </c:forEach>

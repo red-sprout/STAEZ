@@ -1,17 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
 
-main{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
+body{
     margin: 30px 0;
+}
+
+main{
+    width: 90%;
 }
 
 /*문의 내용*/
 #inquire-section{
-    width: 90%;
+    width: 100%;
     height: auto;
 
     border: 1px solid black;
@@ -25,61 +24,9 @@ main{
     margin-bottom: 30px;
 }
 
-#inquire-header{
-    height: 70px;
-    width: 95%;
-    
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-    border-bottom: 1px solid gray;
-}
-
-#inquire-category{
-    width: 100px;
-    height: 40px;
-
-    background: white;
-    border: 1px solid black;
-    border-radius: 10px;
-
-    font-size: 15px;
-    font-weight: 600;
-
-    text-align: center;
-    line-height: 40px;
-}
-
-#inquire-title{    
-    width: 450px;
-    height: 70px;
-
-    text-align: left;
-    line-height: 70px;
-    padding: 0 10px;
-}
-
-#inquire-date{
-    width: 100px;
-    height: 70px;
-
-    line-height: 70px;
-    text-align: center;
-}
-
-#inquire-content{
-    width: 90%;
-    height: auto;
-
-    text-align: left;
-    padding: 20px 10px;
-}
-
 /*답변 내용*/
 #answer-section{
-    width: 90%;
+    width: 100%;
     height: auto;
 
     border: 1px solid black;
@@ -93,21 +40,24 @@ main{
     margin-bottom: 50px;
 }
 
-#answer-header{
-    height: 70px;
+.header{
+    background: #B51B75;
+
+    height: 60px;
     width: 95%;
     
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
 
-    border-bottom: 1px solid gray;
+    border-radius: 15px;
+    margin: 10px 0;
 }
 
-#answer-category{
+.category{
     width: 100px;
-    height: 40px;
+    height: 35px;
 
     background: white;
     border: 1px solid black;
@@ -118,30 +68,57 @@ main{
 
     text-align: center;
     line-height: 40px;
+
+    margin: 0 10px;
 }
 
+.category>h4{
+    margin: 0;
+    height: 35px;
+    line-height: 35px;
 
-#answer-title{
-    width: 450px;
+}
+
+.title{    
+    width: 90%;
     height: 70px;
 
+    color: white;
+    
     text-align: left;
     line-height: 70px;
-    padding: 0 10px;
+    padding-right: 10px;
 }
 
-#answer-date{
-    width: 100px;
-    height: 70px;
-
-    line-height: 70px;
-    text-align: center;
+.title>h3{
+    margin: 0;
 }
 
-#answer-content{
+.content{
     width: 90%;
     height: auto;
 
     text-align: left;
-    padding: 20px 10px;
+    padding: 20px 0;
 }
+
+.date{
+    width: 90%;
+    height: 40px;
+
+    text-align: left;
+    
+    position: relative;
+}
+
+.date>h5{
+    position: absolute;
+    right: 0;
+    top: 5px;    
+}
+
+button{
+    width: 80px;
+    height: 30px;
+}
+

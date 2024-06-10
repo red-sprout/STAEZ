@@ -107,6 +107,10 @@ li>.inq-info .inq-title{
     text-align: left;
     line-height: 40px;
 
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
 }
 
 li>.inq-info .inq-date{

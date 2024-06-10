@@ -150,6 +150,7 @@
 		SELECT bl.board_like_no AS boardLikeNo,
 		       b.board_no AS boardNo,
 		       u.user_id AS userId,
+		       u.nickname,
 		       b.board_title AS boardTitle,
 		       b.board_count AS boardCount,
 		       b.board_write_date AS boardWriteDate,
@@ -313,6 +314,7 @@
 		AND board_level=1
 		AND user_no = #{userNo}
 		AND board_status = 'Y'
+		ORDER BY board_no DESC
 	</select>
 	
 	<select id="selectMyInquireDetail" resultType="Board">
@@ -396,17 +398,18 @@
 	<!-- 마이페이지 메인에서 데이터들 불러오는 ajax -->	
 	<select id="loadMyPaymentsAjax" resultType="com.spring.staez.user.model.dto.PaymentsInfoDto">
 		SELECT ROW_NUMBER() OVER() AS rn, 
+			   concert_no AS concertNo,
 			   reserve_date AS reserveDate, 
 			   concert_title AS concertTitle,
 			   concert_date AS concertDate,
 			   schedule,
 			   tickets
-		FROM (SELECT reserve_date, concert_title, concert_date, schedule, COUNT(*) AS tickets
+		FROM (SELECT concert_no, reserve_date, concert_title, concert_date, schedule, COUNT(*) AS tickets
 			  FROM reserve
 			  JOIN concert USING (concert_no)
 			  WHERE user_no = #{userNo}
 		      AND reserve_status = 'Y'
-			  GROUP BY reserve_date, concert_title, concert_date, schedule
+			  GROUP BY concert_no, reserve_date, concert_title, concert_date, schedule
 			  ORDER BY reserve_date DESC)
 		LIMIT 5
 	</select>
@@ -464,7 +467,7 @@
 			  AND board_code = 3
 			  AND board_level = 1
 			  AND board_status = 'Y'
-			  ORDER BY board_write_date DESC)
+			  ORDER BY board_no DESC)
 		LIMIT 5;
 	</select>
 </mapper>
