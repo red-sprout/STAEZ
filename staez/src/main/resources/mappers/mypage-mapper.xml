@@ -150,6 +150,7 @@
 		SELECT bl.board_like_no AS boardLikeNo,
 		       b.board_no AS boardNo,
 		       u.user_id AS userId,
+		       u.nickname,
 		       b.board_title AS boardTitle,
 		       b.board_count AS boardCount,
 		       b.board_write_date AS boardWriteDate,
@@ -163,7 +164,7 @@
 		WHERE bl.user_no = #{userNo}
         AND b.board_code = 2 
         AND bl.status = 'Y'
-        ORDER BY bl.board_like_no
+        ORDER BY bl.board_like_no DESC
 	</select>
 
 	<select id="selectPaymentsCount" resultType="_int">
@@ -248,7 +249,7 @@
 		AND cl.status = 'Y'
 		AND ca.file_level = 1
 		
-		ORDER BY cl.concert_like_date DESC
+		ORDER BY cl.concert_like_no DESC
 	</select>
 	
 	<select id="selectReviewCount" resultType="_int">
@@ -304,6 +305,22 @@
 		SELECT board_no AS boardNo, 
 			   board_write_date AS boardWriteDate, 
 			   board_title AS boardTitle, 
+			   category_no AS categoryNo,
+			   category_name AS categoryName
+		FROM board
+		LEFT JOIN board_category USING (board_no)
+		LEFT JOIN category USING (category_no)
+		WHERE board_code=3
+		AND board_level=1
+		AND user_no = #{userNo}
+		AND board_status = 'Y'
+		ORDER BY board_no DESC
+	</select>
+	
+	<select id="selectMyInquireDetail" resultType="Board">
+		SELECT board_no AS boardNo, 
+			   board_write_date AS boardWriteDate, 
+			   board_title AS boardTitle, 
 			   board_content AS boardContent,
 			   category_no AS categoryNo,
 			   category_name AS categoryName
@@ -312,12 +329,13 @@
 		JOIN category USING (category_no)
 		WHERE board_code=3
 		AND board_level=1
-		AND user_no = #{userNo}
+		AND board_no = #{boardNo}
 		AND board_status = 'Y'
 	</select>
 	
 	<select id="loadAnswerAjax" resultType="Board">
-		SELECT board_content AS boardContent,
+		SELECT board_title AS boardTitle,
+			   board_content AS boardContent,
 		       board_write_date AS boardWriteDate
 		FROM board
 		WHERE board_code=3
@@ -380,17 +398,18 @@
 	<!-- 마이페이지 메인에서 데이터들 불러오는 ajax -->	
 	<select id="loadMyPaymentsAjax" resultType="com.spring.staez.user.model.dto.PaymentsInfoDto">
 		SELECT ROW_NUMBER() OVER() AS rn, 
+			   concert_no AS concertNo,
 			   reserve_date AS reserveDate, 
 			   concert_title AS concertTitle,
 			   concert_date AS concertDate,
 			   schedule,
 			   tickets
-		FROM (SELECT reserve_date, concert_title, concert_date, schedule, COUNT(*) AS tickets
+		FROM (SELECT concert_no, reserve_date, concert_title, concert_date, schedule, COUNT(*) AS tickets
 			  FROM reserve
 			  JOIN concert USING (concert_no)
 			  WHERE user_no = #{userNo}
 		      AND reserve_status = 'Y'
-			  GROUP BY reserve_date, concert_title, concert_date, schedule
+			  GROUP BY concert_no, reserve_date, concert_title, concert_date, schedule
 			  ORDER BY reserve_date DESC)
 		LIMIT 5
 	</select>
@@ -406,7 +425,7 @@
 			  JOIN category ca ON (cc.category_no = ca.category_no)
 			  WHERE cl.user_no = #{userNo}
 		      AND cl.status = 'Y'
-			  ORDER BY cl.concert_like_date DESC)
+			  ORDER BY cl.concert_like_no DESC)
 		LIMIT 5
 	</select>
 	
@@ -433,7 +452,7 @@
 			  WHERE user_no = #{userNo}
 			  AND board_code = 2
 		      AND board_status = 'Y'
-			  ORDER BY board_write_date DESC)
+			  ORDER BY board_no DESC)
 		LIMIT 5
 	</select>
 	
@@ -448,7 +467,7 @@
 			  AND board_code = 3
 			  AND board_level = 1
 			  AND board_status = 'Y'
-			  ORDER BY board_write_date DESC)
+			  ORDER BY board_no DESC)
 		LIMIT 5;
 	</select>
 </mapper>

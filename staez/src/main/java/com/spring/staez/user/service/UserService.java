@@ -18,7 +18,7 @@ public interface UserService {
 	//회원가입
 	int insertUser(User u);
 	
-	// 네이버로그인 이메일 유무 확인
+	// 간편로그인 이메일 유무 확인 (네이버, 카카오, 구글)
 	User findUserByEmail(String email);
 	
 	// 이메일 인증번호 저장을 위한 서비스
