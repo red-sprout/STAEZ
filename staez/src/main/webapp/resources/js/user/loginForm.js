@@ -1,54 +1,80 @@
+import config from './config.js';
+
 document.addEventListener('DOMContentLoaded', function() {
     // 아이디 찾기 버튼
     var findIdButton = document.getElementById('findIdButton');
     if (findIdButton) {
-        console.log("아이디 찾기 버튼이 발견되었습니다."); // 디버깅용 콘솔 로그
         findIdButton.addEventListener('click', function() {
-            console.log("아이디 찾기 버튼 클릭됨."); // 디버깅용 콘솔 로그
             window.location.href = 'findIdForm.me';
         });
-    } else {
-        console.log("아이디 찾기 버튼을 찾을 수 없습니다."); // 디버깅용 콘솔 로그
     }
 
     // 비밀번호 찾기 버튼
     var findPwdButton = document.getElementById('findPwdButton');
     if (findPwdButton) {
-        console.log("비밀번호 찾기 버튼이 발견되었습니다."); // 디버깅용 콘솔 로그
         findPwdButton.addEventListener('click', function() {
-            console.log("비밀번호 찾기 버튼 클릭됨."); // 디버깅용 콘솔 로그
             window.location.href = 'findPwdForm.me';
         });
-    } else {
-        console.log("비밀번호 찾기 버튼을 찾을 수 없습니다."); // 디버깅용 콘솔 로그
     }
 
     // 회원가입 버튼
     var signinButton = document.getElementById('signinButton');
     if (signinButton) {
-        console.log("회원가입 버튼이 발견되었습니다."); // 디버깅용 콘솔 로그
         signinButton.addEventListener('click', function() {
-            console.log("회원가입 버튼 클릭됨."); // 디버깅용 콘솔 로그
             window.location.href = 'insertForm.me';
         });
-    } else {
-        console.log("회원가입 버튼을 찾을 수 없습니다."); // 디버깅용 콘솔 로그
     }
 
-    // 네이버로그인설정
-    window.onload = function() {
-        const clientId= "qmp5nqG9EBf9YYN33GKV";
-        // 리다이렉트 URI를 UTF-8로 인코딩(encodeURIComponent)해서 저장
-        const redirectURI = encodeURIComponent("http://localhost:8888/staez/naver-login")
-
-        const state = Math.random().toString(36).substring(2);
-
-        //로그인 api url
-        const apiURL = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&'
-            + 'client_id=' + clientId + "&redirect_uri=" +  redirectURI + '&state=' + state;
-
-        const loginBtn = document.getElementById('naverLoginLink');
-        loginBtn.href = apiURL;
-    }
+    // 네이버 간편로그인
+    naverLogin();
+    // 카카오 간편로그인
+    kakaoLogin();
+    // 구글 간편로그인
+    googleLogin();
 });
 
+// 네이버 로그인 설정
+function naverLogin(){
+    const naverClientId = config.naverClientId;
+    const naverRedirectURI = encodeURIComponent(config.naverRedirectURI);
+    const naverState = Math.random().toString(36).substring(2);
+    const naverApiURL = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&'
+        + 'client_id=' + naverClientId + "&redirect_uri=" + naverRedirectURI + '&state=' + naverState;
+    const naverLoginBtn = document.getElementById('naverLoginLink');
+    if (naverLoginBtn) {
+        naverLoginBtn.href = naverApiURL;
+    } else {
+        console.log("네이버 로그인 버튼을 찾을 수 없습니다."); // 디버깅용 콘솔 로그
+    }
+}
+
+// 카카오 로그인 설정
+function kakaoLogin(){
+    const kakaoClientId = config.kakaoClientId;
+    const kakaoRedirectURI = encodeURIComponent(config.kakaoRedirectURI);
+    const kakaoState = Math.random().toString(36).substring(2);
+    const kakaoApiURL = 'https://kauth.kakao.com/oauth/authorize?response_type=code&'
+        + 'client_id=' + kakaoClientId + "&redirect_uri=" + kakaoRedirectURI + '&state=' + kakaoState;
+    const kakaoLoginBtn = document.getElementById('kakaoLoginLink');
+    if (kakaoLoginBtn) {
+        kakaoLoginBtn.href = kakaoApiURL;
+    } else {
+        console.log("카카오 로그인 버튼을 찾을 수 없습니다."); // 디버깅용 콘솔 로그
+    }
+}
+
+// 구글 로그인 설정
+function googleLogin(){
+    const googleClientId = config.googleClientId;
+    const googleRedirectURI = encodeURIComponent(config.googleRedirectURI);
+    const googleState = Math.random().toString(36).substring(2);
+    const googleApiURL = 'https://accounts.google.com/o/oauth2/auth?response_type=code&'
+        + 'client_id=' + googleClientId + "&redirect_uri=" + googleRedirectURI + '&state=' + googleState
+        + '&scope=email%20profile';
+    const googleLoginBtn = document.getElementById('googleLoginLink');
+    if (googleLoginBtn) {
+        googleLoginBtn.href = googleApiURL;
+    } else {
+        console.log("구글 로그인 버튼을 찾을 수 없습니다."); // 디버깅용 콘솔 로그
+    }
+}
