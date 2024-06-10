@@ -8,11 +8,6 @@ $(function() { // list는 컨트롤러에서 받아온 것
   const categoryNo = document.querySelector("input[name='categoryNo']").value;
   ajaxCategoryList({"categoryNo" : categoryNo}, (list)=>drawSliderMain(list, sliderContent));
   ajaxCategoryList({"categoryNo" : categoryNo}, (list)=>drawGridMain(list, gridContent));
-  
-  // popular({"categoryNo" : categoryNo}, (list) => drawPopular(list, gridContent));
-  // latest({"categoryNo" : categoryNo}, (list) => drawLatest(list, gridContent));
-  // highscore({"categoryNo" : categoryNo}, (list) => drawHighscore(list, gridContent));
-  // locationAll({"categoryNo" : categoryNo}, (list) => drawLocationAll(list, gridContent));
 
 });
 

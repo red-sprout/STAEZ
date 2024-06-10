@@ -6,15 +6,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const conStartDate = document.getElementById('conStartDate').innerHTML;
     const conEndDate = document.getElementById('conEndDate').innerHTML;
 
-    const sDateSplit = conStartDate.split('-');
-    const sYear = sDateSplit[0];
-    const sMonth = sDateSplit[1];
-    const sdate = sDateSplit[2];
 
-    const eDateSplit = conEndDate.split('-');
-    const eYear = eDateSplit[0];
-    const eMonth = eDateSplit[1];
-    const edate = eDateSplit[2];
+    const serverSDate = new Date(conStartDate);
+    const serverEDate = new Date(conEndDate);
+
+    console.log(serverSDate.toDateString());
+
+    const sYear = new Date(conStartDate).getFullYear();
+    const sMonth = new Date(conStartDate).getMonth();
+    const sdate = new Date(conStartDate).getDate();
+
+
+    // const eDateSplit = conEndDate.split('-');
+    // const eYear = eDateSplit[0];
+    // const eMonth = eDateSplit[1];
+    // const edate = eDateSplit[2];
 
     const months = [
         "1월", "2월", "3월", "4월", "5월", "6월",
@@ -35,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // spanDayChange(date.getDate());
 
-    function renderCalendar() {
+    function renderCalendar(serverSDate, serverEDate) {
         const startDay = new Date(year, month, 1).getDay(); // 월의 시작 요일
         
         const endDate = new Date(year, month + 1, 0).getDate(); // 월의 마지막 날짜
@@ -60,7 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     ? 'class="today clickDate clicked"'
                     : "";
             datesHtml += `<li ${className} onclick="clickDate(this)">${i}</li>`;
-        }
+
+         }
 
         // 다음 달의 날짜들
         const totalDays = startDay + endDate;
@@ -71,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         dates.innerHTML = datesHtml;
         tophtml.textContent = `${year}년 ${months[month]}`;
+
 
     }
 
@@ -92,11 +100,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // year = date.getFullYear();
             // month = date.getMonth();
 
-            renderCalendar();
+            renderCalendar(serverSDate, serverEDate);
         });
     });
 
-    renderCalendar();
+    renderCalendar(serverSDate, serverEDate);
 
     
 });
@@ -113,7 +121,7 @@ function clickDate(_this){
     let year = date.getFullYear();
     let day = _this.textContent; // 클릭된 날짜의 텍스트 콘텐츠
     let month = date.getMonth();
-    spanDayChange2(year, month, day);
+    // spanDayChange2(year, month, day);
 }
 
 const clickedDate = document.querySelector(".concert-day span");
@@ -124,14 +132,14 @@ const months = [
     "1월", "2월", "3월", "4월", "5월", "6월",
     "7월", "8월", "9월", "10월", "11월", "12월"
 ];
-function spanDayChange2(y, m, d){
-    console.log(clickedDate);
+// function spanDayChange2(y, m, d){
+//     console.log(clickedDate);
 
     
-    clickedDate.innerHTML = ``; 
-    clickedDate.innerHTML += `${y}년 ${months[m]} ${String(d).padStart(2, '0')}일`; 
+//     clickedDate.innerHTML = ``; 
+//     clickedDate.innerHTML += `${y}년 ${months[m]} ${String(d).padStart(2, '0')}일`; 
     
-}
+// }
 
 function spanDayChange3(y, m){
     console.log(clickedDate);
