@@ -27,12 +27,12 @@
                     <h5>${c.theaterName}</h5>
                     <h4>
                         <fmt:formatDate value="${c.concertDate}" pattern="yyyy-MM-dd(E)" />
-                        ${c.schedule}(${c.concertRuntime}분)
+                        ${c.schedule} (${c.concertRuntime}분)
                     </h4>
                 </td>
                 <td class="reserve-info">
                     <h5>예약번호: ${c.reserveNo}</h5>
-                    <h5><fmt:formatDate value="${c.reserveDate}" pattern="yyyy-MM-dd HH:mm:ss" /></h5>
+                    <h5><fmt:formatDate value="${c.reserveDate}" pattern="yyyy-MM-dd HH:mm" /></h5>
                     <h5>
                         ${c.grade}석 <fmt:formatNumber value="${c.price}" pattern="#,###￦" />
                     </h5>

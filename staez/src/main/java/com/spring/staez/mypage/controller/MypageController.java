@@ -148,10 +148,20 @@ public class MypageController {
 		return "mypage/mypageLayout";
 	}
 	
+	//문의 내역 상세페이지 출력
+	@RequestMapping("inquireDetail.me")
+	public String myInquireDetail(int boardNo, Model model) {
+		Board inquire = mypageService.selectMyInquireDetail(boardNo);
+		
+		model.addAttribute("inquire", inquire);
+		
+		return "mypage/myInquireDetail";
+	}
+	
 	//문의 내역 답변 불러오기 ajax
 	@RequestMapping("loadAnswer.me")
 	@ResponseBody
-	public String loadAnswerAjax(Integer boardNo) {
+	public String loadAnswerAjax(int boardNo) {
 		System.out.println(boardNo);
 		Board inquireAnswer = mypageService.loadAnswerAjax(boardNo);
 		
@@ -159,6 +169,9 @@ public class MypageController {
 		
 		return new Gson().toJson(inquireAnswer);
 	}
+	
+
+	
 	
 	//나의 작성 게시글 리스트 페이지 출력
 	@RequestMapping("boardList.me")

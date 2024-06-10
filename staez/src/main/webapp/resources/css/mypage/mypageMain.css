@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
 
+.font-purple{
+    color: #b51b75;
+    font-weight: 700;
+}
+
 /*메인 콘텐츠*/
 .main-content{
     width: 950px;

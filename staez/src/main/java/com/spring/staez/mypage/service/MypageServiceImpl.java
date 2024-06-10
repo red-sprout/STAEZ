@@ -128,6 +128,11 @@ public class MypageServiceImpl implements MypageService{
 	public ArrayList<Board> selectMyInquireList(int userNo, PageInfo pi) {
 		return mpd.selectMyInquireList(sqlSession, userNo, pi);
 	}
+	
+	@Override
+	public Board selectMyInquireDetail(int boardNo) {
+		return mpd.selectMyInquireDetail(sqlSession, boardNo);
+	}
 
 	@Override
 	public int deleteMyScrapAjax(Map<String, Integer> params) {
@@ -178,7 +183,6 @@ public class MypageServiceImpl implements MypageService{
 	public ArrayList<Board> loadMyInquireAjax(int userNo) {
 		return mpd.loadMyInquireAjax(sqlSession, userNo);
 	}
-
 
 	
 }
