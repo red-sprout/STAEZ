@@ -30,8 +30,7 @@
         <jsp:include page="../common/header.jsp" />
 
         <!-- 적용 자바스크립트 -->
-        <script src="<c:url value='/resources/js/api/concertapi.js'/>"></script>
-        <script src="<c:url value='/resources/js/concert/concertDetailMain.js'/>"></script>
+
     </div>
 
     <!-- 공연 navi -->
@@ -57,7 +56,7 @@
                     <i class="fa-regular fa-heart"></i>
                     <span class="concert-likeCount"></span>
                 </button> <!-- 길이조절필요 -->
-                <div class="concert-detail-like-commu"><a href="main.cm"><span><b>${con.concertTitle} 커뮤니티로 가기</b></span></a></div>
+                <div class="concert-detail-like-commu"><a href="main.cm"><span><b>${con.concertTitle}<br>커뮤니티로 가기</b></span></a></div>
             </div>
         </div>
         <div class="concert-detail-body-div">
@@ -75,7 +74,8 @@
                 <tr>                    
                     <td></td>
                 <tr>
-                    <td><b><span>공연기간&nbsp&nbsp</span></b><span>${con.startDate} ~ ${con.endDate}</span></td>
+                    <td><b><span>공연기간&nbsp&nbsp</span></b>
+                        <span id="conStartDate">${con.startDate}</span> ~ <span id="conEndDate">${con.endDate}</span></td>
                 </tr>
                 <tr>
                     <td><b><span>공연장소&nbsp&nbsp</span></b><span>${con.theaterName}</span></td>
@@ -87,7 +87,11 @@
                     <td><b><span>관람연령&nbsp&nbsp</span></b><span>${con.ageLimit}</span></td>
                 </tr>
                 <tr><!-- 가격??? -->
-                    <td><b><span>가격&nbsp&nbsp</span></b><span>R석 90,000원 | S석 60,000원 | A석 30,000원</span></td>
+                    <td><b><span>가격&nbsp&nbsp</span></b><span>
+                        <c:forEach var="s" items="${s}">
+                            ${s.grade}석 ${s.price}원&nbsp&nbsp
+                        </c:forEach>
+                    </span></td>
                     <!-- 가격을세로로 적고싶을 때 -->
                     <!-- <td colspan="2">
                         <table>
@@ -151,6 +155,7 @@
         <br>
 
     <section class="concert-detail-down-section">
+
         <!-- <div>
             <div class="concert-detail-subject">
                 <br>
@@ -166,10 +171,20 @@
             </div>
             <br><br>
         </div> -->
+
     </section>
+
+    <div class="page-list" align="center">
+        <!-- 자스 -->
+    </div>
+
+
+    <br>
 
     <div>
         <jsp:include page="../common/footer.jsp" />
     </div>
+    <script src="<c:url value='/resources/js/api/concertapi.js'/>"></script>
+    <script src="<c:url value='/resources/js/concert/concertDetailMain.js'/>"></script>
 </body>
 </html>

@@ -12,12 +12,7 @@
     <title>concert</title>
 
     <!-- 슬라이더 css, script -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-    <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> 
     
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
-
     
     <!-- 적용 css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertMain.css">
@@ -25,9 +20,6 @@
 <body>
     <div>
         <jsp:include page="../common/header.jsp" />
-        <!-- 적용 자바스크립트 -->
-        <script src="<c:url value='/resources/js/api/concertapi.js'/>"></script>
-        <script src="<c:url value='/resources/js/concert/concertMain.js'/>"></script>   
     </div>
     <!-- 공연 navi -->
     <div class="concert-navi-div">
@@ -36,12 +28,14 @@
         </ul>
     </div>
     <input type="hidden" name="categoryNo" value="${cat.categoryNo}">
+
     <section class="concert-main-upper-section">
 
         <div class="concert-main-upper-before">
             <img src="${pageContext.request.contextPath}/resources/img/main/before.png">
         </div>
         <div class="concert-main-upper">
+            
             <!-- 사진 다음으로 넘기는 버튼 -->
 
             <!-- 사진반복, 슬라이드 -->
@@ -77,7 +71,7 @@
         </div>
     </section>
 
-    <section>
+    <section class="running-concert">
         <br><br>
         <h3>현재 진행중인&nbsp; <b id="concert-genre">${cat.categoryName}</b></h3>
         <br>
@@ -85,48 +79,54 @@
     <hr class="concert-main-hr">
 
     <section class="concert-main-list-section">
-        <ul class="concert-main-list-ul">
-            <li><button class="concert-main-list-button" onclick="all()"><h3><span>전체보기</span></h3></button></li>
+        <ul class="concert-main-list-ul"> <!-- 전체보기 버튼이 클릭이 안돼서 return false 붙여줌 why? 이벤트 버블링 때문?? event.stopPropagation()?? -->
+            <li><button class="concert-main-list-button" onclick="allListClick(); return false;"><h3><span>전체보기</span></h3></button></li>
             <li><button class="concert-main-list-button" onclick="popularClick()"><h3><span>인기순위</span></h3></button></li>
             <li><button class="concert-main-list-button" onclick="latestClick()"><h3><span>최신공연</span></h3></button></li>
             <li><button class="concert-main-list-button" onclick="highscoreClick()"><h3><span>별점높은</span></h3></button></li>
-            <form action="">
-                <input type="hidden" name="locationArea" id="location">
-                <li id="concert-main-list-area-parent"><button type="submit" class="concert-main-list-button area" onclick="locationClick()"><h3><span>지역전체 ▼</span></h3></button>
-                    <ul class="concert-main-list-area"> 
-                        <li><a onclick="locationArea('서울')">서울</a></li>
-                        <li><a onclick="locationArea('경기')">경기</a></li>
-                        <li><a onclick="locationArea('강원')">강원</a></li>
-                        <li><a onclick="locationArea('충청')">충청</a></li>
-                        <li><a onclick="locationArea('전라')">전라</a></li>
-                        <li><a onclick="locationArea('경상')">경상</a></li>
-                        <li><a onclick="locationArea('제주')">제주</a></li>
-                    </ul>
-                </li>
-            </form>
+            <li id="concert-main-list-area-parent"><button class="concert-main-list-button area" onclick="locationClick()"><h3><span>지역전체 ▼</span></h3></button>
+                <ul class="concert-main-list-area"> 
+                    <li><a onclick="locationArea('서울')">서울</a></li>
+                    <li><a onclick="locationArea('경기')">경기</a></li>
+                    <li><a onclick="locationArea('강원')">강원</a></li>
+                    <li><a onclick="locationArea('충청')">충청</a></li>
+                    <li><a onclick="locationArea('전라')">전라</a></li>
+                    <li><a onclick="locationArea('경상')">경상</a></li>
+                    <li><a onclick="locationArea('제주')">제주</a></li>
+                </ul>
+            </li>
         </ul>
     </section>
     
 
     <section class="concert-main-grid-section">
         <div class="concert-main-grid">
-        <!-- <div onclick="">
-            </div>
-                <div>
-                    <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FMusc%2F2404%2F240412030249_24005266.gif&w=384&q=75"
-                        alt="">
-                        <p><span>뮤지컬</span></p>
-                        <p><span><b>[시카고]</b></span></p>
-                        <p><span>2024.06.22 - 2024.06.23</span></p>
+            <!-- <div onclick="">
                 </div>
-            </div> -->
+                    <div>
+                        <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FMusc%2F2404%2F240412030249_24005266.gif&w=384&q=75"
+                            alt="">
+                            <p><span>뮤지컬</span></p>
+                            <p><span><b>[시카고]</b></span></p>
+                            <p><span>2024.06.22 - 2024.06.23</span></p>
+                    </div>
+                </div> -->
+            
         </div>
-        
     </section>
 
 
     <div>
 		<jsp:include page="../common/footer.jsp" />
 	</div>
+        <!-- 적용 자바스크립트 -->
+
+
+    <script src="<c:url value='/resources/js/api/concertapi.js'/>"></script>
+    <script src="<c:url value='/resources/js/concert/concertMain.js'/>"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+
 </body>
 </html>
