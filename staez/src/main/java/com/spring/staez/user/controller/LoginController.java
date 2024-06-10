@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -59,20 +60,20 @@ public class LoginController {
 	@RequestMapping("/naver-login")
 	public String naverLoginCallback(HttpServletRequest request, HttpSession session) {
 		
-		String clientId = "qmp5nqG9EBf9YYN33GKV";
-		String clientSecret = "B1jP8E7xaK";
-		String code = request.getParameter("code");
-		String state = request.getParameter("state");
+		String naverClientId = "qmp5nqG9EBf9YYN33GKV";
+		String naverClientSecret = "B1jP8E7xaK";
+		String navercode = request.getParameter("code");
+		String naverState = request.getParameter("state");
 		
 		
 		try {
 			String redirectURI = URLEncoder.encode("http://localhost:8888/staez/naver-login", "UTF-8");
 			String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code";
-			apiURL += "&client_id=" + clientId;
-			apiURL += "&client_secret=" + clientSecret;
+			apiURL += "&client_id=" + naverClientId;
+			apiURL += "&client_secret=" + naverClientSecret;
 			apiURL += "&redirect_uri=" + redirectURI;
-			apiURL += "&code=" + code;
-			apiURL += "&state=" + state;
+			apiURL += "&code=" + navercode;
+			apiURL += "&state=" + naverState;
 			
 			URL url = new URL(apiURL);
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -144,6 +145,93 @@ public class LoginController {
 		
 	}
 	
+	// 카카오 로그인
+	@RequestMapping("/kakao-login")
+	public String kakaoLoginCallback(HttpServletRequest request, HttpSession session) {
+		
+		String kakaoClientId = "3d0c80afec61216e697bdf6104040191";
+		String kakaoClientSecret = "vn3AJL3vm0WwxTmZbuT5FeTglFpiSlUW";
+		String kakaoCode = request.getParameter("code");
+		
+		
+		try {
+            String redirectURI = URLEncoder.encode("http://localhost:8888/staez/kakao-login", "UTF-8");
+
+            // 액세스 토큰 요청 URL
+            String tokenRequestUrl = "https://kauth.kakao.com/oauth/token";
+
+            URL url = new URL(tokenRequestUrl);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+            String postParams = "grant_type=authorization_code"
+                    + "&client_id=" + kakaoClientId
+                    + "&redirect_uri=" + redirectURI
+                    + "&code=" + kakaoCode
+                    + "&client_secret=" + kakaoClientSecret;
+
+            con.setDoOutput(true);
+            OutputStream os = con.getOutputStream();
+            os.write(postParams.getBytes());
+            os.flush();
+            os.close();
+
+            int responseCode = con.getResponseCode();
+            BufferedReader br = new BufferedReader(new InputStreamReader(responseCode == 200 ? con.getInputStream() : con.getErrorStream()));
+            String inputLine;
+            StringBuffer res = new StringBuffer();
+            while ((inputLine = br.readLine()) != null) {
+                res.append(inputLine);
+            }
+            br.close();
+
+            if (responseCode == 200) {
+                String result = res.toString();
+                JsonObject totalObj = JsonParser.parseString(result).getAsJsonObject();
+                String token = totalObj.get("access_token").getAsString();
+
+                // 사용자 정보 요청
+                String userInfoUrl = "https://kapi.kakao.com/v2/user/me";
+                URL userInfoUrlObj = new URL(userInfoUrl);
+                HttpURLConnection userInfoCon = (HttpURLConnection) userInfoUrlObj.openConnection();
+                userInfoCon.setRequestMethod("GET");
+                userInfoCon.setRequestProperty("Authorization", "Bearer " + token);
+
+                int userInfoResponseCode = userInfoCon.getResponseCode();
+                BufferedReader userInfoBr = new BufferedReader(new InputStreamReader(userInfoResponseCode == 200 ? userInfoCon.getInputStream() : userInfoCon.getErrorStream()));
+                String userInfoInputLine;
+                StringBuffer userInfoRes = new StringBuffer();
+                while ((userInfoInputLine = userInfoBr.readLine()) != null) {
+                    userInfoRes.append(userInfoInputLine);
+                }
+                userInfoBr.close();
+
+                if (userInfoResponseCode == 200) {
+                    JsonObject userInfoObj = JsonParser.parseString(userInfoRes.toString()).getAsJsonObject();
+                    JsonObject kakaoAccount = userInfoObj.getAsJsonObject("kakao_account");
+                    String email = kakaoAccount.get("email").getAsString();
+
+                    // 이메일로 사용자 검색
+                    User user = userService.findUserByEmail(email);
+                    if (user != null) {
+                        // 사용자가 존재하면 로그인 처리
+                        session.setAttribute("loginUser", user);
+                        return "redirect:/";
+                    } else {
+                        // 사용자가 존재하지 않으면 회원가입 페이지로 이동
+                        return "redirect:/insertForm.me";
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/";
+    }
+	
 	//API에 GET요청 보내고 응답을 받아오는 메서드
 	private static String get(String apiUrl, Map<String, String> requestHeaders) {
 		HttpURLConnection conn = connect(apiUrl);
@@ -200,4 +288,5 @@ public class LoginController {
 		}
 		
 	}
+	
 }
