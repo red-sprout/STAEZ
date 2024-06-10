@@ -14,7 +14,6 @@
 <script src="${contextPath}/resources/js/api/mypageapi.js"></script>
 <script src="${contextPath}/resources/js/mypage/mypageLayout.js"></script>
 
-
 <title>Insert title here</title>
 </head>
 

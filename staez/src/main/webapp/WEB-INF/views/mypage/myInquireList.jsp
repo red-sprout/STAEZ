@@ -16,27 +16,18 @@
 
     <div id="inq-section">
         <ul>
-            <c:forEach var="b" items="${blist}">
+            <c:forEach var="b" items="${blist}">                
             <li class="menu-item">
-                <div class="inq-info">
+                <input type="hidden" value="${contextPath}" name="contextPath">
+                <input type="hidden" value="${b.boardNo}" name="boardNo">
+                <a class="inq-info" onclick="iquireDetailPage('${b.boardNo}')" target="_blank">
                     <span class="inq-cate">${b.categoryName}</span>
                     <span class="inq-title">${b.boardTitle}</span>
-                    <span class="inq-date"><fmt:formatDate value="${b.boardWriteDate}" pattern="yyyy-MM-dd" /></span>
-                    <img src="${contextPath}/resources/img/inquire/up.png">
-                </div>
-                <div class="fold-content hidden">
-                    <div class="inquire">
-                        <p class="fold-title"><h3>문의내용</h3></p>
-                        <p class="fold-content">${b.boardContent}</p>
-                    </div>
-                    <hr>
-                    <div class="answer">
-                        <input type="hidden" value="${b.boardNo}" name="inquireBoardNo">
-                        <p class="fold-title"><h3>답변내용</h3></p>
-                        <p class="fold-content"></p> <!--답변이 null 일 경우 '답변을 기다리는 중입니다.'-->
-                        <p class="fold-answer-date"></p>
-                    </div>
-                </div>
+                    <span class="inq-date">
+                        <fmt:formatDate value="${b.boardWriteDate}" pattern="yyyy-MM-dd"/>
+                    </span>
+                    <span class="isAnswer btn-staez"></span>             
+                </a>
             </li>
             </c:forEach>
         </ul>
