@@ -243,7 +243,7 @@ public class ConcertReserveController {
 			HttpURLConnection httpUrlConnection = (HttpURLConnection)url.openConnection();
 			
 			httpUrlConnection.setRequestMethod("POST");
-			httpUrlConnection.setRequestProperty("Authorization", "SECRET_KEY DEVB962381361316D16132AD193F0E4FC9B926A7");
+			httpUrlConnection.setRequestProperty("Authorization", "");
 			httpUrlConnection.setRequestProperty("Content-Type", "application/json");
 			httpUrlConnection.setDoOutput(true);
 			System.out.println("안녕");
