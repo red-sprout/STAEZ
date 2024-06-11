@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
 
+.complete{
+    background: #4aa500;
+    color: white;
+}
+
 /*메인 콘텐츠*/
 .main-content{
     width: 950px;
@@ -51,7 +56,7 @@
 
 }
 
-#inq-section>ul>li{
+#inq-section li{
     height: auto;
 
     display: flex;
@@ -59,10 +64,9 @@
     justify-content: center;
     align-items: center;
 
-    cursor: pointer;
-
     border-bottom: 1px solid black;
 }
+
 
 li>.inq-info{
     width: 100%;
@@ -72,15 +76,19 @@ li>.inq-info{
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+
 }
 
-li>.inq-info>span{
-    
+li>.inq-info:hover{
+    cursor: pointer;
+    background: rgb(245, 245, 245);
 }
 
-li>.inq-info>.inq-cate{
-    height: 40px;
+li>.inq-info .inq-cate{
     width: 100px;
+    height: 40px;
+
+    background: white;
 
     border: 1px solid black;
     border-radius: 10px;
@@ -92,33 +100,38 @@ li>.inq-info>.inq-cate{
 }
 
 
-li>.inq-info>.inq-title{
+li>.inq-info .inq-title{
     width: 500px;
     height: 40px;
 
     text-align: left;
     line-height: 40px;
 
-    padding: 0 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
 }
 
-li>.inq-info>.inq-date{
-    width: 140px;
+li>.inq-info .inq-date{
+    width: 100px;
     height: 40px;
 
     line-height: 40px;
 
 }
 
-li>.inq-info> img{
-    width: 40px;
-    height: 40px;
+li>.inq-info .isAnswer{
+    width: 70px;
+    height: 30px;
 
-    line-height: 40px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 30px;
 
+    padding: 0 0;
+    margin: 0 0;
 }
-
 
 .fold-content{
     width: 80%;

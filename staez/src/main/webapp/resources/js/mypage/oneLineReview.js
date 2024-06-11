@@ -36,10 +36,16 @@ $(function() {
 // 버튼 클릭 시 한줄평 작성 모달 출력
 function loadOneLineReview(concertNo){
     loadOneLineReviewAjax({concertNo}, function(res){
-        const table = $('.concert-tag>table>tbody');
+        const div = $('.concert-tag');
+        const tbody = $('.concert-tag>table>tbody');
         const reviewContent = $('textarea');
 
-        table.html(`<tr>
+        div.on('click',  function() {
+            const url = `${contextPath}/detail.co?concertNo=${res.concertNo}`;
+            location.href = url;
+        });
+
+        tbody.html(`<tr>
                         <td rowspan="3">
                             <img src="${contextPath}${res.filePath}${res.changeName}">
                         </td>

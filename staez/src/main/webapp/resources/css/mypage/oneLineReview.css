@@ -109,9 +109,8 @@
 .main-content>table .review-func>button{
     width: 90px;
     height: 35px;
-}
-.main-content>table .review-func>button>h4{
 
+    padding: 0 0;
 }
 
 /*modal*/
