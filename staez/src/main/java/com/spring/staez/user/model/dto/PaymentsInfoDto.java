@@ -11,7 +11,7 @@ public class PaymentsInfoDto {
 	
 	private String concertTitle;
 	private String theaterName;
-	private Date concertDate;
+	private Timestamp concertDate;
 	private String schedule;
 	private int concertRuntime;
 		

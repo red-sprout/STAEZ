@@ -148,16 +148,33 @@ public class MypageController {
 		return "mypage/mypageLayout";
 	}
 	
+	//문의 내역 상세페이지 출력
+	@RequestMapping("inquireDetail.me")
+	public String myInquireDetail(int boardNo, Model model) {
+		Board inquire = mypageService.selectMyInquireDetail(boardNo);
+		
+		model.addAttribute("inquire", inquire);
+		
+		return "mypage/myInquireDetail";
+	}
+	
 	//문의 내역 답변 불러오기 ajax
 	@RequestMapping("loadAnswer.me")
 	@ResponseBody
-	public String loadAnswerAjax(Integer boardNo) {
+	public String loadAnswerAjax(int boardNo) {
+		Board answer = mypageService.loadAnswerAjax(boardNo);
+		
+		return new Gson().toJson(answer);
+	}
+	
+	//문의글 답변있는지 판별 ajax
+	@RequestMapping("answerCheck.me")
+	@ResponseBody
+	public String answerCheckAjax(int boardNo) {
 		System.out.println(boardNo);
-		Board inquireAnswer = mypageService.loadAnswerAjax(boardNo);
-		
-		System.out.println(inquireAnswer);
-		
-		return new Gson().toJson(inquireAnswer);
+		Board answer = mypageService.loadAnswerAjax(boardNo);
+			
+		return answer == null ? "NNNNN" : "NNNNY";
 	}
 	
 	//나의 작성 게시글 리스트 페이지 출력

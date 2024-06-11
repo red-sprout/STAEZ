@@ -115,6 +115,8 @@ $(function() {
     });
 });
 
+/* 아래부터는 js, jQuery로 변경 예정 */
+
 // 비밀번호 변경
 // 비밀번호 입력때마다 유효성 확인
 function checkPassword(){
@@ -385,10 +387,6 @@ function firstLikeGenre(){
         }
     });
 }
-
-
-
-
 
 
 // 페이지가 로드되면 init 함수를 호출하여 초기 값을 설정
