@@ -122,7 +122,7 @@ public class ConcertReserveController {
 		
 		int concertNo = Integer.parseInt(totalObj.get("concertNo").getAsString()); 
 		
-		ReserveInsertDTO rid = new ReserveInsertDTO();
+		ReserveInsertDTO rid = new ReserveInsertDTO(); 
 		rid.setUserNo(Integer.parseInt(totalObj.get("userNo").getAsString()));
 		rid.setConcertNo(Integer.parseInt(totalObj.get("concertNo").getAsString()));
 		rid.setConcertDate(totalObj.get("concertDate").getAsString());
@@ -238,7 +238,7 @@ public class ConcertReserveController {
 	public String kakaopay() {
 		
 		try {
-			URL url = new URL("http://open-api.kakaopay.com/online/v1/payment/ready");
+			URL url = new URL("https://open-api.kakaopay.com/online/v1/payment/ready");
 			
 			HttpURLConnection httpUrlConnection = (HttpURLConnection)url.openConnection();
 			
@@ -246,13 +246,13 @@ public class ConcertReserveController {
 			httpUrlConnection.setRequestProperty("Authorization", "");
 			httpUrlConnection.setRequestProperty("Content-Type", "application/json");
 			httpUrlConnection.setDoOutput(true);
-			System.out.println("안녕");
+			
 			String parameter = "cid=TC0ONETIME"; 
 			parameter += "&partner_order_id=partner_order_id";
 			parameter += "&partner_user_id=partner_user_id";
 			parameter += "&item_name=초코파이";
-			parameter += "&quantity=1";
-			parameter += "&total_amount=2200";
+			parameter += "&quantity=1"; 
+			parameter += "&total_amount=2200"; 
 			parameter += "&tax_free_amount=0";
 			parameter += "&approval_url=http://localhost:8888/staez/selectPayment.co";
 			parameter += "&cancel_url=http://localhost:8888/staez/selectPayment.co";
@@ -280,7 +280,7 @@ public class ConcertReserveController {
 			
 			return br.readLine();
 		} catch (IOException e) {
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 		
 		return  "{\"result\":\"NO\"}";
