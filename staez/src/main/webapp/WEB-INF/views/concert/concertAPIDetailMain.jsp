@@ -15,7 +15,7 @@
     <!-- 제이쿼리 -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <!-- 적용 css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertDetailMain.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertAPIDetailMain.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertDetail.css">
     <!-- 폰트어썸 -->
     <script src="https://kit.fontawesome.com/65a2de1a44.js" crossorigin="anonymous"></script>
@@ -33,17 +33,15 @@
 
     </div>
 
-    <!-- 공연 navi --> <!-- !!!!!!!!!!! div랑 스타일 삭제 필요 !!!!!!!!!!!! -->
+    <!-- 공연 navi -->
     <input type="hidden" name="userNo" value="${loginUser.userNo}">
     <input type="hidden" name="concertNo" value="${con.concertNo}">
 
-    <div class="concert-navi-div" style="display: flex; justify-content: space-around;">
+    <!-- 공연 navi -->
+    <div class="concert-navi-div">
         <ul class="concert-ul">
           <!-- 자스로 그려줌 -->
         </ul>
-        <div>
-            <a href="conapi.co"><span>콘서트 api 테스트</span></a>
-        </div>
     </div>
 
     <!-- 공연상세페이지 위쪽(노란 블럭 안쪽) -->

@@ -21,14 +21,11 @@
     <div>
         <jsp:include page="../common/header.jsp" />
     </div>
-    <!-- 공연 navi -->   <!-- !!!!!!!!!!! div랑 스타일 삭제 필요 !!!!!!!!!!!! -->
-    <div class="concert-navi-div" style="display: flex; justify-content: space-around;">
+    <!-- 공연 navi -->
+    <div class="concert-navi-div">
         <ul class="concert-ul">
           <!-- 자스로 그려줌 -->
         </ul>
-        <div>
-            <a href="conapi.co"><span>콘서트 api 테스트</span></a>
-        </div>
     </div>
     <input type="hidden" name="categoryNo" value="${cat.categoryNo}">
 
@@ -126,7 +123,7 @@
 
 
     <script src="<c:url value='/resources/js/api/concertapi.js'/>"></script>
-    <script src="<c:url value='/resources/js/concert/concertMain.js'/>"></script>
+    <script src="<c:url value='/resources/js/concert/concertAPIMain.js'/>"></script>
 
     <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>

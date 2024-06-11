@@ -30,7 +30,7 @@ function drawConNavi(conList){
       concertNaviArea.appendChild(naviLi);
     }
 
-  }
+  }concertAPIMain
 
 
   // 예매버튼 클릭
