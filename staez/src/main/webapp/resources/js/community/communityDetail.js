@@ -314,6 +314,11 @@ function checkUser(userNo) {
 }
 
 function addReplyEvent(target) {
+    const existingReplyFlex = document.querySelector(".reply-flex.reply-input");
+    if (existingReplyFlex) {
+        existingReplyFlex.remove();
+    }
+
     const replyFlex = document.createElement("li");
     const communityReply = document.createElement("div");
     const textarea = document.createElement("textarea");
@@ -326,10 +331,10 @@ function addReplyEvent(target) {
     btn.innerHTML = "작성";
     div.appendChild(btn);
 
-    replyFlex.setAttribute("class", "reply-flex");
+    replyFlex.setAttribute("class", "reply-flex reply-input");
     communityReply.setAttribute("class", "community-reply");
     
-    replyNo.type = "hidden"
+    replyNo.type = "hidden";
     replyNo.value = document.querySelector("input[name=userNo]").value;
 
     communityReply.appendChild(replyNo);
@@ -342,13 +347,13 @@ function addReplyEvent(target) {
 
     styledTextArea(textarea);
     communityReply.style.border = "1px solid #969696";
-    communityReply.style.borderRadius = "5px"
+    communityReply.style.borderRadius = "5px";
 
     btn.addEventListener("click", (ev) => {
         const refReplyNo = target.querySelector("input[type=hidden]").value;
         const replyContent = textarea.value;
         insertReplyEvent(refReplyNo, replyContent);
-    })
+    });
 }
 
 function insertReplyEvent(refReplyNo) {
