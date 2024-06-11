@@ -48,7 +48,7 @@ function insertReserve(){
 
     const [concertDateText, scheduleText] = reserveDateTime.split(" ");
     
-    const payMethodText = document.querySelector(".pay-method").innerHTML;
+    const payMethodText = document.querySelector(".pay-method-span").innerHTML;
 
     document.querySelector("input[name = 'payMethod']").value = payMethodText;
     
@@ -103,6 +103,52 @@ function alertAndClose(res){
         window.close();
     }
 }
+
+function payMethodChange(_this){
+    const checkBoxs = document.querySelectorAll(".check-box");
+
+    for(let c of checkBoxs){
+        c.classList.remove("checked")
+    }
+
+     _this.querySelector(".check-box").classList.add("checked");
+    
+    const payMethod = _this.querySelector(".pay-method").innerHTML;
+
+    document.querySelector(".pay-method-span").innerHTML = payMethod;
+
+    let className = '';
+    
+    if(payMethod === "무통장입금"){
+        className = '.no-bankbook'
+    } else if(payMethod === "카카오페이"){
+       className = '.kakaopay'
+    }
+    console.log(className)
+    const nextBtns = document.querySelectorAll(".next-step-area");
+
+    for(let n of nextBtns){
+        n.classList.add("hidden")
+    }
+
+    let nextBtn = document.querySelector(className);
+
+    nextBtn.classList.remove("hidden")
+    
+    
+    
+}
+
+function kakaoPay(){
+    ajaxKakaoPay((res)=>kakaoPayResult(res))
+
+}
+
+function kakaoPayResult(res){
+    console.log(res)
+}
+
+
 
 
 

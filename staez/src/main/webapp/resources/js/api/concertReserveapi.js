@@ -106,3 +106,15 @@ function ajaxinsertReserve(data, callback){
         }
     }) 
 }   
+
+function ajaxKakaoPay(callback){
+    $.ajax({
+        type: "POST",
+        url : "kakaopay.co",
+        success : function(result){
+            callback(result)
+        }, error : function(){
+            console.log("실패")
+        }
+    }) 
+}

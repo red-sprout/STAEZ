@@ -1,9 +1,14 @@
 package com.spring.staez.concert.controller;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.lang.reflect.Type;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +39,8 @@ import com.spring.staez.user.model.vo.User;
 
 @Controller
 public class ConcertReserveController {
+	
+	
 	
 	@Autowired
 	private ConcertReserveService crService;
@@ -142,7 +149,6 @@ public class ConcertReserveController {
 		}
 
 	}
-	
 	@ResponseBody
 	@GetMapping(value = "ajaxConcertPeriod.co" , produces="application/json; charset-UTF-8")
 	public String ajaxConcertPeriod(String concertNo) {
@@ -152,7 +158,6 @@ public class ConcertReserveController {
 		
 		return  new Gson().toJson(concert);
 	}
-	
 	@ResponseBody
 	@GetMapping(value = "ajaxConcertDayOff.co" , produces="application/json; charset-UTF-8")
 	public String ajaxConcertDayOff(String concertNo) {
@@ -227,5 +232,60 @@ public class ConcertReserveController {
 		
 		return  new Gson().toJson(grSeatInfos);
 	}
+	
+	@ResponseBody
+	@PostMapping(value = "kakaopay.co" , produces="application/json; charset-UTF-8")
+	public String kakaopay() {
+		
+		try {
+			URL url = new URL("http://open-api.kakaopay.com/online/v1/payment/ready");
+			
+			HttpURLConnection httpUrlConnection = (HttpURLConnection)url.openConnection();
+			
+			httpUrlConnection.setRequestMethod("POST");
+			httpUrlConnection.setRequestProperty("Authorization", "SECRET_KEY DEVB962381361316D16132AD193F0E4FC9B926A7");
+			httpUrlConnection.setRequestProperty("Content-Type", "application/json");
+			httpUrlConnection.setDoOutput(true);
+			System.out.println("안녕");
+			String parameter = "cid=TC0ONETIME"; 
+			parameter += "&partner_order_id=partner_order_id";
+			parameter += "&partner_user_id=partner_user_id";
+			parameter += "&item_name=초코파이";
+			parameter += "&quantity=1";
+			parameter += "&total_amount=2200";
+			parameter += "&tax_free_amount=0";
+			parameter += "&approval_url=http://localhost:8888/staez/selectPayment.co";
+			parameter += "&cancel_url=http://localhost:8888/staez/selectPayment.co";
+			parameter += "&fail_url=http://localhost:8888/staez/selectPayment.co";
+			
+			OutputStream outputStream = httpUrlConnection.getOutputStream();  
+			DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
+			
+			dataOutputStream.writeBytes(parameter); 
+			dataOutputStream.flush();
+			dataOutputStream.close();
+			
+			int result = httpUrlConnection.getResponseCode();
+			
+			InputStream inputStream;
+			
+			if(result == 200) {
+				inputStream = httpUrlConnection.getInputStream();
+			} else {
+				inputStream = httpUrlConnection.getErrorStream();
+			}
+			
+			InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+			BufferedReader br = new BufferedReader(inputStreamReader);
+			
+			return br.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return  "{\"result\":\"NO\"}";
+	}
+	
+	
 	
 }

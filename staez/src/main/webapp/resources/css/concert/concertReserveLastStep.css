@@ -148,15 +148,15 @@
     opacity: 1;
 }
 
-.next-step-area>img{
+.next-arrow{
     width: 12px;
     position: absolute;
     top: 30%;
     right: 5px;
 }
 
-.next-step-area span{
-    font-size: 18px;
+.payment-text{
+    font-size: 15px;
     color: white;
 }
 
@@ -169,7 +169,7 @@
 }
 
 .back-step-area span{
-    font-size: 18px;
+    font-size: 15px;
     color: white;
 }
 
@@ -378,6 +378,7 @@
     background: #d9d9d9;
     margin-top: 5px;
     padding: 0px 10px;
+    cursor: pointer;
 }
 
 .check-div{
@@ -391,10 +392,13 @@
     margin-right: 10px;
 }
 
-.check-div>div{
+.check-box{
     width: 10px;
     height: 10px;
     border-radius: 50px;
+}
+
+.checked{
     background: black;
 }
 
@@ -522,6 +526,13 @@
 .next-step-form{
     width: 50%;
     height: 100%;
+}
+
+.hidden{
+    display: none;
+}
+.kakaopay-img{
+   height: 30px;
 }
 
 

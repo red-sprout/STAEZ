@@ -33,9 +33,17 @@
             <div class="orderer-reserver-area">
                 <div class="receive-way-area">
                     <span>결제방식선택</span>
-                    <div class="receive-way-box">
-                        <div class="check-div"><div></div></div>
+                    <div class="receive-way-box" onclick="payMethodChange(this)">
+                        <div class="check-div"><div class="check-box checked"></div></div>
                         <span class="pay-method">무통장입금</span>
+                    </div>
+                    <div class="receive-way-box" onclick="payMethodChange(this)">
+                        <div class="check-div"><div class="check-box "></div></div>
+                        <span class="pay-method">카카오페이</span>
+                    </div>
+                    <div class="receive-way-box" onclick="payMethodChange(this)">
+                        <div class="check-div"><div class="check-box "></div></div>
+                        <span class="pay-method">네이버페이</span>
                     </div>
                 </div>
                 <div class="line">
@@ -46,7 +54,7 @@
                     <span>결제수단</span>
                     <div class="reservation-input-area">
 						<div>
-							<span>></span><span>무통장입금</span>
+							<span>></span><span class="pay-method-span">무통장입금</span>
 						</div>
 						<div class="deposit-amount-area">
 							<div><span>입금액</span></div>
@@ -126,9 +134,12 @@
                         <input type="hidden" name="concertDate">
                         <input type="hidden" name="schedule">
                         <input type="hidden" name="seatList">
-                        <button type="button" class="next-step-area" onclick="insertReserve()">
-                            <span>예매하기</span>
-                            <img src="${contextPath}/resources/img/concert/nextArrow.png" alt=""> 
+                        <button type="button" class="next-step-area no-bankbook " onclick="insertReserve()">
+                            <span class="payment-text">예매하기</span>
+                            <img class="next-arrow" src="${contextPath}/resources/img/concert/nextArrow.png" alt=""> 
+                        </button>
+                        <button type="button" class="next-step-area kakaopay hidden" onclick="kakaoPay()">
+                            <img class="kakaopay-img" src="${contextPath}/resources/img/concert/payment_icon_yellow_medium.png" alt="">
                         </button>
                     </div>
               </div>
