@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.staez.admin.model.vo.Category;
+import com.spring.staez.admin.model.vo.Seat;
+import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.dao.ConcertDao;
 import com.spring.staez.concert.model.vo.Concert;
@@ -48,6 +50,11 @@ public class ConcertServiceImpl implements ConcertService {
 	@Override
 	public ArrayList<Concert> selectConDetail(int concertNo) {
 		return concertDao.selectConDetail(sqlSession, concertNo);
+	}
+	
+	@Override
+	public int selectComCount(int concertNo) {
+		return concertDao.selectComCount(sqlSession, concertNo);
 	}
 
 	@Override
@@ -105,9 +112,27 @@ public class ConcertServiceImpl implements ConcertService {
 	@Override
 	public ArrayList<Concert> locationAllList(Map map) {
 		return concertDao.locationAllList(sqlSession, map);
-		}
+	}
 
-	
+	@Override
+	public ArrayList<ConcertReview> selectComList(PageInfo pi, int concertNo) {
+		return concertDao.selectComList(sqlSession, pi, concertNo);
+	}
+
+	@Override
+	public int selectRevCount(int concertNo) {
+		return concertDao.selectRevCount(sqlSession, concertNo);
+	}
+
+	@Override
+	public ArrayList<Board> selectRevList(PageInfo pi, int concertNo) {
+		return concertDao.selectRevList(sqlSession, pi, concertNo);
+	}
+
+	@Override
+	public ArrayList<Seat> selectSeatPrice(int concertNo) {
+		return concertDao.selectSeatPrice(sqlSession, concertNo);
+	}
 
 
 

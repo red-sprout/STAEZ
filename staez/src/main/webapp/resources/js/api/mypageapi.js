@@ -66,6 +66,17 @@ function loadAnswerAjax(data, callback){
     });
 }
 
+function answerCheckAjax(data, callback){
+    $.ajax({
+        url: contextPath + 'answerCheck.me',
+        data,
+        success: res => callback(res),
+        error: () => {
+            alert('문의 답변을 확인하는데 실패하였습니다');
+        }
+    });
+}
+
 function loadMainPageAjax(data, callback){
     $.ajax({
         url: contextPath + 'loadMainPageAjax.me',
