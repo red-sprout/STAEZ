@@ -121,15 +121,15 @@
 		  FROM email_auth
 		 WHERE authNo = #{authNo}
 		   AND email = #{email}
-		   AND send_time >= CURRENT_TIMESTAMP - INTERVAL '3 minutes';
+		   AND send_time >= CURRENT_TIMESTAMP - INTERVAL '10 minutes'
 	</select>
 	
 	<!-- 이메일로 아이디찾기 -->
 	<select id="findEmailCheck" resultType="string">
-		SELECT user_id
-		  FROM staez_user
-		 WHERE email = #{email}
-		   AND user_name = #{userName};
+	    SELECT user_id
+	      FROM staez_user
+	     WHERE email = #{email}
+	       AND user_name = #{userName}
 	</select>
 	
 	<!-- 유효성 검사 및 사용자 정보 확인 -->
@@ -139,7 +139,7 @@
 	     WHERE user_id = #{userId}
 	       AND phone = #{phone}
 	       AND email = #{email}
-	       AND user_name = #{user_name};
+	       AND user_name = #{user_name}
 	</select>
 	
 	<!-- 새로운 비밀번호 저장 -->
@@ -149,7 +149,7 @@
 	    WHERE user_id = #{userId} 
 	      AND phone = #{phone} 
 	      AND email = #{email}
-	      AND user_name = #{user_name};
+	      AND user_name = #{user_name}
 	</update>
 	
 	<!-- 이메일 존재 여부 확인 -->

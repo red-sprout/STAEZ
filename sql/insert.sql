@@ -1058,7 +1058,7 @@ concert_review(한줄평)
 INSERT INTO concert_review
 VALUES (DEFAULT, 2, 1, '기대안했는데 재밌었습니다', 5, DEFAULT);
 INSERT INTO concert_review
-VALUES (DEFAULT, 3, 2, '조금 아쉬웠어요', 4, DEFAULT);
+VALUES (DEFAULT, 3, 4, '조금 아쉬웠어요', 4, DEFAULT);
 INSERT INTO concert_review
 VALUES (DEFAULT, 4, 4, '졸려서 잤어요', 3, DEFAULT);
 INSERT INTO concert_review
