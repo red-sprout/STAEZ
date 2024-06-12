@@ -356,7 +356,7 @@ public class MypageController {
 	public String updateUserInfo(User user, HttpSession session, Model model) {
 		
 	    int result = mypageService.updateUserInfo(user);
-
+	    System.out.println("result : " + result);
 		if(result > 0) {
 			session.setAttribute("loginUser", userService.loginUser(user));
 			session.setAttribute("alertMsg", "수정되었습니다");
@@ -470,5 +470,12 @@ public class MypageController {
 		}
 		
 	}
+
+	@RequestMapping("sendPhoneAuth.me")
+	@ResponseBody
+	public String authPhone(String phone) {
+		return null;
+	}
+	
 }
 	

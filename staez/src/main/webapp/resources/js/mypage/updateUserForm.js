@@ -115,6 +115,64 @@ $(function() {
     });
 });
 
+
+//관심장르 선택
+$(function() {
+    const genreLike = $("input[name='genreLike']");
+    const buttons = $(".genre-btn");
+
+    updateInput();
+
+    buttons.each(function() {
+        $(this).on('click', function() {
+            const currentButton = $(this);
+            const checkedButtons = $(".genre-btn.checked");
+
+            if (currentButton.hasClass('checked')) {
+                currentButton.toggleClass('checked');
+                updateInput();
+            } else if (checkedButtons.length < 3) {
+                currentButton.toggleClass('checked');
+                updateInput();
+            } else if (checkedButtons.length >= 3) {
+                alert("최대 개수입니다.");
+            }
+        });
+    });
+
+    function updateInput() {
+        const checkedButtons = $(".genre-btn.checked");
+        const texts = checkedButtons.map(function() {
+            return $(this).text().trim();
+        }).get();
+        genreLike.val(texts.join(' '));
+    }
+});
+
+//처음 페이지 로드됐을 때 관심장르 체크
+function firstLikeGenre(){
+    const input = $('input[name=genreLike]');
+    const buttons = $('.genre-btn');
+
+    buttons.each(function() {
+        const button = $(this);
+        if (input.val().includes(button.text().trim())) {
+            button.toggleClass('checked');
+        }
+    });
+}
+
+
+function phoneAuth(){
+    //버튼 클릭 시 작동
+    //랜덤번호 생성
+    //해당 번호 전송 + 인증
+
+    // 3분 카운트
+    //
+
+}
+
 /* 아래부터는 js, jQuery로 변경 예정 */
 
 // 비밀번호 변경
@@ -184,8 +242,7 @@ function withdrawalAuth() {
     const inputPwd = document.querySelector(".withdrawal-tag input[type='password']").value;
 
     authPwdAjax({inputPwd}, (res) => {
-        if (res === 'NNNNY') { //비밀번호 인증 성공
-            
+        if (res === 'NNNNY') { //비밀번호 인증 성공            
             submitBtn.disabled = false;
             
         } else {
@@ -231,37 +288,6 @@ function inputAlert(input, text, color){
 }
 
 
-//관심장르 선택
-document.addEventListener('DOMContentLoaded', () => {
-    const genreLike = document.querySelector("input[name='genreLike']");
-    const buttons = document.querySelectorAll('.genre-btn');
-
-    updateInput();
-    
-    buttons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            const button = event.currentTarget;
-            const checkedButtons = document.querySelectorAll('.genre-btn.checked');
-            console.log(checkedButtons.length);
-
-            if (button.classList.contains('checked')) {
-                button.classList.toggle('checked');
-                updateInput();
-            } else if (checkedButtons.length < 3) {
-                button.classList.toggle('checked');
-                updateInput();
-            } else if((checkedButtons.length >= 3)){
-                alert("최대 개수입니다.");
-            }
-        });
-    });
-    
-    function updateInput() {
-        const checkedButtons = document.querySelectorAll('.btn-staez.checked');
-        const texts = Array.from(checkedButtons).map(button => button.innerText.trim());
-        genreLike.value = texts.join(' ');
-    }
-});
 
 //주소 불러오기 - kakao 우편번호 서비스 api (https://postcode.map.daum.net/guide)
 function execDaumPostcode() {
@@ -375,19 +401,6 @@ function firstEmailDomain(){
         }
     })
 }
-
-//처음 페이지 로드됐을 때 관심장르 체크
-function firstLikeGenre(){
-    const input = document.querySelector("input[name='genreLike']");
-    const buttons = Array.from(document.querySelectorAll('.genre-btn'));
-    
-    buttons.forEach(button => {
-        if(input.value.includes(button.innerText)){
-            button.classList.toggle('checked')     
-        }
-    });
-}
-
 
 // 페이지가 로드되면 init 함수를 호출하여 초기 값을 설정
 window.onload = init;
