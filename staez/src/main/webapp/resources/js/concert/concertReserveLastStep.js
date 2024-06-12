@@ -124,7 +124,6 @@ function payMethodChange(_this){
     } else if(payMethod === "카카오페이"){
        className = '.kakaopay'
     }
-    console.log(className)
     const nextBtns = document.querySelectorAll(".next-step-area");
 
     for(let n of nextBtns){
@@ -133,19 +132,22 @@ function payMethodChange(_this){
 
     let nextBtn = document.querySelector(className);
 
-    nextBtn.classList.remove("hidden")
-    
-    
-    
+    nextBtn.classList.remove("hidden")   
 }
 
 function kakaoPay(){
-    ajaxKakaoPay((res)=>kakaoPayResult(res))
+    const concertTitle = document.querySelector("input[name = 'concertTitle']").value;
+    const totalAmount = document.querySelector("input[name = 'totalAmount']").value;
+    ajaxKakaoPay({
+        concertTitle,
+        totalAmount
+    },(res)=>kakaoPayResult(res))
 
 }
 
 function kakaoPayResult(res){
     console.log(res)
+    location.href=res.next_redirect_pc_url
 }
 
 

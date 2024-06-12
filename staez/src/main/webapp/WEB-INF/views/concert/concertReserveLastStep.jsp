@@ -124,6 +124,9 @@
                         <span>이전단계</span>
                     </div>
                     <div class="next-step-form">
+                        <input type="hidden" name="concertTitle" value="${concert.concertTitle}">
+                        <input type="hidden" name="totalAmount" value="${totalAmount}">
+                       
                         <input type="hidden" name="userNo" value="${userNo}">
                         <input type="hidden" name="concertNo" value="${concert.concertNo}">
                         <input type="hidden" name="recipientName" value="${recipientName}">

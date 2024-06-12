@@ -106,11 +106,13 @@ function ajaxinsertReserve(data, callback){
         }
     }) 
 }   
-
-function ajaxKakaoPay(callback){
+    
+function ajaxKakaoPay(data, callback){
     $.ajax({
         type: "POST",
         url : "kakaopay.co",
+        dataType:"json",
+        data : data,
         success : function(result){
             callback(result)
         }, error : function(){
