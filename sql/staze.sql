@@ -413,7 +413,7 @@ COMMENT ON COLUMN public.reply_like.status
 CREATE TABLE public.concert
 (
     concert_no integer PRIMARY KEY DEFAULT NEXTVAL('seq_concert'),
-    theater_no integer NOT NULL,
+    theater_no integer,
     concert_title character varying(150) NOT NULL,
     concert_plot text NOT NULL,
     concert_runtime integer NOT NULL,

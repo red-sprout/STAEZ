@@ -117,7 +117,6 @@ function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput, e
         emailSecretCheckResult.innerText = "인증 코드가 일치하지 않습니다.";
         // 다음 버튼 비활성화
         document.getElementById("findEmailCheck").disabled = true;
-        findEmailCheckButton.style.backgroundColor = "white";
     } else if (result === "emailSecretCodeCheck Yes") { // 입력값이 데이터베이스 값과 일치할 때
         emailSecretCheckResult.style.color = "green";
         emailSecretCheckResult.innerText = "인증이 확인되었습니다.";
@@ -129,7 +128,6 @@ function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput, e
         emailSecretCheckResult.innerText = "인증을 확인할 수 없습니다.";
         // 다음 버튼 비활성화
         document.getElementById("findEmailCheck").disabled = true;
-        findEmailCheckButton.style.backgroundColor = "white";
     }
     emailSecretErrorMessage.style.display = "none"; // 에러 메시지 숨기기
 }
@@ -158,9 +156,6 @@ function startTimer() {
         if (duration < 0) {
             clearInterval(timer);
             timerDisplay.textContent = "시간 초과";
-
-            // 시간 초과 시 데이터베이스로 업데이트 요청 보내기 (Ajax를 사용하여 비동기 요청)
-            updateVerificationCode();
         }
     }, 1000);
 }
@@ -307,15 +302,15 @@ function clickGetId(){
     let email = document.getElementById("input-value-email").value;
     let userName = document.getElementById("user_name").value;
     getIdbyEmail({checkFindEmail: email, userName}, function(res){
-        console.log(res)
-        if (res !== "emailSecretCodeCheck No"){
-            document.querySelector("#emailFindId").innerHTML = res;
+        if (res !== ""){
+            document.querySelector("#emailFindId").innerHTML = "아이디 : " + res;
         } else {
             console.log(document.querySelector("#emailFindId"));
             document.querySelector("#emailFindId").innerText = "해당 이메일이 등록된 아이디가 없습니다.";
         }
     });
 }
+
 
 // 로그인 버튼 클릭 이벤트
 function LoginPage(){

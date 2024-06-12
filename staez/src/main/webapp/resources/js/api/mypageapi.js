@@ -88,3 +88,26 @@ function loadMainPageAjax(data, callback){
         }
     });
 }
+
+
+function sendAuthNumAjax(data, callback){
+    $.ajax({
+        url: contextPath + 'sendPhoneAuth.me',
+        data,
+        success: res => callback(res),
+        error: () => {
+            alert('인증번호 전송에 실패하였습니다');
+        }
+    });
+}
+
+function checkAuthNumAjax(data, callback){
+    $.ajax({
+        url: contextPath + '',
+        data,
+        success: res => callback(res),
+        error: () => {
+            alert('인증번호 확인에 실패하였습니다');
+        }
+    });
+}
