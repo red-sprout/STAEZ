@@ -170,7 +170,7 @@
                             </td>
                             <input type="hidden" name="phone" readonly>
                             <td class="input-btn">
-                                <button type="button">인증번호</button>
+                                <button type="button" onclick="sendAuthNum()">인증번호</button>
                             </td>
                         </tr>
                         <c:remove var="phone" />
@@ -180,7 +180,7 @@
                             <td class="input-box" colspan="2">
                                 <div class="auth-num">
                                     <input type="text" class="auth-num-input" placeholder="인증번호 6자리"  maxlength="6">
-                                    <button type="button">인증</button>                                   
+                                    <button type="button" onclick="checkAuthNum()">인증</button>                                   
                                 </div>
                             </td>
                         </tr>

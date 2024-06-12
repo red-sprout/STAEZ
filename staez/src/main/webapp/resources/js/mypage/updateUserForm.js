@@ -163,14 +163,34 @@ function firstLikeGenre(){
 }
 
 
-function phoneAuth(){
+function sendAuthNum(){
     //버튼 클릭 시 작동
     //랜덤번호 생성
+    const randNo = Math.floor(100000 + Math.random() * 900000).toString().padStart(6, '0');
+    const phone = $('input[name=phone]').val();
+    console.log(randNo);
+    console.log(phone);
+    sendAuthNumAjax({authNo : randNo,
+                     phone : phone
+    }, res => {
+        if(res === "YYYYY"){
+            console.log('성공');
+        }
+    });
+
     //해당 번호 전송 + 인증
 
     // 3분 카운트
     //
 
+}
+
+function ckeckAuthNum(){
+
+}
+
+function startTimer(){
+    let timer = 180;
 }
 
 /* 아래부터는 js, jQuery로 변경 예정 */

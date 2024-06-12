@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,14 +22,17 @@ import com.spring.staez.common.template.Pagination;
 import com.spring.staez.community.model.dto.BoardListDto;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
-import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.mypage.service.MypageService;
 import com.spring.staez.user.model.dto.PaymentsInfoDto;
 import com.spring.staez.user.model.vo.ProfileImg;
-import com.spring.staez.user.model.vo.Reserve;
 import com.spring.staez.user.model.vo.User;
 import com.spring.staez.user.service.UserService;
+
+import net.nurigo.sdk.NurigoApp;
+import net.nurigo.sdk.message.exception.NurigoMessageNotReceivedException;
+import net.nurigo.sdk.message.model.Message;
+import net.nurigo.sdk.message.service.DefaultMessageService;
 
 @Controller
 public class MypageController {
@@ -41,6 +45,12 @@ public class MypageController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	@Value("${coolsms.api.key}")
+    private String serviceKey;
+	
+	@Value("${coolsms.api.secret}")
+	private String secretKey;
 	
 
 	//마이페이지 메인 출력
@@ -473,8 +483,33 @@ public class MypageController {
 
 	@RequestMapping("sendPhoneAuth.me")
 	@ResponseBody
-	public String authPhone(String phone) {
-		return null;
+	public String authPhone(String authNo, String phone) {   
+		
+		System.out.println("휴대폰번호 : " + phone);
+		System.out.println("인증번호 : " + authNo);
+		
+		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(serviceKey, secretKey, "https://api.coolsms.co.kr");
+		// Message 패키지가 중복될 경우 net.nurigo.sdk.message.model.Message로 치환하여 주세요
+		Message message = new Message();
+		message.setFrom("계정에서 등록한 발신번호 입력"); //계정에서 등록한 발신번호 입력
+		message.setTo("수신번호 입력");
+		message.setText("SMS는 한글 45자, 영자 90자까지 입력할 수 있습니다.");
+
+		try {
+		  // send 메소드로 ArrayList<Message> 객체를 넣어도 동작합니다!
+		  messageService.send(message);
+		} catch (NurigoMessageNotReceivedException exception) {
+		  // 발송에 실패한 메시지 목록을 확인할 수 있습니다!
+		  System.out.println("실패");
+		  System.out.println(exception.getFailedMessageList());
+		  System.out.println(exception.getMessage());
+		} catch (Exception exception) {
+		  System.out.println(exception.getMessage());
+		}
+		
+		
+		
+		return "YYYYY";
 	}
 	
 }
