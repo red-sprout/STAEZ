@@ -60,14 +60,16 @@ public class UserDao {
         return sqlSession.selectOne("userMapper.emailSecretCodeCheck", params);
     }
     
-  //이메일로 아이디찾기
-	public String findEmailCheck(SqlSessionTemplate sqlSession, String checkFindEmail, String userName) {
+    // 이메일로 아이디찾기
+    public String findEmailCheck(SqlSessionTemplate sqlSession, String checkFindEmail, String userName) {
         Map<String, Object> params = new HashMap<>();
         params.put("email", checkFindEmail);
-        params.put("user_name", userName);
-        System.out.println("이메일로 아이디찾기 : " + params);
-		return sqlSession.selectOne("userMapper.findEmailCheck",params);
-	}
+        params.put("userName", userName);
+        System.out.println("이메일로 아이디찾기 : " + params);  // 이 줄을 추가하여 값 확인
+        String result = sqlSession.selectOne("userMapper.findEmailCheck", params);
+        System.out.println("쿼리 결과: " + result);  // 이 줄을 추가하여 쿼리 결과 확인
+        return result;
+    }
 	
 	// 유효성 검사 및 사용자 정보 확인
 	public String findUserByIdEmailPhone(SqlSessionTemplate sqlSession, String user_id, String phone, String email, String user_name) {

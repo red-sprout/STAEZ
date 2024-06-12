@@ -175,13 +175,13 @@ public class UserController {
 		}
 	}
 
-	// 이메일로 아이디찾기
-	@ResponseBody
-	@GetMapping("findEmailCheck.me")
-	public String findEmailCheck(String checkFindEmail, String userName) {
-		String result = userService.findEmailCheck(checkFindEmail,userName);
-		return result;
-	}
+    // 이메일로 아이디찾기
+    @ResponseBody
+    @GetMapping("findEmailCheck.me")
+    public String findEmailCheck(String checkFindEmail, String userName) {
+        String result = userService.findEmailCheck(checkFindEmail, userName);
+        return result;
+    }
 
 	// 비밀번호 찾기 새로운 비밀번호 업데이트
 	@PostMapping("/checkFindNewPwd.me")
