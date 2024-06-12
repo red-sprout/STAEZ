@@ -204,3 +204,18 @@ function ajaxCategoryListAPI(callback){
         }
     });
 }
+
+
+  // 카테고리별 콘서트 내용 그려주는: 슬라이더랑, 그리드
+  function detailapi(callback){
+    $.ajax({
+        url: contextPath + "detailapi.co",
+        data: data,
+        success : function(list){
+            console.log(list);
+            callback(list);
+        }, error(){
+            console.log("실패");
+        }
+    });
+}

@@ -15,7 +15,7 @@
     <!-- 제이쿼리 -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <!-- 적용 css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertAPIDetailMain.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertDetailMain.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertDetail.css">
     <!-- 폰트어썸 -->
     <script src="https://kit.fontawesome.com/65a2de1a44.js" crossorigin="anonymous"></script>
@@ -34,10 +34,6 @@
     </div>
 
     <!-- 공연 navi -->
-    <input type="hidden" name="userNo" value="${loginUser.userNo}">
-    <input type="hidden" name="concertNo" value="${con.concertNo}">
-
-    <!-- 공연 navi -->
     <div class="concert-navi-div">
         <ul class="concert-ul">
           <!-- 자스로 그려줌 -->
@@ -49,7 +45,7 @@
         <div class="concert-detail-upper-div concert-detail-body-div">
             <div class="concert-detail-pic">
                 <!-- 악 수정하고싶어 -->
-                <img src="${pageContext.request.contextPath}${con.filePath}${con.changeName}" alt="">
+                <img src="${conapi.filePath}" alt="">
             </div>
             <!-- 좋아요 버튼 -->
             <div class="concert-detail-like">
@@ -57,41 +53,39 @@
                     <i class="fa-regular fa-heart"></i>
                     <span class="concert-likeCount"></span>
                 </button> <!-- 길이조절필요 -->
-                <div class="concert-detail-like-commu"><a href="main.cm"><span><b>${con.concertTitle}<br>커뮤니티로 가기</b></span></a></div>
+                <div class="concert-detail-like-commu"><a href="main.cm"><span><b>${conapi.concertTitle}<br>커뮤니티로 가기</b></span></a></div>
             </div>
         </div>
         <div class="concert-detail-body-div">
             <table class="concert-detail-table">
                 <tr>
                     <td>
-                        <c:forEach var="i" begin="1" end="${com[0].score}"> <!-- 배열 길이만큼 나눠서 avg 만들고, round 처리 필요-->
-                            <img id="concert-detail-starImg" src="${pageContext.request.contextPath}/resources/img/concert/star.png" alt="">
-                        </c:forEach>
+                        <!-- <c:forEach var="i" begin="1" end="${com[0].score}"> --> <!-- 배열 길이만큼 나눠서 avg 만들고, round 처리 필요-->
+                           <!-- <img id="concert-detail-starImg" src="${pageContext.request.contextPath}/resources/img/concert/star.png" alt="">
+                        </c:forEach> -->
                     </td>
                 </tr>
                 <tr>                    
-                    <td><h2>&lt;${con.concertTitle}&gt;</h2></td>
+                    <td><h2>&lt;${conapi.concertTitle}&gt;</h2></td>
                 <tr>
                 <tr>                    
                     <td></td>
                 <tr>
                     <td><b><span>공연기간&nbsp&nbsp</span></b>
-                        <span id="conStartDate">${con.startDate}</span> ~ <span id="conEndDate">${con.endDate}</span></td>
+                        <span id="conStartDate">${conapi.startDate}</span> ~ <span id="conEndDate">${conapi.endDate}</span></td>
                 </tr>
                 <tr>
-                    <td><b><span>공연장소&nbsp&nbsp</span></b><span>${con.theaterName}</span></td>
+                    <td><b><span>공연장소&nbsp&nbsp</span></b><span>${conapi.theaterName}</span></td>
                 </tr>
                 <tr>
-                    <td><b><span>공연시간&nbsp&nbsp</span></b><span>${con.concertRuntime}분</span></td>
+                    <td><b><span>공연시간&nbsp&nbsp</span></b><span>${conapi.concertPlot}분</span></td>
                 </tr>
                 <tr>
-                    <td><b><span>관람연령&nbsp&nbsp</span></b><span>${con.ageLimit}</span></td>
+                    <td><b><span>관람연령&nbsp&nbsp</span></b><span>${conapi.ageLimit}</span></td>
                 </tr>
                 <tr><!-- 가격??? -->
                     <td><b><span>가격&nbsp&nbsp</span></b><span>
-                        <c:forEach var="s" items="${s}">
-                            ${s.grade}석 ${s.price}원&nbsp&nbsp
-                        </c:forEach>
+                        ${conapi.path}
                     </span></td>
                     <!-- 가격을세로로 적고싶을 때 -->
                     <!-- <td colspan="2">
@@ -112,7 +106,7 @@
                     </td> -->
                 </tr>
 
-                    <td><b><span>주최&nbsp&nbsp</span></b><span>${con.concertProduction}</span></td>
+                    <td><b><span>주최&nbsp&nbsp</span></b><span>${conapi.concertProduction}</span></td>
                 </tr>
             </table>
         </div>
@@ -149,8 +143,8 @@
         <ul class="concert-down-ul">
             <li onclick="goConDetail()" class="conDetail1"><a><h3>공연상세정보</h3></a></li>
             <li onclick="goSellDetail()" class="conDetail2"><a><h3>판매정보</h3></a></li>
-            <li onclick="goCommentDetail()" class="conDetail3"><a><h3>한줄평(<c:out value="${fn:length(com)}" />)</h3></a></li>
-            <li onclick="goReviewDetail()" class="conDetail4"><a><h3>관람후기(<c:out value="${fn:length(rev)}" />)</h3></a></li>
+            <li onclick="goCommentDetail()" class="conDetail3"><a><h3>한줄평()</h3></a></li>
+            <li onclick="goReviewDetail()" class="conDetail4"><a><h3>관람후기()</h3></a></li>
         </ul>
         <hr class="concert-detail-hr">
         <br>

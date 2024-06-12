@@ -22,6 +22,7 @@
         <jsp:include page="../common/header.jsp" />
     </div>
     <!-- 공연 navi -->
+    <input type="hidden" name="concertNo" value="${con.concertNo}">
     <div class="concert-navi-div">
         <ul class="concert-ul">
           <!-- 자스로 그려줌 -->

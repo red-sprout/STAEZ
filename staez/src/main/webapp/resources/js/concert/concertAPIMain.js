@@ -33,9 +33,7 @@ $(function() { // list는 컨트롤러에서 받아온 것
 
 // 슬라이더 그려주기
 function drawSliderMain(list, sliderContent){
-  // const sliderContentDiv = document.createElement('div');
-  // const gridContentDiv = document.createElement('div');
-  
+
   sliderContent.innerHTML =``;
 
   if(list.length === 0){
@@ -43,16 +41,11 @@ function drawSliderMain(list, sliderContent){
   }
   
   for (let c of list) {
-
-    // 제일 마지막으로 등록된 공연만 클릭되는 이유?
-
-    // ChatGPT
-    // sliderContent.onclick 이벤트를 각각의 sliderContent에 바인딩할 때, 클로저(closure) 문제가 발생할 수 있습니다. 클로저 문제란 이벤트 핸들러 함수가 외부 변수를 참조할 때, 이벤트 핸들러 함수가 정의된 시점의 변수 값으로만 접근한다는 것을 의미합니다. 이 경우에는 각각의 이벤트 핸들러 함수가 아닌 마지막 이벤트 핸들러 함수가 전역 변수인 c의 최종 값으로 접근합니다.
-    // 이 문제를 해결하기 위해서는 클로저 문제를 회피해야 합니다. 각각의 이벤트 핸들러 함수에서 c 변수를 받아오는 방식으로 수정하면 됩니다. 아래는 수정된 코드입니다.
     const concertDiv = document.createElement('div');
     concertDiv.className = 'concert-main-upper-pic-div';
     
     concertDiv.innerHTML += `<img src="` + c.poster + `"alt="">`
+                             + `<input type="hidden" name="concertId" value="` + c.mt20id + `">`
                                   + `<div class="concert-main-upper-sen-div">
                                       <p><span><b><h2>` + c.prfnm + `</h2></span></b></p>
                                       <p><span>` + c.fcltynm + `</span></p>
@@ -63,7 +56,7 @@ function drawSliderMain(list, sliderContent){
 
     // 임시, 공연세부페이지로
     concertDiv.onclick = function() {
-      location.href = 'detailapi.co?mt20id=' + c.mt20id;
+      location.href = 'condeapi.co?concertId=' + c.mt20id;
     };
 
   }
@@ -84,7 +77,8 @@ function drawGridMain(list, gridContent){
 
     const concertGridDiv = document.createElement('div');
     concertGridDiv.className = 'concert-main-grid-div';
-    concertGridDiv.innerHTML += `<div>`
+    concertGridDiv.innerHTML += `<input type="hidden" name="concertId" value="` + c.mt20id + `">`
+                              +  `<div>`
                               +     `<img src="` + c.poster + `"alt="">`
                               + `</div>`
                               + `<div>`
@@ -95,7 +89,7 @@ function drawGridMain(list, gridContent){
                             
     gridContent.appendChild(concertGridDiv);                   
     concertGridDiv.onclick = function goDetail(){
-      location.href = 'detailapi.co?mt20id=' + c.mt20id;
+      location.href = 'condeapi.co?concertId=' + c.mt20id;
     }
   }
 
@@ -175,7 +169,7 @@ function drawAllList(list, gridContent){
                               
       gridContent.appendChild(concertGridDiv);                   
       concertGridDiv.onclick = function goDetail(){
-        location.href = 'detailapi.co?mt20id=' + c.mt20id;
+        location.href = 'condeapi.co?concertId=' + c.mt20id;
       }
     }
   } else {
@@ -221,7 +215,7 @@ function drawPopular(list, gridContent){
                             
     gridContent.appendChild(concertGridDiv);                   
     concertGridDiv.onclick = function goDetail(){
-      location.href = 'detailapi.co?mt20id=' + c.mt20id;
+      location.href = 'condeapi.co?concertId=' + c.mt20id;
     }
   }
 
@@ -266,7 +260,7 @@ function drawLatest(list, gridContent){
                               
       gridContent.appendChild(concertGridDiv);                   
       concertGridDiv.onclick = function goDetail(){
-        location.href = 'detailapi.co?mt20id=' + c.mt20id;
+        location.href = 'condeapi.co?concertId=' + c.mt20id;
       }
     }
   } else {
@@ -311,7 +305,7 @@ function drawHighscore(list, gridContent){
                               
       gridContent.appendChild(concertGridDiv);                   
       concertGridDiv.onclick = function goDetail(){
-        location.href = 'detailapi.co?mt20id=' + c.mt20id;
+        location.href = 'condeapi.co?concertId=' + c.mt20id;
       }
     }
 
@@ -365,7 +359,7 @@ function drawLocation(list, gridContent){
                               
       gridContent.appendChild(concertGridDiv);                   
       concertGridDiv.onclick = function goDetail(){
-        location.href = 'detailapi.co?mt20id=' + c.mt20id;
+        location.href = 'condeapi.co?concertId=' + c.mt20id;
       }
   }
 
@@ -427,7 +421,7 @@ function drawLocationAll(list, gridContent){
                             
     gridContent.appendChild(concertGridDiv);                   
     concertGridDiv.onclick = function goDetail(){
-      location.href = 'detailapi.co?mt20id=' + c.mt20id;
+      location.href = 'condeapi.co?concertId=' + c.mt20id;
     }
     
     }
