@@ -170,26 +170,19 @@
                             </td>
                             <input type="hidden" name="phone" readonly>
                             <td class="input-btn">
-                                <button type="button" onclick="sendAuthNum()">인증번호</button>
+                                <button type="button">인증번호전송</button>
                             </td>
                         </tr>
                         <c:remove var="phone" />
-
-                        <tr>
+                        <tr class="phone-section">
                             <th></th>
                             <td class="input-box" colspan="2">
                                 <div class="auth-num">
+                                    <span class="timer"><h4></h4></span>
                                     <input type="text" class="auth-num-input" placeholder="인증번호 6자리"  maxlength="6">
-                                    <button type="button" onclick="checkAuthNum()">인증</button>                                   
+                                    <button type="button" disabled>인증</button>                                   
                                 </div>
                             </td>
-                        </tr>
-                        <tr class="warning-text hidden">
-                            <td></td>
-                            <td>
-                                <h5>잘못된 인증번호입니다</h5>
-                            </td>
-                            <td></td>
                         </tr>
 
                         <c:set var="email" value="${loginUser.email}" />
@@ -214,25 +207,18 @@
                                 </div>
                             </td>
                             <td class="input-btn">
-                                <button type="button">인증</button>
+                                <button type="button">인증번호전송</button>
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="email-section">
                             <th></th>
                             <td class="input-box" colspan="2">
                                 <div class="auth-num">
+                                    <span class="timer"><h4></h4></span>
                                     <input type="text" class="auth-num-input" placeholder="인증번호 6자리" maxlength="6">
-                                    <button type="button">인증</button>                                   
+                                    <button type="button" disabled>인증</button>                                   
                                 </div>
                             </td>
-                        </tr>
-
-                        <tr class="warning-text hidden">
-                            <td></td>
-                            <td>
-                                <h5>잘못된 인증번호입니다</h5>
-                            </td>
-                            <td></td>
                         </tr>
                         <input type="hidden" name="email" readonly>
                         <c:remove var="email" />
@@ -277,6 +263,10 @@
                 </table>
             </div>
 
+            <input type="checkbox" id="nicknameCheck" class="hidden">
+            <input type="checkbox" id="addrCheck" class="hidden">
+            <input type="checkbox" id="phoneCheck" class="hidden">
+            <input type="checkbox" id="emailCheck" class="hidden">
             <div id="submit-btn">
                 <button type="submit" class="btn-staez purple">
                     <h3>저장</h3>

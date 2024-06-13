@@ -484,16 +484,15 @@ public class MypageController {
 	@RequestMapping("sendPhoneAuth.me")
 	@ResponseBody
 	public String authPhone(String authNo, String phone) {   
-		
 		System.out.println("휴대폰번호 : " + phone);
 		System.out.println("인증번호 : " + authNo);
 		
 		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(serviceKey, secretKey, "https://api.coolsms.co.kr");
 		// Message 패키지가 중복될 경우 net.nurigo.sdk.message.model.Message로 치환하여 주세요
 		Message message = new Message();
-		message.setFrom("계정에서 등록한 발신번호 입력"); //계정에서 등록한 발신번호 입력
-		message.setTo("수신번호 입력");
-		message.setText("SMS는 한글 45자, 영자 90자까지 입력할 수 있습니다.");
+		message.setFrom("01053942839"); //계정에서 등록한 발신번호 입력
+		message.setTo(phone);
+		message.setText("인증번호는 [" + authNo + "]입니다.");
 
 		try {
 		  // send 메소드로 ArrayList<Message> 객체를 넣어도 동작합니다!
@@ -506,8 +505,6 @@ public class MypageController {
 		} catch (Exception exception) {
 		  System.out.println(exception.getMessage());
 		}
-		
-		
 		
 		return "YYYYY";
 	}

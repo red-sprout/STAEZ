@@ -177,28 +177,33 @@
 }
 
 /*6자리 숫자 인증 input*/
-#profile .input-box .auth-num-input{
-    width: 40%;
+#profile .auth-num{
+    height: 100%;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+} 
+
+#profile .auth-num>.auth-num-input{
+    width: 25%;
     height: 30px;
 
     border: none;
     border-bottom: 1px solid black;
 
-    text-align: left;
-
-    padding-left: 10px;
+    text-align: center;
 }
 
+#profile .auth-num>.timer{
+    color: #4aa500;
+    text-align: end;
+}
 
-#profile .auth-num{
-    height: 100%;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: flex-end;
-    
-} 
+#profile .auth-num>.timer>h4{
+    margin-right: 10px;
+}
 
 #profile .auth-num>button{
     width: 80px;
@@ -365,6 +370,8 @@
     width: 80px;
     height: 30px;
 
+    font-size: 12px;
+    
     background: none;
     border: 1px solid black;
     border-radius: 10px;
