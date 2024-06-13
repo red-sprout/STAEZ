@@ -38,61 +38,12 @@ public class ConcertAPIController {
 	@Autowired
 	private ConcertService concertService;
 	
-
-	
 	
 	@GetMapping("conapi.co")
 	public String concertMain() {
 		return "concert/concertAPIMain";
 	}
 	
-	@ResponseBody
-	@GetMapping("conapiCate.co")
-	public String conapiCate() {
-		
-		
-		
-		
-		String[] gencode = new String []{"AAAA", "BBBC", "BBBE", "CCCA", "CCCC", "CCCD", "EEEA", "EEEB", "GGGA"};
-		String url = "http://kopis.or.kr/openApi/restful/pblprfr";
-		
-		for(int i = 0; i <= gencode.length; i++) {
-			url += "?service=" + serviceKey;
-			url += "&returnType=json"; // 리턴값은 기본이 xml이니까 json으로 하고 싶어서 넣어줌
-			url += "&stdate=20240101"; // 시작일
-			url += "&eddate=20241231"; //끝나는일
-			url += "&cpage=1"; //현재페이지
-			url += "&rows=1"; // 포스터 경로
-			url += "&shcate=" + gencode[i]; //장르코드			
-		}
-		URL requestURL = new URL(url);
-		HttpURLConnection urlConnection = (HttpURLConnection)requestURL.openConnection();
-		urlConnection.setRequestMethod("GET"); // 안해줘도 기본값 있으나 연습으로 해봄
-		
-		BufferedReader br =	new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-		
-		String responseText = "";
-		String line;
-		while((line = br.readLine()) != null) {
-			responseText += line;
-		}
-		
-		// xml to jason
-		org.json.JSONObject xmltojsonObj = XML.toJSONObject(responseText);
-		String jsonObj = xmltojsonObj.toString();
-		
-		JsonObject totalObj = JsonParser.parseString(jsonObj).getAsJsonObject();
-		JsonObject dbsObj = totalObj.getAsJsonObject("dbs"); //totalObj 안에 있는 키로 object 꺼내올 수 있다
-		
-		br.close();
-		urlConnection.disconnect();
-		
-		ArrayList genrenm = dbsObj.get("genrenm").getAsString();
-		
-		
-		return new Gson().toJson(list);
-	}
-
 	@ResponseBody
 	@RequestMapping(value="mainconapi.co", produces="application/json; charset=UTF-8")
 	public String getConInfoAjax() throws IOException {
@@ -221,7 +172,7 @@ public class ConcertAPIController {
 		
 		br.close();
 		urlConnection.disconnect();
-	System.out.println(dbObj.toString());
+		System.out.println(dbObj.toString());
 				
 		return dbObj.toString();
 		

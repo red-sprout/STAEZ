@@ -24,7 +24,7 @@ function drawConNavi(list){
     naviLi.innerHTML = ``;
     naviLi.innerHTML = `<h2>`+ c.genrenm +`</h2>`;
 
-    naviLi.setAttribute("onclick", `location.href ='main.co?categoryNo=`+ c.mt20id +`'`)
+    naviLi.setAttribute("onclick", `location.href ='main.co?genre=`+ c.mt20id +`'`)
 
     concertNaviArea.appendChild(naviLi);
   }
