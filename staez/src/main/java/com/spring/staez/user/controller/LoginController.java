@@ -61,6 +61,7 @@ public class LoginController {
    //로그인
    @PostMapping("login.me")
    public String loginUser(User u, HttpSession session) {
+	  
       User loginUser = userService.loginUser(u);
       if(loginUser == null || !bcryptPasswordEncoder.matches(u.getUserPwd(), loginUser.getUserPwd())) {
          session.setAttribute("alertMsg", "아이디 또는 패스워드가 일치하지 않습니다.");
