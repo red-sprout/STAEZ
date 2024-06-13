@@ -28,7 +28,7 @@
           <!-- 자스로 그려줌 -->
         </ul>
     </div>
-    <input type="hidden" name="categoryNo" value="${cat.categoryNo}">
+    <input type="hidden" name="genrenm" value="${concate.genrenm}">
 
     <section class="concert-main-upper-section">
 
@@ -74,7 +74,7 @@
 
     <section class="running-concert">
         <br><br>
-        <h3>현재 진행중인&nbsp; <b id="concert-genre">${cat.categoryName}</b></h3>
+        <h3>현재 진행중인&nbsp; <b id="concert-genre">${concate.genrenm}</b></h3>
         <br>
     </section>
     <hr class="concert-main-hr">

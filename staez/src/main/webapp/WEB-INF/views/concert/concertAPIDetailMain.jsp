@@ -60,9 +60,9 @@
             <table class="concert-detail-table">
                 <tr>
                     <td>
-                        <!-- <c:forEach var="i" begin="1" end="${com[0].score}"> --> <!-- 배열 길이만큼 나눠서 avg 만들고, round 처리 필요-->
-                           <!-- <img id="concert-detail-starImg" src="${pageContext.request.contextPath}/resources/img/concert/star.png" alt="">
-                        </c:forEach> -->
+                        <c:forEach var="i" begin="1" end="${com[0].score}"> <!-- 배열 길이만큼 나눠서 avg 만들고, round 처리 필요-->
+                            <img id="concert-detail-starImg" src="${pageContext.request.contextPath}/resources/img/concert/star.png" alt="">
+                        </c:forEach>
                     </td>
                 </tr>
                 <tr>                    
@@ -104,10 +104,11 @@
                             </tr>
                         </table>
                     </td> -->
+                <c:if test="${not empty conapi.concertProduction}">
                 </tr>
-
                     <td><b><span>주최&nbsp&nbsp</span></b><span>${conapi.concertProduction}</span></td>
                 </tr>
+                </c:if>
             </table>
         </div>
         
