@@ -265,3 +265,17 @@ span{
 .email-container{
     min-width: 310px;
 }
+
+/* 이메일 인증 확인 */
+#checkResultEamil {
+    font-size: 14px;
+    display: none; /* 기본적으로 숨김 */
+}
+
+/* 중복체크 */
+.checkResult {
+    text-align: left; /* 원하는 정렬 방법으로 변경 가능 */
+    /* margin-left: 15px; 동일한 위치 정렬을 위한 간격 추가 */
+    width: 100%; /* 부모 요소의 너비에 맞춥니다 */
+    display: none;
+}

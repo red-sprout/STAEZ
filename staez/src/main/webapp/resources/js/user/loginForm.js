@@ -1,29 +1,11 @@
 import config from './config.js';
 document.addEventListener('DOMContentLoaded', function() {
     // 아이디 찾기 버튼
-    var findIdButton = document.getElementById('findIdButton');
-    if (findIdButton) {
-        findIdButton.addEventListener('click', function() {
-            window.location.href = 'findIdForm.me';
-        });
-    }
-
+    findIdButton();
     // 비밀번호 찾기 버튼
-    var findPwdButton = document.getElementById('findPwdButton');
-    if (findPwdButton) {
-        findPwdButton.addEventListener('click', function() {
-            window.location.href = 'findPwdForm.me';
-        });
-    }
-
+    findPwdButton();
     // 회원가입 버튼
-    var signinButton = document.getElementById('signinButton');
-    if (signinButton) {
-        signinButton.addEventListener('click', function() {
-            window.location.href = 'insertForm.me';
-        });
-    }
-
+    insertButton();
     // 네이버 간편로그인
     naverLogin();
     // 카카오 간편로그인
@@ -31,6 +13,36 @@ document.addEventListener('DOMContentLoaded', function() {
     // 구글 간편로그인
     googleLogin();
 });
+
+function findIdButton(){
+    // 아이디 찾기 버튼
+    var findIdButton = document.getElementById('findIdButton');
+    if (findIdButton) {
+        findIdButton.addEventListener('click', function() {
+            window.location.href = 'findIdForm.me';
+        });
+    }
+}
+
+function findPwdButton(){
+    // 비밀번호 찾기 버튼
+    var findPwdButton = document.getElementById('findPwdButton');
+    if (findPwdButton) {
+        findPwdButton.addEventListener('click', function() {
+            window.location.href = 'findPwdForm.me';
+        });
+    }
+}
+
+function insertButton(){
+    // 회원가입 버튼
+    var signinButton = document.getElementById('signinButton');
+    if (signinButton) {
+        signinButton.addEventListener('click', function() {
+            window.location.href = 'insertForm.me';
+        });
+    }
+}
 
 // 네이버 로그인 설정
 function naverLogin() {
