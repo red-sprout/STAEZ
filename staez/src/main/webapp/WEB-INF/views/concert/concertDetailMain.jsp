@@ -26,21 +26,25 @@
 </head>
 
 <body>
-    <div>
+    <header>
         <jsp:include page="../common/header.jsp" />
 
         <!-- 적용 자바스크립트 -->
 
-    </div>
+    </header>
+    <main>
 
-    <!-- 공연 navi -->
+    <!-- 공연 navi --> <!-- !!!!!!!!!!! div랑 스타일 삭제 필요 !!!!!!!!!!!! -->
     <input type="hidden" name="userNo" value="${loginUser.userNo}">
     <input type="hidden" name="concertNo" value="${con.concertNo}">
 
-    <div>
+    <div class="concert-navi-div" style="display: flex; justify-content: space-around;">
         <ul class="concert-ul">
-            <!-- 자스로 그려줌 -->
+          <!-- 자스로 그려줌 -->
         </ul>
+        <div>
+            <a href="conapi.co"><span>콘서트 api 테스트</span></a>
+        </div>
     </div>
 
     <!-- 공연상세페이지 위쪽(노란 블럭 안쪽) -->
@@ -177,13 +181,15 @@
     <div class="page-list" align="center">
         <!-- 자스 -->
     </div>
-
-
     <br>
 
-    <div>
+    </main>
+    <c:if test="${not empty loginUser}">
+        <jsp:include page="../chatbot/chatbot.jsp" />
+    </c:if>
+    <footer>
         <jsp:include page="../common/footer.jsp" />
-    </div>
+    </footer>
     <script src="<c:url value='/resources/js/api/concertapi.js'/>"></script>
     <script src="<c:url value='/resources/js/concert/concertDetailMain.js'/>"></script>
 </body>

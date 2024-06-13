@@ -11,6 +11,7 @@ import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.admin.model.vo.Seat;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.concert.model.dto.ConcertDto;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.model.vo.ConcertReview;
@@ -114,59 +115,22 @@ public class ConcertDao {
 	public ArrayList<Seat> selectSeatPrice(SqlSessionTemplate sqlSession, int concertNo) {
 		return (ArrayList)sqlSession.selectList("concertMapper.selectSeatPrice", concertNo);	
 	}
-
-
 	
 	
+	// 콘서트 api insert용
+	public int conapiCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("concertMapper.conapiCount");
+	}
+
+	public int conapiInsert(SqlSessionTemplate sqlSession, ConcertDto concertDto) {
+		return sqlSession.insert("concertMapper.conapiInsert", concertDto);
+	}
 	
-	
-//	// 1반환되면 있는거
-//	public int checkDidLike(SqlSessionTemplate sqlSession, Map insertLikeMap) {
-//		return sqlSession.selectOne("concertMapper.checkDidLike", insertLikeMap);
-//	}
-//
-//	public int insertLike(SqlSessionTemplate sqlSession, Map insertLikeMap) {
-//		return sqlSession.insert("concertMapper.insertLike", insertLikeMap);
-//	}
-//
-//	public ArrayList<ConcertLike> selectLikeCount(SqlSessionTemplate sqlSession, Map insertLikeMap) {
-//		return (ArrayList)sqlSession.selectList("concertMapper.selectLikeCount", insertLikeMap);
-//	}
-//
-//	public int updateYtoN(SqlSessionTemplate sqlSession, Map insertLikeMap) {
-//		return sqlSession.update("concertMapper.updateYtoN", insertLikeMap);
-//	}
+	public int concertTitleCount(SqlSessionTemplate sqlSession, String concertTitle) {
+		return sqlSession.selectOne("concertMapper.concertTitleCount", concertTitle);
+	}
 
-
-	
-	
-
-
-
-
-
-//	public int insertConLike(SqlSessionTemplate sqlSession, ConcertLike conL) {
-//		return sqlSession.insert("concertMapper.insertConLike", conL);
-//	}
-//ㄴ
-//	public int updateLikeYtoN(SqlSessionTemplate sqlSession, ConcertLike conL) {
-//		return sqlSession.update("concertMapper.updateLikeYtoN", conL);
-//	}
-//
-//	public int updateLikeNtoY(SqlSessionTemplate sqlSession, ConcertLike conL) {
-//		return sqlSession.update("concertMapper.updateLikeNtoY", conL);
-//	}
-
-
-	
-
-
-	// concertNo로 콘서트 가져오기
-//	public Concert selectCon(SqlSessionTemplate sqlSession, int concertNo) {
-//		return sqlSession.selectOne("concertMapper.selectCon", concertNo);
-//	}
-	
-
-
-
+	public int conapiDelete(SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("concertMapper.conapiDelete");
+	}
 }

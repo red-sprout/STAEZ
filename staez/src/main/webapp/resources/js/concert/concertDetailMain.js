@@ -29,6 +29,7 @@ function drawConNavi(conList){
   
       concertNaviArea.appendChild(naviLi);
     }
+
   }
 
 

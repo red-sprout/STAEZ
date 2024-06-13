@@ -235,11 +235,6 @@
 		WHERE board_no = #{boardNo}
 		AND status = 'Y'
 	</select>
-	<select id="selectReplyCnt" resultType="_int">
-		SELECT COUNT(*)
-		FROM reply
-		WHERE board_no = #{boardNo}
-	</select>
 	<select id="selectConcert" resultMap="concertResult">
 		SELECT 
 			concert_no,
@@ -309,28 +304,6 @@
 			#{userNo}
 		)
 	</insert>
-	<select id="selectReplyAll" resultMap="replyResult">
-		SELECT
-			r.reply_no,
-			r.ref_reply_no,
-			r.user_no,
-			u.nickname,
-			r.reply_content,
-			r.reply_write_date,
-			pi.file_path || pi.change_name AS path
-		FROM reply r
-		LEFT JOIN 
-			(SELECT 
-				user_no, 
-				file_path, 
-				change_name 
-			FROM profile_img
-			WHERE status = 'Y') pi 
-		ON (r.user_no = pi.user_no)
-		JOIN staez_user u on (r.user_no = u.user_no)
-		WHERE r.board_no = #{boardNo}
-		AND r.reply_status = 'Y'
-	</select>
 	<insert id="insertReport">
 		INSERT INTO board
 		(
@@ -353,6 +326,64 @@
 		UPDATE board
 		SET board_count = board_count + 1
 		WHERE board_no = #{boardNo}
+	</update>
+	<!-- 댓글 -->
+	<select id="selectReplyCnt" resultType="_int">
+		SELECT COUNT(*)
+		FROM reply
+		WHERE board_no = #{boardNo}
+		AND reply_status = 'Y'
+	</select>
+	<select id="selectReplyAll" resultMap="replyResult">
+		SELECT
+			r.reply_no,
+			r.ref_reply_no,
+			r.user_no,
+			u.nickname,
+			r.reply_content,
+			r.reply_write_date,
+			pi.file_path || pi.change_name AS path
+		FROM reply r
+		LEFT JOIN 
+			(SELECT 
+				user_no, 
+				file_path, 
+				change_name 
+			FROM profile_img
+			WHERE status = 'Y') pi 
+		ON (r.user_no = pi.user_no)
+		JOIN staez_user u on (r.user_no = u.user_no)
+		WHERE r.board_no = #{boardNo}
+		AND r.reply_status = 'Y'
+		ORDER BY r.reply_no ASC
+	</select>
+	<insert id="insertReply">
+		INSERT INTO reply
+		(
+			<if test='refReplyNo != 0'>
+				ref_reply_no,
+			</if>
+			board_no,
+			user_no,
+			reply_content
+		) VALUES (
+			<if test='refReplyNo != 0'>
+				${refReplyNo},
+			</if>
+			#{boardNo},
+			#{userNo},
+			#{replyContent}
+		)
+	</insert>
+	<update id="updateReply">
+		UPDATE reply
+		SET reply_content = #{replyContent}
+		WHERE reply_no = #{replyNo}
+	</update>
+	<update id="deleteReply">
+		UPDATE reply
+		SET reply_status = 'N'
+		WHERE reply_no = #{replyNo}
 	</update>
 </mapper>
 

@@ -126,6 +126,9 @@
             </div>
         </div>
     </main>
+    <c:if test="${not empty loginUser}">
+        <jsp:include page="../chatbot/chatbot.jsp" />
+    </c:if>
 	<footer>
 		<jsp:include page="../common/footer.jsp" />
 	</footer>

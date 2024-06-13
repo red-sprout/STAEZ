@@ -75,27 +75,5 @@ public interface ConcertService {
 
 	
 
-	
-
-//	// 좋아요 insert, 
-//    int insertConLike(ConcertLike conL);
-//    int updateLikeYtoN(ConcertLike conL);
-//    int updateLikeNtoY(ConcertLike conL);
-
-
-
-
-
-
-
-
-
-
-	
-	
-
-
-
-
 
 }

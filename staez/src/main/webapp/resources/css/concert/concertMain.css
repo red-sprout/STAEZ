@@ -76,6 +76,7 @@
         width: fit-content !important;
         padding: 20px 0 20px 0;
         position: relative;
+        width: 200px;
     }
     /* .slick-list {
         position: relative;
@@ -212,6 +213,11 @@
         row-gap: 30px;
         grid-template-columns: repeat(5, 200px);
     }
+    
+    .concert-main-grid-div{
+        width: 200px;
+    }
+
     .concert-main-grid img{
         width: 200px;
         height: 280px;

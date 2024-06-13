@@ -66,8 +66,6 @@
 	<update id="updateUserInfo">
 		UPDATE staez_user
 		SET nickname = #{nickname},
-			gender = #{gender},
-			birth = #{birth},
 			address = #{address},
 			email = #{email},
 			phone = #{phone},
@@ -261,35 +259,37 @@
 	
 	<select id="selectReviewList" resultType="Concert">
 		SELECT r.concert_date AS concertDate, 
-			   r.schedule,
-			   cr.score AS score,
-			   cr.review_content AS reviewContent,
-			   c.concert_no AS concertNo,
-			   c.concert_title AS concertTitle,
-			   c.concert_runtime AS concertRuntime,
-			   t.theater_name AS theaterName,
-			   ca.change_name AS changeName,
-			   ca.file_path AS filePath
-			
-		FROM (SELECT MAX(concert_date) AS concert_date, schedule, concert_no, user_no
-			  FROM reserve
-			  WHERE user_no = #{userNo}
-			  AND reserve_status = 'Y'
-			  GROUP BY schedule, concert_no, user_no) r
+					   r.schedule,
+					   r.user_no AS userNo,
+					   cr.score AS score,
+					   cr.review_content AS reviewContent,
+					   c.concert_no AS concertNo,
+					   c.concert_title AS concertTitle,
+					   c.concert_runtime AS concertRuntime,
+					   t.theater_name AS theaterName,
+					   ca.change_name AS changeName,
+					   ca.file_path AS filePath
+					
+				FROM (SELECT MAX(concert_date) AS concert_date, schedule, concert_no, user_no
+					  FROM reserve
+					  WHERE user_no = #{userNo}
+					  AND reserve_status = 'Y'
+					  GROUP BY schedule, concert_no, user_no) r
+				
+				JOIN concert c 
+				ON r.concert_no = c.concert_no
+				
+				JOIN theater t 
+				ON c.theater_no = t.theater_no
+				
+				JOIN concert_attachment ca
+				ON c.concert_no = ca.concert_no
+				
+				LEFT JOIN concert_review cr
+				ON r.concert_no = cr.concert_no
+				AND r.user_no = cr.user_no
 		
-		JOIN concert c 
-		ON r.concert_no = c.concert_no
-		
-		JOIN theater t 
-		ON c.theater_no = t.theater_no
-		
-		JOIN concert_attachment ca
-		ON c.concert_no = ca.concert_no
-		
-		LEFT JOIN concert_review cr
-		ON r.concert_no = cr.concert_no
-		
-		ORDER BY r.concert_date DESC, r.schedule DESC
+				ORDER BY r.concert_date DESC, r.schedule DESC
 	</select>
 	
 	<select id="selectMyInquireCount" resultType="_int">

@@ -4,6 +4,7 @@ $(function() {
     updateCombinedEmail()
     firstEmailDomain();
     firstLikeGenre();
+    new PhoneVerification();
 });
 
 $(function() {
@@ -115,6 +116,125 @@ $(function() {
     });
 });
 
+
+//관심장르 선택
+$(function() {
+    const genreLike = $("input[name='genreLike']");
+    const buttons = $(".genre-btn");
+
+    updateInput();
+
+    buttons.each(function() {
+        $(this).on('click', function() {
+            const currentButton = $(this);
+            const checkedButtons = $(".genre-btn.checked");
+
+            if (currentButton.hasClass('checked')) {
+                currentButton.toggleClass('checked');
+                updateInput();
+            } else if (checkedButtons.length < 3) {
+                currentButton.toggleClass('checked');
+                updateInput();
+            } else if (checkedButtons.length >= 3) {
+                alert("최대 개수입니다.");
+            }
+        });
+    });
+
+    function updateInput() {
+        const checkedButtons = $(".genre-btn.checked");
+        const texts = checkedButtons.map(function() {
+            return $(this).text().trim();
+        }).get();
+        genreLike.val(texts.join(' '));
+    }
+});
+
+//처음 페이지 로드됐을 때 관심장르 체크
+function firstLikeGenre(){
+    const input = $('input[name=genreLike]');
+    const buttons = $('.genre-btn');
+
+    buttons.each(function() {
+        const button = $(this);
+        if (input.val().includes(button.text().trim())) {
+            button.toggleClass('checked');
+        }
+    });
+}
+
+class PhoneVerification {
+    constructor() {
+        this.isSend = false;
+        this.authNo = '';
+        this.timerId = null;
+        this.input = $('.phone-section .auth-num-input');
+        this.sendBtn = $('input[name=phone]+.input-btn>button');
+        this.authBtn = $('.phone-section button');
+      
+        this.sendBtn.on('click', () => this.sendAuthNum());
+        this.authBtn.on('click', () => this.checkAuthNum());
+    }
+
+    sendAuthNum() {
+        if (this.isSend) {
+            alert('이미 전송되었습니다');
+            return;
+        }
+        this.authBtn.prop('disabled', false);
+        this.input.val('');
+        this.input.focus();
+        
+
+        // 랜덤번호 생성
+        this.authNo = Math.floor(100000 + Math.random() * 900000).toString().padStart(6, '0');
+        const phone = $('input[name=phone]').val();
+        console.log(this.authNo);
+        console.log(phone);
+
+        sendAuthNumAjax({authNo: this.authNo, phone: phone}, res => {
+            if (res === "YYYYY") {
+                console.log('성공');
+                this.isSend = true;
+                this.startTimer('phone-section', 180); // 3분 타이머 시작
+            }
+        });
+    }
+
+    checkAuthNum() {
+        const inputCode = this.input.val();
+        if (this.authNo !== inputCode) {
+            alert('잘못된 인증번호입니다.');
+        } else {
+            $('#phoneCheck').prop('checked', true);
+            alert('인증성공');
+            clearInterval(this.timerId);
+            
+            this.isSend = false;
+            this.authBtn.prop('disabled', true);
+        }
+    }
+
+    startTimer(className, duration) {
+        let timeLeft = duration;
+        this.timerId = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(this.timerId);
+                alert('인증시간이 초과되었습니다. 다시 인증해주세요.');
+                $(`.${className} .timer>h4`).text('3:00');
+                this.authBtn.prop('disabled', true);
+                this.authNo = '';
+                this.isSend = false; // 타이머가 끝나면 isSend를 다시 false로 설정
+            } else {
+                timeLeft--;
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                $(`.${className} .timer>h4`).text(minutes + ":" + (seconds < 10 ? '0' : '') + seconds);
+            }
+        }, 1000);
+    }
+}
+
 /* 아래부터는 js, jQuery로 변경 예정 */
 
 // 비밀번호 변경
@@ -184,8 +304,7 @@ function withdrawalAuth() {
     const inputPwd = document.querySelector(".withdrawal-tag input[type='password']").value;
 
     authPwdAjax({inputPwd}, (res) => {
-        if (res === 'NNNNY') { //비밀번호 인증 성공
-            
+        if (res === 'NNNNY') { //비밀번호 인증 성공            
             submitBtn.disabled = false;
             
         } else {
@@ -231,37 +350,6 @@ function inputAlert(input, text, color){
 }
 
 
-//관심장르 선택
-document.addEventListener('DOMContentLoaded', () => {
-    const genreLike = document.querySelector("input[name='genreLike']");
-    const buttons = document.querySelectorAll('.genre-btn');
-
-    updateInput();
-    
-    buttons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            const button = event.currentTarget;
-            const checkedButtons = document.querySelectorAll('.genre-btn.checked');
-            console.log(checkedButtons.length);
-
-            if (button.classList.contains('checked')) {
-                button.classList.toggle('checked');
-                updateInput();
-            } else if (checkedButtons.length < 3) {
-                button.classList.toggle('checked');
-                updateInput();
-            } else if((checkedButtons.length >= 3)){
-                alert("최대 개수입니다.");
-            }
-        });
-    });
-    
-    function updateInput() {
-        const checkedButtons = document.querySelectorAll('.btn-staez.checked');
-        const texts = Array.from(checkedButtons).map(button => button.innerText.trim());
-        genreLike.value = texts.join(' ');
-    }
-});
 
 //주소 불러오기 - kakao 우편번호 서비스 api (https://postcode.map.daum.net/guide)
 function execDaumPostcode() {
@@ -375,19 +463,6 @@ function firstEmailDomain(){
         }
     })
 }
-
-//처음 페이지 로드됐을 때 관심장르 체크
-function firstLikeGenre(){
-    const input = document.querySelector("input[name='genreLike']");
-    const buttons = Array.from(document.querySelectorAll('.genre-btn'));
-    
-    buttons.forEach(button => {
-        if(input.value.includes(button.innerText)){
-            button.classList.toggle('checked')     
-        }
-    });
-}
-
 
 // 페이지가 로드되면 init 함수를 호출하여 초기 값을 설정
 window.onload = init;

@@ -18,17 +18,21 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertMain.css">
 </head>
 <body>
-    <div>
+    <header>
         <jsp:include page="../common/header.jsp" />
-    </div>
-    <!-- 공연 navi -->
-    <div class="concert-navi-div">
+    </header>
+    <!-- 공연 navi -->   <!-- !!!!!!!!!!! div랑 스타일 삭제 필요 !!!!!!!!!!!! -->
+    
+    <div class="concert-navi-div" style="display: flex; justify-content: space-around;">
         <ul class="concert-ul">
           <!-- 자스로 그려줌 -->
         </ul>
+        <div>
+            <a href="conapi.co"><span>콘서트 api 테스트</span></a>
+        </div>
     </div>
     <input type="hidden" name="categoryNo" value="${cat.categoryNo}">
-
+    
     <section class="concert-main-upper-section">
 
         <div class="concert-main-upper-before">
@@ -70,7 +74,6 @@
             <img src="${pageContext.request.contextPath}/resources/img/main/after.png">
         </div>
     </section>
-
     <section class="running-concert">
         <br><br>
         <h3>현재 진행중인&nbsp; <b id="concert-genre">${cat.categoryName}</b></h3>
@@ -114,11 +117,13 @@
             
         </div>
     </section>
+    <c:if test="${not empty loginUser}">
+        <jsp:include page="../chatbot/chatbot.jsp" />
+    </c:if>
 
-
-    <div>
+    <footer>
 		<jsp:include page="../common/footer.jsp" />
-	</div>
+	</footer>
         <!-- 적용 자바스크립트 -->
 
 

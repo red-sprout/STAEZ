@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import com.spring.staez.admin.model.vo.ConcertSchedule;
 import com.spring.staez.admin.model.vo.ImpossibleSeat;
 import com.spring.staez.admin.model.vo.Seat;
+import com.spring.staez.concert.model.dto.ReserveInsertDTO;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.Theater;
 import com.spring.staez.user.model.vo.Reserve;
+import com.spring.staez.user.model.vo.User;
 
 public interface ConcertReserveService {
 	
@@ -22,6 +24,8 @@ public interface ConcertReserveService {
 	ArrayList<Seat> selectRatingTotalSeat(int concertNo, String choiceDate, String schedule);
 	
 	ArrayList<Seat> selectReserveRatingSeat(int concertNo, String choiceDate, String schedule);
+	
+	ArrayList<Seat> selectImpossibleRatingSeat(int theaterNo, String choiceDate);
 
 	Theater selectTheaterSeatInfo(String theaterName);
 	
@@ -30,4 +34,8 @@ public interface ConcertReserveService {
 	ArrayList<Reserve> selectReserveSeatInfo(int concertNo, String choiceDate, String schedule);
 	
 	ArrayList<Seat> selectGradeSeatInfo(int concertNo, String choiceDate);
+	
+	User userInfo(int uNo);
+	
+	int insertReserve(ReserveInsertDTO rid);
 }

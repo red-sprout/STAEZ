@@ -52,10 +52,6 @@ function emailCheckCode(data, callback) {
             callback(result);
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            console.log("이메일 UUID 체크 ajax 실패");
-            console.log("Status: " + textStatus);
-            console.log("Error: " + errorThrown);
-            console.log("Response Text: " + jqXHR.responseText);
         }
     });
 }
@@ -66,17 +62,13 @@ function getIdbyEmail(data, callback) {
         url: "findEmailCheck.me",
         data: data,
         success: function(result) {
-            // console.log("Server response:", result); // 서버 응답 확인
             callback(result);
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            console.log("이메일 아이디찾기 ajax 실패");
-            console.log("Status: " + textStatus);
-            console.log("Error: " + errorThrown);
-            console.log("Response Text: " + jqXHR.responseText);
         }
     });
 }
+
 // 비번 바꾸기 전 아이디 핸드폰 이메일 확인 맞는지
 function clickIdPhoneEmailSelect(data, callback) {
     $.ajax({
@@ -88,10 +80,6 @@ function clickIdPhoneEmailSelect(data, callback) {
             callback(result);
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            console.log("아이디, 핸드폰, 이메일 확인 ajax 실패");
-            console.log("Status:", textStatus);
-            console.log("Error:", errorThrown);
-            console.log("Response Text:", jqXHR.responseText);
         }
     });
 }
@@ -107,29 +95,6 @@ function clickNewPwdInsert(data, callback) {
             callback(result);
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            console.log("비밀번호 변경 ajax 실패");
-            console.log("Status:", textStatus);
-            console.log("Error:", errorThrown);
-            console.log("Response Text:", jqXHR.responseText);
-        }
-    });
-}
-
-// 시간 초과 시 데이터베이스로 삭제 요청을 보내는 함수
-function deleteVerificationCode() {
-    var verificationCode = document.getElementById('verification-code').value;
-
-    // Ajax를 사용하여 데이터베이스로 삭제 요청 보내기
-    // 예시: jQuery를 사용한 Ajax 요청
-    $.ajax({
-        url: "deleteEmailAuth.me",
-        type: "POST",
-        data: { verificationCode: verificationCode },
-        success: function(response) {
-            console.log("Verification code deleted successfully.");
-        },
-        error: function(xhr, status, error) {
-            console.error("Error deleting verification code:", error);
         }
     });
 }

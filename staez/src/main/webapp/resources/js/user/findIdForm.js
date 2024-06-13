@@ -5,10 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
     backPage();
     // 이메일
     sgininemail();
-    // 이메일 아이디적을때 한글안되고 영어만 가능하게
-    sgininemailEng();
-    // 입력 시 2초 후에 콘솔에 이메일 값을 출력하는 기능입니다.
-    emailTimeTwo();
     // 이메일 인증 전송 버튼 이벤트 리스너 등록
     $("#emailCheckButton").on('click', (ev) => {
         // 클릭 이벤트 발생 시 서버로 이메일 인증 요청 보내기
@@ -117,7 +113,6 @@ function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput, e
         emailSecretCheckResult.innerText = "인증 코드가 일치하지 않습니다.";
         // 다음 버튼 비활성화
         document.getElementById("findEmailCheck").disabled = true;
-        findEmailCheckButton.style.backgroundColor = "white";
     } else if (result === "emailSecretCodeCheck Yes") { // 입력값이 데이터베이스 값과 일치할 때
         emailSecretCheckResult.style.color = "green";
         emailSecretCheckResult.innerText = "인증이 확인되었습니다.";
@@ -129,7 +124,6 @@ function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput, e
         emailSecretCheckResult.innerText = "인증을 확인할 수 없습니다.";
         // 다음 버튼 비활성화
         document.getElementById("findEmailCheck").disabled = true;
-        findEmailCheckButton.style.backgroundColor = "white";
     }
     emailSecretErrorMessage.style.display = "none"; // 에러 메시지 숨기기
 }
@@ -158,9 +152,6 @@ function startTimer() {
         if (duration < 0) {
             clearInterval(timer);
             timerDisplay.textContent = "시간 초과";
-
-            // 시간 초과 시 데이터베이스로 업데이트 요청 보내기 (Ajax를 사용하여 비동기 요청)
-            updateVerificationCode();
         }
     }, 1000);
 }
@@ -240,48 +231,6 @@ function sgininemail() {
     }
     init(); // 페이지 로드 시 초기화 함수를 호출합니다.
 }
-
-function emailTimeTwo() {
-    const emailInput = document.getElementById("email-prefix");
-    const suffixInput = document.getElementById("email-suffix");
-
-    emailInput.addEventListener('input', function() {
-        const emailPrefix = emailInput.value;
-        const emailSuffix = suffixInput.value;
-        //console.log(emailPrefix + "@" + emailSuffix);
-    });
-
-    suffixInput.addEventListener('input', function() {
-        const emailPrefix = emailInput.value;
-        const emailSuffix = suffixInput.value;
-        //console.log(emailPrefix + "@" + emailSuffix);
-    });
-}
-
-// 이메일 아이디 적을 때 한글 안 되고 영어만 가능하게
-function sgininemailEng() {
-    const prefixElement = document.getElementById("email-prefix");
-    const userEmailErrorMessage = document.getElementById("userEmailErrorMessage");
-
-    prefixElement.addEventListener('input', function() {
-        const value = prefixElement.value;
-        const regex = /^[a-zA-Z0-9]*$/; // 영문자와 숫자만 허용하는 정규식
-
-        if (!regex.test(value)) {
-            prefixElement.value = value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '');
-
-            if (userEmailErrorMessage) {
-                userEmailErrorMessage.innerText = "영어 입력만 가능합니다.";
-                userEmailErrorMessage.style.color = "red";
-            }
-        } else {
-            if (userEmailErrorMessage) {
-                userEmailErrorMessage.innerText = "";
-            }
-        }
-    });
-}
-
 // 버튼 클릭시 색상변경
 function checkButton(){
     var buttons = document.querySelectorAll(".check_button");
@@ -307,9 +256,8 @@ function clickGetId(){
     let email = document.getElementById("input-value-email").value;
     let userName = document.getElementById("user_name").value;
     getIdbyEmail({checkFindEmail: email, userName}, function(res){
-        console.log(res)
-        if (res !== "emailSecretCodeCheck No"){
-            document.querySelector("#emailFindId").innerHTML = res;
+        if (res !== ""){
+            document.querySelector("#emailFindId").innerHTML = "아이디 : " + res;
         } else {
             console.log(document.querySelector("#emailFindId"));
             document.querySelector("#emailFindId").innerText = "해당 이메일이 등록된 아이디가 없습니다.";
@@ -317,11 +265,12 @@ function clickGetId(){
     });
 }
 
+
 // 로그인 버튼 클릭 이벤트
 function LoginPage(){
     var loginButton = document.getElementById('loginButton');
     loginButton.addEventListener('click', function() {
-        window.location.href = '/staez/loginForm.me'; // 프로젝트명은 실제 프로젝트명으로 변경해야 합니다.
+        window.location.href = '/staez/loginForm.me';
     });
 };
 
@@ -329,6 +278,6 @@ function LoginPage(){
 function PwdFindPage(){
     var pwdButton = document.getElementById('pwdFindButton');
     pwdButton.addEventListener('click', function() {
-        window.location.href = '/staez/findPwdForm.me'; // 프로젝트명은 실제 프로젝트명으로 변경해야 합니다.
+        window.location.href = '/staez/findPwdForm.me';
     });
 }

@@ -3,10 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     backPage();
     // 이메일
     sgininemail();
-    // 이메일 아이디적을때 한글안되고 영어만 가능하게
-    sgininemailEng();
-    // 이메일 다 입력됬나 콘솔
-    emailTimeTwo();
     // 이메일 인증 전송 버튼 이벤트 리스너 등록
     $("#emailCheckButton").on('click', (ev) => {
         // 클릭 이벤트 발생 시 서버로 이메일 인증 요청 보내기
@@ -22,21 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // 비밀번호 관련 이벤트 리스너 추가
     newPwd();
 });
-
-// 이메일 인증시 다음 버튼 열림
-function emailNo(){
-    const emailCheckButton = document.getElementById("emailCheckButton");
-    // 클릭 이벤트 핸들러
-    function handleClick() {
-        emailCheckButton.disabled = true; // 버튼을 비활성화합니다.
-        emailCheckButton.removeEventListener('click', handleClick); // 클릭 이벤트 리스너 삭제
-    }
-    // 이메일 인증 전송 버튼 클릭 이벤트 리스너 등록
-    emailCheckButton.addEventListener('click', handleClick);
-
-    // 이메일 인증 전송 버튼 클릭 시 인증번호 전송 함수 호출
-    emailCheckButton.addEventListener('click', sendVerificationCode);
-}
 
 // 이전페이지로 돌아가는
 function backPage() {
@@ -80,6 +61,8 @@ function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput, e
         emailSecretCheckResult.style.color = "green";
         emailSecretCheckResult.innerText = "인증이 확인되었습니다.";
         console.log("이메일 확인:", emailSecretInput.value);
+        // "다음" 버튼의 disabled 속성을 제거합니다.
+        document.getElementById("findEmailCheck").disabled = false;
     } else { // 그 외의 경우 (예: 서버 오류 등)
         emailSecretCheckResult.style.color = "red";
         emailSecretCheckResult.innerText = "인증을 확인할 수 없습니다.";
@@ -194,48 +177,6 @@ function sgininemail() {
     }
     init(); // 페이지 로드 시 초기화 함수를 호출합니다.
 }
-
-function emailTimeTwo() {
-    const emailInput = document.getElementById("email-prefix");
-    const suffixInput = document.getElementById("email-suffix");
-
-    emailInput.addEventListener('input', function() {
-        const emailPrefix = emailInput.value;
-        const emailSuffix = suffixInput.value;
-        //console.log(emailPrefix + "@" + emailSuffix);
-    });
-
-    suffixInput.addEventListener('input', function() {
-        const emailPrefix = emailInput.value;
-        const emailSuffix = suffixInput.value;
-        //console.log(emailPrefix + "@" + emailSuffix);
-    });
-}
-
-// 이메일 아이디 적을 때 한글 안 되고 영어만 가능하게
-function sgininemailEng() {
-    const prefixElement = document.getElementById("email-prefix");
-    const userEmailErrorMessage = document.getElementById("userEmailErrorMessage");
-
-    prefixElement.addEventListener('input', function() {
-        const value = prefixElement.value;
-        const regex = /^[a-zA-Z0-9]*$/; // 영문자와 숫자만 허용하는 정규식
-
-        if (!regex.test(value)) {
-            prefixElement.value = value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '');
-
-            if (userEmailErrorMessage) {
-                userEmailErrorMessage.innerText = "영어 입력만 가능합니다.";
-                userEmailErrorMessage.style.color = "red";
-            }
-        } else {
-            if (userEmailErrorMessage) {
-                userEmailErrorMessage.innerText = "";
-            }
-        }
-    });
-}
-
 // 비밀번호 관련 이벤트 리스너 추가
 function newPwd(){
     const newPasswordInput = document.getElementById("newPassword");
@@ -264,14 +205,7 @@ function clickIdPhoneEmail() {
     let email = document.getElementById("input-value-email").value;
     let userName = document.getElementById("user_name").value;
 
-    // 데이터 확인
-    console.log("ID:", id);
-    console.log("Phone:", phone);
-    console.log("Email:", email);
-    console.log("user_name:", userName);
-
     clickIdPhoneEmailSelect({ userId: id, phone: phone, email: email, user_name: userName }, function(res) {
-        console.log(res);
         if (res.trim() === "New Pwd Go") {
             // 모달 대신에 스타일을 변경하여 모달을 보이게 함
             document.getElementById("myModal").style.display = "block";
@@ -292,11 +226,6 @@ function validatePassword() {
         var newPassword = document.getElementById("newPassword").value;
         var confirmNewPassword = document.getElementById("confirmNewPassword").value;
 
-        // 입력값이 모두 비어있으면 메시지를 숨깁니다.
-        if (newPassword === "" && confirmNewPassword === "") {
-            document.getElementById("passwordMessage").innerHTML = "";
-            return;
-        }
         // 비밀번호가 서로 다른 경우
         if (newPassword !== confirmNewPassword) {
             document.getElementById("passwordMessage").innerHTML = "비밀번호가 다릅니다.";
@@ -350,11 +279,8 @@ function clickNewPwd() {
     let email = document.getElementById("input-value-email").value;
     let userName = document.getElementById("user_name").value;
 
-    // 데이터 확인
-    console.log("New Password:", newPassword);
-
     clickNewPwdInsert({ userId: id, phone: phone, email: email,userName:userName, newPassword: newPassword }, function(res) {
-        console.log(res);
+
         if (res.trim() === "Password Changed") {
             alert("비밀번호가 성공적으로 변경되었습니다.");
             window.location.href = "/staez/loginForm.me"; // 변경 성공 시 로그인 페이지로 이동

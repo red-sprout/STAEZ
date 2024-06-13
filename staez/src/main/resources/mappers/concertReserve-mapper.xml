@@ -77,6 +77,24 @@
 		<result column="concert_times" property="concertTimes" />
 		<result column="reserve_status" property="reserveStatus" />
 	</resultMap>
+	
+	<resultMap type="User" id="userResult">
+		<result column="user_no" property="userNo" />
+		<result column="user_id" property="userId" />
+		<result column="user_pwd" property="userPwd" />
+		<result column="nickname" property="nickname" />
+		<result column="user_name" property="userName" />
+		<result column="gender" property="gender" />
+		<result column="birth" property="birth" />
+		<result column="address" property="address" />
+		<result column="email" property="email" />
+		<result column="phone" property="phone" />
+		<result column="genre_like" property="genreLike" />
+		<result column="grade" property="grade" />
+		<result column="enroll_date" property="enrollDate" />
+		<result column="withdrawal_date" property="withdrawalDate" />
+		<result column="user_status" property="userStatus" />
+	</resultMap>
    
    <select id="reserveConcertInfo" resultMap="concertResult">
 		select 
@@ -84,6 +102,7 @@
 			c.concert_title, 
 			min(cs.start_date) start_date,
 			max(cs.end_date) end_date,
+			t.theater_no,
 			t.theater_name,
 			c.age_limit,
 			c.concert_runtime,
@@ -94,7 +113,7 @@
 		join concert_attachment ca on (c.concert_no = ca.concert_no)
 		where c.concert_no = #{cNo}
 		and ca.file_level = 1
-		group by c.concert_no, t.theater_name, c.age_limit, c.concert_runtime, path
+		group by c.concert_no, t.theater_name, t.theater_no, c.age_limit, c.concert_runtime, path
    </select>
    
    <select id="selectConcertPeriod" resultMap="concertResult">
@@ -162,12 +181,57 @@
 		where theater_no = #{theaterNo}
    </select>
    
-   <select id="selectReserveSeatInfo" resultMap="reserveResult" parameterType="Map">
-   select concert_no, reserve_row, reserve_col
-	from reserve
-	where (reserve_status = 'Y' or reserve_status = 'U')
-	and schedule = #{time}
-	and concert_date = #{date}::date
-	and concert_no = #{cNo}
+   <select id="selectImpossibleSeatCount" resultMap="SeatResult" parameterType="Map">
+   select s.grade, count(ims.theater_no) seat_count
+	from (select impossible_seat_no, theater_no, impossible_seat_row, impossible_seat_col
+			from impossible_seat
+			where theater_no = #{tNo}) ims
+	join concert c on (ims.theater_no = c.theater_no)
+	join seat s on (c.concert_no = s.concert_no)
+	where ims.impossible_seat_row between s.seat_start_row and s.seat_end_row
+	and ims.impossible_seat_col between s.seat_start_col and s.seat_end_col
+	and s.concert_Date = #{date}::date
+	group by s.grade
    </select>
+   
+   <select id="selectReserveSeatInfo" resultMap="reserveResult" parameterType="Map">
+	   select concert_no, reserve_row, reserve_col
+		from reserve
+		where (reserve_status = 'Y' or reserve_status = 'U')
+		and schedule = #{time}
+		and concert_date = #{date}::date
+		and concert_no = #{cNo}
+   </select>
+   
+   <select id="userInfo" resultMap="userResult">
+   	select user_no, nickname, gender, birth, address, email, phone, grade, user_name
+	from staez_user
+	where user_no = #{uNo}
+   </select>
+   
+   <insert id="insertReserve">   
+   insert into reserve(
+					concert_no,
+					user_no,
+					r_name,
+					r_birth,
+					r_phone,
+					reserve_row,
+					reserve_col,
+					pay_method,
+					concert_date,
+					schedule
+					) values(
+					#{concertNo},
+					#{userNo},
+					#{recipientName},
+					#{recipientBirth}::date,
+					#{recipientPhone},
+					#{row},
+					#{col},
+					#{payMethod},
+					#{concertDate}::date,
+					#{schedule}
+					)
+   </insert>
 </mapper>

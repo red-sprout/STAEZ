@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,15 +16,17 @@ import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.model.vo.ConcertReview;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 public class ConcertServiceImpl implements ConcertService {
 	
-	@Autowired
-	private SqlSessionTemplate sqlSession;
 	
-	@Autowired
-	private ConcertDao concertDao;
+	private final SqlSessionTemplate sqlSession;
 
+	private final ConcertDao concertDao;
+	
 	
 	@Override
 	public Category selectCate(int categoryNo) {
@@ -133,7 +134,8 @@ public class ConcertServiceImpl implements ConcertService {
 	public ArrayList<Seat> selectSeatPrice(int concertNo) {
 		return concertDao.selectSeatPrice(sqlSession, concertNo);
 	}
-
-
+	
+	
+	
 
 }

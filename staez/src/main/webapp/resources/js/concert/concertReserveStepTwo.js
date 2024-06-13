@@ -1,10 +1,14 @@
 window.onload = function(){
     const reserveDate = document.querySelector(".reserve-date").innerHTML;
     const [choiceDate, schedule] = reserveDate.split(' ');
+   
+
 
     const cNo = document.querySelector("input[name = 'cNo']").value;
+    const tNo = document.querySelector("input[name='theaterNo']").value
     ajaxChoiceScheduleSeat({
         cNo,
+        tNo,
         choiceDate,
         schedule
     },(resMap)=>drawSeatRatingInfo(resMap));
@@ -18,13 +22,15 @@ window.onload = function(){
 function drawSeatRatingInfo(resMap){
     const totalSeat = resMap.totalSeat;
     const reserveSeat = resMap.reserveSeat;
+    const impossibleSeat = resMap.impossibleSeat;
+
     const gradeColor = [
         "#640D6B", "#42FF00", "#1400FF", "#ffaa00", "#ff0000",
         "#ffc0cb", "#008000", "#4e1a1a", "#87ceeb", "#966d99"
     ]
 
-    const toSeat = residualSeats(totalSeat, reserveSeat);
-
+    let toSeat = residualSeats(totalSeat, reserveSeat);
+    toSeat = residualSeats(toSeat, impossibleSeat);
     const seatRatingArea = document.querySelector(".remaining-rating-info");
     seatRatingArea.innerHTML = ``;
 
@@ -185,6 +191,7 @@ function seatClickEv(grSeatInfos){
             const classList = e.target.classList;
             const grade = Array.from(classList).find(cls => cls.length === 1);
             let amount = document.getElementById("amount")
+            const totalAmount = document.querySelector("input[name = 'totalAmount']")
 
             let gprice = 0;
             for(let i = 0; i < grSeatInfos.length; i++){
@@ -194,7 +201,7 @@ function seatClickEv(grSeatInfos){
             }
             const seatNo = e.target.id;
             const seatRating = grade;
-
+            
             let [rowNum, col] = seatNo.split('-');
             let row = decimalToBase26(rowNum-1);
             if(e.target.classList.contains("seat-click")){
@@ -202,14 +209,44 @@ function seatClickEv(grSeatInfos){
                 const removeInfos = document.getElementById(seatNo+seatRating)
                 removeInfos.remove();
                 amount.innerHTML = (Number(amount.innerHTML) - Number(gprice))
+                totalAmount.value = amount.innerHTML
+                console.log(totalAmount.value)
+                if(amount.innerHTML.length === 1){
+                    document.querySelector(".next-btn-form").classList.add("hidden");
+                } 
             } else {
                 e.target.classList.add("seat-click")
                 remainingSeat.innerHTML += `<div class="seat-info" id="`+seatNo+seatRating +`">
-                                                <span>`+ row + `-` + col +`(`+ seatRating +`석)</span>
+                                                <span class="info-span">`+ row + `-` + col +`(`+ seatRating +`석)</span>
                                                 <span>`+ gprice +`원</span>
                                             </div>`
                 amount.innerHTML = (Number(amount.innerHTML) + Number(gprice))
+                totalAmount.value = amount.innerHTML
+                console.log(totalAmount.value)
+               
+                document.querySelector(".next-btn-form").classList.remove("hidden");
+        
             }
         })
+
+
     }
 }
+
+document.querySelector("#next-btn").addEventListener("click", function(){
+    const seatList = [];
+
+    document.querySelectorAll(".info-span").forEach(function(ev){
+        const seatInfo = ev.innerHTML;
+
+        seatList.push({
+            seat : seatInfo
+        })
+    })
+
+
+    document.querySelector("input[name = 'seatList']").value = JSON.stringify(seatList);  
+    
+    document.querySelector("#next-btn").submit();
+
+})

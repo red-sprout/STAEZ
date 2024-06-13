@@ -27,7 +27,7 @@ public class Reserve {
 	private String concertTimes; //공연일정(시간)
 	private String reserveStatus; //예약활성화여부
 	private String rName; //예매자이름(실명)
-	private String rBirth; //예매자생년월일
+	private Date rBirth; //예매자생년월일
 	private String rPhone; //예매자휴대폰번호
 	private String schedule; //일정(시간)
 }

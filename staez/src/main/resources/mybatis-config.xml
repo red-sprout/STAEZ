@@ -45,15 +45,15 @@
  	 -->
  	<!-- mappers : 실행할 sql문들을 기록해둔 mapper파일들을 등록하는 영역 -->
  	<mappers>
- 		<mapper resource="/mappers/admin-mapper.xml"/>
- 		<mapper resource="/mappers/common-mapper.xml"/>
- 		<mapper resource="/mappers/concert-mapper.xml"/>
- 		<mapper resource="/mappers/inquire-mapper.xml"/>
- 		<mapper resource="/mappers/mypage-mapper.xml"/>
- 		<mapper resource="/mappers/others-mapper.xml"/>
- 		<mapper resource="/mappers/user-mapper.xml"/>
- 		<mapper resource="/mappers/community-mapper.xml"/>
- 		<mapper resource="/mappers/concertReserve-mapper.xml"/>
+ 		<mapper resource="mappers/admin-mapper.xml"/>
+ 		<mapper resource="mappers/common-mapper.xml"/>
+ 		<mapper resource="mappers/concert-mapper.xml"/>
+ 		<mapper resource="mappers/inquire-mapper.xml"/>
+ 		<mapper resource="mappers/mypage-mapper.xml"/>
+ 		<mapper resource="mappers/others-mapper.xml"/>
+ 		<mapper resource="mappers/user-mapper.xml"/>
+ 		<mapper resource="mappers/community-mapper.xml"/>
+ 		<mapper resource="mappers/concertReserve-mapper.xml"/>
  	</mappers> 
 
 

@@ -478,8 +478,36 @@
 		ORDER BY price DESC
 	 </select>
 
-    
-    
-    
 
+	<select id="conapiCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM concert
+		WHERE theater_no IS NULL
+	</select>
+	<select id="concertTitleCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM concert
+		WHERE concert_title = #{concertTitle}
+	</select>
+	<insert id="conapiInsert">
+	        INSERT INTO concert (
+	            concert_title,
+	            concert_plot,
+	            concert_runtime,
+	            concert_members,
+	            concert_production,
+	            age_limit          
+	        ) VALUES (
+	            #{concertTitle},
+	            #{concertTitle},
+	            200,
+	            #{concertTitle},
+	            #{concertTitle},
+	            #{concertStatus}
+	        )
+	</insert>
+    <delete id="conapiDelete">
+    	DELETE FROM concert
+		WHERE theater_no IS NULL
+    </delete>
 </mapper>

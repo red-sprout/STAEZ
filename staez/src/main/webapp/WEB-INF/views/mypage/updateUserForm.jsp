@@ -18,7 +18,7 @@
     <div class="main-title">
         <h2>회원정보변경</h2>
     </div>
-    <div id="profile-update">
+    <div id="profile">
         <div id="password-auth" hidden>
             <h3>비밀번호 인증</h3>
             <div>
@@ -28,11 +28,11 @@
             <p id="auth-fail" hidden>비밀번호가 일치하지 않습니다.</p>
         </div>
 
-        <form action="update.me" method="POST" >
-            <div id="profile-img">
-                <img src="" alt="" data-toggle="modal" data-target="#imgModal">
-            </div>
-            <div id="update-form">
+        <div id="profile-img">
+            <img src="" alt="" data-toggle="modal" data-target="#imgModal">
+        </div>
+        <form action="update.me" method="POST"> 
+            <div id="profile-info">
                 <table>
                     <tbody>
                         <tr>
@@ -51,7 +51,7 @@
                                 <h3>아이디</h3>
                             </th>
                             <td class="input-box">
-                                <input type="text" name="userId" value="${loginUser.userId}" readonly>
+                                <input type="text" class="long-input" name="userId" value="${loginUser.userId}" readonly>
                             </td>
                             <td class="input-btn"></td>
                         </tr>
@@ -61,9 +61,9 @@
                                 <h3>이름</h3>
                             </th>
                             <td class="input-box">
-                                <input type="text" name="userName" value="${loginUser.userName}" readonly>
+                                <input type="text" class="long-input" name="userName" value="${loginUser.userName}" readonly>
                             </td>
-                            <td class="input-btn"></td>
+                            <td></td>
                         </tr>
 
                         <tr>
@@ -71,18 +71,47 @@
                                 <h3>생년월일</h3>
                             </th>
                             <td class="input-box">
-                                <input type="date" name="birth" value="${loginUser.birth}" readonly>
+                                <input type="text" class="long-input" name="birth" value="${loginUser.birth}" readonly>
                             </td>
-                            <td class="input-btn">
+                            <td>
                             </td>
                         </tr>
+                        
+                        <tr>
+                            <th>
+                                <h3>성별</h3>
+                            </th>
+                            <td id="gender-input">
+                                <div>
+                                    <label for="male">
+                                        <input type="radio" name="gender" id="male" value="M" 
+                                            <c:if test="${loginUser.gender == 'M'}">checked</c:if> disabled>
+                                        <h4>남자</h4>
+                                    </label>
+                                    <label for="female">
+                                        <input type="radio" name="gender" id="female" value="F" 
+                                        <c:if test="${loginUser.gender == 'F'}">checked</c:if> disabled>
+                                        <h4>여자</h4>
+                                    </label>
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
+            <!--변경 가능한 input들-->
+            
+            <div id="profile-update">
+                <table>
+                    <tbody>                       
                         <tr>
                             <th>
                                 <h3>닉네임</h3>
                             </th>
                             <td class="input-box">
-                                <input type="text" name="nickname" value="${loginUser.nickname}"
+                                <input type="text" class="long-input" name="nickname" value="${loginUser.nickname}"
                                     placeholder="" maxlength="16">
                             </td>
                             <td class="input-btn">
@@ -97,34 +126,13 @@
                             <td></td>
                         </tr>
 
-                        <tr>
-                            <th>
-                                <h3>성별</h3>
-                            </th>
-                            <td id="gender-input">
-                                <div>
-                                    <label for="male">
-                                        <input type="radio" name="gender" id="male" value="M" <c:if
-                                            test="${loginUser.gender == 'M'}">checked</c:if>>
-                                        <h4>남자</h4>
-                                    </label>
-                                    <label for="female">
-                                        <input type="radio" name="gender" id="female" value="F" <c:if
-                                            test="${loginUser.gender == 'F'}">checked</c:if>>
-                                        <h4>여자</h4>
-                                    </label>
-                                </div>
-                            </td>
-                            <td></td>
-                        </tr>
-
                         <c:set var="address" value="${loginUser.address}" />
                         <tr>
                             <th>
                                 <h3>주소</h3>
                             </th>
                             <td class="input-box">
-                                <input type="text" id="addressNormal"
+                                <input type="text" id="addressNormal" class="long-input"
                                     value="${fn:split(address, '/')[0]}" readonly required>
                             </td>
                             <td class="input-btn">
@@ -134,7 +142,7 @@
                         <tr>
                             <th></th>
                             <td class="input-box">
-                                <input type="text" placeholder="상세주소를 입력하세요" id="addressDetail"
+                                <input type="text" placeholder="상세주소를 입력하세요" id="addressDetail"  class="long-input"
                                     value="${fn:split(address, '/')[1]}" readonly required
                                     onchange="updateCombinedAddress()">
                             </td>
@@ -152,18 +160,30 @@
                                 <div>
                                     <input id="front-num" type="text" maxlength="3" value="010"
                                         readonly>
+                                    <span>-</span>
                                     <input id="phone1" type="text" value="${fn:substring(phone, 3, 7)}"
                                         minlength="4" maxlength="4" oninput="updateCombinedPhone()">
+                                    <span>-</span>
                                     <input id="phone2" type="text" value="${fn:substring(phone, 7, 11)}"
                                         minlength="4" maxlength="4" oninput="updateCombinedPhone()">
                                 </div>
                             </td>
                             <input type="hidden" name="phone" readonly>
                             <td class="input-btn">
-                                <button type="button">인증</button>
+                                <button type="button">인증번호전송</button>
                             </td>
                         </tr>
                         <c:remove var="phone" />
+                        <tr class="phone-section">
+                            <th></th>
+                            <td class="input-box" colspan="2">
+                                <div class="auth-num">
+                                    <span class="timer"><h4></h4></span>
+                                    <input type="text" class="auth-num-input" placeholder="인증번호 6자리"  maxlength="6">
+                                    <button type="button" disabled>인증</button>                                   
+                                </div>
+                            </td>
+                        </tr>
 
                         <c:set var="email" value="${loginUser.email}" />
                         <tr>
@@ -177,30 +197,28 @@
                                     <span>@</span>
                                     <input type="text" id="email-back" oninput="updateCombinedEmail()"
                                         value="${fn:split(email, '@')[1]}" required>
+                                    
+                                    <select name="domain" onchange="emailDomain()">
+                                        <option value="self-input">직접입력</option>
+                                        <option value="naver.com">네이버</option>
+                                        <option value="gmail.com">구글</option>
+                                        <option value="daum.net">다음</option>
+                                    </select>
                                 </div>
                             </td>
                             <td class="input-btn">
-                                <select name="domain" onchange="emailDomain()">
-                                    <option value="self-input">직접입력</option>
-                                    <option value="naver.com">네이버</option>
-                                    <option value="gmail.com">구글</option>
-                                    <option value="daum.net">다음</option>
-                                </select>
+                                <button type="button">인증번호전송</button>
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="email-section">
                             <th></th>
-                            <td class="input-box"><input type="text" placeholder="6자리 입력"></td>
-                            <td class="input-btn">
-                                <button type="button">인증</button>
+                            <td class="input-box" colspan="2">
+                                <div class="auth-num">
+                                    <span class="timer"><h4></h4></span>
+                                    <input type="text" class="auth-num-input" placeholder="인증번호 6자리" maxlength="6">
+                                    <button type="button" disabled>인증</button>                                   
+                                </div>
                             </td>
-                        </tr>
-                        <tr class="warning-text hidden">
-                            <td></td>
-                            <td>
-                                <h5>잘못된 인증번호입니다</h5>
-                            </td>
-                            <td></td>
                         </tr>
                         <input type="hidden" name="email" readonly>
                         <c:remove var="email" />
@@ -233,8 +251,7 @@
                                         <h4>기타</h4>
                                     </button>
                                 </div>
-                                <input type="text" name="genreLike" value="${loginUser.genreLike}"
-                                    hidden> <!--button들 내용 추가-->
+                                <input type="text" name="genreLike" value="${loginUser.genreLike}" hidden> <!--button들 내용 추가-->
                             </td>
                         </tr>
                         <tr> <!--크기 맞추기 위한 빈공간-->
@@ -245,6 +262,11 @@
                     </tbody>
                 </table>
             </div>
+
+            <input type="checkbox" id="nicknameCheck" class="hidden">
+            <input type="checkbox" id="addrCheck" class="hidden">
+            <input type="checkbox" id="phoneCheck" class="hidden">
+            <input type="checkbox" id="emailCheck" class="hidden">
             <div id="submit-btn">
                 <button type="submit" class="btn-staez purple">
                     <h3>저장</h3>

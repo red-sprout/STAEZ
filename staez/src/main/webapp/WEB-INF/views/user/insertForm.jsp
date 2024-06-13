@@ -123,7 +123,7 @@
                                 <option value="kakao.com">kakao.com</option>
                             </select>
                         </td>
-                        <td colspan="">
+                        <td>
                             <input type="button" id="emailCheckButton" class="check_button" value="인증번호 전송">
                         </td>
                     </tr>
@@ -140,7 +140,7 @@
                     </tr>
                     <tr>
                         <th></th>
-                        <td colspan="4">
+                        <td>
                             <div id="checkResultEamil" class="checkResult">
                                 <span id="userEmailErrorMessage"></span>
                             </div>
@@ -148,11 +148,13 @@
                     </tr>
                     <tr>
                         <th>성별</th>
-                        <td colspan="2">
-                            <input type="radio" id="Male" value="M" name="gender" checked>
-                            <label for="Male">남자</label> &nbsp;&nbsp;
-                            <input type="radio" id="Female" value="F" name="gender">
-                            <label for="Female">여자</label> &nbsp;&nbsp;
+                        <td colspan="2" class="gender_td">
+                            <div >
+                                <input type="radio" id="Male" value="M" name="gender" checked>
+                                <label for="Male">남자</label> &nbsp;&nbsp;
+                                <input type="radio" id="Female" value="F" name="gender">
+                                <label for="Female">여자</label> &nbsp;&nbsp;
+                            </div>
                         </td>
                         
                     </tr>

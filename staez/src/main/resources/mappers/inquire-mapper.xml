@@ -57,7 +57,7 @@
 									category_no
 									)
 									values(
-									currval('board_board_no_seq'::regclass),
+									currval('seq_board'::regclass),
 									#{cNo}
 									)
 	</insert>

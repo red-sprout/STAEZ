@@ -13,16 +13,14 @@
     <link rel="stylesheet" href="${contextPath}/resources/css/main.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/user/login.css">
     <!-- js -->
-    <script src="${contextPath}/resources/js/user/loginForm.js"></script>
-    <!-- 네이버로그인 -->
-    <script src="${contextPath}/resources/js/user/naver_login.js"></script>
+    <script  type="module" src="${contextPath}/resources/js/user/loginForm.js"></script>
     <!-- Bootstrap 4 Tutorial -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <title>login</title>
 </head>
-<body onload="init()">
+<body>
     <c:if test="${not empty alertMsg}">
         <script>
             alert("${alertMsg}");

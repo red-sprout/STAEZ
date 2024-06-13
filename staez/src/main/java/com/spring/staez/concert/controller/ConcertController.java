@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,15 +21,12 @@ import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.concert.service.ConcertService;
 
+import lombok.RequiredArgsConstructor;
+@RequiredArgsConstructor
 @Controller
 public class ConcertController {
-	
-	@Autowired
-	private ConcertService concertService;
-	
-//	@Autowired
-//	private PageInfo page;
 
+	private final ConcertService concertService;
 	
 	// category를 가져와라 콘서트 '네비'에 뿌려주기
 	@ResponseBody
@@ -167,22 +163,6 @@ public class ConcertController {
 	    return new Gson().toJson(result);
 	}
 		
-////		ArrayList<ConcertReview> comList =  concertService.selectComDetail(Integer.parseInt(concertNo));
-//		
-////		model.addAttribute("comList", comList);
-//		model.addAttribute("pi", pi);
-//		model.addAttribute("crList", crList);
-//		
-//		System.out.println("comCount:" + comCount);
-////		System.out.println("comList:"+ comList);
-//		System.out.println("pi:" + pi);
-//		System.out.println("crList:" + crList);
-//		
-//		
-//		return new Gson().toJson(crList);  // "concert/concertDetailMain";
-//	}
-//	
-	
 	
 	// 공연을 concertNo로 가져와서 리뷰 페이지로: 리뷰페이지 페이지네이션
 	@ResponseBody
@@ -227,21 +207,6 @@ public class ConcertController {
 		System.out.println(list);
 		return new Gson().toJson(list);
 	}
-
-//	@ResponseBody
-//	@RequestMapping(value = "locationAll.co", produces="application/json; charset=UTF-8")
-//	public String locationAll(@RequestParam(value = "categoryNo")int categoryNo, @RequestParam(value = "area")String area) {
-//		System.out.println("area:" + area);
-//		
-//		Map map = new HashMap();
-//		map.put("categoryNo", categoryNo);
-//		map.put("area", area);
-//		
-//		ArrayList<Concert> list =  concertService.locationAllList(map);
-//		return new Gson().toJson(list);
-//	}
-	
-	
 	
 	// 페이지네이션
 	@ResponseBody

@@ -7,15 +7,19 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.staez.admin.model.vo.ConcertSchedule;
 import com.spring.staez.admin.model.vo.ImpossibleSeat;
 import com.spring.staez.admin.model.vo.Seat;
 import com.spring.staez.concert.model.dao.ConcertDao;
 import com.spring.staez.concert.model.dao.ConcertReserveDao;
+import com.spring.staez.concert.model.dto.ReserveInsertDTO;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.Theater;
 import com.spring.staez.user.model.vo.Reserve;
+import com.spring.staez.user.model.vo.User;
 
 @Service
 public class ConcertReserveServiceImpl implements ConcertReserveService{
@@ -25,6 +29,9 @@ public class ConcertReserveServiceImpl implements ConcertReserveService{
 	
 	@Autowired
 	private ConcertReserveDao crDao;
+	
+	@Autowired
+    private PlatformTransactionManager transactionManager;
 
 	@Override
 	public Concert reserveConcertInfo(int cNo) {
@@ -66,6 +73,14 @@ public class ConcertReserveServiceImpl implements ConcertReserveService{
 		data.put("time", schedule);
 		return crDao.selectReserveRatingSeat(sqlSession, data);
 	}
+	
+	@Override
+	public ArrayList<Seat> selectImpossibleRatingSeat(int theaterNo, String choiceDate) {
+		Map data = new HashMap();
+		data.put("tNo", theaterNo);
+		data.put("date", choiceDate);
+		return crDao.selectImpossibleRatingSeat(sqlSession, data);
+	}
 
 	@Override
 	public Theater selectTheaterSeatInfo(String theaterName) {
@@ -93,4 +108,44 @@ public class ConcertReserveServiceImpl implements ConcertReserveService{
 		data.put("date", choiceDate);
 		return crDao.selectRatingTotalSeat(sqlSession, data);
 	}
+
+	@Override
+	public User userInfo(int uNo) {
+		return crDao.userInfo(sqlSession, uNo);
+	}
+
+	@Transactional
+	@Override
+	public int insertReserve(ReserveInsertDTO rid) {
+		System.out.println(rid);
+		int result = 0;		
+		
+		for(String seat : rid.getSeatList()) {
+			
+			 String[] seats = seat.split("-");
+
+		        // 좌석 정보를 분리
+		        String rowStr = seats[0];
+		        String colStr = seats[1];
+
+		        // 좌석 정보에서 숫자만 추출하여 row와 col로 설정
+		        int row = Integer.parseInt(rowStr);
+		        int col = Integer.parseInt(colStr);
+
+		        // DTO에 좌석 정보 설정
+		        rid.setRow(row);
+		        rid.setCol(col);
+		        
+		        // DAO를 사용하여 예약 정보를 데이터베이스에 삽입
+		        result = crDao.insertReserve(sqlSession, rid);
+            
+            if(result < 1 ) {
+            	return result; 
+            }
+               
+		}
+		System.out.println(result);
+		return result;
+	}
+
 }
