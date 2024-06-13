@@ -15,16 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
     sginingenreLike();
     // 이메일
     sgininemail();
-    // 이메일 아이디적을때 한글안되고 영어만 가능하게
-    sgininemailEng();
-    // 이메일 다 입력됬나 콘솔
-    emailTimeTwo();
     // 이메일 인증 전송 버튼 이벤트 리스너 등록
-    const emailCheckButton = document.getElementById("emailCheckButton");
-    emailCheckButton.addEventListener('click', sendVerificationCode);
-    $("#emailCheckButton").on('click',(ev)=>{
-        nicknameCheck();
-    })
+    $("#emailCheckButton").on('click', (ev) => {
+        // 클릭 이벤트 발생 시 서버로 이메일 인증 요청 보내기
+        const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
+        sendEmailVerificationRequest(emailInput); // 이메일 인증 요청 보내는 함수 호출
+    });
     // UUID 이메일 체크
     emailSecretCode();
     // 버튼 클릭시 색상변경
@@ -266,38 +262,6 @@ function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput, e
     emailSecretErrorMessage.style.display = "none"; // 에러 메시지 숨기기
 }
 
-let timer; // 전역 변수로 타이머 변수를 선언합니다.
-
-// 카운트 다운 시작 함수
-function startTimer() {
-    clearInterval(timer); // 이전에 실행 중이던 타이머를 초기화합니다.
-
-    var duration = 3 * 60;
-    var timerDisplay = document.getElementById('timer');
-
-    // 카운트 다운 시작
-    timer = setInterval(function () {
-        var minutes = parseInt(duration / 60, 10);
-        var seconds = parseInt(duration % 60, 10);
-
-        // 남은 시간을 표시
-        timerDisplay.textContent = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
-
-        // 시간을 1초씩 감소
-        duration--;
-
-        // 카운트 다운이 끝나면 clearInterval을 호출하여 타이머를 멈춤
-        if (duration < 0) {
-            clearInterval(timer);
-            timerDisplay.textContent = "시간 초과";
-
-            // 시간 초과 시 데이터베이스로 삭제 요청 보내기 (Ajax를 사용하여 비동기 요청)
-            deleteVerificationCode();
-        }
-    }, 1000);
-}
-
-
 // UUID 이메일 체크
 function emailSecretCode() {
     const checkButton = document.getElementById("check_emailSecretBtn");
@@ -325,6 +289,34 @@ function emailSecretCode() {
             emailSecretErrorMessage.style.display = "none";
         }
     });
+}
+
+let timer; // 전역 변수로 타이머 변수를 선언합니다.
+
+// 카운트 다운 시작 함수
+function startTimer() {
+    clearInterval(timer); // 이전에 실행 중이던 타이머를 초기화합니다.
+
+    var duration = 3 * 60;
+    var timerDisplay = document.getElementById('timer');
+
+    // 카운트 다운 시작
+    timer = setInterval(function () {
+        var minutes = parseInt(duration / 60, 10);
+        var seconds = parseInt(duration % 60, 10);
+
+        // 남은 시간을 표시
+        timerDisplay.textContent = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
+
+        // 시간을 1초씩 감소
+        duration--;
+
+        // 카운트 다운이 끝나면 clearInterval을 호출하여 타이머를 멈춤
+        if (duration < 0) {
+            clearInterval(timer);
+            timerDisplay.textContent = "시간 초과";
+        }
+    }, 1000);
 }
 // 이메일
 function sgininemail() {
@@ -374,47 +366,6 @@ function sgininemail() {
     init(); // 페이지 로드 시 초기화 함수를 호출합니다.
 }
 
-function emailTimeTwo() {
-    const emailInput = document.getElementById("email-prefix");
-    const suffixInput = document.getElementById("email-suffix");
-
-    emailInput.addEventListener('input', function() {
-        const emailPrefix = emailInput.value;
-        const emailSuffix = suffixInput.value;
-        //console.log(emailPrefix + "@" + emailSuffix);
-    });
-
-    suffixInput.addEventListener('input', function() {
-        const emailPrefix = emailInput.value;
-        const emailSuffix = suffixInput.value;
-        //console.log(emailPrefix + "@" + emailSuffix);
-    });
-}
-
-// 이메일 아이디 적을 때 한글 안 되고 영어만 가능하게
-function sgininemailEng() {
-    const prefixElement = document.getElementById("email-prefix");
-    const userEmailErrorMessage = document.getElementById("userEmailErrorMessage");
-
-    prefixElement.addEventListener('input', function() {
-        const value = prefixElement.value;
-        const regex = /^[a-zA-Z0-9]*$/; // 영문자와 숫자만 허용하는 정규식
-
-        if (!regex.test(value)) {
-            prefixElement.value = value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '');
-
-            if (userEmailErrorMessage) {
-                userEmailErrorMessage.innerText = "영어 입력만 가능합니다.";
-                userEmailErrorMessage.style.color = "red";
-            }
-        } else {
-            if (userEmailErrorMessage) {
-                userEmailErrorMessage.innerText = "";
-            }
-        }
-    });
-}
-
 //주소 불러오기 - kakao 우편번호 서비스 api (https://postcode.map.daum.net/guide)
 function sample6_execDaumPostcode() {
     new daum.Postcode({
@@ -432,12 +383,6 @@ function sample6_execDaumPostcode() {
             } else { // 사용자가 지번 주소를 선택했을 경우(J)
                 addr = data.jibunAddress;
             }
-
-            // sample6_postcode = 우편번호 > 04766
-            // sample6_execDaumPostcode = 우편번호 찾기 > (버튼)
-            // sample6_address = 주소 > 서울숲길 17
-            // sample6_detailAddress = 상세주소 > 동/호수
-            // sample6_extraAddress =  참고사항 > 성수동1가(지번), 성수파크빌(건물이름)
 
             // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
             if(data.userSelectedType === 'R'){
