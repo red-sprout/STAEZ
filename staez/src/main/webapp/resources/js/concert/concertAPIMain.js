@@ -1,43 +1,39 @@
-// 공연메인페이지 슬라이더 slick sliker api
 $(function() { // list는 컨트롤러에서 받아온 것
   const sliderContent = document.querySelector(".concert-main-upper");
   const gridContent = document.querySelector(".concert-main-grid");
   
-  conNaviDraw(conList => drawConNavi(conList));
+  // ajaxCategoryListAPI(list => drawConNavi(list));
 
   const categoryNo = document.querySelector("input[name='categoryNo']").value;
-  ajaxCategoryList({"categoryNo" : categoryNo}, (list)=>drawSliderMain(list, sliderContent));
-  ajaxCategoryList({"categoryNo" : categoryNo}, (list)=>drawGridMain(list, gridContent));
+  ajaxCategoryListAPI((list)=>drawSliderMain(list, sliderContent));
+  ajaxCategoryListAPI((list)=>drawGridMain(list, gridContent));
 
 });
 
 
 
-// ajax로 콘서트 navi 그려
-function drawConNavi(conList){
-  console.log(conList)
-  const concertNaviArea = document.querySelector(".concert-ul");
-  concertNaviArea.innerHTML = ``;
+// // ajax로 콘서트 navi 그려          나중에
+// function drawConNavi(list){
+//   console.log(list)
+//   const concertNaviArea = document.querySelector(".concert-ul");
+//   concertNaviArea.innerHTML = ``;
 
-  for(let c of conList){
+//   for(let c of list){
 
-    let naviLi = document.createElement('li');
-    naviLi.innerHTML = ``;
-    naviLi.innerHTML = `<h2 id="`+ c.categoryNo +`">`+ c.categoryName +`</h2>
-                        <input type="hidden" name="concertNo" value=`+ c. categoryNo +`>`;
+//     let naviLi = document.createElement('li');
+//     naviLi.innerHTML = ``;
+//     naviLi.innerHTML = `<h2>`+ c.genrenm +`</h2>`;
 
-    naviLi.setAttribute("onclick", `location.href ='main.co?categoryNo=`+ c.categoryNo +`'`)
+//     naviLi.setAttribute("onclick", `location.href ='main.co?categoryNo=`+ c.mt20id +`'`)
 
-    concertNaviArea.appendChild(naviLi);
-  }
-}
+//     concertNaviArea.appendChild(naviLi);
+//   }
+// }
 
 
 // 슬라이더 그려주기
 function drawSliderMain(list, sliderContent){
-  // const sliderContentDiv = document.createElement('div');
-  // const gridContentDiv = document.createElement('div');
-  
+
   sliderContent.innerHTML =``;
 
   if(list.length === 0){
@@ -45,30 +41,22 @@ function drawSliderMain(list, sliderContent){
   }
   
   for (let c of list) {
-
-    // 제일 마지막으로 등록된 공연만 클릭되는 이유?
-
-    // ChatGPT
-    // sliderContent.onclick 이벤트를 각각의 sliderContent에 바인딩할 때, 클로저(closure) 문제가 발생할 수 있습니다. 클로저 문제란 이벤트 핸들러 함수가 외부 변수를 참조할 때, 이벤트 핸들러 함수가 정의된 시점의 변수 값으로만 접근한다는 것을 의미합니다. 이 경우에는 각각의 이벤트 핸들러 함수가 아닌 마지막 이벤트 핸들러 함수가 전역 변수인 c의 최종 값으로 접근합니다.
-    // 이 문제를 해결하기 위해서는 클로저 문제를 회피해야 합니다. 각각의 이벤트 핸들러 함수에서 c 변수를 받아오는 방식으로 수정하면 됩니다. 아래는 수정된 코드입니다.
     const concertDiv = document.createElement('div');
     concertDiv.className = 'concert-main-upper-pic-div';
     
-    concertDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
-                                  + `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
+    concertDiv.innerHTML += `<img src="` + c.poster + `"alt="">`
+                             + `<input type="hidden" name="concertId" value="` + c.mt20id + `">`
                                   + `<div class="concert-main-upper-sen-div">
-                                      <p><span><b><h2>` + c.concertTitle + `</h2></span></b></p>
-                                      <p><span>` + c.theaterName + `</span></p>
-                                      <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
+                                      <p><span><b><h2>` + c.prfnm + `</h2></span></b></p>
+                                      <p><span>` + c.fcltynm + `</span></p>
+                                      <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
                                  + `</div>`;
-    // sliderContent.appendChild(sliderContentDiv);
-    // sliderContent.setAttribute("onclick", `location.href ='maincon.co?concertNo=`+ c.concertNo +`'`)
     
     sliderContent.appendChild(concertDiv);
 
     // 임시, 공연세부페이지로
     concertDiv.onclick = function() {
-      location.href = 'detail.co?concertNo=' + c.concertNo;
+      location.href = 'condeapi.co?concertId=' + c.mt20id;
     };
 
   }
@@ -76,8 +64,6 @@ function drawSliderMain(list, sliderContent){
 
 // 그리드 그려주기
 function drawGridMain(list, gridContent){
-  // const sliderContentDiv = document.createElement('div');
-  // const gridContentDiv = document.createElement('div');
   
   gridContent.innerHTML = ``;
 
@@ -90,19 +76,20 @@ function drawGridMain(list, gridContent){
   for (let c of list) {
 
     const concertGridDiv = document.createElement('div');
-    concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
-                              + `<div>`
-                              +     `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
+    concertGridDiv.className = 'concert-main-grid-div';
+    concertGridDiv.innerHTML += `<input type="hidden" name="concertId" value="` + c.mt20id + `">`
+                              +  `<div>`
+                              +     `<img src="` + c.poster + `"alt="">`
                               + `</div>`
                               + `<div>`
-                              +     `<p><span>` + c.categoryName + `</span></p>`
-                              +     `<p><span><b>[` + c.concertTitle + `]</b></span></p>
-                                    <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
+                              +     `<p><span>` + c.genrenm + `</span></p>`
+                              +     `<p><span><b>[` + c.prfnm + `]</b></span></p>
+                                    <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
                             + `</div>`
                             
     gridContent.appendChild(concertGridDiv);                   
     concertGridDiv.onclick = function goDetail(){
-      location.href = 'detail.co?concertNo=' + c.concertNo;
+      location.href = 'condeapi.co?concertId=' + c.mt20id;
     }
   }
 
@@ -132,7 +119,7 @@ function allListClick(){
  console.log("클릭");
   const gridContent = document.querySelector(".concert-main-grid");
   const categoryNo = document.querySelector("input[name='categoryNo']").value;
-  ajaxCategoryList({"categoryNo" : categoryNo}, (list)=>drawAllList(list, gridContent));
+  ajaxCategoryListAPI((list)=>drawAllList(list, gridContent));
 }
 
 
@@ -141,21 +128,21 @@ function popularClick() {
   const gridContent = document.querySelector(".concert-main-grid");
   const categoryNo = document.querySelector("input[name='categoryNo']").value;
 
-  popular({"categoryNo" : categoryNo}, (list) => drawPopular(list, gridContent));
+  ajaxCategoryListAPI((list) => drawPopular(list, gridContent));
 }
 
 function latestClick() {
   const gridContent = document.querySelector(".concert-main-grid");
   const categoryNo = document.querySelector("input[name='categoryNo']").value;
 
-  latest({"categoryNo" : categoryNo}, (list) => drawLatest(list, gridContent));
+  ajaxCategoryListAPI((list) => drawLatest(list, gridContent));
 }
 
 function highscoreClick() {
   const gridContent = document.querySelector(".concert-main-grid");
   const categoryNo = document.querySelector("input[name='categoryNo']").value;
 
-  highscore({"categoryNo" : categoryNo}, (list) => drawHighscore(list, gridContent));
+  ajaxCategoryListAPI((list) => drawHighscore(list, gridContent));
 }
 
 function drawAllList(list, gridContent){
@@ -169,19 +156,20 @@ function drawAllList(list, gridContent){
 
     for (let c of list) {
       const concertGridDiv = document.createElement('div');
-      concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
+      concertGridDiv.className = 'concert-main-grid-div';
+      concertGridDiv.innerHTML += `<input type="hidden" name="mt20id" value="` + c.mt20id + `"></input>`
                                 + `<div>`
-                                +     `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
+                                +     `<img src="` + c.poster + `"alt="">`
                                 + `</div>`
                                 + `<div>`
-                                +     `<p><span>` + c.categoryName + `</span></p>`
-                                +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 전체
-                                      <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
+                                +     `<p><span>` + c.genrenm + `</span></p>`
+                                +     `<p><span><b>[` + c.prfnm + `]</b></span></p> 전체
+                                      <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
                               + `</div>`
                               
       gridContent.appendChild(concertGridDiv);                   
       concertGridDiv.onclick = function goDetail(){
-        location.href = 'detail.co?concertNo=' + c.concertNo;
+        location.href = 'condeapi.co?concertId=' + c.mt20id;
       }
     }
   } else {
@@ -214,19 +202,20 @@ function drawPopular(list, gridContent){
 
   for (let c of list) {
     const concertGridDiv = document.createElement('div');
-    concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
+    concertGridDiv.className = 'concert-main-grid-div';
+    concertGridDiv.innerHTML += `<input type="hidden" name="mt20id" value="` + c.mt20id + `"></input>`
                               + `<div>`
-                              +     `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
+                              +     `<img src="` + c.poster + `"alt="">`
                               + `</div>`
                               + `<div>`
-                              +     `<p><span>` + c.categoryName + `</span></p>`
-                              +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 인기
-                                    <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
+                              +     `<p><span>` + c.genrenm + `</span></p>`
+                              +     `<p><span><b>[` + c.prfnm + `]</b></span></p> 인기
+                                    <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
                             + `</div>`
                             
     gridContent.appendChild(concertGridDiv);                   
     concertGridDiv.onclick = function goDetail(){
-      location.href = 'detail.co?concertNo=' + c.concertNo;
+      location.href = 'condeapi.co?concertId=' + c.mt20id;
     }
   }
 
@@ -258,19 +247,20 @@ function drawLatest(list, gridContent){
 
     for (let c of list) {
       const concertGridDiv = document.createElement('div');
-      concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
+      concertGridDiv.className = 'concert-main-grid-div';
+      concertGridDiv.innerHTML += `<input type="hidden" name="mt20id" value="` + c.mt20id + `"></input>`
                                 + `<div>`
-                                +     `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
+                                +     `<img src="` + c.poster + `"alt="">`
                                 + `</div>`
                                 + `<div>`
-                                +     `<p><span>` + c.categoryName + `</span></p>`
-                                +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 최신
-                                      <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
+                                +     `<p><span>` + c.genrenm + `</span></p>`
+                                +     `<p><span><b>[` + c.prfnm + `]</b></span></p> 최신
+                                      <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
                               + `</div>`
                               
       gridContent.appendChild(concertGridDiv);                   
       concertGridDiv.onclick = function goDetail(){
-        location.href = 'detail.co?concertNo=' + c.concertNo;
+        location.href = 'condeapi.co?concertId=' + c.mt20id;
       }
     }
   } else {
@@ -302,19 +292,20 @@ function drawHighscore(list, gridContent){
 
     for (let c of list) {
       const concertGridDiv = document.createElement('div');
-      concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
+      concertGridDiv.className = 'concert-main-grid-div';
+      concertGridDiv.innerHTML += `<input type="hidden" name="mt20id" value="` + c.mt20id + `"></input>`
                                 + `<div>`
-                                +     `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
+                                +     `<img src="` + c.poster + `"alt="">`
                                 + `</div>`
                                 + `<div>`
-                                +     `<p><span>` + c.categoryName + `</span></p>`
-                                +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 별점
-                                      <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
+                                +     `<p><span>` + c.genrenm + `</span></p>`
+                                +     `<p><span><b>[` + c.prfnm + `]</b></span></p> 별점
+                                      <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
                               + `</div>`
                               
       gridContent.appendChild(concertGridDiv);                   
       concertGridDiv.onclick = function goDetail(){
-        location.href = 'detail.co?concertNo=' + c.concertNo;
+        location.href = 'condeapi.co?concertId=' + c.mt20id;
       }
     }
 
@@ -341,7 +332,7 @@ function locationClick() {
   const gridContent = document.querySelector(".concert-main-grid");
   const categoryNo = document.querySelector("input[name='categoryNo']").value;
 
-  ajaxCategoryList({"categoryNo" : categoryNo}, (list) => drawLocation(list, gridContent));
+  ajaxCategoryListAPI((list) => drawLocation(list, gridContent));
 }
 
 function drawLocation(list, gridContent){
@@ -355,19 +346,20 @@ function drawLocation(list, gridContent){
 
     for (let c of list) {
       const concertGridDiv = document.createElement('div');
-      concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
+      concertGridDiv.className = 'concert-main-grid-div';
+      concertGridDiv.innerHTML += `<input type="hidden" name="mt20id" value="` + c.mt20id + `"></input>`
                                 + `<div>`
-                                +     `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
+                                +     `<img src="` + c.poster + `"alt="">`
                                 + `</div>`
                                 + `<div>`
-                                +     `<p><span>` + c.categoryName + `</span></p>`
-                                +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 지역전체
-                                      <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
+                                +     `<p><span>` + c.genrenm + `</span></p>`
+                                +     `<p><span><b>[` + c.prfnm + `]</b></span></p> 지역전체
+                                      <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
                               + `</div>`
                               
       gridContent.appendChild(concertGridDiv);                   
       concertGridDiv.onclick = function goDetail(){
-        location.href = 'detail.co?concertNo=' + c.concertNo;
+        location.href = 'condeapi.co?concertId=' + c.mt20id;
       }
   }
 
@@ -394,7 +386,7 @@ function locationArea(area){
   const gridContent = document.querySelector(".concert-main-grid");
   const categoryNo = document.querySelector("input[name='categoryNo']").value;
 
-  locationAll({"categoryNo" : categoryNo, "area": area}, (list) => drawLocationAll(list, gridContent));
+  ajaxCategoryListAPI({"categoryNo" : categoryNo, "area": area}, (list) => drawLocationAll(list, gridContent));
 
 }
 
@@ -416,19 +408,20 @@ function drawLocationAll(list, gridContent){
 
   for (let c of list) {
     const concertGridDiv = document.createElement('div');
-    concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
+    concertGridDiv.className = 'concert-main-grid-div';
+    concertGridDiv.innerHTML += `<input type="hidden" name="mt20id" value="` + c.mt20id + `"></input>`
                               + `<div>`
-                              +     `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
+                              +     `<img src="` + c.poster + `"alt="">`
                               + `</div>`
                               + `<div>`
-                              +     `<p><span>` + c.categoryName + `</span></p>`
-                              +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 지역
-                                    <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
+                              +     `<p><span>` + c.genrenm + `</span></p>`
+                              +     `<p><span><b>[` + c.prfnm + `]</b></span></p> 지역
+                                    <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
                             + `</div>`
                             
     gridContent.appendChild(concertGridDiv);                   
     concertGridDiv.onclick = function goDetail(){
-      location.href = 'detail.co?concertNo=' + c.concertNo;
+      location.href = 'condeapi.co?concertId=' + c.mt20id;
     }
     
     }

@@ -1,13 +1,23 @@
 package com.spring.staez.concert.service;
 
+import java.lang.reflect.Type;
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.admin.model.vo.Seat;
 import com.spring.staez.common.model.vo.PageInfo;
@@ -25,7 +35,7 @@ public class ConcertServiceImpl implements ConcertService {
 	
 	@Autowired
 	private ConcertDao concertDao;
-
+	
 	
 	@Override
 	public Category selectCate(int categoryNo) {
@@ -133,7 +143,8 @@ public class ConcertServiceImpl implements ConcertService {
 	public ArrayList<Seat> selectSeatPrice(int concertNo) {
 		return concertDao.selectSeatPrice(sqlSession, concertNo);
 	}
-
-
+	
+	
+	
 
 }

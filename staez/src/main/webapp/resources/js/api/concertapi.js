@@ -173,3 +173,49 @@ function locationAll(data, callback){
         }
     });
 }
+
+
+
+function conApi(callback){
+    $.ajax({
+        url: contextPath + "conapi.co",
+        success : function(result) { // db에서 받아온 conList
+            console.log(result);
+            callback(result);
+        }, error() {
+            console.log("실패");
+        }
+    });
+  }
+
+  
+
+
+
+  // 카테고리별 콘서트 내용 그려주는: 슬라이더랑, 그리드
+function ajaxCategoryListAPI(callback){
+    $.ajax({
+        url: contextPath + "mainconapi.co",
+        success : function(list){
+            console.log(list);
+            callback(list);
+        }, error(){
+            console.log("실패");
+        }
+    });
+}
+
+
+  // 카테고리별 콘서트 내용 그려주는: 슬라이더랑, 그리드
+  function detailapi(callback){
+    $.ajax({
+        url: contextPath + "detailapi.co",
+        data: data,
+        success : function(list){
+            console.log(list);
+            callback(list);
+        }, error(){
+            console.log("실패");
+        }
+    });
+}

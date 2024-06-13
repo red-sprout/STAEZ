@@ -126,8 +126,12 @@
     .concert-detail-review-table tbody tr:nth-of-type(1) td {
         width: 10%;
     }
-    .concert-detail-review-table-img{
-        width: 120px;
-    height: 120px;
-    padding-bottom: 5px;
-}
+    .concert-detail-review-tbody tr td img{
+        width: 60px;
+        height: 60px;
+        padding-bottom: 5px;
+    }
+
+    .current{
+        cursor:pointer;
+    }

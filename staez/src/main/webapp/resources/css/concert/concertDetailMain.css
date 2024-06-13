@@ -293,3 +293,9 @@ html { font-size:62.5%; }
 .dates li.clicked{
     color: white;
 }
+
+.highlight{
+    background-color: #ffc107;
+    color:white;
+    border-radius: 5px;
+}
