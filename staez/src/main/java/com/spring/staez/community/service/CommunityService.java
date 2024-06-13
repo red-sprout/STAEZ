@@ -61,4 +61,9 @@ public interface CommunityService {
 
 	int updateBoardCnt(int boardNo);
 
+	int insertReply(Reply r);
+
+	int updateReply(Reply r);
+	
+	int deleteReply(int replyNo);
 }

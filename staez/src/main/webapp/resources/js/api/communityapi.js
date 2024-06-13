@@ -133,18 +133,6 @@ function selectLike(data, callback) {
     })
 }
 
-function selectReply(data, callback) {
-    $.ajax({
-        url: contextPath + "select.rp",
-        data: data,
-        success : function(res) {
-            callback(res);
-        }, error() {
-            console.log("댓글 요청 실패");
-        }
-    })
-}
-
 function updateBoard(data, callback) {
     $.ajax({
         url: contextPath + "update.cm",
@@ -170,9 +158,61 @@ function onClickLike(data, callback) {
     });
 }
 
+// 댓글
+function selectReply(data, callback) {
+    $.ajax({
+        url: contextPath + "select.ry",
+        data: data,
+        success : function(res) {
+            callback(res);
+        }, error() {
+            console.log("댓글 요청 실패");
+        }
+    })
+}
+
 function selectReplyAll(data, callback) {
     $.ajax({
-        url: contextPath + "selectAll.rp",
+        url: contextPath + "selectAll.ry",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("댓글 요청 실패");
+        }
+    });
+}
+
+function insertReply(data, callback) {
+    $.ajax({
+        url: contextPath + "insert.ry",
+        type: "POST",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("댓글 요청 실패");
+        }
+    });
+}
+
+function updateReply(data, callback) {
+    $.ajax({
+        url: contextPath + "update.ry",
+        type: "POST",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("댓글 요청 실패");
+        }
+    });
+}
+
+function deleteReply(data, callback) {
+    $.ajax({
+        url: contextPath + "delete.ry",
+        type: "POST",
         data: data,
         success: function (res) {
             callback(res);

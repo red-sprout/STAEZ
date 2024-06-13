@@ -153,5 +153,17 @@ public class CommunityDao {
 	public int updateBoardCnt(SqlSessionTemplate sqlSession, int boardNo) {
 		return sqlSession.update("communityMapper.updateBoardCnt", boardNo);
 	}
+
+	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.insert("communityMapper.insertReply", r);
+	}
+
+	public int updateReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.update("communityMapper.updateReply", r);
+	}
+
+	public int deleteReply(SqlSessionTemplate sqlSession, int replyNo) {
+		return sqlSession.update("communityMapper.deleteReply", replyNo);
+	}
 	
 }

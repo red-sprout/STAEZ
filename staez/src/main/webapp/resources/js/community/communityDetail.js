@@ -29,7 +29,8 @@ $(function(){
     })
 
     selectReplyAll(data, (res) => {
-        setReply(res);
+        initReply();
+        setReply(res, undefined);
     });
 
     const concertNo = document.querySelector("input[name='tag']").value;
@@ -167,23 +168,42 @@ function replyFocus() {
     $("#reply-input").focus();
 }
 
-function setReply(result) {
+function initReply() {
+    const communityContents = document.getElementById("community-contents");
+    const replyFlex = [...document.getElementsByClassName("reply-flex")];
+    document.getElementById("reply-input").value = "";
+    replyFlex.forEach((ele) => communityContents.removeChild(ele));
+}
+
+function setReply(result, refNo) {
     const communityContents = document.getElementById("community-contents");
     for(let ele of result) {
+        if(ele.refReplyNo != refNo) {
+            continue;
+        }
         const replyFlex = document.createElement("li");
         const communityReply = document.createElement("div");
-    
+        const replyNo = document.createElement("input");
+
         replyFlex.setAttribute("class", "reply-flex");
         communityReply.setAttribute("class", "community-reply");
+        
+        replyNo.type = "hidden"
+        replyNo.value = ele.replyNo;
 
-        communityReply.appendChild(replyMenu());
+        communityReply.appendChild(replyNo);
+        communityReply.appendChild(replyMenu(ele));
         communityReply.appendChild(replyWrapper(ele));
+
         if(ele.refReplyNo) {
             replyFlex.appendChild(blank());
         }
         replyFlex.appendChild(communityReply);
         communityContents.appendChild(replyFlex);
+
+        setReply(result, ele.replyNo);
     }
+    addEvent();
 }
 
 function blank() {
@@ -192,11 +212,19 @@ function blank() {
     return div;
 }
 
-function replyMenu() {
+function replyMenu(result) {
     const div = document.createElement("div");
     const action = ["수정", "삭제", "답글"];
-
     div.setAttribute("class", "reply-menu");
+    if(!checkUser(result.userNo)) {
+        const btn = document.createElement("button");
+        btn.setAttribute("class", "function");
+        btn.innerHTML = "답글";
+        div.appendChild(btn);
+
+        return div;
+    }
+
     for(let i = 0; i < 3; i++) {
         const btn = document.createElement("button");
         const img = document.createElement("img");
@@ -259,6 +287,141 @@ function replyWrapper(result) {
     return div;
 }
 
-function insertReply() {
+function addEvent() {
+    const replyMenu = document.querySelectorAll(".reply-menu .function");
+    for(let ele of replyMenu) {
+        switch(ele.innerText) {
+            case "수정":
+                ele.addEventListener("click", (ev) => updateReplyAddEvent(ev.currentTarget.parentNode.parentNode));
+                break;
+            case "삭제":
+                ele.addEventListener("click", (ev) => deleteReplyEvent(getReplyNo(ev)));
+                break;
+            default:
+                ele.addEventListener("click", (ev) => addReplyEvent(ev.currentTarget.parentNode.parentNode.parentNode));
+                break;
+        }
+    }
+}
+
+function getReplyNo(ev) {
+    return ev.currentTarget.parentNode.parentNode.children[0].value;
+}
+
+function checkUser(userNo) {
+    const loginUser = parseInt(document.querySelector("input[name=userNo]").value);
+    return userNo === loginUser;
+}
+
+function addReplyEvent(target) {
+    const existingReplyFlex = document.querySelector(".reply-flex.reply-input");
+    if (existingReplyFlex) {
+        existingReplyFlex.remove();
+    }
+
+    const replyFlex = document.createElement("li");
+    const communityReply = document.createElement("div");
+    const textarea = document.createElement("textarea");
+    const replyNo = document.createElement("input");
+
+    const div = document.createElement("div");
+    div.setAttribute("class", "reply-menu");
+    const btn = document.createElement("button");
+    btn.setAttribute("class", "function");
+    btn.innerHTML = "작성";
+    div.appendChild(btn);
+
+    replyFlex.setAttribute("class", "reply-flex reply-input");
+    communityReply.setAttribute("class", "community-reply");
     
+    replyNo.type = "hidden";
+    replyNo.value = document.querySelector("input[name=userNo]").value;
+
+    communityReply.appendChild(replyNo);
+    communityReply.appendChild(div);
+    communityReply.appendChild(textarea);
+    replyFlex.appendChild(blank());
+    replyFlex.appendChild(blank());
+    replyFlex.appendChild(communityReply);
+    target.after(replyFlex);
+
+    styledTextArea(textarea);
+    communityReply.style.border = "1px solid #969696";
+    communityReply.style.borderRadius = "5px";
+
+    btn.addEventListener("click", (ev) => {
+        const refReplyNo = target.querySelector("input[type=hidden]").value;
+        const replyContent = textarea.value;
+        insertReplyEvent(refReplyNo, replyContent);
+    });
+}
+
+function insertReplyEvent(refReplyNo) {
+    const boardNo = document.querySelector("input[name=boardNo").value;
+    const userNo = document.querySelector("input[name=userNo]").value;
+    const replyContent = document.getElementById("reply-input").value;
+    insertReply({
+        refReplyNo, boardNo, userNo, replyContent
+    }, (result) => {
+        replyStatus(result.length);
+        initReply();
+        setReply(result, undefined);
+    });
+}
+
+function insertReplyEvent(refReplyNo, replyContent) {
+    const boardNo = document.querySelector("input[name=boardNo").value;
+    const userNo = document.querySelector("input[name=userNo]").value;
+    insertReply({
+        refReplyNo, boardNo, userNo, replyContent
+    }, (result) => {
+        replyStatus(result.length);
+        initReply();
+        setReply(result, undefined);
+    });
+}
+
+function updateReplyAddEvent(parent) {
+    const target = parent.children[2];
+    const textarea = document.createElement("textarea");
+    target.children[1].innerHTML = ``;
+    target.children[1].appendChild(textarea);
+    styledTextArea(textarea);
+    parent.querySelector(".reply-menu .function").addEventListener("click", (ev) => {
+        const replyContent = textarea.value;
+        const replyNo = parent.children[0].value;
+        updateReplyEvent(replyContent, replyNo);
+    })
+}
+
+function updateReplyEvent(replyContent, replyNo) {
+    const boardNo = document.querySelector("input[name=boardNo").value;
+    updateReply({
+        boardNo, replyContent, replyNo
+    }, (result) => {
+        replyStatus(result.length);
+        initReply();
+        setReply(result, undefined);
+    });
+}
+
+function styledTextArea(textarea) {
+    textarea.style.width = "600px";
+    textarea.style.height = "100px";
+    textarea.style.resize = "none";
+    textarea.style.border = "none";
+    textarea.style.padding = "10px";
+    textarea.style.outline = "none";
+    textarea.style.margin = "0 10px 0 10px";
+}
+
+function deleteReplyEvent(replyNo) {
+    const boardNo = document.querySelector("input[name=boardNo]").value;
+    deleteReply({
+        boardNo, replyNo
+    }, (result) => {
+        replyStatus(result.length);
+        initReply();
+        setReply(result, undefined);
+    });
 }
