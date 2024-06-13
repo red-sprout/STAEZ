@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -20,15 +19,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.spring.staez.user.model.vo.User;
 import com.spring.staez.user.service.UserService;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Controller
 public class UserController {
 
-	@Autowired
-	private UserService userService;
-	@Autowired
-	private BCryptPasswordEncoder bcryptPasswordEncoder;
-	@Autowired
-	private JavaMailSender sender;
+	private final UserService userService;
+	private final BCryptPasswordEncoder bcryptPasswordEncoder;
+	private final JavaMailSender sender;
 
 	// 로그인
 	@GetMapping("loginForm.me")
@@ -65,7 +64,7 @@ public class UserController {
 	public String newPwdForm() {
 		return "user/insertPwdForm";
 	}
-
+	
 	// 아이디체크
 	@ResponseBody
 	@GetMapping("idCheck.me")
