@@ -27,7 +27,6 @@ import lombok.RequiredArgsConstructor;
 public class ConcertController {
 
 	private final ConcertService concertService;
-
 	
 	// category를 가져와라 콘서트 '네비'에 뿌려주기
 	@ResponseBody
