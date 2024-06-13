@@ -17,24 +17,12 @@ import lombok.ToString;
 @ToString
 public class Concert {
 	
-    @SerializedName("prfnm")
     private String concertTitle; //공연명
-
-    @SerializedName("prfpdfrom")
     private String startDate; //시작날짜
-
-    @SerializedName("prfpdto")
     private String endDate; //종료날짜
-
-    @SerializedName("fcltynm")
     private String theaterName; //공영장명
-
-    @SerializedName("poster")
     private String filePath; //파일경로
-
-    @SerializedName("prfstate")
     private String concertStatus; //공연상태
-
 	private int concertNo; //공연번호
 	private int theaterNo; //공연시설번호
 	private String concertPlot; //줄거리
