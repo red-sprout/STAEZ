@@ -4,6 +4,7 @@ $(function() {
     updateCombinedEmail()
     firstEmailDomain();
     firstLikeGenre();
+    new PhoneVerification();
 });
 
 $(function() {
@@ -162,35 +163,76 @@ function firstLikeGenre(){
     });
 }
 
+class PhoneVerification {
+    constructor() {
+        this.isSend = false;
+        this.authNo = '';
+        this.timerId = null;
+        this.input = $('.phone-section .auth-num-input');
+        this.sendBtn = $('input[name=phone]+.input-btn>button');
+        this.authBtn = $('.phone-section button');
+      
+        this.sendBtn.on('click', () => this.sendAuthNum());
+        this.authBtn.on('click', () => this.checkAuthNum());
+    }
 
-function sendAuthNum(){
-    //버튼 클릭 시 작동
-    //랜덤번호 생성
-    const randNo = Math.floor(100000 + Math.random() * 900000).toString().padStart(6, '0');
-    const phone = $('input[name=phone]').val();
-    console.log(randNo);
-    console.log(phone);
-    sendAuthNumAjax({authNo : randNo,
-                     phone : phone
-    }, res => {
-        if(res === "YYYYY"){
-            console.log('성공');
+    sendAuthNum() {
+        if (this.isSend) {
+            alert('이미 전송되었습니다');
+            return;
         }
-    });
+        this.authBtn.prop('disabled', false);
+        this.input.val('');
+        this.input.focus();
+        
 
-    //해당 번호 전송 + 인증
+        // 랜덤번호 생성
+        this.authNo = Math.floor(100000 + Math.random() * 900000).toString().padStart(6, '0');
+        const phone = $('input[name=phone]').val();
+        console.log(this.authNo);
+        console.log(phone);
 
-    // 3분 카운트
-    //
+        sendAuthNumAjax({authNo: this.authNo, phone: phone}, res => {
+            if (res === "YYYYY") {
+                console.log('성공');
+                this.isSend = true;
+                this.startTimer('phone-section', 180); // 3분 타이머 시작
+            }
+        });
+    }
 
-}
+    checkAuthNum() {
+        const inputCode = this.input.val();
+        if (this.authNo !== inputCode) {
+            alert('잘못된 인증번호입니다.');
+        } else {
+            $('#phoneCheck').prop('checked', true);
+            alert('인증성공');
+            clearInterval(this.timerId);
+            
+            this.isSend = false;
+            this.authBtn.prop('disabled', true);
+        }
+    }
 
-function ckeckAuthNum(){
-
-}
-
-function startTimer(){
-    let timer = 180;
+    startTimer(className, duration) {
+        let timeLeft = duration;
+        this.timerId = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(this.timerId);
+                alert('인증시간이 초과되었습니다. 다시 인증해주세요.');
+                $(`.${className} .timer>h4`).text('3:00');
+                this.authBtn.prop('disabled', true);
+                this.authNo = '';
+                this.isSend = false; // 타이머가 끝나면 isSend를 다시 false로 설정
+            } else {
+                timeLeft--;
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                $(`.${className} .timer>h4`).text(minutes + ":" + (seconds < 10 ? '0' : '') + seconds);
+            }
+        }, 1000);
+    }
 }
 
 /* 아래부터는 js, jQuery로 변경 예정 */
