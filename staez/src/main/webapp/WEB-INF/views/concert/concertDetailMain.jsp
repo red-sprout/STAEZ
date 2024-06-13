@@ -26,12 +26,13 @@
 </head>
 
 <body>
-    <div>
+    <header>
         <jsp:include page="../common/header.jsp" />
 
         <!-- 적용 자바스크립트 -->
 
-    </div>
+    </header>
+    <main>
 
     <!-- 공연 navi --> <!-- !!!!!!!!!!! div랑 스타일 삭제 필요 !!!!!!!!!!!! -->
     <input type="hidden" name="userNo" value="${loginUser.userNo}">
@@ -180,13 +181,15 @@
     <div class="page-list" align="center">
         <!-- 자스 -->
     </div>
-
-
     <br>
 
-    <div>
+    </main>
+    <c:if test="${not empty loginUser}">
+        <jsp:include page="../chatbot/chatbot.jsp" />
+    </c:if>
+    <footer>
         <jsp:include page="../common/footer.jsp" />
-    </div>
+    </footer>
     <script src="<c:url value='/resources/js/api/concertapi.js'/>"></script>
     <script src="<c:url value='/resources/js/concert/concertDetailMain.js'/>"></script>
 </body>

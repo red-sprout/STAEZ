@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,14 +21,12 @@ import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.concert.service.ConcertService;
 
+import lombok.RequiredArgsConstructor;
+@RequiredArgsConstructor
 @Controller
 public class ConcertController {
-	
-	@Autowired
-	private ConcertService concertService;
-	
-//	@Autowired
-//	private PageInfo page;
+
+	private final ConcertService concertService;
 
 	
 	// category를 가져와라 콘서트 '네비'에 뿌려주기
