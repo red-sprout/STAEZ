@@ -44,7 +44,7 @@ public class ConcertRestTemplate {
 	            .queryParam("stdate", "20240101")
 	            .queryParam("eddate", "20241231")
 	            .queryParam("cpage", "1")
-	            .queryParam("rows", "5")
+	            .queryParam("rows", "10")
 	            .queryParam("shcate", "AAAA")
 	            .encode(StandardCharsets.UTF_8)
 	            .build()
@@ -59,7 +59,7 @@ public class ConcertRestTemplate {
         ResponseEntity<String> response = rt.getForEntity(uri, String.class);
         if (response.getStatusCode() == HttpStatus.OK) {
             String responseData = response.getBody();
-            int result = concertDao.conapiDelete(sqlSession);
+//            int result = concertDao.conapiDelete(sqlSession);
 
     		// xml to jason
     		org.json.JSONObject xmltojsonObj = XML.toJSONObject(responseData);
@@ -73,7 +73,8 @@ public class ConcertRestTemplate {
             
             // 데이터를 엔티티에 매핑하여 저장
             for (ConcertDto concertDto : concertList) {
-                concertDao.conapiInsert(sqlSession, concertDto);
+            	if(concertDao.concertTitleCount(sqlSession, concertDto.getConcertTitle()) == 0)
+            		concertDao.conapiInsert(sqlSession, concertDto);
             }
         }
     }

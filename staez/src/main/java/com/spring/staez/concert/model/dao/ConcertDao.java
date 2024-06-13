@@ -125,6 +125,10 @@ public class ConcertDao {
 	public int conapiInsert(SqlSessionTemplate sqlSession, ConcertDto concertDto) {
 		return sqlSession.insert("concertMapper.conapiInsert", concertDto);
 	}
+	
+	public int concertTitleCount(SqlSessionTemplate sqlSession, String concertTitle) {
+		return sqlSession.selectOne("concertMapper.concertTitleCount", concertTitle);
+	}
 
 	public int conapiDelete(SqlSessionTemplate sqlSession) {
 		return sqlSession.delete("concertMapper.conapiDelete");
