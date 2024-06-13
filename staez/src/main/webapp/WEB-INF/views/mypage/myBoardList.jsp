@@ -4,12 +4,20 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <link rel="stylesheet" href="${contextPath}/resources/css/mypage/myBoardList.css">
+<script src="${contextPath}/resources/js/mypage/myBoardList.js"></script>
 
 <div class="main-content">
     <div class="section-title">커뮤니티 관리</div>
 
     <div class="main-title">
         <h2>나의 게시글</h2>
+        <form action="${contextPath}/boardList.me" method="GET">
+            <input type="hidden" name="cpage" value="1">
+            <input type="text" name="keyword" value="${keyword}">
+            <button type="submit">
+                <img src="${contextPath}/resources/img/common/header/search.png">                
+            </button>           
+        </form>
     </div>
     <table>
         <tbody>

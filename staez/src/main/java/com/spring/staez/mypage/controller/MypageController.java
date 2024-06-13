@@ -189,20 +189,40 @@ public class MypageController {
 	
 	//나의 작성 게시글 리스트 페이지 출력
 	@RequestMapping("boardList.me")
-	public String myBoardList(int cpage, HttpSession session, Model model) {
+	public String myBoardList(int cpage, String keyword, HttpSession session, Model model) {
 		User loginUser = userService.loginUser((User)session.getAttribute("loginUser"));
 		if(loginUser == null) { //로그인 되어있지 않을 경우
 	        session.setAttribute("alertMsg", "로그인이 필요합니다.");
 	        return "redirect:/loginForm.me";
 		}
 		
-		int userNo = loginUser.getUserNo();
-		int currentPage = cpage;
-		int listCount = mypageService.selectMyBoardListCount(userNo);
+		System.out.println(keyword);
 		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
-		ArrayList<BoardListDto> list = mypageService.selectMyBoardList(userNo, pi);
+		int userNo = loginUser.getUserNo();
+		ArrayList<BoardListDto> list;
+		int currentPage = cpage;
+		int listCount;
+		PageInfo pi;
+		
+		Map<String, Object> map = new HashMap<>();
+
+		if(keyword == null) {
+			map.put("userNo", userNo);
+			map.put("keyword", keyword);
+			
+			listCount = mypageService.selectMyBoardSearchListCount(map);
+			pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			list =  mypageService.selectMyBoardSearchList(map, pi);
+			System.out.println("키워드 없음");
+		} else {
+			listCount = mypageService.selectMyBoardListCount(userNo);
+			pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			list =  mypageService.selectMyBoardList(userNo, pi);
+			System.out.println("키워드 있음");
+		}
+		
 		model.addAttribute("contentPage", "myBoardList");
+		model.addAttribute("keyword", keyword);
 		model.addAttribute("blist", list);
 		model.addAttribute("pi", pi);
 		
@@ -497,16 +517,19 @@ public class MypageController {
 		try {
 		  // send 메소드로 ArrayList<Message> 객체를 넣어도 동작합니다!
 		  messageService.send(message);
+		  return "NNNNY";
 		} catch (NurigoMessageNotReceivedException exception) {
 		  // 발송에 실패한 메시지 목록을 확인할 수 있습니다!
-		  System.out.println("실패");
 		  System.out.println(exception.getFailedMessageList());
 		  System.out.println(exception.getMessage());
+		  return "NNNNN";
+
 		} catch (Exception exception) {
 		  System.out.println(exception.getMessage());
+		  return "NNNNN";
+		  
 		}
 		
-		return "YYYYY";
 	}
 	
 }

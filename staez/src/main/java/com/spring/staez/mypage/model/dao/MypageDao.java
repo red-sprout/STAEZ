@@ -61,24 +61,35 @@ public class MypageDao {
 		return result;
 	}
 	
+	
 	public int selectMyBoardListCount(SqlSessionTemplate sqlSession, int userNo) {
 		int count = sqlSession.selectOne("mypageMapper.selectMyBoardListCount", userNo);
 		return count;
 	}
-
 	public ArrayList<BoardListDto> selectMyBoardList(SqlSessionTemplate sqlSession, int userNo, PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		ArrayList<BoardListDto> list = (ArrayList)sqlSession.selectList("mypageMapper.selectMyBoardList", userNo, rowBounds);
 		return list;
-		
 	}
+	
+	
+	public int selectMyBoardSearchListCount(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		int count = sqlSession.selectOne("mypageMapper.selectMyBoardSearchListCount", map);
+		return count;
+	}
+	public ArrayList<BoardListDto> selectMyBoardSearchList(SqlSessionTemplate sqlSession, Map<String, Object> map, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		ArrayList<BoardListDto> list = (ArrayList)sqlSession.selectList("mypageMapper.selectMyBoardSearchList", map, rowBounds);
+		return list;
+	}
+	
 
 	public int selectLikeBoardListCount(SqlSessionTemplate sqlSession, int userNo) {
 		int count = sqlSession.selectOne("mypageMapper.selectLikeBoardListCount", userNo);
 		return count;
 	}
-	
 	public ArrayList<BoardListDto> selectLikeBoardList(SqlSessionTemplate sqlSession, int userNo, PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());

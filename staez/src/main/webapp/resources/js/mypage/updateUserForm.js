@@ -163,40 +163,50 @@ function firstLikeGenre(){
     });
 }
 
+//휴대폰 인증 class
 class PhoneVerification {
     constructor() {
-        this.isSend = false;
-        this.authNo = '';
-        this.timerId = null;
-        this.input = $('.phone-section .auth-num-input');
-        this.sendBtn = $('input[name=phone]+.input-btn>button');
-        this.authBtn = $('.phone-section button');
+        this.isSend = false; //인증번호 전송 여부
+        this.authNo = ''; //인증번호
+        this.timerId = null; //타이머(180초)
+        this.timer = $(`.phone-section .timer>h4`); //타이머 UI
+        this.input = $('.phone-section .auth-num-input'); //인증번호 input칸
+        this.sendBtn = $('input[name=phone]+.input-btn>button'); //인증번호 전송 버튼
+        this.authBtn = $('.phone-section button'); //인증번호 체크 버튼
       
-        this.sendBtn.on('click', () => this.sendAuthNum());
+        this.sendBtn.on('click', () => this.sendAuthNum()); 
         this.authBtn.on('click', () => this.checkAuthNum());
     }
 
     sendAuthNum() {
         if (this.isSend) {
-            alert('이미 전송되었습니다');
-            return;
+            const result = confirm('재전송 하시겠습니까?')
+            if(!result){
+                return;
+            } else{
+                clearInterval(this.timerId);
+            }
         }
-        this.authBtn.prop('disabled', false);
-        this.input.val('');
-        this.input.focus();
-        
 
         // 랜덤번호 생성
         this.authNo = Math.floor(100000 + Math.random() * 900000).toString().padStart(6, '0');
         const phone = $('input[name=phone]').val();
-        console.log(this.authNo);
-        console.log(phone);
-
+        
         sendAuthNumAjax({authNo: this.authNo, phone: phone}, res => {
-            if (res === "YYYYY") {
-                console.log('성공');
+            if (res === "NNNNY") {
+                console.log('전송 성공');
+                console.log('인증번호 : ' + this.authNo);
+                console.log('전송한 휴대폰번호 : ' + phone);
+
+                this.timer.css("color", "red")
+                this.authBtn.prop('disabled', false);
+                this.input.prop('readonly', false).val('').focus();
+
                 this.isSend = true;
-                this.startTimer('phone-section', 180); // 3분 타이머 시작
+                this.startTimer(180); // 3분 타이머 시작
+            } else{
+                alert('전송 실패');
+                this.authNo = '';
             }
         });
     }
@@ -209,19 +219,21 @@ class PhoneVerification {
             $('#phoneCheck').prop('checked', true);
             alert('인증성공');
             clearInterval(this.timerId);
-            
+
+            this.input.prop('readonly', true);            
+            this.timer.css("color", "#4aa500")
             this.isSend = false;
             this.authBtn.prop('disabled', true);
         }
     }
 
-    startTimer(className, duration) {
+    startTimer(duration) {
         let timeLeft = duration;
         this.timerId = setInterval(() => {
             if (timeLeft <= 0) {
                 clearInterval(this.timerId);
                 alert('인증시간이 초과되었습니다. 다시 인증해주세요.');
-                $(`.${className} .timer>h4`).text('3:00');
+                this.timer.text('3:00');
                 this.authBtn.prop('disabled', true);
                 this.authNo = '';
                 this.isSend = false; // 타이머가 끝나면 isSend를 다시 false로 설정
@@ -229,10 +241,26 @@ class PhoneVerification {
                 timeLeft--;
                 let minutes = Math.floor(timeLeft / 60);
                 let seconds = timeLeft % 60;
-                $(`.${className} .timer>h4`).text(minutes + ":" + (seconds < 10 ? '0' : '') + seconds);
+                this.timer.text(minutes + ":" + (seconds < 10 ? '0' : '') + seconds);
             }
         }, 1000);
     }
+}
+
+//회원탈퇴 기능
+function withdrawalAuth() {
+    
+    const submitBtn = $("#withdrawalModal button[type='submit']");
+    const inputPwd = $(".withdrawal-tag input[type='password']").val();
+
+    authPwdAjax({inputPwd}, res => {
+        if (res === 'NNNNY') { //비밀번호 인증 성공            
+            submitBtn.prop('disabled', false);            
+        } else {
+            alert("비밀번호가 일치하지 않습니다");
+        }
+    
+    });
 }
 
 /* 아래부터는 js, jQuery로 변경 예정 */
@@ -298,21 +326,7 @@ function cancelUpdatePwd() {
 }
 
 
-//회원탈퇴 기능
-function withdrawalAuth() {
-    const submitBtn = document.querySelector("#withdrawalModal button[type='submit']");
-    const inputPwd = document.querySelector(".withdrawal-tag input[type='password']").value;
 
-    authPwdAjax({inputPwd}, (res) => {
-        if (res === 'NNNNY') { //비밀번호 인증 성공            
-            submitBtn.disabled = false;
-            
-        } else {
-            alert("비밀번호가 일치하지 않습니다");
-        }
-    
-    });
-}
 
 
 //닉네임 중복확인 ajax

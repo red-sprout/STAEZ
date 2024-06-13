@@ -7,11 +7,9 @@ import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.dto.BoardListDto;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
-import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.user.model.dto.PaymentsInfoDto;
 import com.spring.staez.user.model.vo.ProfileImg;
-import com.spring.staez.user.model.vo.Reserve;
 import com.spring.staez.user.model.vo.User;
 
 public interface MypageService {
@@ -30,6 +28,8 @@ public interface MypageService {
 	
 	public int selectMyBoardListCount(int userNo); //나의 작성 게시글 개수
 	public ArrayList<BoardListDto> selectMyBoardList(int userNo, PageInfo pi); //나의 작성 게시글 리스트
+	public int selectMyBoardSearchListCount(Map<String, Object> map); //검색한 나의 작성 게시글 개수
+	public ArrayList<BoardListDto> selectMyBoardSearchList(Map<String, Object> map, PageInfo pi); //검색한 나의 작성 게시글 리스트
 
 	public int selectLikeBoardListCount(int userNo); //나의 좋아요 누른 게시글 개수
 	public ArrayList<BoardListDto> selectLikeBoardList(int userNo, PageInfo pi); //나의 좋아요 누른 게시글 리스트

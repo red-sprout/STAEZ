@@ -118,7 +118,6 @@
 		AND board_code = 2
 		AND board_status = 'Y'
 	</select>
-	
 	<select id="selectMyBoardList" resultType="Board">
 		SELECT b.board_no AS boardNo, 
 			   b.user_no AS userNo, 
@@ -136,6 +135,33 @@
 		GROUP BY b.board_no, b.board_title, b.board_count, b.board_write_date
 		ORDER BY b.board_no DESC	
 	</select>
+	
+	<select id="selectMyBoardSearchListCount" resultType="_int">
+		SELECT COUNT(board_no) 
+		FROM board
+		WHERE user_no = CAST(#{userNo} AS integer)
+		AND board_code = 2
+		AND board_status = 'Y'
+		AND board_title LIKE CONCAT('%', CAST(#{keyword} AS text), '%')
+	</select>
+	<select id="selectMyBoardSearchList" resultType="Board">
+		SELECT b.board_no AS boardNo, 
+			   b.user_no AS userNo, 
+			   COUNT(bl.board_no) AS likeCount, 
+			   b.board_title AS boardTitle, 
+			   b.board_count AS boardCount, 
+			   b.board_write_date AS boardWriteDate 
+		FROM board b
+		LEFT JOIN (SELECT board_no 
+				   FROM board_like 
+				   WHERE status='Y') bl ON b.board_no = bl.board_no
+		WHERE b.user_no = CAST(#{userNo} AS integer)
+		AND b.board_code = 2 
+		AND b.board_status = 'Y'
+		AND b.board_title LIKE CONCAT('%', CAST(#{keyword} AS text), '%')
+		GROUP BY b.board_no, b.board_title, b.board_count, b.board_write_date		
+		ORDER BY b.board_no DESC	
+	</select>
 
 	<select id="selectLikeBoardListCount" resultType="_int">
 		SELECT COUNT(board_like_no) 
@@ -143,7 +169,6 @@
 		WHERE user_no = #{userNo}
 		AND status = 'Y'
 	</select>
-	
 	<select id="selectLikeBoardList" resultType="com.spring.staez.community.model.dto.BoardListDto">
 		SELECT bl.board_like_no AS boardLikeNo,
 		       b.board_no AS boardNo,

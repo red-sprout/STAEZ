@@ -6,17 +6,16 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.dto.BoardListDto;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
-import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.model.vo.ConcertReview;
 import com.spring.staez.mypage.model.dao.MypageDao;
 import com.spring.staez.user.model.dto.PaymentsInfoDto;
 import com.spring.staez.user.model.vo.ProfileImg;
-import com.spring.staez.user.model.vo.Reserve;
 import com.spring.staez.user.model.vo.User;
 
 @Service
@@ -83,6 +82,19 @@ public class MypageServiceImpl implements MypageService{
 	public int selectLikeBoardListCount(int userNo) {
 		return mpd.selectLikeBoardListCount(sqlSession, userNo);
 	}
+	
+	@Override
+	public int selectMyBoardSearchListCount(Map<String, Object> map) {
+		return mpd.selectMyBoardSearchListCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<BoardListDto> selectMyBoardSearchList(Map<String, Object> map, PageInfo pi) {
+		return mpd.selectMyBoardSearchList(sqlSession, map, pi);
+	}
+
+	
+	
 
 	@Override
 	public ArrayList<BoardListDto> selectLikeBoardList(int userNo, PageInfo pi) {

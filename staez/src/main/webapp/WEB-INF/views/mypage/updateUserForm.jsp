@@ -179,7 +179,7 @@
                             <td class="input-box" colspan="2">
                                 <div class="auth-num">
                                     <span class="timer"><h4></h4></span>
-                                    <input type="text" class="auth-num-input" placeholder="인증번호 6자리"  maxlength="6">
+                                    <input type="text" class="auth-num-input" placeholder="인증번호 6자리"  maxlength="6" readonly>
                                     <button type="button" disabled>인증</button>                                   
                                 </div>
                             </td>
@@ -215,7 +215,7 @@
                             <td class="input-box" colspan="2">
                                 <div class="auth-num">
                                     <span class="timer"><h4></h4></span>
-                                    <input type="text" class="auth-num-input" placeholder="인증번호 6자리" maxlength="6">
+                                    <input type="text" class="auth-num-input" placeholder="인증번호 6자리" maxlength="6" readonly>
                                     <button type="button" disabled>인증</button>                                   
                                 </div>
                             </td>
