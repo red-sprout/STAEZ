@@ -22,7 +22,7 @@
 }
 
 #chatbot-button > img {
-    width: 80%;
+    width: 70%;
 }
 
 #chatbot-modal {
@@ -58,12 +58,18 @@
     resize: none;
     width: 80%;
     outline: none;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
 }
 
 #chatbot-modal-input>button {
     width: 15%;
     min-width: 50px;
     height: 50px;
+    background: #F8D082;
+    border-radius: 5px;
+    border: none;
 }
 
 .chatbot-query {

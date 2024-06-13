@@ -3,7 +3,7 @@ async function getRecommendation() {
     const preferences = document.getElementById('preferences');
     
     if (!genre || !preferences.value) {
-        alert("Please enter both your preferred genre and preferences.");
+        alert("AI가 참고할 수 있는 내용을 입력하시기 바랍니다.");
         return;
     }
 
@@ -34,7 +34,7 @@ async function getRecommendation() {
     });
 
     if (!response.ok) {
-        document.getElementById('recommendation').innerText = "Failed to fetch recommendations. Please try again.";
+        document.getElementById('recommendation').innerText = "오류입니다. 잠시 후 다시 시도해주세요.";
         return;
     }
 
