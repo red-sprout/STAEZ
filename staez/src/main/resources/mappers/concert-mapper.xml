@@ -111,6 +111,7 @@
 		<result column="like_count" property="likeCount" />
 		<result column="board_status" property="boardStatus" />
 		<result column="board_write_date" property="boardWriteDate" />
+		<result column="path" property="path" />
 	</resultMap>
 	
 	<resultMap type="Seat" id="SeatResult">
@@ -451,18 +452,20 @@
 	</select>
 	
 	 <select id="selectRevList"  resultMap="boardResult" >
-	 	SELECT user_no,
-				board_no,
-				nickname,
-			    concert_no,
-				board_write_date,
-				board_title,
-				board_content
-		 FROM board
-		 JOIN staez_user USING (user_no)
+	 	SELECT b.user_no,
+				b.board_no,
+				su.nickname,
+			    c.concert_no,
+				b.board_write_date,
+				b.board_title,
+				b.board_content,
+				pi.file_path || COALESCE(pi.change_name, '2024053118061362372.jpg') AS path
+		 FROM board b
+		 JOIN staez_user su USING (user_no)
+		 JOIN profile_img pi USING (user_no)
 		 JOIN tag USING (board_no)
-		 JOIN concert USING (concert_no)
-		WHERE concert_no = #{concertNo}
+		 JOIN concert c USING (concert_no)
+		WHERE c.concert_no = #{concertNo}
 		  AND board_status = 'Y'
 	    ORDER BY board_no
 	 </select>
@@ -475,6 +478,29 @@
 		ORDER BY price DESC
 	 </select>
 
+
+	<select id="conapiCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM concert
+	</select>
+	
+		<insert id="conapiInsert">
+	        INSERT INTO concert (
+	            concert_title,
+	            concert_plot,
+	            concert_runtime,
+	            concert_members,
+	            concert_production,
+	            age_limit          
+	        ) VALUES (
+	            #{concertTitle},
+	            #{concertTitle},
+	            200,
+	            #{concertTitle},
+	            #{concertTitle},
+	            #{concertStatus}
+	        )
+	</insert>
     
     
     

@@ -1,17 +1,14 @@
 $(function() { 
-    const userNo = $("input[name='userNo']").val();
-    const concertNo =  $("input[name='concertNo']").val();
+
+    detailapi({"concertId" : concertId}, (list) => onloadDetailapi(list));
+    
+
 
     conNaviDraw(conList => drawConNavi(conList));
-
-    // 하트 insert, update
-    // likeUpdate({ "userNo" : userNo, "concertNo" : concertNo}, (result) => drawLikeUpdate(result))
-    
-    //하트 카운트
     likeCount({ "userNo" : userNo, "concertNo" : concertNo}, (result) => drawLikeCount(result));
-    conDetail({"concertNo" : concertNo}, (result) => drawConDetail(result));
-    // conPagination(result => drawConPagination(result));
+    detailapi({"concertNo" : concertNo}, (result) => drawConDetail(result));
 });
+
 
 // ajax로 콘서트 navi 그려
 function drawConNavi(conList){
@@ -30,7 +27,7 @@ function drawConNavi(conList){
       concertNaviArea.appendChild(naviLi);
     }
 
-  }
+  }concertAPIMain
 
 
   // 예매버튼 클릭
@@ -390,54 +387,9 @@ function drawCPagination(result){
         }
     }
 
-
-    // drawPagination.innerHTML = `<div class="pagination">
-    //                             <img href="#" src="` + contextPath + `/resources/img/main/before.png">
-    //                                 </div>
-    //                                 <div class="pagination current"><h4>1</h4></div>
-    //                                     <div class="pagination"><h4>2</h4></div>
-    //                                     <div class="pagination"><h4>3</h4></div>
-    //                                     <div class="pagination"><h4>4</h4></div>
-    //                                     <div class="pagination"><h4>5</h4></div>
-    //                                 <div class="pagination">
-    //                                     <img src="` + contextPath + `/resources/img/main/after.png">
-    //                                 </div>
-    //                             </div>`
-
-
-                                // <div id="pagingArea">
-                                // <ul class="pagination">
-                                
-                                //     <c:choose>
-                                //         <c:when test="${ pi.currentPage eq 1 }">
-                                //             <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                                //         </c:when>
-                                //         <c:otherwise>
-                                //             <li class="page-item"><a class="page-link" href="list.bo?cpage=${pi.currentPage - 1}">Previous</a></li>
-                                //         </c:otherwise>
-                                //     </c:choose>
-                    
-                                //     <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                                //         <li class="page-item"><a class="page-link" href="list.bo?cpage=${p}">${p}</a></li>
-                                //     </c:forEach>
-                                    
-                                //   <c:choose>
-                                //         <c:when test="${ pi.currentPage eq pi.maxPage }">
-                                //             <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                                //         </c:when>
-                                //         <c:otherwise>
-                                //             <li class="page-item"><a class="page-link" href="list.bo?cpage=${pi.currentPage + 1}">Next</a></li>
-                                //         </c:otherwise>
-                                //     </c:choose>
-
-
 }
 
-// function pageNumber(_this, cpage){
-//     console.log(_this);
-//     console.log(cpage);
-// }
-       
+
 
 function drawReviewDetail(result){
     const drawSection = document.querySelector(".concert-detail-down-section");

@@ -116,7 +116,8 @@
 }
 
 .next-step-area{
-    width: 48%;
+    border: none;
+    width: 100%;
     height: 100%;
     background: #E65C19;
     display: flex;
@@ -128,7 +129,7 @@
 }
 
 .back-step-area{
-    width: 48%;
+    width: 50%;
     height: 100%;
     background: #5D5D5D;
     display: flex;
@@ -147,15 +148,15 @@
     opacity: 1;
 }
 
-.next-step-area>img{
+.next-arrow{
     width: 12px;
     position: absolute;
     top: 30%;
     right: 5px;
 }
 
-.next-step-area span{
-    font-size: 18px;
+.payment-text{
+    font-size: 15px;
     color: white;
 }
 
@@ -168,7 +169,7 @@
 }
 
 .back-step-area span{
-    font-size: 18px;
+    font-size: 15px;
     color: white;
 }
 
@@ -198,7 +199,7 @@
 
 .my-reserve-info{
     width: 100%;
-    height: 80%;
+    height: 55%;
     border-top: 3px solid black;
     display: flex;
     flex-direction: column;
@@ -377,6 +378,7 @@
     background: #d9d9d9;
     margin-top: 5px;
     padding: 0px 10px;
+    cursor: pointer;
 }
 
 .check-div{
@@ -390,10 +392,13 @@
     margin-right: 10px;
 }
 
-.check-div>div{
+.check-box{
     width: 10px;
     height: 10px;
     border-radius: 50px;
+}
+
+.checked{
     background: black;
 }
 
@@ -493,6 +498,44 @@
     align-items: center;
     margin-right: 10px;
 }
+
+.my-reserve-time-area{
+    width: 65% !important;
+    height: 100% !important;
+    background: white!important;
+    display: flex!important;
+    flex-wrap: wrap!important;
+    overflow-y: scroll;
+
+}
+
+.my-reserve-time-area div{
+    width: 100%!important;
+    height: 30%!important; 
+    background: white!important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start!important;
+}
+
+.emphasis-text{
+    font-size: 15px;
+    color: red;
+}
+
+.next-step-form{
+    width: 50%;
+    height: 100%;
+}
+
+.hidden{
+    display: none;
+}
+.kakaopay-img{
+   height: 30px;
+}
+
+
 
 
 
