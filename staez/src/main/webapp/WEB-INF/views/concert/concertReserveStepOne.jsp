@@ -14,7 +14,7 @@
 <body>
 	<div class="container">
         <div class="reserve-step-area-top">
-            <!-- <input type="hidden" name="userNo" value="${loginUser.userNo}"> -->
+            <input type="hidden" name="theaterNo" value="${concert.theaterNo}">
             <input type="hidden" name="concertNo" value="${concert.concertNo}">
             <span>STAEZ 티켓예매</span>
             <div class="reserve-step-area">
@@ -135,6 +135,7 @@
                 <form class="next-step-container hidden" action="selectSeat.co" method="POST">
                     <input type="hidden" name="concertNo" value="${concert.concertNo}">
                     <input type="hidden" name="reserveDate" value="">
+                    <input type="hidden" name="userNo" value="${userNo}">
                     <div class="next-step-area">
                         <button type="submit">다음단계</button>
                         <img src="${contextPath}/resources/img/concert/nextArrow.png" alt=""> 

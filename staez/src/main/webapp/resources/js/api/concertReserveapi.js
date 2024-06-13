@@ -93,3 +93,30 @@ function ajaxGradeSeatInfo(data, callback){
         }
     }) 
 }
+ 
+function ajaxinsertReserve(data, callback){
+    $.ajax({
+        type: "POST",
+        url : "insertReserve.co",
+        data : data,
+        success : function(result){
+            callback(result)
+        }, error : function(){
+            console.log("실패")
+        }
+    }) 
+}   
+    
+function ajaxKakaoPay(data, callback){
+    $.ajax({
+        type: "POST",
+        url : "kakaopay.co",
+        dataType:"json",
+        data : data,
+        success : function(result){
+            callback(result)
+        }, error : function(){
+            console.log("실패")
+        }
+    }) 
+}
