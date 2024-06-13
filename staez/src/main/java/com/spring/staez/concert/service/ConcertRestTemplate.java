@@ -83,34 +83,28 @@
 //        		JsonArray dbArr = dbsObj.getAsJsonArray("db"); // {를 여는 것은 jsonObject {다음에 [있으면 array 시작
 //        		
 //        		System.out.println("dbArr:" + dbArr);
-//                ArrayList<Concert> concertList = parseConcertData(dbArr.toString());
+//                ArrayList<ConcertDTO> concertList = parseConcertData(dbArr.toString());
 //                
 //                // 데이터를 엔티티에 매핑하여 저장
-//                for (Concert concert : concertList) {
-//                    concertDao.conapiInsert(sqlSession, concert);
+//                for (Concert ConcertDTO : concertList) {
+//                    concertDao.conapiInsert(sqlSession, ConcertDTO);
 //                }
 //            }
-//        }
-//
-//
-//        
+//        } 
 //    }
 //
-//	    private ArrayList<Concert> parseConcertData(String responseData) {
+//	    private ArrayList<ConcertDTO> parseConcertData(String responseData) {
 //	    	 // Gson 인스턴스 생성
 //	        Gson gson = new Gson();
 //	        
-//	        // List<Concert> 타입을 나타내는 TypeToken 생성
-//	        Type concertListType = new TypeToken<ArrayList<Concert>>(){}.getType();
+//	        // List<ConcertDTO> 타입을 나타내는 TypeToken 생성
+//	        Type concertListType = new TypeToken<ArrayList<ConcertDTO>>(){}.getType();
 //	        
-//	        // JSON 데이터를 List<Concert> 객체로 변환
-//	        ArrayList<Concert> concertList = gson.fromJson(responseData, concertListType);
+//	        // JSON 데이터를 List<ConcertDTO> 객체로 변환
+//	        ArrayList<ConcertDTO> concertList = gson.fromJson(responseData, concertListType);
 //	        
 //	        // ArrayList로 변환하여 반환
 //	        return new ArrayList<>(concertList);
 //	    }
 //	
-//	
-//	
-//
 //}
