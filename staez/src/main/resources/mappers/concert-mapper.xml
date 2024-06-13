@@ -482,9 +482,14 @@
 	<select id="conapiCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM concert
+		WHERE theater_no IS NULL
 	</select>
-	
-	<insert id="">
+	<select id="concertTitleCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM concert
+		WHERE concert_title = #{concertTitle}
+	</select>
+	<insert id="conapiInsert">
 	        INSERT INTO concert (
 	            concert_title,
 	            concert_plot,
@@ -501,8 +506,8 @@
 	            #{concertStatus}
 	        )
 	</insert>
-    
-    
-    
-
+    <delete id="conapiDelete">
+    	DELETE FROM concert
+		WHERE theater_no IS NULL
+    </delete>
 </mapper>

@@ -13,7 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ConcertDTO {
+public class ConcertDto {
 	
     @SerializedName("prfnm")
     private String concertTitle; //공연명

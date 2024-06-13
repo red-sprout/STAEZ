@@ -11,6 +11,7 @@ import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.admin.model.vo.Seat;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.vo.Board;
+import com.spring.staez.concert.model.dto.ConcertDto;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.model.vo.ConcertReview;
@@ -121,16 +122,15 @@ public class ConcertDao {
 		return sqlSession.selectOne("concertMapper.conapiCount");
 	}
 
-	public int conapiInsert(SqlSessionTemplate sqlSession, Concert concert) {
-		return sqlSession.insert("concertMapper.conapiInsert", concert);
+	public int conapiInsert(SqlSessionTemplate sqlSession, ConcertDto concertDto) {
+		return sqlSession.insert("concertMapper.conapiInsert", concertDto);
+	}
+	
+	public int concertTitleCount(SqlSessionTemplate sqlSession, String concertTitle) {
+		return sqlSession.selectOne("concertMapper.concertTitleCount", concertTitle);
 	}
 
-
-
-
-	
-
-
-
-
+	public int conapiDelete(SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("concertMapper.conapiDelete");
+	}
 }
