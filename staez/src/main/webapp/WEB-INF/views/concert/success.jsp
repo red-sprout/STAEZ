@@ -12,28 +12,63 @@
 <title>Insert title here</title>
 </head>
 <body>
+    
 	<div class="container">
-        <div id="timer"></div>
+        <div id="timer" class=""></div>
+        <input type="hidden" name="userNo" value="${userNo}">
+        <input type="hidden" name="concertNo" value="${concertNo}">
+        <input type="hidden" name="recipientName" value="${recipientName}">
+        <input type="hidden" name="recipientPhone" value="${recipientPhone}">
+        <input type="hidden" name="recipientBirth" value="${recipientBirth}">
+        <input type="hidden" name="payMethod" value="${payMethod}">
+        <input type="hidden" name="concertDate" value="${concertDate}">
+        <input type="hidden" name="schedule" value="${schedule}">
+        <input type="hidden" name="seatList" value='${seatList}'>
+        <input type="hidden" name="pg">
+
 	</div>
+    <script src="${contextPath}/resources/js/api/concertReserveapi.js"></script>
     <script>
-        let seconds = 5;
+        window.onload = function(){
 
-        function updateTimer() {
+            const userNo = document.querySelector("input[name = 'userNo']").value;
+            const concertNo = document.querySelector("input[name = 'concertNo']").value;
+            const recipientName = document.querySelector("input[name = 'recipientName']").value;
+            const recipientPhone = document.querySelector("input[name = 'recipientPhone']").value;
+            const recipientBirth = document.querySelector("input[name = 'recipientBirth']").value;
+            const payMethod = document.querySelector("input[name = 'payMethod']").value;
+            const concertDate =  document.querySelector("input[name = 'concertDate']").value; 
+            const schedule = document.querySelector("input[name = 'schedule']").value;  
+            const seatListStr = document.querySelector("input[name='seatList']").value;
+            const seatList = JSON.parse(seatListStr); 
             
-            seconds--;
-            document.getElementById("timer").innerText = seconds+"초 후에 자동으로 꺼집니다.";
+            console.log(seatList)
+            const rids = JSON.stringify({
+                    userNo,
+                    concertNo,
+                    recipientName,
+                    recipientPhone,
+                    recipientBirth,
+                    payMethod,
+                    concertDate,
+                    schedule,
+                    seatList
+                })
+                ajaxinsertReserve({rids},(res) => alertAndClose(res))
+        }
 
-            if(seconds == 0){
+        function alertAndClose(res){
+            console.log(res)
+            if(res === "good"){
+                alert("예매에 성공하셨습니다.")
+                window.close()
+            } else {    
+                alert("예매를 실패하였습니다.")
                 window.close()
             }
         }
-
-        setInterval(updateTimer, 1000);
+    
     </script>
-    <style>
-        #timer{
-            font-size: 50px;
-        }
-    </style>
+    
 </body>
 </html>

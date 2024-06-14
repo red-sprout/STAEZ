@@ -41,13 +41,17 @@ public class AdminServiceImpl implements AdminService {
 	public ArrayList<Category> selectFaqCategory(int refCategoryNo) {
 		return adminDao.selectFaqCategory(sqlSession, refCategoryNo);
 	}
-
+	
 	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public int faqInsert(Board b, int categoryNo) {
-		int result1 = adminDao.faqInsert(sqlSession, b);
-		int result2 = adminDao.faqCategoryInsert(sqlSession, categoryNo);
-		return result1 * result2;
+		int t1 = adminDao.faqInsert(sqlSession, b);
+	    if (t1 == 0)
+	    	throw new RuntimeException("faq가 정상적으로 insert 되지 않았습니다.");
+		int t2 = adminDao.faqCategoryInsert(sqlSession, categoryNo);
+	    if (t2 == 0)
+	    	throw new RuntimeException("faq category가 정상적으로 insert 되지 않았습니다.");
+		return t1 * t2;
 	}
 
 	@Transactional(rollbackFor = {Exception.class})
@@ -251,5 +255,27 @@ public class AdminServiceImpl implements AdminService {
 				throw new RuntimeException("Reserve update 실패");
 		}
 		return result;
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public Theater selectTheater(int theaterNo) {
+		return adminDao.selectTheater(sqlSession, theaterNo);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public ArrayList<ImpossibleSeat> selectImpossibleSeat(int theaterNo) {
+		return adminDao.selectImpossibleSeat(sqlSession, theaterNo);
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int updateTheater(Theater t) {
+		int result1 = adminDao.updateTheater(sqlSession, t);
+		int result2 = adminDao.deleteImpossibleSeat(sqlSession, t.getTheaterNo());
+		int result3 = adminDao.insertImpossibleSeat(sqlSession);
+		ImpossibleSeatList.clear();
+		return result1 * result2 * result3;
 	}
 }

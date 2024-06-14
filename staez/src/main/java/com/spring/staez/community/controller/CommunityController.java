@@ -21,12 +21,14 @@ import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.common.template.MyFileRenamePolicy;
 import com.spring.staez.common.template.Pagination;
 import com.spring.staez.community.model.dto.AjaxBoardDto;
+import com.spring.staez.community.model.dto.AjaxReplyDto;
 import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
 import com.spring.staez.community.model.dto.UpdateBoardDto;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.community.model.vo.BoardLike;
 import com.spring.staez.community.model.vo.Reply;
+import com.spring.staez.community.model.vo.ReplyLike;
 import com.spring.staez.community.model.vo.Tag;
 import com.spring.staez.community.service.CommunityService;
 import com.spring.staez.concert.model.vo.Concert;
@@ -59,9 +61,9 @@ public class CommunityController {
 		}
 	}
 	
-	@GetMapping("incertForm.cm")
-	public String communityIncertForm() {
-		return "community/communityIncertForm";
+	@GetMapping("insertForm.cm")
+	public String communityInsertForm() {
+		return "community/communityInsertForm";
 	}
 	
 	@GetMapping("updateForm.cm")
@@ -295,5 +297,41 @@ public class CommunityController {
 	public String deleteReply(int boardNo, int replyNo) {
 		int result = communityService.deleteReply(replyNo);
 		return selectReplyAll(boardNo);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "selectReplyLike.ry", produces = "application/json; charset=UTF-8")
+	public String selectReplyLike(AjaxReplyDto dto) {
+		int replyLikeCnt = communityService.selectReplyLikeCnt(dto);
+		int userReplyLikeCnt = communityService.selectUserReplyLike(dto);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("ReplyLikeCnt", replyLikeCnt);
+		map.put("userReplyLike", userReplyLikeCnt > 0);
+		
+		return new Gson().toJson(map);
+	}
+	
+	// 좋아요 상태 변경
+	@ResponseBody
+	@GetMapping("updateReplyLike.ry")
+	public String updateReplyLike(ReplyLike replyLike) {		
+		AjaxReplyDto dto = new AjaxReplyDto();
+		dto.setReplyNo(replyLike.getReplyNo());
+		dto.setUserNo(replyLike.getUserNo());
+		
+		int result = communityService.selectUserReplyLikeAll(dto);
+		if(result > 0) {
+			result = communityService.updateReplyLike(replyLike);
+		} else {
+			result = communityService.insertReplyLike(replyLike);
+		}
+		
+		int replyLikeCnt = communityService.selectReplyLikeCnt(dto);
+		if(result > 0) {
+			return String.valueOf(replyLikeCnt);
+		} else {
+			return "Exception 발생, 좋아요 실패";
+		}
 	}
 }

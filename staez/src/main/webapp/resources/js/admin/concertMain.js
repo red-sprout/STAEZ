@@ -1,85 +1,105 @@
-window.onload = function(){
-    const cPage = 1
-    ajaxConcertContentList({cPage},(concertList)=>drawConcertContentList(concertList))
-}
+$(function() {
+    const cPage = 1;
+    ajaxConcertContentList({ cPage }, drawConcertContentList);
+});
 
-function drawConcertContentList(concertList){
-    const cArea = document.querySelector(".admin-concert-container")
-    console.log(concertList)
-    cArea.innerHTML = ``;
-    for(let c of concertList.clist){
-        cArea.innerHTML += `<tr>
-                                <td class="admin-checkbox">
-                                    <input type="checkbox" name="" id="`+ c.concertNo +`">
-                                </td>
-                                <td>`+ c.categoryName +`</td>
-                                <td>`+ c.concertTitle +`</td>
-                                <td class="admin-poster">
-                                    <img class="poster" src="" alt="">
-                                </td>
-                                <td>`+ c.startDate +`</td>
-                                <td>`+ c.endDate +`</td>
-                                <td>`+ c.theaterName +`</td>
-                            </tr>`
-    }
-
-    const pageArea = document.querySelector(".page-list");
-    const pi = concertList.pi;
-    pageArea.innerHTML =``;
-
-    if(pi.currentPage == 1){
-            
-        pageArea.innerHTML += ` <div class="pagination" style="opacity: 0.5;">
-                                    <img src="/staez/resources/img/main/before.png" />
-                                </div>`
-    } else {
-       
-        pageArea.innerHTML += `
-        <div class="pagination" onclick="pageArrowConcert(` + (pi.currentPage-1) + `)">
-            <img src="/staez/resources/img/main/before.png" />
-        </div>`;
-    }
-
-    for(let i = pi.startPage; i <= pi.endPage; i++){
-        pageArea.innerHTML += `<div class="pagination num" onclick="clickpageConcert(this)" style="cursor: pointer;"><h4>`+ i +`</h4></div>`
-    }
-
-    if(pi.currentPage === pi.maxPage){
-        pageArea.innerHTML += `<div class="pagination" style="opacity: 0.5;">
-                                    <img src="/staez/resources/img/main/after.png"/>
-                                </div>`
-    } else {
-        pageArea.innerHTML += `<div class="pagination" onclick="pageArrowConcert(` + (pi.currentPage+1) + `)">
-                                    <img src="/staez/resources/img/main/after.png"/>
-                                </div>`
-    }
-    const clickPage =  document.querySelectorAll(".num");
-    console.log(clickPage)
-    for(let i = 0; i < clickPage; i++){
-        clickPage[i].classList.remove("current")
-    }
-    clickPage[pi.currentPage - 1].classList.add("current")
-
-    
-    
+function drawConcertContentList(concertList) {
+    const cArea = document.querySelector(".admin-concert-container");
+    cArea.innerHTML = '';
+    concertList.clist.forEach(c => cArea.appendChild(createConcertRow(c)));
+    drawPagination(concertList.pi);
     const cPage = concertList.pi.currentPage;
-    ajaxConcertImgList({cPage},(concertImgList)=>drawConcertImgList(concertImgList))
+    ajaxConcertImgList({ cPage }, drawConcertImgList);
 }
 
-function drawConcertImgList(concertImgList){
-    console.log(concertImgList)
-    const cImgs = document.querySelectorAll(".poster");
-    for(let i = 0; i < cImgs.length; i++){
-        cImgs[i].src="/staez" + concertImgList.ilist[i].filePath + concertImgList.ilist[i].changeName;
+function createConcertRow(c) {
+    const tr = document.createElement("tr");
+
+    const tdCheckbox = document.createElement("td");
+    tdCheckbox.className = "admin-checkbox";
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.id = c.concertNo;
+    tdCheckbox.appendChild(checkbox);
+    tr.appendChild(tdCheckbox);
+
+    const tdCategory = document.createElement("td");
+    tdCategory.textContent = c.categoryName;
+    tr.appendChild(tdCategory);
+
+    const tdTitle = document.createElement("td");
+    tdTitle.textContent = c.concertTitle;
+    tr.appendChild(tdTitle);
+
+    const tdPoster = document.createElement("td");
+    tdPoster.className = "admin-poster";
+    const img = document.createElement("img");
+    img.className = "poster";
+    img.alt = "";
+    tdPoster.appendChild(img);
+    tr.appendChild(tdPoster);
+
+    const tdStartDate = document.createElement("td");
+    tdStartDate.textContent = c.startDate;
+    tr.appendChild(tdStartDate);
+
+    const tdEndDate = document.createElement("td");
+    tdEndDate.textContent = c.endDate;
+    tr.appendChild(tdEndDate);
+
+    const tdTheaterName = document.createElement("td");
+    tdTheaterName.textContent = c.theaterName;
+    tr.appendChild(tdTheaterName);
+
+    return tr;
+}
+
+function drawPagination(pi) {
+    const pageArea = document.querySelector(".page-list");
+    pageArea.innerHTML = '';
+    pageArea.appendChild(createPageArrow(pi.currentPage - 1, pi.currentPage === 1, "before"));
+    for (let i = pi.startPage; i <= pi.endPage; i++) {
+        pageArea.appendChild(createPageNumber(i, pi.currentPage));
     }
+    pageArea.appendChild(createPageArrow(pi.currentPage + 1, pi.currentPage === pi.maxPage, "after"));
 }
 
-function pageArrowConcert(cPage){
-    ajaxConcertContentList({cPage},(concertList)=>drawConcertContentList(concertList))
+function createPageArrow(page, disabled, direction) {
+    const div = document.createElement("div");
+    div.className = "pagination";
+    if (disabled) {
+        div.style.opacity = 0.5;
+    } else {
+        div.onclick = () => pageArrowConcert(page);
+    }
+    const img = document.createElement("img");
+    img.src = `/staez/resources/img/main/${direction}.png`;
+    div.appendChild(img);
+    return div;
 }
 
-function clickpageConcert(_this){
-    const cPage = _this.querySelector("h4").innerHTML;
-    
-    ajaxConcertContentList({cPage},(concertList)=>drawConcertContentList(concertList))
+function createPageNumber(page, currentPage) {
+    const div = document.createElement("div");
+    div.className = `pagination num ${page === currentPage ? 'current' : ''}`;
+    div.style.cursor = 'pointer';
+    div.innerHTML = `<h4>${page}</h4>`;
+    div.onclick = () => clickpageConcert(page);
+    return div;
+}
+
+function drawConcertImgList(concertImgList) {
+    const cImgs = document.querySelectorAll(".poster");
+    concertImgList.ilist.forEach((img, i) => {
+        if (cImgs[i]) {
+            cImgs[i].src = `/staez${img.filePath}${img.changeName}`;
+        }
+    });
+}
+
+function pageArrowConcert(cPage) {
+    ajaxConcertContentList({ cPage }, drawConcertContentList);
+}
+
+function clickpageConcert(cPage) {
+    ajaxConcertContentList({ cPage }, drawConcertContentList);
 }

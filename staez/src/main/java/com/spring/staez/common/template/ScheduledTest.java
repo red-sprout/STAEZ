@@ -1,18 +1,24 @@
 package com.spring.staez.common.template;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.spring.staez.concert.service.ConcertRestTemplate;
+
+
 @Component
-public class ScheduledTest {
-	@Scheduled(fixedDelay = 1000)
-    public void firstTask() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        Date now = new Date();
-        String strDate = sdf.format(now);
-        System.out.println("현재시간: " + strDate);
+public class ScheduledTest  {
+	
+	@Autowired
+	private ConcertRestTemplate conRestRun;
+	
+	@Scheduled(cron = "0 21 15 * * *") 
+    public void ConcertRestTemplate() {
+		
+		System.out.println("Scheduled task is running");
+		conRestRun.conapiInsert();
+		System.out.println("conapiInsert task is running");
+		
     }
 }

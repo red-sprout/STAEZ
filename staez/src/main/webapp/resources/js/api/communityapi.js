@@ -221,3 +221,27 @@ function deleteReply(data, callback) {
         }
     });
 }
+
+function selectReplyLike(data, callback) {
+    $.ajax({
+        url: contextPath + "selectReplyLike.ry",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("댓글 좋아요 요청 실패");
+        }
+    });
+}
+
+function onClickReplyLike(data, callback) {
+    $.ajax({
+        url: contextPath + "updateReplyLike.ry",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("댓글 좋아요 요청 실패");
+        }
+    });
+}

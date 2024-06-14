@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/admin/concertInsertForm.css'/>">
-<script src="<c:url value='/resources/js/admin/noticeIncertForm.js'/>"></script>
+<script src="<c:url value='/resources/js/admin/noticeInsertForm.js'/>"></script>
 </head>
 <body>
     <header>
@@ -17,7 +17,7 @@
     </header>
     <main>
         <div id="community-wrapper">
-            <form id="community-contents" align="left" method="post" action="concertIncert.ad" enctype="multipart/form-data">
+            <form id="community-contents" align="left" method="post" action="concertInsert.ad" enctype="multipart/form-data">
                 <h1>공연</h1>
                 <hr>
                 <li>

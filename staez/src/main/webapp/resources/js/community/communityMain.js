@@ -196,7 +196,7 @@ function setNav(result) {
         ul.appendChild(li);
     }
 
-    ul.innerHTML += `<li id="write-btn" onclick="location.href='incertForm.cm'">
+    ul.innerHTML += `<li id="write-btn" onclick="location.href='insertForm.cm'">
                         <h2>글쓰기</h2>
                         <img src="${contextPath}/resources/img/community/communityMain/write.png">
                     </li>`;
@@ -250,6 +250,33 @@ function pagination(result) {
     
     communityPagination.appendChild(paginationDiv);
     communityContents.appendChild(communityPagination);
+
+    paginationBefore.addEventListener("click", () => {
+        if (result.currentPage > result.startPage) {
+            communityMainList({
+                categoryNo: communityCategoryNo(),
+                cPage: result.currentPage - 1,
+                keyword: document.querySelector("#community-search input[name=keyword]").value
+            }, (result) => {
+                deleteNodes();
+                drawBoard(result.boardList);
+                pagination(result.pagination);
+            });
+        }
+    });
+    paginationAfter.addEventListener("click", () => {
+        if (result.currentPage < result.endPage) {
+            communityMainList({
+                categoryNo: communityCategoryNo(),
+                cPage: result.currentPage + 1,
+                keyword: document.querySelector("#community-search input[name=keyword]").value
+            }, (result) => {
+                deleteNodes();
+                drawBoard(result.boardList);
+                pagination(result.pagination);
+            });
+        }
+    });
 }
 
 // navigation-bar 클릭시 이벤트

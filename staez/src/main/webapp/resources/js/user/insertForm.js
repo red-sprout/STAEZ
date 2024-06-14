@@ -19,7 +19,10 @@ document.addEventListener('DOMContentLoaded', function() {
     $("#emailCheckButton").on('click', (ev) => {
         // 클릭 이벤트 발생 시 서버로 이메일 인증 요청 보내기
         const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
+        // 클릭 못하게 설정
+        document.getElementById("emailCheckButton").disabled = true;
         sendEmailVerificationRequest(emailInput); // 이메일 인증 요청 보내는 함수 호출
+        alert("인증번호가 전송되었습니다 잠시만 기다려주세요.");
     });
     // UUID 이메일 체크
     emailSecretCode();
@@ -30,57 +33,61 @@ document.addEventListener('DOMContentLoaded', function() {
 function nicknameCheck() {
     const nicknameInput = document.querySelector("#nickname");
     const nicknameCheckButton = document.getElementById("nickNameCheckButton");
-    const nicknameCheckResult = document.getElementById("checkResultNick");
+    const nicknameCheckResult = document.getElementById("checkResultNickTr");
     const nicknameErrorMessage = document.getElementById("nicknameErrorMessage");
 
     if (nicknameInput && nicknameCheckButton && nicknameCheckResult && nicknameErrorMessage) {
         nicknameCheckButton.addEventListener('click', function() {
-            const str = nicknameInput.value;
-            if (str.trim().length >= 1) {
-                nickCheck({"checkNick" : str}, (result) => callbackNickCheck(result, nicknameCheckResult, nicknameInput))
+            const str = nicknameInput.value.trim();
+            if (str.length >= 1) {
+                nickCheck({"checkNick": str}, (result) => callbackNickCheck(result, nicknameCheckResult, nicknameInput, nicknameErrorMessage));
             } else {
-                nicknameCheckResult.style.display = "none";
+                nicknameCheckResult.style.display = "table-row";
+                nicknameErrorMessage.style.color = "red";
+                nicknameErrorMessage.innerText = "닉네임을 입력해주세요.";
             }
         });
     } else {
         console.log("닉네임 체크 요소 중 하나가 누락되었습니다.");
     }
 }
+
 // 닉네임 중복체크 콜백
-function callbackNickCheck(result, nicknameCheckResult, nicknameInput) {
-    nicknameCheckResult.style.display = "block";
+function callbackNickCheck(result, nicknameCheckResult, nicknameInput, nicknameErrorMessage) {
+    nicknameCheckResult.style.display = "table-row";
     if (result === "NNNNN") {
-        nicknameCheckResult.style.color = "red";
-        nicknameCheckResult.innerText = "이미 사용중인 닉네임입니다.";
-        // 닉네임 입력 필드의 값을 없애기
+        nicknameErrorMessage.style.color = "red";
+        nicknameErrorMessage.innerText = "이미 사용중인 닉네임입니다.";
         nicknameInput.value = "";
-    } else {
+    } else if (result === "NNNNY") {
         var regex = /^[a-zA-Z0-9가-힣]{2,16}$/;
         if (!regex.test(nicknameInput.value)) {
-            nicknameCheckResult.style.color = "red";
-            nicknameCheckResult.innerText = "닉네임은 2 ~ 16글자의 영문, 한글, 숫자로 이루어져야 합니다.";
+            nicknameErrorMessage.style.color = "red";
+            nicknameErrorMessage.innerText = "닉네임은 2 ~ 16글자의 영문, 한글, 숫자로 이루어져야 합니다.";
         } else {
-            nicknameCheckResult.style.color = "green";
-            nicknameCheckResult.innerText = "사용가능한 닉네임입니다.";
-            //console.log("닉네임 확인 : " + nicknameInput.value);
+            nicknameErrorMessage.style.color = "green";
+            nicknameErrorMessage.innerText = "사용가능한 닉네임입니다.";
         }
+    } else {
+        nicknameErrorMessage.style.color = "red";
+        nicknameErrorMessage.innerText = "닉네임 확인 중 오류가 발생했습니다.";
     }
 }
 // 아이디체크
 function signinIdCheck() {
     const userIdInput = document.getElementById("user_Id");
     const userIdCheckButton = document.getElementById("idcheckButton");
-    const userIdCheckResult = document.getElementById("checkResultId");
+    const userIdCheckResult = document.getElementById("checkResultIdTr");
     const userIdErrorMessage = document.getElementById("userIdErrorMessage");
 
     if (userIdInput && userIdCheckButton && userIdCheckResult && userIdErrorMessage) {
         userIdCheckButton.addEventListener('click', function() {
-            const str = userIdInput.value.trim(); // 입력된 아이디의 공백을 제거합니다.
-            if (str.length >= 1) { // 길이가 1 이상인지 확인합니다.
-                //console.log("Sending checkId: " + str); // 디버깅을 위한 로그 추가
-                idCheck({"checkId" : str}, (result) => callbackIdCheck(result, userIdCheckResult, userIdInput));
+            const str = userIdInput.value.trim();
+            if (str.length >= 1) {
+                idCheck({"checkId" : str}, (result) => callbackIdCheck(result, userIdCheckResult, userIdInput, userIdErrorMessage));
             } else {
-                userIdCheckResult.style.display = "none";
+                userIdCheckResult.style.display = "table-row";
+                userIdErrorMessage.style.color = "red";
                 userIdErrorMessage.innerText = "아이디는 5글자 이상이어야 합니다.";
             }
         });
@@ -88,68 +95,64 @@ function signinIdCheck() {
         console.log("아이디 체크 요소 중 하나가 누락되었습니다.");
     }
 }
+
 // 아이디체크 콜백
-function callbackIdCheck(result, userIdCheckResult, userIdInput) {
-    userIdCheckResult.style.display = "block";
+function callbackIdCheck(result, userIdCheckResult, userIdInput, userIdErrorMessage) {
+    userIdCheckResult.style.display = "table-row";
     if (result === "NNNNN") {
-        userIdCheckResult.style.color = "red";
-        userIdCheckResult.innerText = "이미 사용중인 아이디입니다.";
+        userIdErrorMessage.style.color = "red";
+        userIdErrorMessage.innerText = "이미 사용중인 아이디입니다.";
         // 아이디 입력 필드의 값을 없애기
         userIdInput.value = "";
     } else {
         const idLength = userIdInput.value.length;
         if (idLength < 6 || idLength > 20) {
-            userIdCheckResult.style.color = "red";
-            userIdCheckResult.innerText = "아이디는 6 ~ 20글자의 영문+숫자로 이루어져야 합니다.";
+            userIdErrorMessage.style.color = "red";
+            userIdErrorMessage.innerText = "아이디는 6 ~ 20글자의 영문+숫자로 이루어져야 합니다.";
         } else {
             var regex = /^[a-zA-Z0-9]{6,20}$/;
             if (!regex.test(userIdInput.value)) {
-                userIdCheckResult.style.color = "red";
-                userIdCheckResult.innerText = "아이디는 6 ~ 20글자의 영문+숫자로 이루어져야 합니다.";
+                userIdErrorMessage.style.color = "red";
+                userIdErrorMessage.innerText = "아이디는 6 ~ 20글자의 영문+숫자로 이루어져야 합니다.";
             } else {
-                userIdCheckResult.style.color = "green";
-                userIdCheckResult.innerText = "사용가능한 아이디입니다.";
-                //console.log("아이디 확인 : " + userIdInput.value);
+                userIdErrorMessage.style.color = "green";
+                userIdErrorMessage.innerText = "사용가능한 아이디입니다.";
             }
         }
     }
 }
 // 비밀번호 관련 
-var timeout; // 전역 범위에 timeout 변수를 선언합니다.
-
-// 비밀번호 / 비밀번호 확인이 서로 틀릴 경우를 처리하는 함수
 function validatePassword() {
-    clearTimeout(timeout); // 이전에 예약된 작업이 있다면 취소합니다.
+    var password1 = document.getElementById("password1").value;
+    var password2 = document.getElementById("password2").value;
+    var passwordMessageTr = document.getElementById("passwordMessageTr");
+    var passwordErrorMessage = document.getElementById("passwordErrorMessage");
 
-    timeout = setTimeout(function() {
-        var password1 = document.getElementById("password1").value;
-        var password2 = document.getElementById("password2").value;
+    // 입력값이 모두 비어있으면 메시지를 숨깁니다.
+    if (password1 === "" && password2 === "") {
+        passwordMessageTr.style.display = "none";
+        passwordErrorMessage.innerHTML = "";
+        return;
+    }
 
-        // 입력값이 모두 비어있으면 메시지를 숨깁니다.
-        if (password1 === "" && password2 === "") {
-            document.getElementById("passwordMessage").innerHTML = "";
-            return;
-        }
-        // 비밀번호가 서로 다른 경우
-        if (password1 !== password2) {
-            document.getElementById("passwordMessage").innerHTML = "비밀번호가 다릅니다.";
-            document.getElementById("passwordMessage").classList.remove("passwordCorrect");
-            document.getElementById("passwordMessage").classList.add("passwordIncorrect");
+    passwordMessageTr.style.display = "table-row";
+
+    // 비밀번호가 서로 다른 경우
+    if (password1 !== password2) {
+        passwordErrorMessage.style.color = "red";
+        passwordErrorMessage.innerHTML = "비밀번호가 다릅니다.";
+    } else {
+        // 비밀번호가 일치하는 경우
+        // 비밀번호 유효성 검사: 영문, 숫자, 특수문자 포함, 8글자 이상
+        var regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+        if (!regex.test(password1)) {
+            passwordErrorMessage.style.color = "red";
+            passwordErrorMessage.innerHTML = "영문, 숫자, 특수문자를 넣어주세요";
         } else {
-            // 비밀번호가 일치하는 경우
-            // 비밀번호 유효성 검사: 영문, 숫자, 특수문자 포함, 8글자 이상
-            var regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
-            if (!regex.test(password1)) {
-                document.getElementById("passwordMessage").innerHTML = "영문, 숫자, 특수문자를 넣어주세요";
-                document.getElementById("passwordMessage").classList.remove("passwordCorrect");
-                document.getElementById("passwordMessage").classList.add("passwordIncorrect");
-            } else {
-                document.getElementById("passwordMessage").innerHTML = "비밀번호가 일치합니다.";
-                document.getElementById("passwordMessage").classList.remove("passwordIncorrect");
-                document.getElementById("passwordMessage").classList.add("passwordCorrect");
-            }
+            passwordErrorMessage.style.color = "green";
+            passwordErrorMessage.innerHTML = "비밀번호가 일치합니다.";
         }
-    });
+    }
 }
 // 비밀번호 클릭시 보이도록 (마우스가 눌린 상태에서만)
 function togglePasswordVisibility(inputField, isMouseDown) {
@@ -215,11 +218,11 @@ function sendPhoneNumber() {
 
     // 전체 번호 조합하여 표시
     var phoneNumber = prefix + suffix1 + suffix2;
-    console.log(phoneNumber); // 번호 확인용, 실제 사용시 주석처리해도 됩니다.
 
     // input-value-phone 필드에 번호 설정
     inputValueElement.value = phoneNumber;
 }
+
 
 // 이메일 인증 코드 전송 함수
 function sendVerificationCode() {
@@ -227,97 +230,113 @@ function sendVerificationCode() {
 
     if (emailInput.trim().length > 0) {
         sendEmailVerificationRequest(emailInput); // AJAX 호출 함수 호출
+        startTimer(); // 3분 타이머 시작
     }
 }
 
 // 서버로부터의 이메일 인증 응답을 처리
 function handleEmailCheckResponse(response) {
-    const emailCheckResult = document.getElementById("checkResultEamil");
-    emailCheckResult.style.display = "block";
+    const emailCheckResult = document.getElementById("verificationEmailTr");
+    emailCheckResult.style.display = "table-row";
+    const verificationMessage = document.getElementById("verification-message");
+
     if (response === "emailCheck No") {
-        alert("인증번호 전송이 실패했습니다 다시 입력해주세요!");
+        document.getElementById("emailCheckButton").disabled = false;
+        verificationMessage.style.color = "red";
+        verificationMessage.innerText = "인증번호 전송이 실패했습니다 다시 입력해주세요!";
     } else if (response === "emailCheck Yes") {
-        alert("인증번호가 성공적으로 전송되었습니다!");
-        // 카운트 다운 시작
-        startTimer();
+        document.getElementById("emailCheckButton").disabled = true;
+        verificationMessage.style.color = "green";
+        verificationMessage.innerText = "인증번호가 성공적으로 전송되었습니다!";
+        startTimer(); // 3분 타이머 시작
     }
 }
 
-// UUID 이메일 체크 콜백
-function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput, emailSecretErrorMessage) {
-    console.log("Callback result:", result);
-    emailSecretCheckResult.style.display = "block";
+// 이메일 UUID 인증 코드 확인 콜백
+function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput) {
+    const userEmailErrorMessage = document.getElementById("userEmailErrorMessage");
+    emailSecretCheckResult.style.display = "table-row";
 
-    if (result === "emailSecretCodeCheck No") { // 입력값이 데이터베이스 값과 일치하지 않을 때
-        emailSecretCheckResult.style.color = "red";
-        emailSecretCheckResult.innerText = "인증 코드가 일치하지 않습니다.";
-    } else if (result === "emailSecretCodeCheck Yes") { // 입력값이 데이터베이스 값과 일치할 때
-        emailSecretCheckResult.style.color = "green";
-        emailSecretCheckResult.innerText = "인증이 확인되었습니다.";
-        console.log("이메일 확인:", emailSecretInput.value);
-    } else { // 그 외의 경우 (예: 서버 오류 등)
-        emailSecretCheckResult.style.color = "red";
-        emailSecretCheckResult.innerText = "인증을 확인할 수 없습니다.";
+    if (result === "emailSecretCodeCheck No") {
+        userEmailErrorMessage.style.color = "red";
+        userEmailErrorMessage.innerText = "인증 코드가 일치하지 않습니다.";
+    } else if (result === "emailSecretCodeCheck Yes") {
+        userEmailErrorMessage.style.color = "green";
+        userEmailErrorMessage.innerText = "인증이 확인되었습니다.";
+    } else {
+        userEmailErrorMessage.style.color = "red";
+        userEmailErrorMessage.innerText = "인증을 확인할 수 없습니다.";
     }
-    emailSecretErrorMessage.style.display = "none"; // 에러 메시지 숨기기
 }
 
-// UUID 이메일 체크
+// 이메일 UUID 인증 코드 확인
 function emailSecretCode() {
     const checkButton = document.getElementById("check_emailSecretBtn");
     const checkEmail = document.getElementById("input-value-email");
     const verificationCodeInput = document.getElementById("verification-code");
-    const emailSecretCheckResult = document.getElementById("checkResultEamil");
+    const emailSecretCheckResult = document.getElementById("checkResultEmailTr");
     const emailSecretErrorMessage = document.getElementById("userEmailErrorMessage");
 
     checkButton.addEventListener("click", function() {
         const verificationCodeValue = verificationCodeInput.value.trim();
-        
-        if (verificationCodeValue.length >= 6 && verificationCodeValue.length <= 6) {
-            // 입력된 이메일과 입력된 값을 서버로 보냄
+
+        if (verificationCodeValue.length === 6) {
             const emailValue = checkEmail.value;
-            // console.log("Email: " + emailValue);
-            // console.log("Verification Code: " + verificationCodeValue);
             emailCheckCode({ "authNo": verificationCodeValue, "email": emailValue }, function(result) {
                 callbackEmailSecret(result, emailSecretCheckResult, verificationCodeInput, emailSecretErrorMessage);
             });
         } else {
-            console.log("인증코드는 6자리 이상이어야 합니다.");
-            emailSecretCheckResult.innerText = "인증코드는 6자리 이상이어야 합니다.";
-            emailSecretCheckResult.style.color = "red";
-            emailSecretCheckResult.style.display = "block"; // 에러 메시지 표시
-            emailSecretErrorMessage.style.display = "none";
+            emailSecretCheckResult.style.display = "table-row";
+            emailSecretErrorMessage.style.color = "red";
+            emailSecretErrorMessage.innerText = "인증코드는 6자리여야 합니다.";
         }
     });
 }
+let timer; 
+let ptimer; 
 
-let timer; // 전역 변수로 타이머 변수를 선언합니다.
+// 핸드폰 타이머 시작 함수
+function startPTimer() {
+    clearInterval(ptimer); 
 
-// 카운트 다운 시작 함수
+    var duration = 3 * 60;
+    var ptimerDisplay = document.getElementById('Ptimer');
+
+    ptimer = setInterval(function () {
+        var minutes = parseInt(duration / 60, 10);
+        var seconds = parseInt(duration % 60, 10);
+
+        ptimerDisplay.textContent = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
+        duration--;
+
+        if (duration < 0) {
+            clearInterval(ptimer);
+            ptimerDisplay.textContent = "시간 초과";
+        }
+    }, 1000);
+}
+
+// 이메일 타이머 시작 함수
 function startTimer() {
-    clearInterval(timer); // 이전에 실행 중이던 타이머를 초기화합니다.
+    clearInterval(timer); 
 
     var duration = 3 * 60;
     var timerDisplay = document.getElementById('timer');
 
-    // 카운트 다운 시작
     timer = setInterval(function () {
         var minutes = parseInt(duration / 60, 10);
         var seconds = parseInt(duration % 60, 10);
 
-        // 남은 시간을 표시
         timerDisplay.textContent = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
-
-        // 시간을 1초씩 감소
         duration--;
 
-        // 카운트 다운이 끝나면 clearInterval을 호출하여 타이머를 멈춤
         if (duration < 0) {
             clearInterval(timer);
             timerDisplay.textContent = "시간 초과";
         }
     }, 1000);
 }
+
 // 이메일
 function sgininemail() {
     // 필요한 요소들을 가져옵니다.
@@ -339,7 +358,6 @@ function sgininemail() {
         } else {
             inputValueElement.value = "";
         }
-        //console.log(prefix + "@" + domain);
     }
     // 도메인 리스트 변경 시 처리하는 함수를 정의합니다.
     function handleDomainListChange() {
@@ -486,7 +504,7 @@ function signinSubmitButton(){
         var nicknameCheckResult = document.getElementById("checkResultNick"); // 닉네임 체크 결과
         var userIdCheckResult = document.getElementById("checkResultId");
         var passwordMessage = document.getElementById("passwordMessage"); // 비밀번호 메시지
-        var emailSecretCheckResult = document.getElementById("checkResultEamil"); // 이메일 인증 결과
+        var emailSecretCheckResult = document.getElementById("userEmailErrorMessage"); // 이메일 인증 결과
     
         if (nicknameCheckResult.innerText !== "사용가능한 닉네임입니다." ||
             userIdCheckResult.innerText !== "사용가능한 아이디입니다." ||

@@ -33,27 +33,25 @@
                     <tr>
                         <th>닉네임</th>
                         <td colspan="1">
-                            <input type="text" placeholder="한문 + 영문" name="nickname" id="nickname" maxlength="16" required >
+                            <input type="text" placeholder="한문 + 영문" name="nickname" id="nickname" maxlength="16" required>
                         </td>
                         <td><input type="button" id="nickNameCheckButton" class="check_nickname check_button" value="중복검사"></td>
                     </tr>
-                    <tr>
-                        <th></th>
+                    <tr id="checkResultNickTr">
                         <td colspan="4">
                             <div id="checkResultNick" class="checkResult">
                                 <span id="nicknameErrorMessage"></span>
                             </div>
                         </td>
-                    </tr>                 
+                    </tr>
                     <tr>
                         <th>아이디</th>
                         <td colspan="1">
-                            <input type="text" placeholder="영문 + 숫자" name="userId" id="user_Id" maxlength="16" required >
+                            <input type="text" placeholder="영문 + 숫자" name="userId" id="user_Id" maxlength="16" required>
                         </td>
                         <td><input type="button" id="idcheckButton" class="check_userId check_button" value="중복검사"></td>
                     </tr>
-                    <tr>
-                        <th></th>
+                    <tr id="checkResultIdTr">
                         <td colspan="4">
                             <div id="checkResultId" class="checkResult">
                                 <span id="userIdErrorMessage"></span>
@@ -70,19 +68,26 @@
                         <th>비밀번호</th>
                         <td colspan="1">
                             <div style="position: relative;">
-                                <input type="password" id="password1" name="userPwd" placeholder="영문 숫자 특수문자 포함 8글자 이상" required >
+                                <input type="password" id="password1" name="userPwd" placeholder="영문 숫자 특수문자 포함 8글자 이상" required>
                                 <img src="${contextPath}/resources/img/user/pwd.png" id="pwdImg" alt="비밀번호 보기">
                             </div>
                         </td>
-                    </tr>                    
-                    <tr>
-                        <th>비밀번호 확인</th>
-                        <td colspan="1"><input type="password" id="password2" name="user_pwdCheck" placeholder="똑같이 입력하셔야 합니다." required ></td>
-                        <td colspan="1"><input type="button" class="check_button" value="확인" required onclick="validatePassword()"></td>
                     </tr>
                     <tr>
-                        <th></th>
-                        <td colspan="4" id="passwordMessage"></td>
+                        <th>비밀번호 확인</th>
+                        <td colspan="1">
+                            <input type="password" id="password2" name="user_pwdCheck" placeholder="똑같이 입력하셔야 합니다." required>
+                        </td>
+                        <td colspan="1">
+                            <input type="button" class="check_button" value="확인" onclick="validatePassword()">
+                        </td>
+                    </tr>
+                    <tr id="passwordMessageTr">
+                        <td colspan="4">
+                            <div id="passwordMessage" class="checkResult">
+                                <span id="passwordErrorMessage"></span>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <th>휴대폰 번호</th>
@@ -95,13 +100,42 @@
                                 <input type="text" id="phone-suffix2" name="phone-suffix2" maxlength="4">
                                 <input type="text" name="phone" id="input-value-phone" required  >
                             </div>
-                        </td>
-                    </tr>  
+                            <td>
+                                <input type="button" id="phoneCheckButton" class="check_button" value="인증번호 전송">
+                            </td>
+                        </tr>
+                        <tr id="verificationPhoneTr">
+                            <td colspan="4">
+                                <div id="verificationPhone" class="checkResult">
+                                    <span id="Pverification-message"></span>
+                                </div>
+                            </td>
+                        </tr>
                         <tr>
-                            <th>생년월일</th>
-                            <td colspan="5" class="email-container">
-                                <input type="date" name="birth" required>
-                            </td>   
+                            <th>인증번호</th>
+                            <td>
+                                <div id="phoneTimeContainer">
+                                    <input type="text" id="Pverification-code" required>
+                                    <div id="Ptimer"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <input type="button" class="check_button" id="check_PhoneSecretBtn" value="인증확인">
+                            </td>
+                        </tr>
+                        <tr id="checkResultPhoneTr">
+                            <td colspan="4">
+                                <div id="checkResultPhone" class="checkResult">
+                                    <span id="userPhoneErrorMessage"></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tr>
+                    <tr>
+                        <th>생년월일</th>
+                        <td colspan="5" class="email-container">
+                            <input type="date" name="birth" required>
+                        </td>   
                     </tr>
                     <tr>
                         <th>이메일</th>
@@ -127,28 +161,35 @@
                             <input type="button" id="emailCheckButton" class="check_button" value="인증번호 전송">
                         </td>
                     </tr>
+                    <tr id="verificationEmailTr">
+                        <td colspan="4">
+                            <div id="verificationEmail" class="checkResult">
+                                <span id="verification-message"></span>
+                            </div>
+                        </td>
+                    </tr>
                     <tr>
-                        <th></th>
+                        <th>인증번호</th>
                         <td>
                             <div id="emailTimeContainer">
-                                <input type="text" id="verification-code" required><div id="timer"></div>
+                                <input type="text" id="verification-code" required>
+                                <div id="timer"></div>
                             </div>
                         </td>
                         <td>
                             <input type="button" class="check_button" id="check_emailSecretBtn" value="인증확인">
                         </td>
                     </tr>
-                    <tr>
-                        <th></th>
-                        <td>
-                            <div id="checkResultEamil" class="checkResult">
+                    <tr id="checkResultEmailTr">
+                        <td colspan="4">
+                            <div id="checkResultEmail" class="checkResult">
                                 <span id="userEmailErrorMessage"></span>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <th>성별</th>
-                        <td colspan="2" class="gender_td">
+                        <td colspan="2">
                             <div >
                                 <input type="radio" id="Male" value="M" name="gender" checked>
                                 <label for="Male">남자</label> &nbsp;&nbsp;

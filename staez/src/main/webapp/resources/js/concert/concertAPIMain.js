@@ -1,10 +1,10 @@
 $(function() { // list는 컨트롤러에서 받아온 것
   const sliderContent = document.querySelector(".concert-main-upper");
   const gridContent = document.querySelector(".concert-main-grid");
+
   
   // ajaxCategoryListAPI(list => drawConNavi(list));
 
-  const categoryNo = document.querySelector("input[name='categoryNo']").value;
   ajaxCategoryListAPI((list)=>drawSliderMain(list, sliderContent));
   ajaxCategoryListAPI((list)=>drawGridMain(list, gridContent));
 
@@ -12,7 +12,7 @@ $(function() { // list는 컨트롤러에서 받아온 것
 
 
 
-// // ajax로 콘서트 navi 그려          나중에
+// // ajax로 콘서트 navi 그려
 // function drawConNavi(list){
 //   console.log(list)
 //   const concertNaviArea = document.querySelector(".concert-ul");
@@ -24,7 +24,7 @@ $(function() { // list는 컨트롤러에서 받아온 것
 //     naviLi.innerHTML = ``;
 //     naviLi.innerHTML = `<h2>`+ c.genrenm +`</h2>`;
 
-//     naviLi.setAttribute("onclick", `location.href ='main.co?categoryNo=`+ c.mt20id +`'`)
+//     naviLi.setAttribute("onclick", `location.href ='main.co?genre=`+ c.mt20id +`'`)
 
 //     concertNaviArea.appendChild(naviLi);
 //   }
@@ -75,6 +75,11 @@ function drawGridMain(list, gridContent){
   
   for (let c of list) {
 
+    const runningConcert = document.querySelector(".running-concert");
+    runningConcert.innerHTML = `<br><br>
+                                <h3>현재 진행중인&nbsp; <b id="concert-genre">` + c.genrenm + `</b></h3>
+                                <br>`
+
     const concertGridDiv = document.createElement('div');
     concertGridDiv.className = 'concert-main-grid-div';
     concertGridDiv.innerHTML += `<input type="hidden" name="concertId" value="` + c.mt20id + `">`
@@ -85,7 +90,7 @@ function drawGridMain(list, gridContent){
                               +     `<p><span>` + c.genrenm + `</span></p>`
                               +     `<p><span><b>[` + c.prfnm + `]</b></span></p>
                                     <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
-                            + `</div>`
+                            + `</div> <br><br>`
                             
     gridContent.appendChild(concertGridDiv);                   
     concertGridDiv.onclick = function goDetail(){

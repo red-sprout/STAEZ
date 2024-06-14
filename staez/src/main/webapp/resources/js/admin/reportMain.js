@@ -118,6 +118,33 @@ function drawPagination(result) {
 
     adminPagination.appendChild(paginationDiv);
     adminContents.appendChild(adminPagination);
+
+    paginationBefore.addEventListener("click", () => {
+        if (result.currentPage > result.startPage) {
+            communityMainList({
+                categoryNo: communityCategoryNo(),
+                cPage: result.currentPage - 1,
+                keyword: document.querySelector("#community-search input[name=keyword]").value
+            }, (result) => {
+                deleteNodes();
+                drawBoard(result.boardList);
+                pagination(result.pagination);
+            });
+        }
+    });
+    paginationAfter.addEventListener("click", () => {
+        if (result.currentPage < result.endPage) {
+            communityMainList({
+                categoryNo: communityCategoryNo(),
+                cPage: result.currentPage + 1,
+                keyword: document.querySelector("#community-search input[name=keyword]").value
+            }, (result) => {
+                deleteNodes();
+                drawBoard(result.boardList);
+                pagination(result.pagination);
+            });
+        }
+    });
 }
 
 // 페이지 클릭시 이벤트
