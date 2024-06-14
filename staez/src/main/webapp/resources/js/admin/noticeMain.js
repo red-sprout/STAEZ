@@ -199,6 +199,35 @@ function pagination(result) {
     
     noticePagination.appendChild(paginationDiv);
     noticeContents.appendChild(noticePagination);
+
+    paginationBefore.addEventListener("click", () => {
+        if (result.currentPage > result.startPage) {
+            noticeMainList({
+                categoryNo: communityCategoryNo(),
+                cPage: result.currentPage - 1,
+                select: document.querySelector("#notice-select option:selected").value,
+                keyword: document.querySelector("#community-search input[name=keyword]").value
+            }, (result) => {
+                deleteNodes();
+                drawBoard(result.boardList);
+                pagination(result.pagination);
+            });
+        }
+    });
+    paginationAfter.addEventListener("click", () => {
+        if (result.currentPage < result.endPage) {
+            noticeMainList({
+                categoryNo: communityCategoryNo(),
+                cPage: result.currentPage + 1,
+                select: document.querySelector("#notice-select option:selected").value,
+                keyword: document.querySelector("#community-search input[name=keyword]").value
+            }, (result) => {
+                deleteNodes();
+                drawBoard(result.boardList);
+                pagination(result.pagination);
+            });
+        }
+    });
 }
 
 // 페이지 클릭시 이벤트
