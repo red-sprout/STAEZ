@@ -43,7 +43,7 @@ function insertReserve(){
     })
 
     document.querySelector("input[name = 'seatList']").value = JSON.stringify(seatList);  
-
+    
     const reserveDateTime = document.querySelector(".my-reserve-time-value").innerHTML;
 
     const [concertDateText, scheduleText] = reserveDateTime.split(" ");
@@ -138,7 +138,64 @@ function payMethodChange(_this){
 function kakaoPay(){
     const concertTitle = document.querySelector("input[name = 'concertTitle']").value;
     const totalAmount = document.querySelector("input[name = 'totalAmount']").value;
+
+    const seatList = [];
+
+    document.querySelectorAll(".my-seat-info-span").forEach(function(infoSpen){
+        const seatInfo = infoSpen.innerHTML
+
+        // (S석)을 제거
+        const cleanedSeatInfo = seatInfo.replace(/\(.*\)/, '').trim();
+
+        // 알파벳과 숫자를 분리
+        const [seatRow, seatNumber] = cleanedSeatInfo.split('-');
+
+        const row = decimalToBase26(seatRow);
+        const seatInformation = row + `-` + seatNumber;
+        console.log(seatInformation)
+        seatList.push(
+            seatInformation
+        )
+    })
+
+    document.querySelector("input[name = 'seatList']").value = JSON.stringify(seatList);  
+
+    const reserveDateTime = document.querySelector(".my-reserve-time-value").innerHTML;
+
+    const [concertDateText, scheduleText] = reserveDateTime.split(" ");
+    
+    const payMethodText = document.querySelector(".pay-method-span").innerHTML;
+
+    document.querySelector("input[name = 'payMethod']").value = payMethodText;
+    
+    document.querySelector("input[name = 'concertDate']").value = concertDateText;
+    document.querySelector("input[name = 'schedule']").value = scheduleText;
+    
+
+    const userNo = document.querySelector("input[name = 'userNo']").value;
+    const concertNo = document.querySelector("input[name = 'concertNo']").value;
+    const recipientName = document.querySelector("input[name = 'recipientName']").value;
+    const recipientPhone = document.querySelector("input[name = 'recipientPhone']").value;
+    const recipientBirth = document.querySelector("input[name = 'recipientBirth']").value;
+    const recipientEmail = document.querySelector("input[name = 'recipientEmail']").value;
+    const payMethod = document.querySelector("input[name = 'payMethod']").value;
+    const concertDate =  document.querySelector("input[name = 'concertDate']").value;
+    const schedule = document.querySelector("input[name = 'schedule']").value;
+    
+    const rids = JSON.stringify({
+        userNo,
+        concertNo,
+        recipientName,
+        recipientPhone,
+        recipientBirth,
+        recipientEmail,
+        payMethod,
+        concertDate,
+        schedule,
+        seatList
+    })
     ajaxKakaoPay({
+        rids,
         concertTitle,
         totalAmount
     },(res)=>kakaoPayResult(res))
