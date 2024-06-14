@@ -489,6 +489,7 @@
 		FROM concert
 		WHERE concert_title = #{concertTitle}
 	</select>
+	
 	<insert id="conapiInsert">
 	        INSERT INTO concert (
 	            concert_title,
@@ -499,7 +500,7 @@
 	            age_limit          
 	        ) VALUES (
 	            #{concertTitle},
-	            #{concertTitle},
+	            #{concertPlot},
 	            200,
 	            #{concertTitle},
 	            #{concertTitle},
@@ -510,4 +511,58 @@
     	DELETE FROM concert
 		WHERE theater_no IS NULL
     </delete>
+    
+    
+    <!-- concertId로 db의 concertNo 가져오기 -->
+    <select id="selectConApi" resultMap="concertResult" >
+	    SELECT concert_no
+	    FROM concert
+		WHERE concert_plot = #{concertId}
+	</select>
+    
+    
+    <!-- api 좋아요 구현 -->
+	<select id="selectConLikeCountApi" resultType="_int">
+			SELECT COUNT(*)
+			FROM concert_like
+			WHERE concert_no = #{concertNo}
+			  AND status = 'Y'
+	</select>
+	
+	<select id="selectUserConLikeApi" resultType="_int">
+			SELECT COUNT(*)
+			FROM concert_like
+           WHERE user_no = #{userNo}
+             AND concert_no = #{concertNo}
+             AND status = 'Y'
+	</select>
+	
+	<select id="selectUserConLikeAllApi" resultType="_int">
+			SELECT COUNT(*)
+			FROM concert_like
+           WHERE user_no = #{userNo}
+             AND concert_no = #{concertNo}
+	</select>
+	
+	
+	<insert id="insertConLikeApi">
+	        INSERT INTO concert_like (
+	            user_no,
+	            concert_no																				
+	        ) VALUES (
+	            #{userNo},
+	            #{concertNo}
+	        )
+	</insert>
+	
+	<update id="updateConLikeApi">
+        UPDATE concert_like
+           SET status = #{status}
+         WHERE user_no = #{userNo}
+           AND concert_no = #{concertNo}
+    </update>
+    
+    
+    
+    
 </mapper>

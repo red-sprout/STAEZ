@@ -26,6 +26,9 @@
 </head>
 
 <body>
+    <input type="hidden" name="userNo" value="${loginUser.userNo}">
+    <input type="hidden" name="concertId" value="${conapi.originName}">
+
     <div>
         <jsp:include page="../common/header.jsp" />
 
@@ -60,9 +63,9 @@
             <table class="concert-detail-table">
                 <tr>
                     <td>
-                        <!-- <c:forEach var="i" begin="1" end="${com[0].score}"> --> <!-- 배열 길이만큼 나눠서 avg 만들고, round 처리 필요-->
-                           <!-- <img id="concert-detail-starImg" src="${pageContext.request.contextPath}/resources/img/concert/star.png" alt="">
-                        </c:forEach> -->
+                        <c:forEach var="i" begin="1" end="${com[0].score}"> <!-- 배열 길이만큼 나눠서 avg 만들고, round 처리 필요-->
+                            <img id="concert-detail-starImg" src="${pageContext.request.contextPath}/resources/img/concert/star.png" alt="">
+                        </c:forEach>
                     </td>
                 </tr>
                 <tr>                    
@@ -78,7 +81,7 @@
                     <td><b><span>공연장소&nbsp&nbsp</span></b><span>${conapi.theaterName}</span></td>
                 </tr>
                 <tr>
-                    <td><b><span>공연시간&nbsp&nbsp</span></b><span>${conapi.concertPlot}분</span></td>
+                    <td><b><span>공연시간&nbsp&nbsp</span></b><span>${conapi.concertPlot}</span></td>
                 </tr>
                 <tr>
                     <td><b><span>관람연령&nbsp&nbsp</span></b><span>${conapi.ageLimit}</span></td>
@@ -104,10 +107,11 @@
                             </tr>
                         </table>
                     </td> -->
+                <c:if test="${not empty conapi.concertProduction}">
                 </tr>
-
                     <td><b><span>주최&nbsp&nbsp</span></b><span>${conapi.concertProduction}</span></td>
                 </tr>
+                </c:if>
             </table>
         </div>
         
@@ -180,6 +184,6 @@
         <jsp:include page="../common/footer.jsp" />
     </div>
     <script src="<c:url value='/resources/js/api/concertapi.js'/>"></script>
-    <script src="<c:url value='/resources/js/concert/concertDetailMain.js'/>"></script>
+    <script src="<c:url value='/resources/js/concert/concertAPIDetailMain.js'/>"></script>
 </body>
 </html>

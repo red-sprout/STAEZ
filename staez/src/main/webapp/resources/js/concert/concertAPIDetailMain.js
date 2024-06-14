@@ -1,34 +1,32 @@
 $(function() { 
 
-    detailapi({"concertId" : concertId}, (list) => onloadDetailapi(list));
+    const concertId = document.querySelector("input[name='concertId']").value;
+    const userNo = document.querySelector("input[name='userNo']").value;
     
-
-
-    conNaviDraw(conList => drawConNavi(conList));
-    likeCount({ "userNo" : userNo, "concertNo" : concertNo}, (result) => drawLikeCount(result));
-    detailapi({"concertNo" : concertNo}, (result) => drawConDetail(result));
+    // conNaviDraw(conList => drawConNavi(conList));
+    likeCountApi({ "userNo" : userNo, "concertId" : concertId}, (result) => drawLikeCount(result));
+    // detailapi({"concertId" : concertId}, (result) => drawConDetail(result));
 });
 
 
 // ajax로 콘서트 navi 그려
-function drawConNavi(conList){
+// function drawConNavi(conList){
 
-    const concertNaviArea = document.querySelector(".concert-ul");
-    concertNaviArea.innerHTML = ``;
+//     const concertNaviArea = document.querySelector(".concert-ul");
+//     concertNaviArea.innerHTML = ``;
   
-    for(let c of conList){
-      let naviLi = document.createElement('li');
-      naviLi.innerHTML = ``;
-      naviLi.innerHTML = `<h2 id="`+ c.categoryNo +`">`+ c.categoryName +`</h2>
-                          <input type="hidden" name="concertNo" value=`+ c. categoryNo +`>`;
+//     for(let c of conList){
+//       let naviLi = document.createElement('li');
+//       naviLi.innerHTML = ``;
+//       naviLi.innerHTML = `<h2 id="`+ c.categoryNo +`">`+ c.categoryName +`</h2>
+//                           <input type="hidden" name="concertNo" value=`+ c. categoryNo +`>`;
   
-      naviLi.setAttribute("onclick", `location.href ='main.co?categoryNo=`+ c.categoryNo +`'`)
+//       naviLi.setAttribute("onclick", `location.href ='main.co?categoryNo=`+ c.categoryNo +`'`)
   
-      concertNaviArea.appendChild(naviLi);
-    }
+//       concertNaviArea.appendChild(naviLi);
+//     }
 
-  }concertAPIMain
-
+//   }
 
   // 예매버튼 클릭
 function reservePage(){
@@ -93,18 +91,18 @@ function drawLikeCount(result){
         const span = document.querySelector(".concert-likeCount");
 
         const data = {
-            "concertNo": document.querySelector("input[name=concertNo]").value,
+            "concertId": document.querySelector("input[name=concertId]").value,
             "userNo": document.querySelector("input[name=userNo]").value
         };    
 
         if(_this.children[0].classList.contains('fa-solid')) { // fa-regular이 하트 빈상태
             // ajax 요청 보내기
             data.status = "Y";
-            likeUpdate(data, (result) => span.innerHTML = result);
+            likeUpdateApi(data, (result) => span.innerHTML = result);
         } else {
             // ajax 요청 보내기
             data.status = "N";
-            likeUpdate(data, (result) => span.innerHTML = result);
+            likeUpdateApi(data, (result) => span.innerHTML = result);
         }
     }
 
