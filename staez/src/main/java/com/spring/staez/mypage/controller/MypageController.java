@@ -206,23 +206,23 @@ public class MypageController {
 		
 		Map<String, Object> map = new HashMap<>();
 
-		if(keyword == null) {
+		if(!(keyword == null || keyword.equals(""))) {
 			map.put("userNo", userNo);
-			map.put("keyword", keyword);
+			map.put("keyword", keyword.trim());
 			
 			listCount = mypageService.selectMyBoardSearchListCount(map);
 			pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 			list =  mypageService.selectMyBoardSearchList(map, pi);
-			System.out.println("키워드 없음");
+			System.out.println("키워드 있음");
 		} else {
 			listCount = mypageService.selectMyBoardListCount(userNo);
 			pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 			list =  mypageService.selectMyBoardList(userNo, pi);
-			System.out.println("키워드 있음");
+			System.out.println("키워드 없음");
 		}
 		
 		model.addAttribute("contentPage", "myBoardList");
-		model.addAttribute("keyword", keyword);
+		model.addAttribute("keyword", map.get("keyword"));
 		model.addAttribute("blist", list);
 		model.addAttribute("pi", pi);
 		
@@ -231,26 +231,46 @@ public class MypageController {
 	
 	//나의 좋아요 게시글 리스트 페이지 출력
 	@RequestMapping("likeList.me")
-	public String likeBoardList(int cpage, HttpSession session, Model model) {
+	public String likeBoardList(int cpage, String keyword, HttpSession session, Model model) {
 		User loginUser = userService.loginUser((User)session.getAttribute("loginUser"));
 		if(loginUser == null) { //로그인 되어있지 않을 경우
 	        session.setAttribute("alertMsg", "로그인이 필요합니다.");
 	        return "redirect:/loginForm.me";
 		}
 		
-		int userNo = loginUser.getUserNo();
-		int currentPage = cpage;
-		int listCount = mypageService.selectLikeBoardListCount(userNo);
+		System.out.println(keyword);
 		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
-		ArrayList<BoardListDto> list = mypageService.selectLikeBoardList(userNo, pi);
+		int userNo = loginUser.getUserNo();
+		ArrayList<BoardListDto> list;
+		int currentPage = cpage;
+		int listCount;
+		PageInfo pi;
+		
+		Map<String, Object> map = new HashMap<>();
+
+		if(!(keyword == null || keyword.equals(""))) {
+			map.put("userNo", userNo);
+			map.put("keyword", keyword.trim());
+			
+			listCount = mypageService.selectLikeBoardSearchListCount(map);
+			pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			list =  mypageService.selectLikeBoardSearchList(map, pi);
+			System.out.println("키워드 있음");
+		} else {
+			listCount = mypageService.selectLikeBoardListCount(userNo);
+			pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			list =  mypageService.selectLikeBoardList(userNo, pi);
+			System.out.println("키워드 없음");
+		}
 		
 		model.addAttribute("contentPage", "likeBoardList");
 		model.addAttribute("blist", list);
+		model.addAttribute("keyword", map.get("keyword"));
 		model.addAttribute("pi", pi);
 		
 		return "mypage/mypageLayout";
 	}
+	
 	
 	//회원정보 변경 페이지 출력
 	@RequestMapping("updateForm.me")

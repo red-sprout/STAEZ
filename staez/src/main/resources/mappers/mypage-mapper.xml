@@ -139,10 +139,10 @@
 	<select id="selectMyBoardSearchListCount" resultType="_int">
 		SELECT COUNT(board_no) 
 		FROM board
-		WHERE user_no = CAST(#{userNo} AS integer)
+		WHERE user_no = #{userNo}::integer
 		AND board_code = 2
 		AND board_status = 'Y'
-		AND board_title LIKE CONCAT('%', CAST(#{keyword} AS text), '%')
+		AND board_title LIKE CONCAT('%', #{keyword}::text, '%')
 	</select>
 	<select id="selectMyBoardSearchList" resultType="Board">
 		SELECT b.board_no AS boardNo, 
@@ -155,10 +155,10 @@
 		LEFT JOIN (SELECT board_no 
 				   FROM board_like 
 				   WHERE status='Y') bl ON b.board_no = bl.board_no
-		WHERE b.user_no = CAST(#{userNo} AS integer)
+		WHERE b.user_no = #{userNo}::integer
 		AND b.board_code = 2 
 		AND b.board_status = 'Y'
-		AND b.board_title LIKE CONCAT('%', CAST(#{keyword} AS text), '%')
+		AND b.board_title LIKE CONCAT('%', #{keyword}::text, '%')
 		GROUP BY b.board_no, b.board_title, b.board_count, b.board_write_date		
 		ORDER BY b.board_no DESC	
 	</select>
@@ -189,6 +189,37 @@
         AND bl.status = 'Y'
         ORDER BY bl.board_like_no DESC
 	</select>
+	
+	<select id="selectLikeBoardSearchListCount" resultType="_int">
+		SELECT COUNT(bl.board_like_no) 
+		FROM board_like bl
+		JOIN board b ON (bl.board_no = b.board_no)
+		WHERE bl.user_no = #{userNo}::integer
+		AND bl.status = 'Y'
+		AND b.board_title LIKE CONCAT('%', #{keyword}::text, '%')
+	</select>
+	<select id="selectLikeBoardSearchList" resultType="com.spring.staez.community.model.dto.BoardListDto">
+		SELECT bl.board_like_no AS boardLikeNo,
+		       b.board_no AS boardNo,
+		       u.user_id AS userId,
+		       u.nickname,
+		       b.board_title AS boardTitle,
+		       b.board_count AS boardCount,
+		       b.board_write_date AS boardWriteDate,
+		       (SELECT COUNT(*) 
+		        FROM board_like bl2 
+		        WHERE bl2.board_no = b.board_no 
+		        AND bl2.status = 'Y') AS likeCount
+		FROM board_like bl
+		JOIN board b ON b.board_no = bl.board_no
+		JOIN staez_user u ON b.user_no = u.user_no 
+		WHERE bl.user_no = #{userNo}::integer
+        AND b.board_code = 2 
+        AND bl.status = 'Y'
+        AND b.board_title LIKE CONCAT('%', #{keyword}::text, '%')
+        ORDER BY bl.board_like_no DESC
+	</select>
+	
 
 	<select id="selectPaymentsCount" resultType="_int">
 		SELECT COUNT(reserve_no)

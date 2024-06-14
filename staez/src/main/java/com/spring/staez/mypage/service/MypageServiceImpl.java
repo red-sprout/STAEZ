@@ -87,20 +87,31 @@ public class MypageServiceImpl implements MypageService{
 	public int selectMyBoardSearchListCount(Map<String, Object> map) {
 		return mpd.selectMyBoardSearchListCount(sqlSession, map);
 	}
+	
+	
 
 	@Override
 	public ArrayList<BoardListDto> selectMyBoardSearchList(Map<String, Object> map, PageInfo pi) {
 		return mpd.selectMyBoardSearchList(sqlSession, map, pi);
 	}
 
-	
-	
-
 	@Override
 	public ArrayList<BoardListDto> selectLikeBoardList(int userNo, PageInfo pi) {
 		return mpd.selectLikeBoardList(sqlSession, userNo, pi);
 	}
 
+	@Override
+	public int selectLikeBoardSearchListCount(Map<String, Object> map) {
+		return mpd.selectLikeBoardSearchListCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<BoardListDto> selectLikeBoardSearchList(Map<String, Object> map, PageInfo pi) {
+		return mpd.selectLikeBoardSearchList(sqlSession, map, pi);
+	}
+	
+	
+	
 	@Override
 	public int selectPaymentsCount(int userNo) {
 		return mpd.selectPaymentsCount(sqlSession, userNo);
@@ -195,6 +206,5 @@ public class MypageServiceImpl implements MypageService{
 	public ArrayList<Board> loadMyInquireAjax(int userNo) {
 		return mpd.loadMyInquireAjax(sqlSession, userNo);
 	}
-
 	
 }

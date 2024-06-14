@@ -13,7 +13,7 @@
         <h2>나의 게시글</h2>
         <form action="${contextPath}/boardList.me" method="GET">
             <input type="hidden" name="cpage" value="1">
-            <input type="text" name="keyword" value="${keyword}">
+            <input type="text" name="keyword" value="${keyword}" placeholder="게시글 제목 검색">
             <button type="submit">
                 <img src="${contextPath}/resources/img/common/header/search.png">                
             </button>           

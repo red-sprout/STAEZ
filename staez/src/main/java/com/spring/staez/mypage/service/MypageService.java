@@ -33,6 +33,8 @@ public interface MypageService {
 
 	public int selectLikeBoardListCount(int userNo); //나의 좋아요 누른 게시글 개수
 	public ArrayList<BoardListDto> selectLikeBoardList(int userNo, PageInfo pi); //나의 좋아요 누른 게시글 리스트
+	public int selectLikeBoardSearchListCount(Map<String, Object> map); //검색한 나의 좋아요 누른 게시글 개수
+	public ArrayList<BoardListDto> selectLikeBoardSearchList(Map<String, Object> map, PageInfo pi); //검색한 나의 좋아요 누른 게시글 리스트
 	
 	public int selectPaymentsCount(int userNo); //결제내역 개수
 	public ArrayList<PaymentsInfoDto> selectPaymentsList(int userNo, PageInfo pi); //결제내역 리스트

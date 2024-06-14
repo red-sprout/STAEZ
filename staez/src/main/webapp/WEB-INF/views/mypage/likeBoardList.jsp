@@ -10,6 +10,13 @@
 
     <div class="main-title">
         <h2>좋아요</h2>
+        <form action="${contextPath}/likeList.me" method="GET">
+            <input type="hidden" name="cpage" value="1">
+            <input type="text" name="keyword" value="${keyword}" placeholder="게시글 제목 검색">
+            <button type="submit">
+                <img src="${contextPath}/resources/img/common/header/search.png">                
+            </button>           
+        </form>
     </div>
     <table>
         <tbody>
