@@ -75,4 +75,10 @@ public interface AdminService {
 
 	int updateReserve(AdminUpdateDto dto);
 
+	Theater selectTheater(int theaterNo);
+
+	ArrayList<ImpossibleSeat> selectImpossibleSeat(int theaterNo);
+
+	int updateTheater(Theater t);
+
 }

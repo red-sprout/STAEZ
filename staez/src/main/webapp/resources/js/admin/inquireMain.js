@@ -118,6 +118,33 @@ function drawPagination(result) {
 
     adminPagination.appendChild(paginationDiv);
     adminContents.appendChild(adminPagination);
+
+    paginationBefore.addEventListener("click", () => {
+        if (result.currentPage > result.startPage) {
+            adminSelectInquire({
+                select: getSelect(),
+                keyword: getKeyword(),
+                currentPage: result.currentPage - 1,
+            }, (result) => {
+                deleteNodes();
+                drawInquireList(result.inquireList);
+                drawPagination(result.pagination);
+            });
+        }
+    });
+    paginationAfter.addEventListener("click", () => {
+        if (result.currentPage < result.endPage) {
+            adminSelectInquire({
+                select: getSelect(),
+                keyword: getKeyword(),
+                currentPage: result.currentPage + 1,
+            }, (result) => {
+                deleteNodes();
+                drawInquireList(result.inquireList);
+                drawPagination(result.pagination);
+            });
+        }
+    });
 }
 
 // 페이지 클릭시 이벤트

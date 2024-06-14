@@ -50,7 +50,7 @@
 	 		<mapping path="/detail.co"/>
 	 		<mapping path="/*.no"/>
 	 		<mapping path="/detail.cm"/>
-	 		<mapping path="/incertForm.cm"/>
+	 		<mapping path="/insertForm.cm"/>
 	 		<mapping path="/updateForm.cm"/>
 	 		<mapping path="/*.iq"/>
 	 		<mapping path="/*.ad"/>
