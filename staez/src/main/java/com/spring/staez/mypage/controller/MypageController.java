@@ -3,11 +3,14 @@ package com.spring.staez.mypage.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +48,8 @@ public class MypageController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	private JavaMailSender sender;
 	
 	@Value("${coolsms.api.key}")
     private String serviceKey;
@@ -189,20 +194,40 @@ public class MypageController {
 	
 	//나의 작성 게시글 리스트 페이지 출력
 	@RequestMapping("boardList.me")
-	public String myBoardList(int cpage, HttpSession session, Model model) {
+	public String myBoardList(int cpage, String keyword, HttpSession session, Model model) {
 		User loginUser = userService.loginUser((User)session.getAttribute("loginUser"));
 		if(loginUser == null) { //로그인 되어있지 않을 경우
 	        session.setAttribute("alertMsg", "로그인이 필요합니다.");
 	        return "redirect:/loginForm.me";
 		}
 		
-		int userNo = loginUser.getUserNo();
-		int currentPage = cpage;
-		int listCount = mypageService.selectMyBoardListCount(userNo);
+		System.out.println(keyword);
 		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
-		ArrayList<BoardListDto> list = mypageService.selectMyBoardList(userNo, pi);
+		int userNo = loginUser.getUserNo();
+		ArrayList<BoardListDto> list;
+		int currentPage = cpage;
+		int listCount;
+		PageInfo pi;
+		
+		Map<String, Object> map = new HashMap<>();
+
+		if(!(keyword == null || keyword.equals(""))) {
+			map.put("userNo", userNo);
+			map.put("keyword", keyword.trim());
+			
+			listCount = mypageService.selectMyBoardSearchListCount(map);
+			pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			list =  mypageService.selectMyBoardSearchList(map, pi);
+			System.out.println("키워드 있음");
+		} else {
+			listCount = mypageService.selectMyBoardListCount(userNo);
+			pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			list =  mypageService.selectMyBoardList(userNo, pi);
+			System.out.println("키워드 없음");
+		}
+		
 		model.addAttribute("contentPage", "myBoardList");
+		model.addAttribute("keyword", map.get("keyword"));
 		model.addAttribute("blist", list);
 		model.addAttribute("pi", pi);
 		
@@ -211,26 +236,46 @@ public class MypageController {
 	
 	//나의 좋아요 게시글 리스트 페이지 출력
 	@RequestMapping("likeList.me")
-	public String likeBoardList(int cpage, HttpSession session, Model model) {
+	public String likeBoardList(int cpage, String keyword, HttpSession session, Model model) {
 		User loginUser = userService.loginUser((User)session.getAttribute("loginUser"));
 		if(loginUser == null) { //로그인 되어있지 않을 경우
 	        session.setAttribute("alertMsg", "로그인이 필요합니다.");
 	        return "redirect:/loginForm.me";
 		}
 		
-		int userNo = loginUser.getUserNo();
-		int currentPage = cpage;
-		int listCount = mypageService.selectLikeBoardListCount(userNo);
+		System.out.println(keyword);
 		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
-		ArrayList<BoardListDto> list = mypageService.selectLikeBoardList(userNo, pi);
+		int userNo = loginUser.getUserNo();
+		ArrayList<BoardListDto> list;
+		int currentPage = cpage;
+		int listCount;
+		PageInfo pi;
+		
+		Map<String, Object> map = new HashMap<>();
+
+		if(!(keyword == null || keyword.equals(""))) {
+			map.put("userNo", userNo);
+			map.put("keyword", keyword.trim());
+			
+			listCount = mypageService.selectLikeBoardSearchListCount(map);
+			pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			list =  mypageService.selectLikeBoardSearchList(map, pi);
+			System.out.println("키워드 있음");
+		} else {
+			listCount = mypageService.selectLikeBoardListCount(userNo);
+			pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			list =  mypageService.selectLikeBoardList(userNo, pi);
+			System.out.println("키워드 없음");
+		}
 		
 		model.addAttribute("contentPage", "likeBoardList");
 		model.addAttribute("blist", list);
+		model.addAttribute("keyword", map.get("keyword"));
 		model.addAttribute("pi", pi);
 		
 		return "mypage/mypageLayout";
 	}
+	
 	
 	//회원정보 변경 페이지 출력
 	@RequestMapping("updateForm.me")
@@ -481,6 +526,7 @@ public class MypageController {
 		
 	}
 
+	//휴대폰번호 인증번호 전송
 	@RequestMapping("sendPhoneAuth.me")
 	@ResponseBody
 	public String authPhone(String authNo, String phone) {   
@@ -492,21 +538,41 @@ public class MypageController {
 		Message message = new Message();
 		message.setFrom("01053942839"); //계정에서 등록한 발신번호 입력
 		message.setTo(phone);
-		message.setText("인증번호는 [" + authNo + "]입니다.");
+		message.setText("STAEZ 인증번호는 [" + authNo + "] 입니다.");
 
 		try {
 		  // send 메소드로 ArrayList<Message> 객체를 넣어도 동작합니다!
 		  messageService.send(message);
+		  return "NNNNY";
 		} catch (NurigoMessageNotReceivedException exception) {
 		  // 발송에 실패한 메시지 목록을 확인할 수 있습니다!
-		  System.out.println("실패");
 		  System.out.println(exception.getFailedMessageList());
 		  System.out.println(exception.getMessage());
+		  return "NNNNY"; //나중에 NNNNN으로 변경해야됨
+
 		} catch (Exception exception) {
 		  System.out.println(exception.getMessage());
+		  return "NNNNY"; //나중에 NNNNN으로 변경해야됨
+		  
 		}
+	}
+
+	//이메일 인증번호 전송
+	@RequestMapping("sendEmailAuth.me")
+	@ResponseBody
+	public String authEmail(String authNo, String email) {   
+		System.out.println("이메일주소 : " + email);
+		System.out.println("인증번호 : " + authNo);
+
+		// 메일 전송
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(email);
+		message.setSubject("STAEZ 이메일 인증");
+		message.setText("STAEZ 인증 번호는 [" + authNo + "] 입니다.");
 		
-		return "YYYYY";
+		sender.send(message);
+
+		return "NNNNY";
 	}
 	
 }

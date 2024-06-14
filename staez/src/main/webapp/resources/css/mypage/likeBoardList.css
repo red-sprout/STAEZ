@@ -29,8 +29,12 @@
     
 }
 
-/*콘텐츠 제목*/
+/*콘텐츠 제목 + 검색*/
 .main-content>.main-title{   
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
     width: 860px;
     height: 40px;
 
@@ -41,6 +45,42 @@
     text-align: left;
     padding: 0 20px;   
 }
+
+.main-content>.main-title>form{
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.main-content>.main-title>form>input{
+    width: 200px;
+    height: 30px;
+    padding-left: 10px;
+
+    border: 1px solid black;
+    border-right: none;
+    border-radius: 10px 0 0 10px ;
+}
+
+.main-content>.main-title>form>button{
+    width: 50px;
+    height: 30px;
+
+    border-radius:0 10px 10px 0;
+
+    background-color: #F8D082;
+
+}
+
+.main-content>.main-title>form>button>img{
+    width: 20px;
+    height: 20px;
+}
+
+
 
 /*나의 게시글 리스트*/
 .main-content>table{
