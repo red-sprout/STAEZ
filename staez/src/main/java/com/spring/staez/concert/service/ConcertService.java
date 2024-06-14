@@ -72,6 +72,22 @@ public interface ConcertService {
 	ArrayList<Board> selectRevList(PageInfo pi, int concertNo);
 
 	ArrayList<Seat> selectSeatPrice(int concertNo);
+	
+	
+	
+	Concert selectConApi(String concertId);
+	
+	// api 좋아요
+	int selectConLikeCountApi(int concertNo);
+
+	int selectUserConLikeApi(Map map);
+
+	int selectUserConLikeAllApi(Map map);
+
+	int updateConLikeApi(Map map);
+
+	int insertConLikeApi(Map map);
+	
 
 	
 

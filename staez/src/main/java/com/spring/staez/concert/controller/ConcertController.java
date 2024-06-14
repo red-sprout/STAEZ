@@ -107,6 +107,8 @@ public class ConcertController {
 		map.put("userNo", userNo);
 		map.put("concertNo", concertNo);
 		
+		System.out.println("likeUpdate에서:" + userNo + " & " + concertNo);
+		
 		int result =  concertService.selectUserConLikeAll(map); // a유저가 1이라는 콘서트에 좋아요한 적이 있냐 status 노상관
 		
 		if(result > 0) {
@@ -163,22 +165,6 @@ public class ConcertController {
 	    return new Gson().toJson(result);
 	}
 		
-////		ArrayList<ConcertReview> comList =  concertService.selectComDetail(Integer.parseInt(concertNo));
-//		
-////		model.addAttribute("comList", comList);
-//		model.addAttribute("pi", pi);
-//		model.addAttribute("crList", crList);
-//		
-//		System.out.println("comCount:" + comCount);
-////		System.out.println("comList:"+ comList);
-//		System.out.println("pi:" + pi);
-//		System.out.println("crList:" + crList);
-//		
-//		
-//		return new Gson().toJson(crList);  // "concert/concertDetailMain";
-//	}
-//	
-	
 	
 	// 공연을 concertNo로 가져와서 리뷰 페이지로: 리뷰페이지 페이지네이션
 	@ResponseBody
@@ -223,21 +209,6 @@ public class ConcertController {
 		System.out.println(list);
 		return new Gson().toJson(list);
 	}
-
-//	@ResponseBody
-//	@RequestMapping(value = "locationAll.co", produces="application/json; charset=UTF-8")
-//	public String locationAll(@RequestParam(value = "categoryNo")int categoryNo, @RequestParam(value = "area")String area) {
-//		System.out.println("area:" + area);
-//		
-//		Map map = new HashMap();
-//		map.put("categoryNo", categoryNo);
-//		map.put("area", area);
-//		
-//		ArrayList<Concert> list =  concertService.locationAllList(map);
-//		return new Gson().toJson(list);
-//	}
-	
-	
 	
 	// 페이지네이션
 	@ResponseBody
