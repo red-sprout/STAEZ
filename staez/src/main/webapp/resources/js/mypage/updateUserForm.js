@@ -528,7 +528,7 @@ class EmailVerification {
         if (this.authNo !== inputCode) {
             alert('잘못된 인증번호입니다.');
         } else {
-            $('#phoneCheck').prop('checked', true);
+            $('#emailCheck').prop('checked', true);
             this.sendBtn.prop('disabled', true);
             $('#phone1').prop('readonly', true);
             $('#phone2').prop('readonly', true);

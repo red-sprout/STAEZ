@@ -49,6 +49,7 @@ public class MypageController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
+	@Autowired
 	private JavaMailSender sender;
 	
 	@Value("${coolsms.api.key}")
@@ -561,6 +562,9 @@ public class MypageController {
 	@RequestMapping("sendEmailAuth.me")
 	@ResponseBody
 	public String authEmail(String authNo, String email) {   
+	    if (authNo == null || email == null) {
+	        return "ERROR: 인증번호 또는 이메일 주소가 필요합니다.";
+	    }
 		System.out.println("이메일주소 : " + email);
 		System.out.println("인증번호 : " + authNo);
 
