@@ -256,4 +256,26 @@ public class AdminServiceImpl implements AdminService {
 		}
 		return result;
 	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public Theater selectTheater(int theaterNo) {
+		return adminDao.selectTheater(sqlSession, theaterNo);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public ArrayList<ImpossibleSeat> selectImpossibleSeat(int theaterNo) {
+		return adminDao.selectImpossibleSeat(sqlSession, theaterNo);
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int updateTheater(Theater t) {
+		int result1 = adminDao.updateTheater(sqlSession, t);
+		int result2 = adminDao.deleteImpossibleSeat(sqlSession, t.getTheaterNo());
+		int result3 = adminDao.insertImpossibleSeat(sqlSession);
+		ImpossibleSeatList.clear();
+		return result1 * result2 * result3;
+	}
 }

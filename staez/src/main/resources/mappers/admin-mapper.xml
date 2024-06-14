@@ -164,6 +164,35 @@
 		)
 	</insert>
 	
+	<select id="selectTheater" resultMap="theaterResult">
+		SELECT 
+			theater_no,
+			theater_name,
+			theater_row,
+			theater_col,
+			address,
+			telno
+		FROM theater
+		WHERE theater_no = #{theaterNo}
+	</select>
+	
+	<select id="selectImpossibleSeat" resultMap="theaterResult">
+		SELECT
+			impossible_seat_row,
+			impossible_seat_col
+		FROM impossible_seat
+		WHERE theater_no = #{theaterNo}
+	</select>
+	
+	<update id="updateTheater">
+		<!-- 구현필요 -->
+	</update>
+	
+	<delete id="deleteImpossibleSeat">
+		DELETE FROM impossible_seat
+		WHERE theater_no = #{theaterNo}
+	</delete>
+	
 	<select id="selectTheaterList" resultMap="theaterResult">
 		SELECT
 			theater_no,
@@ -428,6 +457,7 @@
 		select count(concert_no)
 		from concert
 		where concert_status = 'Y'
+		and theater_no IS NOT NULL;
 	</select>
 	
 	<select id="selectTheaterListCount" resultType="_int">

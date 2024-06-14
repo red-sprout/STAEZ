@@ -51,6 +51,22 @@ public class AdminDao {
 		}
 		return result;
 	}
+	
+	public Theater selectTheater(SqlSessionTemplate sqlSession, int theaterNo) {
+		return sqlSession.selectOne("adminMapper.selectTheater", theaterNo);
+	}
+
+	public ArrayList<ImpossibleSeat> selectImpossibleSeat(SqlSessionTemplate sqlSession, int theaterNo) {
+		return (ArrayList)sqlSession.selectList("adminMapper.selectImpossibleSeat", theaterNo);
+	}
+	
+	public int deleteImpossibleSeat(SqlSessionTemplate sqlSession, int theaterNo) {
+		return sqlSession.delete("adminMapper.deleteImpossibleSeat", theaterNo);
+	}
+
+	public int updateTheater(SqlSessionTemplate sqlSession, Theater t) {
+		return sqlSession.update("adminMapper.updateTheater", t);
+	}
 
 	public ArrayList<Theater> selectTheaterList(SqlSessionTemplate sqlSession, String keyword) {
 		return (ArrayList)sqlSession.selectList("adminMapper.selectTheaterList", keyword);

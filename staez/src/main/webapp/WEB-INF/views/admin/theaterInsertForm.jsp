@@ -12,33 +12,32 @@
     <header>
         <jsp:include page="/WEB-INF/views/common/header.jsp" />
         <script src="<c:url value='/resources/js/api/adminapi.js'/>"></script>
-        <script src="<c:url value='/resources/js/admin/theaterUpdateForm.js'/>"></script>
+        <script src="<c:url value='/resources/js/admin/theaterInsertForm.js'/>"></script>
     </header>
     <main>
         <div id="community-wrapper">
-            <input type="hidden" name="" value="${seatList.get(0)}">
-            <form id="community-contents" align="left">
+            <form id="community-contents" align="left" method="post" action="theaterIncert.ad">
                 <h1>공연장</h1>
                 <hr>
                 <li>
                     <h3>공연장명</h3>
-                    <input type="text" name="theaterName" class="input" value="${theater.theaterName}">
+                    <input type="text" name="theaterName" class="input">
                 </li>
                 <li id="period">
                     <h3>크기</h3>
                     <div class="range-form">
-                        <input type="text" name="theaterRow" class="short-input" value="${theater.theaterRow}" onkeyup="updateRow(this)">
+                        <input type="number" name="theaterRow" class="short-input" placeholder="좌석 행 수" onkeyup="updateRow(this)">
                         <span><h3>~</h3></span>
-                        <input type="text" name="theaterCol" class="short-input" value="${theater.theaterCol}" onkeyup="updateCol(this)">
+                        <input type="number" name="theaterCol" class="short-input" placeholder="좌석 열 수" onkeyup="updateCol(this)">
                     </div>
                 </li>
                 <li>
                     <h3>지역</h3>
-                    <input type="text" name="" class="short-input" value="${theater.address}">
+                    <input type="text" name="address" class="short-input" placeholder="">
                 </li>
                 <li>
                     <h3>전화번호</h3>
-                    <input type="text" name="" class="short-input" value="${theater.telno}">
+                    <input type="text" name="telno" class="short-input" placeholder="">
                 </li>
                 <li>
                     <h3>좌석 미리보기</h3>
@@ -46,20 +45,15 @@
                 </li>
                 <li class="seat-ui">
                     <table>
-                        <thead>
-                            <tr>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
+                        <thead><tr><th></th></tr></thead>
+                        <tbody></tbody>
                     </table>
                 </li>
                 <li id="community-submit">
                     <button class="btn-staez purple" type="submit">
                         <h3>등록</h3>
                     </button>
-                    <button class="btn-staez purple">
+                    <button class="btn-staez purple" type="button" onclick="history.back()">
                         <h3>목록</h3>
                     </button>
                 </li>
