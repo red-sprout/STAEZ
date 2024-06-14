@@ -30,7 +30,7 @@ $(function(){
 
     selectReplyAll(data, (res) => {
         initReply();
-        setReply(res, undefined);
+        setReply(res, undefined, 0);
     });
 
     const concertNo = document.querySelector("input[name='tag']").value;
@@ -91,6 +91,27 @@ function likeStatus(result) {
 
     img.setAttribute("src", imgsrc(result.userBoardLike ? likeYes : likeNo));
     h4.innerHTML = result.boardLikeCnt;
+}
+
+function replyLikeStatus(result, replyNo) {
+    const replyItems = document.querySelectorAll(".reply-flex");
+    replyItems.forEach(item => {
+        const hiddenValue = parseInt(item.querySelector("input[type='hidden']").value);
+        if (hiddenValue === replyNo) {
+            drawReplyLike(result, item);
+        }
+    });
+}
+
+function drawReplyLike(result, item) {
+    const img = item.querySelector(".reply-like img");
+    const h4 = item.querySelector(".reply-like h4");
+
+    const likeYes = "like-yes";
+    const likeNo = "like-no";
+
+    img.setAttribute("src", imgsrc(result.userReplyLike ? likeYes : likeNo));
+    h4.innerHTML = result.ReplyLikeCnt;
 }
 
 function replyStatus(result) {
@@ -164,6 +185,30 @@ function likeToggle(_this) {
     }
 }
 
+function replyLikeToggle(_this, replyNo) {
+    const likeYes = "like-yes";
+    const likeNo = "like-no";
+    const img = _this.children[0];
+    const h4 = _this.children[1];
+
+    const data = {
+        replyNo,
+        userNo: document.querySelector("input[name=userNo]").value
+    };
+
+    if(img.getAttribute("src").includes(likeYes)) {
+        // ajax 요청 보내기
+        data.status = "N";
+        onClickReplyLike(data, (res) => h4.innerHTML = res);
+        img.setAttribute("src", imgsrc(likeNo));
+    } else {
+        // ajax 요청 보내기
+        data.status = "Y";
+        onClickReplyLike(data, (res) => h4.innerHTML = res);
+        img.setAttribute("src", imgsrc(likeYes));
+    }
+}
+
 function replyFocus() {
     $("#reply-input").focus();
 }
@@ -175,7 +220,7 @@ function initReply() {
     replyFlex.forEach((ele) => communityContents.removeChild(ele));
 }
 
-function setReply(result, refNo) {
+function setReply(result, refNo, level) {
     const communityContents = document.getElementById("community-contents");
     for(let ele of result) {
         if(ele.refReplyNo != refNo) {
@@ -195,13 +240,19 @@ function setReply(result, refNo) {
         communityReply.appendChild(replyMenu(ele));
         communityReply.appendChild(replyWrapper(ele));
 
-        if(ele.refReplyNo) {
+        for(let i = 0; i < Math.min(level, 5); i++) {
             replyFlex.appendChild(blank());
         }
         replyFlex.appendChild(communityReply);
         communityContents.appendChild(replyFlex);
 
-        setReply(result, ele.replyNo);
+        setReply(result, ele.replyNo, level + 1);
+
+        selectReplyLike({
+            replyNo: ele.replyNo, userNo: $("input[name=userNo]").val()
+        }, (result) => {
+           replyLikeStatus(result, ele.replyNo);
+        });
     }
     addEvent();
 }
@@ -268,12 +319,9 @@ function replyWrapper(result) {
     replyLikeStatus.setAttribute("src", contextPath + "/resources/img/community/communityDetail/like-no.png");
     replyLikeCnt.innerHTML = 0;
 
-    replyLike.onload = function() {
-        const userNo = $("input[name=userNo]").val();
-        console.log(userNo);
-    }
     replyLike.addEventListener("click", (ev) =>{
-        console.log(ev.currentTarget);
+        const parent = ev.currentTarget.parentNode.parentNode.parentNode;
+        replyLikeToggle(ev.currentTarget, parent.querySelector("input[type=hidden]").value);
     });
 
     replyLike.appendChild(replyLikeStatus);
@@ -356,7 +404,7 @@ function addReplyEvent(target) {
     });
 }
 
-function insertReplyEvent(refReplyNo) {
+function insertReplyEv(refReplyNo) {
     const boardNo = document.querySelector("input[name=boardNo").value;
     const userNo = document.querySelector("input[name=userNo]").value;
     const replyContent = document.getElementById("reply-input").value;
@@ -365,7 +413,7 @@ function insertReplyEvent(refReplyNo) {
     }, (result) => {
         replyStatus(result.length);
         initReply();
-        setReply(result, undefined);
+        setReply(result, undefined, 0);
     });
 }
 
@@ -377,7 +425,7 @@ function insertReplyEvent(refReplyNo, replyContent) {
     }, (result) => {
         replyStatus(result.length);
         initReply();
-        setReply(result, undefined);
+        setReply(result, undefined, 0);
     });
 }
 
@@ -401,7 +449,7 @@ function updateReplyEvent(replyContent, replyNo) {
     }, (result) => {
         replyStatus(result.length);
         initReply();
-        setReply(result, undefined);
+        setReply(result, undefined, 0);
     });
 }
 
@@ -422,6 +470,6 @@ function deleteReplyEvent(replyNo) {
     }, (result) => {
         replyStatus(result.length);
         initReply();
-        setReply(result, undefined);
+        setReply(result, undefined, 0);
     });
 }

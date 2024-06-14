@@ -11,11 +11,13 @@ import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.dao.CommunityDao;
 import com.spring.staez.community.model.dto.AjaxBoardDto;
+import com.spring.staez.community.model.dto.AjaxReplyDto;
 import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.community.model.vo.BoardLike;
 import com.spring.staez.community.model.vo.Reply;
+import com.spring.staez.community.model.vo.ReplyLike;
 import com.spring.staez.community.model.vo.Tag;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.user.model.vo.ProfileImg;
@@ -209,5 +211,41 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public int deleteReply(int replyNo) {
 		return communityDao.deleteReply(sqlSession, replyNo);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public int selectUserReplyLike(AjaxReplyDto dto) {
+		return communityDao.selectUserReplyLike(sqlSession, dto);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public int selectUserReplyLikeAll(AjaxReplyDto dto) {
+		return communityDao.selectUserReplyLikeAll(sqlSession, dto);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public int selectReplyLikeCnt(AjaxReplyDto dto) {
+		return communityDao.selectReplyLikeCnt(sqlSession, dto);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public int selectReplyLike(int replyNo) {
+		return communityDao.selectReplyLike(sqlSession, replyNo);
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int updateReplyLike(ReplyLike replyLike) {
+		return communityDao.updateReplyLike(sqlSession, replyLike);
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int insertReplyLike(ReplyLike replyLike) {
+		return communityDao.insertReplyLike(sqlSession, replyLike);
 	}
 }

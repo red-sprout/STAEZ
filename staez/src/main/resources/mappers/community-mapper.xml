@@ -385,5 +385,40 @@
 		SET reply_status = 'N'
 		WHERE reply_no = #{replyNo}
 	</update>
+	<select id="selectUserReplyLike" resultType="_int">
+		SELECT COUNT(*)
+		FROM reply_like
+		WHERE reply_no = #{replyNo}
+		AND user_no = #{userNo}
+		AND status = 'Y'
+	</select>
+	<select id="selectUserReplyLikeAll" resultType="_int">
+		SELECT COUNT(*)
+		FROM reply_like
+		WHERE reply_no = #{replyNo}
+		AND user_no = #{userNo}
+	</select>
+	<select id="selectReplyLikeCnt" resultType="_int">
+		SELECT COUNT(*)
+		FROM reply_like
+		WHERE reply_no = #{replyNo}
+		AND status = 'Y'
+	</select>
+	<insert id="insertReplyLike">
+		INSERT INTO reply_like
+		(
+			reply_no,
+			user_no
+		) VALUES (
+			#{replyNo},
+			#{userNo}
+		)
+	</insert>
+	<update id="updateReplyLike">
+		UPDATE reply_like
+		SET status = #{status}
+		WHERE reply_no = #{replyNo}
+		AND user_no = #{userNo}
+	</update>
 </mapper>
 
