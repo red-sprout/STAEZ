@@ -44,7 +44,7 @@
                     </tr>    
                     <tr>
                         <th>휴대폰 번호</th>
-                        <td class="email-container">
+                        <td class="email-container" colspan="5" >
                             <div id="td-div">
                                 <span id="phone-prefix">010</span>
                                 <span>-</span>
@@ -53,12 +53,41 @@
                                 <input type="text" id="phone-suffix2" name="phone-suffix2" maxlength="4">
                                 <input type="text" name="phone" id="input-value-phone" required  >
                             </div>
-                        </td>
+                            <td>
+                                <input type="button" id="phoneCheckButton" class="check_button" value="인증번호 전송">
+                            </td>
+                        </tr>
+                        <tr id="verificationPhoneTr">
+                            <td colspan="4">
+                                <div id="verificationPhone" class="checkResult">
+                                    <span id="Pverification-message"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>인증번호</th>
+                            <td>
+                                <div id="phoneTimeContainer">
+                                    <input type="text" id="Pverification-code" required>
+                                    <div id="Ptimer"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <input type="button" class="check_button" id="check_PhoneSecretBtn" value="인증확인">
+                            </td>
+                        </tr>
+                        <tr id="checkResultPhoneTr">
+                            <td colspan="4">
+                                <div id="checkResultPhone" class="checkResult">
+                                    <span id="userPhoneErrorMessage"></span>
+                                </div>
+                            </td>
+                        </tr>
                     </tr>
                     <tr>
                         <th>이메일</th>
-                        <td colspan="1" class="email-container" id="insertEmail" name="insertEmail">
-                            <div style="display: flex;">
+                        <td colspan="6" class="email-container" id="insertEmail" name="insertEmail">
+                            <div id="td-div">
                                 <input type="text" id="email-prefix" placeholder="이메일 아이디">
                                 <span id="email-prefix-shift2">@</span>
                                 <input type="text" id="email-suffix" placeholder="직접 입력">
@@ -75,25 +104,32 @@
                                 <option value="kakao.com">kakao.com</option>
                             </select>
                         </td>
-                        <td     >
+                        <td>
                             <input type="button" id="emailCheckButton" class="check_button" value="인증번호 전송">
                         </td>
                     </tr>
+                    <tr id="verificationEmailTr">
+                        <td colspan="4">
+                            <div id="verificationEmail" class="checkResult">
+                                <span id="verification-message"></span>
+                            </div>
+                        </td>
+                    </tr>
                     <tr>
-                        <th></th>
+                        <th>인증번호</th>
                         <td>
                             <div id="emailTimeContainer">
-                                <input type="text" id="verification-code" required><div id="timer"></div>
+                                <input type="text" id="verification-code" required>
+                                <div id="timer"></div>
                             </div>
                         </td>
                         <td>
                             <input type="button" class="check_button" id="check_emailSecretBtn" value="인증확인">
                         </td>
                     </tr>
-                    <tr>
-                        <th></th>
+                    <tr id="checkResultEmailTr">
                         <td colspan="4">
-                            <div id="checkResultEamil" class="checkResult">
+                            <div id="checkResultEmail" class="checkResult">
                                 <span id="userEmailErrorMessage"></span>
                             </div>
                         </td>

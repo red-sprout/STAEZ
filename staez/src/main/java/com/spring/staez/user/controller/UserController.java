@@ -189,7 +189,6 @@ public class UserController {
 	    @RequestParam("email") String email, @RequestParam("user_name") String userName, HttpSession session) {
 	    // 유효성 검사 및 사용자 정보 확인
 	    String user = userService.findUserByIdEmailPhone(user_id, phone, email, userName);
-	    System.out.println("user 잘 받아왔나? : " + user);
 
 	    if (user != null) {
 	        // 사용자 정보를 찾았을 경우
@@ -209,23 +208,18 @@ public class UserController {
 	@ResponseBody
 	@PostMapping("insertNewPwd.me")
 	public String insertNewPwd(String newPassword, HttpSession session, Model model) {
-	    // 디버깅 추가
-	    System.out.println("새로운 비번 잘 받았음? : " + newPassword);
-
+	  
 	    // 세션에서 유저 정보를 가져온다
 	    String user_id = (String) session.getAttribute("user_id");
 	    String phone = (String) session.getAttribute("phone");
 	    String email = (String) session.getAttribute("email");
 	    String userName = (String) session.getAttribute("user_name");
-	    System.out.println("insertNewPwd : user_id=" + user_id + ", phone=" + phone + ", email=" + email + ", user_name=" + userName);
 
 	    // 암호화 작업
 	    String encPwd = bcryptPasswordEncoder.encode(newPassword);
-	    System.out.println("암호화된 비밀번호 : " + encPwd);
 
 	    // 새로운 비밀번호와 함께 유저 정보를 업데이트
 	    int result = userService.updatePassword(user_id, phone, email, userName, encPwd);
-	    System.out.println("받아온 result : " + result);
 
 	    if (result > 0) {
 	        return "Password Changed";
@@ -242,8 +236,6 @@ public class UserController {
 
 		int result = 0;
 		result = userService.updateEmailAuth(email, authNo);
-
-		System.out.println("받아온 result : " + result);
 
 		if (result == 0) {
 			// 사용자 정보를 찾았을 경우

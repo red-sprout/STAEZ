@@ -76,7 +76,7 @@ form {
 
 /* 입력창 내용 */
 .insert-member-table td {
-    padding: 0px 5px 20px 5px; /* 셀 내부에 패딩을 추가합니다. */
+    padding: 12px 5px; /* 셀 내부에 패딩을 추가합니다. */
     text-align: left; /* 텍스트를 왼쪽 정렬합니다. */
 }
 
@@ -129,14 +129,17 @@ span {
     font-size: 15px;
 }
 
+
 /* 비밀번호가 일치할 때 적용되는 클래스 */
 .passwordCorrect {
     color: green; /* 글꼴 색상을 초록색으로 설정합니다. */
+    text-align: left;
 }
 
 /* 비밀번호가 일치하지 않을 때 적용되는 클래스 */
 .passwordIncorrect {
     color: red; /* 글꼴 색상을 빨간색으로 설정합니다. */
+    text-align: left;
 }
 
 /* 클릭된 버튼의 스타일 */
@@ -178,23 +181,20 @@ input[type="password"] {
     display: flex;
     align-items: center;
 }
+/* 에러메세지 table-row 숨김 */
+#checkResultNickTr,
+#checkResultIdTr,
+#passwordMessageTr,
+#verificationEmailTr,
+#checkResultEmailTr{
+    display: none;
+}
 
 /* @ */
 #email-prefix-shift2 {
     margin: 0 10px;
     padding: 10px 0px 0px 0px;
 }
-
-/* input radio 남녀 체크 */
-.gender_td {
-    padding: 0px;
-}
-
-#label-man {
-    margin-right: 30px;
-    margin-top: 15px;
-}
-
 /* input 크기 키우기 */
 input[type="checkbox"] {
     transform: scale(1.5); /* 크기 조정 */
@@ -253,11 +253,18 @@ input[type="checkbox"] {
     display: flex;
 }
 
+#Male, #Female{
+    margin-top: 12px;
+}
+
 /* 입력값 합친거 안보여주는거 */
 #input-value-address,
 #input-value-phone,
 #input-value-email,
-#input-value-genreLike {
+#input-value-genreLike,
+#checkResultPhoneTr,
+#verificationPhoneTr
+{
     display: none;
 }
 
@@ -268,19 +275,16 @@ input[type="checkbox"] {
 
 /* 중복체크 */
 .checkResult {
-    text-align: left; /* 원하는 정렬 방법으로 변경 가능 */
-    width: 100%; /* 부모 요소의 너비에 맞춥니다 */
-    display: none;
+    color: red; /* 예: 텍스트 색상을 명확하게 설정 */
+    display: block; /* 텍스트가 보이도록 설정 */
 }
 
-/* 인증번호 에러 메시지 */
-#userEmailErrorMessage {
-    color: red;
+/* 이메일 인증번호 보냈을때 */
+#verificationEamil {
     font-size: 14px;
+    color: green;
     display: none; /* 기본적으로 숨김 */
-    visibility: visible; /* 요소가 화면에 표시되도록 설정 */
-    position: relative; /* 필요한 경우 위치 설정 */
-    z-index: 10; /* 다른 요소보다 위에 표시되도록 설정 */
+    text-align: left;
 }
 
 /* 이메일 인증 확인 */
@@ -310,6 +314,27 @@ input[type="checkbox"] {
 
 /* 시간초만 */
 #emailTimeContainer div {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    right: 5px;
+}
+
+/* 핸드폰 인증 시간초 감싸는 div */
+#phoneTimeContainer {
+    width: 300px;
+    height: 35px;
+    position: relative;
+    display: flex;
+}
+
+/* 위에꺼랑 합치는거 */
+#phoneTimeContainer input {
+    width: 100%;
+}
+
+/* 시간초만 */
+#phoneTimeContainer div {
     position: absolute;
     top: 5px;
     bottom: 5px;

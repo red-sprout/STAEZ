@@ -31,12 +31,9 @@ function sendEmailVerificationRequest(emailInput) {
         url: "emailCheck.me",
         data: { email: emailInput },
         success: function(response) {
-            //console.log(response);
             handleEmailCheckResponse(response);
         },
         error: function() {
-                    //인증하기 버튼 비활성화
-        emailBtnNo();
             alert("이미 전송 처리했습니다. 번호가 틀리다면 재전송을 누른 후 다시 전송버튼을 누르세요.");
         }
     });
@@ -48,7 +45,6 @@ function emailCheckCode(data, callback) {
         url: "emailSecretCodeCheck.me",
         data: data,
         success: function(result) {
-            // console.log("Server response:", result); // 서버 응답 확인
             callback(result);
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -76,7 +72,6 @@ function clickIdPhoneEmailSelect(data, callback) {
         type: "POST",
         data: data,
         success: function(result) {
-            console.log("Server response:", result);
             callback(result);
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -91,10 +86,21 @@ function clickNewPwdInsert(data, callback) {
         type: "POST",
         data: data,
         success: function(result) {
-            console.log("Server response:", result);
             callback(result);
         },
         error: function(jqXHR, textStatus, errorThrown) {
+        }
+    });
+}
+
+// 핸드폰인증
+function sendAuthNumAjax(data, callback){
+    $.ajax({
+        url: contextPath + 'sendPhoneAuth.me',
+        data,
+        success: res => callback(res),
+        error: () => {
+            alert('인증번호 전송에 실패하였습니다');
         }
     });
 }

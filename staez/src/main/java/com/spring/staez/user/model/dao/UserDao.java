@@ -65,9 +65,7 @@ public class UserDao {
         Map<String, Object> params = new HashMap<>();
         params.put("email", checkFindEmail);
         params.put("userName", userName);
-        System.out.println("이메일로 아이디찾기 : " + params);  // 이 줄을 추가하여 값 확인
         String result = sqlSession.selectOne("userMapper.findEmailCheck", params);
-        System.out.println("쿼리 결과: " + result);  // 이 줄을 추가하여 쿼리 결과 확인
         return result;
     }
 	
@@ -90,9 +88,6 @@ public class UserDao {
 	    params.put("email", email);
 	    params.put("user_name", user_name);
 	    params.put("encPwd", encPwd);
-
-	    // 디버깅: 파라미터 출력
-	    System.out.println("updatePassword params: " + params);
 
 	    int result = sqlSession.update("userMapper.updatePassword", params);
 	    System.out.println("update Dao result: " + result);
