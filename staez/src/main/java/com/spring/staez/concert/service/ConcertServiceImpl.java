@@ -135,7 +135,38 @@ public class ConcertServiceImpl implements ConcertService {
 		return concertDao.selectSeatPrice(sqlSession, concertNo);
 	}
 	
+	@Override
+	public Concert selectConApi(String concertId) {
+		return concertDao.selectConApi(sqlSession, concertId);
+	}
 	
+	@Override
+	public int selectConLikeCountApi(int concertNo) {
+		return concertDao.selectConLikeCountApi(sqlSession, concertNo);
+	}
+
+	@Override
+	public int selectUserConLikeApi(Map map) {
+		return concertDao.selectUserConLikeApi(sqlSession, map);
+	}
+
+	@Override
+	public int selectUserConLikeAllApi(Map map) {
+		return concertDao.selectUserConLikeAllApi(sqlSession, map);
+	}
+	
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int updateConLikeApi(Map map) {
+		return concertDao.updateConLikeApi(sqlSession, map);
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int insertConLikeApi(Map map) {
+		return concertDao.insertConLikeApi(sqlSession, map);
+	}
+
 	
 
 }

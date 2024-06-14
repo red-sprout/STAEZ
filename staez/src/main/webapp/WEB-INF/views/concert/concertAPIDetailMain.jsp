@@ -26,6 +26,9 @@
 </head>
 
 <body>
+    <input type="hidden" name="userNo" value="${loginUser.userNo}">
+    <input type="hidden" name="concertId" value="${conapi.originName}">
+
     <div>
         <jsp:include page="../common/header.jsp" />
 
@@ -78,7 +81,7 @@
                     <td><b><span>공연장소&nbsp&nbsp</span></b><span>${conapi.theaterName}</span></td>
                 </tr>
                 <tr>
-                    <td><b><span>공연시간&nbsp&nbsp</span></b><span>${conapi.concertPlot}분</span></td>
+                    <td><b><span>공연시간&nbsp&nbsp</span></b><span>${conapi.concertPlot}</span></td>
                 </tr>
                 <tr>
                     <td><b><span>관람연령&nbsp&nbsp</span></b><span>${conapi.ageLimit}</span></td>
@@ -181,6 +184,6 @@
         <jsp:include page="../common/footer.jsp" />
     </div>
     <script src="<c:url value='/resources/js/api/concertapi.js'/>"></script>
-    <script src="<c:url value='/resources/js/concert/concertDetailMain.js'/>"></script>
+    <script src="<c:url value='/resources/js/concert/concertAPIDetailMain.js'/>"></script>
 </body>
 </html>

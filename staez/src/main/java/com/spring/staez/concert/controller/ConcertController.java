@@ -107,6 +107,8 @@ public class ConcertController {
 		map.put("userNo", userNo);
 		map.put("concertNo", concertNo);
 		
+		System.out.println("likeUpdate에서:" + userNo + " & " + concertNo);
+		
 		int result =  concertService.selectUserConLikeAll(map); // a유저가 1이라는 콘서트에 좋아요한 적이 있냐 status 노상관
 		
 		if(result > 0) {
