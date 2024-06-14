@@ -133,4 +133,30 @@ public class ConcertDao {
 	public int conapiDelete(SqlSessionTemplate sqlSession) {
 		return sqlSession.delete("concertMapper.conapiDelete");
 	}
+	
+	
+	public Concert selectConApi(SqlSessionTemplate sqlSession, String concertId) {
+		return sqlSession.selectOne("concertMapper.selectConApi", concertId);
+	}
+	
+	// api 좋아요
+	public int selectConLikeCountApi(SqlSessionTemplate sqlSession, int concertNo) {
+		return sqlSession.selectOne("concertMapper.selectConLikeCountApi", concertNo);
+	}
+
+	public int selectUserConLikeApi(SqlSessionTemplate sqlSession, Map map) {
+		return sqlSession.selectOne("concertMapper.selectUserConLikeApi", map);
+	}
+
+	public int selectUserConLikeAllApi(SqlSessionTemplate sqlSession, Map map) {
+		return sqlSession.selectOne("concertMapper.selectUserConLikeAllApi", map);
+	}
+
+	public int updateConLikeApi(SqlSessionTemplate sqlSession,  Map map) {
+		return sqlSession.update("concertMapper.updateConLikeApi", map);
+	}
+
+	public int insertConLikeApi(SqlSessionTemplate sqlSession, Map map) {
+		return sqlSession.insert("concertMapper.insertConLikeApi", map);
+	}
 }

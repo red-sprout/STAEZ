@@ -175,7 +175,6 @@ function locationAll(data, callback){
 }
 
 
-
 function conApi(callback){
     $.ajax({
         url: contextPath + "conapi.co",
@@ -190,7 +189,7 @@ function conApi(callback){
 
   
 
-
+//--------------------------------------- 공연 api
 
   // 카테고리별 콘서트 내용 그려주는: 슬라이더랑, 그리드
 function ajaxCategoryListAPI(callback){
@@ -205,7 +204,6 @@ function ajaxCategoryListAPI(callback){
     });
 }
 
-
   // 카테고리별 콘서트 내용 그려주는: 슬라이더랑, 그리드
   function detailapi(callback){
     $.ajax({
@@ -214,6 +212,37 @@ function ajaxCategoryListAPI(callback){
         success : function(list){
             console.log(list);
             callback(list);
+        }, error(){
+            console.log("실패");
+        }
+    });
+}
+
+
+// 좋아요 버튼
+function likeUpdateApi(data, callback){
+    $.ajax({
+        url: contextPath + "likeupdateApi.co",
+        data: data,
+        type :'POST',
+        success : function(result){
+            console.log("insertLike:" + result);
+            callback(result);
+        }, error(){
+            console.log("실패");
+        }
+    });
+}
+
+// 좋아요 count
+function likeCountApi(data, callback){
+    $.ajax({
+        url: contextPath + "likecountApi.co",
+        data: data,
+        type :'POST',
+        success : function(result){
+            console.log(result);
+            callback(result);
         }, error(){
             console.log("실패");
         }
