@@ -7,7 +7,10 @@ document.addEventListener('DOMContentLoaded', function() {
     $("#emailCheckButton").on('click', (ev) => {
         // 클릭 이벤트 발생 시 서버로 이메일 인증 요청 보내기
         const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
+        // 클릭 못하게 설정
+        document.getElementById("emailCheckButton").disabled = true;
         sendEmailVerificationRequest(emailInput); // 이메일 인증 요청 보내는 함수 호출
+        alert("인증번호가 전송되었습니다 잠시만 기다려주세요.");
     });
     // UUID 이메일 체크
     emailSecretCode();
@@ -38,38 +41,65 @@ function sendVerificationCode() {
 
 // 서버로부터의 이메일 인증 응답을 처리
 function handleEmailCheckResponse(response) {
-    const emailCheckResult = document.getElementById("checkResultEamil");
-    emailCheckResult.style.display = "block";
+    const emailCheckResult = document.getElementById("verificationEmailTr");
+    emailCheckResult.style.display = "table-row";
+    const verificationMessage = document.getElementById("verification-message");
+
     if (response === "emailCheck No") {
-        alert("인증번호 전송이 실패했습니다 다시 입력해주세요!");
+        document.getElementById("emailCheckButton").disabled = false;
+        verificationMessage.style.color = "red";
+        verificationMessage.innerText = "인증번호 전송이 실패했습니다 다시 입력해주세요!";
     } else if (response === "emailCheck Yes") {
-        alert("인증번호가 성공적으로 전송되었습니다!");
-        // 카운트 다운 시작
+        document.getElementById("emailCheckButton").disabled = true;
+        verificationMessage.style.color = "green";
+        verificationMessage.innerText = "인증번호가 성공적으로 전송되었습니다!";
         startTimer();
     }
 }
 
 // UUID 이메일 체크 콜백
-function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput, emailSecretErrorMessage) {
-    console.log("Callback result:", result);
-    emailSecretCheckResult.style.display = "block";
+function callbackEmailSecret(result, emailSecretCheckResult, check_emailSecretBtn) {
 
-    if (result === "emailSecretCodeCheck No") { // 입력값이 데이터베이스 값과 일치하지 않을 때
-        emailSecretCheckResult.style.color = "red";
-        emailSecretCheckResult.innerText = "인증 코드가 일치하지 않습니다.";
-    } else if (result === "emailSecretCodeCheck Yes") { // 입력값이 데이터베이스 값과 일치할 때
-        emailSecretCheckResult.style.color = "green";
-        emailSecretCheckResult.innerText = "인증이 확인되었습니다.";
-        console.log("이메일 확인:", emailSecretInput.value);
-        // "다음" 버튼의 disabled 속성을 제거합니다.
-        document.getElementById("findEmailCheck").disabled = false;
-    } else { // 그 외의 경우 (예: 서버 오류 등)
-        emailSecretCheckResult.style.color = "red";
-        emailSecretCheckResult.innerText = "인증을 확인할 수 없습니다.";
+    const userEmailErrorMessage = document.getElementById("userEmailErrorMessage");
+    const findEmailCheck = document.getElementById("findEmailCheck");
+    emailSecretCheckResult.style.display = "table-row";
+
+    if (result === "emailSecretCodeCheck No") {
+        userEmailErrorMessage.style.color = "red";
+        userEmailErrorMessage.innerText = "인증 코드가 일치하지 않습니다.";
+    } else if (result === "emailSecretCodeCheck Yes") {
+        userEmailErrorMessage.style.color = "green";
+        userEmailErrorMessage.innerText = "인증이 확인되었습니다.";
+        findEmailCheck.disabled = false;
+    } else {
+        userEmailErrorMessage.style.color = "red";
+        userEmailErrorMessage.innerText = "인증을 확인할 수 없습니다.";
     }
-    emailSecretErrorMessage.style.display = "none"; // 에러 메시지 숨기기
 }
 
+// UUID 이메일 체크
+function emailSecretCode() {
+    const checkButton = document.getElementById("check_emailSecretBtn");
+    const checkEmail = document.getElementById("input-value-email");
+    const verificationCodeInput = document.getElementById("verification-code");
+    const emailSecretCheckResult = document.getElementById("checkResultEmailTr");
+    const emailSecretErrorMessage = document.getElementById("userEmailErrorMessage");
+
+    checkButton.addEventListener("click", function() {
+        const verificationCodeValue = verificationCodeInput.value.trim();
+
+        if (verificationCodeValue.length === 6) {
+            const emailValue = checkEmail.value;
+            emailCheckCode({ "authNo": verificationCodeValue, "email": emailValue }, function(result) {
+                callbackEmailSecret(result, emailSecretCheckResult, verificationCodeInput, emailSecretErrorMessage);
+            });
+        } else {
+            emailSecretCheckResult.style.display = "table-row";
+            emailSecretErrorMessage.style.color = "red";
+            emailSecretErrorMessage.innerText = "인증코드는 6자리여야 합니다.";
+        }
+    });
+}
 let timer; // 전역 변수로 타이머 변수를 선언합니다.
 
 // 카운트 다운 시작 함수
@@ -94,41 +124,8 @@ function startTimer() {
         if (duration < 0) {
             clearInterval(timer);
             timerDisplay.textContent = "시간 초과";
-
-            // 시간 초과 시 데이터베이스로 삭제 요청 보내기 (Ajax를 사용하여 비동기 요청)
-            deleteVerificationCode();
         }
     }, 1000);
-}
-
-
-// UUID 이메일 체크
-function emailSecretCode() {
-    const checkButton = document.getElementById("check_emailSecretBtn");
-    const checkEmail = document.getElementById("input-value-email");
-    const verificationCodeInput = document.getElementById("verification-code");
-    const emailSecretCheckResult = document.getElementById("checkResultEamil");
-    const emailSecretErrorMessage = document.getElementById("userEmailErrorMessage");
-
-    checkButton.addEventListener("click", function() {
-        const verificationCodeValue = verificationCodeInput.value.trim();
-        
-        if (verificationCodeValue.length >= 6 && verificationCodeValue.length <= 6) {
-            // 입력된 이메일과 입력된 값을 서버로 보냄
-            const emailValue = checkEmail.value;
-            // console.log("Email: " + emailValue);
-            // console.log("Verification Code: " + verificationCodeValue);
-            emailCheckCode({ "authNo": verificationCodeValue, "email": emailValue }, function(result) {
-                callbackEmailSecret(result, emailSecretCheckResult, verificationCodeInput, emailSecretErrorMessage);
-            });
-        } else {
-            console.log("인증코드는 6자리 이상이어야 합니다.");
-            emailSecretCheckResult.innerText = "인증코드는 6자리 이상이어야 합니다.";
-            emailSecretCheckResult.style.color = "red";
-            emailSecretCheckResult.style.display = "block"; // 에러 메시지 표시
-            emailSecretErrorMessage.style.display = "none";
-        }
-    });
 }
 // 이메일
 function sgininemail() {
@@ -151,7 +148,6 @@ function sgininemail() {
         } else {
             inputValueElement.value = "";
         }
-        //console.log(prefix + "@" + domain);
     }
     // 도메인 리스트 변경 시 처리하는 함수를 정의합니다.
     function handleDomainListChange() {
@@ -331,7 +327,6 @@ function sendPhoneNumber() {
 
     // 전체 번호 조합하여 표시
     var phoneNumber = prefix + suffix1 + suffix2;
-    // console.log(phoneNumber); // 번호 확인용, 실제 사용시 주석처리해도 됩니다.
 
     // input-value-phone 필드에 번호 설정
     inputValueElement.value = phoneNumber;
