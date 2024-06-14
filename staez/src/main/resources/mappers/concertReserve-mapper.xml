@@ -234,4 +234,31 @@
 					#{schedule}
 					)
    </insert>
+   <insert id="insertReserveKakao">   
+   insert into reserve(
+					concert_no,
+					user_no,
+					r_name,
+					r_birth,
+					r_phone,
+					reserve_row,
+					reserve_col,
+					pay_method,
+					concert_date,
+					schedule,
+					reserve_status
+					) values(
+					#{concertNo},
+					#{userNo},
+					#{recipientName},
+					#{recipientBirth}::date,
+					#{recipientPhone},
+					#{row},
+					#{col},
+					#{payMethod},
+					#{concertDate}::date,
+					#{schedule},
+					'Y'
+					)
+   </insert>
 </mapper>

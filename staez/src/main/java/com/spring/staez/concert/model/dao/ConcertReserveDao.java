@@ -65,4 +65,8 @@ public class ConcertReserveDao {
 	public int insertReserve(SqlSessionTemplate sqlSession, ReserveInsertDTO rid) {
 		return sqlSession.insert("concertReserveMapper.insertReserve", rid);
 	}
+	
+	public int insertReserveKakao(SqlSessionTemplate sqlSession, ReserveInsertDTO rid) {
+		return sqlSession.insert("concertReserveMapper.insertReserveKakao", rid);
+	}
 }

@@ -136,8 +136,11 @@ public class ConcertReserveServiceImpl implements ConcertReserveService{
 		        rid.setRow(row);
 		        rid.setCol(col);
 		        
-		        // DAO를 사용하여 예약 정보를 데이터베이스에 삽입
-		        result = crDao.insertReserve(sqlSession, rid);
+		        if(rid.getPayMethod().equals("무통장입금")) {		        	
+		        	result = crDao.insertReserve(sqlSession, rid);
+		        }else if(rid.getPayMethod().equals("카카오페이")) {
+		        	result = crDao.insertReserveKakao(sqlSession, rid);
+		        }
             
             if(result < 1 ) {
             	return result; 

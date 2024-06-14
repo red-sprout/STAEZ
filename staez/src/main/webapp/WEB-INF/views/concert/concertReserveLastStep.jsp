@@ -41,10 +41,6 @@
                         <div class="check-div"><div class="check-box "></div></div>
                         <span class="pay-method">카카오페이</span>
                     </div>
-                    <div class="receive-way-box" onclick="payMethodChange(this)">
-                        <div class="check-div"><div class="check-box "></div></div>
-                        <span class="pay-method">네이버페이</span>
-                    </div>
                 </div>
                 <div class="line">
                     <div></div>
