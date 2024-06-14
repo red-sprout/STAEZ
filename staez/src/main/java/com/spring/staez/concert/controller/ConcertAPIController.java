@@ -92,7 +92,7 @@ public class ConcertAPIController {
 	
 	
 	@RequestMapping(value="condeapi.co", produces="application/json; charset=UTF-8") // api 공연 상세페이지 : api로 내려줌
-	public String getConInfoDetail(@RequestParam(value = "concertId")String concertId, Model model) throws IOException {
+	public String getConInfoDetailApi(@RequestParam(value = "concertId")String concertId, Model model) throws IOException {
 
 		String url = "http://www.kopis.or.kr/openApi/restful/pblprfr/" + concertId;
 		url += "?service=" + serviceKey;
@@ -132,6 +132,11 @@ public class ConcertAPIController {
 		conapi.setPath(dbObj.get("pcseguidance").getAsString()); // price 넣자
 		conapi.setFilePath(dbObj.get("poster").getAsString()); // 포스터 이미지 경로
 		conapi.setConcertProduction(dbObj.get("entrpsnm").getAsString());
+		
+		// 콘서트 넘버로 잡을 수 있게 콘넘 내려주기
+		Concert con = concertService.selectConApi(concertId);
+		int concertNo = con.getConcertNo();
+		conapi.setConcertNo(concertNo);
 //		con.setReviewContent(reviewContent); // 한줄평, 관람후기...?
 
 		// 장르 제목(네비처럼)
@@ -140,21 +145,26 @@ public class ConcertAPIController {
 		model.addAttribute("conapi", conapi);
 		model.addAttribute("genrenm", genrenm);
 		
-		
-//		this.apiConselect(concertId); // 콘 id로 콘서트  api conNo 내려주기?
-		
-		
 		return "concert/concertAPIDetailMain";
 		
 	}
 	
-//	
-//	public String apiConselect(String concertId) {
-//		
-//		
-//	}
-//	
-//	
+	// 공연을 concertNo로 가져와서 공연세부페이지로
+	@ResponseBody
+	@RequestMapping(value = "conDetailapi.co", produces="application/json; charset=UTF-8")
+	public String conDetailapi(@RequestParam(value = "concertNo") String concertNo) {
+		ArrayList<Concert> conDlist =  concertService.selectConDetailApi(Integer.parseInt(concertNo));
+		System.out.println("가져와:" + conDlist); // 매퍼를 봐 담을 수가 없구나!
+		return new Gson().toJson(conDlist);
+	}
+	
+	// 공연을 concertNo로 가져와서 공연 판매정보 페이지로
+	@ResponseBody
+	@RequestMapping(value = "conSellDetailapi.co", produces="application/json; charset=UTF-8")
+	public String conSellDetailapi(@RequestParam(value = "concertNo") String concertNo) {
+		ArrayList<Concert> conDlist =  concertService.selectConDetail(Integer.parseInt(concertNo));
+		return new Gson().toJson(conDlist);
+	}
 	
 	
 	
@@ -167,12 +177,10 @@ public class ConcertAPIController {
 	@RequestMapping(value = "likecountApi.co", produces="application/json; charset=UTF-8")
 	public String likeCount(@RequestParam(value = "userNo")String userNo, @RequestParam(value = "concertId")String concertId) {
 		
-		System.out.println("userNo" + " & " + "concertId");
 		
 		// api에서 가져온 concertId가 db의 concertplot에 담겨있음
 		Concert con = concertService.selectConApi(concertId);
 		int concertNo = con.getConcertNo();
-		System.out.println("concertID로 가져온 concertNo:" + concertNo);
 		
 		Map map = new HashMap();
 		map.put("userNo", Integer.parseInt(userNo));
@@ -203,13 +211,13 @@ public class ConcertAPIController {
 
 		int userNo = like.getUserNo();
 		like.setConcertLikeNo(concertNo);
-		
+		String likeStatus = like.getStatus();
 		
 		Map map = new HashMap();
 		map.put("userNo", userNo);
 		map.put("concertNo", concertNo);
-		
-		System.out.println("likeUpdate에서:" + userNo + " & " + "concertNo:" + concertNo);
+		map.put("status", likeStatus);
+
 		
 		int result =  concertService.selectUserConLikeAllApi(map); // a유저가 1이라는 콘서트에 좋아요한 적이 있냐 status 노상관
 		
