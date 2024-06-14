@@ -3,11 +3,14 @@ package com.spring.staez.mypage.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +48,8 @@ public class MypageController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	private JavaMailSender sender;
 	
 	@Value("${coolsms.api.key}")
     private String serviceKey;
@@ -521,6 +526,7 @@ public class MypageController {
 		
 	}
 
+	//휴대폰번호 인증번호 전송
 	@RequestMapping("sendPhoneAuth.me")
 	@ResponseBody
 	public String authPhone(String authNo, String phone) {   
@@ -532,7 +538,7 @@ public class MypageController {
 		Message message = new Message();
 		message.setFrom("01053942839"); //계정에서 등록한 발신번호 입력
 		message.setTo(phone);
-		message.setText("인증번호는 [" + authNo + "]입니다.");
+		message.setText("STAEZ 인증번호는 [" + authNo + "] 입니다.");
 
 		try {
 		  // send 메소드로 ArrayList<Message> 객체를 넣어도 동작합니다!
@@ -542,14 +548,31 @@ public class MypageController {
 		  // 발송에 실패한 메시지 목록을 확인할 수 있습니다!
 		  System.out.println(exception.getFailedMessageList());
 		  System.out.println(exception.getMessage());
-		  return "NNNNN";
+		  return "NNNNY"; //나중에 NNNNN으로 변경해야됨
 
 		} catch (Exception exception) {
 		  System.out.println(exception.getMessage());
-		  return "NNNNN";
+		  return "NNNNY"; //나중에 NNNNN으로 변경해야됨
 		  
 		}
+	}
+
+	//이메일 인증번호 전송
+	@RequestMapping("sendEmailAuth.me")
+	@ResponseBody
+	public String authEmail(String authNo, String email) {   
+		System.out.println("이메일주소 : " + email);
+		System.out.println("인증번호 : " + authNo);
+
+		// 메일 전송
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(email);
+		message.setSubject("STAEZ 이메일 인증");
+		message.setText("STAEZ 인증 번호는 [" + authNo + "] 입니다.");
 		
+		sender.send(message);
+
+		return "NNNNY";
 	}
 	
 }

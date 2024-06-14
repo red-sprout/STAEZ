@@ -90,24 +90,26 @@ function loadMainPageAjax(data, callback){
 }
 
 
-function sendAuthNumAjax(data, callback){
+function sendPhoneAuthNoAjax(data, callback){
     $.ajax({
         url: contextPath + 'sendPhoneAuth.me',
+        type:'POST',
         data,
         success: res => callback(res),
         error: () => {
-            alert('인증번호 전송에 실패하였습니다');
+            alert('휴대폰 인증번호 전송에 실패하였습니다');
         }
     });
 }
 
-function checkAuthNumAjax(data, callback){
+function sendEmailAuthNoAjax(data, callback){
     $.ajax({
-        url: contextPath + '',
+        url: contextPath + 'sendEmailAuth.me',   
+        type:'POST',
         data,
         success: res => callback(res),
         error: () => {
-            alert('인증번호 확인에 실패하였습니다');
+            alert('이메일 인증번호 전송에 실패하였습니다');
         }
     });
 }

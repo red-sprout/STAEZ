@@ -780,7 +780,7 @@ CREATE TABLE public.reserve
     reserve_row integer NOT NULL,
     reserve_col integer NOT NULL,
     reserve_date timestamp with time zone NOT NULL DEFAULT now(),
-    pay_method character varying(20) NOT NULL CHECK(pay_method IN('무통장입금', '카카오', '네이버', '토스')),
+    pay_method character varying(20) NOT NULL CHECK(pay_method IN('무통장입금', '카카오페이', '네이버페이', '토스')),
     concert_date date NOT NULL,
     reserve_status character varying(1) NOT NULL CHECK(reserve_status IN ('Y', 'U', 'N')) DEFAULT 'U',
 	/*활성화된(결제된)예약(Y), 결제전예약(U) 만료된예약(N)*/

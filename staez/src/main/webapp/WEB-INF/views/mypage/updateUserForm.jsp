@@ -28,10 +28,10 @@
             <p id="auth-fail" hidden>비밀번호가 일치하지 않습니다.</p>
         </div>
 
-        <div id="profile-img">
-            <img src="" alt="" data-toggle="modal" data-target="#imgModal">
-        </div>
-        <form action="update.me" method="POST"> 
+        <form action="update.me" method="POST" > 
+            <div id="profile-img">
+                <img src="" data-toggle="modal" data-target="#imgModal">
+            </div>
             <div id="profile-info">
                 <table>
                     <tbody>
@@ -101,8 +101,7 @@
                 </table>
             </div>
 
-            <!--변경 가능한 input들-->
-            
+            <!--변경 가능한 input들-->            
             <div id="profile-update">
                 <table>
                     <tbody>                       
@@ -168,9 +167,9 @@
                                         minlength="4" maxlength="4" oninput="updateCombinedPhone()">
                                 </div>
                             </td>
-                            <input type="hidden" name="phone" readonly>
+                            <input type="text" name="phone" readonly>
                             <td class="input-btn">
-                                <button type="button">인증번호전송</button>
+                                <button type="button" id="phone-auth-btn">인증번호전송</button>
                             </td>
                         </tr>
                         <c:remove var="phone" />
@@ -207,7 +206,7 @@
                                 </div>
                             </td>
                             <td class="input-btn">
-                                <button type="button">인증번호전송</button>
+                                <button type="button" id="email-auth-btn">인증번호전송</button>
                             </td>
                         </tr>
                         <tr class="email-section">
@@ -220,7 +219,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <input type="hidden" name="email" readonly>
+                        <input type="text" name="email" readonly>
                         <c:remove var="email" />
 
                         <tr>
@@ -263,12 +262,13 @@
                 </table>
             </div>
 
-            <input type="checkbox" id="nicknameCheck" class="hidden">
-            <input type="checkbox" id="addrCheck" class="hidden">
-            <input type="checkbox" id="phoneCheck" class="hidden">
-            <input type="checkbox" id="emailCheck" class="hidden">
+            <!--fomr 제출하기 위해 아래 checkbox 모두 체크되어 있어야함  -->
+            <input type="checkbox" id="emailCheck" class="submit-requires " checked>
+            <input type="checkbox" id="phoneCheck" class="submit-requires " checked>
+            <input type="checkbox" id="nicknameCheck" class="submit-requires " checked>
+
             <div id="submit-btn">
-                <button type="submit" class="btn-staez purple">
+                <button type="button" class="btn-staez purple" onclick="checkSubmitRequires()">
                     <h3>저장</h3>
                 </button>
                 <button type="button" class="btn-staez purple" data-toggle="modal"
