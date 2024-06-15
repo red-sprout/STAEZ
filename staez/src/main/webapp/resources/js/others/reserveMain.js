@@ -3,7 +3,23 @@ window.onload = function(){
     body.classList.add("noScroll");
     mainCategoryName((category) => drawOption(category));
     mainPopularBoardList((bList) => drawBoardListContent(bList));
+    showAdvertisements()
+}
+
+let slideIndex = 0;
+function showAdvertisements() {
+    
+    let advertisements = document.getElementsByClassName("advertisement");
    
+    for (let i = 0; i < advertisements.length; i++) {
+        advertisements[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > advertisements.length) {
+        slideIndex = 1
+    }
+    advertisements[slideIndex - 1].style.display = "block";
+    setTimeout(showAdvertisements, 2000); 
 }
 
 function drawOption(category){
