@@ -58,12 +58,14 @@
 	    <result column="update_date" property="updateDate"/>
 	    <result column="concert_status" property="concertStatus"/>
 	    <result column="change_name" property="changeName"/>
+	    <result column="origin_name" property="originName"/>
 	    <result column="file_path" property="filePath"/>
 	    <result column="start_date" property="startDate"/>
 	    <result column="end_date" property="endDate"/>
 	    <result column="category_no" property="categoryNo"/>
 	    <result column="category_name" property="categoryName"/>
 	    <result column="theater_name" property="theaterName"/>
+	    <result column="path" property="path" />
    </resultMap>
    	<resultMap type="User" id="userResult">
 		<result column="user_no" property="userNo" />
@@ -97,6 +99,28 @@
 		<result column="r_birth" property="rbirth" />
 		<result column="r_phone" property="rPhone" />
 		<result column="schedule" property="schedule" />
+	</resultMap>
+	<resultMap type="ConcertSchedule" id="concertScheduleResult">
+		<result column="schedule_no" property="scheduleNo" />
+		<result column="concert_no" property="concertNo" />
+		<result column="schedule" property="schedule" />
+		<result column="start_date" property="startDate" />
+		<result column="end_date" property="endDate" />
+		<result column="concert_times" property="concertTimes" />
+		<result column="status" property="status" />
+	</resultMap>
+	<resultMap type="Seat" id="seatResult">
+		<result column="seat_id" property="seatId" />
+		<result column="concert_no" property="concertNo" />
+		<result column="grade" property="grade" />
+		<result column="price" property="price" />
+		<result column="concert_date" property="concertDate" />
+		<result column="seat_start_row" property="seatStartRow" />
+		<result column="seat_end_row" property="seatEndRow" />
+		<result column="seat_start_col" property="seatStartCol" />
+		<result column="seat_end_col" property="seatEndCol" />
+		<result column="status" property="status" />
+		<result column="seat_count" property="seatCount" />
 	</resultMap>
 	<select id="selectFaqCategory" resultMap="categoryResult">
 		SELECT
@@ -176,7 +200,7 @@
 		WHERE theater_no = #{theaterNo}
 	</select>
 	
-	<select id="selectImpossibleSeat" resultMap="theaterResult">
+	<select id="selectImpossibleSeat" resultMap="impossibleSeatResult">
 		SELECT
 			impossible_seat_row,
 			impossible_seat_col
@@ -185,13 +209,33 @@
 	</select>
 	
 	<update id="updateTheater">
-		<!-- 구현필요 -->
+		UPDATE theater
+		SET
+			theater_name = #{theaterName},
+			theater_row = ${theaterRow},
+			theater_col = ${theaterCol},
+			address = #{address},
+			telno = #{telno}
+		WHERE theater_no = #{theaterNo}
 	</update>
 	
 	<delete id="deleteImpossibleSeat">
 		DELETE FROM impossible_seat
 		WHERE theater_no = #{theaterNo}
 	</delete>
+	
+	<insert id="updateImpossibleSeat">
+		INSERT INTO impossible_seat
+		(
+			theater_no,
+			impossible_seat_row,
+			impossible_seat_col
+		) VALUES (
+			#{theaterNo},
+			${impossibleSeatRow},
+			${impossibleSeatCol}
+		)
+	</insert>
 	
 	<select id="selectTheaterList" resultMap="theaterResult">
 		SELECT
@@ -203,6 +247,11 @@
 		WHERE theater_name LIKE '%' || #{keyword} || '%'
 		LIMIT 5
 	</select>
+	
+	<delete id="deleteTheater">
+		DELETE FROM theater
+		WHERE theater_no = #{theaterNo}
+	</delete>
 	
 	<insert id="insertConcert">
 		INSERT INTO concert
@@ -288,6 +337,171 @@
 			#{seatEndCol}
 		)
 	</insert>
+	
+	<update id="deleteConcert">
+		UPDATE concert
+		SET concert_status = 'N'
+		WHERE concert_no = #{concertNo}
+	</update>
+	
+	<select id="selectConcert" resultMap="concertResult">
+		SELECT
+			c.concert_no,
+			c.concert_title,
+			cc.category_no,
+			ct.category_name,
+			c.concert_runtime,
+			c.age_limit,
+			t.theater_no,
+			t.theater_name,
+			c.concert_members,
+			c.concert_production,
+			ca.origin_name,
+			ca.file_path || ca.change_name as path,
+			c.concert_plot
+		FROM concert c
+		JOIN concert_category cc ON (c.concert_no = cc.concert_no)
+		JOIN category ct ON (cc.category_no = ct.category_no)
+		JOIN theater t ON (c.theater_no = t.theater_no)
+		JOIN concert_attachment ca ON (c.concert_no = ca.concert_no)
+		WHERE c.concert_no = #{concertNo}
+	</select>
+	
+	<select id="selectConcertTheater" resultMap="theaterResult">
+	
+	</select>
+	
+	<select id="selectConcertSchedule" resultMap="concertScheduleResult">
+		SELECT
+			start_date,
+			end_date,
+			schedule
+		FROM concert_schedule
+		WHERE concert_no = #{concertNo}
+	</select>
+	
+	<update id="updateConcert">
+		UPDATE concert
+		SET 
+			theater_no = #{theaterNo},
+			concert_title = #{concertTitle},
+			concert_plot = #{concertPlot},
+			concert_runtime = #{concertRuntime},
+			concert_members = #{concertMembers},
+			concert_production = #{concertProduction},
+			age_limit = #{ageLimit}
+		WHERE concert_no = #{concertNo}
+	</update>
+	
+	<delete id="deleteConcertCategory">
+		DELETE FROM concert_category
+		WHERE concert_no = #{concertNo}
+	</delete>
+	
+	<insert id="updateConcertCategory">
+		INSERT INTO concert_category
+		(
+			concert_no,
+			category_no
+		) VALUES (
+			#{concertNo},
+			#{categoryNo}
+		)
+	</insert>
+	
+	<update id="updateConcertAttachment">
+		UPDATE concert_attachment
+		SET
+			origin_name = #{originName},
+			change_name = #{changeName},
+			file_path = #{filePath}
+		WHERE concert_no = #{concertNo}
+	</update>
+	
+	<insert id="updateScheduleList">
+		INSERT INTO concert_schedule
+		(
+			concert_no,
+			schedule,
+			start_date,
+			end_date
+		) VALUES (
+			#{concertNo},
+			#{schedule},
+			#{startDate},
+			#{endDate}
+		)
+	</insert>
+	
+	<delete id="deleteScheduleList">
+		DELETE FROM concert_schedule
+		WHERE concert_no = #{concertNo}
+	</delete>
+	
+	<insert id="updateSeatList">
+		INSERT INTO seat
+		(
+			concert_no,
+			grade,
+			price,
+			concert_date,
+			seat_start_row,
+			seat_end_row,
+			seat_start_col,
+			seat_end_col
+		) VALUES (
+			#{concertNo},
+			#{grade},
+			#{price},
+			#{concertDate},
+			#{seatStartRow},
+			#{seatEndRow},
+			#{seatStartCol},
+			#{seatEndCol}
+		)
+	</insert>
+		
+	<delete id="deleteSeatList">
+		DELETE FROM seat
+		WHERE concert_no = #{concertNo}
+	</delete>
+	
+	<select id="selectSeat" resultMap="seatResult">
+		SELECT
+			seat_start_row,
+			seat_end_row,
+			seat_start_col,
+			seat_end_col,
+			concert_date,
+			grade,
+			price
+		FROM seat
+		WHERE concert_no = #{concertNo}
+		AND status = 'Y'
+	</select>
+	
+	<update id="concertAttachmentUpdateStatus">
+		UPDATE concert_attachment
+		SET
+			status = 'N'
+		WHERE concert_no = #{concertNo}
+	</update>
+	
+	<insert id="concertAttachmentInsert">
+		INSERT INTO concert_attachment
+		(
+			concert_no,
+			origin_name,
+			change_name,
+			file_path
+		) VALUES (
+			#{concertNo},
+			#{originName},
+			#{changeName},
+			#{filePath}
+		)
+	</insert>
+	
 	<select id="selectNoticeCnt" parameterType="com.spring.staez.admin.model.dto.AdminCategoryDto" resultType="_int">
 		SELECT
 			COUNT(*)
@@ -450,6 +664,7 @@
 		from concert c
 		join concert_attachment ca on (c.concert_no = ca.concert_no)
 		where c.concert_status = 'Y'
+		and ca.status = 'Y'
 		order by c.concert_no desc
 	</select>
 	

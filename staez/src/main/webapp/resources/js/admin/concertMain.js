@@ -1,10 +1,14 @@
 $(function() {
     const cPage = 1;
     ajaxConcertContentList({ cPage }, drawConcertContentList);
+
+    document.getElementById("concert-update").addEventListener("click", updateConcertFormEvent);
+    document.getElementById("concert-attachment-update").addEventListener("click", (ev) => updateConcertAttachmentForm(ev));
+    document.getElementById("concert-delete").addEventListener("click", deleteConcertEvent);
 });
 
 function drawConcertContentList(concertList) {
-    const cArea = document.querySelector(".admin-concert-container");
+    const cArea = document.querySelector("#admin-contents");
     cArea.innerHTML = '';
     concertList.clist.forEach(c => cArea.appendChild(createConcertRow(c)));
     drawPagination(concertList.pi);
@@ -18,9 +22,13 @@ function createConcertRow(c) {
     const tdCheckbox = document.createElement("td");
     tdCheckbox.className = "admin-checkbox";
     const checkbox = document.createElement("input");
+    const concertNo = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.id = c.concertNo;
+    concertNo.type = "hidden";
+    concertNo.value = c.concertNo;
+
     tdCheckbox.appendChild(checkbox);
+    tdCheckbox.appendChild(concertNo);
     tr.appendChild(tdCheckbox);
 
     const tdCategory = document.createElement("td");
@@ -102,4 +110,78 @@ function pageArrowConcert(cPage) {
 
 function clickpageConcert(cPage) {
     ajaxConcertContentList({ cPage }, drawConcertContentList);
+}
+
+// 체크박스 전체 체크
+function checkboxTotalEvent(_this) {
+    const checked = _this.checked;
+    const boardCheckbox = document.querySelectorAll("#admin-contents input[type=checkbox]");
+    for (let ele of boardCheckbox) {
+        if (checked) {
+            ele.setAttribute("checked", true);
+        } else {
+            ele.removeAttribute("checked");
+        }
+    }
+}
+
+function checkboxEvent(ev) {
+
+}
+
+// 모든 체크박스 확인, 처리할 커뮤니티 목록 정리
+function getCheckboxChecked() {
+    const result = [];
+    const checked = document.querySelectorAll("#admin-contents input[type=checkbox]:checked+input[type=hidden]");
+    for (let ele of checked) {
+        result.push(ele.value);
+    }
+    return result;
+}
+
+// 모든 카테고리 확인
+function getCategoryChecked(id) {
+    const result = [];
+    const checked = document.querySelectorAll(`#${id} input[type=radio]:checked`);
+    for (let ele of checked) {
+        result.push(ele.value);
+    }
+    return result;
+}
+
+function updateConcertFormEvent() {
+    const concertList = getCheckboxChecked();
+    if (concertList.length !== 1) {
+        alert("수정시 하나만 선택하기 바랍니다.");
+        return;
+    }
+    location.href = `concertUpdateForm.ad?concertNo=${concertList[0]}`;
+}
+
+function deleteConcertEvent() {
+    const concertList = getCheckboxChecked();
+    if (concertList.length === 0) {
+        alert("한 개 이상의 공연을 선택해주세요.")
+        return;
+    }
+    deleteConcert({
+        concertList,
+    }, (msg) => {
+        alert(msg);
+        location.reload();
+    })
+}
+
+function updateConcertAttachmentForm(ev) {
+    const concertList = getCheckboxChecked();
+    if (concertList.length !== 1) {
+        alert("권한 수정시 이용자는 한 명만 선택하기 바랍니다.");
+        ev.currentTarget.removeAttribute("data-toggle");
+        ev.currentTarget.removeAttribute("data-target");
+        return;
+    }
+    ev.currentTarget.setAttribute("data-toggle", "modal");
+    ev.currentTarget.setAttribute("data-target", "#attachment-modal");
+
+    document.querySelector("#attachment-modal input[type=hidden]").value = concertList[0];
 }

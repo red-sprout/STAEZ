@@ -2,6 +2,7 @@ $(function() {
     const cPage = 1;
     ajaxTheaterList({ cPage }, drawTheaterList);
     document.getElementById("theater-update").addEventListener("click", updateTheaterFormEvent);
+    document.getElementById("theater-delete").addEventListener("click", deleteTheaterEvent);
 });
 
 function drawTheaterList(theaterList) {
@@ -93,7 +94,7 @@ function clickpageTheater(cPage) {
 function updateTheaterFormEvent() {
     const theaterList = getCheckboxChecked();
     if (theaterList.length !== 1) {
-        alert("카테고리 수정시 한 게시글만 선택하기 바랍니다.");
+        alert("수정시 하나만 선택하기 바랍니다.");
         return;
     }
     location.href=`theaterUpdateForm.ad?theaterNo=${theaterList[0]}`;
@@ -134,4 +135,18 @@ function getCategoryChecked(id) {
         result.push(ele.value);
     }
     return result;
+}
+
+function deleteTheaterEvent() {
+    const theaterList = getCheckboxChecked();
+    if (theaterList.length === 0) {
+        alert("한 개 이상의 공연장을 선택해주세요.")
+        return;
+    }
+    deleteTheater({
+        theaterList,
+    }, (msg) => {
+        alert(msg);
+        location.reload();
+    })
 }

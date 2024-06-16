@@ -6,7 +6,9 @@ import java.util.List;
 import com.google.gson.JsonElement;
 import com.spring.staez.admin.model.dto.AdminBoardDto;
 import com.spring.staez.admin.model.dto.AdminBoardSelectDto;
+import com.spring.staez.admin.model.dto.AdminConcertSelectDto;
 import com.spring.staez.admin.model.dto.AdminSearchDto;
+import com.spring.staez.admin.model.dto.AdminTheaterSelectDto;
 import com.spring.staez.admin.model.dto.AdminUpdateDto;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.admin.model.vo.ConcertSchedule;
@@ -15,6 +17,7 @@ import com.spring.staez.admin.model.vo.Seat;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertAttachment;
 import com.spring.staez.concert.model.vo.Theater;
 import com.spring.staez.user.model.vo.Reserve;
 import com.spring.staez.user.model.vo.User;
@@ -80,5 +83,21 @@ public interface AdminService {
 	ArrayList<ImpossibleSeat> selectImpossibleSeat(int theaterNo);
 
 	int updateTheater(Theater t);
+
+	int deleteTheater(AdminTheaterSelectDto dto);
+
+	int deleteConcert(AdminConcertSelectDto dto);
+
+	Concert selectConcert(int concertNo);
+
+	Theater selectConcertTheater(int concertNo);
+
+	ArrayList<ConcertSchedule> selectConcertSchedule(int concertNo);
+
+	ArrayList<Seat> selectSeat(int concertNo);
+
+	int concertUpdate(List<ConcertSchedule> scheduleList, List<Seat> seatList, Concert c);
+
+	int concertAttachmentUpdate(ConcertAttachment attachment);
 
 }

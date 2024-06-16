@@ -44,7 +44,7 @@
                         <thead>
                             <tr>
                                 <td class="admin-checkbox">
-                                    <input type="checkbox" name="" id="">
+                                    <input type="checkbox" onchange="checkboxTotalEvent(this)">
                                 </td>
                                 <td>공연장명</td>
                                 <td>행</td>

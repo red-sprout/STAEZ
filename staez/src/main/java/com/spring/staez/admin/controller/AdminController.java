@@ -22,7 +22,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.spring.staez.admin.model.dto.AdminBoardDto;
 import com.spring.staez.admin.model.dto.AdminBoardSelectDto;
+import com.spring.staez.admin.model.dto.AdminConcertSelectDto;
 import com.spring.staez.admin.model.dto.AdminSearchDto;
+import com.spring.staez.admin.model.dto.AdminTheaterSelectDto;
 import com.spring.staez.admin.model.dto.AdminUpdateDto;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.admin.model.vo.ConcertSchedule;
@@ -34,6 +36,7 @@ import com.spring.staez.common.template.MyFileRenamePolicy;
 import com.spring.staez.common.template.Pagination;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertAttachment;
 import com.spring.staez.concert.model.vo.Theater;
 import com.spring.staez.user.model.vo.Reserve;
 import com.spring.staez.user.model.vo.User;
@@ -105,7 +108,15 @@ public class AdminController {
 	}
 	
 	@GetMapping("concertUpdateForm.ad")
-	public String concertUpdateForm() {
+	public String concertUpdateForm(@RequestParam(value = "concertNo") String number, Model model) {
+		int concertNo = Integer.parseInt(number);
+		Concert concert = adminService.selectConcert(concertNo);
+		ArrayList<ConcertSchedule> concertSchedule = adminService.selectConcertSchedule(concertNo);
+		ArrayList<Seat> seat = adminService.selectSeat(concertNo);
+		
+		model.addAttribute("concert", concert);
+		model.addAttribute("concertSchedule", concertSchedule);
+		model.addAttribute("seat", seat);
 		return "admin/concertUpdateForm";
 	}
 	
@@ -227,6 +238,19 @@ public class AdminController {
 		return new Gson().toJson(list);
 	}
 	
+	@ResponseBody
+	@PostMapping(value = "delete.th", produces = "text/plain; charset=utf-8")
+	public String deleteTheater(AdminTheaterSelectDto dto) {
+		int result = adminService.deleteTheater(dto);
+		String msg = null;
+		if(result == 0) {
+			msg =  "공연장 삭제 실패하였습니다.";
+		} else {
+			msg = "삭제 완료하였습니다.";
+		}
+		return msg;
+	}
+	
 	// 공연 데이터 입력 
 	@ResponseBody
 	@PostMapping(value = "concertInsert.ad")
@@ -259,10 +283,56 @@ public class AdminController {
 		return "concertList.ad";
 	}
 	
+	// 공연 데이터 입력 
+	@ResponseBody
+	@PostMapping(value = "concertUpdate.ad")
+	public String concertUpdate(int concertNo, String schedule, String seat, String concert, HttpSession session) {
+		// Unparseable date Exception 발생하지 않게 하기 위한 포매팅
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		// Gson으로 JSON을 string으로 바꾼 것을 객체 형태로 변환
+		List<ConcertSchedule> scheduleList = gson.fromJson(schedule, new TypeToken<List<ConcertSchedule>>(){}.getType());
+		List<Seat> seatList = gson.fromJson(seat, new TypeToken<List<Seat>>(){}.getType());
+		Concert c = gson.fromJson(concert, new TypeToken<Concert>(){}.getType());
+		c.setConcertNo(concertNo);
+		
+		int result = adminService.concertUpdate(scheduleList, seatList, c);
+		
+		if(result == 0) {
+			session.setAttribute("alertMsg", "공연 수정에 실패 하였습니다.");
+		} else {
+			session.setAttribute("alertMsg", "성공적으로 수정하였습니다.");
+		}
+		
+		return "concertList.ad";
+	}
+	
+	@PostMapping(value = "insert.ca")
+	public String concertAttachmentUpdate(int concertNo, @RequestPart MultipartFile upfile, HttpSession session) {
+		ConcertAttachment attachment = new ConcertAttachment();
+		if(!upfile.getOriginalFilename().equals("")) {
+			String path = "/resources/uploadfiles/concert/";
+			String changeName = MyFileRenamePolicy.saveFile(upfile, session, path);
+			
+			attachment.setConcertNo(concertNo);
+			attachment.setFilePath(path);
+			attachment.setOriginName(upfile.getOriginalFilename());
+			attachment.setChangeName(changeName);
+		}
+		
+		int result = adminService.concertAttachmentUpdate(attachment);
+		
+		if(result == 0) {
+			session.setAttribute("alertMsg", "포스터 수정 실패");
+		} else {
+			session.setAttribute("alertMsg", "포스터 수정을 완료하였습니다.");
+		}
+		
+		return "redirect:/concertList.ad";
+	}
 	
 	//공연 리스트 불러오기
 	@ResponseBody
-	@GetMapping(value = "ajaxConcertContentList.ad", produces = "application/json; charset-UTF-8")
+	@GetMapping(value = "ajaxConcertContentList.ad", produces = "application/json; charset=UTF-8")
 	public String ajaxConcertContentList(String cPage) {
 		
 		int listSize = adminService.selectConcertContentListCount();
@@ -281,7 +351,7 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value = "ajaxConcertImgList.ad", produces = "application/json; charset-UTF-8")
+	@GetMapping(value = "ajaxConcertImgList.ad", produces = "application/json; charset=UTF-8")
 	public String ajaxConcertImgList(String cPage) {
 		
 		int listSize = adminService.selectConcertContentListCount();
@@ -301,7 +371,7 @@ public class AdminController {
 	
 	//공연장리스트 불러오기
 	@ResponseBody
-	@GetMapping(value = "ajaxTheaterList.ad", produces = "application/json; charset-UTF-8")
+	@GetMapping(value = "ajaxTheaterList.ad", produces = "application/json; charset=UTF-8")
 	public String ajaxTheaterList(String cPage) {
 		
 		int listSize = adminService.selectTheaterListCount();
@@ -319,9 +389,22 @@ public class AdminController {
 		return new Gson().toJson(resMap);
 	}
 	
+	@ResponseBody
+	@PostMapping(value = "delete.co", produces = "text/plain; charset=utf-8")
+	public String deleteConcert(AdminConcertSelectDto dto) {
+		int result = adminService.deleteConcert(dto);
+		String msg = null;
+		if(result == 0) {
+			msg =  "공연 삭제 실패하였습니다.";
+		} else {
+			msg = "삭제 완료하였습니다.";
+		}
+		return msg;
+	}
+	
 	//Faq 리스트 불러오기
 	@ResponseBody
-	@GetMapping(value = "adminSelect.fq", produces = "application/json; charset-UTF-8")
+	@GetMapping(value = "adminSelect.fq", produces = "application/json; charset=UTF-8")
 	public String adminSelectFaq(AdminSearchDto dto, String currentPage) {
 		int listCount = adminService.selectFaqCnt(dto);
 		int cPage = Integer.parseInt(currentPage);
@@ -350,7 +433,7 @@ public class AdminController {
 	
 	// 게시글 번호로만 게시글 조회시 사용되는 컨트롤러
 	@ResponseBody
-	@GetMapping(value = "select.bo", produces = "application/json; charset-UTF-8")
+	@GetMapping(value = "select.bo", produces = "application/json; charset=UTF-8")
 	public String selectOneBoard(int boardNo) {
 		return new Gson().toJson(adminService.selectOneBoard(boardNo));
 	}
@@ -376,7 +459,7 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value = "adminSelect.iq", produces = "application/json; charset-UTF-8")
+	@GetMapping(value = "adminSelect.iq", produces = "application/json; charset=UTF-8")
 	public String adminSelectInquire(AdminSearchDto dto, String currentPage) {
 		int listCount = adminService.selectInquireCnt(dto);
 		int cPage = Integer.parseInt(currentPage);
@@ -392,7 +475,7 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value = "adminSelect.rp", produces = "application/json; charset-UTF-8")
+	@GetMapping(value = "adminSelect.rp", produces = "application/json; charset=UTF-8")
 	public String adminSelectReport(AdminSearchDto dto, String currentPage) {
 		int listCount = adminService.selectReportCnt(dto);
 		int cPage = Integer.parseInt(currentPage);
@@ -408,7 +491,7 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value = "adminSelect.re", produces = "application/json; charset-UTF-8")
+	@GetMapping(value = "adminSelect.re", produces = "application/json; charset=UTF-8")
 	public String adminSelectReserve(AdminSearchDto dto, String currentPage) {
 		int listCount = adminService.selectReserveCnt(dto);
 		int cPage = Integer.parseInt(currentPage);
@@ -432,5 +515,18 @@ public class AdminController {
 		} else {
 			return "성공적으로 수정하였습니다.";
 		}
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "selectSeat.ad", produces = "application/json; charset=UTF-8")
+	public String selectSeat(int theaterNo) {
+		Theater theater = adminService.selectTheater(theaterNo);
+		List<ImpossibleSeat> list = adminService.selectImpossibleSeat(theaterNo);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("theater", theater);
+		map.put("impossibleSeatList", list);
+		
+		return new Gson().toJson(map);
 	}
 }
