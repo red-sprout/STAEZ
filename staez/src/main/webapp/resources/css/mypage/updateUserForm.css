@@ -190,6 +190,8 @@
     width: 25%;
     height: 30px;
 
+    font-size: 14px;
+
     border: none;
     border-bottom: 1px solid black;
 
@@ -197,7 +199,7 @@
 }
 
 #profile .auth-num>.timer{
-    color: #4aa500;
+    color: red;
     text-align: end;
 }
 
@@ -208,6 +210,8 @@
 #profile .auth-num>button{
     width: 80px;
     height: 30px;
+
+    font-size: 12px;
 
     background: none;
     border: 1px solid black;
@@ -394,12 +398,6 @@
     text-align: right;
     color: red;
 }
-
-#profile #profile-update button{
-    
-}
-
-
 
 #profile #submit-btn{
     width: 100%;

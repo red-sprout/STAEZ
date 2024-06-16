@@ -5,22 +5,18 @@ img {
     margin-bottom: 40px;
     margin-top: 80px;
 }
-
 h2 {
     margin-bottom: 80px; /* 아래쪽 여백 30px */
     color: #DD0D64;
 }
-
 h3{
     margin: 0;
     padding: 0;
 }
-
 p{
     font-size: 20px;
     margin-bottom: 40px;
 }
-
 /* form 안 전체를 감싸는 div */
 #find-div {
     max-width: 800px;
@@ -31,7 +27,6 @@ p{
     align-items: center;
     margin-bottom: 40px;
 }
-
 /* 비밀번호 보여주기 버튼 이미지 */
 #pwdImg {
     position: absolute; /* 이미지의 위치를 설정합니다. */
@@ -220,12 +215,11 @@ span{
     align-items: center; /* 수직 가운데 정렬합니다. */
     margin: 0px 10px;
 }
-
-/* 입력값 합친거 안보여주는거 */
-#input-value-address,
-#input-value-phone,
-#input-value-email,
-#input-value-genreLike {
+#checkResultNickTr,
+#checkResultIdTr,
+#passwordMessageTr,
+#verificationEmailTr,
+#checkResultEmailTr{
     display: none;
 }
 
@@ -262,14 +256,15 @@ span{
     min-width: 95px;
 }
 
-.email-container{
-    min-width: 310px;
+/* 이메일 컨테이너 */
+.email-container {
+    display: flex;
+    align-items: center;
 }
 
 /* 이메일 인증 확인 */
 #checkResultEamil {
     font-size: 14px;
-    display: none; /* 기본적으로 숨김 */
 }
 
 /* 중복체크 */
@@ -277,5 +272,34 @@ span{
     text-align: left; /* 원하는 정렬 방법으로 변경 가능 */
     /* margin-left: 15px; 동일한 위치 정렬을 위한 간격 추가 */
     width: 100%; /* 부모 요소의 너비에 맞춥니다 */
+}
+
+/* 핸드폰 인증 시간초 감싸는 div */
+#phoneTimeContainer {
+    width: 300px;
+    height: 35px;
+    position: relative;
+    display: flex;
+}
+
+/* 위에꺼랑 합치는거 */
+#phoneTimeContainer input {
+    width: 100%;
+}
+
+/* 시간초만 */
+#phoneTimeContainer div {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    right: 5px;
+}
+
+/* 입력값 합친거 안보여주는거 */
+#input-value-phone,
+#input-value-email,
+#checkResultPhoneTr,
+#verificationPhoneTr
+{
     display: none;
 }

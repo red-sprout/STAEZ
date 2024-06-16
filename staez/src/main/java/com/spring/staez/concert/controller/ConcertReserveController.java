@@ -1,6 +1,9 @@
 package com.spring.staez.concert.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -136,7 +139,7 @@ public class ConcertReserveController {
 		rid.setRecipientName(totalObj.get("recipientName").getAsString());
 		rid.setRecipientPhone(totalObj.get("recipientPhone").getAsString());
 		rid.setRecipientBirth(totalObj.get("recipientBirth").getAsString());
-
+		
 		JsonArray seatListArray = totalObj.getAsJsonArray("seatList");
 		System.out.println(seatListArray.size());
 		List<String> seatList = new ArrayList<>();
@@ -242,28 +245,58 @@ public class ConcertReserveController {
 
 	@ResponseBody
 	@PostMapping(value = "kakaopay.co", produces = "application/json; charset-UTF-8")
-	public ReadyResponse kakaopay(String concertTitle, String totalAmount) {
+	public ReadyResponse kakaopay(String rids, String concertTitle, String totalAmount) {
+		JsonObject totalObj = JsonParser.parseString(rids).getAsJsonObject();
+
+
 		
+		int userNo = Integer.parseInt(totalObj.get("userNo").getAsString());		
+		int concertNo = Integer.parseInt(totalObj.get("concertNo").getAsString());
+		String concertDate = totalObj.get("concertDate").getAsString();
+		String schedule = totalObj.get("schedule").getAsString();
+		String payMethod = totalObj.get("payMethod").getAsString();
+		String recipientName = totalObj.get("recipientName").getAsString();
+		String recipientPhone = totalObj.get("recipientPhone").getAsString();
+		String recipientBirth = totalObj.get("recipientBirth").getAsString();
+		JsonArray seatListArray = totalObj.get("seatList").getAsJsonArray();
+
+		 Gson gson = new Gson();
+	     String seatListJson = gson.toJson(seatListArray);
+	     String encodedSeatList = null;
+	     try {
+			encodedSeatList = URLEncoder.encode(seatListJson, StandardCharsets.UTF_8.toString());
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		String name = concertTitle;
         int totalPrice = Integer.parseInt(totalAmount);
-        
+        log.info("좌석 정보 : " + seatListJson);
         log.info("주문 상품 이름: " + name);
         log.info("주문 금액: " + totalPrice);
-
+     
         // 카카오 결제 준비하기
         Map<String, String> parameters = new HashMap<>();
-        parameters.put("cid", "TC0ONETIME");                          // 가맹점 코드(테스트용)
-        parameters.put("partner_order_id", "1234567890");             // 주문번호
-        parameters.put("partner_user_id", "roommake");                // 회원 아이디
-        parameters.put("item_name", name);                            // 상품명
-        parameters.put("quantity", "1");                              // 상품 수량
-        parameters.put("total_amount", String.valueOf(totalPrice));   // 상품 총액
-        parameters.put("tax_free_amount", "0");                       // 상품 비과세 금액
-        parameters.put("approval_url", "http://localhost:8888/staez/success.co");     // 결제 성공 시 URL
-        parameters.put("cancel_url", "http://localhost:8888/staez/");       // 결제 취소 시 URL
-        parameters.put("fail_url", "http://localhost:8888/staez/");         // 결제 실패 시 URL
+        parameters.put("cid", "TC0ONETIME");                        
+        parameters.put("partner_order_id", "1234567890");             
+        parameters.put("partner_user_id", "roommake");                
+        parameters.put("item_name", name);                           
+        parameters.put("quantity", "1");                              
+        parameters.put("total_amount", String.valueOf(totalPrice));   
+        parameters.put("tax_free_amount", "0");                       
+        parameters.put("approval_url", "http://localhost:8888/staez/success.co?"
+        		+ "userNo=" + userNo
+        		+ "&concertNo="+concertNo
+        		+ "&concertDate="+concertDate
+        		+ "&schedule="+schedule
+        		+ "&payMethod="+payMethod
+        		+ "&recipientName="+recipientName
+        		+ "&recipientPhone="+recipientPhone
+        		+ "&recipientBirth="+recipientBirth
+        		+ "&seatListArray="+encodedSeatList);     
+        parameters.put("cancel_url", "http://localhost:8888/staez/cancel.co");       
+        parameters.put("fail_url", "http://localhost:8888/staez/fail.co");         
 
-        // HttpEntity : HTTP 요청 또는 응답에 해당하는 Http Header와 Http Body를 포함하는 클래스
+        
         
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "DEV_SECRET_KEY " + secretKey);
@@ -276,14 +309,14 @@ public class ConcertReserveController {
         //   REST API 호출 이후 응답을 받을 때까지 기다리는 동기 방식 (json, xml 응답)
         RestTemplate template = new RestTemplate();
         String url = "https://open-api.kakaopay.com/online/v1/payment/ready";
-        // RestTemplate의 postForEntity : POST 요청을 보내고 ResponseEntity로 결과를 반환받는 메소드
+        
         ResponseEntity<ReadyResponse> responseEntity = template.postForEntity(url, requestEntity, ReadyResponse.class);
         log.info("결제준비 응답객체: " + responseEntity.getBody());
 
         ReadyResponse readyResponse = responseEntity.getBody();
         
         
-        // 세션에 결제 고유번호(tid) 저장
+     
         log.info("결제 고유번호: " + readyResponse.getTid());
 
 		
@@ -338,12 +371,37 @@ public class ConcertReserveController {
 	}
 	
 	@GetMapping("success.co")
-	public String kakaoSuccess() {
-	
+	public String kakaoSuccess(Model model, String userNo, String concertNo, String concertDate, String schedule, String payMethod, String recipientName, String recipientPhone, String recipientBirth, String seatListArray) {
+		
+		JsonArray jsonArray = JsonParser.parseString(seatListArray).getAsJsonArray();
+        
+        // JsonArray를 문자열로 변환하여 모델에 담기
+        String seatList = jsonArray.toString();
+		
+		System.out.println(seatList);
+		model.addAttribute("userNo", userNo);
+		model.addAttribute("concertNo", concertNo);
+		model.addAttribute("concertDate", concertDate);
+		model.addAttribute("schedule", schedule);
+		model.addAttribute("payMethod", payMethod);
+		model.addAttribute("recipientName", recipientName);
+		model.addAttribute("recipientPhone", recipientPhone);
+		model.addAttribute("recipientBirth", recipientBirth);
+		model.addAttribute("seatList", seatList);
 		
 		
-
+		
 		return "concert/success";
+	}
+	
+	@GetMapping("cancel.co")
+	public String kakaoCancel() {
+		return "concert/cancel";
+	}
+	
+	@GetMapping("fail.co")
+	public String kakaoFail() {
+		return "concert/fail";
 	}
 	
 

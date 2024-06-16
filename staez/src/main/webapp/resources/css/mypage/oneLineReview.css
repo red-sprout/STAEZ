@@ -121,6 +121,10 @@
     text-align: left;
     cursor: pointer;
 }
+.concert-tag tr{
+    height: 20px;
+}
+
 
 .concert-tag tr img {
     width: 100px;

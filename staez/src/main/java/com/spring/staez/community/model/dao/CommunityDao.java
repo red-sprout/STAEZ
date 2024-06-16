@@ -12,11 +12,13 @@ import org.springframework.stereotype.Repository;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.community.model.dto.AjaxBoardDto;
+import com.spring.staez.community.model.dto.AjaxReplyDto;
 import com.spring.staez.community.model.dto.CategoryDto;
 import com.spring.staez.community.model.dto.CommunityDto;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.community.model.vo.BoardLike;
 import com.spring.staez.community.model.vo.Reply;
+import com.spring.staez.community.model.vo.ReplyLike;
 import com.spring.staez.community.model.vo.Tag;
 import com.spring.staez.concert.model.vo.Concert;
 
@@ -164,6 +166,30 @@ public class CommunityDao {
 
 	public int deleteReply(SqlSessionTemplate sqlSession, int replyNo) {
 		return sqlSession.update("communityMapper.deleteReply", replyNo);
+	}
+
+	public int selectUserReplyLike(SqlSessionTemplate sqlSession, AjaxReplyDto dto) {
+		return sqlSession.selectOne("communityMapper.selectUserReplyLike", dto);
+	}
+
+	public int selectUserReplyLikeAll(SqlSessionTemplate sqlSession, AjaxReplyDto dto) {
+		return sqlSession.selectOne("communityMapper.selectUserReplyLikeAll", dto);
+	}
+
+	public int selectReplyLikeCnt(SqlSessionTemplate sqlSession, AjaxReplyDto dto) {
+		return sqlSession.selectOne("communityMapper.selectReplyLikeCnt", dto);
+	}
+
+	public int selectReplyLike(SqlSessionTemplate sqlSession, int replyNo) {
+		return sqlSession.selectOne("communityMapper.selectReplyLike", replyNo);
+	}
+
+	public int updateReplyLike(SqlSessionTemplate sqlSession, ReplyLike replyLike) {
+		return sqlSession.update("communityMapper.updateReplyLike", replyLike);
+	}
+
+	public int insertReplyLike(SqlSessionTemplate sqlSession, ReplyLike replyLike) {
+		return sqlSession.insert("communityMapper.insertReplyLike", replyLike);
 	}
 	
 }

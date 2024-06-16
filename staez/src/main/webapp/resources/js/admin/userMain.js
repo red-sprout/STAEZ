@@ -111,6 +111,33 @@ function drawPagination(result) {
     
     adminPagination.appendChild(paginationDiv);
     adminContents.appendChild(adminPagination);
+
+    paginationBefore.addEventListener("click", () => {
+        if (result.currentPage > result.startPage) {
+            adminSelectUser({
+                select: getSelect(),
+                keyword: getKeyword(),
+                currentPage: result.currentPage - 1,
+            }, (result) => {
+                deleteNodes();
+                drawUserList(result.userList);
+                drawPagination(result.pagination);
+            });
+        }
+    });
+    paginationAfter.addEventListener("click", () => {
+        if (result.currentPage < result.endPage) {
+            adminSelectUser({
+                select: getSelect(),
+                keyword: getKeyword(),
+                currentPage: result.currentPage + 1,
+            }, (result) => {
+                deleteNodes();
+                drawUserList(result.userList);
+                drawPagination(result.pagination);
+            });
+        }
+    });
 }
 
 // 페이지 클릭시 이벤트

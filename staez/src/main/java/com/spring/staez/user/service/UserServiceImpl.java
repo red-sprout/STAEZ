@@ -77,8 +77,6 @@ public class UserServiceImpl implements UserService{
 	//새로운 비밀번호 저장
 	@Override
 	public int updatePassword(String user_id, String phone, String email, String user_name, String encPwd) {
-	    // 디버깅: 입력값 출력
-	    System.out.println("Updating UserServiceImpl password for user_id: " + user_id + ", phone: " + phone + ", email: " + email + ", encPwd: " + encPwd);
 	    return userDao.updatePassword(sqlSession, user_id, phone, email, user_name, encPwd);
 	}
 

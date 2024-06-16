@@ -17,6 +17,9 @@ public class ConcertDto {
 	
     @SerializedName("prfnm")
     private String concertTitle; //공연명
+    
+    @SerializedName("mt20id") // 공연 ID를 플롯에 넣어서
+    private String concertPlot; // 공연 ID
 
     @SerializedName("prfpdfrom")
     private String startDate; //시작날짜

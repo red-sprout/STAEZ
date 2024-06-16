@@ -8,16 +8,17 @@ import com.spring.staez.concert.service.ConcertRestTemplate;
 
 
 @Component
-public class ScheduledTest {
+public class ScheduledTest  {
 	
 	@Autowired
 	private ConcertRestTemplate conRestRun;
 	
-	@Scheduled(cron = "0 50 21 * * *")
+	@Scheduled(cron = "0 21 15 * * *") 
     public void ConcertRestTemplate() {
 		
 		System.out.println("Scheduled task is running");
 		conRestRun.conapiInsert();
+		System.out.println("conapiInsert task is running");
 		
     }
 }

@@ -19,7 +19,7 @@ img {
 
 /* 테이블안에있는 th */
 th{
-    min-width: 70px;
+    min-width: 80px;
     text-align: left;
 }
 /* 테이블안에 th 안에  findId-label 라는 클래스*/
@@ -111,19 +111,6 @@ input[type="text"] {
     outline: none;
 }
 
-/* 휴대전화 */
-input[type="number"] {
-    border: 1px solid black;
-    padding: 5px;
-    box-sizing: border-box;
-    width: 100%;
-    height: 40px;
-    margin: 0;
-    background-color: transparent;
-    border-radius: 10px;
-    outline: none;
-}
-
 /* 테이블 안에 라벨 */
 #findId-label {
     display: flex;
@@ -210,14 +197,6 @@ background-color: rgb(219, 219, 219); /* 클릭한 경우의 배경색 */
     color: white;
 }
 
-/* 입력값 합친거 안보여주는거 */
-#input-value-address,
-#input-value-phone,
-#input-value-email,
-#input-value-genreLike {
-    display: none;
-}
-
 /* 시간초 */
 #timer{
     display: inline-block;
@@ -240,4 +219,36 @@ background-color: rgb(219, 219, 219); /* 클릭한 경우의 배경색 */
     top: 5px;
     bottom: 5px;
     right: 5px;
+}
+
+/* 핸드폰 인증 시간초 감싸는 div */
+#phoneTimeContainer {
+    width: 300px;
+    height: 35px;
+    position: relative;
+    display: flex;
+}
+
+/* 위에꺼랑 합치는거 */
+#phoneTimeContainer input {
+    width: 100%;
+}
+
+/* 시간초만 */
+#phoneTimeContainer div {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    right: 5px;
+}
+
+/* 입력값 합친거 안보여주는거 */
+#input-value-address,
+#input-value-phone,
+#input-value-email,
+#input-value-genreLike,
+#checkResultPhoneTr,
+#verificationPhoneTr
+{
+    display: none;
 }

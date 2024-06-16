@@ -12,7 +12,7 @@
     <header>
         <jsp:include page="/WEB-INF/views/common/header.jsp" />
         <script src="<c:url value='/resources/js/api/communityapi.js'/>"></script>
-        <script src="<c:url value='/resources/js/community/communityIncertForm.js'/>"></script>
+        <script src="<c:url value='/resources/js/community/communityInsertForm.js'/>"></script>
     </header>
     <main>
         <div id="community-wrapper">

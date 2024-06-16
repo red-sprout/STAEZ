@@ -9,8 +9,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -113,7 +115,13 @@ public class AdminController {
 	}
 	
 	@GetMapping("theaterUpdateForm.ad")
-	public String theaterUpdateForm() {
+	public String theaterUpdateForm(@RequestParam(value = "theaterNo") String number, Model model) {
+		int theaterNo = Integer.parseInt(number);
+		Theater theater = adminService.selectTheater(theaterNo);
+		ArrayList<ImpossibleSeat> seatList = adminService.selectImpossibleSeat(theaterNo);
+		
+		model.addAttribute("theater", theater);
+		model.addAttribute("seatList", seatList);
 		return "admin/theaterUpdateForm";
 	}
 	
@@ -171,9 +179,20 @@ public class AdminController {
 	public String theaterInsert(Theater t, HttpSession session) {
 		int result = adminService.insertTheater(t);
 		if(result == 0) {
-			session.setAttribute("alertMsg", "공연장 등록 에 실패하였습니다.");
+			session.setAttribute("alertMsg", "공연장 등록에 실패하였습니다.");
 		} else {
 			session.setAttribute("alertMsg", "등록 완료하였습니다.");
+		}
+		return "redirect:/theaterList.ad";
+	}
+	
+	@PostMapping("theaterUpdate.ad")
+	public String theaterUpdate(Theater t, HttpSession session) {
+		int result = adminService.updateTheater(t);
+		if(result == 0) {
+			session.setAttribute("alertMsg", "공연장 수정에 실패하였습니다.");
+		} else {
+			session.setAttribute("alertMsg", "수정 완료하였습니다.");
 		}
 		return "redirect:/theaterList.ad";
 	}

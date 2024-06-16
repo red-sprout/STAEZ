@@ -84,7 +84,7 @@
                             <img src="<c:url value='/resources/uploadfiles/profile/basic_profile.jpg'/>" alt="">
                         </div>
                         <textarea name="replyInput" id="reply-input"></textarea>
-                        <button onclick="insertReplyEvent(0)">댓글 쓰기</button>
+                        <button onclick="insertReplyEv(0)">댓글 쓰기</button>
                     </div>
                 </li>
             </ul>

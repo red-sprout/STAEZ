@@ -1,33 +1,13 @@
 $(function() { 
 
-    detailapi({"concertId" : concertId}, (list) => onloadDetailapi(list));
-    
+    const concertId = document.querySelector("input[name='concertId']").value;
+    const userNo = document.querySelector("input[name='userNo']").value;
+    const concertNo = document.querySelector("input[name='concertNo']").value;
+    console.log(concertId);
 
-
-    conNaviDraw(conList => drawConNavi(conList));
-    likeCount({ "userNo" : userNo, "concertNo" : concertNo}, (result) => drawLikeCount(result));
-    detailapi({"concertNo" : concertNo}, (result) => drawConDetail(result));
+    likeCountApi({ "userNo" : userNo, "concertId" : concertId}, (result) => drawLikeCount(result));
+    conDetailapi({"concertNo" : concertNo}, (result) => drawConDetail(result));
 });
-
-
-// ajax로 콘서트 navi 그려
-function drawConNavi(conList){
-
-    const concertNaviArea = document.querySelector(".concert-ul");
-    concertNaviArea.innerHTML = ``;
-  
-    for(let c of conList){
-      let naviLi = document.createElement('li');
-      naviLi.innerHTML = ``;
-      naviLi.innerHTML = `<h2 id="`+ c.categoryNo +`">`+ c.categoryName +`</h2>
-                          <input type="hidden" name="concertNo" value=`+ c. categoryNo +`>`;
-  
-      naviLi.setAttribute("onclick", `location.href ='main.co?categoryNo=`+ c.categoryNo +`'`)
-  
-      concertNaviArea.appendChild(naviLi);
-    }
-
-  }concertAPIMain
 
 
   // 예매버튼 클릭
@@ -41,7 +21,7 @@ function reservePage(){
 // 세부 내용 ajax로 값받아오기
 function goSellDetail(){
     const concertNo =  $("input[name='concertNo']").val();
-    conSellDetail({"concertNo" : concertNo}, (result) => drawConSellDetail(result))
+    conSellDetailapi({"concertNo" : concertNo}, (result) => drawConSellDetail(result))
 }
 
 function goCommentDetail(_this, cpage){
@@ -93,24 +73,26 @@ function drawLikeCount(result){
         const span = document.querySelector(".concert-likeCount");
 
         const data = {
-            "concertNo": document.querySelector("input[name=concertNo]").value,
+            "concertId": document.querySelector("input[name=concertId]").value,
             "userNo": document.querySelector("input[name=userNo]").value
         };    
 
         if(_this.children[0].classList.contains('fa-solid')) { // fa-regular이 하트 빈상태
             // ajax 요청 보내기
             data.status = "Y";
-            likeUpdate(data, (result) => span.innerHTML = result);
+            likeUpdateApi(data, (result) => span.innerHTML = result);
         } else {
             // ajax 요청 보내기
             data.status = "N";
-            likeUpdate(data, (result) => span.innerHTML = result);
+            likeUpdateApi(data, (result) => span.innerHTML = result);
         }
     }
 
 
 
 function drawConDetail(result){
+
+    const concertId = document.querySelector("input[name='concertId']").value;
     const drawSection = document.querySelector(".concert-detail-down-section");
     const conDetail1 = document.querySelector(".conDetail1");
     drawSection.innerHTML = ``;
@@ -120,7 +102,7 @@ function drawConDetail(result){
                                     <br>
                                     <span><h2>작품소개</h2></span>
                                     <div>`
-                                        +c.concertPlot +
+                                        + c.concertTitle + "${conapi.concertProduction}" +
                                     `</div>
                                   </div>
                                   <br><br>
@@ -130,11 +112,10 @@ function drawConDetail(result){
                                   `</div>
                                 </div>
                               <br><br>`
-
-conDetail1.onclick = function goConDetail(){
-    location.href = 'detail.co?concertNo=' + c.concertNo;
-    }
   }
+  conDetail1.onclick = function goConDetail(){
+    location.href = 'condeapi.co?concertId=' + concertId;
+    }
 }
   
 
