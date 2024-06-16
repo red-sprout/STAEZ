@@ -476,9 +476,9 @@ function drawLocationAll(list, gridContent){
     slidesToShow: 5,
     slidesToScroll: 1,
     arrows: true,
-    autoplay: true,
+    // autoplay: true,
     autoplaySpeed: 1250,
-    // variableWidth: true,
+    variableWidth: true,
     prevArrow: $(".concert-main-upper-before"),
     nextArrow: $(".concert-main-upper-next"),
     responsive: [ // 반응형 웹 구현 옵션
@@ -486,21 +486,23 @@ function drawLocationAll(list, gridContent){
       breakpoint: 1000, //화면 사이즈 960px
       settings: {
         //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
-        slidesToShow:3
+        slidesToShow:3,
+        arrows: false
       } 
     },
     { 
       breakpoint: 750, //화면 사이즈 768px
       settings: {	
         //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
-        slidesToShow: 2
-
+        slidesToShow: 2,
+        arrows: false
       }
      } ,
       {
         breakpoint: 485,
         settings: {
-          slidesToShow: 1
+          slidesToShow: 1,
+          arrows: false
         }
     }
   ]
