@@ -125,8 +125,6 @@
 		<jsp:include page="../common/footer.jsp" />
 	</footer>
         <!-- 적용 자바스크립트 -->
-
-
     <script src="<c:url value='/resources/js/api/concertapi.js'/>"></script>
     <script src="<c:url value='/resources/js/concert/concertMain.js'/>"></script>
 
