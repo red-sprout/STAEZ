@@ -400,6 +400,23 @@
 		AND board_status = 'Y'
 	</select>
 	
+	<update id="deleteInquire">
+		UPDATE board
+		SET board_status = 'N'		
+		WHERE board_code=3
+		AND board_level=1
+		AND board_no = #{boardNo}
+		AND board_status = 'Y'
+	</update>
+	
+	<update id="deleteAnswer">
+		UPDATE board
+		SET board_status = 'N'		
+		WHERE board_code=3
+		AND board_level=2
+		AND ref_board_no = #{boardNo}
+		AND board_status = 'Y'
+	</update>
 	
 	<update id="deleteMyScrapAjax">
 		UPDATE concert_like

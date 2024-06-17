@@ -156,6 +156,23 @@ public class MypageServiceImpl implements MypageService{
 	public Board selectMyInquireDetail(int boardNo) {
 		return mpd.selectMyInquireDetail(sqlSession, boardNo);
 	}
+	
+	@Override
+	public Board loadAnswerAjax(int boardNo) {
+		return mpd.loadAnswerAjax(sqlSession, boardNo);
+	}
+
+	@Override
+	@Transactional
+	public int deleteInquireAjax(int boardNo) {
+		int result = mpd.deleteInquire(sqlSession, boardNo);
+		
+		if(mpd.loadAnswerAjax(sqlSession, boardNo) != null) {
+			result *= mpd.deleteAnswer(sqlSession, boardNo);			
+		}
+		
+		return result;
+	}
 
 	@Override
 	public int deleteMyScrapAjax(Map<String, Integer> params) {
@@ -175,11 +192,6 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public int updateOneLineReview(ConcertReview concertReview) {
 		return mpd.updateOneLineReview(sqlSession, concertReview);
-	}
-
-	@Override
-	public Board loadAnswerAjax(int boardNo) {
-		return mpd.loadAnswerAjax(sqlSession, boardNo);
 	}
 
 	@Override

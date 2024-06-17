@@ -146,22 +146,26 @@ public class MypageDao {
 		int count = sqlSession.selectOne("mypageMapper.selectMyInquireCount", userNo);
 		return count;	
 	}
-
 	public ArrayList<Board> selectMyInquireList(SqlSessionTemplate sqlSession, int userNo, PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		ArrayList<Board> list = (ArrayList)sqlSession.selectList("mypageMapper.selectMyInquireList", userNo, rowBounds);
 		return list;
 	}
-	
 	public Board selectMyInquireDetail(SqlSessionTemplate sqlSession, int boardNo) {
 		Board inquire = (Board)sqlSession.selectOne("mypageMapper.selectMyInquireDetail", boardNo);
 		return inquire;
 	}
-	
 	public Board loadAnswerAjax(SqlSessionTemplate sqlSession, int boardNo) {
 		return (Board)sqlSession.selectOne("mypageMapper.loadAnswerAjax", boardNo);
 	}
+	public int deleteInquire(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.update("mypageMapper.deleteInquire", boardNo);
+	}
+	public int deleteAnswer(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.update("mypageMapper.deleteAnswer", boardNo);
+	}
+	
 	
 	public int deleteMyScrapAjax(SqlSessionTemplate sqlSession, Map<String, Integer> params){
 		return sqlSession.update("mypageMapper.deleteMyScrapAjax", params);

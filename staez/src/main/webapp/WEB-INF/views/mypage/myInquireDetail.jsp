@@ -43,7 +43,7 @@
         <div id="answer-section"></div>
 
         <div id="btn-section">
-            <button class="btn-staez checked">삭제</button>
+            <button class="btn-staez checked" onclick="deleteInquire()">삭제</button>
             <button class="btn-staez" onclick="window.close()">닫기</button>
         </div>
     </main>

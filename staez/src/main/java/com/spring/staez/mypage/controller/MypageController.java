@@ -182,7 +182,7 @@ public class MypageController {
 		
 		return new Gson().toJson(answer);
 	}
-	
+		
 	//문의글 답변있는지 판별 ajax
 	@RequestMapping("answerCheck.me")
 	@ResponseBody
@@ -191,6 +191,20 @@ public class MypageController {
 		Board answer = mypageService.loadAnswerAjax(boardNo);
 			
 		return answer == null ? "NNNNN" : "NNNNY";
+	}
+	
+	//문의글 삭제 ajax
+	@RequestMapping("deleteInquire.me")
+	@ResponseBody
+	public String deleteInquireAjax(int boardNo) {
+		System.out.println("문의글 삭제");
+		int result = mypageService.deleteInquireAjax(boardNo);
+		
+		if(result > 0) {
+			return "NNNNY";
+		} else {
+			return "NNNNN";
+		}
 	}
 	
 	//나의 작성 게시글 리스트 페이지 출력
