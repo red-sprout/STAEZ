@@ -225,6 +225,7 @@
 		SELECT COUNT(reserve_no)
 		FROM reserve
 		WHERE user_no = #{userNo}
+		AND reserve_status='Y'
 	</select>
 	
 	<select id="selectPaymentsList" resultType="com.spring.staez.user.model.dto.PaymentsInfoDto">
@@ -237,6 +238,7 @@
 					
 				r.reserve_no AS reserveNo,
 				r.reserve_date AS reserveDate,
+				r.pay_method AS payMethod,
 				s.grade,
 				s.price,
 		
@@ -256,7 +258,7 @@
 		AND r.reserve_row BETWEEN seat_start_row AND seat_end_row 
 		AND r.reserve_col BETWEEN seat_start_col AND seat_end_col
 		AND r.concert_date = s.concert_date
-		AND r.reserve_status IN ('Y', 'U')
+		AND r.reserve_status='Y'
 		
 		ORDER BY r.reserve_no DESC
 	</select>
@@ -299,9 +301,8 @@
 			  GROUP BY concert_no) cs_min_max 
 		ON cl.concert_no = cs_min_max.concert_no
 		
-		WHERE cl.user_no = #{userNo}		
+		WHERE cl.user_no = #{userNo}	
 		AND cl.status = 'Y'
-		AND ca.file_level = 1
 		
 		ORDER BY cl.concert_like_no DESC
 	</select>
@@ -315,7 +316,6 @@
 	
 	<select id="selectReviewList" resultType="Concert">
 		SELECT r.concert_date AS concertDate, 
-					   r.schedule,
 					   r.user_no AS userNo,
 					   cr.score AS score,
 					   cr.review_content AS reviewContent,
@@ -326,26 +326,26 @@
 					   ca.change_name AS changeName,
 					   ca.file_path AS filePath
 					
-				FROM (SELECT MAX(concert_date) AS concert_date, schedule, concert_no, user_no
-					  FROM reserve
-					  WHERE user_no = #{userNo}
-					  AND reserve_status = 'Y'
-					  GROUP BY schedule, concert_no, user_no) r
-				
-				JOIN concert c 
-				ON r.concert_no = c.concert_no
-				
-				JOIN theater t 
-				ON c.theater_no = t.theater_no
-				
-				JOIN concert_attachment ca
-				ON c.concert_no = ca.concert_no
-				
-				LEFT JOIN concert_review cr
-				ON r.concert_no = cr.concert_no
-				AND r.user_no = cr.user_no
+		FROM (SELECT MAX(concert_date) AS concert_date, concert_no, user_no
+			  FROM reserve
+			  WHERE user_no = #{userNo}
+			  AND reserve_status = 'Y'
+			  GROUP BY concert_no, user_no) r
 		
-				ORDER BY r.concert_date DESC, r.schedule DESC
+		JOIN concert c 
+		ON r.concert_no = c.concert_no
+		
+		JOIN theater t 
+		ON c.theater_no = t.theater_no
+		
+		JOIN concert_attachment ca
+		ON c.concert_no = ca.concert_no
+		
+		LEFT JOIN concert_review cr
+		ON r.concert_no = cr.concert_no
+		AND r.user_no = cr.user_no
+
+		ORDER BY r.concert_date DESC
 	</select>
 	
 	<select id="selectMyInquireCount" resultType="_int">
@@ -477,12 +477,12 @@
 			   concert_date AS concertDate,
 			   schedule,
 			   tickets
-		FROM (SELECT concert_no, reserve_date, concert_title, concert_date, schedule, COUNT(*) AS tickets
+		FROM (SELECT concert_no, reserve_date, concert_title, concert_date, schedule, pay_method, COUNT(*) AS tickets
 			  FROM reserve
 			  JOIN concert USING (concert_no)
 			  WHERE user_no = #{userNo}
 		      AND reserve_status = 'Y'
-			  GROUP BY concert_no, reserve_date, concert_title, concert_date, schedule
+			  GROUP BY concert_no, reserve_date, concert_title, concert_date, schedule, pay_method
 			  ORDER BY reserve_date DESC)
 		LIMIT 5
 	</select>

@@ -87,6 +87,10 @@
     margin: 10px 0;
 }
 
+.main-content>table .reserve-info{
+    padding: 0 30px;
+    text-align: left;
+}
 
 /* 예매정보 hover
 .main-content>table .reserve-info:hover{

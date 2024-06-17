@@ -19,6 +19,7 @@ public class PaymentsInfoDto {
 	private Timestamp reserveDate;
 	private String grade;
 	private int price;
+	private String payMethod;
 	
 	private int reserveRow;
 	private int reserveCol;
