@@ -7,13 +7,18 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.staez.admin.model.dao.AdminDao;
 import com.spring.staez.admin.model.dto.AdminBoardDto;
 import com.spring.staez.admin.model.dto.AdminBoardSelectDto;
+import com.spring.staez.admin.model.dto.AdminConcertSelectDto;
+import com.spring.staez.admin.model.dto.AdminEmailDto;
 import com.spring.staez.admin.model.dto.AdminSearchDto;
+import com.spring.staez.admin.model.dto.AdminTheaterSelectDto;
 import com.spring.staez.admin.model.dto.AdminUpdateDto;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.admin.model.vo.ConcertSchedule;
@@ -23,6 +28,7 @@ import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.common.template.ImpossibleSeatList;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
+import com.spring.staez.concert.model.vo.ConcertAttachment;
 import com.spring.staez.concert.model.vo.Theater;
 import com.spring.staez.user.model.vo.Reserve;
 import com.spring.staez.user.model.vo.User;
@@ -88,32 +94,32 @@ public class AdminServiceImpl implements AdminService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public ArrayList<Concert> selectConcertContentList(PageInfo pi) {
-		return adminDao.selectConcertContentList(sqlSession, pi);
+	public ArrayList<Concert> selectConcertContentList(PageInfo pi, String keyword) {
+		return adminDao.selectConcertContentList(sqlSession, pi, keyword);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public ArrayList<Concert> selectConcertImgList(PageInfo pi) {
-		return adminDao.selectConcertImgList(sqlSession, pi);
+	public ArrayList<Concert> selectConcertImgList(PageInfo pi, String keyword) {
+		return adminDao.selectConcertImgList(sqlSession, pi, keyword);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public int selectConcertContentListCount() {
-		return adminDao.selectConcertContentListCount(sqlSession);
+	public int selectConcertContentListCount(String keyword) {
+		return adminDao.selectConcertContentListCount(sqlSession, keyword);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public int selectTheaterListCount() {
-		return adminDao.selectTheaterListCount(sqlSession);
+	public int selectTheaterListCount(String keyword) {
+		return adminDao.selectTheaterListCount(sqlSession, keyword);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public ArrayList<Theater> selectTheaterList(PageInfo pi) {
-		return adminDao.selectTheaterList(sqlSession, pi);
+	public ArrayList<Theater> selectTheaterList(PageInfo pi, String keyword) {
+		return adminDao.selectTheaterList(sqlSession, pi, keyword);
 	}
 
 	@Transactional(readOnly = true)
@@ -274,8 +280,95 @@ public class AdminServiceImpl implements AdminService {
 	public int updateTheater(Theater t) {
 		int result1 = adminDao.updateTheater(sqlSession, t);
 		int result2 = adminDao.deleteImpossibleSeat(sqlSession, t.getTheaterNo());
-		int result3 = adminDao.insertImpossibleSeat(sqlSession);
+		int result3 = adminDao.updateImpossibleSeat(sqlSession, t.getTheaterNo());
 		ImpossibleSeatList.clear();
-		return result1 * result2 * result3;
+		return result1 + result2 + result3;
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int deleteTheater(AdminTheaterSelectDto dto) {
+		int result = 1;
+		for(int theaterNo : dto.getTheaterList()) {
+			result *= adminDao.deleteTheater(sqlSession, theaterNo);
+		}
+		return result;
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int deleteConcert(AdminConcertSelectDto dto) {
+		int result = 1;
+		for(int concertNo : dto.getConcertList()) {
+			result *= adminDao.deleteConcert(sqlSession, concertNo);
+		}
+		return result;
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public Concert selectConcert(int concertNo) {
+		return adminDao.selectConcert(sqlSession, concertNo);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public Theater selectConcertTheater(int concertNo) {
+		return adminDao.selectConcertTheater(sqlSession, concertNo);
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public ArrayList<ConcertSchedule> selectConcertSchedule(int concertNo) {
+		ArrayList<ConcertSchedule> list = adminDao.selectConcertSchedule(sqlSession, concertNo);
+		return list;
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public ArrayList<Seat> selectSeat(int concertNo) {
+		ArrayList<Seat> list = adminDao.selectSeat(sqlSession, concertNo);
+		return list;
+	}
+	
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int concertUpdate(List<ConcertSchedule> scheduleList, List<Seat> seatList, Concert c) {
+		int concertResult = adminDao.updateConcert(sqlSession, c);
+		int deleteCategoryResult = adminDao.deleteConcertCategory(sqlSession, c);
+		int updateCategoryResult = adminDao.updateConcertCategory(sqlSession, c);
+		int deleteScheduleResult = adminDao.deleteScheduleList(sqlSession, c.getConcertNo());
+		int updateScheduleResult = adminDao.updateScheduleList(sqlSession, scheduleList, c.getConcertNo());
+		int deleteSeatResult = adminDao.deleteSeatList(sqlSession, c.getConcertNo());
+		int updateSeatResult = adminDao.updateSeatList(sqlSession, seatList, c.getConcertNo());
+		return concertResult * deleteCategoryResult * updateCategoryResult * deleteScheduleResult
+				* updateScheduleResult * deleteSeatResult * updateSeatResult;
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int concertAttachmentUpdate(ConcertAttachment attachment) {
+		int result1 = adminDao.concertAttachmentUpdateStatus(sqlSession, attachment);
+		int result2 = adminDao.concertAttachmentInsert(sqlSession, attachment);
+		return result1 * result2;
+	}
+
+	@Override
+	public String emailSend(JavaMailSender sender, AdminEmailDto dto) {
+		String msg = null;
+		try {
+			SimpleMailMessage message = new SimpleMailMessage();
+			message.setSubject(dto.getTitle());
+			message.setText(dto.getContent());
+			for(String email : dto.getEmailList()) {				
+				String[] to = {email};
+				message.setTo(to);
+				sender.send(message);
+			}
+			msg = "성공적으로 전송 완료하였습니다.";
+		} catch(Exception e) {
+			msg = "이메일 전송 실패";
+		}
+		return msg;
 	}
 }

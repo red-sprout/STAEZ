@@ -274,6 +274,8 @@
 		WHERE concert_no = #{concertNo}
 		  AND board_status = 'Y';
 	</select>
+	
+
 		
 	
 	
@@ -561,6 +563,12 @@
          WHERE user_no = #{userNo}
            AND concert_no = #{concertNo}
     </update>
+    
+    <select id="selectConDetailApi" resultMap="concertResult" >
+		SELECT *
+		FROM concert
+		WHERE concert_no = #{concertNo}
+	</select>
     
     
     

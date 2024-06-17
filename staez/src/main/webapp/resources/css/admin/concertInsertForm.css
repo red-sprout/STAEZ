@@ -150,3 +150,27 @@
 #theater>ul>li:hover {
     background-color: #d9d9d9;
 }
+
+.modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-body th {
+    display: inline-block;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+}
+
+.seat-yes {
+    cursor: pointer;
+    background-color: #d9d9d9;
+}
+
+.seat-no {
+    cursor: pointer;
+    background-color: #969696;
+}
