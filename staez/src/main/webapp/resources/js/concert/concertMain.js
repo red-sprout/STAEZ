@@ -6,7 +6,10 @@ $(function() { // list는 컨트롤러에서 받아온 것
   conNaviDraw(conList => drawConNavi(conList));
 
   const categoryNo = document.querySelector("input[name='categoryNo']").value;
-  ajaxCategoryList({"categoryNo" : categoryNo}, (list)=>drawSliderMain(list, sliderContent));
+  ajaxCategoryList({"categoryNo": categoryNo}, (list) => {
+    drawSliderMain(list, sliderContent);
+    slick();
+    });
   ajaxCategoryList({"categoryNo" : categoryNo}, (list)=>drawGridMain(list, gridContent));
 
 });
@@ -469,46 +472,44 @@ function drawLocationAll(list, gridContent){
 
   
   // 슬릭 슬라이더 api 설정
-  $(window).on('load', function() {
-  $.noConflict();
-  $(".concert-main-upper").slick({
-    infinite: true,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    arrows: true,
-    // autoplay: true,
-    autoplaySpeed: 1250,
-    variableWidth: true,
-    prevArrow: $(".concert-main-upper-before"),
-    nextArrow: $(".concert-main-upper-next"),
-    responsive: [ // 반응형 웹 구현 옵션
-    {  
-      breakpoint: 1000, //화면 사이즈 960px
-      settings: {
-        //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
-        slidesToShow:3,
-        arrows: false
-      } 
-    },
-    { 
-      breakpoint: 750, //화면 사이즈 768px
-      settings: {	
-        //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
-        slidesToShow: 2,
-        arrows: false
-      }
-     } ,
-      {
-        breakpoint: 485,
+  function slick() {
+    $.noConflict();
+    $(".concert-main-upper").slick({
+      // infinite: true,
+      slidesToShow: 5,
+      slidesToScroll: 1,
+      arrows: true,
+      // autoplay: true,
+      autoplaySpeed: 1250,
+      variableWidth: true,
+      prevArrow: $(".concert-main-upper-before"),
+      nextArrow: $(".concert-main-upper-next"),
+      responsive: [ // 반응형 웹 구현 옵션
+      {  
+        breakpoint: 1024, //화면 사이즈 960px
         settings: {
-          slidesToShow: 1,
-          arrows: false
+          //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+          slidesToShow:3
+        } 
+      },
+      { 
+        breakpoint: 750, //화면 사이즈 768px
+        settings: {	
+          //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+          slidesToShow: 2
         }
-    }
-  ]
-  })
-});
-
+       } ,
+        {
+          breakpoint: 485,
+          settings: {
+            slidesToShow: 1
+          }
+      }
+    ]
+    })
+  };
+  
+  
 
 
 

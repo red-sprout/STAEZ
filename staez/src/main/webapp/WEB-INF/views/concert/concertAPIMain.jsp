@@ -12,7 +12,7 @@
     <title>concert</title>
    
     <!-- 적용 css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertMain.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertAPIMain.css">
 </head>
 <body>
     <div>

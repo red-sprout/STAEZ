@@ -5,7 +5,10 @@ $(function() { // list는 컨트롤러에서 받아온 것
   
   // ajaxCategoryListAPI(list => drawConNavi(list));
 
-  ajaxCategoryListAPI((list)=>drawSliderMain(list, sliderContent));
+  ajaxCategoryListAPI((list)=>{
+    drawSliderMain(list, sliderContent)
+    slick()
+  });
   ajaxCategoryListAPI((list)=>drawGridMain(list, gridContent));
 
 });
@@ -467,21 +470,21 @@ function drawLocationAll(list, gridContent){
 
   
   // 슬릭 슬라이더 api 설정
-  $(window).on('load', function() {
+  function slick() {
   $.noConflict();
   $(".concert-main-upper").slick({
-    infinite: true,
+    // infinite: true,
     slidesToShow: 5,
     slidesToScroll: 1,
     arrows: true,
-    autoplay: true,
+    // autoplay: true,
     autoplaySpeed: 1250,
-    // variableWidth: true,
+    variableWidth: true,
     prevArrow: $(".concert-main-upper-before"),
     nextArrow: $(".concert-main-upper-next"),
     responsive: [ // 반응형 웹 구현 옵션
     {  
-      breakpoint: 1000, //화면 사이즈 960px
+      breakpoint: 1024, //화면 사이즈 960px
       settings: {
         //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
         slidesToShow:3
@@ -492,7 +495,6 @@ function drawLocationAll(list, gridContent){
       settings: {	
         //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
         slidesToShow: 2
-
       }
      } ,
       {
@@ -503,7 +505,7 @@ function drawLocationAll(list, gridContent){
     }
   ]
   })
-});
+};
 
 
 

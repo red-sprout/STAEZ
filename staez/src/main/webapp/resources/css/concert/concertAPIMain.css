@@ -39,8 +39,8 @@
     /* 세부페이지 윗부분 노란색 */
     .concert-main-upper-section{
         background-color: #F8D082;
-        display: flex;
         justify-content: space-between;
+        display: flex;
         align-items: center;
         width: 100%;
         height: 420px;
