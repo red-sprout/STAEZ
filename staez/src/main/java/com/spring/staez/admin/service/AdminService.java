@@ -36,15 +36,15 @@ public interface AdminService {
 
 	int concertInsert(List<ConcertSchedule> scheduleList, List<Seat> seatList, Concert c);
 	
-	ArrayList<Concert> selectConcertContentList(PageInfo pi);
+	ArrayList<Concert> selectConcertContentList(PageInfo pi, String keyword);
 	 
-	ArrayList<Concert> selectConcertImgList(PageInfo pi);
+	ArrayList<Concert> selectConcertImgList(PageInfo pi, String keyword);
 	
-	int selectConcertContentListCount();
+	int selectConcertContentListCount(String keyword);
 	
-	int selectTheaterListCount();
+	int selectTheaterListCount(String keyword);
 	
-	ArrayList<Theater> selectTheaterList(PageInfo pi);
+	ArrayList<Theater> selectTheaterList(PageInfo pi, String keyword);
 
 	int selectBoardCnt(AdminSearchDto dto);
 

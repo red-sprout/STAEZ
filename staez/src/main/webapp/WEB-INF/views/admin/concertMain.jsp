@@ -22,12 +22,6 @@
         <ul id="admin-main-wrapper">
             <li id="admin-header">
                 <h1>공연 검색</h1>
-                <select>
-                    <option>장르</option>
-                    <option>공연명</option>
-                    <option>포스터</option>
-                    <option>장소</option>
-                </select>
                 <div id="admin-search">
                     <button>
 						<img src="<c:url value='/resources/img/community/communityMain/search-icon.png'/>" alt="">

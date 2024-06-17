@@ -333,15 +333,15 @@ public class AdminController {
 	//공연 리스트 불러오기
 	@ResponseBody
 	@GetMapping(value = "ajaxConcertContentList.ad", produces = "application/json; charset=UTF-8")
-	public String ajaxConcertContentList(String cPage) {
+	public String ajaxConcertContentList(String cPage, String keyword) {
 		
-		int listSize = adminService.selectConcertContentListCount();
+		int listSize = adminService.selectConcertContentListCount(keyword);
 		int currentPage = Integer.parseInt(cPage);
 		int listCount = listSize;
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		
-		ArrayList<Concert> clist = adminService.selectConcertContentList(pi);
+		ArrayList<Concert> clist = adminService.selectConcertContentList(pi, keyword);
 		
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put("clist", clist);
@@ -352,15 +352,15 @@ public class AdminController {
 	
 	@ResponseBody
 	@GetMapping(value = "ajaxConcertImgList.ad", produces = "application/json; charset=UTF-8")
-	public String ajaxConcertImgList(String cPage) {
+	public String ajaxConcertImgList(String cPage, String keyword) {
 		
-		int listSize = adminService.selectConcertContentListCount();
+		int listSize = adminService.selectConcertContentListCount(keyword);
 		int currentPage = Integer.parseInt(cPage);
 		int listCount = listSize;
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		
-		ArrayList<Concert> ilist = adminService.selectConcertImgList(pi);
+		ArrayList<Concert> ilist = adminService.selectConcertImgList(pi, keyword);
 		
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put("ilist", ilist);
@@ -372,15 +372,15 @@ public class AdminController {
 	//공연장리스트 불러오기
 	@ResponseBody
 	@GetMapping(value = "ajaxTheaterList.ad", produces = "application/json; charset=UTF-8")
-	public String ajaxTheaterList(String cPage) {
+	public String ajaxTheaterList(String cPage, String keyword) {
 		
-		int listSize = adminService.selectTheaterListCount();
+		int listSize = adminService.selectTheaterListCount(keyword);
 		int currentPage = Integer.parseInt(cPage);
 		int listCount = listSize;
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 		
-		ArrayList<Theater> tlist = adminService.selectTheaterList(pi);
+		ArrayList<Theater> tlist = adminService.selectTheaterList(pi, keyword);
 		
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		resMap.put("tlist", tlist);

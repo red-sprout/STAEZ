@@ -91,32 +91,32 @@ public class AdminServiceImpl implements AdminService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public ArrayList<Concert> selectConcertContentList(PageInfo pi) {
-		return adminDao.selectConcertContentList(sqlSession, pi);
+	public ArrayList<Concert> selectConcertContentList(PageInfo pi, String keyword) {
+		return adminDao.selectConcertContentList(sqlSession, pi, keyword);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public ArrayList<Concert> selectConcertImgList(PageInfo pi) {
-		return adminDao.selectConcertImgList(sqlSession, pi);
+	public ArrayList<Concert> selectConcertImgList(PageInfo pi, String keyword) {
+		return adminDao.selectConcertImgList(sqlSession, pi, keyword);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public int selectConcertContentListCount() {
-		return adminDao.selectConcertContentListCount(sqlSession);
+	public int selectConcertContentListCount(String keyword) {
+		return adminDao.selectConcertContentListCount(sqlSession, keyword);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public int selectTheaterListCount() {
-		return adminDao.selectTheaterListCount(sqlSession);
+	public int selectTheaterListCount(String keyword) {
+		return adminDao.selectTheaterListCount(sqlSession, keyword);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public ArrayList<Theater> selectTheaterList(PageInfo pi) {
-		return adminDao.selectTheaterList(sqlSession, pi);
+	public ArrayList<Theater> selectTheaterList(PageInfo pi, String keyword) {
+		return adminDao.selectTheaterList(sqlSession, pi, keyword);
 	}
 
 	@Transactional(readOnly = true)

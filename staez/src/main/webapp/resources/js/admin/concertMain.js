@@ -1,11 +1,28 @@
 $(function() {
     const cPage = 1;
-    ajaxConcertContentList({ cPage }, drawConcertContentList);
+    ajaxConcertContentList({ keyword: getKeyword(), cPage }, drawConcertContentList);
 
+    document.querySelector("#admin-search button").addEventListener("click", (ev) => searchEvent(ev));
+    document.querySelector("#admin-search input").addEventListener("keypress", (ev) => searchEventEnter(ev));
     document.getElementById("concert-update").addEventListener("click", updateConcertFormEvent);
     document.getElementById("concert-attachment-update").addEventListener("click", (ev) => updateConcertAttachmentForm(ev));
     document.getElementById("concert-delete").addEventListener("click", deleteConcertEvent);
 });
+
+function getKeyword() {
+    return document.querySelector("#admin-search input").value;
+}
+
+// 검색시 이벤트 - 마우스 클릭
+function searchEvent(ev) {
+    ajaxConcertContentList({ keyword: getKeyword(), cPage: 1 }, drawConcertContentList);
+}
+
+// 검색시 이벤트 - 엔터키
+function searchEventEnter(ev) {
+    if (ev.keyCode != 13) return;
+    ajaxConcertContentList({ keyword: getKeyword(), cPage: 1 }, drawConcertContentList);
+}
 
 function drawConcertContentList(concertList) {
     const cArea = document.querySelector("#admin-contents");
@@ -13,7 +30,7 @@ function drawConcertContentList(concertList) {
     concertList.clist.forEach(c => cArea.appendChild(createConcertRow(c)));
     drawPagination(concertList.pi);
     const cPage = concertList.pi.currentPage;
-    ajaxConcertImgList({ cPage }, drawConcertImgList);
+    ajaxConcertImgList({ keyword: getKeyword(), cPage }, drawConcertImgList);
 }
 
 function createConcertRow(c) {
@@ -105,11 +122,11 @@ function drawConcertImgList(concertImgList) {
 }
 
 function pageArrowConcert(cPage) {
-    ajaxConcertContentList({ cPage }, drawConcertContentList);
+    ajaxConcertContentList({ keyword: getKeyword(), cPage }, drawConcertContentList);
 }
 
 function clickpageConcert(cPage) {
-    ajaxConcertContentList({ cPage }, drawConcertContentList);
+    ajaxConcertContentList({ keyword: getKeyword(), cPage }, drawConcertContentList);
 }
 
 // 체크박스 전체 체크
@@ -175,7 +192,7 @@ function deleteConcertEvent() {
 function updateConcertAttachmentForm(ev) {
     const concertList = getCheckboxChecked();
     if (concertList.length !== 1) {
-        alert("권한 수정시 이용자는 한 명만 선택하기 바랍니다.");
+        alert("수정시 하나만 선택하기 바랍니다.");
         ev.currentTarget.removeAttribute("data-toggle");
         ev.currentTarget.removeAttribute("data-target");
         return;

@@ -655,6 +655,7 @@
 		join concert_schedule cs on (c.concert_no = cs.concert_no)
 		join theater t on  (c.theater_no = t.theater_no)
 		where c.concert_status = 'Y'
+		and concert_title like '%' || #{keyword} || '%'
 		group by c.concert_no, cg.category_name, c.concert_title, t.theater_name
 		order by c.concert_no desc
 	</select>
@@ -664,6 +665,7 @@
 		from concert c
 		join concert_attachment ca on (c.concert_no = ca.concert_no)
 		where c.concert_status = 'Y'
+		and concert_title like '%' || #{keyword} || '%'
 		and ca.status = 'Y'
 		order by c.concert_no desc
 	</select>
@@ -672,12 +674,14 @@
 		select count(concert_no)
 		from concert
 		where concert_status = 'Y'
+		and concert_title like '%' || #{keyword} || '%'
 		and theater_no IS NOT NULL;
 	</select>
 	
 	<select id="selectTheaterListCount" resultType="_int">
 		select count(theater_no)
 		from theater
+		where theater_name like '%' || #{keyword} || '%'
 	</select>
 	
 	<select id="selectMainTheaterList" resultMap="theaterResult">
@@ -688,6 +692,7 @@
 				address,
 				telno
 		from theater
+		where theater_name like '%' || #{keyword} || '%'
 		order by theater_no desc
 	</select>
 	<!-- 관리자의 유저 정보 변경 페이지 -->

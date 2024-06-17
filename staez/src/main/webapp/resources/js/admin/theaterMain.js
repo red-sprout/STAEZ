@@ -1,9 +1,26 @@
 $(function() {
     const cPage = 1;
-    ajaxTheaterList({ cPage }, drawTheaterList);
+    ajaxTheaterList({ keyword: getKeyword(), cPage }, drawTheaterList);
+    document.querySelector("#admin-search button").addEventListener("click", (ev) => searchEvent(ev));
+    document.querySelector("#admin-search input").addEventListener("keypress", (ev) => searchEventEnter(ev));
     document.getElementById("theater-update").addEventListener("click", updateTheaterFormEvent);
     document.getElementById("theater-delete").addEventListener("click", deleteTheaterEvent);
 });
+
+function getKeyword() {
+    return document.querySelector("#admin-search input").value;
+}
+
+// 검색시 이벤트 - 마우스 클릭
+function searchEvent(ev) {
+    ajaxTheaterList({ keyword: getKeyword(), cPage: 1 }, drawTheaterList);
+}
+
+// 검색시 이벤트 - 엔터키
+function searchEventEnter(ev) {
+    if (ev.keyCode != 13) return;
+    ajaxTheaterList({ keyword: getKeyword(), cPage: 1 }, drawTheaterList);
+}
 
 function drawTheaterList(theaterList) {
     const theaterArea = document.querySelector("#admin-contents");
@@ -84,11 +101,11 @@ function createPageNumber(page, currentPage, clickpageFunction) {
 }
 
 function pageArrowTheater(cPage) {
-    ajaxTheaterList({ cPage }, drawTheaterList);
+    ajaxTheaterList({keyword: getKeyword(), cPage }, drawTheaterList);
 }
 
 function clickpageTheater(cPage) {
-    ajaxTheaterList({ cPage }, drawTheaterList);
+    ajaxTheaterList({keyword: getKeyword(), cPage }, drawTheaterList);
 }
 
 function updateTheaterFormEvent() {

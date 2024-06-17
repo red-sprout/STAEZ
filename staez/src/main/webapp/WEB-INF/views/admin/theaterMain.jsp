@@ -21,11 +21,6 @@
         <ul id="admin-main-wrapper">
             <li id="admin-header">
                 <h1>공연장 검색</h1>
-                <select>
-                    <option>공연장명</option>
-                    <option>지역</option>
-                    <option>전화번호</option>
-                </select>
                 <div id="admin-search">
                     <button>
 						<img src="<c:url value='/resources/img/community/communityMain/search-icon.png'/>" alt="">
