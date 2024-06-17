@@ -16,7 +16,7 @@
     </header>
     <main>
         <div id="community-wrapper">
-            <form id="community-contents" align="left" method="post" action="theaterIncert.ad">
+            <form id="community-contents" align="left" method="post" action="theaterInsert.ad">
                 <h1>공연장</h1>
                 <hr>
                 <li>

@@ -1,7 +1,8 @@
 $(function() {
     summernote();
-
-    category({refCategoryNo: 1}, (res) => (setCategory(res, 'concert-category')));
+    const concertCategoryName = document.querySelector("input[name=categoryName]").value;
+    const concertNo = document.querySelector("input[name=concertNo]").value;
+    category({refCategoryNo: 1}, (res) => (setConcertCategory(res, 'concert-category', concertCategoryName)));
 
     $('input').keydown(function (ev) {
         if (ev.keyCode === 13) {
@@ -9,21 +10,53 @@ $(function() {
         };
     });
 
-    $("#community-submit button:nth-child(1)").on("click", (ev) => {
+    $("#update-submit").on("click", (ev) => {
         let formData = new FormData()
-        let inputFile = $("input[name='upfile']");
 
+        formData.append("concertNo", concertNo);
         formData.append("schedule", scheduleForm());
         formData.append("seat", gradeForm());
         formData.append("concert", concertForm());
-        formData.append("upfile", inputFile[0].files[0]);
 
-        consertInsert(formData, res => {
+        consertUpdate(formData, res => {
             location.href = contextPath + res;
         });
     })
 });
 
+
+function setConcertCategory(result, id, concertCategoryName) {
+    const li = document.querySelector(`#${id}`);
+    li.innerHTML = '<h3>장르</h3>'; // 기존 내용을 지우기 위해 초기화합니다.
+
+    for (let ele of result) {
+        // 버튼 요소 생성
+        let btn = document.createElement('button');
+        btn.className = 'btn-staez';
+        btn.type = 'button';
+        btn.onclick = function () { toggleCategory(this, id); };
+        let h4 = document.createElement('h4');
+        h4.textContent = ele.categoryName;
+        btn.appendChild(h4);
+
+        // 라디오 버튼 요소 생성
+        let input = document.createElement('input');
+        input.type = 'radio';
+        input.name = 'categoryNo';
+        input.className = 'hidden';
+        input.value = ele.categoryNo;
+
+        // concertCategoryName과 일치하는지 확인하여 클래스 및 체크 상태 설정
+        if (ele.categoryName === concertCategoryName) {
+            btn.classList.add('checked');
+            input.checked = true;
+        }
+
+        // 요소 추가
+        li.appendChild(btn);
+        li.appendChild(input);
+    }
+}
 
 function addConcertSchedule() {
     const condition = document.getElementById("additional-schedule");
@@ -154,7 +187,7 @@ function drawResultList(result) {
         btn.setAttribute("type", "button");
         img.setAttribute("src", contextPath + "/resources/img/community/communityMain/search-icon.png");
         input.setAttribute("type", "hidden");
-        input.setAttribute("value", ele.theaterNo + "-" + ele.theaterRow + "-" + ele.theaterCol);
+        input.setAttribute("value", ele.theaterNo);
         span.innerHTML = ele.theaterName;
 
         btn.appendChild(img);
@@ -191,6 +224,12 @@ function fileUpload(fileList) {
             $("#summernote").summernote('insertImage', contextPath + name);
         }
     });
+}
+
+function updateFileName(input) {
+    const fileNameField = document.getElementById('fileName');
+    const filePath = input.value.split('\\').pop();
+    fileNameField.value = filePath;
 }
 
 // 제출 전 데이터 처리
@@ -247,7 +286,7 @@ function concertForm() {
     concert.concertTitle = $("input[name='concertTitle']").val();
     concert.concertRuntime = $("input[name='concertRuntime']").val();
     concert.ageLimit = $("input[name='ageLimit']").val();
-    concert.theaterNo = $("input[name='theaterNo']").val().split("-")[0];
+    concert.theaterNo = $("input[name='theaterNo']").val();
     concert.concertMembers = $("input[name='concertMembers']").val();
     concert.concertProduction = $("input[name='concertProduction']").val();
     concert.concertPlot = $(".note-editing-area>.note-editable").html();
@@ -255,29 +294,60 @@ function concertForm() {
     return JSON.stringify(concert);
 }
 
-// // 날짜 차이 계산
-// function getDateDiff(d1, d2) {
-//     const date1 = new Date(d1);
-//     const date2 = new Date(d2);
+function seatSample(_this) {
+    const theaterNo = document.querySelector("#theater input[name=theaterNo]").value;
+    if (!theaterNo) {
+        alert("선택된 공연장이 없습니다.");
+        _this.removeAttribute("data-toggle");
+        _this.removeAttribute("data-target");
+        return;
+    }
 
-//     const diffDate = date1.getTime() - date2.getTime();
+    _this.setAttribute("data-toggle", "modal");
+    _this.setAttribute("data-target", "#theater-modal");
 
-//     return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
-// }
+    selectSeat({ theaterNo }, (res) => setSeat(res));
+}
 
-// // 날짜 더하기(빼기)
-// function dateAdd(date, addDays) {
-//     let datetmp = date.replace(/-/g, '');	// - 는 모두 제거
+function setSeat(result) {
+    const tbody = document.querySelector(".modal-body tbody");
+    const thead = document.querySelector(".modal-body thead");
+    const theater = result.theater;
+    const impossibleSeatList = result.impossibleSeatList;
+    tbody.innerHTML = ``;
+    thead.innerHTML = ``;
 
-//     let y = parseInt(datetmp.substr(0, 4));
-//     let m = parseInt(datetmp.substr(4, 2));
-//     let d = parseInt(datetmp.substr(6, 2));
+    for (let i = 0; i <= theater.theaterCol; i++) {
+        const th = document.createElement("th");
+        if (i === 0) {
+            th.innerHTML = `&nbsp;`;
+        } else {
+            th.innerHTML = i;
+        }
+        thead.appendChild(th);
+    }
 
-//     tmp = new Date(y, m - 1, d + addDays);
-
-//     y = tmp.getFullYear();
-//     m = tmp.getMonth() - 1;
-//     d = tmp.getDay();
-
-//     return '' + y + '-' + m + '-' + d;
-// }
+    for (let i = 0; i <= theater.theaterRow; i++) {
+        const tr = document.createElement("tr");
+        const input = decimalToBase26(i);
+        for (let j = 0; j <= theater.theaterCol; j++) {
+            const th = document.createElement("th");
+            if (j === 0) {
+                th.innerHTML = `${input}`;
+                tr.appendChild(th);
+                continue;
+            }
+            th.setAttribute("class", "seat-yes");
+            th.setAttribute("id", (i + 1) + "-" + j);
+            for (let seat of impossibleSeatList) {
+                if (th.id === seat.impossibleSeatRow + "-" + seat.impossibleSeatCol) {
+                    th.setAttribute("class", "seat-no");
+                    break;
+                }
+            }
+            th.innerHTML = `&nbsp`;
+            tr.appendChild(th);
+        }
+        tbody.appendChild(tr);
+    }
+}

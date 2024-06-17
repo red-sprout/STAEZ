@@ -12,6 +12,7 @@ $(function() {
     document.querySelector("#admin-search input").addEventListener("keypress", (ev) => searchEventEnter(ev))
     document.querySelector("#admin-delete-user").addEventListener("click", deleteUserEvent);
     document.querySelector("#admin-update-modal").addEventListener("click", (ev) => updateModal(ev));
+    document.querySelector("#admin-email-modal").addEventListener("click", (ev) => emailModal(ev));
 })
 
 function getSelect() {
@@ -282,6 +283,32 @@ function updateUserEvent() {
         userList, grade
     }, (msg) => {
         alert(msg);
+        location.reload();
+    })
+}
+
+function emailModal(ev) {
+    const userList = getCheckboxChecked();
+    if(userList.length === 0) {
+        alert("한 명 이상의 이용자를 선택해주세요.");
+        ev.currentTarget.removeAttribute("data-toggle");
+        ev.currentTarget.removeAttribute("data-target");
+        return;
+    }
+    ev.currentTarget.setAttribute("data-toggle", "modal");
+    ev.currentTarget.setAttribute("data-target", "#email-modal");
+}
+
+function emailSendEvent() {
+    const emailList = Array.from(document.getElementsByClassName("admin-posting"))
+                        .filter((tr) => tr.querySelector("input[type=checkbox]").checked)
+                        .map((ele) => ele.children[5].innerText);
+    emailSend({
+        emailList,
+        title: document.querySelector("input[name=title]").value,
+        content: document.querySelector("textarea[name=content]").value,
+    }, (result) => {
+        alert(result);
         location.reload();
     })
 }
