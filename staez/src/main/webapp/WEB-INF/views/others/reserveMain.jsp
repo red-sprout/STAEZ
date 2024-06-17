@@ -17,7 +17,15 @@
         <script src="${contextPath}/resources/js/others/reserveMain.js"></script>
     </header>
     <div id="main-advertisement-area">
-        <img id="main-advertisement" src="${contextPath}/resources/img/others/mainAdvertisement.png" alt="">
+        <div class="advertisement element"> 
+            <img class="advertisement-img" src="${contextPath}/resources/img/others/mainAdvertisement.png" alt="">
+        </div>   
+        <div class="advertisement element"> 
+            <img class="advertisement-img" src="https://cdn.crowdpic.net/detail-thumb/thumb_d_0CA14F08602139F8A297251840ADFA12.jpg" alt="">
+        </div>
+        <div class="advertisement element"> 
+            <img class="advertisement-img" src="https://cdn.crowdpic.net/detail-thumb/thumb_d_0F4D6532E53C21E18BFE1B4CBFF1999A.jpg" alt="">
+        </div> 
     </div>
     <main>
         <input type="hidden" value="${loginUser.userNo}" name="userNo">
