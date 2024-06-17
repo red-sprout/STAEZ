@@ -328,7 +328,7 @@ public class ConcertReserveController {
 //			HttpURLConnection httpUrlConnection = (HttpURLConnection)url.openConnection();
 //
 //			httpUrlConnection.setRequestMethod("POST");
-//			httpUrlConnection.setRequestProperty("Authorization","DEV_SECRET_KEY " + "DEV693E10D825276FD8176FDC62C27892B4415AC");
+//			httpUrlConnection.setRequestProperty("Authorization","DEV_SECRET_KEY " + "secretKey");
 //			httpUrlConnection.setRequestProperty("Content-Type", "application/json");
 //			httpUrlConnection.setDoOutput(true);
 //

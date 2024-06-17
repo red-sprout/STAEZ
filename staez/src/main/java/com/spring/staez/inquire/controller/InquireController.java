@@ -66,7 +66,7 @@ public class InquireController {
 		int currentPage = Integer.parseInt(cPage);
 		int listCount = iService.ajaxSelectFaqCount();
 		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 1);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		
 		ArrayList<Board> faqs = iService.ajaxSelectFaq(pi);
 		System.out.println(listCount);
@@ -85,7 +85,7 @@ public class InquireController {
 		int currentPage = Integer.parseInt(cPage);
 		int listCount = listSize;
 		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 1);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		
 		ArrayList<Board> faqs = iService.ajaxSearchSelectFap(option, content, pi);
 		
@@ -103,7 +103,7 @@ public class InquireController {
 		int currentPage = Integer.parseInt(cPage);
 		int listCount = iService.ajaxSelectCategoryFaqCount(categoryName);
 		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 1);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		
 		
 		ArrayList<Board> faqs = iService.ajaxSelectCategoryFaq(categoryName, pi);
