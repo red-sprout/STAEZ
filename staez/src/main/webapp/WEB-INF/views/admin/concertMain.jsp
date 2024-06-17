@@ -22,12 +22,6 @@
         <ul id="admin-main-wrapper">
             <li id="admin-header">
                 <h1>공연 검색</h1>
-                <select>
-                    <option>장르</option>
-                    <option>공연명</option>
-                    <option>포스터</option>
-                    <option>장소</option>
-                </select>
                 <div id="admin-search">
                     <button>
 						<img src="<c:url value='/resources/img/community/communityMain/search-icon.png'/>" alt="">
@@ -37,8 +31,9 @@
             </li>
             <li>
                 <button class="btn-staez purple" onclick="location.href='concertInsertForm.ad'"><h4>추가</h4></button>
-                <button class="btn-staez purple" onclick="location.href='concertUpdateForm.ad'"><h4>수정</h4></button>
-                <button class="btn-staez purple"><h4>삭제</h4></button>
+                <button class="btn-staez purple" id="concert-update"><h4>수정</h4></button>
+                <button class="btn-staez purple" id="concert-attachment-update"><h4>포스터 수정</h4></button>
+                <button class="btn-staez purple" id="concert-delete"><h4>삭제</h4></button>
             </li>
             <li id="admin-table" class="admin-middle">
                 <form method="GET">
@@ -56,7 +51,7 @@
                                 <td>장소</td>
                             </tr>
                         </thead>
-                        <tbody class="admin-concert-container"></tbody>
+                        <tbody id="admin-contents"></tbody>
                     </table>
                 </form>
             </li>
@@ -65,6 +60,32 @@
             </li>
         </ul>
     </main>
+    <!-- The Modal -->
+    <div class="modal" id="attachment-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" enctype="multipart/form-data" action="insert.ca">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h3 class="modal-title">포스터 선택</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+        
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <input type="hidden" name="concertNo">
+                        <input type="file" name="upfile" required>
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">수정</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <footer>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</footer>

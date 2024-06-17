@@ -47,6 +47,7 @@
     outline: none;
     margin-right: 20px;
     height: 100%;
+    width: 500px;
 }
 
 #admin-main-wrapper>li {

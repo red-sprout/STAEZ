@@ -154,6 +154,35 @@ function ajaxConcertImgList(data, callback){
     }); 
 }
 
+function deleteConcert(data, callback) {
+    $.ajax({
+        url: contextPath + "delete.co",
+        type: "POST",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            alert("삭제할 수 없는 공연입니다.");
+        }
+    });
+}
+
+function consertUpdate(data, callback) {
+    $.ajax({
+        url: contextPath + "concertUpdate.ad",
+        type: "POST",
+        processData: false,
+        contentType: false,
+        data: data,
+        success: function (res) {
+            callback(res);
+        },
+        error: function () {
+            console.log("삽입 실패");
+        }
+    })
+}
+
 //공연장리스트 관련
 function ajaxTheaterList(data, callback){
     $.ajax({
@@ -165,6 +194,19 @@ function ajaxTheaterList(data, callback){
             console.log("공연장 정보 실패");
         }
     }); 
+}
+
+function deleteTheater(data, callback) {
+    $.ajax({
+        url: contextPath + "delete.th",
+        type: "POST",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            alert("삭제할 수 없는 공연장입니다.");
+        }
+    });
 }
 
 function selectProfile(data, callback) {
@@ -474,6 +516,31 @@ function updateNotice(data, callback) {
             callback(res);
         }, error() {
             console.log("공지사항 update api 요청 실패");
+        }
+    });
+}
+
+function selectSeat(data, callback) {
+    $.ajax({
+        url: contextPath + "selectSeat.ad",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("좌석 api 요청 실패");
+        }
+    });
+}
+
+function emailSend(data, callback) {
+    $.ajax({
+        url: contextPath + "email.ad",
+        type: "POST",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("이메일 api 요청 실패")
         }
     });
 }

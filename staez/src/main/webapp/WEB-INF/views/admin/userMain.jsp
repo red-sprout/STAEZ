@@ -37,7 +37,7 @@
             <li>
                 <button class="btn-staez purple" id="admin-delete-user"><h4>강퇴</h4></button>
                 <button class="btn-staez purple" id="admin-update-modal"><h4>권한</h4></button>
-                <button class="btn-staez purple" data-toggle="modal" data-target="#myModal"><h4>메일</h4></button>
+                <button class="btn-staez purple" id="admin-email-modal"><h4>메일</h4></button>
             </li>
             <li id="admin-table" class="admin-middle">
                 <form method="GET">
@@ -85,7 +85,7 @@
         </div>
     </div>
     <!-- The Modal -->
-    <div class="modal" id="myModal">
+    <div class="modal" id="email-modal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <!-- Modal Header -->
@@ -100,18 +100,18 @@
                         <ul>
                             <li>
                                 <h3>제목</h3>
-                                <input type="text" name="" id="">
+                                <input type="text" name="title">
                             </li>
                             <li>
                                 <h3>내용</h3>
-                                <textarea name="" id=""></textarea>
+                                <textarea name="content"></textarea>
                             </li>
                         </ul>
                     </div>
                     
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">전송</button>
+                        <button type="button" class="btn btn-primary" onclick="emailSendEvent()">전송</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
                     </div>
                 </form>

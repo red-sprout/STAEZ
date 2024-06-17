@@ -57,7 +57,7 @@
                     </div>
                     <ul class="search-list">
                     </ul>
-                    <button class="btn-staez" type="button" onclick="seatSample()"><h4>좌석 미리보기</h4></button>
+                    <button class="btn-staez" type="button" onclick="seatSample(this)"><h4>좌석 미리보기</h4></button>
                 </li>
                 <li class="seat-grade">
                     <h3>좌석등급</h3>
@@ -99,13 +99,33 @@
                     <button class="btn-staez purple" type="button">
                         <h3>등록</h3>
                     </button>
-                    <button class="btn-staez purple" type="button">
+                    <button class="btn-staez purple" type="button" onclick="history.back(-1)">
                         <h3>목록</h3>
                     </button>
                 </li>
             </form>
         </div>
     </main>
+    <!-- The Modal -->
+    <div class="modal" id="theater-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h3 class="modal-title">좌석 조회</h3>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <table>
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer>
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     </footer>
