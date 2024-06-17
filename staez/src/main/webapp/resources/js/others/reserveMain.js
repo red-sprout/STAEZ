@@ -367,3 +367,14 @@ function drawLikeCount(likeCount, countArea){
     countSpan.innerHTML = likeCount.length;
 }
 
+function popularConcert(){
+    const categoryNo = document.querySelector("#popularity-concert-category-box").value;
+    console.log(categoryNo)
+    location.href="main.co?categoryNo="+categoryNo;
+}
+
+function latestConcert(){
+    const categoryNo = document.querySelector("#latest-concert-category-box").value;
+    console.log(categoryNo)
+    location.href="main.co?categoryNo="+categoryNo;
+}

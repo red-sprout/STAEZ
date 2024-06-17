@@ -65,7 +65,7 @@ function insertReserve(){
     const payMethod = document.querySelector("input[name = 'payMethod']").value;
     const concertDate =  document.querySelector("input[name = 'concertDate']").value;
     const schedule = document.querySelector("input[name = 'schedule']").value;
-    
+    const totalAmount = document.querySelector("input[name = 'totalAmount']").value;
     const rids = JSON.stringify({
         userNo,
         concertNo,
@@ -76,7 +76,8 @@ function insertReserve(){
         payMethod,
         concertDate,
         schedule,
-        seatList
+        seatList,
+        totalAmount
     })
 
 
@@ -192,7 +193,8 @@ function kakaoPay(){
         payMethod,
         concertDate,
         schedule,
-        seatList
+        seatList,
+        totalAmount
     })
     ajaxKakaoPay({
         rids,

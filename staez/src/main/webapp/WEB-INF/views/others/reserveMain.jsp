@@ -38,11 +38,11 @@
                     </select>
                 </div>
                 <div class="paging-area-container">
-                    <div id="paging-area">
-                        <a href="" id="paging-tag">
+                    <biv id="paging-area" onclick="popularConcert()">
+                        <div id="paging-tag">
                             <span>더보기 +</span>
-                        </a>
-                    </div>
+                        </div>
+                    </biv>
                 </div> 
             </div>
             <div class="popularity-concert-information-area">
@@ -69,10 +69,10 @@
                     </select>
                 </div>
                 <div class="paging-area-container">
-                    <div id="paging-area">
-                        <a href="" id="paging-tag">
+                    <div id="paging-area" onclick="latestConcert()">
+                        <div  id="paging-tag">
                             <span>더보기 +</span>
-                        </a>
+                        </div>
                     </div>
                 </div> 
             </div>
@@ -98,7 +98,7 @@
                 </div>
                 <div class="paging-area-container">
                     <div id="paging-area">
-                        <a href="" id="paging-tag">
+                        <a href="main.cm" id="paging-tag">
                             <span>더보기 +</span>
                         </a>
                     </div>
