@@ -48,6 +48,7 @@
 	 	<interceptor>
 	 		<mapping path="/main.me"/>
 	 		<mapping path="/detail.co"/>
+	 		<mapping path="/condeapi.co"/>
 	 		<mapping path="/*.no"/>
 	 		<mapping path="/detail.cm"/>
 	 		<mapping path="/insertForm.cm"/>

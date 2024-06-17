@@ -24,7 +24,6 @@
     <!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script> -->
     
 </head>
-
 <body>
     <input type="hidden" name="userNo" value="${loginUser.userNo}">
     <input type="hidden" name="concertId" value="${conapi.originName}">

@@ -2,36 +2,27 @@ $(function() { // list는 컨트롤러에서 받아온 것
   const sliderContent = document.querySelector(".concert-main-upper");
   const gridContent = document.querySelector(".concert-main-grid");
 
-  
-  // ajaxCategoryListAPI(list => drawConNavi(list));
+  showLoading();
 
   ajaxCategoryListAPI((list)=>{
     drawSliderMain(list, sliderContent)
     slick()
+    hideLoading()
   });
-  ajaxCategoryListAPI((list)=>drawGridMain(list, gridContent));
 
+  ajaxCategoryListAPI((list)=>drawGridMain(list, gridContent));
 });
 
+function showLoading(){
+  const loadingPage = document.getElementById('load');
+  loadingPage.innerHTML = `<img src="` + contextPath + `/resources/img/concert/loading.gif" alt="loading">`;
+};
 
-
-// // ajax로 콘서트 navi 그려
-// function drawConNavi(list){
-//   console.log(list)
-//   const concertNaviArea = document.querySelector(".concert-ul");
-//   concertNaviArea.innerHTML = ``;
-
-//   for(let c of list){
-
-//     let naviLi = document.createElement('li');
-//     naviLi.innerHTML = ``;
-//     naviLi.innerHTML = `<h2>`+ c.genrenm +`</h2>`;
-
-//     naviLi.setAttribute("onclick", `location.href ='main.co?genre=`+ c.mt20id +`'`)
-
-//     concertNaviArea.appendChild(naviLi);
-//   }
-// }
+function hideLoading(){
+  const loadingPage = document.getElementById('load');
+  loadingPage.innerHTML = ``;
+  loadingPage.style.display = 'none';
+};
 
 
 // 슬라이더 그려주기

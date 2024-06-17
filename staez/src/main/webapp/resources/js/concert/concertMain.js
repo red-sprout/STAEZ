@@ -2,10 +2,12 @@
 $(function() { // list는 컨트롤러에서 받아온 것
   const sliderContent = document.querySelector(".concert-main-upper");
   const gridContent = document.querySelector(".concert-main-grid");
-  
+  const categoryNo = document.querySelector("input[name='categoryNo']").value;
+
+
   conNaviDraw(conList => drawConNavi(conList));
 
-  const categoryNo = document.querySelector("input[name='categoryNo']").value;
+  
   ajaxCategoryList({"categoryNo": categoryNo}, (list) => {
     drawSliderMain(list, sliderContent);
     slick();
@@ -38,13 +40,23 @@ function drawConNavi(conList){
 
 // 슬라이더 그려주기
 function drawSliderMain(list, sliderContent){
-  // const sliderContentDiv = document.createElement('div');
-  // const gridContentDiv = document.createElement('div');
+  
+  const del1 = document.querySelector(".concert-main-upper-section");
+  const del2 = document.querySelector(".running-concert");
+  const del3 = document.querySelector(".concert-main-hr");
+  const del4 = document.querySelector(".concert-main-list-section");
+  const del5 = document.querySelector(".concert-main-grid-section");
   
   sliderContent.innerHTML =``;
 
   if(list.length === 0){
-    sliderContent.innerHTML =``;
+    del1.innerHTML = "등록된 공연이 없습니다.";
+    del1.style.fontSize = '24px';
+    del1.style.justifyContent = 'center';
+    del2.style.display = 'none';
+    del3.style.display = 'none';
+    del4.style.display = 'none';
+    del5.style.display = 'none';
   }
   
   for (let c of list) {

@@ -14,7 +14,12 @@
     <!-- 적용 css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertAPIMain.css">
 </head>
+
 <body>
+    <div id="load">
+        
+    </div>
+
     <div>
         <jsp:include page="../common/header.jsp" />
     </div>

@@ -116,6 +116,7 @@
                 </div> -->
             
         </div>
+        <br><br>
     </section>
     <c:if test="${not empty loginUser}">
         <jsp:include page="../chatbot/chatbot.jsp" />
