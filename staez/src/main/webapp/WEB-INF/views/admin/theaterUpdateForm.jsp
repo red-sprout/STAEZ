@@ -16,8 +16,8 @@
     </header>
     <main>
         <div id="community-wrapper">
-            <input type="hidden" name="" value="${seatList.get(0)}">
-            <form id="community-contents" align="left">
+            <form id="community-contents" align="left" method="post" action="theaterUpdate.ad">
+                <input type="hidden" name="theaterNo" value="${theater.theaterNo}">
                 <h1>공연장</h1>
                 <hr>
                 <li>
@@ -34,11 +34,11 @@
                 </li>
                 <li>
                     <h3>지역</h3>
-                    <input type="text" name="" class="short-input" value="${theater.address}">
+                    <input type="text" name="address" class="short-input" value="${theater.address}">
                 </li>
                 <li>
                     <h3>전화번호</h3>
-                    <input type="text" name="" class="short-input" value="${theater.telno}">
+                    <input type="text" name="telno" class="short-input" value="${theater.telno}">
                 </li>
                 <li>
                     <h3>좌석 미리보기</h3>
@@ -59,7 +59,7 @@
                     <button class="btn-staez purple" type="submit">
                         <h3>등록</h3>
                     </button>
-                    <button class="btn-staez purple">
+                    <button class="btn-staez purple" type="button" onclick="history.back()">
                         <h3>목록</h3>
                     </button>
                 </li>
