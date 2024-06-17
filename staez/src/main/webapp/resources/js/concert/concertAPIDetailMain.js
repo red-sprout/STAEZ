@@ -91,8 +91,9 @@ function drawLikeCount(result){
 
 
 function drawConDetail(result){
-
     const concertId = document.querySelector("input[name='concertId']").value;
+    // model로 받아와서 input으로 넘겨준
+    const imgPath = document.querySelector("input[name='filePath']").value;
     const drawSection = document.querySelector(".concert-detail-down-section");
     const conDetail1 = document.querySelector(".conDetail1");
     drawSection.innerHTML = ``;
@@ -101,14 +102,14 @@ function drawConDetail(result){
                                   <div class="concert-detail-subject">
                                     <br>
                                     <span><h2>작품소개</h2></span>
-                                    <div>`
-                                        + c.concertTitle + "${conapi.concertProduction}" +
+                                    <div class="title-wrap">`
+                                        + c.concertTitle +
                                     `</div>
                                   </div>
                                   <br><br>
                                   <div class="concert-detail-subject">
                                       <span><h2>공지사항</h2></span>`
-                                      + `<img src="` + contextPath + c.filePath + c.changeName + `">`+
+                                      + `<img src="` + imgPath + `">`+
                                   `</div>
                                 </div>
                               <br><br>`
@@ -120,6 +121,10 @@ function drawConDetail(result){
   
 
 function drawConSellDetail(result){
+  const startDate = document.querySelector("input[name='startDate']").value;
+  const endDate = document.querySelector("input[name='endDate']").value;
+  const theaterName = document.querySelector("input[name='theaterName']").value;
+
   const drawSection = document.querySelector(".concert-detail-down-section");
   drawSection.innerHTML= '';
   for(let c of result){
@@ -137,11 +142,11 @@ function drawConSellDetail(result){
                                             </tr>
                                             <tr>
                                                 <th>공연기간</th>
-                                                <td>` + c.startDate +`~` + c.endDate + `</td>
+                                                <td>` + startDate +`~` + endDate + `</td>
                                             </tr>
                                             <tr>
                                                 <th>공연장소</th>
-                                                <td>` + c.theaterName + `</td>
+                                                <td>` + theaterName + `</td>
                                             </tr>
                                             <tr>
                                                 <th>공연런타임</th>

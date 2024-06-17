@@ -132,18 +132,19 @@ public class ConcertAPIController {
 		conapi.setPath(dbObj.get("pcseguidance").getAsString()); // price 넣자
 		conapi.setFilePath(dbObj.get("poster").getAsString()); // 포스터 이미지 경로
 		conapi.setConcertProduction(dbObj.get("entrpsnm").getAsString());
+		conapi.setStartDate(dbObj.get("prfpdfrom").getAsString());
+		conapi.setEndDate(dbObj.get("prfpdto").getAsString());
+		
+		
+		
 		
 		// 콘서트 넘버로 잡을 수 있게 콘넘 내려주기
 		Concert con = concertService.selectConApi(concertId);
 		int concertNo = con.getConcertNo();
 		conapi.setConcertNo(concertNo);
 //		con.setReviewContent(reviewContent); // 한줄평, 관람후기...?
-
-		// 장르 제목(네비처럼)
-		String genrenm = dbObj.get("genrenm").getAsString();
 		
 		model.addAttribute("conapi", conapi);
-		model.addAttribute("genrenm", genrenm);
 		
 		return "concert/concertAPIDetailMain";
 		
@@ -154,7 +155,7 @@ public class ConcertAPIController {
 	@RequestMapping(value = "conDetailapi.co", produces="application/json; charset=UTF-8")
 	public String conDetailapi(@RequestParam(value = "concertNo") String concertNo) {
 		ArrayList<Concert> conDlist =  concertService.selectConDetailApi(Integer.parseInt(concertNo));
-		System.out.println("가져와:" + conDlist); // 매퍼를 봐 담을 수가 없구나!
+//		System.out.println("가져와:" + conDlist); // 매퍼를 봐 담을 수가 없구나!
 		return new Gson().toJson(conDlist);
 	}
 	
@@ -162,7 +163,7 @@ public class ConcertAPIController {
 	@ResponseBody
 	@RequestMapping(value = "conSellDetailapi.co", produces="application/json; charset=UTF-8")
 	public String conSellDetailapi(@RequestParam(value = "concertNo") String concertNo) {
-		ArrayList<Concert> conDlist =  concertService.selectConDetail(Integer.parseInt(concertNo));
+		ArrayList<Concert> conDlist =  concertService.selectConDetailApi(Integer.parseInt(concertNo));
 		return new Gson().toJson(conDlist);
 	}
 	

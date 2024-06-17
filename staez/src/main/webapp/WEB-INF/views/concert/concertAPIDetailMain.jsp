@@ -43,6 +43,14 @@
         </ul>
     </div>
 
+
+    <input type="hidden" name="filePath" value="${conapi.filePath}">
+    <input type="hidden" name="startDate" value="${conapi.startDate}">
+    <input type="hidden" name="endDate" value="${conapi.endDate}">
+    <input type="hidden" name="theaterName" value="${conapi.theaterName}">
+
+
+    
     <!-- 공연상세페이지 위쪽(노란 블럭 안쪽) -->
     <section class="concert-detail-upper-section">
         <div class="concert-detail-upper-div concert-detail-body-div">

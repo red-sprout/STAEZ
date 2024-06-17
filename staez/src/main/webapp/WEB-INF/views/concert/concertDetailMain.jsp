@@ -32,7 +32,7 @@
         <!-- 적용 자바스크립트 -->
 
     </header>
-    <main>
+    <!-- <main> -->
 
     <!-- 공연 navi --> <!-- !!!!!!!!!!! div랑 스타일 삭제 필요 !!!!!!!!!!!! -->
     <input type="hidden" name="userNo" value="${loginUser.userNo}">
@@ -183,7 +183,7 @@
     </div>
     <br>
 
-    </main>
+    <!-- </main> -->
     <c:if test="${not empty loginUser}">
         <jsp:include page="../chatbot/chatbot.jsp" />
     </c:if>
