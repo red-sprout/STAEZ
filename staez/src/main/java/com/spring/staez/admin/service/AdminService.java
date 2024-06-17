@@ -3,10 +3,12 @@ package com.spring.staez.admin.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.JsonElement;
+import org.springframework.mail.javamail.JavaMailSender;
+
 import com.spring.staez.admin.model.dto.AdminBoardDto;
 import com.spring.staez.admin.model.dto.AdminBoardSelectDto;
 import com.spring.staez.admin.model.dto.AdminConcertSelectDto;
+import com.spring.staez.admin.model.dto.AdminEmailDto;
 import com.spring.staez.admin.model.dto.AdminSearchDto;
 import com.spring.staez.admin.model.dto.AdminTheaterSelectDto;
 import com.spring.staez.admin.model.dto.AdminUpdateDto;
@@ -99,5 +101,7 @@ public interface AdminService {
 	int concertUpdate(List<ConcertSchedule> scheduleList, List<Seat> seatList, Concert c);
 
 	int concertAttachmentUpdate(ConcertAttachment attachment);
+
+	String emailSend(JavaMailSender sender, AdminEmailDto dto);
 
 }

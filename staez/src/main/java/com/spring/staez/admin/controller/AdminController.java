@@ -7,7 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +23,7 @@ import com.google.gson.reflect.TypeToken;
 import com.spring.staez.admin.model.dto.AdminBoardDto;
 import com.spring.staez.admin.model.dto.AdminBoardSelectDto;
 import com.spring.staez.admin.model.dto.AdminConcertSelectDto;
+import com.spring.staez.admin.model.dto.AdminEmailDto;
 import com.spring.staez.admin.model.dto.AdminSearchDto;
 import com.spring.staez.admin.model.dto.AdminTheaterSelectDto;
 import com.spring.staez.admin.model.dto.AdminUpdateDto;
@@ -41,11 +42,14 @@ import com.spring.staez.concert.model.vo.Theater;
 import com.spring.staez.user.model.vo.Reserve;
 import com.spring.staez.user.model.vo.User;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Controller
 public class AdminController {
 	
-	@Autowired
-	AdminService adminService;
+	private final AdminService adminService;
+	private final JavaMailSender sender;
 	
 	@GetMapping("concertList.ad")
 	public String concertMain() {
@@ -528,5 +532,11 @@ public class AdminController {
 		map.put("impossibleSeatList", list);
 		
 		return new Gson().toJson(map);
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "email.ad", produces = "text/plain; charset=utf-8")
+	public String emailSend(AdminEmailDto dto) {
+		return adminService.emailSend(sender, dto);
 	}
 }

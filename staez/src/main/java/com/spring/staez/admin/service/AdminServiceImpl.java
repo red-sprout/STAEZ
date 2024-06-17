@@ -7,6 +7,8 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +16,7 @@ import com.spring.staez.admin.model.dao.AdminDao;
 import com.spring.staez.admin.model.dto.AdminBoardDto;
 import com.spring.staez.admin.model.dto.AdminBoardSelectDto;
 import com.spring.staez.admin.model.dto.AdminConcertSelectDto;
+import com.spring.staez.admin.model.dto.AdminEmailDto;
 import com.spring.staez.admin.model.dto.AdminSearchDto;
 import com.spring.staez.admin.model.dto.AdminTheaterSelectDto;
 import com.spring.staez.admin.model.dto.AdminUpdateDto;
@@ -348,5 +351,24 @@ public class AdminServiceImpl implements AdminService {
 		int result1 = adminDao.concertAttachmentUpdateStatus(sqlSession, attachment);
 		int result2 = adminDao.concertAttachmentInsert(sqlSession, attachment);
 		return result1 * result2;
+	}
+
+	@Override
+	public String emailSend(JavaMailSender sender, AdminEmailDto dto) {
+		String msg = null;
+		try {
+			SimpleMailMessage message = new SimpleMailMessage();
+			message.setSubject(dto.getTitle());
+			message.setText(dto.getContent());
+			for(String email : dto.getEmailList()) {				
+				String[] to = {email};
+				message.setTo(to);
+				sender.send(message);
+			}
+			msg = "성공적으로 전송 완료하였습니다.";
+		} catch(Exception e) {
+			msg = "이메일 전송 실패";
+		}
+		return msg;
 	}
 }

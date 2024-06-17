@@ -531,3 +531,16 @@ function selectSeat(data, callback) {
         }
     });
 }
+
+function emailSend(data, callback) {
+    $.ajax({
+        url: contextPath + "email.ad",
+        type: "POST",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("이메일 api 요청 실패")
+        }
+    });
+}
