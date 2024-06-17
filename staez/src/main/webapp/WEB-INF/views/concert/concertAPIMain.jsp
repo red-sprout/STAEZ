@@ -10,12 +10,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>concert</title>
-
-    <!-- 슬라이더 css, script -->
-    
-    
+   
     <!-- 적용 css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertMain.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertAPIMain.css">
 </head>
 <body>
     <div>
@@ -118,8 +115,6 @@
 		<jsp:include page="../common/footer.jsp" />
 	</div>
         <!-- 적용 자바스크립트 -->
-
-
     <script src="<c:url value='/resources/js/api/concertapi.js'/>"></script>
     <script src="<c:url value='/resources/js/concert/concertAPIMain.js'/>"></script>
 
