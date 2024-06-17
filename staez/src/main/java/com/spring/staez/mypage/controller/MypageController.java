@@ -285,30 +285,36 @@ public class MypageController {
 	        session.setAttribute("alertMsg", "로그인이 필요합니다.");
 	        return "redirect:/loginForm.me";
 		}
+		
+		//session에 이미 인증했다는 정보가 있을 경우
+		String isAuth = (String)session.getAttribute("isAuth");
+		System.out.println(isAuth);
+		if(isAuth != null && isAuth.equals("done")) {
+			model.addAttribute("isAuth", "done");
+			System.out.println("이미 인증함");
+		}
+		
 		model.addAttribute("contentPage", "updateUserForm");
 		return "mypage/mypageLayout";
 	}
-	
-	//중복 체크
-	@RequestMapping("dupliCheck.me")
-	@ResponseBody
-	public String duplicateCheck(String nickname) {
-		int result = mypageService.duplicateCheck(nickname);
-		return result > 0 ? "NNNNN" : "NNNNY"; 
-	}
+
 	
 	//비밀번호 인증(일치 여부검사)
 	@RequestMapping("authPwd.me")
 	@ResponseBody
-	public String authPassword(String inputPwd, HttpSession session) {
-		
+	public String authPassword(String inputPwd, HttpSession session) {			
 		User loginUser = userService.loginUser((User)session.getAttribute("loginUser"));
 		System.out.println("입력 비밀번호 : " + inputPwd);
 		System.out.println("loginUser : " + loginUser);
 		
-		return bcryptPasswordEncoder.matches(inputPwd, loginUser.getUserPwd()) ? "NNNNY" : "NNNNN"; 
+		if(bcryptPasswordEncoder.matches(inputPwd, loginUser.getUserPwd())) {
+			session.setAttribute("isAuth", "done");
+			return "NNNNY";
+		} else {
+			session.removeAttribute("isAuth");
+			return "NNNNN";
+		}
 	}
-	
 	
 	// 비밀번호 변경
 	@RequestMapping("updatePwd.me")
@@ -352,6 +358,14 @@ public class MypageController {
 		
 		return new Gson().toJson(profileImg);
 		
+	}
+	
+	//중복 체크
+	@RequestMapping("dupliCheck.me")
+	@ResponseBody
+	public String duplicateCheck(String nickname) {
+		int result = mypageService.duplicateCheck(nickname);
+		return result > 0 ? "NNNNN" : "NNNNY"; 
 	}
 	
 	//프로필 이미지 변경

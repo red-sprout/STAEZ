@@ -27,7 +27,7 @@
         <div id="inquire-section">
             <div class="header">
                 <span class="category">
-                    <h4>${inquire.categoryName}</h4>                    
+                    <h5>${inquire.categoryName}</h5>                    
                 </span>
                 <span class="title">
                     <h3>${inquire.boardTitle}</h3>
@@ -42,7 +42,10 @@
         </div>
         <div id="answer-section"></div>
 
-        <button class="btn-staez" onclick="window.close()">닫기</button>
+        <div id="btn-section">
+            <button class="btn-staez checked">삭제</button>
+            <button class="btn-staez" onclick="window.close()">닫기</button>
+        </div>
     </main>
 </body>
 </html>

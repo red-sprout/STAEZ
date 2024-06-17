@@ -7,14 +7,14 @@ $(function(){
         if(res !== null){ //답변이 달렸을 때
             const answerDate = changeTimeFormat(res.boardWriteDate);
             $(answer).html(`<div class="header">
-                                <span class="category"><h4>답변</h4></span>
+                                <span class="category"><h5>답변</h5></span>
                                 <span class="title"><h3>${res.boardTitle}</h3></span>
                             </div>
                             <div class="content">${res.boardContent}</div>
                             <div class="date"><h5>${answerDate}</h5></div>`);
         } else{ //답변이 아직 없을 떄
             $(answer).html(`<div class="header">
-                                <span class="category"><h4>답변</h4></span>
+                                <span class="category"><h5>답변</h5></span>
                                 <span class="title">답변 대기중입니다...</span>
                                 <span></span>                                 
                             </div>`);

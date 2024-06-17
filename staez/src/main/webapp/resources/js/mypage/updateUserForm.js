@@ -1,16 +1,28 @@
 $(function() {
-    enterKeyEventController()
+    authDone();
+
+    enterKeyEventController();
     
-    updateCombinedAddress()
-    updateCombinedPhone()
-    updateCombinedEmail()
+    updateCombinedAddress();
+    updateCombinedPhone();
+    updateCombinedEmail();
 
     firstEmailDomain();
     firstLikeGenre();
     new PhoneVerification();
     new EmailVerification();
-    changeCheck()
+    changeCheck();
 });
+
+//비밀번호 인증 했는지 여부 확인
+function authDone(){
+    const isAuth = $('input[name=isAuth]');
+    if(isAuth.val() === 'done'){
+        $('#password-auth').prop('hidden', true);
+        $('#profile>form').prop('hidden', false);
+        console.log('인증되서 실행됨')
+    } 
+}
 
 function enterKeyEventController() {    
     /*비밀번호 인증 enter키 허용*/
@@ -93,10 +105,10 @@ function checkSubmitRequires() { //onclick
 // 회원정보 변경 전 비밀번호 인증
 function authPassword() {
     const inputPwd = $('#pwdInput').val();
-    console.log(inputPwd);
 
     authPwdAjax({inputPwd}, function(res) {
         if (res === 'NNNNY') { // 비밀번호 인증 성공
+            alert('인증되었습니다')
             $('form').prop('hidden', false);
             $('#password-auth').prop('hidden', true);
         } else {
@@ -403,7 +415,7 @@ class PhoneVerification {
         }
 
         // 랜덤번호 생성
-        this.authNo = Math.floor(100000 + Math.random() * 900000).toString().padStart(6, '0');
+        this.authNo = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
         const phone = $('input[name=phone]').val();
 
         $('#phoneCheck').prop('checked', false);
@@ -497,7 +509,7 @@ class EmailVerification {
         }
 
         // 랜덤번호 생성
-        this.authNo = Math.floor(100000 + Math.random() * 900000).toString().padStart(6, '0');
+        this.authNo = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
         const email = $('input[name=email]').val();
 
         $('#emailCheck').prop('checked', false);
@@ -530,8 +542,8 @@ class EmailVerification {
         } else {
             $('#emailCheck').prop('checked', true);
             this.sendBtn.prop('disabled', true);
-            $('#phone1').prop('readonly', true);
-            $('#phone2').prop('readonly', true);
+            $('#email-front').prop('readonly', true);
+            $('#email-back').prop('readonly', true);
 
             alert('인증성공');
             clearInterval(this.timerId);
@@ -579,69 +591,145 @@ function withdrawalAuth() { //onclick
     });
 }
 
-
-
-/* 아래부터는 js, jQuery로 변경 예정 */
-
 // 비밀번호 변경
 // 비밀번호 입력때마다 유효성 확인
 function checkPassword(){
-    const newPwd = document.getElementById('changePwd'); // 변경할 비밀번호 input
-    const checkPwd = document.getElementById('checkPwd'); //비밀번호 확인 input
-    const warning1 = document.querySelectorAll('.pwd-check>h5')[0]; //비밀번호 조합 확인 div
-    const warning2 = document.querySelectorAll('.pwd-check>h5')[1]; //비밀번호 일치 체크 div                             
+    const newPwd = $('#changePwd'); // 변경할 비밀번호 input
+    const checkPwd = $('#checkPwd'); //비밀번호 확인 input
+    const warning1 = $('.pwd-check>h5').eq(0); //비밀번호 조합 확인 div
+    const warning2 = $('.pwd-check>h5').eq(1); //비밀번호 일치 체크 div                             
 
     const combineCheck = combinePwd(newPwd, warning1);
     const differCheck = differPwd(newPwd, checkPwd, warning2);
 
-    console.log(newPwd.value);
-    console.log(checkPwd.value);
+    console.log(newPwd.val());
+    console.log(checkPwd.val());
 
     console.log(combineCheck, differCheck)
 
-    const submit = document.querySelector("#pwdModal button[type='submit']");
-    if(combineCheck * differCheck){
-        submit.disabled = false;
-        return;
+    const submit = $("#pwdModal button[type='submit']");
+    if(combineCheck && differCheck){
+        submit.prop('disabled', false);
+    } else{
+        submit.prop('disabled', true);
     }
-    submit.disabled = true;
 }
 
 function combinePwd(targetInput, warning1){ //새로운 비밀번호 조합 확인
     const reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,30}$/;
     
-    if(reg.test(targetInput.value) || targetInput.value === ""){ //비밀번호의 조합조건이 맞거나 빈칸일 경우
-        warning1.innerText = '';
-        return targetInput.value !== ""; //값이 비어있는 것은 combinePwd조건에 만족은 아니다
+    if(reg.test(targetInput.val()) || targetInput.val() === ""){ //비밀번호의 조합조건이 맞거나 빈칸일 경우
+        warning1.text('');
+        return targetInput.val() !== ""; //값이 비어있는 것은 combinePwd조건에 만족은 아니다
         //값이 비어있을 경우 false, 값이 있으면 true
 
     } else {
-        warning1.innerText = '올바르지 못한 형식입니다';
+        warning1.text('올바르지 못한 형식입니다');
         return false;
     } 
 }
 
 function differPwd(originInput, checkInput, warning2){ //비밀번호 일치 체크
-    if(originInput.value === checkInput.value || checkInput.value === ""){ //비밀번호가 일치하거나 빈칸일 경우
-        warning2.innerText = '';
-        return checkInput.value !== ""; //값이 비어있는 것은 differPwd조건에 만족은 아니다
+    if(originInput.val() === checkInput.val() || checkInput.val() === ''){ //비밀번호가 일치하거나 빈칸일 경우
+        warning2.text('');
+        return checkInput.val() !== ""; //값이 비어있는 것은 differPwd조건에 만족은 아니다
        
     } else{
-        warning2.innerText = '비밀번호가 일치하지 않습니다';
+        warning2.text('비밀번호가 일치하지 않습니다');
         return false;
     }
 }
 
 //(비밀번호 변경) 닫기, 취소 버튼누르면 input들 초기화
 function cancelUpdatePwd() {
-        const pwdForm = document.querySelector("#pwdModal form"); //pwd변경 form
-        const warnings = document.querySelectorAll("#pwdModal h5");
+        const pwdForm = $("#pwdModal form"); //pwd변경 form
+        const warnings = $("#pwdModal h5");
     
-        warnings.forEach(warning => {
-            warning.innerText = '';
+        warnings.each(function() {
+            $(this).text('');
         });
-        pwdForm.reset();
+        
+        $(pwdForm).find('input').val('');
 }
 
-// 페이지가 로드되면 init 함수를 호출하여 초기 값을 설정
-window.onload = init;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // 비밀번호 변경
+// // 비밀번호 입력때마다 유효성 확인
+// function checkPassword(){
+//     const newPwd = document.getElementById('changePwd'); // 변경할 비밀번호 input
+//     const checkPwd = document.getElementById('checkPwd'); //비밀번호 확인 input
+//     const warning1 = document.querySelectorAll('.pwd-check>h5')[0]; //비밀번호 조합 확인 div
+//     const warning2 = document.querySelectorAll('.pwd-check>h5')[1]; //비밀번호 일치 체크 div                             
+
+//     const combineCheck = combinePwd(newPwd, warning1);
+//     const differCheck = differPwd(newPwd, checkPwd, warning2);
+
+//     console.log(newPwd.value);
+//     console.log(checkPwd.value);
+
+//     console.log(combineCheck, differCheck)
+
+//     const submit = document.querySelector("#pwdModal button[type='submit']");
+//     if(combineCheck * differCheck){
+//         submit.disabled = false;
+//         return;
+//     }
+//     submit.disabled = true;
+// }
+
+// function combinePwd(targetInput, warning1){ //새로운 비밀번호 조합 확인
+//     const reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,30}$/;
+    
+//     if(reg.test(targetInput.value) || targetInput.value === ""){ //비밀번호의 조합조건이 맞거나 빈칸일 경우
+//         warning1.innerText = '';
+//         return targetInput.value !== ""; //값이 비어있는 것은 combinePwd조건에 만족은 아니다
+//         //값이 비어있을 경우 false, 값이 있으면 true
+
+//     } else {
+//         warning1.innerText = '올바르지 못한 형식입니다';
+//         return false;
+//     } 
+// }
+
+// function differPwd(originInput, checkInput, warning2){ //비밀번호 일치 체크
+//     if(originInput.value === checkInput.value || checkInput.value === ""){ //비밀번호가 일치하거나 빈칸일 경우
+//         warning2.innerText = '';
+//         return checkInput.value !== ""; //값이 비어있는 것은 differPwd조건에 만족은 아니다
+       
+//     } else{
+//         warning2.innerText = '비밀번호가 일치하지 않습니다';
+//         return false;
+//     }
+// }
+
+// //(비밀번호 변경) 닫기, 취소 버튼누르면 input들 초기화
+// function cancelUpdatePwd() {
+//         const pwdForm = document.querySelector("#pwdModal form"); //pwd변경 form
+//         const warnings = document.querySelectorAll("#pwdModal h5");
+    
+//         warnings.forEach(warning => {
+//             warning.innerText = '';
+//         });
+//         pwdForm.reset();
+// }
+
+// // 페이지가 로드되면 init 함수를 호출하여 초기 값을 설정
+// window.onload = init;

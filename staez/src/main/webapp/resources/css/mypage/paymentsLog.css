@@ -88,11 +88,11 @@
 }
 
 
-/*예매정보 hover*/
+/* 예매정보 hover
 .main-content>table .reserve-info:hover{
     cursor: pointer;
     background: rgb(245, 245, 245);
-}
+} */
 
 
 
