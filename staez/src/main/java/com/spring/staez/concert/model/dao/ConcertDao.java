@@ -159,4 +159,9 @@ public class ConcertDao {
 	public int insertConLikeApi(SqlSessionTemplate sqlSession, Map map) {
 		return sqlSession.insert("concertMapper.insertConLikeApi", map);
 	}
+
+	public ArrayList<Concert> selectConDetailApi(SqlSessionTemplate sqlSession, int concertNo) {
+		return (ArrayList)sqlSession.selectList("concertMapper.selectConDetailApi", concertNo);
+	}
+	
 }

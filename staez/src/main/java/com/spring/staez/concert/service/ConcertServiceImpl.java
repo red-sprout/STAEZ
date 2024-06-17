@@ -167,6 +167,11 @@ public class ConcertServiceImpl implements ConcertService {
 		return concertDao.insertConLikeApi(sqlSession, map);
 	}
 
+	@Override
+	public ArrayList<Concert> selectConDetailApi(int concertNo) {
+		return concertDao.selectConDetailApi(sqlSession, concertNo);
+	}
+
 	
 
 }

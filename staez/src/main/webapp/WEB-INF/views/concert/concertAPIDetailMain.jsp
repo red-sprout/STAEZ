@@ -28,6 +28,7 @@
 <body>
     <input type="hidden" name="userNo" value="${loginUser.userNo}">
     <input type="hidden" name="concertId" value="${conapi.originName}">
+    <input type="hidden" name="concertNo" value="${conapi.concertNo}">
 
     <div>
         <jsp:include page="../common/header.jsp" />
