@@ -27,9 +27,6 @@
         <ul class="concert-ul">
           <!-- 자스로 그려줌 -->
         </ul>
-        <div>
-            <a href="conapi.co"><span>콘서트 api 테스트</span></a>
-        </div>
     </div>
     <input type="hidden" name="categoryNo" value="${cat.categoryNo}">
     
@@ -116,6 +113,7 @@
                 </div> -->
             
         </div>
+        <br><br>
     </section>
     <c:if test="${not empty loginUser}">
         <jsp:include page="../chatbot/chatbot.jsp" />
