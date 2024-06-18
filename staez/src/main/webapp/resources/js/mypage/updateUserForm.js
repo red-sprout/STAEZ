@@ -552,6 +552,7 @@ class EmailVerification {
             this.timer.css("color", "#4aa500")
             this.isSend = false;
             this.authBtn.prop('disabled', true);
+            $('#email-input select').prop('disabled',true);
         }
     }
 
@@ -579,8 +580,8 @@ class EmailVerification {
 //회원탈퇴 기능
 function withdrawalAuth() { //onclick
     
-    const submitBtn = $("#withdrawalModal button[type='submit']");
-    const inputPwd = $(".withdrawal-tag input[type='password']").val();
+    const submitBtn = $("#withdrawalModal button[type=submit]");
+    const inputPwd = $(".withdrawal-tag input[type=password]").val();
 
     authPwdAjax({inputPwd}, res => {
         if (res === 'NNNNY') { //비밀번호 인증 성공            

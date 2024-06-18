@@ -264,24 +264,21 @@
 	</select>
 
 	<select id="selectScrapCount" resultType="_int">
-		SELECT COUNT(cl.concert_like_no) 
+		SELECT COUNT(cl.concert_like_no) 		
 		FROM concert_like cl
 		
 		JOIN concert c 
 		ON cl.concert_no = c.concert_no
 		
-		JOIN concert_attachment ca
-		ON c.concert_no = ca.concert_no
-		
-		JOIN theater t 
-		ON c.theater_no = t.theater_no
-		
-		JOIN (SELECT concert_no, 
+		LEFT JOIN (SELECT concert_no, 
 					 MIN(start_date) AS start_date, 
 					 MAX(end_date) AS end_date
 			  FROM concert_schedule
-			  GROUP BY concert_no) cs_min_max 
-		ON cl.concert_no = cs_min_max.concert_no 
+			  GROUP BY concert_no) cs
+		ON cl.concert_no = cs.concert_no
+				
+		LEFT JOIN concert_attachment ca
+		ON c.concert_no = ca.concert_no
 		
 		WHERE cl.user_no = #{userNo}	
 		AND cl.status = 'Y'
@@ -289,36 +286,32 @@
 	
 	<select id="selectScrapList" resultType="Concert">
 		SELECT cl.concert_like_no AS concertLikeNo, 
-				       cl.user_no AS userNo,
-					   cl.concert_like_date AS concertLikeDate,
-				       c.concert_no AS concertNo, 
-				       c.concert_title AS concertTitle, 
-				       c.concert_members AS concertMembers,
-				       c.age_limit AS ageLimit,
-				       t.theater_name AS theaterName,
-				       ca.change_name AS changeName,
-				       ca.file_path AS filePath, 
-				       cs_min_max.start_date AS startDate,
-				       cs_min_max.end_date AS endDate		       
+						   cl.user_no AS userNo,
+						   cl.concert_like_date AS concertLikeDate,
+						   c.concert_no AS concertNo, 
+						   c.concert_title AS concertTitle, 
+						   c.concert_members AS concertMembers,
+						   c.age_limit AS ageLimit,
+						   ca.change_name AS changeName,
+						   ca.file_path AS filePath, 
+						   cs.start_date AS startDate,
+						   cs.end_date AS endDate		       
 		FROM concert_like cl
 		
 		JOIN concert c 
 		ON cl.concert_no = c.concert_no
 		
-		JOIN concert_attachment ca
-		ON c.concert_no = ca.concert_no
-		
-		JOIN theater t 
-		ON c.theater_no = t.theater_no
-		
-		JOIN (SELECT concert_no, 
-					 MIN(start_date) AS start_date, 
+		LEFT JOIN (SELECT concert_no, 
+					 MIN(start_date) AS start_date,
 					 MAX(end_date) AS end_date
 			  FROM concert_schedule
-			  GROUP BY concert_no) cs_min_max 
-		ON cl.concert_no = cs_min_max.concert_no
-		
-		WHERE cl.user_no = #{userNo}	
+			  GROUP BY concert_no) cs
+		ON cl.concert_no = cs.concert_no
+				
+		LEFT JOIN concert_attachment ca
+		ON c.concert_no = ca.concert_no
+			
+		WHERE cl.user_no = #{userNo}
 		AND cl.status = 'Y'
 		
 		ORDER BY cl.concert_like_no DESC

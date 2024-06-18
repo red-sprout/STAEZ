@@ -53,7 +53,7 @@
         <div id="my-board">
             <div class="table-title">
                 최근 나의 작성글
-                <button onclick="location.href='${contextPath}/incertForm.cm'">+</button>
+                <button onclick="location.href='${contextPath}/insertForm.cm'">+</button>
             </div>
             <table>
                 <tbody>
