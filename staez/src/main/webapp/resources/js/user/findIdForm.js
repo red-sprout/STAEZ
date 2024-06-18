@@ -36,6 +36,9 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = '/staez/findPwdForm.me';
         });
     }
+
+    // 핸드폰 번호 전송 처리
+    signinPhoneNumber();
 });
 
 // 인증 모달창
@@ -83,6 +86,51 @@ function backPage(){
     });
 }
 
+// 핸드폰 번호 전송 처리
+function signinPhoneNumber (){
+    const prefixElement = document.getElementById("phone-prefix");
+    const suffix1Element = document.getElementById("phone-suffix1");
+    const suffix2Element = document.getElementById("phone-suffix2");
+    const inputValueElement = document.getElementById("input-value-phone");
+
+    function updatePhoneNumber() {
+        const prefix = prefixElement.innerText;
+        const suffix1 = suffix1Element.value;
+        const suffix2 = suffix2Element.value;
+        const phoneNumber = prefix + suffix1 + suffix2;
+        inputValueElement.value = phoneNumber;
+    }
+    suffix1Element.addEventListener('input', updatePhoneNumber);
+    suffix2Element.addEventListener('input', updatePhoneNumber);
+}
+// 핸드폰 번호 전송 처리
+function sendPhoneNumber() {
+    // input-value-phone 요소를 가져옵니다.
+    var inputValueElement = document.getElementById("input-value-phone");
+    if (!inputValueElement) {
+        console.error("input-value-phone 요소를 찾을 수 없습니다.");
+        return;
+    }
+    // phone-prefix 요소가 존재하는지 확인
+    var prefixElement = document.getElementById("phone-prefix");
+    if (!prefixElement) {
+        console.error("phone-prefix 요소를 찾을 수 없습니다.");
+        return;
+    }
+    // 010 부분 가져오기
+    var prefix = prefixElement.innerText;
+
+    // 각 번호 입력란의 값 가져오기
+    var suffix1 = document.getElementById("phone-suffix1").value;
+    var suffix2 = document.getElementById("phone-suffix2").value;
+
+    // 전체 번호 조합하여 표시
+    var phoneNumber = prefix + suffix1 + suffix2;
+
+    // input-value-phone 필드에 번호 설정
+    inputValueElement.value = phoneNumber;
+}
+
 let authNo;
 
 // 폰 인증
@@ -104,7 +152,8 @@ function phoneClick() {
             console.log('전송한 휴대폰번호 : ' + phoneInputValue);
 
             startPTimer(); // 1분 타이머 시작
-            $("#check_PhoneSecretBtn").prop('disabled', false); // 인증확인 버튼 활성화
+            //$("#check_PhoneSecretBtn").prop('disabled', false); // 인증확인 버튼 활성화
+            document.getElementById("check_PhoneSecretBtn").disabled = false; // 인증확인 버튼 활성화
         } else {
             verificationPhoneTr.style.display = "table-row";
             PverificationMessage.style.color = "red";
@@ -118,7 +167,7 @@ function checkAuthNum() {
     const inputCode = document.getElementById("Pverification-code").value;
     var checkResultPhoneTr = document.getElementById("checkResultPhoneTr");
     var userPhoneErrorMessage = document.getElementById("userPhoneErrorMessage");
-    const findEmailCheck = document.getElementById("findEmailCheck");
+    const findPhoneCheck = document.getElementById("findPhoneCheck");
     if (authNo !== inputCode) {
         checkResultPhoneTr.style.display = "table-row";
         userPhoneErrorMessage.style.color = "red";
@@ -127,14 +176,19 @@ function checkAuthNum() {
         checkResultPhoneTr.style.display = "table-row";
         userPhoneErrorMessage.style.color = "green";
         userPhoneErrorMessage.innerHTML = "인증에 성공하였습니다";
-        findEmailCheck.disabled = false;
+        findPhoneCheck.disabled = false;
 
         clearInterval(ptimer); // 타이머 정지
-        $("#check_PhoneSecretBtn").prop('disabled', true); // 인증확인 버튼 비활성화
-        $("#phoneCheckButton").prop('disabled', true); // 인증번호 전송 버튼 비활성화
-        $("#Pverification-code").prop('readonly', true); // 인증번호 입력 필드 읽기 전용
-        $('#phone-suffix1').prop('readonly', true); // 전화번호 필드 읽기 전용
-        $('#phone-suffix2').prop('readonly', true); // 전화번호 필드 읽기 전용
+        //$("#check_PhoneSecretBtn").prop('disabled', true); // 인증확인 버튼 비활성화
+        document.getElementById("check_PhoneSecretBtn").disabled = true;
+        //$("#phoneCheckButton").prop('disabled', true); // 인증번호 전송 버튼 비활성화
+        document.getElementById("phoneCheckButton").disabled = true;
+        //$("#Pverification-code").prop('readonly', true); // 인증번호 입력 필드 읽기 전용
+        document.getElementById("Pverification-code").disabled = true;
+        //$('#phone-suffix1').prop('readonly', true); // 전화번호 필드 읽기 전용
+        document.getElementById("phone-suffix1").disabled = true;
+        //$('#phone-suffix2').prop('readonly', true); // 전화번호 필드 읽기 전용
+        document.getElementById("phone-suffix2").disabled = true;
     }
 }
 
@@ -351,14 +405,29 @@ function checkButton(){
 }
 
 // 이메일로 아이디 찾기 불러오기
-function clickGetId(){
+function clickGetId() {
     let email = document.getElementById("input-value-email").value;
-    let userName = document.getElementById("user_name").value;
-    getIdbyEmail({checkFindEmail: email, userName}, function(res){
-        if (res !== ""){
+    let userName = document.getElementById("user_name_email").value;
+    getIdbyEmail({ checkFindEmail: email, userName: userName }, function(res) {
+        console.log(res);
+        if (res !== "") {
             document.querySelector("#emailFindId").innerHTML = "아이디 : " + res;
         } else {
             document.querySelector("#emailFindId").innerText = "해당 이메일이 등록된 아이디가 없습니다.";
+        }
+    });
+}
+
+// 핸드폰 아이디 찾기 불러오기
+function clickGetIdPhone() {
+    let phone = document.getElementById("input-value-phone").value;
+    let userName = document.getElementById("user_name_phone").value;
+    getIdbyPhone({ checkFindPhone: phone, userName: userName }, function(res) {
+        console.log(res);
+        if (res !== "") {
+            document.querySelector("#emailFindId").innerHTML = "아이디 : " + res;
+        } else {
+            document.querySelector("#emailFindId").innerText = "해당 핸드폰 번호로 등록된 아이디가 없습니다.";
         }
     });
 }

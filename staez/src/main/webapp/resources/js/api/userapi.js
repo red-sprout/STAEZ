@@ -109,8 +109,8 @@ function clickNewPwdInsert(data, callback) {
 // 핸드폰인증
 function sendAuthNumAjax(data, callback){
     $.ajax({
-        url: contextPath + '/sendPhoneAuth.me',
-        data,
+        url: 'sendPhoneAuth.me',
+        data : data,
         success: res => callback(res),
         error: () => {
             alert('인증번호 전송에 실패하였습니다');
@@ -121,7 +121,7 @@ function sendAuthNumAjax(data, callback){
 // 핸드폰 인증
 function sendPhoneAuthNoAjax(data, callback){
     $.ajax({
-        url: contextPath + '/sendPhoneAuth.me',
+        url: 'sendPhoneAuth.me',
         type:'POST',
         data,
         success: res => callback(res),

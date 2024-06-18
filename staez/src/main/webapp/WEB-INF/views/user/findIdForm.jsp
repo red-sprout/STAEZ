@@ -32,17 +32,17 @@
     <main>
         <a href="${contextPath}/index.jsp"><img src="${contextPath}/resources/img/user/STAEZ_logo.png" alt="STAEZ로고"></a>
         <h2>아이디 찾기</h2>
-        <form id="idListPhoneForm" action="idListForm.me" method="POST">
-            <div id="find-div-phone">
-                <input type="checkbox" id="phone-auth"> 
-                <label for="phone-auth"><h3>회원정보에 등록한 휴대전화로 인증</h3></label>
-            </div>
-            <div id="findphone-div">
-                <table>
+        <div id="find-div-phone">
+            <input type="checkbox" id="phone-auth"> 
+            <label for="phone-auth"><h3>회원정보에 등록한 휴대전화로 인증</h3></label>
+        </div>
+        <div id="findphone-div">
+            <table>
+                <tbody>
                     <tr>
                         <th>이름</th>
                         <td>
-                            <input type="text" id="user_name" required>
+                            <input type="text" id="user_name_phone" required>
                         </td>
                     </tr>
                     <tr>
@@ -54,7 +54,7 @@
                                 <input type="text" id="phone-suffix1" name="phone-suffix1" maxlength="4" >
                                 <span>-</span>
                                 <input type="text" id="phone-suffix2" name="phone-suffix2" maxlength="4">
-                                <input type="text" name="phone" id="input-value-phone" required  >
+                                <input type="text" name="phone" id="input-value-phone" required  >  
                             </div>
                             <td>
                                 <input type="button" id="phoneCheckButton" class="check_button" value="인증번호 전송" onclick="phoneClick()">
@@ -88,23 +88,33 @@
                             </td>
                         </tr>
                     </tr>
-                </table>
-            </div>
-        </form>
-            <br>
-            <hr>
-            <br>
-        <form id="idListEmailForm" action="idListForm.me" method="POST">
-            <div id="find-div-email">
-                <input type="checkbox" id="email-auth"> 
-                <label for="email-auth"><h3>이메일정보에 등록한 이메일로 인증</h3></label>
-            </div>
-            <div id="findemail-div">
-                <table>
+                    <tr>
+                        <th></th>
+                        <td></td>
+                        <td>
+                            <div class="insert-member-div-Phone">
+                                <button type="button" id="backButton">이전</button>
+                                <button type="button" id="findPhoneCheck" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clickGetIdPhone()"disabled>다음</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <div id="find-div-email">
+            <input type="checkbox" id="email-auth"> 
+            <label for="email-auth"><h3>이메일정보에 등록한 이메일로 인증</h3></label>
+        </div>
+        <div id="findemail-div">
+            <table>
+                <tbody>
                     <tr>
                         <th>이름</th>
                         <td>
-                            <input type="text" id="user_name" required>
+                            <input type="text" id="user_name_email" required>
                         </td>
                     </tr>
                     <tr>
@@ -146,6 +156,7 @@
                                 <div id="timer"></div>
                             </div>
                         </td>
+                        <td></td>
                         <td>
                             <input type="button" class="check_button" id="check_emailSecretBtn" value="인증확인">
                         </td>
@@ -157,12 +168,19 @@
                             </div>
                         </td>
                     </tr>
-                </table>
-            </div>
-        </form>
-        <div class="insert-member-div">
-            <button type="button" id="backButton">이전</button>
-            <button type="submit" id="findEmailCheck" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clickGetId()"disabled>다음</button>
+                    <tr>
+                        <th></th>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <div class="insert-member-div">
+                                <button type="button" id="backButton">이전</button>
+                                <button type="button" id="findEmailCheck" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clickGetId()"disabled>다음</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </main>
     <footer>

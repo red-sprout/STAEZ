@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
 	private final UserService userService;
@@ -174,21 +176,22 @@ public class UserController {
 		}
 	}
 
-    // 이메일로 아이디찾기
-    @ResponseBody
-    @GetMapping("findEmailCheck.me")
-    public String findEmailCheck(String checkFindEmail, String userName) {
-        String result = userService.findEmailCheck(checkFindEmail, userName);
-        return result;
-    }
-    
-    // 핸드폰으로 아이디찾기
-    @ResponseBody
-    @GetMapping("findPhoneCheck.me")
-    public String findPhoneCheck(String checkFindPhone, String userName) {
-        String result = userService.findPhoneCheck(checkFindPhone, userName);
-        return result;
-    }
+	// 이메일로 아이디찾기
+	@ResponseBody
+	@PostMapping("findEmailCheck.me")
+	public String findEmailCheck(@RequestParam("checkFindEmail") String checkFindEmail, @RequestParam("userName") String userName) {
+	    String result = userService.findEmailCheck(checkFindEmail, userName);
+	    System.out.println("실행됨");
+	    return result;
+	}
+
+	// 핸드폰으로 아이디찾기
+	@ResponseBody
+	@PostMapping("findPhoneCheck.me")
+	public String findPhoneCheck(@RequestParam("checkFindPhone") String checkFindPhone, @RequestParam("userName") String userName) {
+	    String result = userService.findPhoneCheck(checkFindPhone, userName);
+	    return result;
+	}
 
 	// 비밀번호 찾기 새로운 비밀번호 업데이트
     @PostMapping("checkFindNewPwd.me")
@@ -241,7 +244,6 @@ public class UserController {
 	        return "no";
 	    }
 	}
-
 
 	// 이메일 인증 완료하면 정보 업데이트(테이블에 이메일 데이터 있을때)
 	@ResponseBody
