@@ -22,19 +22,19 @@
     <table>
         <tbody>
             <tr class="col-name">
+                <th id="board-no">번호</th>
                 <th id="board-title">제목</th>
                 <th id="enroll-date">작성일</th>
-                <th id="views">조회수</th>
                 <th id="likes">좋아요</th>
             </tr>
             <c:forEach var="b" items="${blist}">
             <tr class="tb-content" onclick="location.href='detail.cm?boardNo=${b.boardNo}'">
+                <td><h5>${b.boardNo}</h5></td>
                 <td class="btitle">${b.boardTitle}</td>
                 <td>
                     <fmt:parseDate value="${b.boardWriteDate}" var="date" pattern="yyyy-MM-dd HH:mm:ss" />
-                    <fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
+                    <fmt:formatDate value="${date}" pattern="MM-dd" />
                 </td>
-                <td>${b.boardCount}</td>
                 <td>${b.likeCount}</td>
             </tr>
             </c:forEach>

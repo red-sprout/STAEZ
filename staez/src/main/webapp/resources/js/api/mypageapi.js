@@ -113,3 +113,15 @@ function sendEmailAuthNoAjax(data, callback){
         }
     });
 }
+
+
+function deleteInquireAjax(data, callback){
+    $.ajax({
+        url: contextPath + 'deleteInquire.me',   
+        data,
+        success: res => callback(res),
+        error: () => {
+            alert('문의글 삭제에 실패하였습니다');
+        }
+    });
+}

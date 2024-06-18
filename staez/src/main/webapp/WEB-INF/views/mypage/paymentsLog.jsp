@@ -32,16 +32,20 @@
                 </td>
                 <td class="reserve-info">
                     <h5>예약번호: ${c.reserveNo}</h5>
-                    <h5><fmt:formatDate value="${c.reserveDate}" pattern="yyyy-MM-dd HH:mm" /></h5>
                     <h5>
-                        ${c.grade}석 <fmt:formatNumber value="${c.price}" pattern="#,###￦" />
+                        결제방식 : ${c.payMethod}
+                    </h5>
+                    <h5>                        
+                        가격 : <fmt:formatNumber value="${c.price}" pattern="#,###￦" />
                     </h5>
                     <h5>
+                        ${c.grade}석
                         <c:set var="row" value="${c.reserveRow}" />
                         <c:set var="alphabet" value="${fn:substring('ABCDEFGHIJKLMNOPQRSTUVWXYZ', row - 1, row)}" />
                         <c:out value="${alphabet}" />${c.reserveCol}
                     </h5>
                     
+                    <h5><fmt:formatDate value="${c.reserveDate}" pattern="yyyy-MM-dd HH:mm" /></h5>
                 </td>
             </tr>
             </c:forEach>

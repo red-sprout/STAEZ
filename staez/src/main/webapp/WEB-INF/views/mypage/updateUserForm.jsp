@@ -19,7 +19,8 @@
         <h2>회원정보변경</h2>
     </div>
     <div id="profile">
-        <div id="password-auth" hidden>
+        <input type="hidden" name="isAuth" value="${isAuth}">
+        <div id="password-auth">
             <h3>비밀번호 인증</h3>
             <div>
                 <input type="password" id="pwdInput" placeholder="비밀번호 입력">
@@ -28,7 +29,7 @@
             <p id="auth-fail" hidden>비밀번호가 일치하지 않습니다.</p>
         </div>
 
-        <form action="update.me" method="POST" > 
+        <form action="update.me" method="POST" hidden> 
             <div id="profile-img">
                 <img src="" data-toggle="modal" data-target="#imgModal">
             </div>
@@ -167,7 +168,7 @@
                                         minlength="4" maxlength="4" oninput="updateCombinedPhone()">
                                 </div>
                             </td>
-                            <input type="text" name="phone" readonly>
+                            <input type="hidden" name="phone" readonly>
                             <td class="input-btn">
                                 <button type="button" id="phone-auth-btn">인증번호전송</button>
                             </td>
@@ -219,7 +220,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <input type="text" name="email" readonly>
+                        <input type="hidden" name="email" readonly>
                         <c:remove var="email" />
 
                         <tr>
@@ -263,9 +264,9 @@
             </div>
 
             <!--fomr 제출하기 위해 아래 checkbox 모두 체크되어 있어야함  -->
-            <input type="checkbox" id="emailCheck" class="submit-requires " checked>
-            <input type="checkbox" id="phoneCheck" class="submit-requires " checked>
-            <input type="checkbox" id="nicknameCheck" class="submit-requires " checked>
+            <input type="checkbox" id="emailCheck" class="submit-requires " checked hidden>
+            <input type="checkbox" id="phoneCheck" class="submit-requires " checked hidden>
+            <input type="checkbox" id="nicknameCheck" class="submit-requires " checked hidden>
 
             <div id="submit-btn">
                 <button type="button" class="btn-staez purple" onclick="checkSubmitRequires()">

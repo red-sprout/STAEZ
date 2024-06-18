@@ -49,6 +49,7 @@ public interface MypageService {
 	public ArrayList<Board> selectMyInquireList(int userNo, PageInfo pi); //문의내역 리스트
 	public Board selectMyInquireDetail(int boardNo); //문의 상세페이지
 	public Board loadAnswerAjax(int boardNo); //문의 답변 불러오기 ajax	
+	public int deleteInquireAjax(int boardNo); //문의글 삭제 ajax
 	
 	public int deleteMyScrapAjax(Map<String, Integer> params); //찜목록 삭제
 	
