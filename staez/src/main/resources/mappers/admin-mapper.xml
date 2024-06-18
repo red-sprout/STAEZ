@@ -642,6 +642,12 @@
 		WHERE b.board_no = ${boardNo}
 	</select>
 	
+	<update id="updateBoardCount">
+		UPDATE board
+		SET board_count = board_count + 1
+		WHERE board_no = #{boardNo}
+	</update>
+	
 	<select id="selectConcertContentList" resultMap="concertResult">
 		select c.concert_no,
 				cg.category_name,

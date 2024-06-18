@@ -125,7 +125,8 @@
 }
 
 .boardContent>p
-, .boardContent>div {
+, .boardContent>div
+, .boardContent img {
     display: none;
 }
 

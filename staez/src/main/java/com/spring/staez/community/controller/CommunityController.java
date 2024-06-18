@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -333,5 +334,11 @@ public class CommunityController {
 		} else {
 			return "Exception 발생, 좋아요 실패";
 		}
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "selectConcertId.cm", produces = "text/plain; charset=utf-8")
+	public String selectConcertId(@RequestParam("concertNo") int concertNo) {
+		return communityService.selectConcertId(concertNo);
 	}
 }

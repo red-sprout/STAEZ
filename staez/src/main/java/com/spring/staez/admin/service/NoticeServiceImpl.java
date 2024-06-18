@@ -33,10 +33,13 @@ public class NoticeServiceImpl implements NoticeService {
 		return result1 * result2;
 	}
 
-	@Transactional(readOnly = true)
+	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public Board noticeDetail(int boardNo) {
-		return noticeDao.noticeDetail(sqlSession, boardNo);
+		int updateResult = noticeDao.updateBoardCount(sqlSession, boardNo);
+		if(updateResult > 0)		
+			return noticeDao.noticeDetail(sqlSession, boardNo);
+		return null;
 	}
 
 	@Transactional(readOnly = true)

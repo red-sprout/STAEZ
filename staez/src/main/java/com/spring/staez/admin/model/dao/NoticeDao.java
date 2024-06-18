@@ -53,4 +53,8 @@ public class NoticeDao {
 	public ArrayList<Category> selectCategory(SqlSessionTemplate sqlSession, int boardNo) {
 		return (ArrayList)sqlSession.selectList("adminMapper.selectNoticeCategory", boardNo);
 	}
+
+	public int updateBoardCount(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.update("adminMapper.updateBoardCount", boardNo);
+	}
 }
