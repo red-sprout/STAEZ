@@ -118,9 +118,9 @@ public class ConcertAPIController {
 		JsonObject dbsObj = totalObj.getAsJsonObject("dbs"); //totalObj 안에 있는 키로 object 꺼내올 수 있다
 		JsonObject dbObj = dbsObj.getAsJsonObject("db"); // {를 여는 것은 jsonObject {다음에 [있으면 array 시작
 		
-		JsonObject relates = dbObj.getAsJsonObject("relates");
-		JsonArray relate = relates.getAsJsonArray("relate");
+		
 
+				
 		
 		br.close();
 		urlConnection.disconnect();
@@ -140,8 +140,19 @@ public class ConcertAPIController {
 		conapi.setStartDate(dbObj.get("prfpdfrom").getAsString());
 		conapi.setEndDate(dbObj.get("prfpdto").getAsString());
 		
-		// 예매내역 url
 		
+		// 예매처 url 가져오기
+		JsonObject relates = dbObj.getAsJsonObject("relates");
+		JsonObject relate = null;
+		
+		try {
+			relate = relates.getAsJsonObject("relate");
+		} catch (Exception e) {
+			JsonArray relateArr = relates.getAsJsonArray("relate");
+			relate = (JsonObject) relateArr.get(0);
+		}
+		
+		conapi.setChangeName(relate.get("relateurl").toString());
 		
 		
 		// 콘서트 넘버로 잡을 수 있게 콘넘 내려주기
