@@ -54,7 +54,7 @@
                                 <input type="text" id="phone-suffix1" name="phone-suffix1" maxlength="4" >
                                 <span>-</span>
                                 <input type="text" id="phone-suffix2" name="phone-suffix2" maxlength="4">
-                                <input type="text" name="phone" id="input-value-phone" required  >
+                                <input type="text" name="phone" id="input-value-phone" required >
                             </div>
                             <td>
                                 <input type="button" id="phoneCheckButton" class="check_button" value="인증번호 전송" onclick="phoneClick()">
@@ -142,7 +142,7 @@
                         <td colspan="4">
                             <div class="insert-member-div">
                                 <button type="button" id="backButton">이전</button>
-                                <button type="button" id="findEmailCheck" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clickIdPhoneEmail()" disabled>다음</button>
+                                <button type="button" id="findEmailCheck" class="btn btn-primary" onclick="clickIdPhoneEmail()" disabled>다음</button>
                             </div>
                         </td>
                     </tr>

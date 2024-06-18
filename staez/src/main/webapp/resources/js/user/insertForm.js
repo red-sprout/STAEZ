@@ -563,5 +563,3 @@ function signinSubmitButton(){
     });
 }
 
-
-

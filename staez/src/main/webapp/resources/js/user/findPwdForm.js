@@ -18,7 +18,56 @@ document.addEventListener('DOMContentLoaded', function() {
     checkButton();
     // 비밀번호 관련 이벤트 리스너 추가
     newPwd();
+// 핸드폰 번호 전송 처리
+    signinPhoneNumber();
+    
 });
+
+
+// 핸드폰 번호 전송 처리
+function signinPhoneNumber (){
+    const prefixElement = document.getElementById("phone-prefix");
+    const suffix1Element = document.getElementById("phone-suffix1");
+    const suffix2Element = document.getElementById("phone-suffix2");
+    const inputValueElement = document.getElementById("input-value-phone");
+
+    function updatePhoneNumber() {
+        const prefix = prefixElement.innerText;
+        const suffix1 = suffix1Element.value;
+        const suffix2 = suffix2Element.value;
+        const phoneNumber = prefix + suffix1 + suffix2;
+        inputValueElement.value = phoneNumber;
+    }
+    suffix1Element.addEventListener('input', updatePhoneNumber);
+    suffix2Element.addEventListener('input', updatePhoneNumber);
+}
+// 핸드폰 번호 전송 처리
+function sendPhoneNumber() {
+    // input-value-phone 요소를 가져옵니다.
+    var inputValueElement = document.getElementById("input-value-phone");
+    if (!inputValueElement) {
+        console.error("input-value-phone 요소를 찾을 수 없습니다.");
+        return;
+    }
+    // phone-prefix 요소가 존재하는지 확인
+    var prefixElement = document.getElementById("phone-prefix");
+    if (!prefixElement) {
+        console.error("phone-prefix 요소를 찾을 수 없습니다.");
+        return;
+    }
+    // 010 부분 가져오기
+    var prefix = prefixElement.innerText;
+
+    // 각 번호 입력란의 값 가져오기
+    var suffix1 = document.getElementById("phone-suffix1").value;
+    var suffix2 = document.getElementById("phone-suffix2").value;
+
+    // 전체 번호 조합하여 표시
+    var phoneNumber = prefix + suffix1 + suffix2;
+
+    // input-value-phone 필드에 번호 설정
+    inputValueElement.value = phoneNumber;
+}
 
 // 이전페이지로 돌아가는
 function backPage() {
@@ -300,11 +349,19 @@ function clickIdPhoneEmail() {
     let email = document.getElementById("input-value-email").value;
     let userName = document.getElementById("user_name").value;
 
+    // 디버그 로그 추가
+    console.log("ID: " + id);
+    console.log("Phone: " + phone);
+    console.log("Email: " + email);
+    console.log("User Name: " + userName);
+
     clickIdPhoneEmailSelect({ userId: id, phone: phone, email: email, user_name: userName }, function(res) {
         if (res.trim() === "New Pwd Go") {
-            // 모달 대신에 스타일을 변경하여 모달을 보이게 함
-            document.getElementById("myModal").style.display = "block";
+            // 모달을 보이게 함
+            $('#myModal').modal('show');
         } else {
+            // 모달을 숨김
+            $('#myModal').modal('hide');
             alert("사용자 정보를 찾을 수 없습니다.");
         }
     });

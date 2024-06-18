@@ -191,26 +191,32 @@ public class UserController {
     }
 
 	// 비밀번호 찾기 새로운 비밀번호 업데이트
-	@PostMapping("/checkFindNewPwd.me")
-	@ResponseBody
-	public String checkFindNewPwd(@RequestParam("userId") String user_id, @RequestParam("phone") String phone,
-	    @RequestParam("email") String email, @RequestParam("user_name") String userName, HttpSession session) {
-	    // 유효성 검사 및 사용자 정보 확인
-	    String user = userService.findUserByIdEmailPhone(user_id, phone, email, userName);
+    @PostMapping("checkFindNewPwd.me")
+    @ResponseBody
+    public String checkFindNewPwd(@RequestParam("userId") String user_id, @RequestParam("phone") String phone,
+        @RequestParam("email") String email, @RequestParam("user_name") String userName, HttpSession session) {
+        
+        System.out.println("User ID: " + user_id);
+        System.out.println("Phone: " + phone);
+        System.out.println("Email: " + email);
+        System.out.println("User Name: " + userName);
+        
+        // 유효성 검사 및 사용자 정보 확인
+        String user = userService.findUserByIdEmailPhone(user_id, phone, email, userName);
 
-	    if (user != null) {
-	        // 사용자 정보를 찾았을 경우
-	        // 세션으로 유저 정보 저장
-	        session.setAttribute("user_id", user_id);
-	        session.setAttribute("phone", phone);
-	        session.setAttribute("email", email);
-	        session.setAttribute("user_name", userName);
-	        return "New Pwd Go";
-	    } else {
-	        // 사용자 정보를 찾지 못했을 경우
-	        return "Funk New Pwd";
-	    }
-	}
+        if (user != null) {
+            // 사용자 정보를 찾았을 경우
+            // 세션으로 유저 정보 저장
+            session.setAttribute("user_id", user_id);
+            session.setAttribute("phone", phone);
+            session.setAttribute("email", email);
+            session.setAttribute("user_name", userName);
+            return "New Pwd Go";
+        } else {
+            // 사용자 정보를 찾지 못했을 경우
+            return "Funk New Pwd";
+        }
+    }
 
 	// 새로운 비밀번호 저장
 	@ResponseBody
