@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -39,6 +41,7 @@ import com.spring.staez.concert.model.vo.Theater;
 import com.spring.staez.concert.service.ConcertReserveService;
 import com.spring.staez.user.model.vo.Reserve;
 import com.spring.staez.user.model.vo.User;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -173,13 +176,28 @@ public class ConcertReserveController {
 			seatList.add(seatInformation.getAsString());
 		}
 		rid.setSeatList(seatList);
-
+		
+		
 		int result = crService.insertReserve(rid);
+		String seatStr = "";
+		for(int i = 0; i < rid.getSeatList().size(); i++) {
+			 String seat = rid.getSeatList().get(i);
+			 String[] parts = seat.split("-");
+		     int numberPart = Integer.parseInt(parts[0]);
+		     StringBuilder alphaPart = new StringBuilder();
+		     while (numberPart > 0) {
+		            int remainder = numberPart % 26;
+		            alphaPart.insert(0, (char) (remainder + 'A' - 1));
+		            numberPart = numberPart / 26;
+		     }
+		     seatStr += alphaPart.toString() + "-" + parts[1] + " ";
+		}
+		System.out.println(seatStr);
 		System.out.println("컨트롤러 : " + result);
 		if (result > 0) {
 			if(rid.getPayMethod().equals("카카오페이")) {
 				SimpleMailMessage message = new SimpleMailMessage();
-				String emailText = "좌석정보 : " + seatList + "결제 방식 : 카카오페이" + "결제 금액 : " + totalPrice ;
+				String emailText = "좌석정보 : " + seatStr + "결제 방식 : 카카오페이" + "결제 금액 : " + totalPrice ;
 				message.setSubject("예매 정보");
 				message.setText(emailText);
 				
@@ -192,7 +210,7 @@ public class ConcertReserveController {
 				sender.send(message);
 			} else {
 				SimpleMailMessage message = new SimpleMailMessage();
-				String emailText = "좌석정보 : " + seatList + "결제 방식 : 무통장입금" + "결제 금액 : " + totalPrice +"입금계좌 : KB국민은행 "+ deposit ;
+				String emailText = "좌석정보 : " + seatStr + "결제 방식 : 무통장입금" + "결제 금액 : " + totalPrice +"입금계좌 : KB국민은행 "+ deposit ;
 				message.setSubject("예매 정보");
 				message.setText(emailText);
 				
@@ -299,7 +317,7 @@ public class ConcertReserveController {
 
 	@ResponseBody
 	@PostMapping(value = "kakaopay.co", produces = "application/json; charset-UTF-8")
-	public ReadyResponse kakaopay(String rids, String concertTitle, String totalAmount) {
+	public ReadyResponse kakaopay(String rids, String concertTitle, String totalAmount , HttpSession session) {
 		JsonObject totalObj = JsonParser.parseString(rids).getAsJsonObject();
 
 
@@ -314,21 +332,33 @@ public class ConcertReserveController {
 		String recipientBirth = totalObj.get("recipientBirth").getAsString();
 		String recipientEmail = totalObj.get("recipientEmail").getAsString();
 		JsonArray seatListArray = totalObj.get("seatList").getAsJsonArray();
-
+		
 		 Gson gson = new Gson();
 	     String seatListJson = gson.toJson(seatListArray);
 	     String encodedSeatList = null;
+	     String encodedEamil = null;
 	     try {
 			encodedSeatList = URLEncoder.encode(seatListJson, StandardCharsets.UTF_8.toString());
+			encodedEamil = URLEncoder.encode(recipientEmail, StandardCharsets.UTF_8.toString());
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+	     
+	    System.out.println("인코딩 이메일"+encodedEamil);
+	     
 		String name = concertTitle;
         int totalPrice = Integer.parseInt(totalAmount);
         log.info("좌석 정보 : " + seatListJson);
         log.info("주문 상품 이름: " + name);
         log.info("주문 금액: " + totalPrice);
      
+        session.setAttribute("userNo", userNo);
+        session.setAttribute("recipientName", recipientName);
+        session.setAttribute("recipientPhone", recipientPhone);
+        session.setAttribute("recipientBirth", recipientBirth);
+        session.setAttribute("recipientEmail", recipientEmail);
+        
+        
         // 카카오 결제 준비하기
         Map<String, String> parameters = new HashMap<>();
         parameters.put("cid", "TC0ONETIME");                        
@@ -338,22 +368,18 @@ public class ConcertReserveController {
         parameters.put("quantity", "1");                              
         parameters.put("total_amount", String.valueOf(totalPrice));   
         parameters.put("tax_free_amount", "0");                       
-        try {
-			parameters.put("approval_url", "http://localhost:8888/staez/success.co?"
-					+ "userNo=" + userNo
-					+ "&concertNo="+concertNo
-					+ "&concertDate="+concertDate
-					+ "&schedule="+schedule
-					+ "&payMethod="+payMethod
-					+ "&recipientName="+recipientName
-					+ "&recipientPhone="+recipientPhone
-					+ "&recipientBirth="+recipientBirth
-					+ "&recipientEmail="+URLEncoder.encode(recipientEmail, "UTF-8")
-					+ "&seatListArray="+encodedSeatList
-					+ "&totalAmount="+String.valueOf(totalPrice));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}     
+      
+		parameters.put("approval_url", "http://localhost:8888/staez/success.co?"
+				+ "&concertNo="+concertNo
+				+ "&concertDate="+concertDate
+				+ "&schedule="+schedule
+				+ "&payMethod="+payMethod
+				+ "&seatListArray="+encodedSeatList
+				+ "&totalAmount="+String.valueOf(totalPrice));
+	    
+        
+		
+       
         System.out.println(parameters);
         parameters.put("cancel_url", "http://localhost:8888/staez/cancel.co");       
         parameters.put("fail_url", "http://localhost:8888/staez/fail.co");         
@@ -433,13 +459,19 @@ public class ConcertReserveController {
 	}
 	
 	@GetMapping("success.co")
-	public String kakaoSuccess(Model model, String userNo, String concertNo, String concertDate, String schedule, String payMethod, String recipientName, String recipientPhone, String recipientBirth, String recipientEmail, String seatListArray, String totalAmount) {
+	public String kakaoSuccess(Model model, HttpSession session, String concertNo, String concertDate, String schedule, String payMethod, String seatListArray, String totalAmount) {
 		
 		JsonArray jsonArray = JsonParser.parseString(seatListArray).getAsJsonArray();
         
         // JsonArray를 문자열로 변환하여 모델에 담기
         String seatList = jsonArray.toString();
 		
+        int userNo = (int) session.getAttribute("userNo");
+        String recipientName = (String) session.getAttribute("recipientName");
+        String recipientPhone = (String) session.getAttribute("recipientPhone");
+        String recipientBirth = (String) session.getAttribute("recipientBirth");
+        String recipientEmail = (String) session.getAttribute("recipientEmail");
+        
 		System.out.println(seatList);
 		model.addAttribute("userNo", userNo);
 		model.addAttribute("concertNo", concertNo);
@@ -453,7 +485,11 @@ public class ConcertReserveController {
 		model.addAttribute("seatList", seatList);
 		model.addAttribute("totalAmount", totalAmount);
 		
-		
+		session.removeAttribute("userNo");
+		session.removeAttribute("recipientName");
+	    session.removeAttribute("recipientPhone");
+	    session.removeAttribute("recipientBirth");
+	    session.removeAttribute("recipientEmail");
 		
 		return "concert/success";
 	}

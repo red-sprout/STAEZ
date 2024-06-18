@@ -99,7 +99,6 @@
 				from concert_like cl
 				join concert c using (concert_no)
 				join concert_schedule cs on (c.concert_no = cs.concert_no)
-				where cl.status = 'Y'
 				group by cl.concert_no
 				order by countlike desc) l
 		join concert c on (l.concert_no = c.concert_no)	

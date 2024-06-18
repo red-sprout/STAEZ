@@ -14,7 +14,7 @@
 <body>
     
 	<div class="container">
-        <div id="timer" class=""></div>
+        <img src="steaz/resources/img/concert/loading.gif" alt="loading">
         <input type="hidden" name="userNo" value="${userNo}">
         <input type="hidden" name="concertNo" value="${concertNo}">
         <input type="hidden" name="recipientName" value="${recipientName}">
@@ -26,7 +26,6 @@
         <input type="hidden" name="schedule" value="${schedule}">
         <input type="hidden" name="seatList" value='${seatList}'>
         <input type="hidden" name="totalAmount" value='${totalAmount}'>
-        <input type="hidden" name="pg">
 
 	</div>
     <script src="${contextPath}/resources/js/api/concertReserveapi.js"></script>
@@ -44,9 +43,8 @@
             const schedule = document.querySelector("input[name = 'schedule']").value;
             const totalAmount = document.querySelector("input[name='totalAmount']").value;  
             const seatListStr = document.querySelector("input[name='seatList']").value;
-            const seatList = JSON.parse(seatListStr); 
-            
-            console.log(seatList)
+            const seatList = JSON.parse(seatListStr);
+           
             const rids = JSON.stringify({
                     userNo,
                     concertNo,
@@ -62,7 +60,7 @@
                 })
                 ajaxinsertReserve({rids},(res) => alertAndClose(res))
         }
-
+        
         function alertAndClose(res){
             console.log(res)
             if(res === "good"){
