@@ -25,6 +25,7 @@
     </div>
     <!-- 공연 navi -->
     <input type="hidden" name="concertNo" value="${con.concertNo}">
+
     <div class="concert-navi-div">
         <ul class="concert-ul">
           <!-- 자스로 그려줌 -->
@@ -41,32 +42,7 @@
             <!-- 사진 다음으로 넘기는 버튼 -->
 
             <!-- 사진반복, 슬라이드 -->
-            <!-- https://devinus.tistory.com/47
-                https://m.blog.naver.com/ka28/221999891981
-                https://www.inflearn.com/blogs/3749 -->
-            <!-- <c:forEach var="co" items="${list }">
-                <div class="concert-main-upper-pic-div" onclick="goDetail('${co.concertNo}')">
-                    <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2404%2F240425024045_24005737.gif&w=384&q=75"
-                        alt="">
-                    <div class="concert-main-upper-sen-div">
-                        <p><span><b><h2>${co.concertTitle}</h2></span></b></p>
-                        <p><span>${co.theaterName}</span></p>
-                        <p><span>${co.startDate} - ${co.endDate}</span></p>
-                    </div>
-                </div>
-            </c:forEach> -->
-<!--              
-            <div class="concert-main-upper-pic-div" onclick="goDetail()">
-                <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2404%2F240425024045_24005737.gif&w=384&q=75"
-                    alt="">
-                <div class="concert-main-upper-sen-div">
-                    <p><span><b><h2>${list.size()}</h2></span></b></p>
-                    <p><span>성남아트센터</span></p>
-                    <p><span>2024.06.22 - 2024.06.23</span></p>
-                </div>
-            </div>
 
-            </div> -->
         </div>
         <div class="concert-main-upper-next">
             <img src="${pageContext.request.contextPath}/resources/img/main/after.png">
@@ -83,7 +59,6 @@
             <li><button class="concert-main-list-button" onclick="allListClick(); return false;"><h3><span>전체보기</span></h3></button></li>
             <li><button class="concert-main-list-button" onclick="popularClick()"><h3><span>인기순위</span></h3></button></li>
             <li><button class="concert-main-list-button" onclick="latestClick()"><h3><span>최신공연</span></h3></button></li>
-            <li><button class="concert-main-list-button" onclick="highscoreClick()"><h3><span>별점높은</span></h3></button></li>
             <li id="concert-main-list-area-parent"><button class="concert-main-list-button area" onclick="locationClick()"><h3><span>지역전체 ▼</span></h3></button>
                 <ul class="concert-main-list-area"> 
                     <li><a onclick="locationArea('서울')">서울</a></li>
@@ -101,17 +76,7 @@
 
     <section class="concert-main-grid-section">
         <div class="concert-main-grid">
-            <!-- <div onclick="">
-                </div>
-                    <div>
-                        <img src="https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FMusc%2F2404%2F240412030249_24005266.gif&w=384&q=75"
-                            alt="">
-                            <p><span>뮤지컬</span></p>
-                            <p><span><b>[시카고]</b></span></p>
-                            <p><span>2024.06.22 - 2024.06.23</span></p>
-                    </div>
-                </div> -->
-            
+            <!-- grid 부분 -->
         </div>
     </section>
 

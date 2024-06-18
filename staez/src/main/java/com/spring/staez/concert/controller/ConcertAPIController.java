@@ -118,10 +118,15 @@ public class ConcertAPIController {
 		JsonObject dbsObj = totalObj.getAsJsonObject("dbs"); //totalObj 안에 있는 키로 object 꺼내올 수 있다
 		JsonObject dbObj = dbsObj.getAsJsonObject("db"); // {를 여는 것은 jsonObject {다음에 [있으면 array 시작
 		
+		JsonObject relates = dbObj.getAsJsonObject("relates");
+		JsonArray relate = relates.getAsJsonArray("relate");
+
+		
 		br.close();
 		urlConnection.disconnect();
 		
 		Concert conapi = new Concert();
+		
 		conapi.setOriginName(dbObj.get("mt20id").getAsString()); // 공연ID 넣어봄
 		conapi.setConcertTitle(dbObj.get("prfnm").getAsString());
 		conapi.setStartDate(dbObj.get("prfpdfrom").getAsString());
@@ -135,6 +140,7 @@ public class ConcertAPIController {
 		conapi.setStartDate(dbObj.get("prfpdfrom").getAsString());
 		conapi.setEndDate(dbObj.get("prfpdto").getAsString());
 		
+		// 예매내역 url
 		
 		
 		
@@ -142,9 +148,9 @@ public class ConcertAPIController {
 		Concert con = concertService.selectConApi(concertId);
 		int concertNo = con.getConcertNo();
 		conapi.setConcertNo(concertNo);
-//		con.setReviewContent(reviewContent); // 한줄평, 관람후기...?
 		
 		model.addAttribute("conapi", conapi);
+		System.out.println(conapi);
 		
 		return "concert/concertAPIDetailMain";
 		
@@ -166,9 +172,7 @@ public class ConcertAPIController {
 		ArrayList<Concert> conDlist =  concertService.selectConDetailApi(Integer.parseInt(concertNo));
 		return new Gson().toJson(conDlist);
 	}
-	
-	
-	
+		
 	
 	// 콘서트 플롯(콘서트id)의 콘서트 넘버를 가져와서 어쩌고 처리 ㄱ
 	

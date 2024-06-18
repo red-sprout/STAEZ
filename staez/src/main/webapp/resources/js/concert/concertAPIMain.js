@@ -1,16 +1,15 @@
 $(function() { // list는 컨트롤러에서 받아온 것
   const sliderContent = document.querySelector(".concert-main-upper");
   const gridContent = document.querySelector(".concert-main-grid");
-
+  conNaviDraw(conList => drawConNavi(conList));
   showLoading();
 
   ajaxCategoryListAPI((list)=>{
     drawSliderMain(list, sliderContent)
+    drawGridMain(list, gridContent)
     slick()
     hideLoading()
   });
-
-  ajaxCategoryListAPI((list)=>drawGridMain(list, gridContent));
 });
 
 function showLoading(){
@@ -23,6 +22,33 @@ function hideLoading(){
   loadingPage.innerHTML = ``;
   loadingPage.style.display = 'none';
 };
+
+
+// ajax로 콘서트 navi 그려
+function drawConNavi(conList){
+  const concertNaviArea = document.querySelector(".concert-ul");
+  concertNaviArea.innerHTML = ``;
+
+  for(let c of conList){
+
+    let naviLi = document.createElement('li');
+    naviLi.innerHTML = ``;
+    naviLi.innerHTML = `<h2 id="`+ c.categoryNo +`">`+ c.categoryName +`</h2>
+                        <input type="hidden" name="concertNo" value=`+ c. categoryNo +`>`;
+
+    naviLi.setAttribute("onclick", `location.href ='main.co?categoryNo=`+ c.categoryNo +`'`)
+
+    concertNaviArea.appendChild(naviLi);
+  }
+  drawAPINavi(concertNaviArea)
+}
+
+// API용 navi 추가
+function drawAPINavi(concertNaviArea) {
+  let naviLi = document.createElement('li');
+  naviLi.innerHTML += `<li onclick="location.href ='conapi.co'"><h2>외부공연연결</h2></li> `
+  concertNaviArea.appendChild(naviLi);
+}
 
 
 // 슬라이더 그려주기

@@ -24,8 +24,8 @@ function drawConNavi(conList){
   const concertNaviArea = document.querySelector(".concert-ul");
   concertNaviArea.innerHTML = ``;
 
-  for(let c of conList){
 
+  for(let c of conList){
     let naviLi = document.createElement('li');
     naviLi.innerHTML = ``;
     naviLi.innerHTML = `<h2 id="`+ c.categoryNo +`">`+ c.categoryName +`</h2>
@@ -35,8 +35,16 @@ function drawConNavi(conList){
 
     concertNaviArea.appendChild(naviLi);
   }
+
+  drawAPINavi(concertNaviArea)
 }
 
+// API용 navi 추가
+function drawAPINavi(concertNaviArea) {
+  let naviLi = document.createElement('li');
+  naviLi.innerHTML += `<li onclick="location.href ='conapi.co'"><h2>외부공연연결</h2></li> `
+  concertNaviArea.appendChild(naviLi);
+}
 
 // 슬라이더 그려주기
 function drawSliderMain(list, sliderContent){

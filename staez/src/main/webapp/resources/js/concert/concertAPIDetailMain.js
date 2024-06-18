@@ -1,13 +1,43 @@
 $(function() { 
-
     const concertId = document.querySelector("input[name='concertId']").value;
     const userNo = document.querySelector("input[name='userNo']").value;
     const concertNo = document.querySelector("input[name='concertNo']").value;
-    console.log(concertId);
+    
+    console.log("concertNo" + concertNo)
+    console.log("concertId" + concertId)
+
+    conNaviDraw(conList => drawConNavi(conList));
 
     likeCountApi({ "userNo" : userNo, "concertId" : concertId}, (result) => drawLikeCount(result));
     conDetailapi({"concertNo" : concertNo}, (result) => drawConDetail(result));
 });
+
+
+// ajax로 콘서트 navi 그려
+function drawConNavi(conList){
+    const concertNaviArea = document.querySelector(".concert-ul");
+    concertNaviArea.innerHTML = ``;
+  
+    for(let c of conList){
+  
+      let naviLi = document.createElement('li');
+      naviLi.innerHTML = ``;
+      naviLi.innerHTML = `<h2 id="`+ c.categoryNo +`">`+ c.categoryName +`</h2>
+                          <input type="hidden" name="concertNo" value=`+ c. categoryNo +`>`;
+  
+      naviLi.setAttribute("onclick", `location.href ='main.co?categoryNo=`+ c.categoryNo +`'`)
+  
+      concertNaviArea.appendChild(naviLi);
+    }
+    drawAPINavi(concertNaviArea)
+  }
+    
+    // API용 navi 추가
+function drawAPINavi(concertNaviArea) {
+    let naviLi = document.createElement('li');
+    naviLi.innerHTML += `<li onclick="location.href ='conapi.co'"><h2>외부공연연결</h2></li> `
+    concertNaviArea.appendChild(naviLi);
+}
 
 
   // 예매버튼 클릭
@@ -18,18 +48,11 @@ function reservePage(){
 }
 
 
+
 // 세부 내용 ajax로 값받아오기
 function goSellDetail(){
     const concertNo =  $("input[name='concertNo']").val();
     conSellDetailapi({"concertNo" : concertNo}, (result) => drawConSellDetail(result))
-}
-
-function goCommentDetail(_this, cpage){
-console.log(_this)
-console.log(cpage)
-    const concertNo =  $("input[name='concertNo']").val();
-    // const cpage = $(this).data('cpage');
-    commentDetail({"concertNo" : concertNo, "cpage" : cpage}, (result) => drawCommentDetail(result))
 }
 
 
@@ -113,10 +136,11 @@ function drawConDetail(result){
                                   `</div>
                                 </div>
                               <br><br>`
-  }
-  conDetail1.onclick = function goConDetail(){
-    location.href = 'condeapi.co?concertId=' + concertId;
+    conDetail1.onclick = function goConDetail(){
+        location.href = 'condeapi.co?concertId=' + concertId;
     }
+  }
+
 }
   
 

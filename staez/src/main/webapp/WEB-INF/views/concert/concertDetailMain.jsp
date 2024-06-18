@@ -37,14 +37,12 @@
     <!-- 공연 navi --> <!-- !!!!!!!!!!! div랑 스타일 삭제 필요 !!!!!!!!!!!! -->
     <input type="hidden" name="userNo" value="${loginUser.userNo}">
     <input type="hidden" name="concertNo" value="${con.concertNo}">
+    <input type="hidden" name="categoryNo" value="${cat.categoryNo}">
 
     <div class="concert-navi-div" style="display: flex; justify-content: space-around;">
         <ul class="concert-ul">
           <!-- 자스로 그려줌 -->
         </ul>
-        <div>
-            <a href="conapi.co"><span>콘서트 api 테스트</span></a>
-        </div>
     </div>
 
     <!-- 공연상세페이지 위쪽(노란 블럭 안쪽) -->
