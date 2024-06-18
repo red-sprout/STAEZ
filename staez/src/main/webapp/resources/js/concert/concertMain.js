@@ -2,10 +2,12 @@
 $(function() { // list는 컨트롤러에서 받아온 것
   const sliderContent = document.querySelector(".concert-main-upper");
   const gridContent = document.querySelector(".concert-main-grid");
-  
+  const categoryNo = document.querySelector("input[name='categoryNo']").value;
+
+
   conNaviDraw(conList => drawConNavi(conList));
 
-  const categoryNo = document.querySelector("input[name='categoryNo']").value;
+  
   ajaxCategoryList({"categoryNo": categoryNo}, (list) => {
     drawSliderMain(list, sliderContent);
     slick();
@@ -22,8 +24,8 @@ function drawConNavi(conList){
   const concertNaviArea = document.querySelector(".concert-ul");
   concertNaviArea.innerHTML = ``;
 
-  for(let c of conList){
 
+  for(let c of conList){
     let naviLi = document.createElement('li');
     naviLi.innerHTML = ``;
     naviLi.innerHTML = `<h2 id="`+ c.categoryNo +`">`+ c.categoryName +`</h2>
@@ -33,18 +35,36 @@ function drawConNavi(conList){
 
     concertNaviArea.appendChild(naviLi);
   }
+
+  drawAPINavi(concertNaviArea)
 }
 
+// API용 navi 추가
+function drawAPINavi(concertNaviArea) {
+  let naviLi = document.createElement('li');
+  naviLi.innerHTML += `<li onclick="location.href ='conapi.co'"><h2>외부공연연결</h2></li> `
+  concertNaviArea.appendChild(naviLi);
+}
 
 // 슬라이더 그려주기
 function drawSliderMain(list, sliderContent){
-  // const sliderContentDiv = document.createElement('div');
-  // const gridContentDiv = document.createElement('div');
+  
+  const del1 = document.querySelector(".concert-main-upper-section");
+  const del2 = document.querySelector(".running-concert");
+  const del3 = document.querySelector(".concert-main-hr");
+  const del4 = document.querySelector(".concert-main-list-section");
+  const del5 = document.querySelector(".concert-main-grid-section");
   
   sliderContent.innerHTML =``;
 
   if(list.length === 0){
-    sliderContent.innerHTML =``;
+    del1.innerHTML = "등록된 공연이 없습니다.";
+    del1.style.fontSize = '24px';
+    del1.style.justifyContent = 'center';
+    del2.style.display = 'none';
+    del3.style.display = 'none';
+    del4.style.display = 'none';
+    del5.style.display = 'none';
   }
   
   for (let c of list) {

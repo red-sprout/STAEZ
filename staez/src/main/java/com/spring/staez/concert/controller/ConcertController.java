@@ -63,7 +63,6 @@ public class ConcertController {
 		// 공연세부페이지 공연 가격
 		ArrayList<Seat> s =  concertService.selectSeatPrice(Integer.parseInt(concertNo));
 
-		
 		model.addAttribute("rev", conRevDlist);
 		model.addAttribute("com", conComDlist);
 		model.addAttribute("con", con);
@@ -71,9 +70,7 @@ public class ConcertController {
 		
 		return "concert/concertDetailMain";
 	}
-	
-	
-	
+		
 	
 	// 좋아요 몇개인지
 	@ResponseBody

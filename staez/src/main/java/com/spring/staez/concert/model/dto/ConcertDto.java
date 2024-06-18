@@ -31,9 +31,9 @@ public class ConcertDto {
     private String theaterName; //공영장명
 
     @SerializedName("poster")
-    private String filePath; //파일경로
+    private String filePath; //파일경로 : 포스터
 
-    @SerializedName("prfstate")
-    private String concertStatus; //공연상태
+    @SerializedName("prfcast")
+    private String concertMembers; //출연진
 
 }

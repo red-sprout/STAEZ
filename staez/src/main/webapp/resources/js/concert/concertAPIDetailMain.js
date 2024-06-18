@@ -1,13 +1,43 @@
 $(function() { 
-
     const concertId = document.querySelector("input[name='concertId']").value;
     const userNo = document.querySelector("input[name='userNo']").value;
     const concertNo = document.querySelector("input[name='concertNo']").value;
-    console.log(concertId);
+    
+    console.log("concertNo" + concertNo)
+    console.log("concertId" + concertId)
+
+    conNaviDraw(conList => drawConNavi(conList));
 
     likeCountApi({ "userNo" : userNo, "concertId" : concertId}, (result) => drawLikeCount(result));
     conDetailapi({"concertNo" : concertNo}, (result) => drawConDetail(result));
 });
+
+
+// ajax로 콘서트 navi 그려
+function drawConNavi(conList){
+    const concertNaviArea = document.querySelector(".concert-ul");
+    concertNaviArea.innerHTML = ``;
+  
+    for(let c of conList){
+  
+      let naviLi = document.createElement('li');
+      naviLi.innerHTML = ``;
+      naviLi.innerHTML = `<h2 id="`+ c.categoryNo +`">`+ c.categoryName +`</h2>
+                          <input type="hidden" name="concertNo" value=`+ c. categoryNo +`>`;
+  
+      naviLi.setAttribute("onclick", `location.href ='main.co?categoryNo=`+ c.categoryNo +`'`)
+  
+      concertNaviArea.appendChild(naviLi);
+    }
+    drawAPINavi(concertNaviArea)
+  }
+    
+    // API용 navi 추가
+function drawAPINavi(concertNaviArea) {
+    let naviLi = document.createElement('li');
+    naviLi.innerHTML += `<li onclick="location.href ='conapi.co'"><h2>외부공연연결</h2></li> `
+    concertNaviArea.appendChild(naviLi);
+}
 
 
   // 예매버튼 클릭
@@ -18,18 +48,11 @@ function reservePage(){
 }
 
 
+
 // 세부 내용 ajax로 값받아오기
 function goSellDetail(){
     const concertNo =  $("input[name='concertNo']").val();
     conSellDetailapi({"concertNo" : concertNo}, (result) => drawConSellDetail(result))
-}
-
-function goCommentDetail(_this, cpage){
-console.log(_this)
-console.log(cpage)
-    const concertNo =  $("input[name='concertNo']").val();
-    // const cpage = $(this).data('cpage');
-    commentDetail({"concertNo" : concertNo, "cpage" : cpage}, (result) => drawCommentDetail(result))
 }
 
 
@@ -91,8 +114,9 @@ function drawLikeCount(result){
 
 
 function drawConDetail(result){
-
     const concertId = document.querySelector("input[name='concertId']").value;
+    // model로 받아와서 input으로 넘겨준
+    const imgPath = document.querySelector("input[name='filePath']").value;
     const drawSection = document.querySelector(".concert-detail-down-section");
     const conDetail1 = document.querySelector(".conDetail1");
     drawSection.innerHTML = ``;
@@ -101,25 +125,30 @@ function drawConDetail(result){
                                   <div class="concert-detail-subject">
                                     <br>
                                     <span><h2>작품소개</h2></span>
-                                    <div>`
-                                        + c.concertTitle + "${conapi.concertProduction}" +
+                                    <div class="title-wrap">`
+                                        + c.concertTitle +
                                     `</div>
                                   </div>
                                   <br><br>
                                   <div class="concert-detail-subject">
                                       <span><h2>공지사항</h2></span>`
-                                      + `<img src="` + contextPath + c.filePath + c.changeName + `">`+
+                                      + `<img src="` + imgPath + `">`+
                                   `</div>
                                 </div>
                               <br><br>`
-  }
-  conDetail1.onclick = function goConDetail(){
-    location.href = 'condeapi.co?concertId=' + concertId;
+    conDetail1.onclick = function goConDetail(){
+        location.href = 'condeapi.co?concertId=' + concertId;
     }
+  }
+
 }
   
 
 function drawConSellDetail(result){
+  const startDate = document.querySelector("input[name='startDate']").value;
+  const endDate = document.querySelector("input[name='endDate']").value;
+  const theaterName = document.querySelector("input[name='theaterName']").value;
+
   const drawSection = document.querySelector(".concert-detail-down-section");
   drawSection.innerHTML= '';
   for(let c of result){
@@ -137,11 +166,11 @@ function drawConSellDetail(result){
                                             </tr>
                                             <tr>
                                                 <th>공연기간</th>
-                                                <td>` + c.startDate +`~` + c.endDate + `</td>
+                                                <td>` + startDate +`~` + endDate + `</td>
                                             </tr>
                                             <tr>
                                                 <th>공연장소</th>
-                                                <td>` + c.theaterName + `</td>
+                                                <td>` + theaterName + `</td>
                                             </tr>
                                             <tr>
                                                 <th>공연런타임</th>
