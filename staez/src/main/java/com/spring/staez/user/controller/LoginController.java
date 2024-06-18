@@ -76,6 +76,8 @@ public class LoginController {
    @GetMapping("logout.me")
    public String logoutUser(HttpSession session) {
       session.removeAttribute("loginUser");
+      session.removeAttribute("isAuth");
+
       return "redirect:/";
    }
    

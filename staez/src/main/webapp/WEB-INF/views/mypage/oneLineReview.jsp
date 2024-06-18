@@ -130,7 +130,7 @@
                     </div>
                     <div class="comment-area">
                         <h3>한줄평</h3>
-                        <textarea rows="4" placeholder="200자 " maxlength="200" name="reviewContent">                            
+                        <textarea rows="4" placeholder="200자 " maxlength="200" name="reviewContent" required>                            
                         </textarea>
                     </div>
                     <input type="hidden" name="concertNo" value="">
