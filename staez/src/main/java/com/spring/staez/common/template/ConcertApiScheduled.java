@@ -8,12 +8,12 @@ import com.spring.staez.concert.service.ConcertRestTemplate;
 
 
 @Component
-public class ConApiScheduled  {
+public class ConcertApiScheduled  {
 	
 	@Autowired
 	private ConcertRestTemplate conRestRun;
 	
-	@Scheduled(cron = "0 03 10 * * *") 
+	@Scheduled(cron = "0 0 0 * * *")
     public void ConcertRestTemplate() {
 		
 		System.out.println("Scheduled task is running");

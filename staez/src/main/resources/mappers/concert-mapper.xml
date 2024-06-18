@@ -495,6 +495,14 @@
 		WHERE concert_title = #{concertTitle}
 	</select>
 	
+	
+	
+	
+	
+	
+	
+	<!-- 콘서트 api insert문  -->
+	
 	<insert id="conapiInsert">
 	        INSERT INTO concert (
 	            concert_title,
@@ -506,12 +514,44 @@
 	        ) VALUES (
 	            #{concertTitle},
 	            #{concertPlot},
-	            200,
-	            #{concertTitle},
-	            #{concertTitle},
-	            #{concertStatus}
+	            100,
+	            'concert_members',
+	            'concert_production',
+	            'age_limit'
 	        )
 	</insert>
+	<insert id="conapiAttatchmentApiInsert">
+	        INSERT INTO concert_attachment (
+	            concert_no,
+	            origin_name,
+	            change_name,
+	            file_path  
+	        ) VALUES (
+	            CURRVAL('seq_concert'::regclass),
+	            #{ageLimit},
+	            #{concertMembers},
+	            #{filePath}
+	        )
+	</insert>
+	<insert id="conapiScheduleApiInsert">
+	        INSERT INTO concert_schedule (
+	            concert_no,
+	            start_date,
+	            end_date        
+	        ) VALUES (
+	            CURRVAL('seq_concert'::regclass),
+	            #{startDate},
+	            #{endDate}
+	        )
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
     <delete id="conapiDelete">
     	DELETE FROM concert
 		WHERE theater_no IS NULL
@@ -574,7 +614,7 @@
 	</select>
     
     <select id="selectConcertId" resultMap="concertResult" >
-		SELECT concert_plot
+		SELECT concert_plot, concert_no
 		FROM concert
 		WHERE theater_no IS NULL 
 	</select>
