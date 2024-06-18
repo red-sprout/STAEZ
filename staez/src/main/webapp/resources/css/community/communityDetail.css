@@ -119,6 +119,11 @@
     margin-bottom: 20px;
 }
 
+#go-list-button {
+    display: flex;
+    justify-content: center;
+}
+
 @media (max-width: 1200px) {
     #community-nav {
         display: none;

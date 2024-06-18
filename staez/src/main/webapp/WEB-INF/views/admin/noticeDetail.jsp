@@ -41,6 +41,9 @@
                                             <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
                                             <button class="function">삭제</button>
                                         </c:if>
+                                        &nbsp;
+                                        &nbsp;
+                                        <button class="function" type="button">조회수 : ${n.boardCount}</button>
                                     </div>
                                 </td>
                             </tr>
@@ -56,6 +59,9 @@
                     <div class="community-circle-area" onclick="likeToggle(this)">
                         <img><h4></h4>
                     </div>
+                </li>
+                <li id="go-list-button">
+                    <button class="btn-staez purple" onclick="location.href=`main.no`"><h3>목록</h3></button>
                 </li>
             </ul>
         </div>

@@ -18,15 +18,31 @@ const boardCodeMap = {
 
 const removableTags = ["<p>", "</p>", "<div>", "</div>"];
 
+// function init() {
+//     const url = window.location.pathname.split("/")[2];
+//     const menubarArr = ["main.co", "main.cm", "main.no", "main.iq", "userList.ad"];
+//     const menubar = document.querySelectorAll(".menu-bar>a");
+//     for(let i in menubarArr) {
+//         if(menubarArr[i] === url) {
+//             menubar[i].style = "color: #B51B75";
+//             break;
+//         }
+//     }
+// }
+
 function init() {
-    const url = window.location.pathname.split("/")[2];
-    const menubarArr = ["main.co", "main.cm", "main.no", "main.iq", "userList.ad"];
+    const url = window.location.pathname.split("/").pop();
     const menubar = document.querySelectorAll(".menu-bar>a");
-    for(let i in menubarArr) {
-        if(menubarArr[i] === url) {
-            menubar[i].style = "color: #B51B75";
-            break;
-        }
+    const regex = /\.(co|cm|no|iq|ad)$/;
+
+    if (regex.test(url)) {
+        menubar.forEach((item) => {
+            const itemUrl = item.getAttribute('href').split("/").pop();
+            console.log(itemUrl);
+            if (itemUrl === url) {
+                item.style.color = "#B51B75";
+            }
+        });
     }
 }
 

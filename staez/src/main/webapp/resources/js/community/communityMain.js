@@ -91,12 +91,17 @@ function tableRows(board) {
     profileArea.setAttribute("class", "profile-area");
     result.appendChild(profileArea);
 
-    const writeDate = document.createElement("tr");
-    writeDate.innerHTML += `<td>${timeFormatForSeconds(board.boardWriteDate)}</td>`;
-    result.appendChild(writeDate);
+    const dateAndCount = document.createElement("tr");
+    dateAndCount.innerHTML += `<td>${timeFormatForSeconds(board.boardWriteDate)}</td>`;
+    dateAndCount.innerHTML += `<td>조회수: ${board.boardCount}</td>`;
+    dateAndCount.style.whiteSpace = "nowrap";
+    result.appendChild(dateAndCount);
 
     const boardTitle = document.createElement("tr");
-    boardTitle.innerHTML += `<td colspan="2"><h3>${board.boardTitle}</h3></td>`;
+    const imgIcon = board.boardContent.includes("<img") ? `<img src="${contextPath}resources/img/community/communityMain/image.png">` : `` ;
+    boardTitle.innerHTML += `<td colspan="2"><h3>${board.boardTitle}&nbsp;${imgIcon}</h3></td>`;
+    boardTitle.innerHTML += ``;
+    boardTitle.querySelector("img") ? boardTitle.querySelector("img").style.height = "17px" : "" ;  
     result.appendChild(boardTitle);
 
     const boardContent = document.createElement("tr");
