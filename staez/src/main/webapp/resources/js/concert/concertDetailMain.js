@@ -30,7 +30,15 @@ function drawConNavi(conList){
       concertNaviArea.appendChild(naviLi);
     }
 
-  }
+    drawAPINavi(concertNaviArea)
+}
+
+// API용 navi 추가
+function drawAPINavi(concertNaviArea) {
+  let naviLi = document.createElement('li');
+  naviLi.innerHTML += `<li onclick="location.href ='conapi.co'"><h2>외부공연연결</h2></li> `
+  concertNaviArea.appendChild(naviLi);
+}
 
 
   // 예매버튼 클릭
