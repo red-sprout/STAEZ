@@ -25,7 +25,7 @@ public class ConcertRestTemplateTest {
 	@Autowired
 	private ConcertRestTemplate concertRestTemplate;
 	
-	@Scheduled(cron = "* * * * *")
+
 	@Test
 	public void testScheduled() {
 		log.info(new Date().toString());

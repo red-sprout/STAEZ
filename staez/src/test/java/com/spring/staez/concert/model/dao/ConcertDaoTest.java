@@ -140,7 +140,7 @@ public class ConcertDaoTest {
 
 	@Test
 	public void testConapiCount() {
-		assertEquals("concertApiCount", 0, concertDao.conapiCount(sqlSession));
+		assertEquals("concertApiCount", 0, concertDao.concertApiCount(sqlSession));
 	}
 
 	@Test
