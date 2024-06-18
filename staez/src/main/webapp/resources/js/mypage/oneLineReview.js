@@ -1,16 +1,3 @@
-const starRating = value => { //value(별점)만큼 별UI 표현
-    const val = value - 1;
-    const starlist = $(".star-label .star-icon");
-
-    starlist.each(function(index) {
-        if(index > val) {
-            $(this).html('<img src="./resources/img/mypage/star.png">');
-        } else {
-            $(this).html('<img src="./resources/img/mypage/star-filled.png">');
-        }
-    });
-}
-
 $(function() {
     // 별 클릭하면 starRating 함수 호출
     $('.star-icon').click(function() {
@@ -32,6 +19,30 @@ $(function() {
     });
 
 });
+
+
+function starRating(value) { //value(별점)만큼 별UI 표현
+    console.log(value)
+    const val = value - 1;
+    const starlist = $(".star-label .star-icon");
+    const starPath = "./resources/img/mypage/star.png";
+    const filledStarPath = "./resources/img/mypage/star-filled.png";
+    const submit = $('button[type=submit]');
+
+    starlist.each(function(index) {
+        if(index > val) {
+            $(this).html(`<img src=${starPath}>`);
+        } else {
+            $(this).html(`<img src=${filledStarPath}>`);
+        }
+    });
+
+     if(value > 0){
+        submit.prop('disabled', false);
+     } else{
+        submit.prop('disabled', true);
+     }
+}
 
 // 버튼 클릭 시 한줄평 작성 모달 출력
 function loadOneLineReview(concertNo){
@@ -74,7 +85,7 @@ function loadOneLineReview(concertNo){
         reviewContent.val(res.reviewContent);
 
         $('input[name=reviewNo]').val(res.reviewNo);
-        $('input[name=concertNo]').val(res.concertNo);
+        $('input[name=concertNo]').val(res.concertNo);        
     });
 }
 

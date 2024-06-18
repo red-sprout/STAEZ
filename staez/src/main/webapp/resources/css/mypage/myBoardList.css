@@ -132,6 +132,10 @@
     border-right: none;
 }
 
+.col-name>#board-no{
+    width: 80px;
+}
+
 .col-name>#board-title{
     width: 540px;
 }
@@ -140,9 +144,6 @@
     width: 120px;
 }
 
-.col-name>#views{
-    width: 100px;
-}
 .col-name>#likes{
     width: 100px;
 }
