@@ -185,9 +185,9 @@
 		    JOIN concert_attachment ca ON c.concert_no = ca.concert_no
 		    JOIN concert_category cc ON c.concert_no = cc.concert_no
 		    JOIN category ct ON cc.category_no = ct.category_no
+		    WHERE ca.status = 'Y'
 			) sub
 		WHERE sub.concert_status = 'Y'
-		  AND ca.status = 'Y'
 		  AND sub.concert_no = #{concertNo}
 		ORDER BY sub.start_date
 		LIMIT 1 OFFSET 0;
@@ -217,9 +217,9 @@
 		    JOIN concert_attachment ca ON c.concert_no = ca.concert_no
 		    JOIN concert_category cc ON c.concert_no = cc.concert_no
 		    JOIN category ct ON cc.category_no = ct.category_no
+		    WHERE ca.status = 'Y'
 			) sub
 		WHERE sub.concert_status = 'Y'
-		  AND ca.status = 'Y'
 		  AND sub.concert_no = #{concertNo}
 		ORDER BY sub.start_date
 		LIMIT 1 OFFSET 0;
