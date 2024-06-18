@@ -245,3 +245,15 @@ function onClickReplyLike(data, callback) {
         }
     });
 }
+
+function selectConcertId(data, callback) {
+    $.ajax({
+        url: contextPath + "selectConcertId.cm",
+        data: data,
+        success: function (res) {
+            callback(res);
+        }, error() {
+            console.log("태그 요청 실패");
+        }
+    });
+}

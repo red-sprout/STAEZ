@@ -91,9 +91,11 @@ function tableRows(board) {
     profileArea.setAttribute("class", "profile-area");
     result.appendChild(profileArea);
 
-    const writeDate = document.createElement("tr");
-    writeDate.innerHTML += `<td>${timeFormatForSeconds(board.boardWriteDate)}</td>`;
-    result.appendChild(writeDate);
+    const dateAndCount = document.createElement("tr");
+    dateAndCount.innerHTML += `<td>${timeFormatForSeconds(board.boardWriteDate)}</td>`;
+    dateAndCount.innerHTML += `<td>조회수: ${board.boardCount}</td>`;
+    dateAndCount.style.whiteSpace = "nowrap";
+    result.appendChild(dateAndCount);
 
     const boardTitle = document.createElement("tr");
     boardTitle.innerHTML += `<td colspan="2"><h3>${board.boardTitle}</h3></td>`;

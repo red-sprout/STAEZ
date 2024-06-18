@@ -20,7 +20,6 @@ import com.spring.staez.community.model.vo.Reply;
 import com.spring.staez.community.model.vo.ReplyLike;
 import com.spring.staez.community.model.vo.Tag;
 import com.spring.staez.concert.model.vo.Concert;
-import com.spring.staez.user.model.vo.ProfileImg;
 
 @Service
 public class CommunityServiceImpl implements CommunityService {
@@ -247,5 +246,11 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public int insertReplyLike(ReplyLike replyLike) {
 		return communityDao.insertReplyLike(sqlSession, replyLike);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public String selectConcertId(int concertNo) {
+		return communityDao.selectConcertId(sqlSession, concertNo);
 	}
 }

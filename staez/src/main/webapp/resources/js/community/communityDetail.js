@@ -139,11 +139,18 @@ function setTag(concertNo) {
     const boardContent = document.getElementById("board-content");
     const tagWrapper = styledTagWrapper();
 
-    tagWrapper.innerHTML += `<a href='detail.co?concertNo=${concertNo}'>
-                                해당 공연으로 바로 가기 >
-                            </a>`;
-    
-    boardContent.appendChild(tagWrapper);
+    selectConcertId({concertNo}, (concertId) => {
+        let url = `detail.co?concertNo=` + concertNo;
+        if(concertId) {
+            url = `condeapi.co?concertId=` + concertId;
+        }
+
+        tagWrapper.innerHTML += `<a href='${url}'>
+                                    해당 공연으로 바로 가기 >
+                                </a>`;
+
+        boardContent.appendChild(tagWrapper);
+    })
 }
 
 function styledTagWrapper() {
