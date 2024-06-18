@@ -264,10 +264,27 @@
 	</select>
 
 	<select id="selectScrapCount" resultType="_int">
-		SELECT COUNT(concert_like_no) 
-		FROM concert_like
-		WHERE user_no = #{userNo}
-		AND status = 'Y'
+		SELECT COUNT(cl.concert_like_no) 
+		FROM concert_like cl
+		
+		JOIN concert c 
+		ON cl.concert_no = c.concert_no
+		
+		JOIN concert_attachment ca
+		ON c.concert_no = ca.concert_no
+		
+		JOIN theater t 
+		ON c.theater_no = t.theater_no
+		
+		JOIN (SELECT concert_no, 
+					 MIN(start_date) AS start_date, 
+					 MAX(end_date) AS end_date
+			  FROM concert_schedule
+			  GROUP BY concert_no) cs_min_max 
+		ON cl.concert_no = cs_min_max.concert_no 
+		
+		WHERE cl.user_no = #{userNo}	
+		AND cl.status = 'Y'
 	</select>
 	
 	<select id="selectScrapList" resultType="Concert">
