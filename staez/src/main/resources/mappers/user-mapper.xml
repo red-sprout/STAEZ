@@ -132,6 +132,14 @@
 	       AND user_name = #{userName}
 	</select>
 	
+		<!-- 핸드폰으로 아이디찾기 -->
+	<select id="findPhoneCheck" resultType="string">
+	    SELECT user_id
+	      FROM staez_user
+	     WHERE phone = #{phone}
+	       AND user_name = #{userName}
+	</select>
+	
 	<!-- 유효성 검사 및 사용자 정보 확인 -->
 	<select id="findUserByIdEmailPhone" resultType="string">
 	    SELECT user_id, phone, email

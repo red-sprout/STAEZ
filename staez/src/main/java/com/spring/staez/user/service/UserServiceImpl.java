@@ -67,6 +67,12 @@ public class UserServiceImpl implements UserService{
     public String findEmailCheck(String checkFindEmail, String userName) {
         return userDao.findEmailCheck(sqlSession, checkFindEmail, userName);
     }
+    
+    // 핸드폰으로 아이디찾기
+    @Override
+	public String findPhoneCheck(String checkFindPhone, String userName) {
+		return userDao.findPhoneCheck(sqlSession, checkFindPhone, userName);
+	}
 	
 	// 유효성 검사 및 사용자 정보 확인
 	@Override

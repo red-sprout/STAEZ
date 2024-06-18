@@ -1,73 +1,141 @@
 document.addEventListener('DOMContentLoaded', function() {
-    //인증모달
+    // 인증 모달
     toggleAuthMethod();
-    //이전페이지로 돌아가는
+    // 이전 페이지로 돌아가는
     backPage();
     // 이메일
     sgininemail();
+
     // 이메일 인증 전송 버튼 이벤트 리스너 등록
-    $("#emailCheckButton").on('click', (ev) => {
-        // 클릭 이벤트 발생 시 서버로 이메일 인증 요청 보내기
-        const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
-        // 클릭 못하게 설정
-        document.getElementById("emailCheckButton").disabled = true;
-        sendEmailVerificationRequest(emailInput); // 이메일 인증 요청 보내는 함수 호출
-        alert("인증번호가 전송되었습니다 잠시만 기다려주세요.");
-    });
+    const emailCheckButton = document.getElementById("emailCheckButton");
+    if (emailCheckButton) {
+        emailCheckButton.addEventListener('click', (ev) => {
+            const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
+            document.getElementById("emailCheckButton").disabled = true;
+            sendEmailVerificationRequest(emailInput); // 이메일 인증 요청 보내는 함수 호출
+            alert("인증번호가 전송되었습니다 잠시만 기다려주세요.");
+        });
+    }
+
     // UUID 이메일 체크
     emailSecretCode();
     // 버튼 클릭시 색상변경
     checkButton();
-    // 모달) 로그인 버튼 클릭 이벤트    
-    LoginPage();
+
+    // 모달) 로그인 버튼 클릭 이벤트
+    const loginButton = document.getElementById('loginButton');
+    if (loginButton) {
+        loginButton.addEventListener('click', function() {
+            window.location.href = '/staez/loginForm.me';
+        });
+    }
     // 모달) 비밀번호 찾기 클릭 이벤트
-    PwdFindPage();
+    const pwdButton = document.getElementById('pwdFindButton');
+    if (pwdButton) {
+        pwdButton.addEventListener('click', function() {
+            window.location.href = '/staez/findPwdForm.me';
+        });
+    }
 });
 
-
-//인증 모달창
+// 인증 모달창
 function toggleAuthMethod(){
-        // 페이지 로드 시 findId-div를 숨김
-        var findPhoneDiv = document.getElementById('findphone-div');
-        var findEmailDiv = document.getElementById('findemail-div');
-        findPhoneDiv.style.display = 'none';
-        findEmailDiv.style.display = 'none';
+    // 페이지 로드 시 findId-div를 숨김
+    var findPhoneDiv = document.getElementById('findphone-div');
+    var findEmailDiv = document.getElementById('findemail-div');
+    findPhoneDiv.style.display = 'none';
+    findEmailDiv.style.display = 'none';
+
+    // phone-auth 체크박스에 클릭 이벤트를 추가하여 내용을 보이도록 함
+    var phoneAuthCheckbox = document.getElementById('phone-auth');
+    var emailAuthCheckbox = document.getElementById('email-auth');
     
-        // phone-auth 체크박스에 클릭 이벤트를 추가하여 내용을 보이도록 함
-        var phoneAuthCheckbox = document.getElementById('phone-auth');
-        var emailAuthCheckbox = document.getElementById('email-auth');
-        
-        phoneAuthCheckbox.addEventListener('change', function() {
-            if (this.checked) {
-                // 체크박스가 체크되면 findId-div를 보이도록 함
-                findPhoneDiv.style.display = 'block';
-                findEmailDiv.style.display = 'none';
-                emailAuthCheckbox.checked = false;
-            } else {
-                // 체크박스가 해제되면 findId-div를 숨김
-                findPhoneDiv.style.display = 'none';
-            }
-        });
-    
-        emailAuthCheckbox.addEventListener('change', function() {
-            if (this.checked) {
-                // 체크박스가 체크되면 findId-div를 보이도록 함
-                findEmailDiv.style.display = 'block';
-                findPhoneDiv.style.display = 'none';
-                phoneAuthCheckbox.checked = false;
-            } else {
-                // 체크박스가 해제되면 findId-div를 숨김
-                findEmailDiv.style.display = 'none';
-            }
-        });
+    phoneAuthCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            // 체크박스가 체크되면 findId-div를 보이도록 함
+            findPhoneDiv.style.display = 'block';
+            findEmailDiv.style.display = 'none';
+            emailAuthCheckbox.checked = false;
+        } else {
+            // 체크박스가 해제되면 findId-div를 숨김
+            findPhoneDiv.style.display = 'none';
+        }
+    });
+
+    emailAuthCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            // 체크박스가 체크되면 findId-div를 보이도록 함
+            findEmailDiv.style.display = 'block';
+            findPhoneDiv.style.display = 'none';
+            phoneAuthCheckbox.checked = false;
+        } else {
+            // 체크박스가 해제되면 findId-div를 숨김
+            findEmailDiv.style.display = 'none';
+        }
+    });
 }
 
-//이전페이지
+// 이전페이지
 function backPage(){
     var backButton = document.getElementById('backButton');
     backButton.addEventListener('click', function() {
         window.history.back();
     });
+}
+
+let authNo;
+
+// 폰 인증
+function phoneClick() {
+    const phoneInputValue = document.getElementById("input-value-phone").value;
+    var verificationPhoneTr = document.getElementById("verificationPhoneTr");
+    var PverificationMessage = document.getElementById("Pverification-message");
+
+    authNo = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+    $('#phoneCheck').prop('checked', false);
+    verificationPhoneTr.style.display = "table-row";
+
+    sendPhoneAuthNoAjax({ authNo, PhoneInput: phoneInputValue }, function(res) {
+        if (res === "NNNNY") {
+            verificationPhoneTr.style.display = "table-row";
+            PverificationMessage.style.color = "green";
+            PverificationMessage.innerHTML = "인증번호가 전송되었습니다.";
+            console.log('인증번호 : ' + authNo);
+            console.log('전송한 휴대폰번호 : ' + phoneInputValue);
+
+            startPTimer(); // 1분 타이머 시작
+            $("#check_PhoneSecretBtn").prop('disabled', false); // 인증확인 버튼 활성화
+        } else {
+            verificationPhoneTr.style.display = "table-row";
+            PverificationMessage.style.color = "red";
+            PverificationMessage.innerHTML = "전송에 실패했습니다. 핸드폰 번호를 다시 한번 확인해주세요.";
+        }
+    });
+}
+
+// 폰 인증 확인
+function checkAuthNum() {
+    const inputCode = document.getElementById("Pverification-code").value;
+    var checkResultPhoneTr = document.getElementById("checkResultPhoneTr");
+    var userPhoneErrorMessage = document.getElementById("userPhoneErrorMessage");
+    const findEmailCheck = document.getElementById("findEmailCheck");
+    if (authNo !== inputCode) {
+        checkResultPhoneTr.style.display = "table-row";
+        userPhoneErrorMessage.style.color = "red";
+        userPhoneErrorMessage.innerHTML = "인증 실패 다시 한번 확인해주세요.";
+    } else {
+        checkResultPhoneTr.style.display = "table-row";
+        userPhoneErrorMessage.style.color = "green";
+        userPhoneErrorMessage.innerHTML = "인증에 성공하였습니다";
+        findEmailCheck.disabled = false;
+
+        clearInterval(ptimer); // 타이머 정지
+        $("#check_PhoneSecretBtn").prop('disabled', true); // 인증확인 버튼 비활성화
+        $("#phoneCheckButton").prop('disabled', true); // 인증번호 전송 버튼 비활성화
+        $("#Pverification-code").prop('readonly', true); // 인증번호 입력 필드 읽기 전용
+        $('#phone-suffix1').prop('readonly', true); // 전화번호 필드 읽기 전용
+        $('#phone-suffix2').prop('readonly', true); // 전화번호 필드 읽기 전용
+    }
 }
 
 // 이메일 인증 코드 전송 함수
@@ -99,7 +167,6 @@ function handleEmailCheckResponse(response) {
 
 // UUID 이메일 체크 콜백
 function callbackEmailSecret(result, emailSecretCheckResult, check_emailSecretBtn) {
-
     const userEmailErrorMessage = document.getElementById("userEmailErrorMessage");
     const findEmailCheck = document.getElementById("findEmailCheck");
     emailSecretCheckResult.style.display = "table-row";
@@ -140,7 +207,55 @@ function emailSecretCode() {
         }
     });
 }
-let timer; // 전역 변수로 타이머 변수를 선언합니다.
+let timer; 
+let ptimer; 
+
+// 핸드폰 타이머 시작 함수
+function startPTimer() {
+    clearInterval(ptimer); // 기존 타이머가 있으면 제거
+
+    let duration = 3 * 60;
+    const ptimerDisplay = document.getElementById('Ptimer');
+
+    ptimer = setInterval(function() {
+        const minutes = parseInt(duration / 60, 10);
+        const seconds = parseInt(duration % 60, 10);
+
+        ptimerDisplay.textContent = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
+        duration--;
+
+        if (duration < 0) {
+            clearInterval(ptimer);
+            ptimerDisplay.textContent = "시간 초과";
+
+            // 시간 초과 시 인증 실패 메시지 표시
+            var checkResultPhoneTr = document.getElementById("checkResultPhoneTr");
+            var userPhoneErrorMessage = document.getElementById("userPhoneErrorMessage");
+            checkResultPhoneTr.style.display = "table-row";
+            userPhoneErrorMessage.style.color = "red";
+            userPhoneErrorMessage.innerHTML = "인증 실패 다시 한번 확인해주세요.";
+
+            $("#check_PhoneSecretBtn").prop('disabled', true); // 인증확인 버튼 비활성화
+        }
+    }, 1000);
+}
+
+// "인증번호 전송" 버튼 클릭 이벤트 핸들러 등록
+const phoneCheckButton = document.getElementById("phoneCheckButton");
+if (phoneCheckButton) {
+    phoneCheckButton.addEventListener("click", function() {
+        phoneClick();
+        $("#check_PhoneSecretBtn").prop('disabled', false); // 인증확인 버튼 활성화
+    });
+}
+
+// "인증확인" 버튼 클릭 이벤트 핸들러 등록
+const checkPhoneSecretBtn = document.getElementById("check_PhoneSecretBtn");
+if (checkPhoneSecretBtn) {
+    checkPhoneSecretBtn.addEventListener("click", function() {
+        checkAuthNum();
+    });
+}
 
 // 카운트 다운 시작 함수
 function startTimer() {
@@ -167,6 +282,7 @@ function startTimer() {
         }
     }, 1000);
 }
+
 // 이메일
 function sgininemail() {
     // 필요한 요소들을 가져옵니다.
@@ -213,6 +329,7 @@ function sgininemail() {
     }
     init(); // 페이지 로드 시 초기화 함수를 호출합니다.
 }
+
 // 버튼 클릭시 색상변경
 function checkButton(){
     var buttons = document.querySelectorAll(".check_button");
@@ -246,19 +363,22 @@ function clickGetId(){
     });
 }
 
-
 // 로그인 버튼 클릭 이벤트
 function LoginPage(){
     var loginButton = document.getElementById('loginButton');
-    loginButton.addEventListener('click', function() {
-        window.location.href = '/staez/loginForm.me';
-    });
-};
+    if (loginButton) {
+        loginButton.addEventListener('click', function() {
+            window.location.href = '/staez/loginForm.me';
+        });
+    }
+}
 
 // 비밀번호 찾기 버튼 클릭 이벤트
 function PwdFindPage(){
     var pwdButton = document.getElementById('pwdFindButton');
-    pwdButton.addEventListener('click', function() {
-        window.location.href = '/staez/findPwdForm.me';
-    });
+    if (pwdButton) {
+        pwdButton.addEventListener('click', function() {
+            window.location.href = '/staez/findPwdForm.me';
+        });
+    }
 }

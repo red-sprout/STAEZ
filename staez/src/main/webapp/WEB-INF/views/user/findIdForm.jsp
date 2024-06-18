@@ -18,6 +18,9 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <title>아이디찾기</title>
+    <script type="text/javascript">
+        var contextPath = '<%= request.getContextPath() %>';
+    </script>
 </head>
 <body onload="init()">
     <header>
@@ -29,18 +32,19 @@
     <main>
         <a href="${contextPath}/index.jsp"><img src="${contextPath}/resources/img/user/STAEZ_logo.png" alt="STAEZ로고"></a>
         <h2>아이디 찾기</h2>
-        <form id="idListKakaoForm" action="idListForm.me" method="POST">
-            <!-- 
-                id="register-form"은 폼을 식별하는 고유한 ID입니다. 
-                action="register.php"은 폼 데이터가 제출될 때 이동할 페이지를 지정합니다. 
-                method="POST"는 데이터를 서버로 전송하는 방법 
-            -->
+        <form id="idListPhoneForm" action="idListForm.me" method="POST">
             <div id="find-div-phone">
                 <input type="checkbox" id="phone-auth"> 
                 <label for="phone-auth"><h3>회원정보에 등록한 휴대전화로 인증</h3></label>
             </div>
             <div id="findphone-div">
                 <table>
+                    <tr>
+                        <th>이름</th>
+                        <td>
+                            <input type="text" id="user_name" required>
+                        </td>
+                    </tr>
                     <tr>
                         <th>휴대폰 번호</th>
                         <td class="email-container" colspan="5" >
@@ -53,9 +57,10 @@
                                 <input type="text" name="phone" id="input-value-phone" required  >
                             </div>
                             <td>
-                                <input type="button" id="phoneCheckButton" class="check_button" value="인증번호 전송">
+                                <input type="button" id="phoneCheckButton" class="check_button" value="인증번호 전송" onclick="phoneClick()">
                             </td>
-                        </tr>
+                        </td>
+                    </tr>
                         <tr id="verificationPhoneTr">
                             <td colspan="4">
                                 <div id="verificationPhone" class="checkResult">
@@ -72,7 +77,7 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="button" class="check_button" id="check_PhoneSecretBtn" value="인증확인">
+                                <input type="button" class="check_button" id="check_PhoneSecretBtn" value="인증확인" onclick="checkAuthNum()">
                             </td>
                         </tr>
                         <tr id="checkResultPhoneTr">

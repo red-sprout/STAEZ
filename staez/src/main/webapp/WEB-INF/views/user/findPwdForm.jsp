@@ -17,6 +17,9 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
     <title>비밀번호 찾기</title>
+    <script type="text/javascript">
+        var contextPath = '<%= request.getContextPath() %>';
+    </script>
 </head>
 <body onload="init()">
     <header>
@@ -54,9 +57,10 @@
                                 <input type="text" name="phone" id="input-value-phone" required  >
                             </div>
                             <td>
-                                <input type="button" id="phoneCheckButton" class="check_button" value="인증번호 전송">
+                                <input type="button" id="phoneCheckButton" class="check_button" value="인증번호 전송" onclick="phoneClick()">
                             </td>
-                        </tr>
+                        </td>
+                    </tr>
                         <tr id="verificationPhoneTr">
                             <td colspan="4">
                                 <div id="verificationPhone" class="checkResult">
@@ -73,7 +77,7 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="button" class="check_button" id="check_PhoneSecretBtn" value="인증확인">
+                                <input type="button" class="check_button" id="check_PhoneSecretBtn" value="인증확인" onclick="checkAuthNum()">
                             </td>
                         </tr>
                         <tr id="checkResultPhoneTr">

@@ -181,6 +181,14 @@ public class UserController {
         String result = userService.findEmailCheck(checkFindEmail, userName);
         return result;
     }
+    
+    // 핸드폰으로 아이디찾기
+    @ResponseBody
+    @GetMapping("findPhoneCheck.me")
+    public String findPhoneCheck(String checkFindPhone, String userName) {
+        String result = userService.findPhoneCheck(checkFindPhone, userName);
+        return result;
+    }
 
 	// 비밀번호 찾기 새로운 비밀번호 업데이트
 	@PostMapping("/checkFindNewPwd.me")

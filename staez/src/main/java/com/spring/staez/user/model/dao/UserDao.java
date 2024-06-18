@@ -68,6 +68,14 @@ public class UserDao {
         String result = sqlSession.selectOne("userMapper.findEmailCheck", params);
         return result;
     }
+    
+	public String findPhoneCheck(SqlSessionTemplate sqlSession, String checkFindPhone, String userName) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("email", checkFindPhone);
+        params.put("userName", userName);
+        String result = sqlSession.selectOne("userMapper.findPhoneCheck", params);
+        return result;
+	}
 	
 	// 유효성 검사 및 사용자 정보 확인
 	public String findUserByIdEmailPhone(SqlSessionTemplate sqlSession, String user_id, String phone, String email, String user_name) {
