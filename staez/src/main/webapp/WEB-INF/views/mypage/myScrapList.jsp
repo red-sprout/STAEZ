@@ -28,7 +28,6 @@
                 </td>
                 <td class="concert-content" onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
                     <h3>${c.concertTitle}</h3>
-                    <h5>${c.theaterName}</h5>
                     <h4>캐스팅 : ${c.concertMembers}</h4>
                     <h4>상영기간 : ${c.startDate} ~ ${c.endDate}</h4>
                 </td>

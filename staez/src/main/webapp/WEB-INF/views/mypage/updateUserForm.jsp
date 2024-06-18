@@ -200,9 +200,13 @@
                                     
                                     <select name="domain" onchange="emailDomain()">
                                         <option value="self-input">직접입력</option>
-                                        <option value="naver.com">네이버</option>
-                                        <option value="gmail.com">구글</option>
-                                        <option value="daum.net">다음</option>
+                                        <option value="daum.net">daum.net</option>
+                                        <option value="gmail.com">gmail.com</option>
+                                        <option value="hanmail.net">hanmail.net</option>
+                                        <option value="hotmail.com">hotmail.com</option>                                        
+                                        <option value="nate.com">nate.com</option>
+                                        <option value="naver.com">naver.com</option>
+                                        <option value="outlook.com">outlook.com</option>
                                     </select>
                                 </div>
                             </td>

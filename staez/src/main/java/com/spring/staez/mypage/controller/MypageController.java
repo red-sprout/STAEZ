@@ -528,6 +528,7 @@ public class MypageController {
 	
 	}
 	
+	//마이페이지 메인 미리보기 
 	@RequestMapping("loadMainPageAjax.me")
 	@ResponseBody
 	public String loadMainPage(String tableType, HttpSession session) {

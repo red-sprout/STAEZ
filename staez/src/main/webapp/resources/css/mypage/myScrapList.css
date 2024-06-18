@@ -101,8 +101,8 @@
     text-align: left;
 }
 
-.main-content>table .concert-content>h5{
-    margin: 10px 0;
+.main-content>table .concert-content>h3{
+    margin-bottom: 15px;
 }
 
 
