@@ -49,6 +49,7 @@ public class MypageController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
+	@Autowired
 	private JavaMailSender sender;
 	
 	@Value("${coolsms.api.key}")
@@ -181,7 +182,7 @@ public class MypageController {
 		
 		return new Gson().toJson(answer);
 	}
-	
+		
 	//문의글 답변있는지 판별 ajax
 	@RequestMapping("answerCheck.me")
 	@ResponseBody
@@ -190,6 +191,20 @@ public class MypageController {
 		Board answer = mypageService.loadAnswerAjax(boardNo);
 			
 		return answer == null ? "NNNNN" : "NNNNY";
+	}
+	
+	//문의글 삭제 ajax
+	@RequestMapping("deleteInquire.me")
+	@ResponseBody
+	public String deleteInquireAjax(int boardNo) {
+		System.out.println("문의글 삭제");
+		int result = mypageService.deleteInquireAjax(boardNo);
+		
+		if(result > 0) {
+			return "NNNNY";
+		} else {
+			return "NNNNN";
+		}
 	}
 	
 	//나의 작성 게시글 리스트 페이지 출력
@@ -284,30 +299,36 @@ public class MypageController {
 	        session.setAttribute("alertMsg", "로그인이 필요합니다.");
 	        return "redirect:/loginForm.me";
 		}
+		
+		//session에 이미 인증했다는 정보가 있을 경우
+		String isAuth = (String)session.getAttribute("isAuth");
+		System.out.println(isAuth);
+		if(isAuth != null && isAuth.equals("done")) {
+			model.addAttribute("isAuth", "done");
+			System.out.println("이미 인증함");
+		}
+		
 		model.addAttribute("contentPage", "updateUserForm");
 		return "mypage/mypageLayout";
 	}
-	
-	//중복 체크
-	@RequestMapping("dupliCheck.me")
-	@ResponseBody
-	public String duplicateCheck(String nickname) {
-		int result = mypageService.duplicateCheck(nickname);
-		return result > 0 ? "NNNNN" : "NNNNY"; 
-	}
+
 	
 	//비밀번호 인증(일치 여부검사)
 	@RequestMapping("authPwd.me")
 	@ResponseBody
-	public String authPassword(String inputPwd, HttpSession session) {
-		
+	public String authPassword(String inputPwd, HttpSession session) {			
 		User loginUser = userService.loginUser((User)session.getAttribute("loginUser"));
 		System.out.println("입력 비밀번호 : " + inputPwd);
 		System.out.println("loginUser : " + loginUser);
 		
-		return bcryptPasswordEncoder.matches(inputPwd, loginUser.getUserPwd()) ? "NNNNY" : "NNNNN"; 
+		if(bcryptPasswordEncoder.matches(inputPwd, loginUser.getUserPwd())) {
+			session.setAttribute("isAuth", "done");
+			return "NNNNY";
+		} else {
+			session.removeAttribute("isAuth");
+			return "NNNNN";
+		}
 	}
-	
 	
 	// 비밀번호 변경
 	@RequestMapping("updatePwd.me")
@@ -351,6 +372,14 @@ public class MypageController {
 		
 		return new Gson().toJson(profileImg);
 		
+	}
+	
+	//중복 체크
+	@RequestMapping("dupliCheck.me")
+	@ResponseBody
+	public String duplicateCheck(String nickname) {
+		int result = mypageService.duplicateCheck(nickname);
+		return result > 0 ? "NNNNN" : "NNNNY"; 
 	}
 	
 	//프로필 이미지 변경
@@ -561,6 +590,9 @@ public class MypageController {
 	@RequestMapping("sendEmailAuth.me")
 	@ResponseBody
 	public String authEmail(String authNo, String email) {   
+	    if (authNo == null || email == null) {
+	        return "ERROR: 인증번호 또는 이메일 주소가 필요합니다.";
+	    }
 		System.out.println("이메일주소 : " + email);
 		System.out.println("인증번호 : " + authNo);
 

@@ -132,6 +132,10 @@
 .main-content>table td {
 }
 
+.col-name>#board-no{
+    width: 80px;
+}
+
 .col-name>#board-title{
     width: 480px;
 }
@@ -144,9 +148,7 @@
     width: 120px;
 }
 
-.col-name>#views{
-    width: 80px;
-}
+
 .col-name>#likes{
     width: 80px;
 }
