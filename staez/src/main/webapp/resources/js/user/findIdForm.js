@@ -409,7 +409,6 @@ function clickGetId() {
     let email = document.getElementById("input-value-email").value;
     let userName = document.getElementById("user_name_email").value;
     getIdbyEmail({ checkFindEmail: email, userName: userName }, function(res) {
-        console.log(res);
         if (res !== "") {
             document.querySelector("#emailFindId").innerHTML = "아이디 : " + res;
         } else {
@@ -423,7 +422,6 @@ function clickGetIdPhone() {
     let phone = document.getElementById("input-value-phone").value;
     let userName = document.getElementById("user_name_phone").value;
     getIdbyPhone({ checkFindPhone: phone, userName: userName }, function(res) {
-        console.log(res);
         if (res !== "") {
             document.querySelector("#emailFindId").innerHTML = "아이디 : " + res;
         } else {

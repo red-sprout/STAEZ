@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,7 +23,6 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/user")
 public class UserController {
 
 	private final UserService userService;
@@ -178,16 +176,15 @@ public class UserController {
 
 	// 이메일로 아이디찾기
 	@ResponseBody
-	@PostMapping("findEmailCheck.me")
+	@GetMapping("findEmailCheck.me")
 	public String findEmailCheck(@RequestParam("checkFindEmail") String checkFindEmail, @RequestParam("userName") String userName) {
 	    String result = userService.findEmailCheck(checkFindEmail, userName);
-	    System.out.println("실행됨");
 	    return result;
 	}
 
 	// 핸드폰으로 아이디찾기
 	@ResponseBody
-	@PostMapping("findPhoneCheck.me")
+	@GetMapping("findPhoneCheck.me")
 	public String findPhoneCheck(@RequestParam("checkFindPhone") String checkFindPhone, @RequestParam("userName") String userName) {
 	    String result = userService.findPhoneCheck(checkFindPhone, userName);
 	    return result;
@@ -198,11 +195,6 @@ public class UserController {
     @ResponseBody
     public String checkFindNewPwd(@RequestParam("userId") String user_id, @RequestParam("phone") String phone,
         @RequestParam("email") String email, @RequestParam("user_name") String userName, HttpSession session) {
-        
-        System.out.println("User ID: " + user_id);
-        System.out.println("Phone: " + phone);
-        System.out.println("Email: " + email);
-        System.out.println("User Name: " + userName);
         
         // 유효성 검사 및 사용자 정보 확인
         String user = userService.findUserByIdEmailPhone(user_id, phone, email, userName);

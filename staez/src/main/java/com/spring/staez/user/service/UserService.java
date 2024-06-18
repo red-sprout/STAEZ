@@ -33,7 +33,7 @@ public interface UserService {
     // 이메일로 아이디찾기
     String findEmailCheck(String checkFindEmail, String userName);
 
-    // 이메일로 아이디찾기
+    // 핸드폰으로 아이디찾기
     String findPhoneCheck(String checkFindPhone, String userName);
     
 	// 유효성 검사 및 사용자 정보 확인

@@ -39,66 +39,66 @@
         <div id="findphone-div">
             <table>
                 <tbody>
-                    <tr>
-                        <th>이름</th>
+                <tr>
+                    <th>이름</th>
+                    <td>
+                        <input type="text" id="user_name_phone" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th>휴대폰 번호</th>
+                    <td class="email-container" colspan="5" >
+                        <div id="td-div">
+                            <span id="phone-prefix">010</span>
+                            <span>-</span>
+                            <input type="text" id="phone-suffix1" name="phone-suffix1" maxlength="4" >
+                            <span>-</span>
+                            <input type="text" id="phone-suffix2" name="phone-suffix2" maxlength="4">
+                            <input type="text" name="phone" id="input-value-phone" required  >  
+                        </div>
                         <td>
-                            <input type="text" id="user_name_phone" required>
+                            <input type="button" id="phoneCheckButton" class="check_button" value="인증번호 전송" onclick="phoneClick()">
                         </td>
-                    </tr>
-                    <tr>
-                        <th>휴대폰 번호</th>
-                        <td class="email-container" colspan="5" >
-                            <div id="td-div">
-                                <span id="phone-prefix">010</span>
-                                <span>-</span>
-                                <input type="text" id="phone-suffix1" name="phone-suffix1" maxlength="4" >
-                                <span>-</span>
-                                <input type="text" id="phone-suffix2" name="phone-suffix2" maxlength="4">
-                                <input type="text" name="phone" id="input-value-phone" required  >  
-                            </div>
-                            <td>
-                                <input type="button" id="phoneCheckButton" class="check_button" value="인증번호 전송" onclick="phoneClick()">
-                            </td>
-                        </td>
-                    </tr>
-                        <tr id="verificationPhoneTr">
-                            <td colspan="4">
-                                <div id="verificationPhone" class="checkResult">
-                                    <span id="Pverification-message"></span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>인증번호</th>
-                            <td>
-                                <div id="phoneTimeContainer">
-                                    <input type="text" id="Pverification-code" required>
-                                    <div id="Ptimer"></div>
-                                </div>
-                            </td>
-                            <td>
-                                <input type="button" class="check_button" id="check_PhoneSecretBtn" value="인증확인" onclick="checkAuthNum()">
-                            </td>
-                        </tr>
-                        <tr id="checkResultPhoneTr">
-                            <td colspan="4">
-                                <div id="checkResultPhone" class="checkResult">
-                                    <span id="userPhoneErrorMessage"></span>
-                                </div>
-                            </td>
-                        </tr>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td></td>
-                        <td>
-                            <div class="insert-member-div-Phone">
-                                <button type="button" id="backButton">이전</button>
-                                <button type="button" id="findPhoneCheck" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clickGetIdPhone()"disabled>다음</button>
+                    </td>
+                </tr>
+                    <tr id="verificationPhoneTr">
+                        <td colspan="4">
+                            <div id="verificationPhone" class="checkResult">
+                                <span id="Pverification-message"></span>
                             </div>
                         </td>
                     </tr>
-                </tbody>
+                    <tr>
+                        <th>인증번호</th>
+                        <td>
+                            <div id="phoneTimeContainer">
+                                <input type="text" id="Pverification-code" required>
+                                <div id="Ptimer"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="button" class="check_button" id="check_PhoneSecretBtn" value="인증확인" onclick="checkAuthNum()">
+                        </td>
+                    </tr>
+                    <tr id="checkResultPhoneTr">
+                        <td colspan="4">
+                            <div id="checkResultPhone" class="checkResult">
+                                <span id="userPhoneErrorMessage"></span>
+                            </div>
+                        </td>
+                    </tr>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td></td>
+                    <td>
+                        <div class="insert-member-div-Phone">
+                            <button type="button" id="backButton">이전</button>
+                            <button type="button" id="findPhoneCheck" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clickGetIdPhone()"disabled>다음</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
             </table>
         </div>
         <br>
@@ -173,7 +173,7 @@
                         <td></td>
                         <td></td>
                         <td>
-                            <div class="insert-member-div">
+                            <div class="insert-member-div-email">
                                 <button type="button" id="backButton">이전</button>
                                 <button type="button" id="findEmailCheck" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clickGetId()"disabled>다음</button>
                             </div>
@@ -214,4 +214,3 @@
       </div>
 </body>
 </html>
-

@@ -46,6 +46,7 @@ function emailCheckCode(data, callback) {
         data: data,
         success: function(result) {
             callback(result);
+            console.log(result)
         },
         error: function(jqXHR, textStatus, errorThrown) {
         }

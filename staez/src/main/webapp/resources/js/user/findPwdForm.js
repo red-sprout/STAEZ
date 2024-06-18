@@ -159,9 +159,9 @@ function handleEmailCheckResponse(response) {
 
 // UUID 이메일 체크 콜백
 function callbackEmailSecret(result, emailSecretCheckResult, check_emailSecretBtn) {
-
     const userEmailErrorMessage = document.getElementById("userEmailErrorMessage");
     const findEmailCheck = document.getElementById("findEmailCheck");
+    const userPhoneErrorMessage = document.getElementById("userPhoneErrorMessage");
     emailSecretCheckResult.style.display = "table-row";
 
     if (result === "emailSecretCodeCheck No") {
@@ -170,10 +170,15 @@ function callbackEmailSecret(result, emailSecretCheckResult, check_emailSecretBt
     } else if (result === "emailSecretCodeCheck Yes") {
         userEmailErrorMessage.style.color = "green";
         userEmailErrorMessage.innerText = "인증이 확인되었습니다.";
-        findEmailCheck.disabled = false;
+        if (userPhoneErrorMessage.innerHTML === "인증에 성공하였습니다") {
+            findEmailCheck.disabled = false;
+        } else {
+            findEmailCheck.disabled = true;
+        }
     } else {
         userEmailErrorMessage.style.color = "red";
         userEmailErrorMessage.innerText = "인증을 확인할 수 없습니다.";
+        findEmailCheck.disabled = true;
     }
 }
 
@@ -228,7 +233,8 @@ function startPTimer() {
             userPhoneErrorMessage.style.color = "red";
             userPhoneErrorMessage.innerHTML = "인증 실패 다시 한번 확인해주세요.";
 
-            $("#check_PhoneSecretBtn").prop('disabled', true); // 인증확인 버튼 비활성화
+            //$("#check_PhoneSecretBtn").prop('disabled', true); // 인증확인 버튼 비활성화
+            document.getElementById("check_PhoneSecretBtn").disabled = true;
         }
     }, 1000);
 }
@@ -238,7 +244,8 @@ const phoneCheckButton = document.getElementById("phoneCheckButton");
 if (phoneCheckButton) {
     phoneCheckButton.addEventListener("click", function() {
         phoneClick();
-        $("#check_PhoneSecretBtn").prop('disabled', false); // 인증확인 버튼 활성화
+        //$("#check_PhoneSecretBtn").prop('disabled', false); // 인증확인 버튼 활성화
+        document.getElementById("check_PhoneSecretBtn").disabled = false;
     });
 }
 
@@ -348,12 +355,6 @@ function clickIdPhoneEmail() {
     let phone = document.getElementById("input-value-phone").value;
     let email = document.getElementById("input-value-email").value;
     let userName = document.getElementById("user_name").value;
-
-    // 디버그 로그 추가
-    console.log("ID: " + id);
-    console.log("Phone: " + phone);
-    console.log("Email: " + email);
-    console.log("User Name: " + userName);
 
     clickIdPhoneEmailSelect({ userId: id, phone: phone, email: email, user_name: userName }, function(res) {
         if (res.trim() === "New Pwd Go") {

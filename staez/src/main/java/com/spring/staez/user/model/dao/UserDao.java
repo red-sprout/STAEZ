@@ -69,9 +69,10 @@ public class UserDao {
         return result;
     }
     
+    //핸드폰으로 아이디찾기
 	public String findPhoneCheck(SqlSessionTemplate sqlSession, String checkFindPhone, String userName) {
         Map<String, Object> params = new HashMap<>();
-        params.put("email", checkFindPhone);
+        params.put("phone", checkFindPhone);
         params.put("userName", userName);
         String result = sqlSession.selectOne("userMapper.findPhoneCheck", params);
         return result;
