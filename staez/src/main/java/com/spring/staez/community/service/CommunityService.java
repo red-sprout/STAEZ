@@ -80,4 +80,6 @@ public interface CommunityService {
 	int updateReplyLike(ReplyLike replyLike);
 	
 	int insertReplyLike(ReplyLike replyLike);
+	
+	String selectConcertId(int concertNo);
 }

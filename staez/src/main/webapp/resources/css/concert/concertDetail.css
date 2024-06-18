@@ -24,7 +24,7 @@
 }
 .concert-detail-subject>span>h3{
     text-align: left;
-    margin-left: 300px;
+    margin-left: 12%;
 }
 
 
@@ -32,7 +32,7 @@
 /* [판매자정보], [상품정보], [티켓수령방법(반송안내)], [예매취소방법, 예매취소수수료, 환불안내] */
 .concert-detail-sellingInformation-table{
     margin: auto;
-    width: 70%;
+    width: 60%;
     text-align: left;
     border-collapse: collapse;
 }
@@ -53,6 +53,7 @@
     border-style: solid;
     border-left: none;
 }
+
 
 
 /* 한줄평 */

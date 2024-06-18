@@ -25,7 +25,7 @@
 	</beans:bean>
 	
 	<!-- 콘서트 api 시간마다 넣기 -->
-	<beans:bean class="com.spring.staez.common.template.ScheduledTest" id="ScheduledTest" />		
+	<beans:bean class="com.spring.staez.common.template.ConApiScheduled" id="ScheduledTest" />		
 	
 	<context:component-scan base-package="com.spring.staez" />
 	
@@ -48,6 +48,7 @@
 	 	<interceptor>
 	 		<mapping path="/main.me"/>
 	 		<mapping path="/detail.co"/>
+	 		<mapping path="/condeapi.co"/>
 	 		<mapping path="/*.no"/>
 	 		<mapping path="/detail.cm"/>
 	 		<mapping path="/insertForm.cm"/>

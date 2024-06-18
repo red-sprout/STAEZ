@@ -80,8 +80,8 @@
 			ca.file_path,
 			ca.change_name
 		FROM concert c
-		JOIN concert_attachment ca ON (c.concert_no = ca.concert_no)
-		WHERE concert_title LIKE '%${keyword}%'
+		LEFT JOIN concert_attachment ca ON (c.concert_no = ca.concert_no)
+		WHERE concert_title LIKE '%' || #{keyword} || '%'
 		ORDER BY c.concert_no DESC
 		LIMIT 5
 	</select>
@@ -420,5 +420,11 @@
 		WHERE reply_no = #{replyNo}
 		AND user_no = #{userNo}
 	</update>
+	<select id="selectConcertId" resultType="string">
+		SELECT concert_plot
+		FROM concert
+		WHERE concert_no = #{concertNo}
+		AND theater_no IS NULL
+	</select>
 </mapper>
 

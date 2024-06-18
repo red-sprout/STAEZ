@@ -192,4 +192,7 @@ public class CommunityDao {
 		return sqlSession.insert("communityMapper.insertReplyLike", replyLike);
 	}
 	
+	public String selectConcertId(SqlSessionTemplate sqlSession, int concertNo) {
+		return sqlSession.selectOne("communityMapper.selectConcertId", concertNo);
+	}
 }

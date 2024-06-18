@@ -38,7 +38,7 @@
                                 <td>
                                     <h3>${board.nickname}</h3>
                                 </td>
-                                <td rowspan="2">
+                                <td>
                                     <div>
                                         <c:choose>
                                             <c:when test="${loginUser.userNo eq board.userNo}">
@@ -63,6 +63,9 @@
                                                 <button class="function" data-toggle="modal" data-target="#myModal">신고</button>
                                             </c:otherwise>
                                         </c:choose>
+                                        &nbsp;
+                                        &nbsp;
+                                        <button class="function" type="button">조회수 : ${board.boardCount}</button>
                                     </div>
                                 </td>
                             </tr>
@@ -74,6 +77,9 @@
                     </table>
                 </li>
                 <li id="board-content">${board.boardContent}</li>
+                <li id="go-list-button">
+                    <button class="btn-staez purple" onclick="location.href=`main.cm`"><h3>목록</h3></button>
+                </li>
                 <li id="reply-cnt">
                     <h1>댓글&nbsp;</h1>
                     <h1 class="reply-cnt"></h1>

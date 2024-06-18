@@ -159,6 +159,7 @@
 		JOIN concert_category cc on  c.concert_no = cc.concert_no	
 		JOIN category ct ON cc.category_no = ct.category_no
 		WHERE c.concert_status = 'Y'
+		 AND ca.status = 'Y'
 		 AND cc.category_no =  #{categoryNo};
 	</select> 
 	
@@ -186,6 +187,7 @@
 		    JOIN category ct ON cc.category_no = ct.category_no
 			) sub
 		WHERE sub.concert_status = 'Y'
+		  AND ca.status = 'Y'
 		  AND sub.concert_no = #{concertNo}
 		ORDER BY sub.start_date
 		LIMIT 1 OFFSET 0;
@@ -217,6 +219,7 @@
 		    JOIN category ct ON cc.category_no = ct.category_no
 			) sub
 		WHERE sub.concert_status = 'Y'
+		  AND ca.status = 'Y'
 		  AND sub.concert_no = #{concertNo}
 		ORDER BY sub.start_date
 		LIMIT 1 OFFSET 0;
@@ -272,7 +275,7 @@
 		 JOIN tag USING (board_no)
 		 JOIN concert USING (concert_no)
 		WHERE concert_no = #{concertNo}
-		  AND board_status = 'Y';
+		  AND board_status = 'Y'
 	</select>
 	
 
@@ -570,6 +573,11 @@
 		WHERE concert_no = #{concertNo}
 	</select>
     
+    <select id="selectConcertId" resultMap="concertResult" >
+		SELECT concert_plot
+		FROM concert
+		WHERE theater_no IS NULL 
+	</select>
     
     
     
