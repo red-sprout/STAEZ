@@ -24,7 +24,18 @@
             <c:forEach var="c" items="${clist}">
             <tr class="tb-content">
                 <td class="concert-img" onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
-                    <img src="${contextPath}${c.filePath}${c.changeName}" alt="">
+                    <c:set var="changeName" value="${c.changeName}" />
+                    <c:set var="filePath" value="${c.filePath}" />
+                    <c:choose>                        
+                        <c:when test="${empty filePath && empty changeName}">
+                            <img src="${contextPath}/resources/uploadfiles/concert/2024061812485286946.png"> <!--공연이미지가 없을 시 기본이미지-->
+                        </c:when>
+                        <c:otherwise>
+                            <img src="${contextPath}${c.filePath}${c.changeName}">
+                        </c:otherwise>
+                    </c:choose>
+                    <c:remove var="changeName" />
+                    <c:remove var="filePath" />
                 </td>
                 <td class="concert-content" onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
                     <h3>${c.concertTitle}</h3>

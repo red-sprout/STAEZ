@@ -302,7 +302,7 @@
 		ON cl.concert_no = c.concert_no
 		
 		LEFT JOIN (SELECT concert_no, 
-					 MIN(start_date) AS start_date, 
+					 MIN(start_date) AS start_date,
 					 MAX(end_date) AS end_date
 			  FROM concert_schedule
 			  GROUP BY concert_no) cs
