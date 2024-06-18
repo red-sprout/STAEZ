@@ -58,6 +58,9 @@
     height: fit-content;
     min-width: fit-content;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #notice-category {
