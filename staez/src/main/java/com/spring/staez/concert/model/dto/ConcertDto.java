@@ -36,15 +36,11 @@ public class ConcertDto {
     private String concertStatus; //공영장명
 
     @SerializedName("poster")
-    private String filePath; //파일경로 : 포스터
+    private String changeName; //파일경로 : 포스터
 
     @SerializedName("prfcast")
     private String concertMembers; // 출연진
     
     @SerializedName("prfage")
     private String ageLimit; // 공연관람연령
-    
-    
-    
-
 }

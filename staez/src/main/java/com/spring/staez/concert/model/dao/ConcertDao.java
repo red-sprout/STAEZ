@@ -118,22 +118,29 @@ public class ConcertDao {
 	
 	
 	// 콘서트 api insert용
-	public int conapiCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("concertMapper.conapiCount");
+	public int concertApiCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("concertMapper.concertApiCount");
 	}
 
-	public int conapiInsert(SqlSessionTemplate sqlSession, ConcertDto concertDto) {
-		return sqlSession.insert("concertMapper.conapiInsert", concertDto);
+	public int concertApiInsert(SqlSessionTemplate sqlSession, ConcertDto concertDto) {
+		return sqlSession.insert("concertMapper.concertApiInsert", concertDto);
 	}
 	
-	public int concertTitleCount(SqlSessionTemplate sqlSession, String concertTitle) {
-		return sqlSession.selectOne("concertMapper.concertTitleCount", concertTitle);
+	public int concertIdCount(SqlSessionTemplate sqlSession, String concertId) {
+		return sqlSession.selectOne("concertMapper.concertIdCount", concertId);
 	}
 
-	public int conapiDelete(SqlSessionTemplate sqlSession) {
-		return sqlSession.delete("concertMapper.conapiDelete");
+	public int concertApiDelete(SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("concertMapper.concertApiDelete");
 	}
 	
+	public int concertAttatchmentApiInsert(SqlSessionTemplate sqlSession, ConcertDto concertDto) {
+		return sqlSession.insert("concertMapper.concertAttatchmentApiInsert", concertDto);
+	}
+	
+	public int concertScheduleApiInsert(SqlSessionTemplate sqlSession, ConcertDto concertDto) {
+		return sqlSession.insert("concertMapper.concertScheduleApiInsert", concertDto);
+	}
 	
 	public Concert selectConApi(SqlSessionTemplate sqlSession, String concertId) {
 		return sqlSession.selectOne("concertMapper.selectConApi", concertId);
@@ -166,7 +173,7 @@ public class ConcertDao {
 		return (ArrayList)sqlSession.selectList("concertMapper.selectConDetailApi", concertNo);
 	}
 
-	public ArrayList selectConcertId(SqlSessionTemplate sqlSession, ArrayList<ConcertDto> conidList) {
+	public ArrayList<ConcertDto> selectConcertId(SqlSessionTemplate sqlSession, ArrayList<ConcertDto> conidList) {
 		return (ArrayList)sqlSession.selectList("concertMapper.selectConcertId", conidList);
 	}
 

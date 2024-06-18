@@ -484,26 +484,20 @@
 	 </select>
 
 
-	<select id="conapiCount" resultType="_int">
+	<select id="concertApiCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM concert
 		WHERE theater_no IS NULL
 	</select>
-	<select id="concertTitleCount" resultType="_int">
+	<select id="concertIdCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM concert
-		WHERE concert_title = #{concertTitle}
+		WHERE concert_plot = #{concertId}
 	</select>
-	
-	
-	
-	
-	
-	
-	
+
 	<!-- 콘서트 api insert문  -->
 	
-	<insert id="conapiInsert">
+	<insert id="concertApiInsert">
 	        INSERT INTO concert (
 	            concert_title,
 	            concert_plot,
@@ -520,7 +514,7 @@
 	            'age_limit'
 	        )
 	</insert>
-	<insert id="conapiAttatchmentApiInsert">
+	<insert id="concertAttatchmentApiInsert">
 	        INSERT INTO concert_attachment (
 	            concert_no,
 	            origin_name,
@@ -533,7 +527,7 @@
 	            #{filePath}
 	        )
 	</insert>
-	<insert id="conapiScheduleApiInsert">
+	<insert id="concertScheduleApiInsert">
 	        INSERT INTO concert_schedule (
 	            concert_no,
 	            start_date,
@@ -545,18 +539,10 @@
 	        )
 	</insert>
 	
-	
-	
-	
-	
-	
-	
-	
-    <delete id="conapiDelete">
+    <delete id="concertApiDelete">
     	DELETE FROM concert
 		WHERE theater_no IS NULL
     </delete>
-    
     
     <!-- concertId로 db의 concertNo 가져오기 -->
     <select id="selectConApi" resultMap="concertResult" >
