@@ -12,7 +12,56 @@ $(function() {
     new PhoneVerification();
     new EmailVerification();
     changeCheck();
+
+    changeNone();
 });
+
+
+//변화된 내용 없으면 수정 안되도록 설정
+function changeNone(){
+    let isChanged = false;
+
+    $('#profile-update input').on('change', function() {
+        isChanged = true;
+    });
+
+    $('#submit-btn button').eq(0).on('click', function(event) {
+        if (!isChanged) {
+            event.preventDefault(); // submit 방지
+            alert('수정된 내용이 없습니다');
+        } else{
+            checkSubmitRequires();
+        }
+    });
+}
+
+//조건 만족해야지 form 제출되도록 함
+function checkSubmitRequires() { //onclick
+    const checkboxs = $('.submit-requires');
+    let checkCount = 0;
+
+    $(checkboxs).each(function(index, checkbox){
+        if($(checkbox).is(':checked')){
+            checkCount++;
+        } else{
+            switch($(checkbox).attr('id')){
+                case 'nicknameCheck':
+                    $('input[name=nickname]').focus();
+                    break;
+                case 'phoneCheck':
+                    $('#phone1').focus();
+                    break;
+                case 'emailCheck':
+                    $('#email-front').focus();
+                    break;
+            }
+        }
+    });
+
+    if(checkCount === checkboxs.length){
+        $('#profile form').submit(); // 폼 제출
+    } 
+}
 
 //비밀번호 인증 했는지 여부 확인
 function authDone(){
@@ -73,34 +122,6 @@ function compare(originValue, input, checkbox){ //본래값, 입력값, 체크�
     });
 }
 
-
-//조건 만족해야지 form 제출되도록 함
-function checkSubmitRequires() { //onclick
-    const checkboxs = $('.submit-requires');
-    let checkCount = 0;
-
-    $(checkboxs).each(function(index, checkbox){
-        if($(checkbox).is(':checked')){
-            checkCount++;
-        } else{
-            switch($(checkbox).attr('id')){
-                case 'nicknameCheck':
-                    $('input[name=nickname]').focus();
-                    break;
-                case 'phoneCheck':
-                    $('#phone1').focus();
-                    break;
-                case 'emailCheck':
-                    $('#email-front').focus();
-                    break;
-            }
-        }
-    });
-
-    if(checkCount === checkboxs.length){
-        $('#profile form').submit(); // 폼 제출
-    } 
-}
 
 // 회원정보 변경 전 비밀번호 인증
 function authPassword() {
@@ -404,7 +425,19 @@ class PhoneVerification {
         this.authBtn.on('click', () => this.checkAuthNum());
     }
 
-    sendAuthNum() {
+    sendAuthNum() {        
+        const phone = $('input[name=phone]').val();
+
+        // //이미 사용 중인 휴대폰 번호인지 확인  
+        // checkExist({info : phone, type : 1}, res => {
+        //     if(res === 'exist'){
+                
+        //     } else{
+                
+        //     }
+        // });      
+
+        //이미 전송을 한 상황이라면
         if (this.isSend) {
             const result = confirm('재전송 하시겠습니까?')
             if(!result){
@@ -416,7 +449,6 @@ class PhoneVerification {
 
         // 랜덤번호 생성
         this.authNo = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
-        const phone = $('input[name=phone]').val();
 
         $('#phoneCheck').prop('checked', false);
 
@@ -552,6 +584,7 @@ class EmailVerification {
             this.timer.css("color", "#4aa500")
             this.isSend = false;
             this.authBtn.prop('disabled', true);
+            $('#email-input select').prop('disabled',true);
         }
     }
 
@@ -579,8 +612,8 @@ class EmailVerification {
 //회원탈퇴 기능
 function withdrawalAuth() { //onclick
     
-    const submitBtn = $("#withdrawalModal button[type='submit']");
-    const inputPwd = $(".withdrawal-tag input[type='password']").val();
+    const submitBtn = $("#withdrawalModal button[type=submit]");
+    const inputPwd = $(".withdrawal-tag input[type=password]").val();
 
     authPwdAjax({inputPwd}, res => {
         if (res === 'NNNNY') { //비밀번호 인증 성공            

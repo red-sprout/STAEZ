@@ -125,3 +125,14 @@ function deleteInquireAjax(data, callback){
         }
     });
 }
+
+function checkExistAjax(data, callback){
+    $.ajax({
+        url: contextPath + 'checkExist.me',   
+        data,
+        success: res => callback(res),
+        error: () => {
+            alert('데이터 확인에 실패하였습니다');
+        }
+    });
+}
