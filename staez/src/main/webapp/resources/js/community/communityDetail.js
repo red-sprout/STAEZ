@@ -342,20 +342,46 @@ function replyWrapper(result) {
     return div;
 }
 
+// function addEvent() {
+//     const replyMenu = document.querySelectorAll(".reply-menu .function");
+//     for(let ele of replyMenu) {
+//         switch(ele.innerText) {
+//             case "수정":
+//                 ele.addEventListener("click", (ev) => updateReplyAddEvent(ev.currentTarget.parentNode.parentNode));
+//                 break;
+//             case "삭제":
+//                 ele.addEventListener("click", (ev) => deleteReplyEvent(getReplyNo(ev)));
+//                 break;
+//             default:
+//                 ele.addEventListener("click", (ev) => addReplyEvent(ev.currentTarget.parentNode.parentNode.parentNode));
+//                 break;
+//         }
+//     }
+// }
+
 function addEvent() {
     const replyMenu = document.querySelectorAll(".reply-menu .function");
-    for(let ele of replyMenu) {
-        switch(ele.innerText) {
-            case "수정":
-                ele.addEventListener("click", (ev) => updateReplyAddEvent(ev.currentTarget.parentNode.parentNode));
-                break;
-            case "삭제":
-                ele.addEventListener("click", (ev) => deleteReplyEvent(getReplyNo(ev)));
-                break;
-            default:
-                ele.addEventListener("click", (ev) => addReplyEvent(ev.currentTarget.parentNode.parentNode.parentNode));
-                break;
-        }
+    for (let ele of replyMenu) {
+        // 기존의 이벤트 리스너를 제거합니다.
+        ele.removeEventListener("click", handleEvent);
+
+        // 새로운 이벤트 리스너를 추가합니다.
+        ele.addEventListener("click", handleEvent);
+    }
+}
+
+function handleEvent(ev) {
+    const ele = ev.currentTarget;
+    switch (ele.innerText) {
+        case "수정":
+            updateReplyAddEvent(ele.parentNode.parentNode);
+            break;
+        case "삭제":
+            deleteReplyEvent(getReplyNo(ev));
+            break;
+        default:
+            addReplyEvent(ele.parentNode.parentNode.parentNode);
+            break;
     }
 }
 

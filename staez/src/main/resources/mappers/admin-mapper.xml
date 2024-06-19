@@ -672,6 +672,7 @@
 		join concert_attachment ca on (c.concert_no = ca.concert_no)
 		where c.concert_status = 'Y'
 		and concert_title like '%' || #{keyword} || '%'
+		and c.theater_no IS NOT NULL
 		and ca.status = 'Y'
 		order by c.concert_no desc
 	</select>
@@ -680,8 +681,8 @@
 		select count(concert_no)
 		from concert
 		where concert_status = 'Y'
+		and theater_no IS NOT NULL
 		and concert_title like '%' || #{keyword} || '%'
-		and theater_no IS NOT NULL;
 	</select>
 	
 	<select id="selectTheaterListCount" resultType="_int">

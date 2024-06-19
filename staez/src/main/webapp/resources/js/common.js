@@ -38,7 +38,6 @@ function init() {
     if (regex.test(url)) {
         menubar.forEach((item) => {
             const itemUrl = item.getAttribute('href').split("/").pop();
-            console.log(itemUrl);
             if (itemUrl === url) {
                 item.style.color = "#B51B75";
             }
