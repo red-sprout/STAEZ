@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 @EnableAspectJAutoProxy
-public class LogginAOP {
+public class LoggingAOP {
 
 	/*
 	 * <시점>
