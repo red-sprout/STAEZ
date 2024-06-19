@@ -47,6 +47,7 @@
 		<result column="start_date" property="startDate"/>
 		<result column="end_date" property="endDate"/>
 		<result column="file_path" property="filePath" />
+		<result column="origin_name" property="originName" />
 		<result column="change_name" property="changeName" />
 	</resultMap>
 	<resultMap type="Tag" id="tagResult">
@@ -77,6 +78,7 @@
 		SELECT
 			c.concert_no,
 			c.concert_title,
+			ca.origin_name,
 			ca.file_path,
 			ca.change_name
 		FROM concert c

@@ -86,7 +86,7 @@ function consertInsert(data, callback) {
             callback(res);
         }, 
         error: function () {
-            console.log("삽입 실패");
+            alert("모든 항목을 제대로 입력했는지 확인 바랍니다.");
         }
     })
 }
@@ -178,7 +178,7 @@ function consertUpdate(data, callback) {
             callback(res);
         },
         error: function () {
-            console.log("삽입 실패");
+            alert("모든 항목을 제대로 입력했는지 확인 바랍니다.");
         }
     })
 }

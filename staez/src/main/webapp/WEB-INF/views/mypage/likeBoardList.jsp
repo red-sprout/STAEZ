@@ -21,7 +21,7 @@
     <table>
         <tbody>
             <tr class="col-name">
-                <th id="board-no">조회수</th>
+                <th id="board-no">번호</th>
                 <th id="board-title">제목</th>
                 <th id="writer">작성자</th>
                 <th id="enroll-date">작성일</th>

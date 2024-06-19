@@ -218,5 +218,10 @@ public class MypageServiceImpl implements MypageService{
 	public ArrayList<Board> loadMyInquireAjax(int userNo) {
 		return mpd.loadMyInquireAjax(sqlSession, userNo);
 	}
+
+//	@Override
+//	public int checkExistAjax(String info, int type) {
+//
+//	}
 	
 }

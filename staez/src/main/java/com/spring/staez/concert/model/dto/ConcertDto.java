@@ -1,12 +1,8 @@
 package com.spring.staez.concert.model.dto;
 
-import java.sql.Timestamp;
-
 import com.google.gson.annotations.SerializedName;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -14,6 +10,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ConcertDto {
+	
+    private int concertNo;
 	
     @SerializedName("prfnm")
     private String concertTitle; //공연명
@@ -29,11 +27,16 @@ public class ConcertDto {
 
     @SerializedName("fcltynm")
     private String theaterName; //공영장명
+    
+    @SerializedName("prfstate")
+    private String concertStatus; //공영장명
 
     @SerializedName("poster")
     private String filePath; //파일경로 : 포스터
 
     @SerializedName("prfcast")
-    private String concertMembers; //출연진
-
+    private String concertMembers; // 출연진
+    
+    @SerializedName("prfage")
+    private String ageLimit; // 공연관람연령
 }

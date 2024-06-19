@@ -18,6 +18,11 @@ $(function() {
         formData.append("seat", gradeForm());
         formData.append("concert", concertForm());
 
+        if(!(formData.concertNo && formData.schedule && formData.seat && formData.concert)) {
+            alert("빠진 항목이 확인바랍니다.");
+            return;
+        }
+
         consertUpdate(formData, res => {
             location.href = contextPath + res;
         });

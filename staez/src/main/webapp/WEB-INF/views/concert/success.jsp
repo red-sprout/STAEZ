@@ -14,17 +14,18 @@
 <body>
     
 	<div class="container">
-        <div id="timer" class=""></div>
+        <img src="steaz/resources/img/concert/loading.gif" alt="loading">
         <input type="hidden" name="userNo" value="${userNo}">
         <input type="hidden" name="concertNo" value="${concertNo}">
         <input type="hidden" name="recipientName" value="${recipientName}">
         <input type="hidden" name="recipientPhone" value="${recipientPhone}">
         <input type="hidden" name="recipientBirth" value="${recipientBirth}">
+        <input type="hidden" name="recipientEmail" value="${recipientEmail}">
         <input type="hidden" name="payMethod" value="${payMethod}">
         <input type="hidden" name="concertDate" value="${concertDate}">
         <input type="hidden" name="schedule" value="${schedule}">
         <input type="hidden" name="seatList" value='${seatList}'>
-        <input type="hidden" name="pg">
+        <input type="hidden" name="totalAmount" value='${totalAmount}'>
 
 	</div>
     <script src="${contextPath}/resources/js/api/concertReserveapi.js"></script>
@@ -36,27 +37,30 @@
             const recipientName = document.querySelector("input[name = 'recipientName']").value;
             const recipientPhone = document.querySelector("input[name = 'recipientPhone']").value;
             const recipientBirth = document.querySelector("input[name = 'recipientBirth']").value;
+            const recipientEmail = document.querySelector("input[name = 'recipientEmail']").value;
             const payMethod = document.querySelector("input[name = 'payMethod']").value;
             const concertDate =  document.querySelector("input[name = 'concertDate']").value; 
-            const schedule = document.querySelector("input[name = 'schedule']").value;  
+            const schedule = document.querySelector("input[name = 'schedule']").value;
+            const totalAmount = document.querySelector("input[name='totalAmount']").value;  
             const seatListStr = document.querySelector("input[name='seatList']").value;
-            const seatList = JSON.parse(seatListStr); 
-            
-            console.log(seatList)
+            const seatList = JSON.parse(seatListStr);
+           
             const rids = JSON.stringify({
                     userNo,
                     concertNo,
                     recipientName,
                     recipientPhone,
                     recipientBirth,
+                    recipientEmail,
                     payMethod,
                     concertDate,
                     schedule,
-                    seatList
+                    seatList,
+                    totalAmount
                 })
                 ajaxinsertReserve({rids},(res) => alertAndClose(res))
         }
-
+        
         function alertAndClose(res){
             console.log(res)
             if(res === "good"){
