@@ -56,6 +56,18 @@
 		WHERE nickname = #{inputPwd}
 	</select>
 	
+	<select id="emailCheck" resultType="_int">
+		SELECT COUNT(user_no)
+		FROM staez_user
+		WHERE email = #{email}
+	</select>
+	
+	<select id="phoneCheck" resultType="_int">
+		SELECT COUNT(user_no)
+		FROM staez_user
+		WHERE phone = #{phone}
+	</select>
+	
 	
 	<update id="updatePassword">
 		UPDATE staez_user

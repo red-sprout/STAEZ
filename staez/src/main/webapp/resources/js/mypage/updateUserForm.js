@@ -425,7 +425,19 @@ class PhoneVerification {
         this.authBtn.on('click', () => this.checkAuthNum());
     }
 
-    sendAuthNum() {
+    sendAuthNum() {        
+        const phone = $('input[name=phone]').val();
+
+        // //이미 사용 중인 휴대폰 번호인지 확인  
+        // checkExist({info : phone, type : 1}, res => {
+        //     if(res === 'exist'){
+                
+        //     } else{
+                
+        //     }
+        // });      
+
+        //이미 전송을 한 상황이라면
         if (this.isSend) {
             const result = confirm('재전송 하시겠습니까?')
             if(!result){
@@ -437,7 +449,6 @@ class PhoneVerification {
 
         // 랜덤번호 생성
         this.authNo = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
-        const phone = $('input[name=phone]').val();
 
         $('#phoneCheck').prop('checked', false);
 

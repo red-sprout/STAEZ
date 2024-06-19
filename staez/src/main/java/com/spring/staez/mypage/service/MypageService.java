@@ -64,4 +64,6 @@ public interface MypageService {
 	public ArrayList<Board> loadMyBoardAjax(int userNo); //나의작성글 ajax
 	public ArrayList<Board> loadMyInquireAjax(int userNo); //문의내역 ajax
 	
+//	public int checkExistAjax(String info, int type); //이미 존재하는 데이터인지 확인
+	
 }

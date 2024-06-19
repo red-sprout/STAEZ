@@ -596,7 +596,7 @@ public class MypageController {
 	    }
 		System.out.println("이메일주소 : " + email);
 		System.out.println("인증번호 : " + authNo);
-
+		
 		// 메일 전송
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(email);
@@ -608,5 +608,14 @@ public class MypageController {
 		return "NNNNY";
 	}
 	
+//	//이메일, 휴대폰 번호 있는지 체크
+//	@RequestMapping("checkExist.me")
+//	@ResponseBody
+//	public String checkExistAjax(String info, int type) { //type - 1 : phone, 2 : email
+//		int result = mypageService.checkExistAjax(info, type);
+//
+//		return "";
+//	}
+//	
 }
 	
