@@ -23,6 +23,7 @@ function showAdvertisements() {
 }
 
 function drawOption(category){
+    
     const select1 = document.getElementById("popularity-concert-category-box");
     const select2 = document.getElementById("latest-concert-category-box");
     
@@ -56,6 +57,7 @@ function drawOption(category){
     },(lcConcerts) => drawLatestConcert(lcConcerts, categoryNo2))
 }
 function drawPopularConcert(pcConcerts, categoryNo1){
+   
     const pcConsertsArea = document.querySelector(".popularity-concert-information-slider");
     pcConsertsArea.innerHTML = ``;
     if(pcConcerts.length != 0){
@@ -132,12 +134,12 @@ function drawBoardListContent(bList){
     const userInput = document.querySelector("input[name = 'userNo']");
     const uNo = userInput.value;
     const boardArea = document.querySelector(".popularity-bulletin-information-area");
-
+    console.log(bList)
     if(!uNo){
         boardArea.innerHTML = ``
         for(let b of bList){
             boardArea.innerHTML += `<div class="popularity-bulletin-information">
-                                        <div class="popularity-bulletin-information-a">
+                                        <div class="popularity-bulletin-information-a" onclick="noLogin()">
                                             <div class="popularity-bulletin-content-area">
                                                 <div class="popularity-bulletin-title">
                                                     <span>`+ b.boardTitle +`</span>
@@ -189,13 +191,18 @@ function drawBoardListContent(bList){
                                         </div>
                                     </div>`
         }
+        selectUserLikeBoardNo({
+            uNo
+        },(ubNoList) => drawLikeImg(ubNoList));
     }
    
-    selectUserLikeBoardNo({
-        uNo
-    },(ubNoList) => drawLikeImg(ubNoList));
 
     popularBoardCategory((boardCategory) => drawBoardListContentCategory(boardCategory));
+}
+
+function noLogin(){
+    alert("로그인 후 이용가능한 서비스입니다.")
+    location.href=`loginForm.me`
 }
 
 function drawLikeImg(ubNoList){
@@ -220,6 +227,7 @@ function drawLikeImg(ubNoList){
 }
 
 function drawBoardListContentCategory(boardCategory){
+    console.log(boardCategory)
    const  categoryTag = document.querySelectorAll(".tag");
    for(let i = 0; i < boardCategory.length; i++){
     categoryTag[i].innerHTML = boardCategory[i].categoryName;
@@ -231,8 +239,7 @@ function drawBoardListContentCategory(boardCategory){
    const userNo = document.querySelectorAll(".heart-count-area input[name=userNo]");
    const imgArea = document.querySelectorAll(".user-profile-img");
    for(let i = 0; i < userNo.length; i++) {
-       console.log(userNo[i].value)
-       console.log(imgArea[i])
+
         selectProfile({userNo: userNo[i].value}, (profile) => {
             imgArea[i].setAttribute("src", contextPath + profile);
         })
@@ -259,13 +266,20 @@ function checkedButtonHidden(){
     
     const pCount = document.querySelectorAll(".popularity-concert-information");
     const lCount = document.querySelectorAll(".latest-concert-information");
+   
     if(pCount.length < 6){
         pbutton[0].classList.add("hidden")
         pbutton[1].classList.add("hidden")
+    } else {
+        pbutton[0].classList.remove("hidden")
+        pbutton[1].classList.remove("hidden")
     }
     if(lCount.length < 6){
         lbutton[0].classList.add("hidden")
         lbutton[1].classList.add("hidden")
+    } else {
+        lbutton[0].classList.remove("hidden")
+        lbutton[1].classList.remove("hidden")
     }
 }   
 
@@ -347,7 +361,7 @@ function changeLike(_this, event, bNo) {
 }
 
 function likeYesEv(uNo ,bNo, countArea){
-    console.log(uNo +"//"+ bNo + "//" + countArea)
+   
     insertUpdatelike({
         uNo,
         bNo
@@ -367,3 +381,14 @@ function drawLikeCount(likeCount, countArea){
     countSpan.innerHTML = likeCount.length;
 }
 
+function popularConcert(){
+    const categoryNo = document.querySelector("#popularity-concert-category-box").value;
+    
+    location.href="main.co?categoryNo="+categoryNo;
+}
+
+function latestConcert(){
+    const categoryNo = document.querySelector("#latest-concert-category-box").value;
+    
+    location.href="main.co?categoryNo="+categoryNo;
+}

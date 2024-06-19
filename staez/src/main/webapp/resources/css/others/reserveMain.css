@@ -37,7 +37,7 @@
 
 .popularity-concert-container{
     width: 1300px;
-   
+   position: relative;
 }
 
 .popularity-concert-head{
@@ -190,14 +190,28 @@
     transform: scale( 1.1);
 }
 
-.left-btn{
+.popularity-concert-information-area .left-btn{
     position: absolute;
     top: 50%;
     left: -60px; 
     z-index: 1;
 }
 
-.right-btn{
+.popularity-concert-information-area .right-btn{
+    position: absolute;
+    top: 50%;
+    right: -60px; 
+    z-index: 1;
+}
+
+.latest-concert-information-area .left-btn{
+    position: absolute;
+    top: 50%;
+    left: -60px; 
+    z-index: 1;
+}
+
+.latest-concert-information-area .right-btn{
     position: absolute;
     top: 50%;
     right: -60px; 
@@ -332,6 +346,7 @@
     display: inline-block;
     width: 220px;
     height: 300px;
+    cursor: pointer;
 }
 
 .popularity-bulletin-content-area{
