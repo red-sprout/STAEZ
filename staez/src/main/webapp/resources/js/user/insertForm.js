@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
     backPage();
     // 관심장르 3개이상 못고르게하면서 값 출력되도록
     sginingenreLike();
+    // 핸드폰 번호 전송 처리
+    signinPhoneNumber();
     // 이메일
     sgininemail();
     // 이메일 인증 전송 버튼 이벤트 리스너 등록
@@ -536,7 +538,6 @@ function signinSubmitButton(){
             userIdCheckResult.innerText !== "사용가능한 아이디입니다." ||
             passwordMessage.innerText !== "비밀번호가 일치합니다." ||
             emailSecretCheckResult.innerText !== "인증이 확인되었습니다.") {
-            alert("입력값이 올바르지 않습니다. 모든 필수 입력란을 작성해주세요.");
             return false; // 폼 제출을 막음
         }
         return true; // 폼 제출을 허용

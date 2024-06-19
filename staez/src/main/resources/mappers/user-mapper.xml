@@ -100,7 +100,7 @@
 	</insert>
 	
 	<!-- 간편로그인 이메일 유무 확인 (네이버, 카카오, 구글) -->
-	<select id="findUserByEmail" parameterType="string" resultType="com.spring.staez.user.model.vo.User">
+	<select id="findUserByEmail" parameterType="string" resultMap="userResult">
 	    SELECT * 
 	    FROM staez_user 
 	    WHERE email = #{email}
@@ -132,7 +132,7 @@
 	       AND user_name = #{userName}
 	</select>
 	
-		<!-- 핸드폰으로 아이디찾기 -->
+	<!-- 핸드폰 아이디찾기 -->
 	<select id="findPhoneCheck" resultType="string">
 	    SELECT user_id
 	      FROM staez_user
