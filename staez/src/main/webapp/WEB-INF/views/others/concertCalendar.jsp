@@ -17,7 +17,6 @@ pageEncoding="UTF-8"%>
 			<script src="${contextPath}/resources/js/api/othersapi.js"></script>
     </header>
 	<main>
-		
 		<div id="concert-reservation-calendar-area">
 			<div id="concert-calendar-choice">
 				<span style="color: #B51B75;">공연 캘린더</span>
