@@ -1,7 +1,5 @@
 package com.spring.staez.concert.model.dao;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.spring.staez.user.model.dao.UserDaoTest;
+import com.spring.staez.concert.model.dto.ConcertDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,125 +25,21 @@ public class ConcertDaoTest {
 	
 	@Autowired
 	private ConcertDao concertDao;
-
+	
 	@Test
-	public void testSelectCate() {
-		fail("Not yet implemented");
+	public void testSelectLastAttachmentValue() {
+		log.info("{}", concertDao.selectLastAttachmentValue(sqlSession));
+	}
+	
+	@Test
+	public void testSelectLastScheduleValue() {
+		log.info("{}", concertDao.selectLastScheduleValue(sqlSession));
 	}
 
 	@Test
-	public void testSelectCateCon() {
-		fail("Not yet implemented");
+	public void testSelectConcertNoByConcertId() {
+		ConcertDto concertDto = new ConcertDto();
+		concertDto.setConcertPlot("PF243254");
+		log.info("{}", concertDao.selectConcertNoByConcertId(sqlSession, concertDto));
 	}
-
-	@Test
-	public void testSelectconList() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSelectCon() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSelectConDetail() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSelectComCount() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSelectComDetail() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSelectRevDetail() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCheckLikeExist() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSelectConLikeCount() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSelectUserConLike() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSelectUserConLikeAll() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdateConLike() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testInsertConLike() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testPopularList() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testLatestList() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testHighscoreList() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testLocationAllList() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSelectComList() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSelectRevCount() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSelectRevList() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSelectSeatPrice() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testConapiCount() {
-		assertEquals("concertApiCount", 0, concertDao.concertApiCount(sqlSession));
-	}
-
-	@Test
-	public void testConapiInsert() {
-		 
-	}
-
 }

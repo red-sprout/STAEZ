@@ -138,8 +138,28 @@ public class ConcertDao {
 		return sqlSession.insert("concertMapper.concertAttatchmentApiInsert", concertDto);
 	}
 	
+	public int concertAttachmentApiCount(SqlSessionTemplate sqlSession, ConcertDto concertDto) {
+		return sqlSession.selectOne("concertMapper.concertAttachmentApiCount", concertDto);
+	}
+	
 	public int concertScheduleApiInsert(SqlSessionTemplate sqlSession, ConcertDto concertDto) {
 		return sqlSession.insert("concertMapper.concertScheduleApiInsert", concertDto);
+	}
+	
+	public int concertScheduleApiCount(SqlSessionTemplate sqlSession, ConcertDto concertDto) {
+		return sqlSession.selectOne("concertMapper.concertScheduleApiCount", concertDto);
+	}
+	
+	public int selectLastAttachmentValue(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("concertMapper.selectLastAttachmentValue");
+	}
+	
+	public int selectLastScheduleValue(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("concertMapper.selectLastScheduleValue");
+	}
+	
+	public int selectConcertNoByConcertId(SqlSessionTemplate sqlSession, ConcertDto concertDto) {
+		return sqlSession.selectOne("concertMapper.selectConcertNoByConcertId", concertDto);
 	}
 	
 	public Concert selectConApi(SqlSessionTemplate sqlSession, String concertId) {
