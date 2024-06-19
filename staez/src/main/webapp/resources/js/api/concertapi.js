@@ -277,3 +277,19 @@ function conSellDetailapi(data, callback){
         }
     });
 }
+
+
+//리뷰
+function reviewDetailapi(data, callback){
+    $.ajax({
+        url: contextPath + "reviewDetailapi.co",
+        type: 'POST',
+        data: data,
+        success : function(result){
+            console.log(result);
+            callback(result);
+        }, error(){
+            console.log("실패");
+        }
+    });
+}

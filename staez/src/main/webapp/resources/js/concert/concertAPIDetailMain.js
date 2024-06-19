@@ -42,28 +42,24 @@ function drawAPINavi(concertNaviArea) {
 
   // 예매버튼 클릭
 function reservePage(){
-    const concertNo =  $("input[name='concertNo']").val();
-    const userNo =  $("input[name='userNo']").val();
-    window.open(`/staez/selectDate.co?concertNo=`+concertNo+`&userNo=`+userNo , "_blank", "width=1001, height=601, scrollbars=no");
+    const changeName =  $("input[name='changeName']").val();
+    window.open(changeName);
 }
 
 
 
 // 세부 내용 ajax로 값받아오기
 function goSellDetail(){
-    const concertNo =  $("input[name='concertNo']").val();
-    conSellDetailapi({"concertNo" : concertNo}, (result) => drawConSellDetail(result))
+    const concertId =  $("input[name='concertId']").val();
+    conSellDetailapi({"concertId" : concertId}, (result) => drawConSellDetail(result))
 }
 
 
 function goReviewDetail(_this, rpage){
-    console.log(_this)
-    console.log(rpage)
     const concertNo =  $("input[name='concertNo']").val();
     // const cpage = $(this).data('rpage');
-    reviewDetail({"concertNo" : concertNo, "rpage" : rpage}, (result) => drawReviewDetail(result))
+    reviewDetailapi({"concertNo" : concertNo, "rpage" : rpage}, (result) => drawReviewDetail(result))
 }
-
 
 
 
@@ -145,13 +141,8 @@ function drawConDetail(result){
   
 
 function drawConSellDetail(result){
-  const startDate = document.querySelector("input[name='startDate']").value;
-  const endDate = document.querySelector("input[name='endDate']").value;
-  const theaterName = document.querySelector("input[name='theaterName']").value;
-
   const drawSection = document.querySelector(".concert-detail-down-section");
   drawSection.innerHTML= '';
-  for(let c of result){
   drawSection.innerHTML += `<div>
                                 <div>
                                 <div class="concert-detail-subject">
@@ -162,35 +153,35 @@ function drawConSellDetail(result){
                                         <tbody>
                                             <tr>
                                                 <th>공연명</th>
-                                                <td>` + c.concertTitle + `</td>
+                                                <td>` + result.prfnm + `</td>
                                             </tr>
                                             <tr>
                                                 <th>공연기간</th>
-                                                <td>` + startDate +`~` + endDate + `</td>
+                                                <td>` + result.prfpdfrom +`~` + result.prfpdto + `</td>
                                             </tr>
                                             <tr>
                                                 <th>공연장소</th>
-                                                <td>` + theaterName + `</td>
+                                                <td>` + (result.fcltynm ? result.fcltynm : '-') + `</td>
                                             </tr>
                                             <tr>
                                                 <th>공연런타임</th>
-                                                <td>` + c.concertRuntime + `분</td>
+                                                <td>` + (result.prfruntime ? result.prfruntime : '-') + `</td>
                                       </tr>
                                       <tr>
                                           <th>관람연령</th>
-                                          <td>` + c.ageLimit + `</td>
+                                          <td>` + (result.prfage ? result.prfage : '-') + `</td>
                                       </tr>
                                       <tr>
                                           <th>제작진</th>
-                                          <td>(재)` + c.concertProduction + `</td>
+                                          <td>` + (result.entrpsnm ? result.entrpsnm : '-') + `</td>
                                       </tr>
                                       <tr>
                                           <th>공연내용</th>
-                                          <td>` + c.concertPlot + `</td>
+                                          <td>` + (result.prfnm ? result.prfnm : '-') + `</td>
                                       </tr>
                                       <tr>
                                           <th>출연진</th>
-                                          <td>` + c.concertMembers + `</td>
+                                          <td>` + (result.prfcast ? result.prfcast : '-') + `</td>
                                       </tr>
 
                                   </tbody>
@@ -281,127 +272,10 @@ function drawConSellDetail(result){
                       </div>
                     </div>
                     <br><br>`
-
-                          }
-    }
-
-
-function drawCommentDetail(result){
-    const drawSection = document.querySelector(".concert-detail-down-section");
-    const crList = result.crList;
-    drawSection.innerHTML = ``;
-
-    if(crList.length === 0){
-        let divEmpty = document.createElement('p');
-        drawSection.appendChild(divEmpty);
-        divEmpty.innerHTML += "등록된 한줄평이 없습니다.";
-        divEmpty.style.fontSize = '24px';
-        divEmpty.style.padding = `15% 0 15% 0`;
-        
-    } else { 
-        for(let c of result.crList){
-            drawSection.innerHTML += `<div>
-                                        <p><h4><b>글쓰기 전 주의사항</b></h4></p>
-                                        <p>※ 저속한 표현, 타인의 명예훼손, 광고성 게시물 등 게시판 운영규정에 어긋나는 글은 통보 없이 삭제될 수 있습니다.</p>
-                                        <p>※ 등록된 관람평, 관람후기의 수정과 삭제는 마이페이지에서 가능합니다.</p>        
-                                    </div>
-                                    <br>
-                                    <div>
-                                        <div class="concert-detail-comment-div">
-                                            <table class="concert-detail-comment-table">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td align="left"><b>` + c.nickname + `</b></td>
-                                                            <td align="right">` + c.reviewDate + `</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" colspan="2">` + c.reviewContent + `</td>
-                                                        </tr>
-                                                    </tbody>                 
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <br>`
-        }
-    }
-    drawCPagination(result);
 }
 
 
-function drawCPagination(result){
-
-    const drawPagination = document.querySelector(".page-list");
-    drawPagination.style.justifyContent = "center";
-    const crList = result.crList;
-    drawPagination.innerHTML = ``;
-
-    if(crList.length === 0){
-        drawPagination.innerHTML = ``;
-    }
-
-    if(crList.length > 0){
-        const pi = result.pi;
-
-        if(pi.currentPage == 1){
-            drawPagination.innerHTML += 
-            `<a disabled>
-            <div class="pagination">
-                <img src="` + contextPath + `/resources/img/main/before.png">
-            </div>
-            </a>`
-        } else {
-            drawPagination.innerHTML += 
-            `<a data-cpage="` + (pi.currentPage-1) + `" onclick="goCommentDetail(this, ` + (pi.currentPage-1) + `)">
-                <div class="pagination">
-                    <img src="` + contextPath + `/resources/img/main/before.png">
-                </div>
-            </a>`
-            
-            // `<a data-cpage="` + (pi.currentPage-1) + `" href="commentDetail.co?concertNo=`+ concertNo + `&cpage=` + (pi.currentPage-1) + `">
-            // <div class="pagination">
-            //     <img src="` + contextPath + `/resources/img/main/before.png">
-            // </div>
-            // </a>`;
-        }
-        
-        for(let i = pi.startPage; i <= pi.endPage; i++){
-            drawPagination.innerHTML +=
-            `<div class="pagination current"><a class="page-link" onclick="goCommentDetail(this, ` + i + `)"
-            style="text-decoration: none;  background-color:#b51b75; border: #b51b75;">
-            <h4>` + i + `</h4></a></div>`
-
-            //  `<div class="pagination current"><a data-cpage="` + i + `" class="page-link" href="commentDetail.co?concertNo=`+ concertNo + `&cpage=` + i + `"
-            //  style="text-decoration: none;  background-color:#b51b75; border: #b51b75;">
-            //  <h4>` + i + `</h4></a></div>`
-        }
-
-        if(pi.currentPage === pi.maxPage){
-            drawPagination.innerHTML += 
-            `<a disabled>
-            <div class="pagination">
-                <img src="` + contextPath + `/resources/img/main/after.png">
-            </div>
-            </a>`
-        } else{
-            drawPagination.innerHTML += 
-            `<a data-cpage="` + (pi.currentPage-1) + `" onclick="goCommentDetail(this, ` + (pi.currentPage+1) + `)">
-                <div class="pagination">
-                    <img src="` + contextPath + `/resources/img/main/after.png">
-                </div>
-            </a>`
-            // `<a data-cpage="` + (pi.currentPage+1) + `" href="commentDetail.co?concertNo=`+ concertNo + `&cpage=` + (pi.currentPage+1) + `">
-            // <div class="pagination">
-            //     <img src="` + contextPath + `/resources/img/main/after.png">
-            // </div>
-            // </a>`;
-        }
-    }
-
-}
-
-
-
-function drawReviewDetail(result){
+function reviewDetailapi(result){
     const drawSection = document.querySelector(".concert-detail-down-section");
     const rList = result.rList;
     drawSection.innerHTML = ``;
