@@ -37,7 +37,7 @@
 
 .popularity-concert-container{
     width: 1300px;
-   
+   position: relative;
 }
 
 .popularity-concert-head{
@@ -192,13 +192,15 @@
 
 .popularity-concert-information-area .left-btn{
     position: absolute;
-    left: 240px;  
+    top: 50%;
+    left: -60px; 
     z-index: 1;
 }
 
 .popularity-concert-information-area .right-btn{
     position: absolute;
-    right: 240px;
+    top: 50%;
+    right: -60px; 
     z-index: 1;
 }
 
