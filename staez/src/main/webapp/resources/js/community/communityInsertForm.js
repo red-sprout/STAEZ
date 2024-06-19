@@ -131,8 +131,8 @@ function drawResultList(result) {
         btn.setAttribute("type", "button");
         img.setAttribute("src", contextPath + "/resources/img/community/communityMain/search-icon.png");
         input.setAttribute("type", "hidden");
-        path = ele.filePath ? ele.filePath + ele.changeName : "/resources/img/common/stage.jpg";
-        poster.setAttribute("src", contextPath + ele.filePath + ele.changeName);
+        path = ele.originName === 'api' ? ele.filePath : contextPath + ele.filePath + ele.changeName;
+        poster.setAttribute("src", path);
         poster.setAttribute("class", "poster");
         input.value = ele.concertNo;
         span.innerHTML = ele.concertTitle;

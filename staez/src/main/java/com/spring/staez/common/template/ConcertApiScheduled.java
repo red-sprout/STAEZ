@@ -17,7 +17,7 @@ public class ConcertApiScheduled  {
     public void ConcertRestTemplate() {
 		
 		System.out.println("Scheduled task is running");
-		conRestRun.conapiInsert();
+		conRestRun.requestConcertApi();
 		System.out.println("conapiInsert task is running");
 		
     }

@@ -109,7 +109,7 @@ public class OthersController {
 		int currentPage = Integer.parseInt(cPage);
 		int listCount = dcList.size();
 		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 2);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 4);
 		ArrayList<Concert> pdcList = oService.selectPageConcert(categoryNo, concertDate, pi);
 		
 		Map<String, Object> resMap = new HashMap<String, Object>();

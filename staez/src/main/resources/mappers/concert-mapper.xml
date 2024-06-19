@@ -484,26 +484,20 @@
 	 </select>
 
 
-	<select id="conapiCount" resultType="_int">
+	<select id="concertApiCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM concert
 		WHERE theater_no IS NULL
 	</select>
-	<select id="concertTitleCount" resultType="_int">
+	<select id="concertIdCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM concert
-		WHERE concert_title = #{concertTitle}
+		WHERE concert_plot = #{concertId}
 	</select>
-	
-	
-	
-	
-	
-	
-	
+
 	<!-- 콘서트 api insert문  -->
 	
-	<insert id="conapiInsert">
+	<insert id="concertApiInsert">
 	        INSERT INTO concert (
 	            concert_title,
 	            concert_plot,
@@ -520,42 +514,63 @@
 	            'age_limit'
 	        )
 	</insert>
-	<insert id="conapiAttatchmentApiInsert">
+	<insert id="concertAttatchmentApiInsert">
 	        INSERT INTO concert_attachment (
 	            concert_no,
 	            origin_name,
 	            change_name,
 	            file_path  
 	        ) VALUES (
-	            CURRVAL('seq_concert'::regclass),
-	            #{ageLimit},
-	            #{concertMembers},
+	            #{concertNo},
+	            'api',
+	            #{concertNo},
 	            #{filePath}
 	        )
 	</insert>
-	<insert id="conapiScheduleApiInsert">
+	<insert id="concertScheduleApiInsert">
 	        INSERT INTO concert_schedule (
 	            concert_no,
 	            start_date,
 	            end_date        
 	        ) VALUES (
-	            CURRVAL('seq_concert'::regclass),
-	            #{startDate},
-	            #{endDate}
+	            #{concertNo},
+	            TO_DATE(#{startDate}, 'YYYY.MM.DD'),
+	            TO_DATE(#{endDate}, 'YYYY.MM.DD')
 	        )
 	</insert>
 	
-	
-	
-	
-	
-	
-	
-	
-    <delete id="conapiDelete">
+    <delete id="concertApiDelete">
     	DELETE FROM concert
 		WHERE theater_no IS NULL
     </delete>
+    
+    <select id="concertAttachmentApiCount" resultType="_int">
+    	SELECT COUNT(*)
+    	FROM concert_attachment ca
+    	JOIN concert c ON (c.concert_no = ca.concert_no)
+    	WHERE concert_plot = #{concertPlot}
+    </select>
+    
+    <select id="concertScheduleApiCount" resultType="_int">
+    	SELECT COUNT(*)
+    	FROM concert_schedule cs
+    	JOIN concert c ON (c.concert_no = cs.concert_no)
+    	WHERE concert_plot = #{concertPlot}
+    </select>
+    
+    <select id="selectLastAttachmentValue" resultType="_int">
+    	SELECT last_value FROM seq_concert_attachment
+    </select>
+        
+    <select id="selectLastScheduleValue" resultType="_int">
+    	SELECT last_value FROM seq_concert_schedule
+    </select>
+    
+    <select id="selectConcertNoByConcertId" resultType="_int">
+    	SELECT concert_no
+    	FROM concert
+    	WHERE concert_plot = #{concertPlot}
+    </select>
     
     
     <!-- concertId로 db의 concertNo 가져오기 -->

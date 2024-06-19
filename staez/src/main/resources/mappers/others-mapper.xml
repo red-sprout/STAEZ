@@ -86,31 +86,29 @@
 	
 	<select id="selectCategoryLikeConcert" resultMap="concertResult">
 		select 
-			c.concert_no, 
-			c.concert_title, 
-			l.start_date, 
-			l.end_date, 
-			cg.category_name
-		from (select 
-				cl.concert_no, 
-				min(cs.start_date) as start_date,
-				max(cs.end_date) as end_date,
-				count(distinct cl.concert_like_no) as countlike
-				from concert_like cl
-				join concert c using (concert_no)
-				join concert_schedule cs on (c.concert_no = cs.concert_no)
-				where cl.status = 'Y'
-				group by cl.concert_no
-				order by countlike desc) l
-		join concert c on (l.concert_no = c.concert_no)	
-		join concert_category cc on (c.concert_no = cc.concert_no)
-		join category cg on (cc.category_no = cg.category_no)
-		join concert_attachment ca on (c.concert_no = ca.concert_no)
-		where c.concert_status = 'Y'
-		and cg.category_no = #{cNo}
-		and ca.status = 'Y'
-		and l.end_date >= current_date
-		limit 10;
+	         c.concert_no, 
+	         c.concert_title, 
+	         min(cs.start_date) as start_date,
+	         max(cs.end_date) as end_date, 
+	         cg.category_name
+      	from concert c
+        left join (select 
+		            	 cl.concert_no,
+		           		 count(distinct cl.concert_like_no) as countlike
+		            from concert_like cl
+		            join concert c using (concert_no)
+		            join concert_schedule cs on (c.concert_no = cs.concert_no)
+		            where cl.status = 'Y'
+		            group by cl.concert_no
+		            order by countlike desc) l on (l.concert_no = c.concert_no)
+     	left join concert_category cc on (c.concert_no = cc.concert_no)
+    	left join category cg on (cc.category_no = cg.category_no)
+     	left join concert_schedule cs on (c.concert_no = cs.concert_no)
+        where c.concert_status = 'Y'
+    	and cg.category_no = #{cNo}
+     	and cs.end_date >= current_date
+		group by c.concert_no, cg.category_name
+    	limit 10;
 	</select>
 	
 	<select id="selectCategoryConcertImg" resultMap="concertResult">
@@ -118,24 +116,22 @@
 			c.concert_no, 
 			ca.file_path, 
 			ca.change_name
-		from (select 
+		from concert c
+		left join(select 
 				cl.concert_no, 
-				count(cl.concert_no) as countlike,
-				max(cs.end_date) as end_date
+				count(distinct cl.concert_like_no) as countlike
 				from concert_like cl
 				join concert c using (concert_no)
 				join concert_schedule cs on (c.concert_no = cs.concert_no)
-				where cl.status = 'Y'
 				group by cl.concert_no
-				order by countlike desc) l
-		join concert c on (l.concert_no = c.concert_no)	
-		join concert_category cc on (c.concert_no = cc.concert_no)
-		join category cg on (cc.category_no = cg.category_no)
-		join concert_attachment ca on (c.concert_no = ca.concert_no)
-		where c.concert_status = 'Y'
-		and cg.category_no = #{cNo}
+				order by countlike desc) l on (l.concert_no = c.concert_no)
+		left join concert_category cc on (c.concert_no = cc.concert_no)
+		left join category cg on (cc.category_no = cg.category_no)
+		left join concert_attachment ca on (c.concert_no = ca.concert_no)
+		left join concert_schedule cs on (c.concert_no = cs.concert_no)
+		where cg.category_no = #{cNo}
 		and ca.status = 'Y'
-		and l.end_date >= current_date
+		and cs.end_date >= current_date
 		limit 10;
 	</select>
 	
@@ -276,7 +272,9 @@
 			  order by likeCount desc
 			 ) bl
 		join board_category bc on (bc.board_no = bl.board_no)
+		join board b on (b.board_no = bl.board_no)
 		join category cg on (bc.category_no = cg.category_no)
+		where b.board_code = 2
 		order by likeCount desc
 		limit 10
 	</select>
