@@ -56,11 +56,12 @@ function goSellDetail(){
 
 
 function goReviewDetail(_this, rpage){
+    console.log(_this)
+    console.log(rpage)
     const concertNo =  $("input[name='concertNo']").val();
     // const cpage = $(this).data('rpage');
-    reviewDetailapi({"concertNo" : concertNo, "rpage" : rpage}, (result) => drawReviewDetail(result))
+    reviewDetail({"concertNo" : concertNo, "rpage" : rpage}, (result) => drawReviewDetail(result))
 }
-
 
 
 // 좋아요 누르기 구현
@@ -275,12 +276,10 @@ function drawConSellDetail(result){
 }
 
 
-function reviewDetailapi(result){
+function drawReviewDetail(result){
     const drawSection = document.querySelector(".concert-detail-down-section");
     const rList = result.rList;
     drawSection.innerHTML = ``;
-    console.log(result.rList)
-    console.log(rList)
 
     if(rList.length === 0){
         let divEmpty = document.createElement('p');
