@@ -216,26 +216,6 @@ public class ConcertAPIController {
 		return dbObj.toString();
 	}
 		
-	// 공연을 concertNo로 가져와서 리뷰 페이지로: 리뷰페이지 페이지네이션
-	@ResponseBody
-	@RequestMapping(value = "reviewDetailapi.co", produces="application/json; charset=UTF-8")
-	public String reviewDetail(@RequestParam(value = "concertNo") String concertNo,
-							   @RequestParam(value="rpage", defaultValue="1" )int rpage) {
-		
-		
-		int currentPage = rpage;
-		int revCount = concertService.selectRevCount(Integer.parseInt(concertNo));
-		PageInfo pi = Pagination.getPageInfo(revCount, currentPage, 5, 10);
-		ArrayList<Board> rList =  concertService.selectRevList(pi, Integer.parseInt(concertNo));
-		
-	    Map<String, Object> result = new HashMap<>();
-	    result.put("pi", pi);
-	    result.put("rList", rList);
-	    System.out.println("rList:" + rList);
-		
-		return new Gson().toJson(result);
-	}
-	
 	
 	// 좋아요 몇개인지
 	@ResponseBody

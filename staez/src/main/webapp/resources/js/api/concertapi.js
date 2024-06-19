@@ -279,17 +279,17 @@ function conSellDetailapi(data, callback){
 }
 
 
-//리뷰
-function reviewDetailapi(data, callback){
-    $.ajax({
-        url: contextPath + "reviewDetailapi.co",
-        type: 'POST',
-        data: data,
-        success : function(result){
-            console.log(result);
-            callback(result);
-        }, error(){
-            console.log("실패");
-        }
-    });
-}
+// //리뷰 노필요 reviewDetail 다시쓰기 가능! DB 저장되어 있으니까
+// function reviewDetailapi(data, callback){
+//     $.ajax({
+//         url: contextPath + "reviewDetailapi.co",
+//         type: 'POST',
+//         data: data,
+//         success : function(result){
+//             console.log(result);
+//             callback(result);
+//         }, error(){
+//             console.log("실패");
+//         }
+//     });
+// }
