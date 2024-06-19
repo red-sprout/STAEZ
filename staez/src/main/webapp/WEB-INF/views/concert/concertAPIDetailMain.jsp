@@ -27,6 +27,8 @@
 <body>
     <input type="hidden" name="userNo" value="${loginUser.userNo}">
     <input type="hidden" name="concertId" value="${conapi.originName}">
+    <input type="hidden" name="concertNo" value="${conapi.concertNo}">
+
 
 
     <div>
@@ -44,11 +46,8 @@
     </div>
 
     <input type="hidden" name="filePath" value="${conapi.filePath}">
-    <input type="hidden" name="startDate" value="${conapi.startDate}">
-    <input type="hidden" name="endDate" value="${conapi.endDate}">
     <input type="hidden" name="theaterName" value="${conapi.theaterName}">
     <input type="hidden" name="concertNo" value="${conapi.concertNo}">
-
     
     <!-- 공연상세페이지 위쪽(노란 블럭 안쪽) -->
     <section class="concert-detail-upper-section">
@@ -144,7 +143,8 @@
 							<!-- 스크립트 이용해서 넣음 -->
 						</ul>
 					</div>
-				</div> 
+				</div>
+                <input type="hidden" name="changeName" value="${conapi.changeName}">
                 <button class="reservation-button" onclick="reservePage()"><span>예매하기</span></button>
             </div>
     </section>
@@ -154,36 +154,18 @@
         <ul class="concert-down-ul">
             <li onclick="goConDetail()" class="conDetail1"><a><h3>공연상세정보</h3></a></li>
             <li onclick="goSellDetail()" class="conDetail2"><a><h3>판매정보</h3></a></li>
-            <li onclick="goReviewDetail()" class="conDetail4"><a><h3>관람후기()</h3></a></li>
+            <li onclick="goReviewDetail()" class="conDetail4"><a><h3>관람후기(<c:out value="${fn:length(rev)}" />)</h3></a></li>
         </ul>
         <hr class="concert-detail-hr">
         <br>
 
     <section class="concert-detail-down-section">
-
-        <!-- <div>
-            <div class="concert-detail-subject">
-                <br>
-                <span><h2>작품소개</h2></span>
-                <div>
-                    ${fn:replace(con.concertPlot, replaceChar, "<br/>")}
-                </div>
-            </div>
-            <br><br>
-            <div class="concert-detail-subject">
-                <span><h2>공지사항</h2></span>
-                <img src="${pageContext.request.contextPath}${con.filePath}${con.changeName}" alt="">
-            </div>
-            <br><br>
-        </div> -->
-
+        <!--  자스 -->
     </section>
 
     <div class="page-list" align="center">
         <!-- 자스 -->
     </div>
-
-
     <br>
 
     <div>

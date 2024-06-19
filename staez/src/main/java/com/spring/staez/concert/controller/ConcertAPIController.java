@@ -26,6 +26,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.admin.model.vo.Seat;
+import com.spring.staez.common.model.vo.PageInfo;
+import com.spring.staez.common.template.Pagination;
 import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.ConcertLike;
@@ -119,8 +121,6 @@ public class ConcertAPIController {
 		JsonObject dbObj = dbsObj.getAsJsonObject("db"); // {를 여는 것은 jsonObject {다음에 [있으면 array 시작
 		
 		
-
-				
 		
 		br.close();
 		urlConnection.disconnect();
@@ -152,7 +152,7 @@ public class ConcertAPIController {
 			relate = (JsonObject) relateArr.get(0);
 		}
 		
-		conapi.setChangeName(relate.get("relateurl").toString());
+		conapi.setChangeName(relate.get("relateurl").getAsString());
 		
 		
 		// 콘서트 넘버로 잡을 수 있게 콘넘 내려주기
@@ -162,6 +162,11 @@ public class ConcertAPIController {
 		
 		model.addAttribute("conapi", conapi);
 		System.out.println(conapi);
+		
+		
+		// 총 리뷰 몇개인지?
+		ArrayList<Board> conRevDlist =  concertService.selectRevDetail(concertNo);
+		model.addAttribute("rev", conRevDlist);
 		
 		return "concert/concertAPIDetailMain";
 		
@@ -179,13 +184,57 @@ public class ConcertAPIController {
 	// 공연을 concertNo로 가져와서 공연 판매정보 페이지로
 	@ResponseBody
 	@RequestMapping(value = "conSellDetailapi.co", produces="application/json; charset=UTF-8")
-	public String conSellDetailapi(@RequestParam(value = "concertNo") String concertNo) {
-		ArrayList<Concert> conDlist =  concertService.selectConDetailApi(Integer.parseInt(concertNo));
-		return new Gson().toJson(conDlist);
+	public String conSellDetailapi(@RequestParam(value = "concertId")String concertId, Model model) throws IOException {
+		
+		String url = "http://www.kopis.or.kr/openApi/restful/pblprfr/" + concertId;
+		url += "?service=" + serviceKey;
+		url += "&newsql=Y";
+
+		URL requestURL = new URL(url);
+		HttpURLConnection urlConnection = (HttpURLConnection)requestURL.openConnection();
+		urlConnection.setRequestMethod("GET"); // 안해줘도 기본값 있으나 연습으로 해봄
+		
+		BufferedReader br =	new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+		
+		String responseText = "";
+		String line;
+		while((line = br.readLine()) != null) {
+			responseText += line;
+		}
+		
+		// xml to jason
+		org.json.JSONObject xmltojsonObj = XML.toJSONObject(responseText);
+		String jsonObj = xmltojsonObj.toString();
+		
+		JsonObject totalObj = JsonParser.parseString(jsonObj).getAsJsonObject();
+		JsonObject dbsObj = totalObj.getAsJsonObject("dbs"); //totalObj 안에 있는 키로 object 꺼내올 수 있다
+		JsonObject dbObj = dbsObj.getAsJsonObject("db"); // {를 여는 것은 jsonObject {다음에 [있으면 array 시작
+		
+		br.close();
+		urlConnection.disconnect();
+		
+		return dbObj.toString();
 	}
 		
-	
-	// 콘서트 플롯(콘서트id)의 콘서트 넘버를 가져와서 어쩌고 처리 ㄱ
+	// 공연을 concertNo로 가져와서 리뷰 페이지로: 리뷰페이지 페이지네이션
+	@ResponseBody
+	@RequestMapping(value = "reviewDetailapi.co", produces="application/json; charset=UTF-8")
+	public String reviewDetail(@RequestParam(value = "concertNo") String concertNo,
+							   @RequestParam(value="rpage", defaultValue="1" )int rpage) {
+		
+		
+		int currentPage = rpage;
+		int revCount = concertService.selectRevCount(Integer.parseInt(concertNo));
+		PageInfo pi = Pagination.getPageInfo(revCount, currentPage, 5, 10);
+		ArrayList<Board> rList =  concertService.selectRevList(pi, Integer.parseInt(concertNo));
+		
+	    Map<String, Object> result = new HashMap<>();
+	    result.put("pi", pi);
+	    result.put("rList", rList);
+	    System.out.println("rList:" + rList);
+		
+		return new Gson().toJson(result);
+	}
 	
 	
 	// 좋아요 몇개인지
