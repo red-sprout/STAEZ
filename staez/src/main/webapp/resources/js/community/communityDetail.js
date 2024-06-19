@@ -72,7 +72,7 @@ function setNav(result) {
         ul.appendChild(li);
     }
 
-    ul.innerHTML += `<li id="write-btn" onclick="location.href='incertForm.cm'">
+    ul.innerHTML += `<li id="write-btn" onclick="location.href='insertForm.cm'">
                         <h2>글쓰기</h2>
                         <img src="${contextPath}/resources/img/community/communityMain/write.png">
                     </li>`;
