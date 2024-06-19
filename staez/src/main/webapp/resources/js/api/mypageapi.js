@@ -136,3 +136,14 @@ function checkExistAjax(data, callback){
         }
     });
 }
+
+function deleteOneLineReviewAjax(data, callback){
+    $.ajax({
+        url: contextPath + 'deleteReview.me',   
+        data,
+        success: res => callback(res),
+        error: () => {
+            alert('한줄평 삭제에 실패하였습니다');
+        }
+    });
+}

@@ -20,9 +20,7 @@ $(function() {
 
 });
 
-
 function starRating(value) { //value(별점)만큼 별UI 표현
-    console.log(value)
     const val = value - 1;
     const starlist = $(".star-label .star-icon");
     const starPath = "./resources/img/mypage/star.png";
@@ -67,26 +65,49 @@ function loadOneLineReview(concertNo){
                     </tr>
                     <tr>
                         <td><h4>출연진 : ${res.concertMembers}</h4></td>
-                    </tr>`);
-
-        //받아온 별점 radio체크
-        $('input[name=score]').each(function(index, radio){
-            //radio.value =>string
-            //res.score => number
-            if(Number(radio.value) === res.score){
-                $(radio).prop("checked", true); 
-            }
-        });
-
-        //받아온 별점 ui적용
-        starRating(res.score);
+                    </tr>`);            
         
-        //리뷰 내용이 있었으면 받아오기
-        reviewContent.val(res.reviewContent);
+        if(res.reviewStatus === 'Y'){
+             //받아온 별점 radio체크
+            $('input[name=score]').each(function(index, radio){
+                //radio.value =>string
+                //res.score => number
+                if(Number(radio.value) === res.score){
+                    $(radio).prop("checked", true); 
+                }
+            });
+
+            //받아온 별점 ui적용
+            starRating(res.score);
+            
+            //리뷰 내용이 있었으면 받아오기
+            reviewContent.val(res.reviewContent);
+        }       
 
         $('input[name=reviewNo]').val(res.reviewNo);
         $('input[name=concertNo]').val(res.concertNo);        
     });
+}
+
+// 한줄평 삭제
+function deleteOneLineReview(){
+    const result = confirm('한줄평을 삭제하시겠습니까?');
+    if(result){
+        //한줄평 삭제하고 다시 페이지로드
+        const reviewNo = $('input[name=reviewNo]').val()
+        console.log(reviewNo)
+        deleteOneLineReviewAjax({reviewNo}, res => {
+            if(res == 'success'){
+                alert('삭제되었습니다.');
+                location.href = 'reviewList.me?cpage=1';
+            } else{
+                alert('삭제에 실패하였습니다.');
+            }
+        });
+    }
+
+
+
 }
 
 // 닫기 버튼 클릭시 모달안의 값들 초기화

@@ -193,6 +193,12 @@ public class MypageServiceImpl implements MypageService{
 	public int updateOneLineReview(ConcertReview concertReview) {
 		return mpd.updateOneLineReview(sqlSession, concertReview);
 	}
+	
+	@Override
+	public int deleteOneLineReviewAjax(int reviewNo) {
+		return mpd.deleteOneLineReviewAjax(sqlSession, reviewNo);
+
+	}
 
 	@Override
 	public ArrayList<PaymentsInfoDto> loadMyPaymentsAjax(int userNo) {
@@ -218,6 +224,7 @@ public class MypageServiceImpl implements MypageService{
 	public ArrayList<Board> loadMyInquireAjax(int userNo) {
 		return mpd.loadMyInquireAjax(sqlSession, userNo);
 	}
+
 
 //	@Override
 //	public int checkExistAjax(String info, int type) {

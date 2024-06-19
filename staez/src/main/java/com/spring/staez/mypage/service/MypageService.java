@@ -57,6 +57,7 @@ public interface MypageService {
 	
 	public int insertOneLineReview(ConcertReview concertReview); //한줄평 저장
 	public int updateOneLineReview(ConcertReview concertReview); //한줄평 수정
+	public int deleteOneLineReviewAjax(int reviewNo); //한줄평 삭제
 		
 	public ArrayList<PaymentsInfoDto> loadMyPaymentsAjax(int userNo); //결제내역 ajax
 	public ArrayList<Concert> loadMyScrapAjax(int userNo); //찜목록 ajax

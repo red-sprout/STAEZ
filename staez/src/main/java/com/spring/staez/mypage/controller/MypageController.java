@@ -347,6 +347,7 @@ public class MypageController {
 
 	    if (result > 0) { // 변경 성공
 	    	session.setAttribute("loginUser", updateUser);
+	        session.removeAttribute("isAuth");
 	        session.setAttribute("alertMsg", "비밀번호 변경에 성공하였습니다");
 	        return "redirect:/main.me";
 	    }
@@ -527,6 +528,17 @@ public class MypageController {
 		return "mypage/mypageLayout";
 	
 	}
+	
+	@ResponseBody
+	@RequestMapping("deleteReview.me")
+	public String deleteOneLineReviewAjax(int reviewNo) {
+		System.out.println(reviewNo);
+		
+		int result = mypageService.deleteOneLineReviewAjax(reviewNo);	
+		
+		return result > 0 ? "success" : "filed";
+	}
+	
 	
 	//마이페이지 메인 미리보기 
 	@RequestMapping("loadMainPageAjax.me")

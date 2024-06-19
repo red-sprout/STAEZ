@@ -341,6 +341,7 @@
 					   r.user_no AS userNo,
 					   cr.score AS score,
 					   cr.review_content AS reviewContent,
+					   cr.review_status AS reviewStatus,		
 					   c.concert_no AS concertNo,
 					   c.concert_title AS concertTitle,
 					   c.concert_runtime AS concertRuntime,
@@ -457,8 +458,10 @@
 		       cr.review_content AS reviewContent,
 		       cr.score, 
 		       cr.review_date AS reviewDate,
+		       cr.review_status AS reviewStatus,
 		       ca.file_path AS filePath,
 		       ca.change_name AS changeName
+		       
 		FROM concert c
 		
 		LEFT JOIN concert_review cr ON cr.concert_no = c.concert_no 
@@ -486,7 +489,14 @@
 		UPDATE concert_review 
 		SET review_content = #{reviewContent},
 			score = #{score},
-			review_date = DEFAULT
+			review_date = DEFAULT,
+			review_status = 'Y'
+		WHERE review_no = #{reviewNo}
+	</update>
+	
+	<update id="deleteOneLineReviewAjax">
+		UPDATE concert_review 
+		SET review_status = 'N'
 		WHERE review_no = #{reviewNo}
 	</update>
 	

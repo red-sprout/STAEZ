@@ -18,14 +18,14 @@
             
             <c:forEach var="c" items="${clist}">
             <c:choose>
-                <c:when test="${c.score ne 0}">
+                <c:when test="${c.reviewStatus eq 'Y'}">
                     <tr>
                         <td class="concert-img"  onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
                             <img src="${contextPath}${c.filePath}${c.changeName}">
                         </td>
                         <td class="content">
                             <h3>${c.concertTitle}</h3>
-                            <h4>최근 관람일 : ${c.concertDate}</h4>
+                            <h5>최근 관람일 : ${c.concertDate}</h5>
                             <h4>${c.reviewContent}</h4>
                         </td>
                         <td class="review-func">
@@ -44,7 +44,7 @@
                         </td>
                         <td class="content">
                             <h3>${c.concertTitle}</h3>
-                            <h4>최근 관람일 : ${c.concertDate}</h4>
+                            <h5>최근 관람일 : ${c.concertDate}</h5>
                             <h4>리뷰를 작성해주세요</h4>
                         </td>
                         <td class="review-func">
@@ -130,8 +130,7 @@
                     </div>
                     <div class="comment-area">
                         <h3>한줄평</h3>
-                        <textarea rows="4" placeholder="200자 " maxlength="200" name="reviewContent" required>                            
-                        </textarea>
+                        <textarea rows="4" placeholder="200자 " maxlength="200" name="reviewContent" required></textarea>
                     </div>
                     <input type="hidden" name="concertNo" value="">
                     <input type="hidden" name="reviewNo" value="">
@@ -140,7 +139,7 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">저장</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="closeModal()">취소</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteOneLineReview()">삭제</button>
                 </div>
             </form>
         </div>

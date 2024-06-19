@@ -20,7 +20,7 @@ $(function() {
 //변화된 내용 없으면 수정 안되도록 설정
 function changeNone(){
     let isChanged = false;
-
+    
     $('#profile-update input').on('change', function() {
         isChanged = true;
     });

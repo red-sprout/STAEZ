@@ -182,6 +182,10 @@ public class MypageDao {
 	public int updateOneLineReview(SqlSessionTemplate sqlSession, ConcertReview concertReview) {
 		return sqlSession.update("mypageMapper.updateOneLineReview", concertReview);
 	}
+
+	public int deleteOneLineReviewAjax(SqlSessionTemplate sqlSession, int reviewNo) {
+		return sqlSession.update("mypageMapper.deleteOneLineReviewAjax", reviewNo);
+	}
 	
 	
 	public ArrayList<PaymentsInfoDto> loadMyPaymentsAjax(SqlSessionTemplate sqlSession, int userNo) {
