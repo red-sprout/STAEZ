@@ -45,6 +45,7 @@
         align-items: center;
         width: 100%;
         height: 420px;
+        padding: 0 11%;
     }
 
     /* 옆으로 넘기는 화살표 */
@@ -249,3 +250,22 @@
         font-size: 20px;
         color: #B51B75
     }
+
+    #load {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        display: block;
+        background: white;
+        z-index: 99;
+        text-align: center;
+    }
+
+    #load > img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 100;
+  }

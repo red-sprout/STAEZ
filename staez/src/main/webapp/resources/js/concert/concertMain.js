@@ -495,11 +495,11 @@ function drawLocationAll(list, gridContent){
   function slick() {
     $.noConflict();
     $(".concert-main-upper").slick({
-      // infinite: true,
+      infinite: true,
       slidesToShow: 5,
       slidesToScroll: 1,
       arrows: true,
-      // autoplay: true,
+      autoplay: true,
       autoplaySpeed: 1250,
       variableWidth: true,
       prevArrow: $(".concert-main-upper-before"),

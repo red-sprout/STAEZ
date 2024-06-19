@@ -233,34 +233,19 @@
 		  AND review_status = 'Y'
 	</select>
 	
+	
+	
+	
 	<select id="selectComDetail" resultMap="concertReviewResult" >
-		SELECT su.user_no,
-				c.concert_no,
-				sub.review_no,
-				sub.review_content,
-				sub.score,
-				su.nickname,
-				sub.review_date,
-				c.concert_members
-		 FROM (	SELECT round(avg(score)) AS score,
-				user_no,
-				concert_no,
-				review_no,
-				review_content,
-				review_date,
-				review_status
-				 FROM concert_review
-				WHERE concert_no = #{concertNo}
-				GROUP BY user_no,
-						concert_no,
-						review_no,
-						review_content,
-						review_date,
-						review_status) sub
-		 JOIN staez_user su on su.user_no = sub.user_no
-		 JOIN concert c on c.concert_no = sub.concert_no
-		WHERE sub.review_status = 'Y'
+		SELECT ROUND(AVG(score))
+		from concert_review
+		where concert_no = #{concertNo}
 	</select>
+	
+	
+	
+	
+	
 	
 	<select id="selectRevDetail" resultMap="boardResult" >
 	    SELECT user_no,

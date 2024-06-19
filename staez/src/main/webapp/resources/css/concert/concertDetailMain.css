@@ -46,6 +46,7 @@ html { font-size:62.5%; }
 }
 .concert-detail-upper-section > div{
     margin: 20px;
+    width: 21%;
 }
 .concert-detail-upper-div{
     display: flex;

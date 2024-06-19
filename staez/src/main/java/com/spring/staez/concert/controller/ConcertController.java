@@ -58,7 +58,9 @@ public class ConcertController {
 	@RequestMapping(value = "detail.co", produces="application/json; charset=UTF-8")
 	public String selectCon(@RequestParam(value = "concertNo") String concertNo, Model model) {
 		Concert con = concertService.selectCon(Integer.parseInt(concertNo));
+		
 		ArrayList<ConcertReview> conComDlist =  concertService.selectComDetail(Integer.parseInt(concertNo));
+		
 		ArrayList<Board> conRevDlist =  concertService.selectRevDetail(Integer.parseInt(concertNo));
 		// 공연세부페이지 공연 가격
 		ArrayList<Seat> s =  concertService.selectSeatPrice(Integer.parseInt(concertNo));
