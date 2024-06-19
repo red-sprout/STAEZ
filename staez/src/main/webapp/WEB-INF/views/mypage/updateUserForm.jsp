@@ -273,7 +273,7 @@
             <input type="checkbox" id="nicknameCheck" class="submit-requires " checked hidden>
 
             <div id="submit-btn">
-                <button type="button" class="btn-staez purple" onclick="checkSubmitRequires()">
+                <button type="button" class="btn-staez purple">
                     <h3>저장</h3>
                 </button>
                 <button type="button" class="btn-staez purple" data-toggle="modal"
