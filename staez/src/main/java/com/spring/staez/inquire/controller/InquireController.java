@@ -55,7 +55,7 @@ public class InquireController {
 			session.setAttribute("alertMsg", "문의등록완료");
 		}
 		
-		return "redirect:/insertForm.iq";
+		return "redirect:/inquireList.me?cpage=1";
 	}
 	
 	@ResponseBody

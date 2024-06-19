@@ -144,6 +144,7 @@ function drawDateCategoryConcert(result){
     const concertArea = document.querySelector(".concert-day-info-area");
     const concertList = result.concertList;
     
+    
 
     concertArea.innerHTML = ``;
     if(concertList.length === 0){
@@ -172,7 +173,7 @@ function drawDateCategoryConcert(result){
                                     </div>`
     }
     
-    if(concertList){
+    if(concertList.length > 0){
         const pi = result.pi;
         const pageArea = document.querySelector(".page-list");
         
@@ -180,36 +181,38 @@ function drawDateCategoryConcert(result){
         if(pi.currentPage == 1){
             
             pageArea.innerHTML += ` <div class="pagination" style="opacity: 0.5;">
-                                        <img src="/staez/resources/img/main/before.png" />
-                                    </div>`
+            <img src="/staez/resources/img/main/before.png" />
+            </div>`
         } else {
-           
+            
             pageArea.innerHTML += `
             <div class="pagination" onclick="pageArrowConcert(` + (pi.currentPage-1) + `)">
-                <img src="/staez/resources/img/main/before.png" />
+            <img src="/staez/resources/img/main/before.png" />
             </div>`;
         }
-
+        
         for(let i = pi.startPage; i <= pi.endPage; i++){
             pageArea.innerHTML += `<div class="pagination num" onclick="clickpageConcert(this)" style="cursor: pointer;"><h4>`+ i +`</h4></div>`
         }
-
+        
         if(pi.currentPage === pi.maxPage){
             pageArea.innerHTML += `<div class="pagination" style="opacity: 0.5;">
-                                        <img src="/staez/resources/img/main/after.png"/>
-                                    </div>`
+            <img src="/staez/resources/img/main/after.png"/>
+            </div>`
         } else {
             pageArea.innerHTML += `<div class="pagination" onclick="pageArrowConcert(` + (pi.currentPage+1) + `)">
-                                        <img src="/staez/resources/img/main/after.png"/>
-                                    </div>`
+            <img src="/staez/resources/img/main/after.png"/>
+            </div>`
         }
         const clickPage =  document.querySelectorAll(".num");
         console.log(clickPage)
         for(let i = 0; i < clickPage; i++){
             clickPage[i].classList.remove("current")
         }
+        console.log("요기 : "+concertList)
         clickPage[pi.currentPage - 1].classList.add("current")
     } else {
+        const pageArea = document.querySelector(".page-list");
         pageArea.innerHTML = ``;
     }
 }
@@ -286,7 +289,7 @@ function spanDayChange2(y, m, d){
 
 function spanDayChange3(y, m){
     
-    console.log("안녕")
+  
     
     clickedDate.innerHTML = ``; 
     clickedDate.parentElement.classList.add('hidden')

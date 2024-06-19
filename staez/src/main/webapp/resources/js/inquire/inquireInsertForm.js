@@ -8,3 +8,17 @@ function drawOption(category){
         select.innerHTML += `<option value="`+c.categoryNo+`">`+c.categoryName+`</option>`
     }
 }
+
+function insertInquire(_this){
+    const content = document.querySelector("#to-inquire-content").value
+    const title = document.querySelector("input[name='boardTitle']").value
+
+    if(content === "" || title === ""){
+        
+        alert("제목이나 내용이 빈칸이면 안됩니다.")
+        return false
+    } else {
+        _this.submit()
+    }
+    
+}

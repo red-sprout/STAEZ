@@ -13,6 +13,7 @@ function showAdvertisements() {
    
     for (let i = 0; i < advertisements.length; i++) {
         advertisements[i].style.display = "none";
+        advertisements[i].classList.remove("hidden")
     }
     slideIndex++;
     if (slideIndex > advertisements.length) {

@@ -41,7 +41,7 @@
                 <textarea name="boardContent" id="to-inquire-content" placeholder="내용을 입력해주세요"></textarea>
             </div>
             <div class="registering-area">
-                <button type="submit" id="registering-btn">등록하기</button>
+                <button onclick="insertInquire(this); return false" id="registering-btn">등록하기</button>
             </div> 
         </form> 
      
