@@ -37,7 +37,7 @@
 }
 
 .main-content>table tr{
-    height: 150px;
+    height: 140px;
     border-bottom: solid 1px black;
 }
 
@@ -63,8 +63,8 @@
 /*공연명 + 한줄평 내용*/
 .main-content>table .content{
     width: 580px;
-    height: 150px;
-    padding: 25px 10px 15px 10px;
+    height: 139px;
+    padding: 25px 10px 10px 10px;
 
     display: flex;
     flex-direction: column;
@@ -77,16 +77,19 @@
 
 
 .main-content>table .content>h4{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;  /* 표시할 줄 수 */
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
+    white-space: normal;  /* 여러 줄을 허용 */
+    line-height: 20px;
 }
 
 
 /**/
 .main-content>table .review-func{
     width: 100px;
-    height: 150px;
 }
 
 .main-content>table .review-func>span{

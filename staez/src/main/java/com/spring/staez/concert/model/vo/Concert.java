@@ -16,7 +16,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Concert {
-	
     private String concertTitle; //공연명
     private String startDate; //시작날짜
     private String endDate; //종료날짜
@@ -37,6 +36,7 @@ public class Concert {
 	private String categoryName; //카테고리이름
 	private String path;  //filePath+changeName
 	private String reviewContent; //한줄평 내용
+	private String reviewStatus;
 	private String concertDate; //예약한 공연날짜
 	private int score; //별점
 	

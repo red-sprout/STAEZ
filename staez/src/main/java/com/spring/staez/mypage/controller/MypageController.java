@@ -3,7 +3,6 @@ package com.spring.staez.mypage.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -347,6 +346,7 @@ public class MypageController {
 
 	    if (result > 0) { // 변경 성공
 	    	session.setAttribute("loginUser", updateUser);
+	        session.removeAttribute("isAuth");
 	        session.setAttribute("alertMsg", "비밀번호 변경에 성공하였습니다");
 	        return "redirect:/main.me";
 	    }
@@ -528,6 +528,17 @@ public class MypageController {
 	
 	}
 	
+	@ResponseBody
+	@RequestMapping("deleteReview.me")
+	public String deleteOneLineReviewAjax(int reviewNo) {
+		System.out.println(reviewNo);
+		
+		int result = mypageService.deleteOneLineReviewAjax(reviewNo);	
+		
+		return result > 0 ? "success" : "filed";
+	}
+	
+	
 	//마이페이지 메인 미리보기 
 	@RequestMapping("loadMainPageAjax.me")
 	@ResponseBody
@@ -608,14 +619,16 @@ public class MypageController {
 		return "NNNNY";
 	}
 	
-//	//이메일, 휴대폰 번호 있는지 체크
-//	@RequestMapping("checkExist.me")
-//	@ResponseBody
-//	public String checkExistAjax(String info, int type) { //type - 1 : phone, 2 : email
-//		int result = mypageService.checkExistAjax(info, type);
-//
-//		return "";
-//	}
-//	
+	//이메일, 휴대폰 번호 있는지 체크
+	@RequestMapping("checkExist.me")
+	@ResponseBody
+	public String checkExistAjax(String info, int type, HttpSession session) { //type - 1 : phone, 2 : email
+		
+		int userNo = ((User)session.getAttribute("loginUser")).getUserNo();
+		int result = mypageService.checkExistAjax(userNo, info, type);
+
+		return result > 0 ? "exist" : "noneOrMine";
+	}
+	
 }
 	
