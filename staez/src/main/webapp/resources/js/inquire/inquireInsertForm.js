@@ -3,9 +3,15 @@ window.onload = function(){
 }
 function drawOption(category){
     const select = document.getElementById("to-inquire-category");
-
+    const cNo = document.querySelector("input[name='modelCategoryNo']").value;
+  
     for (let c of category){
-        select.innerHTML += `<option value="`+c.categoryNo+`">`+c.categoryName+`</option>`
+        if(String(c.categoryNo) === String(cNo)){
+            
+            select.innerHTML += `<option value="`+c.categoryNo+`" selected>`+c.categoryName+`</option>`
+        } else {   
+            select.innerHTML += `<option value="`+c.categoryNo+`">`+c.categoryName+`</option>`
+        }
     }
 }
 

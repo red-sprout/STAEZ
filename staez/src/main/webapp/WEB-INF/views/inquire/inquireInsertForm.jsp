@@ -18,6 +18,7 @@
         <script src="${contextPath}/resources/js/inquire/inquireInsertForm.js"></script>
     </header>
     <main>
+        <input type="hidden" name="modelCategoryNo" value="${categoryNo}">
         <div id="customer-service-content-area">
             <div id="customer-service-faq-choice" onclick="location.href='main.iq'">
                 <span>FAQ</span>
@@ -34,6 +35,7 @@
             <div class="to-inquire-title-area">
                 <select name="categoryNo" id="to-inquire-category">
                     <!--ajax로 부르기-->
+                    
                 </select>
                 <input type="text" id="to-inquire-title" name="boardTitle" placeholder="제목">
             </div>

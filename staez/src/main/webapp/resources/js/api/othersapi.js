@@ -334,3 +334,20 @@ function keywordMoreConcertImg(data, callback){
         }
     })
 }
+
+//concetApi정보 가져오기
+function ajaxApiConcertInfo(data) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "ajaxApiConcertInfo.ot",
+            data: data,
+            dataType: "json",
+            success: function(result) {
+                resolve(result); // 성공 시 받은 데이터를 resolve
+            },
+            error: function(error) {
+                reject(error); // 실패 시 오류를 reject
+            }
+        });
+    });
+}

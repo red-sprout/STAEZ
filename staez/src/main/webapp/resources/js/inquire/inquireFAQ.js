@@ -29,7 +29,7 @@ function drawFaq(res){
                                     <div class="faq-content-answer">
                                         <p>`+ f.boardContent +`</p>
                                     </div>
-                                    <div class="customer-service-insert-from-shortcut"><a href="insertForm.iq">1대1 문의</a></div>
+                                    <div class="customer-service-insert-from-shortcut"><a href="insertForm.iq?categoryNo=`+ f.categoryNo +`">1대1 문의</a></div>
                                 </div>`
     } 
 
