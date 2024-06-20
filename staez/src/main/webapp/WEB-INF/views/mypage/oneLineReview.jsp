@@ -76,6 +76,7 @@
                 </c:choose>
             </c:forEach>
             
+            <c:if test="${pi.currentPage ne pi.maxPage}">
                 <div class="pagination">
                     <img src="${contextPath}/resources/img/main/after.png" 
                          onclick='location.href="${contextPath}/reviewList.me?cpage=${pi.currentPage + 1}"'>
