@@ -59,7 +59,7 @@
                     <i class="fa-regular fa-heart"></i>
                     <span class="concert-likeCount"></span>
                 </button> <!-- 길이조절필요 -->
-                <div class="concert-detail-like-commu"><a href="main.cm"><span><b>${conapi.concertTitle}<br>커뮤니티로 가기</b></span></a></div>
+                <div class="concert-detail-like-commu"><a href="main.cm"><b><span class="overflowText">${conapi.concertTitle}</span><span>커뮤니티로 가기</span></b></a></div>
             </div>
         </div>
         <div class="concert-detail-body-div">
@@ -72,7 +72,7 @@
                     </td>
                 </tr>
                 <tr>                    
-                    <td class="overflowText h2">[${conapi.concertTitle}]</td>
+                    <td class="custom-h2">[${conapi.concertTitle}]</td>
                 <tr>
                 <tr>                    
                     <td></td>
