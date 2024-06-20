@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Service
 @Transactional(rollbackFor = {Exception.class})
-public class ConcertRestTemplate implements ConcertRestService {
+public class ConcertAPIServiceImpl implements ConcertAPIService {
 	
 	private final SqlSessionTemplate sqlSession;
 	
@@ -90,7 +90,6 @@ public class ConcertRestTemplate implements ConcertRestService {
     }
 	
 	@Override
-	@Transactional
 	public void concertTotalApiInsert(ArrayList<ConcertDto> concertList) {
 		log.info("==== outMethod start ====");
 		log.info("==== outMethod transaction Active : {}", TransactionSynchronizationManager.isActualTransactionActive());

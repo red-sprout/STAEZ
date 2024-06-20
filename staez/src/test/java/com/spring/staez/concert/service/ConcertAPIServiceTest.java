@@ -21,10 +21,10 @@ import lombok.extern.slf4j.Slf4j;
 		"file:src/test/resources/servlet-context.xml",
 		"file:src/test/resources/spring-security.xml"
 })
-public class ConcertRestTemplateTest {
+public class ConcertAPIServiceTest {
 	
 	@Autowired
-	private ConcertRestService concertRestTemplate;
+	private ConcertAPIService concertAPIService;
 	
 	@Test
 	@Transactional
@@ -38,7 +38,7 @@ public class ConcertRestTemplateTest {
 	
 	@Test
 	public void testScheduled() {
-		concertRestTemplate.requestConcertApi();
+		concertAPIService.requestConcertApi();
 	}
 	
 }

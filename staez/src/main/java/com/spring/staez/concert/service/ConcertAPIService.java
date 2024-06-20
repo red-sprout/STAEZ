@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.staez.concert.model.dto.ConcertDto;
 
-public interface ConcertRestService {
+public interface ConcertAPIService {
 
 	URI makeUriDetail();
 

@@ -12,6 +12,7 @@ import java.util.Map;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,16 +33,21 @@ import com.spring.staez.community.model.vo.Board;
 import com.spring.staez.concert.model.vo.Concert;
 import com.spring.staez.concert.model.vo.ConcertLike;
 import com.spring.staez.concert.model.vo.ConcertReview;
+import com.spring.staez.concert.service.ConcertAPIService;
 import com.spring.staez.concert.service.ConcertService;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 public class ConcertAPIController {
 	
 	@Value("${concert.service.key}")
 	private String serviceKey;
 	
-	@Autowired
-	private ConcertService concertService;
+	private final ConcertService concertService;
+	
+	private final ConcertAPIService concertAPIService;
 	
 	
 	@GetMapping("conapi.co") // api 사이트로 ㄱ
@@ -281,6 +287,13 @@ public class ConcertAPIController {
 		}
 	}
 	
+	@Scheduled(cron = "0 0 0 * * *")
+	@ResponseBody
+	@GetMapping("scheduledApi")
+	public String scheduledApi() {
+		concertAPIService.requestConcertApi();
+		return "success";
+	}
 }
 
 

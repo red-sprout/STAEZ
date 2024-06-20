@@ -27,8 +27,6 @@
 	</beans:bean>
 	
 	<!-- 콘서트 api 시간마다 넣기 -->
-	<beans:bean class="com.spring.staez.common.template.ConcertApiScheduled" id="ConcertApiScheduled" />		
-	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
 	<context:component-scan base-package="com.spring.staez" />
 	
 	<!-- 
