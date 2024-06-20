@@ -195,6 +195,7 @@ function checkAuthNum() {
         userPhoneErrorMessage.style.color = "green";
         userPhoneErrorMessage.innerHTML = "인증에 성공하였습니다";
         clearInterval(ptimer); // 타이머 정지
+        findPhoneCheck.disabled = false; // "다음" 버튼 활성화
     }
 }
 
@@ -282,6 +283,7 @@ function callbackEmailSecret(result, emailSecretCheckResult, check_emailSecretBt
         userEmailErrorMessage.style.color = "green";
         userEmailErrorMessage.innerText = "인증이 확인되었습니다.";
         clearInterval(timer); // 타이머 정지
+        findEmailCheck.disabled = false; // "다음" 버튼 활성화
     } else {
         userEmailErrorMessage.style.color = "red";
         userEmailErrorMessage.innerText = "인증을 확인할 수 없습니다.";
@@ -472,7 +474,7 @@ function clickGetIdPhone() {
     let phone = document.getElementById("input-value-phone").value;
     let userName = document.getElementById("user_name_phone").value;
     getIdbyPhone({ checkFindPhone: phone, userName: userName }, function(res) {
-        if (res !== "") {
+        if (res !== "findPhoneCheck No") {
             document.querySelector("#emailFindId").innerHTML = "아이디 : " + res;
         } else {
             document.querySelector("#emailFindId").innerText = "해당 핸드폰 번호로 등록된 아이디가 없습니다.";
