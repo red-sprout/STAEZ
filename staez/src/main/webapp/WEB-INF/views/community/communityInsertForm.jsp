@@ -32,7 +32,7 @@
                 <li id="community-tag">
                     <h3>태그</h3>
                     <div id="community-search">
-                        <button>
+                        <button type="button">
                             <img src="<c:url value='/resources/img/community/communityMain/search-icon.png'/>" alt="">
                         </button>
                         <input type="text" name="concertTitle" onkeydown="searchResult(this)" onkeyup="searchResult(this)">

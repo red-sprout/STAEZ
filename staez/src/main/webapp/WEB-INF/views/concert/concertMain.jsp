@@ -10,10 +10,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>concert</title>
-
-    <!-- 슬라이더 css, script -->
-    
-    
     <!-- 적용 css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertMain.css">
 </head>
@@ -21,9 +17,8 @@
     <header>
         <jsp:include page="../common/header.jsp" />
     </header>
-    <!-- 공연 navi -->   <!-- !!!!!!!!!!! div랑 스타일 삭제 필요 !!!!!!!!!!!! -->
-    
-    <div class="concert-navi-div" style="display: flex; justify-content: space-around;">
+    <!-- 공연 navi -->    
+    <div class="concert-navi-div">
         <ul class="concert-ul">
           <!-- 자스로 그려줌 -->
         </ul>

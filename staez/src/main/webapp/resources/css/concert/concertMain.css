@@ -9,10 +9,22 @@
     div a:hover{text-decoration: none;}
     div a:active{text-decoration: none;}
 
+    .overflowText {
+        overflow: hidden;
+        white-space: normal;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        word-break: keep-all;
+    }
+
+
     div p {
         margin-top: 0;
         margin-bottom: 0;
     }
+    
     html { font-size:62.5%; }
 
 
@@ -32,8 +44,8 @@
     .concert-ul li{
         cursor: pointer;
     }
-    .concert-ul li:hover a > span {
-        color: #B51B75;
+    .concert-ul li:hover{
+        color: #640D6B;
     }
     
 
@@ -45,6 +57,7 @@
         align-items: center;
         width: 100%;
         height: 420px;
+        padding: 0 11%;
     }
 
     /* 옆으로 넘기는 화살표 */
@@ -100,6 +113,19 @@
         width: 250px !important;
         /* height: 350px; */
     }
+
+    /* 슬라이드 사진 반투명 검게 */
+    .slick-slide::after{
+        content: "";
+        opacity: 0.5;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        background-color: #000;
+        border-radius: 5px;
+    }
     
     .slick-list {
         margin: 20px;
@@ -120,6 +146,7 @@
         width: 100%;
         text-align: center;
         flex-wrap: wrap;
+        z-index: 1000;
     }
     .concert-main-upper-sen-div span{
         font-size: 1.2rem;
@@ -249,3 +276,22 @@
         font-size: 20px;
         color: #B51B75
     }
+
+    #load {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        display: block;
+        background: white;
+        z-index: 99;
+        text-align: center;
+    }
+
+    #load > img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 100;
+  }

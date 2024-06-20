@@ -16,6 +16,11 @@
                 <th colspan="2" id="concert-info">공연정보</th>
                 <th id="reserve-info">예매정보</th>
             </tr>
+            <c:if test="${empty clist}">
+                <tr class="tb-content">
+                    <td colspan="3"> 결제내역이 없습니다</td>
+                </tr>
+            </c:if>
 
             <c:forEach var="c" items="${clist}">
             <tr class="tb-content">
@@ -51,6 +56,7 @@
                 </td>
             </tr>
             </c:forEach>
+
         </tbody>
     </table>
 

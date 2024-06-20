@@ -15,8 +15,8 @@
     <!-- 제이쿼리 -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <!-- 적용 css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertDetailMain.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertDetail.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertDetailMain.css">
     <!-- 폰트어썸 -->
     <script src="https://kit.fontawesome.com/65a2de1a44.js" crossorigin="anonymous"></script>
     <!-- 달력 -->
@@ -33,9 +33,6 @@
 
     <div>
         <jsp:include page="../common/header.jsp" />
-
-        <!-- 적용 자바스크립트 -->
-
     </div>
 
     <!-- 공연 navi -->
@@ -62,11 +59,11 @@
                     <i class="fa-regular fa-heart"></i>
                     <span class="concert-likeCount"></span>
                 </button> <!-- 길이조절필요 -->
-                <div class="concert-detail-like-commu"><a href="main.cm"><span><b>${conapi.concertTitle}<br>커뮤니티로 가기</b></span></a></div>
+                <div class="concert-detail-like-commu"><a href="main.cm"><b><span class="overflowText">${conapi.concertTitle}</span><span>커뮤니티로 가기</span></b></a></div>
             </div>
         </div>
         <div class="concert-detail-body-div">
-            <table class="concert-detail-table">
+            <table class="concert-detail-table" >
                 <tr>
                     <td>
                         <c:forEach var="i" begin="1" end="${com[0].score}"> <!-- 배열 길이만큼 나눠서 avg 만들고, round 처리 필요-->
@@ -75,7 +72,7 @@
                     </td>
                 </tr>
                 <tr>                    
-                    <td><h2>&lt;${conapi.concertTitle}&gt;</h2></td>
+                    <td class="custom-h2">[${conapi.concertTitle}]</td>
                 <tr>
                 <tr>                    
                     <td></td>
@@ -96,23 +93,8 @@
                     <td><b><span>가격&nbsp&nbsp</span></b><span>
                         ${conapi.path}
                     </span></td>
-                    <!-- 가격을세로로 적고싶을 때 -->
-                    <!-- <td colspan="2">
-                        <table>
-                            <tr>
-                                <td><b><span>가격&nbsp&nbsp</span></b></td>
-                                <td><span>R석 90,000원</span></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td><span>S석 60,000원</span></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td><span>A석 30,000원</span></td>
-                            </tr>
-                        </table>
-                    </td> -->
+
+
                 <c:if test="${not empty conapi.concertProduction}">
                 </tr>
                     <td><b><span>주최&nbsp&nbsp</span></b><span>${conapi.concertProduction}</span></td>

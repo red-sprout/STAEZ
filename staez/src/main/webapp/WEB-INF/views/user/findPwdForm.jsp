@@ -34,6 +34,12 @@
             <div id="findId-div">
                 <table>
                     <tr>
+                        <th>이름</th>
+                        <td>
+                            <input type="text" id="user_name_email" required>
+                        </td>
+                    </tr>
+                    <tr>
                         <th>아이디</th>
                         <td  class="email-container">
                             <input type="text" id="input-value-id" name="userId" required>
@@ -50,37 +56,7 @@
                                 <input type="text" id="phone-suffix2" name="phone-suffix2" maxlength="4">
                                 <input type="text" name="phone" id="input-value-phone" required >
                             </div>
-                            <td>
-                                <input type="button" id="phoneCheckButton" class="check_button" value="인증번호 전송" onclick="phoneClick()">
-                            </td>
                         </td>
-                    </tr>
-                        <tr id="verificationPhoneTr">
-                            <td colspan="4">
-                                <div id="verificationPhone" class="checkResult">
-                                    <span id="Pverification-message"></span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>인증번호</th>
-                            <td>
-                                <div id="phoneTimeContainer">
-                                    <input type="text" id="Pverification-code" required>
-                                    <div id="Ptimer"></div>
-                                </div>
-                            </td>
-                            <td>
-                                <input type="button" class="check_button" id="check_PhoneSecretBtn" value="인증확인" onclick="checkAuthNum()">
-                            </td>
-                        </tr>
-                        <tr id="checkResultPhoneTr">
-                            <td colspan="4">
-                                <div id="checkResultPhone" class="checkResult">
-                                    <span id="userPhoneErrorMessage"></span>
-                                </div>
-                            </td>
-                        </tr>
                     </tr>
                     <tr>
                         <th>이메일</th>

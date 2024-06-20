@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // 클릭 이벤트 발생 시 서버로 이메일 인증 요청 보내기
         const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
         // 클릭 못하게 설정
-        document.getElementById("emailCheckButton").disabled = true;
         sendEmailVerificationRequest(emailInput); // 이메일 인증 요청 보내는 함수 호출
         alert("인증번호가 전송되었습니다 잠시만 기다려주세요.");
     });
@@ -30,6 +29,10 @@ document.addEventListener('DOMContentLoaded', function() {
     checkButton();
     // 생년월일
     DateInput();
+    // 이메일 아이디적는칸에 영어와 숫자만 가능하게
+    addEmailValidation();
+    // 이메일 주소적는칸에 영어만 가능하게
+    addEmailValidationTwo();
 });
 // 닉네임 중복체크
 function nicknameCheck() {
@@ -209,31 +212,39 @@ function signinPhoneNumber (){
     suffix2Element.addEventListener('input', updatePhoneNumber);
 }
 // 핸드폰 번호 전송 처리
-function sendPhoneNumber() {
-    // input-value-phone 요소를 가져옵니다.
-    var inputValueElement = document.getElementById("input-value-phone");
-    if (!inputValueElement) {
-        console.error("input-value-phone 요소를 찾을 수 없습니다.");
-        return;
+function signinPhoneNumber() {
+    const prefixElement = document.getElementById("phone-prefix");
+    const suffix1Element = document.getElementById("phone-suffix1");
+    const suffix2Element = document.getElementById("phone-suffix2");
+    const inputValueElement = document.getElementById("input-value-phone");
+    const PverificationMessage = document.getElementById("Pverification-message");
+    const verificationPhoneTr = document.getElementById("verificationPhoneTr");
+
+    function updatePhoneNumber() {
+        const prefix = prefixElement.innerText;
+        const suffix1 = suffix1Element.value;
+        const suffix2 = suffix2Element.value;
+        const phoneNumber = prefix + suffix1 + suffix2;
+        inputValueElement.value = phoneNumber;
     }
-    // phone-prefix 요소가 존재하는지 확인
-    var prefixElement = document.getElementById("phone-prefix");
-    if (!prefixElement) {
-        console.error("phone-prefix 요소를 찾을 수 없습니다.");
-        return;
+
+    function allowOnlyNumbers(event) {
+        const value = event.target.value;
+        const newValue = value.replace(/[^0-9]/g, ''); // 숫자가 아닌 문자를 제거
+        if (newValue !== value) {
+            event.target.value = newValue;
+            verificationPhoneTr.style.display = "table-row";
+            PverificationMessage.style.color = "red";
+            PverificationMessage.innerText = "숫자만 입력 가능합니다.";
+        } else {
+            PverificationMessage.innerText = ""; // 숫자만 입력된 경우 메시지 제거
+        }
     }
-    // 010 부분 가져오기
-    var prefix = prefixElement.innerText;
 
-    // 각 번호 입력란의 값 가져오기
-    var suffix1 = document.getElementById("phone-suffix1").value;
-    var suffix2 = document.getElementById("phone-suffix2").value;
-
-    // 전체 번호 조합하여 표시
-    var phoneNumber = prefix + suffix1 + suffix2;
-
-    // input-value-phone 필드에 번호 설정
-    inputValueElement.value = phoneNumber;
+    suffix1Element.addEventListener('input', updatePhoneNumber);
+    suffix1Element.addEventListener('input', allowOnlyNumbers); // 숫자만 입력 가능하도록 추가
+    suffix2Element.addEventListener('input', updatePhoneNumber);
+    suffix2Element.addEventListener('input', allowOnlyNumbers); // 숫자만 입력 가능하도록 추가
 }
 
 let authNo;
@@ -289,6 +300,46 @@ function checkAuthNum() {
     }
 }
 
+// 이메일 아이디적는칸에 영어와 숫자만 가능하게
+function addEmailValidation() {
+    const emailPrefixElement = document.getElementById("email-prefix");
+    const verificationEmailTr = document.getElementById("verificationEmailTr");
+    const verificationMessage = document.getElementById("verification-message");
+
+    emailPrefixElement.addEventListener('input', function(event) {
+        const value = event.target.value;
+        const validValue = value.replace(/[^a-zA-Z0-9]/g, ''); // 영어와 숫자가 아닌 문자를 제거
+        if (value !== validValue) {
+            event.target.value = validValue;
+            verificationEmailTr.style.display = "table-row";
+            verificationMessage.style.color = "red";
+            verificationMessage.innerText = "영어 / 숫자 만 가능합니다.";
+        } else {
+            verificationMessage.innerText = ""; // 올바른 입력일 경우 메시지 제거
+        }
+    });
+}
+
+// 이메일 주소적는칸에 영어만 가능하게
+function addEmailValidationTwo() {
+    const emailPrefixElement = document.getElementById("email-suffix");
+    const verificationEmailTr = document.getElementById("verificationEmailTr");
+    const verificationMessage = document.getElementById("verification-message");
+
+    emailPrefixElement.addEventListener('input', function(event) {
+        const value = event.target.value;
+        const validValue = value.replace(/[^a-zA-Z.]/g, ''); // 영어가 아닌 문자를 제거
+        if (value !== validValue) {
+            event.target.value = validValue;
+            verificationEmailTr.style.display = "table-row";
+            verificationMessage.style.color = "red";
+            verificationMessage.innerText = "한글 / 숫자는 입력이 불가능합니다.";
+        } else {
+            verificationMessage.innerText = ""; // 올바른 입력일 경우 메시지 제거
+        }
+    });
+}
+
 // 이메일 인증 코드 전송 함수
 function sendVerificationCode() {
     const emailInput = document.getElementById("input-value-email").value;
@@ -306,16 +357,13 @@ function handleEmailCheckResponse(response) {
     const verificationMessage = document.getElementById("verification-message");
 
     if (response === "emailCheck No") {
-        document.getElementById("emailCheckButton").disabled = false;
         verificationMessage.style.color = "red";
         verificationMessage.innerText = "인증번호 전송이 실패했습니다 다시 입력해주세요!";
     } else if (response === "emailCheck Yes") {
-        document.getElementById("emailCheckButton").disabled = true;
         verificationMessage.style.color = "green";
         verificationMessage.innerText = "인증번호가 성공적으로 전송되었습니다!";
         startTimer(); // 3분 타이머 시작
     } else if(response === "emailCheck Duplicated"){
-        document.getElementById("emailCheckButton").disabled = false;
         verificationMessage.style.color = "red";
         verificationMessage.innerText = "이미 등록된 이메일입니다. 다시 입력 해주세요!";
     }

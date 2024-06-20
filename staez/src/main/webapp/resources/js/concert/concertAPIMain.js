@@ -1,14 +1,15 @@
-$(function() { // list는 컨트롤러에서 받아온 것
+$(function() {
   const sliderContent = document.querySelector(".concert-main-upper");
   const gridContent = document.querySelector(".concert-main-grid");
   conNaviDraw(conList => drawConNavi(conList));
+  
   showLoading();
 
   ajaxCategoryListAPI((list)=>{
-    drawSliderMain(list, sliderContent)
-    drawGridMain(list, gridContent)
-    slick()
-    hideLoading()
+    drawSliderMain(list, sliderContent);
+    drawGridMain(list, gridContent);
+    slick();
+    hideLoading();
   });
 });
 
@@ -67,7 +68,7 @@ function drawSliderMain(list, sliderContent){
     concertDiv.innerHTML += `<img src="` + c.poster + `"alt="">`
                              + `<input type="hidden" name="concertId" value="` + c.mt20id + `">`
                                   + `<div class="concert-main-upper-sen-div">
-                                      <p><span><b><h2>` + c.prfnm + `</h2></span></b></p>
+                                      <p class="overflowText">` + c.prfnm + `</p>
                                       <p><span>` + c.fcltynm + `</span></p>
                                       <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
                                  + `</div>`;
@@ -188,7 +189,7 @@ function drawAllList(list, gridContent){
                                 + `</div>`
                                 + `<div>`
                                 +     `<p><span>` + c.genrenm + `</span></p>`
-                                +     `<p><span><b>[` + c.prfnm + `]</b></span></p> 전체
+                                +     `<p><span><b>[` + c.prfnm + `]</b></span></p>
                                       <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
                               + `</div>`
                               
@@ -234,7 +235,7 @@ function drawPopular(list, gridContent){
                               + `</div>`
                               + `<div>`
                               +     `<p><span>` + c.genrenm + `</span></p>`
-                              +     `<p><span><b>[` + c.prfnm + `]</b></span></p> 인기
+                              +     `<p><span><b>[` + c.prfnm + `]</b></span></p>
                                     <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
                             + `</div>`
                             
@@ -279,7 +280,7 @@ function drawLatest(list, gridContent){
                                 + `</div>`
                                 + `<div>`
                                 +     `<p><span>` + c.genrenm + `</span></p>`
-                                +     `<p><span><b>[` + c.prfnm + `]</b></span></p> 최신
+                                +     `<p><span><b>[` + c.prfnm + `]</b></span></p>
                                       <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
                               + `</div>`
                               
@@ -324,7 +325,7 @@ function drawHighscore(list, gridContent){
                                 + `</div>`
                                 + `<div>`
                                 +     `<p><span>` + c.genrenm + `</span></p>`
-                                +     `<p><span><b>[` + c.prfnm + `]</b></span></p> 별점
+                                +     `<p><span><b>[` + c.prfnm + `]</b></span></p>
                                       <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
                               + `</div>`
                               
@@ -378,7 +379,7 @@ function drawLocation(list, gridContent){
                                 + `</div>`
                                 + `<div>`
                                 +     `<p><span>` + c.genrenm + `</span></p>`
-                                +     `<p><span><b>[` + c.prfnm + `]</b></span></p> 지역전체
+                                +     `<p><span><b>[` + c.prfnm + `]</b></span></p>
                                       <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
                               + `</div>`
                               
@@ -440,7 +441,7 @@ function drawLocationAll(list, gridContent){
                               + `</div>`
                               + `<div>`
                               +     `<p><span>` + c.genrenm + `</span></p>`
-                              +     `<p><span><b>[` + c.prfnm + `]</b></span></p> 지역
+                              +     `<p><span><b>[` + c.prfnm + `]</b></span></p>
                                     <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
                             + `</div>`
                             
@@ -490,11 +491,11 @@ function drawLocationAll(list, gridContent){
   function slick() {
   $.noConflict();
   $(".concert-main-upper").slick({
-    // infinite: true,
+    infinite: true,
     slidesToShow: 5,
     slidesToScroll: 1,
     arrows: true,
-    // autoplay: true,
+    autoplay: true,
     autoplaySpeed: 1250,
     variableWidth: true,
     prevArrow: $(".concert-main-upper-before"),

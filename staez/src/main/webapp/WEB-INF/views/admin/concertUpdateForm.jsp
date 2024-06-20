@@ -78,7 +78,7 @@
                     </div>
                     <ul class="search-list">
                     </ul>
-                    <button class="btn-staez" type="button" onclick="seatSample()"><h4>좌석 미리보기</h4></button>
+                    <button class="btn-staez" type="button" onclick="seatSample(this)"><h4>좌석 미리보기</h4></button>
                 </li>
                 <li class="seat-grade">
                     <h3>좌석등급</h3>
@@ -154,8 +154,8 @@
     </main>
     <!-- The Modal -->
     <div class="modal" id="theater-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
+        <div class="modal-dialog" style="max-width: fit-content;">
+            <div class="modal-content" style="min-width: max-content";>
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h3 class="modal-title">좌석 조회</h3>

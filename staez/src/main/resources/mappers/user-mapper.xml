@@ -180,7 +180,7 @@
 	</update>
 	
 	<!-- 아이디/비번 찾기 중 이메일과 이름이 일치하는지 -->
-    <select id="emailbyIdCheck" parameterType="map" resultType="int">
+    <select id="emailbyIdCheck" parameterType="map" resultType="_int">
         SELECT COUNT(*)
         FROM staez_user
         WHERE user_name = #{user_name}

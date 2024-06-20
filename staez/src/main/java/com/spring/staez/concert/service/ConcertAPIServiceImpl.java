@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -29,7 +30,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class ConcertRestTemplate {
+@Transactional(rollbackFor = {Exception.class})
+public class ConcertAPIServiceImpl implements ConcertAPIService {
 	
 	private final SqlSessionTemplate sqlSession;
 	
@@ -38,6 +40,7 @@ public class ConcertRestTemplate {
 	@Value("${concert.service.key}")
 	private String serviceKey;
 	
+	@Override
 	public URI makeUriDetail() {
 	    return UriComponentsBuilder
 	            .fromUriString("http://kopis.or.kr/")
@@ -53,7 +56,8 @@ public class ConcertRestTemplate {
 	            .toUri();
 	}
 	
-    public ArrayList<ConcertDto> parseConcertData(String responseData) {
+    @Override
+	public ArrayList<ConcertDto> parseConcertData(String responseData) {
     	// Gson 인스턴스 생성
     	Gson gson = new Gson();
     	// List<ConcertDTO> 타입을 나타내는 TypeToken 생성
@@ -64,6 +68,7 @@ public class ConcertRestTemplate {
     	return new ArrayList<>(concertList);
     }
 	
+	@Override
 	public void requestConcertApi() {
 		URI uri = makeUriDetail();
         // API 호출 로직
@@ -84,40 +89,59 @@ public class ConcertRestTemplate {
         }
     }
 	
-	@Transactional(rollbackFor = {Exception.class})
+	@Override
 	public void concertTotalApiInsert(ArrayList<ConcertDto> concertList) {
+		log.info("==== outMethod start ====");
+		log.info("==== outMethod transaction Active : {}", TransactionSynchronizationManager.isActualTransactionActive());
         // 데이터를 엔티티에 매핑하여 저장
         for(ConcertDto concertDto : concertList) {
         	log.info(concertDto.toString());
-        	if(concertDao.concertIdCount(sqlSession, concertDto.getConcertPlot()) == 0)
+        	if(concertDao.concertIdCount(sqlSession, concertDto.getConcertPlot()) == 0) {
         		concertApiInsert(concertDto);
+        	}
         	
-        	if(concertDao.concertAttachmentApiCount(sqlSession, concertDto) == 0)
-        		concertDto.setConcertNo(concertDao.selectConcertNoByConcertId(sqlSession, concertDto));
+        	int concertNo = concertDao.selectConcertNoByConcertId(sqlSession, concertDto);
+        	if(concertDao.concertAttachmentApiCount(sqlSession, concertDto) == 0 && concertNo > 0) {
+        		concertDto.setConcertNo(concertNo);
         		concertAttatchmentApiInsert(concertDto);
+        	}
         	
-        	if(concertDao.concertScheduleApiCount(sqlSession, concertDto) == 0)
-        		concertDto.setConcertNo(concertDao.selectConcertNoByConcertId(sqlSession, concertDto));
+        	if(concertDao.concertScheduleApiCount(sqlSession, concertDto) == 0 && concertNo > 0) {
+        		concertDto.setConcertNo(concertNo);
         		concertScheduleApiInsert(concertDto);
+        	}
         }
+        log.info("==== outMethod end ====");
 	}
-	
+
+	@Override
 	public void concertApiInsert(ConcertDto concertDto) {
+		log.info("==== innerMethod concertApiInsert start ====");
+		log.info("==== innerMethod concertApiInsert transaction Active : {}", TransactionSynchronizationManager.isActualTransactionActive());
 		int concertResult = concertDao.concertApiInsert(sqlSession, concertDto);
 		if(concertResult == 0)
 			throw new RuntimeException("concert table 삽입 실패");
+		log.info("==== innerMethod concertApiInsert end ====");
 	}
-	
+
+	@Override
 	public void concertAttatchmentApiInsert(ConcertDto concertDto) {
+		log.info("==== innerMethod concertAttatchmentApiInsert start ====");
+		log.info("==== innerMethod concertAttatchmentApiInsert transaction Active : {}", TransactionSynchronizationManager.isActualTransactionActive());
 		int attachmentResult = concertDao.concertAttatchmentApiInsert(sqlSession, concertDto);
 		if(attachmentResult == 0)
 			throw new RuntimeException("concert_attachment table 삽입 실패");
+		log.info("==== innerMethod concertAttatchmentApiInsert end ====");
 	}
 	
+	@Override
 	public void concertScheduleApiInsert(ConcertDto concertDto) {
+		log.info("==== innerMethod concertScheduleApiInsert start ====");
+		log.info("==== innerMethod concertScheduleApiInsert transaction Active : {}", TransactionSynchronizationManager.isActualTransactionActive());
 		int scheduleResult = concertDao.concertScheduleApiInsert(sqlSession, concertDto);
 		if(scheduleResult == 0)
 			throw new RuntimeException("concert_schedule table 삽입 실패");
+		log.info("==== innerMethod concertScheduleApiInsert end ====");
 	}
 
 }

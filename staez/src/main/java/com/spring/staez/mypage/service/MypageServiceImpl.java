@@ -49,6 +49,7 @@ public class MypageServiceImpl implements MypageService{
 		return mpd.updateUserInfo(sqlSession, user);
 	}
 
+	
 	@Override
 	public ProfileImg loadProfileImg(int userNo) {
 		return mpd.loadProfileImg(sqlSession, userNo);
@@ -58,12 +59,13 @@ public class MypageServiceImpl implements MypageService{
 	public int updateProfileImg(ProfileImg profileImg) {
 		return mpd.updateProfileImg(sqlSession, profileImg);
 	}
-
+	
 	@Override
 	public int insertProfileImg(ProfileImg profileImg) {
 		return mpd.insertProfileImg(sqlSession, profileImg);
 	}
 
+	
 	@Override
 	public int withdrawalUser(User user) {
 		return mpd.withdrawalUser(sqlSession, user);

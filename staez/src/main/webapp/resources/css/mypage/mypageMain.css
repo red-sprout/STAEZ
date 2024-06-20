@@ -170,6 +170,10 @@
     height: 40px;
 }
 
+.main-content table .empty{
+    height: 200px;
+}
+
 .main-content table .long-td{
     width: 310px;
     text-align: left;

@@ -234,9 +234,13 @@ public class UserController {
 	// 핸드폰으로 아이디찾기
 	@ResponseBody
 	@GetMapping("findPhoneCheck.me")
-	public String findPhoneCheck(@RequestParam("checkFindPhone") String checkFindPhone, @RequestParam("userName") String userName) {
+	public String findPhoneCheck(@RequestParam("checkFindPhone") String checkFindPhone, @RequestParam("userName") String userName, HttpSession session) {
 	    String result = userService.findPhoneCheck(checkFindPhone, userName);
-	    return result;
+	    if(result != null) {
+	        return result;
+	    } else {
+	        return "findPhoneCheck No";
+	    }
 	}
 
 	// 비밀번호 찾기 새로운 비밀번호 업데이트
