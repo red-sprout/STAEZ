@@ -61,32 +61,32 @@
                         </td>
                     </td>
                 </tr>
-                    <tr id="verificationPhoneTr">
-                        <td colspan="4">
-                            <div id="verificationPhone" class="checkResult">
-                                <span id="Pverification-message"></span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>인증번호</th>
-                        <td>
-                            <div id="phoneTimeContainer">
-                                <input type="text" id="Pverification-code" required>
-                                <div id="Ptimer"></div>
-                            </div>
-                        </td>
-                        <td>
-                            <input type="button" class="check_button" id="check_PhoneSecretBtn" value="인증확인" onclick="checkAuthNum()">
-                        </td>
-                    </tr>
-                    <tr id="checkResultPhoneTr">
-                        <td colspan="4">
-                            <div id="checkResultPhone" class="checkResult">
-                                <span id="userPhoneErrorMessage"></span>
-                            </div>
-                        </td>
-                    </tr>
+                <tr id="verificationPhoneTr">
+                    <td colspan="4">
+                        <div id="verificationPhone" class="checkResult">
+                            <span id="Pverification-message"></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>인증번호</th>
+                    <td>
+                        <div id="phoneTimeContainer">
+                            <input type="text" id="Pverification-code" required>
+                            <div id="Ptimer"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="button" class="check_button" id="check_PhoneSecretBtn" value="인증확인" onclick="checkAuthNum()" disabled>
+                    </td>
+                </tr>
+                <tr id="checkResultPhoneTr">
+                    <td colspan="4">
+                        <div id="checkResultPhone" class="checkResult">
+                            <span id="userPhoneErrorMessage"></span>
+                        </div>
+                    </td>
+                </tr>
                 </tr>
                 <tr>
                     <th></th>
@@ -158,7 +158,7 @@
                         </td>
                         <td></td>
                         <td>
-                            <input type="button" class="check_button" id="check_emailSecretBtn" value="인증확인">
+                            <input type="button" class="check_button" id="check_emailSecretBtn" value="인증확인" disabled>
                         </td>
                     </tr>
                     <tr id="checkResultEmailTr">
