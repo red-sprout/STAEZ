@@ -21,7 +21,7 @@
             <div id="customer-service-faq-choice">
                 <span style="color: #B51B75;">FAQ</span>
             </div>
-            <div id="customer-service-insert-from-choice" onclick="location.href='insertForm.iq'">
+            <div id="customer-service-insert-from-choice" onclick="location.href='insertForm.iq?categoryNo=22'">
                 <span>1대1 문의</span>
             </div>
         </div>

@@ -148,11 +148,12 @@
 
 .concert-search-result-content-info{
     width: 220px;
-    height: 43px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: normal;
 }
 
 .concert-search-result-content-span1{
@@ -161,8 +162,16 @@
 }
 
 .concert-search-result-content-span2{
+    word-break: keep-all;
+    width: 220px;
     font-size: 15px;
     font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: normal;
+    overflow: hidden;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
 }
 
 .concert-search-result-content-span3{

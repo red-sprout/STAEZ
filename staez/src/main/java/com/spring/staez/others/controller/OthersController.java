@@ -1,17 +1,28 @@
 package com.spring.staez.others.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.spring.staez.admin.model.vo.Category;
 import com.spring.staez.common.model.vo.PageInfo;
 import com.spring.staez.common.template.Pagination;
@@ -27,6 +38,9 @@ public class OthersController {
 	
 	@Autowired
 	private OthersService oService;
+	
+	@Value("${concert.service.key}")
+	private String serviceKey;
 	
 	@GetMapping("/") // 메인페이지, "/"로 대체
 	public String reserveMain() {
@@ -105,9 +119,9 @@ public class OthersController {
 	@GetMapping(value = "ajaxSelectDateCategoryConcert.ot" , produces="application/json; charset-UTF-8")
 	public String ajaxSelectDateCategoryConcert(String categoryNo, String concertDate, String cPage) {
 		
-		ArrayList<Concert> dcList = oService.selectDateCategoryConcert(categoryNo, concertDate);
+		int listCount = oService.selectDateCategoryConcert(categoryNo, concertDate);
 		int currentPage = Integer.parseInt(cPage);
-		int listCount = dcList.size();
+		
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 4);
 		ArrayList<Concert> pdcList = oService.selectPageConcert(categoryNo, concertDate, pi);
@@ -117,6 +131,41 @@ public class OthersController {
 		resMap.put("pi", pi);
 		
 		return  new Gson().toJson(resMap);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="ajaxApiConcertInfo.ot", produces="application/json; charset=UTF-8") 
+	public String getConInfoDetailApi(@RequestParam(value = "apiKey")String apiKey) throws IOException {
+		System.out.println(apiKey);
+		String url = "http://www.kopis.or.kr/openApi/restful/pblprfr/" + apiKey;
+		url += "?service=" + serviceKey;
+		url += "&newsql=Y";
+
+		URL requestURL = new URL(url);
+		HttpURLConnection urlConnection = (HttpURLConnection)requestURL.openConnection();
+		urlConnection.setRequestMethod("GET"); // 안해줘도 기본값 있으나 연습으로 해봄
+		
+		BufferedReader br =	new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+		
+		String responseText = "";
+		String line;
+		while((line = br.readLine()) != null) {
+			responseText += line;
+		}
+		
+		org.json.JSONObject xmltojsonObj = XML.toJSONObject(responseText);
+		String jsonObj = xmltojsonObj.toString();
+		
+		JsonObject totalObj = JsonParser.parseString(jsonObj).getAsJsonObject();
+		JsonObject dbsObj = totalObj.getAsJsonObject("dbs");
+		JsonObject dbObj = dbsObj.getAsJsonObject("db");
+				
+		br.close();
+		urlConnection.disconnect();
+
+		String teatherName = dbObj.get("fcltynm").getAsString();
+		
+		return  new Gson().toJson(teatherName);	
 	}
 	
 	

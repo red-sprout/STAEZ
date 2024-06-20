@@ -140,9 +140,11 @@ function choiceCategory(_this){
     },(result) => drawDateCategoryConcert(result))
 }
 
-function drawDateCategoryConcert(result){
+async function drawDateCategoryConcert(result){
     const concertArea = document.querySelector(".concert-day-info-area");
     const concertList = result.concertList;
+    
+    console.log(concertList)
     
 
     concertArea.innerHTML = ``;
@@ -150,14 +152,34 @@ function drawDateCategoryConcert(result){
         concertArea.innerHTML += `<span style="width: 100%;margin-top: 100px;font-size: 30px;">준비된 공연이 없습니다</span>`
     }
     for(let c of concertList){
-        concertArea.innerHTML += `<div class="concert-day-info" onclick="location.href='detail.co?concertNo=`+ c.concertNo +`'">
+        let path;
+        let theaterName;
+        let mapping;
+        if(c.originName === 'api'){
+            mapping = `condeapi.co?concertId=`+c.concertPlot;
+            path = c.filePath
+            try {
+                const apiResult = await ajaxApiConcertInfo({ apiKey: c.concertPlot });
+                theaterName = apiResult; // 예시에서는 apiResult에서 공연장 이름을 가져옴
+                console.log("공연장 이름:", theaterName);
+            } catch (error) {
+                console.error("ajaxApiConcertInfo 호출 중 오류 발생:", error);
+                theaterName = "알 수 없음"; // 오류 처리 예시
+            }
+        } else{
+            path = contextPath + c.filePath + c.changeName;
+            theaterName = c.theaterName
+            mapping = `detail.co?concertNo=`+ c.concertNo;
+        
+        }
+        concertArea.innerHTML += `<div class="concert-day-info" onclick="location.href='${mapping}'">
                                         <div class="concert-day-title-area"><span>`+ c.concertTitle +`</span></div>
                                         <div class="concert-day-img-description-area">
-                                            <img src="/staez`+ c.filePath + c.changeName +`" alt="">
+                                            <img src="${path}" alt="">
                                             <div class="concert-day-description-area">
                                                 <div class="concert-day-description-place">
                                                     <span>장소</span>
-                                                    <span>`+ c.theaterName +`</span>
+                                                    <span class="theater-name-span">${theaterName}</span>
                                                 </div>
                                                 <div class="concert-day-description-period">
                                                     <span>공연 기간</span>
@@ -172,7 +194,7 @@ function drawDateCategoryConcert(result){
                                     </div>`
     }
     
-    if(concertList){
+    if(concertList.length > 0){
         const pi = result.pi;
         const pageArea = document.querySelector(".page-list");
         
@@ -180,36 +202,38 @@ function drawDateCategoryConcert(result){
         if(pi.currentPage == 1){
             
             pageArea.innerHTML += ` <div class="pagination" style="opacity: 0.5;">
-                                        <img src="/staez/resources/img/main/before.png" />
-                                    </div>`
+            <img src="/staez/resources/img/main/before.png" />
+            </div>`
         } else {
-           
+            
             pageArea.innerHTML += `
             <div class="pagination" onclick="pageArrowConcert(` + (pi.currentPage-1) + `)">
-                <img src="/staez/resources/img/main/before.png" />
+            <img src="/staez/resources/img/main/before.png" />
             </div>`;
         }
-
+        
         for(let i = pi.startPage; i <= pi.endPage; i++){
             pageArea.innerHTML += `<div class="pagination num" onclick="clickpageConcert(this)" style="cursor: pointer;"><h4>`+ i +`</h4></div>`
         }
-
+        
         if(pi.currentPage === pi.maxPage){
             pageArea.innerHTML += `<div class="pagination" style="opacity: 0.5;">
-                                        <img src="/staez/resources/img/main/after.png"/>
-                                    </div>`
+            <img src="/staez/resources/img/main/after.png"/>
+            </div>`
         } else {
             pageArea.innerHTML += `<div class="pagination" onclick="pageArrowConcert(` + (pi.currentPage+1) + `)">
-                                        <img src="/staez/resources/img/main/after.png"/>
-                                    </div>`
+            <img src="/staez/resources/img/main/after.png"/>
+            </div>`
         }
         const clickPage =  document.querySelectorAll(".num");
         console.log(clickPage)
         for(let i = 0; i < clickPage; i++){
             clickPage[i].classList.remove("current")
         }
+
         clickPage[pi.currentPage - 1].classList.add("current")
     } else {
+        const pageArea = document.querySelector(".page-list");
         pageArea.innerHTML = ``;
     }
 }
@@ -286,7 +310,7 @@ function spanDayChange2(y, m, d){
 
 function spanDayChange3(y, m){
     
-    console.log("안녕")
+  
     
     clickedDate.innerHTML = ``; 
     clickedDate.parentElement.classList.add('hidden')

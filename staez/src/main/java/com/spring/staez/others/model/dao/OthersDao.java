@@ -28,6 +28,14 @@ public class OthersDao {
 	
 	public ArrayList<Concert> selectCategoryConcertImg(SqlSessionTemplate sqlSession, int cNo){
 		return (ArrayList)sqlSession.selectList("othersMapper.selectCategoryConcertImg", cNo);
+	}	
+	
+	public ArrayList<Concert> selectApiConcert(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectApiConcert");
+	}
+	
+	public ArrayList<Concert> selectApiConcertImg(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectApiConcertImg");
 	}
 	
 	public ArrayList<Concert> selectLatestCategoryConcert(SqlSessionTemplate sqlSession, int cNo){
@@ -38,8 +46,20 @@ public class OthersDao {
 		return (ArrayList)sqlSession.selectList("othersMapper.selectLatestCategoryConcertImg", cNo);
 	}
 	
+	public ArrayList<Concert> selectLatestApiConcert(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectLatestApiConcert");
+	}
+	
+	public ArrayList<Concert> selectLatestApiConcertImg(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectLatestApiConcertImg");
+	}
+	
 	public ArrayList<Concert> selectDateCategoryConcert(SqlSessionTemplate sqlSession, Map data){
 		return (ArrayList)sqlSession.selectList("othersMapper.selectDateCategoryConcert", data); 
+	}
+	
+	public ArrayList<Concert> selectApiConcertList(SqlSessionTemplate sqlSession, Map data){
+		return (ArrayList)sqlSession.selectList("othersMapper.selectApiConcertList", data);
 	}
 	
 	public ArrayList<Concert> selectPageConcert(SqlSessionTemplate sqlSession, Map data, PageInfo pi){
@@ -49,6 +69,15 @@ public class OthersDao {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
 		return (ArrayList)sqlSession.selectList("othersMapper.selectDateCategoryConcert", data, rowBounds);
+	}
+	
+	public ArrayList<Concert> selectApiPageConcert(SqlSessionTemplate sqlSession, Map data, PageInfo pi){
+		int offset = (pi.getCurrentPage()-1)* pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("othersMapper.selectApiPageConcertlist", data, rowBounds);
 	}
 	
 	public ArrayList<Reserve> selectReserveConcertList(SqlSessionTemplate sqlSession, int uNo){

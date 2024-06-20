@@ -18,6 +18,7 @@
 	    <result column="update_date" property="updateDate"/>
 	    <result column="concert_status" property="concertStatus"/>
 	    <result column="change_name" property="changeName"/>
+	    <result column="origin_name" property="originName"/>
 	    <result column="file_path" property="filePath"/>
 	    <result column="start_date" property="startDate"/>
 	    <result column="end_date" property="endDate"/>
@@ -135,13 +136,74 @@
 		limit 10;
 	</select>
 	
+	<select id="selectApiConcert" resultMap="concertResult">
+		select 
+	         c.concert_no, 
+	         c.concert_title, 
+	         min(cs.start_date) as start_date,
+	         max(cs.end_date) as end_date, 
+	         cg.category_name,
+	         c.concert_plot,
+	         ca.origin_name
+      	from concert c
+        left join (select 
+		            	 cl.concert_no,
+		           		 count(distinct cl.concert_like_no) as countlike,
+						 cl.status
+		            from concert_like cl
+		            join concert c using (concert_no)
+		            where cl.status = 'Y'
+		            group by cl.concert_no, cl.status
+		            order by countlike desc) l on (l.concert_no = c.concert_no)
+     	left join concert_category cc on (c.concert_no = cc.concert_no)
+    	left join category cg on (cc.category_no = cg.category_no)
+     	left join concert_schedule cs on (c.concert_no = cs.concert_no)
+     	left join concert_attachment ca on (c.concert_no = ca.concert_no)
+        where c.concert_status = 'Y'
+    	and cg.category_no = 8 or c.age_limit = 'age_limit'
+     	and cs.end_date >= current_date
+		and l.status = 'Y'
+		group by c.concert_no, cg.category_name, c.concert_plot, ca.origin_name
+		order by c.concert_no asc
+    	limit 10
+	</select>
+	
+	<select id="selectApiConcertImg" resultMap="concertResult">
+		select 
+			c.concert_no, 
+			ca.file_path, 
+			ca.change_name,
+			ca.origin_name
+		from concert c
+		left join(select 
+				cl.concert_no, 
+				count(distinct cl.concert_like_no) as countlike,
+	 			cl.status
+				from concert_like cl
+				join concert c using (concert_no)
+				join concert_schedule cs on (c.concert_no = cs.concert_no)
+				group by cl.concert_no, cl.status
+				order by countlike desc) l on (l.concert_no = c.concert_no)
+		left join concert_category cc on (c.concert_no = cc.concert_no)
+		left join category cg on (cc.category_no = cg.category_no)
+		left join concert_attachment ca on (c.concert_no = ca.concert_no)
+		left join concert_schedule cs on (c.concert_no = cs.concert_no)
+		where cg.category_no = 8 or c.age_limit = 'age_limit'
+		and ca.status = 'Y'
+		and cs.end_date >= current_date
+		and l.status = 'Y'
+		order by c.concert_no asc
+		limit 10
+	</select>
+	
 	<select id="selectLatestCategoryConcert" resultMap="concertResult">
 		select 
 		   c.concert_no, 
 		   c.concert_title, 
 		   start_date,
 		   end_date,
-		   cg.category_name
+		   cg.category_name,
+		   ca.origin_name
 		from (select 
 		      c.concert_no,
 		      min(cs.start_date) as start_date,
@@ -166,7 +228,8 @@
 		select 
 			c.concert_no, 
 			ca.file_path, 
-			ca.change_name
+			ca.change_name,
+			ca.origin_name
 		from (select 
 				c.concert_no,
 			 	max(cs.start_date) latest,
@@ -184,6 +247,61 @@
 		and ca.status = 'Y'
 		and l.end_date >= current_date
 		limit 10;
+	</select>
+	
+	<select id="selectLatestApiConcert" resultMap="concertResult">
+	select 
+		   c.concert_no, 
+		   c.concert_title, 
+		   start_date,
+		   end_date,
+		   cg.category_name,
+		   c.concert_plot,
+		   ca.origin_name
+		from (select 
+		      c.concert_no,
+		      min(cs.start_date) as start_date,
+		      max(cs.start_date) as latest,
+		      max(cs.end_date) as end_date
+		      from concert c
+		      join concert_schedule cs using (concert_no)
+		      group by c.concert_no
+		      order by latest desc) l
+		left join concert c on (l.concert_no = c.concert_no)   
+		left join concert_category cc on (c.concert_no = cc.concert_no)
+		left join category cg on (cc.category_no = cg.category_no)
+		left join concert_attachment ca on (c.concert_no = ca.concert_no)
+		where c.concert_status = 'Y'
+		and (cg.category_no = 8 or c.age_limit = 'age_limit')
+		and ca.status = 'Y'
+		and l.end_date >= current_date
+		limit 10
+	</select>
+	
+	<select id="selectLatestApiConcertImg" resultMap="concertResult">
+	select 
+			c.concert_no, 
+			ca.file_path, 
+			ca.change_name,
+			ca.origin_name
+		from (select 
+		      c.concert_no,
+		      min(cs.start_date) as start_date,
+		      max(cs.start_date) as latest,
+		      max(cs.end_date) as end_date
+		      from concert c
+		      join concert_schedule cs using (concert_no)
+		      group by c.concert_no
+		      order by latest desc) l
+		left join concert c on (l.concert_no = c.concert_no)	
+		left join concert_category cc on (c.concert_no = cc.concert_no)
+		left join category cg on (cc.category_no = cg.category_no)
+		left join concert_attachment ca on (c.concert_no = ca.concert_no)
+		where c.concert_status = 'Y'
+		and (cg.category_no = 8 or c.age_limit = 'age_limit')
+		and ca.status = 'Y'
+		and l.end_date >= current_date
+		limit 10
 	</select>
 	
 	<select id="selectDateCategoryConcert" resultMap="concertResult" parameterType="Map">
@@ -215,6 +333,48 @@
 	where cg.category_no = #{cNo}
 	and ca.status = 'Y'
 	GROUP BY c.concert_no, c.concert_title, t.theater_name, c.concert_runtime, ca.file_path, ca.change_name, cg.category_no;
+	</select>
+	
+	<select id="selectApiPageConcertlist" resultMap="concertResult" parameterType="Map">
+	select 
+		c.concert_no, 
+		c.concert_title, 
+		t.theater_name, 
+		min(s.start_date) start_Date, 
+		max(s.end_date) end_date, 
+		c.concert_runtime, 
+		ca.file_path, 
+		ca.change_name, 
+		cg.category_no,
+		c.concert_plot,
+		ca.origin_name
+	from (select concert_no, start_date, end_Date
+			from concert_schedule 
+			where #{date}::date between start_date and end_date
+			and status = 'Y'
+			and concert_no not in (select concert_no
+								    from concert_schedule
+									where #{date}::date between start_date and end_date
+								    and schedule = 'N'
+								    and status = 'Y'
+								))s
+	join concert c on (s.concert_no = c.concert_no)
+	left join theater t on (c.theater_no = t.theater_no)
+	join concert_attachment ca on (c.concert_no = ca.concert_no)
+	left join concert_category cc on (c.concert_no = cc.concert_no)
+	left join category cg on (cc.category_no = cg.category_no)
+	where (cg.category_no = 8 or ca.origin_name = 'api')
+	and ca.status = 'Y'
+	GROUP BY c.concert_no, c.concert_title, t.theater_name, c.concert_runtime, ca.file_path, ca.change_name, cg.category_no, c.concert_plot, ca.origin_name
+	</select>
+	
+	<select id="selectApiConcertList" resultMap="concertResult" parameterType="Map">
+		select c.concert_no
+		from concert c
+		join concert_schedule cs on (c.concert_no = cs.concert_no)
+		join concert_attachment ca on (c.concert_no = ca.concert_no)
+		where  #{date}::date between start_date and end_date
+		and ca.origin_name = 'api'
 	</select>
 	
 	<select id="selectReserveConcert" resultMap="reserveResult">
