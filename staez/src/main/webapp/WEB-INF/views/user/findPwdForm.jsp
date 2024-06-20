@@ -17,6 +17,9 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
     <title>비밀번호 찾기</title>
+    <script type="text/javascript">
+        var contextPath = '<%= request.getContextPath() %>';
+    </script>
 </head>
 <body onload="init()">
     <header>
@@ -35,13 +38,7 @@
                         <td  class="email-container">
                             <input type="text" id="input-value-id" name="userId" required>
                         </td>
-                    </tr>
-                    <tr>
-                        <th>이름</th>
-                        <td colspan="1">
-                            <input type="text" name="user_name" id="user_name"  required >
-                        </td>
-                    </tr>    
+                    </tr>   
                     <tr>
                         <th>휴대폰 번호</th>
                         <td class="email-container" colspan="5" >
@@ -51,12 +48,13 @@
                                 <input type="text" id="phone-suffix1" name="phone-suffix1" maxlength="4" >
                                 <span>-</span>
                                 <input type="text" id="phone-suffix2" name="phone-suffix2" maxlength="4">
-                                <input type="text" name="phone" id="input-value-phone" required  >
+                                <input type="text" name="phone" id="input-value-phone" required >
                             </div>
                             <td>
-                                <input type="button" id="phoneCheckButton" class="check_button" value="인증번호 전송">
+                                <input type="button" id="phoneCheckButton" class="check_button" value="인증번호 전송" onclick="phoneClick()">
                             </td>
-                        </tr>
+                        </td>
+                    </tr>
                         <tr id="verificationPhoneTr">
                             <td colspan="4">
                                 <div id="verificationPhone" class="checkResult">
@@ -73,7 +71,7 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="button" class="check_button" id="check_PhoneSecretBtn" value="인증확인">
+                                <input type="button" class="check_button" id="check_PhoneSecretBtn" value="인증확인" onclick="checkAuthNum()">
                             </td>
                         </tr>
                         <tr id="checkResultPhoneTr">
@@ -138,7 +136,7 @@
                         <td colspan="4">
                             <div class="insert-member-div">
                                 <button type="button" id="backButton">이전</button>
-                                <button type="button" id="findEmailCheck" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clickIdPhoneEmail()" disabled>다음</button>
+                                <button type="button" id="findEmailCheck" class="btn btn-primary" onclick="clickIdPhoneEmail()" disabled>다음</button>
                             </div>
                         </td>
                     </tr>
