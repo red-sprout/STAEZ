@@ -1,7 +1,5 @@
 $(function () {
-    category({ refCategoryNo: 5 }, (res) => {
-        getOrigin();
-    });
+    getOrigin();
 });
 
 function getOrigin() {

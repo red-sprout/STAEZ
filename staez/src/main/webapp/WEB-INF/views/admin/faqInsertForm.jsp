@@ -36,10 +36,10 @@
                     <textarea name="boardContent" rows="10" ></textarea>
                 </li>
                 <li id="community-submit">
-                    <button class="btn-staez purple" type="submit">
+                    <button class="btn-staez purple" type="button" onclick="faqSubmit()">
                         <h3>등록</h3>
                     </button>
-                    <button class="btn-staez purple">
+                    <button class="btn-staez purple" type="button" onclick="location.href='faqList.ad'">
                         <h3>목록</h3>
                     </button>
                 </li>

@@ -18,8 +18,8 @@ $(function() {
         formData.append("concert", concertForm());
         formData.append("upfile", inputFile[0].files[0]);
 
-        if(!(formData.schedule && formData.seat && formData.concert && formData.upfile)) {
-            alert("빠진 항목이 확인바랍니다.");
+        if(!(scheduleForm() && gradeForm() && concertForm() && inputFile[0].files[0])) {
+            alert("빠진 항목 확인바랍니다.");
             return;
         }
 
@@ -293,9 +293,9 @@ function setSeat(result) {
         thead.appendChild(th);
     }
 
-    for (let i = 0; i <= theater.theaterRow; i++) {
+    for (let i = 1; i <= theater.theaterRow; i++) {
         const tr = document.createElement("tr");
-        const input = decimalToBase26(i);
+        const input = decimalToBase26(i - 1);
         for (let j = 0; j <= theater.theaterCol; j++) {
             const th = document.createElement("th");
             if (j === 0) {
@@ -304,7 +304,7 @@ function setSeat(result) {
                 continue;
             }
             th.setAttribute("class", "seat-yes");
-            th.setAttribute("id", (i + 1) + "-" + j);
+            th.setAttribute("id", i + "-" + j);
             for (let seat of impossibleSeatList) {
                 if (th.id === seat.impossibleSeatRow + "-" + seat.impossibleSeatCol) {
                     th.setAttribute("class", "seat-no");

@@ -1,5 +1,7 @@
 package com.spring.staez.concert.model.dao;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -40,6 +42,29 @@ public class ConcertDaoTest {
 	public void testSelectConcertNoByConcertId() {
 		ConcertDto concertDto = new ConcertDto();
 		concertDto.setConcertPlot("PF243254");
-		log.info("{}", concertDao.selectConcertNoByConcertId(sqlSession, concertDto));
+		log.info("SelectConcertNoByConcertId(PF243254) : {}", concertDao.selectConcertNoByConcertId(sqlSession, concertDto));
 	}
+	
+	@Test
+	public void testConcertAttachmentApiCount() {
+		ConcertDto concertDto = new ConcertDto();
+		// API 반영된 공연
+		concertDto.setConcertPlot("PF243254");
+		assertTrue(concertDao.concertAttachmentApiCount(sqlSession, concertDto) > 0);
+		// API 없는 공연
+		concertDto.setConcertPlot("PF200000");
+		assertTrue(concertDao.concertAttachmentApiCount(sqlSession, concertDto) == 0);
+	}
+	
+	@Test
+	public void testConcertScheduleApiCount() {
+		ConcertDto concertDto = new ConcertDto();
+		// API 반영된 공연
+		concertDto.setConcertPlot("PF243254");
+		assertTrue(concertDao.concertScheduleApiCount(sqlSession, concertDto) > 0);
+		// API 없는 공연
+		concertDto.setConcertPlot("PF200000");
+		assertTrue(concertDao.concertScheduleApiCount(sqlSession, concertDto) == 0);
+	}
+	
 }

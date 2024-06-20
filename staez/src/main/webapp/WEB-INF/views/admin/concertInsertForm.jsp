@@ -108,8 +108,8 @@
     </main>
     <!-- The Modal -->
     <div class="modal" id="theater-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
+        <div class="modal-dialog" style="max-width: fit-content;">
+            <div class="modal-content" style="min-width: max-content";>
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h3 class="modal-title">좌석 조회</h3>
