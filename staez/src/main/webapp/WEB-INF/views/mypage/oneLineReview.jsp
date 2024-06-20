@@ -15,7 +15,12 @@
             <tr class="tb-title">
                 <th colspan="3">공연정보</th>
             </tr>
-            
+            <c:if test="${empty clist}">
+                <tr>
+                    <td>관람한 공연이 없습니다</td>
+                </tr>   
+            </c:if>
+
             <c:forEach var="c" items="${clist}">
             <c:choose>
                 <c:when test="${c.reviewStatus eq 'Y'}">
@@ -45,7 +50,7 @@
                         <td class="content">
                             <h3>${c.concertTitle}</h3>
                             <h5>최근 관람일 : ${c.concertDate}</h5>
-                            <h4>리뷰를 작성해주세요</h4>
+                            <h4>(리뷰를 작성해주세요)</h4>
                         </td>
                         <td class="review-func">
                             <button type="button" class="btn-staez purple" data-toggle="modal" data-target="#myModal"  onclick="loadOneLineReview('${c.concertNo}')"><h4>후기작성</h4></button>

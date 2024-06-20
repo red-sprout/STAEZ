@@ -41,6 +41,24 @@
     border-bottom: solid 1px black;
 }
 
+.main-content>table th {
+    position: relative;
+}
+
+.main-content>table th::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    height: 50%; /* border의 높이를 th의 50%로 설정 */
+    border-right: 1px solid #969696; /* 원하는 border 스타일 설정 */
+}
+
+.main-content>table th:nth-child(2)::after {
+    border-right: none;
+}
+
 .main-content>table .tb-title{
     border-top: solid 2px black;
     height: 50px;

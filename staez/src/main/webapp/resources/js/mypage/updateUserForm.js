@@ -376,14 +376,17 @@ $(function() {
 
             if (currentButton.hasClass('checked')) {
                 currentButton.toggleClass('checked');
+                genreLike.trigger('change');
                 updateInput();
             } else if (checkedButtons.length < 3) {
                 currentButton.toggleClass('checked');
+                genreLike.trigger('change');
                 updateInput();
             } else if (checkedButtons.length >= 3) {
                 alert("최대 개수입니다.");
             }
         });
+        
     });
 
     function updateInput() {
