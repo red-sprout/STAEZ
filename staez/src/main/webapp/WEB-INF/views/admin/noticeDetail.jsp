@@ -39,7 +39,7 @@
                                         <c:if test="${loginUser.userNo eq n.userNo}">
                                             <button class="function" onclick="location.href='updateForm.no?boardNo=${n.boardNo}'">수정</button>
                                             <img src="<c:url value='/resources/img/common/header/divide.png'/>" alt="">
-                                            <button class="function">삭제</button>
+                                            <button class="function" onclick="location.href='delete.cm?boardNo=${n.boardNo}'">삭제</button>
                                         </c:if>
                                         &nbsp;
                                         &nbsp;
