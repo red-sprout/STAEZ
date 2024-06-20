@@ -8,16 +8,27 @@ window.onload = function() {
 function drawConcertList(cList, keyword){
     const concertArea = document.querySelector(".concert-search-result-area");
     const concertCount = document.querySelector(".concert-count")
-    concertCount.innerHTML = `공연정보(`+ cList.length +`)`
+    // concertCount.innerHTML = `공연정보(`+ cList.length +`)`
+    concertCount.innerHTML = `공연`
     concertArea.innerHTML = ``;
     if(cList.length === 0){
         concertArea.innerHTML = `<span style="font-size: 30px; font-weight: 500; width: 100%;">검색 결과가 없습니다</span>`
     } else {
         for(let c of cList){
+            console.log(c)
+            let categoryName;
+            let mapping;
+            if(c.categoryNo === 0){
+                categoryName = "연극"
+                mapping = `condeapi.co?concertId=`+c.concertPlot;
+            }else{
+                categoryName = c.categoryName;
+                mapping = `detail.co?concertNo=`+ c.concertNo;
+            }
             concertArea.innerHTML += `<div class="concert-search-result-info">
-                                        <a href="/staez/detail.co?concertNo=`+ c.concertNo +`"><img class="key-concert-img" src="" alt=""></a>
+                                        <a href="${mapping}"><img class="key-concert-img" src="" alt=""></a>
                                         <div class="concert-search-result-content-info">
-                                            <span class="concert-search-result-content-span1">`+ c.categoryName +`</span>
+                                            <span class="concert-search-result-content-span1">`+ categoryName +`</span>
                                             <span class="concert-search-result-content-span2">[`+ c.concertTitle +`]</span>
                                             <span class="concert-search-result-content-span3">`+ c.startDate +` ~ `+ c.endDate +`</span>
                                         </div>
@@ -30,8 +41,12 @@ function drawConcertList(cList, keyword){
 function drawConcertImgList(ciList){
     const concertImg = document.querySelectorAll(".key-concert-img")
     console.log(ciList)
-    for(let i = 0; i < concertImg.length; i++){
-        concertImg[i].src="/staez" + ciList[i].filePath + ciList[i].changeName;  
+    for(let i = 0; i < ciList.length; i++){
+        if(ciList[i].originName === 'api'){
+            concertImg[i].src=ciList[i].filePath;
+        }else{
+            concertImg[i].src="/staez" + ciList[i].filePath + ciList[i].changeName;
+        }
     }
 }
 

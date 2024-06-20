@@ -493,38 +493,42 @@
 	</select>
 	
 	<select id="selectKeywordConcert" resultMap="concertResult">
-		select c.concert_no, c.concert_title, cg.category_no, cg.category_name, start_date, end_date
-		from (select 
+		select c.concert_no, c.concert_title, cg.category_no, cg.category_name, start_date, end_date, c.concert_plot
+		from concert c 
+		join (select 
 					cs.concert_no,
 					min(start_date) start_date,
 					max(end_date) end_Date
 			  from concert_schedule cs
-			  group by cs.concert_no) l
-		join concert c on (l.concert_no = c.concert_no)
-		join concert_category cc on (c.concert_no = cc.concert_no)
-		join category cg on (cc.category_no = cg.category_no)
-		where c.concert_title like '%' || #{keyword} || '%'
-		and l.end_date >= current_date
+			  group by cs.concert_no) l on (c.concert_no = l.concert_no)
+		left join concert_category cc on (c.concert_no = cc.concert_no)
+		left join category cg on (cc.category_no = cg.category_no)
+		where c.concert_title like  '%' || #{keyword} || '%'
 		and c.concert_status = 'Y'
+		and (c.age_limit = 'age_limit' or cg.category_no is not null)
+		and l.end_Date >= current_date
 		order by l.end_date asc
 		limit 5
 	</select>
 	
 	<select id="selectKeywordConcertImg" resultMap="concertResult">
-	select c.concert_no, ca.file_path, ca.change_name
-	from (select 
+	select c.concert_no, ca.file_path, ca.change_name, ca.origin_name
+	from concert c 
+	join (select 
 				cs.concert_no,
 				min(start_date) start_date,
 				max(end_date) end_Date
 		  from concert_schedule cs
-		  group by cs.concert_no) l
-	join concert c on (l.concert_no = c.concert_no)
-	join concert_attachment ca on (c.concert_no = ca.concert_no)
-	where c.concert_title like '%' || #{keyword} || '%'
-	and l.end_date >= current_date
-	and c.concert_status = 'Y'
-	order by l.end_date asc
-	limit 5
+		  group by cs.concert_no) l on (c.concert_no = l.concert_no)
+		left join concert_attachment ca on (c.concert_no = ca.concert_no)
+		left join concert_category cc on (c.concert_no = cc.concert_no)
+		left join category cg on (cc.category_no = cg.category_no)
+		where c.concert_title like '%' || #{keyword} || '%'
+		and l.end_date >= current_date
+		and (c.age_limit = 'age_limit' or cg.category_no is not null)
+		and c.concert_status = 'Y'
+		order by l.end_date asc
+		limit 5
 	</select>
 	
 	<select id="selectKeywordBoard" resultMap="boardResult">
