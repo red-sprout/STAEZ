@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // 클릭 이벤트 발생 시 서버로 이메일 인증 요청 보내기
         const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
         // 클릭 못하게 설정
-        document.getElementById("emailCheckButton").disabled = true;
         sendEmailVerificationRequest(emailInput); // 이메일 인증 요청 보내는 함수 호출
         alert("인증번호가 전송되었습니다 잠시만 기다려주세요.");
     });
@@ -306,16 +305,13 @@ function handleEmailCheckResponse(response) {
     const verificationMessage = document.getElementById("verification-message");
 
     if (response === "emailCheck No") {
-        document.getElementById("emailCheckButton").disabled = false;
         verificationMessage.style.color = "red";
         verificationMessage.innerText = "인증번호 전송이 실패했습니다 다시 입력해주세요!";
     } else if (response === "emailCheck Yes") {
-        document.getElementById("emailCheckButton").disabled = true;
         verificationMessage.style.color = "green";
         verificationMessage.innerText = "인증번호가 성공적으로 전송되었습니다!";
         startTimer(); // 3분 타이머 시작
     } else if(response === "emailCheck Duplicated"){
-        document.getElementById("emailCheckButton").disabled = false;
         verificationMessage.style.color = "red";
         verificationMessage.innerText = "이미 등록된 이메일입니다. 다시 입력 해주세요!";
     }
