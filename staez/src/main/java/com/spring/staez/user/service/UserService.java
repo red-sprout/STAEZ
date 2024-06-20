@@ -37,7 +37,7 @@ public interface UserService {
     String findEmailCheck(String checkFindEmail, String userName);
 
     // 핸드폰으로 아이디찾기
-    String findPhoneCheck(String checkFindPhone, String userName);
+    int findPhoneCheck(String checkFindPhone, String userName);
     
 	// 유효성 검사 및 사용자 정보 확인
 	String findUserByIdEmailPhone(String user_id, String phone, String email);

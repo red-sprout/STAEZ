@@ -136,6 +136,7 @@ let authNo;
 // 폰 인증
 function phoneClick() {
     const phoneInputValue = document.getElementById("input-value-phone").value;
+    const userName = document.getElementById("user_name_phone").value;
     var verificationPhoneTr = document.getElementById("verificationPhoneTr");
     var PverificationMessage = document.getElementById("Pverification-message");
 
@@ -143,19 +144,27 @@ function phoneClick() {
     $('#phoneCheck').prop('checked', false);
     verificationPhoneTr.style.display = "table-row";
 
-    sendPhoneAuthNoAjax({ authNo, PhoneInput: phoneInputValue }, function(res) {
-        if (res === "NNNNY") {
-            verificationPhoneTr.style.display = "table-row";
-            PverificationMessage.style.color = "green";
-            PverificationMessage.innerHTML = "인증번호가 전송되었습니다.";
-            console.log('인증번호 : ' + authNo);
-            console.log('전송한 휴대폰번호 : ' + phoneInputValue);
-
-            startPTimer(); // 1분 타이머 시작
-        } else {
-            verificationPhoneTr.style.display = "table-row";
+    // 먼저 이름과 전화번호를 검증
+    verifyPhoneAndName(userName, phoneInputValue, function(res) {
+        if (res === "findPhoneCheck No") {
             PverificationMessage.style.color = "red";
-            PverificationMessage.innerHTML = "전송에 실패했습니다. 핸드폰 번호를 다시 한번 확인해주세요.";
+            PverificationMessage.innerHTML = "해당 이름과 일치하는 핸드폰 번호가 없습니다 다시 입력하세요.";
+        } else {
+            sendPhoneAuthNoAjax({ authNo, PhoneInput: phoneInputValue }, function(res) {
+                if (res === "NNNNY") {
+                    verificationPhoneTr.style.display = "table-row";
+                    PverificationMessage.style.color = "green";
+                    PverificationMessage.innerHTML = "인증번호가 전송되었습니다.";
+                    console.log('인증번호 : ' + authNo);
+                    console.log('전송한 휴대폰번호 : ' + phoneInputValue);
+
+                    startPTimer(); // 1분 타이머 시작
+                } else {
+                    verificationPhoneTr.style.display = "table-row";
+                    PverificationMessage.style.color = "red";
+                    PverificationMessage.innerHTML = "전송에 실패했습니다. 핸드폰 번호를 다시 한번 확인해주세요.";
+                }
+            });
         }
     });
 }
@@ -174,9 +183,6 @@ function checkAuthNum() {
         checkResultPhoneTr.style.display = "table-row";
         userPhoneErrorMessage.style.color = "green";
         userPhoneErrorMessage.innerHTML = "인증에 성공하였습니다";
-        findPhoneCheck.disabled = false;
-        clearInterval(timer); // 타이머 정지
-
         clearInterval(ptimer); // 타이머 정지
     }
 }
