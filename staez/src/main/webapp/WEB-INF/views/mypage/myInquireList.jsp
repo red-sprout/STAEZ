@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <link rel="stylesheet" href="${contextPath}/resources/css/mypage/myInquireList.css">
 <script src="${contextPath}/resources/js/mypage/myInquireList.js"></script>
@@ -15,7 +17,17 @@
     </div>
 
     <div id="inq-section">
+        <c:set var="b" value="${blist}" />
+            <input type="hidden" name="blistLength" value="${fn:length(b)}">
+        <c:remove var="b" />       
+
         <ul>
+            <c:if test="${empty blist}">
+                <li class="menu-item">
+                    <a class="inq-info">문의글이 존재하지 않습니다.</a>
+                </li>
+            </c:if>
+
             <c:forEach var="b" items="${blist}">                
             <li class="menu-item">
                 <input type="hidden" value="${contextPath}" name="contextPath">
@@ -33,7 +45,7 @@
         </ul>
     </div>
     <div id="inq-enroll-btn">
-        <a href="${contextPath}/insertForm.iq"><h3>문의하기</h3></a>
+        <a href="${contextPath}/insertForm.iq?categoryNo=22"><h3>문의하기</h3></a>
     </div>
 
 

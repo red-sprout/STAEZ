@@ -27,6 +27,13 @@
                 <th id="enroll-date">작성일</th>
                 <th id="likes">좋아요</th>
             </tr>
+
+            <c:if test="${empty blist}">
+                <tr class="tb-content">
+                    <td colspan="5">게시글이 없습니다</td>
+                </tr>
+            </c:if>
+
             <c:forEach var="b" items="${blist}">
             <tr class="tb-content" onclick="location.href='detail.cm?boardNo=${b.boardNo}'">
                 <td><h5>${b.boardNo}</h5></td>

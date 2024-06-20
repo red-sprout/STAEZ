@@ -117,8 +117,10 @@ main{
     top: 5px;    
 }
 
-#btn-section>button{
+#btn-section>button{    
     width: 80px;
     height: 30px;
+    
+    font-weight: 500;
 }
 
