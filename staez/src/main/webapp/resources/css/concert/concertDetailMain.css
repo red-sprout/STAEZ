@@ -9,11 +9,13 @@ div a:visited{text-decoration: none;}
 div a:hover{text-decoration: none;}
 div a:active{text-decoration: none;}
 
-.h2 {
+.custom-h2 {
     font-size: 20px;
     font-weight: 500;
     margin: 10px 0;
-    white-space: nowrap;
+    line-height: 1.5;
+    word-break: keep-all;
+    flex-wrap: wrap;
 }
 
 .overflowText {
