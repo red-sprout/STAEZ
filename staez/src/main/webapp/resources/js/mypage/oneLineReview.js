@@ -67,9 +67,15 @@ function loadOneLineReview(concertNo){
         $('input[name=reviewNo]').val(res.reviewNo);
         $('input[name=concertNo]').val(res.concertNo);   
 
+        const submit = $('.modal-footer>button[type=submit]');
+        const btn = $('.modal-footer>button[type=button]');
         //리뷰가 없으면 삭제버튼 숨김
         if(res.reviewStatus === 'N'){
-            $('.modal-footer>button[type=button]').prop('hidden', true);
+            $(btn).prop('hidden', true);
+            $(submit).text('저장')
+        } else{
+            $(btn).prop('hidden', false);
+            $(submit).text('수정')
         }
     });
 }

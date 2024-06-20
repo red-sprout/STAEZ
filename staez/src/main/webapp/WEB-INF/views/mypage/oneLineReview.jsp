@@ -143,7 +143,7 @@
                 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">저장</button>
+                    <button type="submit" class="btn btn-primary"></button>
                     <button type="button" class="btn btn-danger" onclick="deleteOneLineReview()">삭제</button>
                 </div>
             </form>
