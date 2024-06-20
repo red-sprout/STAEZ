@@ -188,6 +188,16 @@ public class MypageDao {
 	}
 	
 	
+	public int phoneCheck(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("mypageMapper.phoneCheck", map);
+	}
+	
+	public int emailCheck(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("mypageMapper.emailCheck", map);
+	}
+
+	
+	
 	public ArrayList<PaymentsInfoDto> loadMyPaymentsAjax(SqlSessionTemplate sqlSession, int userNo) {
 		return (ArrayList)sqlSession.selectList("mypageMapper.loadMyPaymentsAjax", userNo);
 	}

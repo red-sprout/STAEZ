@@ -20,30 +20,10 @@ $(function() {
 
 });
 
-function starRating(value) { //value(별점)만큼 별UI 표현
-    const val = value - 1;
-    const starlist = $(".star-label .star-icon");
-    const starPath = "./resources/img/mypage/star.png";
-    const filledStarPath = "./resources/img/mypage/star-filled.png";
-    const submit = $('button[type=submit]');
-
-    starlist.each(function(index) {
-        if(index > val) {
-            $(this).html(`<img src=${starPath}>`);
-        } else {
-            $(this).html(`<img src=${filledStarPath}>`);
-        }
-    });
-
-     if(value > 0){
-        submit.prop('disabled', false);
-     } else{
-        submit.prop('disabled', true);
-     }
-}
-
 // 버튼 클릭 시 한줄평 작성 모달 출력
 function loadOneLineReview(concertNo){
+    $('button[type=submit]').prop('disabled', true); //저장버튼 비활성화
+
     loadOneLineReviewAjax({concertNo}, function(res){
         const div = $('.concert-tag');
         const tbody = $('.concert-tag>table>tbody');
@@ -85,9 +65,37 @@ function loadOneLineReview(concertNo){
         }       
 
         $('input[name=reviewNo]').val(res.reviewNo);
-        $('input[name=concertNo]').val(res.concertNo);        
+        $('input[name=concertNo]').val(res.concertNo);   
+
+        //리뷰가 없으면 삭제버튼 숨김
+        if(res.reviewStatus === 'N'){
+            $('.modal-footer>button[type=button]').prop('hidden', true);
+        }
     });
 }
+
+
+function starRating(value) { //value(별점)만큼 별UI 표현
+    const val = value - 1;
+    const starlist = $(".star-label .star-icon");
+    const starPath = "./resources/img/mypage/star.png";
+    const filledStarPath = "./resources/img/mypage/star-filled.png";
+    const submit = $('button[type=submit]');
+
+    starlist.each(function(index) {
+        if(index > val) {
+            $(this).html(`<img src=${starPath}>`);
+        } else {
+            $(this).html(`<img src=${filledStarPath}>`);
+        }
+    });
+
+    //받아온 score값이 있으면 저장버튼 활성화
+     if(value > 0){
+        submit.prop('disabled', false);
+     }
+}
+
 
 // 한줄평 삭제
 function deleteOneLineReview(){
@@ -95,7 +103,6 @@ function deleteOneLineReview(){
     if(result){
         //한줄평 삭제하고 다시 페이지로드
         const reviewNo = $('input[name=reviewNo]').val()
-        console.log(reviewNo)
         deleteOneLineReviewAjax({reviewNo}, res => {
             if(res == 'success'){
                 alert('삭제되었습니다.');
@@ -105,8 +112,6 @@ function deleteOneLineReview(){
             }
         });
     }
-
-
 
 }
 

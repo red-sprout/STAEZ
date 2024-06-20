@@ -59,13 +59,16 @@
 	<select id="emailCheck" resultType="_int">
 		SELECT COUNT(user_no)
 		FROM staez_user
-		WHERE email = #{email}
+		WHERE email = #{email}::text
+		AND NOT user_no = #{userNo}::integer
+		
 	</select>
 	
 	<select id="phoneCheck" resultType="_int">
 		SELECT COUNT(user_no)
 		FROM staez_user
-		WHERE phone = #{phone}
+		WHERE phone = #{phone}::text
+		AND NOT user_no = #{userNo}::integer
 	</select>
 	
 	

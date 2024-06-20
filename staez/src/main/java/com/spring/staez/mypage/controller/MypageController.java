@@ -3,7 +3,6 @@ package com.spring.staez.mypage.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -620,14 +619,16 @@ public class MypageController {
 		return "NNNNY";
 	}
 	
-//	//이메일, 휴대폰 번호 있는지 체크
-//	@RequestMapping("checkExist.me")
-//	@ResponseBody
-//	public String checkExistAjax(String info, int type) { //type - 1 : phone, 2 : email
-//		int result = mypageService.checkExistAjax(info, type);
-//
-//		return "";
-//	}
-//	
+	//이메일, 휴대폰 번호 있는지 체크
+	@RequestMapping("checkExist.me")
+	@ResponseBody
+	public String checkExistAjax(String info, int type, HttpSession session) { //type - 1 : phone, 2 : email
+		
+		int userNo = ((User)session.getAttribute("loginUser")).getUserNo();
+		int result = mypageService.checkExistAjax(userNo, info, type);
+
+		return result > 0 ? "exist" : "noneOrMine";
+	}
+	
 }
 	

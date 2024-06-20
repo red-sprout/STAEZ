@@ -109,8 +109,6 @@ function changeCheck(){
 //해당 요소의 값이 바꼈을때 해당 checkbox 해제
 function compare(originValue, input, checkbox){ //본래값, 입력값, 체크박스
     input.on('change', function() {
-        console.log(originValue);
-        console.log(input)
         let currentValue = input.val();
         console.log('바뀜')
         // 이전 값과 현재 값 비교
@@ -410,6 +408,15 @@ function firstLikeGenre(){
     });
 }
 
+//ajax함수가 끝나기 전 다른 코드가 실행되는 문제 해결하기 위해 생성
+function checkExistAsync(info, type) {
+    return new Promise((resolve, reject) => {
+        checkExistAjax({ info: info, type: type }, res => {
+            resolve(res); // 응답을 Promise의 resolve로 전달
+        });
+    });
+}
+
 //휴대폰 인증 class
 class PhoneVerification {
     constructor() {
@@ -425,18 +432,23 @@ class PhoneVerification {
         this.authBtn.on('click', () => this.checkAuthNum());
     }
 
-    sendAuthNum() {        
+    async sendAuthNum() {        
         const phone = $('input[name=phone]').val();
-
-        // //이미 사용 중인 휴대폰 번호인지 확인  
-        // checkExist({info : phone, type : 1}, res => {
-        //     if(res === 'exist'){
-                
-        //     } else{
-                
-        //     }
-        // });      
-
+        
+        try {
+            // 이미 사용 중인 휴대폰 번호인지 확인  
+            const checkResult = await checkExistAsync(phone, 1);
+            console.log('checkResult : ' + checkResult);
+            
+            if (checkResult === 'exist') { // 존재하는 번호라면 
+                alert('이미 등록된 전화번호입니다.');
+                return;
+            }
+            
+        } catch (error) {
+            console.error('오류 발생 : ', error);
+        }
+        
         //이미 전송을 한 상황이라면
         if (this.isSend) {
             const result = confirm('재전송 하시겠습니까?')
@@ -530,7 +542,23 @@ class EmailVerification {
         this.authBtn.on('click', () => this.checkAuthNum());
     }
         
-    sendAuthNum() {
+    async sendAuthNum() {
+        const email = $('input[name=email]').val();
+        
+        try {
+            // 이미 사용 중인 휴대폰 번호인지 확인  
+            const checkResult = await checkExistAsync(email, 2);
+            console.log('checkResult : ' + checkResult);
+            
+            if (checkResult === 'exist') { // 존재하는 번호라면 
+                alert('이미 등록된 이메일입니다.');
+                return;
+            }
+            
+        } catch (error) {
+            console.error('오류 발생 : ', error);
+        }
+
         if (this.isSend) {
             const result = confirm('재전송 하시겠습니까?')
             if(!result){
@@ -542,7 +570,6 @@ class EmailVerification {
 
         // 랜덤번호 생성
         this.authNo = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
-        const email = $('input[name=email]').val();
 
         $('#emailCheck').prop('checked', false);
 
@@ -608,22 +635,6 @@ class EmailVerification {
     }
 }
 
-
-//회원탈퇴 기능
-function withdrawalAuth() { //onclick
-    
-    const submitBtn = $("#withdrawalModal button[type=submit]");
-    const inputPwd = $(".withdrawal-tag input[type=password]").val();
-
-    authPwdAjax({inputPwd}, res => {
-        if (res === 'NNNNY') { //비밀번호 인증 성공            
-            submitBtn.prop('disabled', false);            
-        } else {
-            alert("비밀번호가 일치하지 않습니다");
-        }
-    });
-}
-
 // 비밀번호 변경
 // 비밀번호 입력때마다 유효성 확인
 function checkPassword(){
@@ -685,84 +696,17 @@ function cancelUpdatePwd() {
         $(pwdForm).find('input').val('');
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // 비밀번호 변경
-// // 비밀번호 입력때마다 유효성 확인
-// function checkPassword(){
-//     const newPwd = document.getElementById('changePwd'); // 변경할 비밀번호 input
-//     const checkPwd = document.getElementById('checkPwd'); //비밀번호 확인 input
-//     const warning1 = document.querySelectorAll('.pwd-check>h5')[0]; //비밀번호 조합 확인 div
-//     const warning2 = document.querySelectorAll('.pwd-check>h5')[1]; //비밀번호 일치 체크 div                             
-
-//     const combineCheck = combinePwd(newPwd, warning1);
-//     const differCheck = differPwd(newPwd, checkPwd, warning2);
-
-//     console.log(newPwd.value);
-//     console.log(checkPwd.value);
-
-//     console.log(combineCheck, differCheck)
-
-//     const submit = document.querySelector("#pwdModal button[type='submit']");
-//     if(combineCheck * differCheck){
-//         submit.disabled = false;
-//         return;
-//     }
-//     submit.disabled = true;
-// }
-
-// function combinePwd(targetInput, warning1){ //새로운 비밀번호 조합 확인
-//     const reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,30}$/;
+//회원탈퇴 기능
+function withdrawalAuth() { //onclick
     
-//     if(reg.test(targetInput.value) || targetInput.value === ""){ //비밀번호의 조합조건이 맞거나 빈칸일 경우
-//         warning1.innerText = '';
-//         return targetInput.value !== ""; //값이 비어있는 것은 combinePwd조건에 만족은 아니다
-//         //값이 비어있을 경우 false, 값이 있으면 true
+    const submitBtn = $("#withdrawalModal button[type=submit]");
+    const inputPwd = $(".withdrawal-tag input[type=password]").val();
 
-//     } else {
-//         warning1.innerText = '올바르지 못한 형식입니다';
-//         return false;
-//     } 
-// }
-
-// function differPwd(originInput, checkInput, warning2){ //비밀번호 일치 체크
-//     if(originInput.value === checkInput.value || checkInput.value === ""){ //비밀번호가 일치하거나 빈칸일 경우
-//         warning2.innerText = '';
-//         return checkInput.value !== ""; //값이 비어있는 것은 differPwd조건에 만족은 아니다
-       
-//     } else{
-//         warning2.innerText = '비밀번호가 일치하지 않습니다';
-//         return false;
-//     }
-// }
-
-// //(비밀번호 변경) 닫기, 취소 버튼누르면 input들 초기화
-// function cancelUpdatePwd() {
-//         const pwdForm = document.querySelector("#pwdModal form"); //pwd변경 form
-//         const warnings = document.querySelectorAll("#pwdModal h5");
-    
-//         warnings.forEach(warning => {
-//             warning.innerText = '';
-//         });
-//         pwdForm.reset();
-// }
-
-// // 페이지가 로드되면 init 함수를 호출하여 초기 값을 설정
-// window.onload = init;
+    authPwdAjax({inputPwd}, res => {
+        if (res === 'NNNNY') { //비밀번호 인증 성공            
+            submitBtn.prop('disabled', false);            
+        } else {
+            alert("비밀번호가 일치하지 않습니다");
+        }
+    });
+}
