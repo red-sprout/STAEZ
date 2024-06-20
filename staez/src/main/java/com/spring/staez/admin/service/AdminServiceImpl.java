@@ -11,6 +11,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import com.spring.staez.admin.model.dao.AdminDao;
 import com.spring.staez.admin.model.dto.AdminBoardDto;
@@ -33,6 +34,9 @@ import com.spring.staez.concert.model.vo.Theater;
 import com.spring.staez.user.model.vo.Reserve;
 import com.spring.staez.user.model.vo.User;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class AdminServiceImpl implements AdminService {
 
@@ -51,6 +55,7 @@ public class AdminServiceImpl implements AdminService {
 	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public int faqInsert(Board b, int categoryNo) {
+		log.info("==== Method transaction Active : {}", TransactionSynchronizationManager.isActualTransactionActive());
 		int t1 = adminDao.faqInsert(sqlSession, b);
 	    if (t1 == 0)
 	    	throw new RuntimeException("faq가 정상적으로 insert 되지 않았습니다.");

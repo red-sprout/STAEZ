@@ -10,17 +10,24 @@
 <div class="main-content">
     <div class="main-title">
         <h2>찜목록</h2>
-        <div>
-            <button type="button" id="deleteBtn" class="btn-staez purple" onclick="deleteMyScrap()"><h4>선택삭제</h4></button>
-            <input type="checkbox" id="checkAll">
-        </div>
+        <c:if test="${not empty clist}">
+            <div>
+                <button type="button" id="deleteBtn" class="btn-staez purple" onclick="deleteMyScrap()"><h4>선택삭제</h4></button>
+                <input type="checkbox" id="checkAll">
+            </div>
+        </c:if>
     </div>
     <table>
         <tbody>
             <tr class="tb-title">
                 <th colspan="3">공연정보</th>
             </tr>
-
+            <c:if test="${empty clist}">
+                <tr class="tb-content">
+                    <td>찜공연이 없습니다</td>
+                </tr>
+            </c:if>
+            
             <c:forEach var="c" items="${clist}">
             <tr class="tb-content">
                 <td class="concert-img" onclick='location.href="${contextPath}/detail.co?concertNo=${c.concertNo}"'>
@@ -50,6 +57,7 @@
                 </td>
             </tr>
             </c:forEach>
+
         </tbody>
     </table>
 
