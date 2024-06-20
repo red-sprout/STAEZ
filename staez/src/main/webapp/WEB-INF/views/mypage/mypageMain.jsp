@@ -65,7 +65,7 @@
         <div id="my-inquire">
             <div class="table-title">
                 최근 문의내역
-                <button onclick="location.href='${contextPath}/insertForm.iq'">+</button>
+                <button onclick="location.href='${contextPath}/insertForm.iq?categoryNo=22'">+</button>
             </div>
             <table>
                 <tbody>
