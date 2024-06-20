@@ -93,6 +93,16 @@ public class MypageController {
 		return "mypage/mypageLayout";
 	}
 	
+	//결제내역 상세 페이지 출력
+	@RequestMapping("reserveDetail.me")
+	public String myInquireDetail(int reserveNo, Model model) {
+		PaymentsInfoDto pay = mypageService.selectMyInquireDetail(reserveNo);
+		
+		model.addAttribute("inquire", pay);
+		
+		return "mypage/paymentsDetail";
+	}
+	
 	//찜목록 리스트 페이지 출력
 	@RequestMapping("scrapList.me")
 	public String myScrapList(int cpage, HttpSession session, Model model) {
@@ -528,6 +538,7 @@ public class MypageController {
 	
 	}
 	
+	//한줄평 삭제
 	@ResponseBody
 	@RequestMapping("deleteReview.me")
 	public String deleteOneLineReviewAjax(int reviewNo) {

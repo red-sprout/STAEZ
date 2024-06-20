@@ -20,6 +20,9 @@ public class PaymentsInfoDto {
 	private String grade;
 	private int price;
 	private String payMethod;
+	private String rName;
+	private String rPhone;
+	private Date rBirth;
 	
 	private int reserveRow;
 	private int reserveCol;

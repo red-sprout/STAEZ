@@ -240,7 +240,7 @@
 		SELECT COUNT(reserve_no)
 		FROM reserve
 		WHERE user_no = #{userNo}
-		AND reserve_status='Y'
+		AND reserve_status IN ('Y', 'U')
 	</select>
 	
 	<select id="selectPaymentsList" resultType="com.spring.staez.user.model.dto.PaymentsInfoDto">
@@ -273,7 +273,7 @@
 		AND r.reserve_row BETWEEN seat_start_row AND seat_end_row 
 		AND r.reserve_col BETWEEN seat_start_col AND seat_end_col
 		AND r.concert_date = s.concert_date
-		AND r.reserve_status='Y'
+		AND r.reserve_status IN ('Y', 'U')
 		
 		ORDER BY r.reserve_no DESC
 	</select>
@@ -516,7 +516,7 @@
 			  FROM reserve
 			  JOIN concert USING (concert_no)
 			  WHERE user_no = #{userNo}
-		      AND reserve_status = 'Y'
+		      AND reserve_status IN ('Y', 'U')
 			  GROUP BY concert_no, reserve_date, concert_title, concert_date, schedule, pay_method
 			  ORDER BY reserve_date DESC)
 		LIMIT 5

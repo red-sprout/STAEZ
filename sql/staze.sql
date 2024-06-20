@@ -784,7 +784,8 @@ CREATE TABLE public.reserve
     concert_date date NOT NULL,
     reserve_status character varying(1) NOT NULL CHECK(reserve_status IN ('Y', 'U', 'N')) DEFAULT 'U',
 	/*활성화된(결제된)예약(Y), 결제전예약(U) 만료된예약(N)*/
-    schedule character varying(20) NOT NULL
+    schedule character varying(20) NOT NULL,
+	UNIQUE(concert_no, reserve_row, reserve_col, concert_date, schedule)
 );
 
 ALTER TABLE IF EXISTS public.reserve

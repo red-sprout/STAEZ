@@ -7,15 +7,17 @@ $(function(){
                     $(reserve).append(`<tr></tr>`);
                 } else{
                     const reserveDate = changeTimeFormat(res[i].reserveDate);
-                    const concertDate = changeDateFormat(res[i].concertDate);
-                    const startTime = res[i].schedule.substr(0, 5);
                     $(reserve).append(`<tr>
                                             <td><h5>${reserveDate}</h5></td>
                                             <td align="left" onclick="location.href='${contextPath}detail.co?concertNo=${res[i].concertNo}'">
                                                 <h4>${res[i].concertTitle}</h4>
                                             </td>
-                                            <td><h5>${concertDate} ${startTime}</h5></td>
                                             <td><h5>${res[i].tickets}</h5></td>
+                                            <td>
+                                                <button class="btn-staez">
+                                                    <h5>결제하기</h5>
+                                                </button>
+                                            </td>
                                         </tr>`);
                 }
             }

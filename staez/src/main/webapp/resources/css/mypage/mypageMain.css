@@ -98,13 +98,33 @@
 .main-content>#reserve-td>table th{
     border-bottom: solid 1px black;
     text-align: center;
+
+    position: relative;
+}
+
+.main-content>#reserve-td>table th::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    height: 50%; /* border의 높이를 th의 50%로 설정 */
+    border-right: 1px solid #969696; /* 원하는 border 스타일 설정 */
+}
+
+.main-content>#reserve-td>table th:nth-child(4)::after {
+    border-right: none;
 }
 
 .main-content>#reserve-td>table td{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    padding: 0 15px;
 }
+
+
 
 /*예매시간*/
 .main-content>#reserve-td>table #reserve-time{
@@ -115,13 +135,17 @@
 .main-content>#reserve-td>table #concert-title{
     width: 480px;
 }
-/*상연일*/
-.main-content>#reserve-td>table #watch-date{
-    width: 140px;
-}
 /*티켓매수*/
 .main-content>#reserve-td>table #ticket-amount{
     width: 60px;
+}
+/*결제하기 버튼*/
+.main-content>#reserve-td>table #reserve-btn{
+    width: 140px;
+}
+
+.btn-staez{
+    margin: 0;
 }
 
 .main-content>#like-and-review{
