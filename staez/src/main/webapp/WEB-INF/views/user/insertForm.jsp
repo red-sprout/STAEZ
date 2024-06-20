@@ -230,7 +230,7 @@
                         <td colspan="4">
                             <div class="insert-member-div">
                                 <button type="button" id="backButton">이전</button>
-                                <button type="submit" id="submitButton" onsubmit="return validateForm()">회원가입</button>
+                                <button type="submit" id="submitButton" onsubmit="return validateForm()" disabled>회원가입</button>
                             </div>
                         </td>
                     </tr>
