@@ -113,6 +113,19 @@
         width: 250px !important;
         /* height: 350px; */
     }
+
+    /* 슬라이드 사진 반투명 검게 */
+    .slick-slide::after{
+        content: "";
+        opacity: 0.5;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        background-color: #000;
+        border-radius: 5px;
+    }
     
     .slick-list {
         margin: 20px;
@@ -133,6 +146,7 @@
         width: 100%;
         text-align: center;
         flex-wrap: wrap;
+        z-index: 1000;
     }
     .concert-main-upper-sen-div span{
         font-size: 1.2rem;
