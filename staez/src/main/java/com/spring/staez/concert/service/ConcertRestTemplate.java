@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.web.client.RestTemplate;
@@ -31,8 +30,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-@Transactional
-public class ConcertRestTemplate {
+@Transactional(rollbackFor = {Exception.class})
+public class ConcertRestTemplate implements ConcertRestService {
 	
 	private final SqlSessionTemplate sqlSession;
 	
@@ -41,6 +40,7 @@ public class ConcertRestTemplate {
 	@Value("${concert.service.key}")
 	private String serviceKey;
 	
+	@Override
 	public URI makeUriDetail() {
 	    return UriComponentsBuilder
 	            .fromUriString("http://kopis.or.kr/")
@@ -56,7 +56,8 @@ public class ConcertRestTemplate {
 	            .toUri();
 	}
 	
-    public ArrayList<ConcertDto> parseConcertData(String responseData) {
+    @Override
+	public ArrayList<ConcertDto> parseConcertData(String responseData) {
     	// Gson 인스턴스 생성
     	Gson gson = new Gson();
     	// List<ConcertDTO> 타입을 나타내는 TypeToken 생성
@@ -67,6 +68,7 @@ public class ConcertRestTemplate {
     	return new ArrayList<>(concertList);
     }
 	
+	@Override
 	public void requestConcertApi() {
 		URI uri = makeUriDetail();
         // API 호출 로직
@@ -87,7 +89,8 @@ public class ConcertRestTemplate {
         }
     }
 	
-	@Transactional(propagation = Propagation.REQUIRED)
+	@Override
+	@Transactional
 	public void concertTotalApiInsert(ArrayList<ConcertDto> concertList) {
 		log.info("==== outMethod start ====");
 		log.info("==== outMethod transaction Active : {}", TransactionSynchronizationManager.isActualTransactionActive());
@@ -111,8 +114,8 @@ public class ConcertRestTemplate {
         }
         log.info("==== outMethod end ====");
 	}
-	
-	@Transactional
+
+	@Override
 	public void concertApiInsert(ConcertDto concertDto) {
 		log.info("==== innerMethod concertApiInsert start ====");
 		log.info("==== innerMethod concertApiInsert transaction Active : {}", TransactionSynchronizationManager.isActualTransactionActive());
@@ -121,8 +124,8 @@ public class ConcertRestTemplate {
 			throw new RuntimeException("concert table 삽입 실패");
 		log.info("==== innerMethod concertApiInsert end ====");
 	}
-	
-	@Transactional
+
+	@Override
 	public void concertAttatchmentApiInsert(ConcertDto concertDto) {
 		log.info("==== innerMethod concertAttatchmentApiInsert start ====");
 		log.info("==== innerMethod concertAttatchmentApiInsert transaction Active : {}", TransactionSynchronizationManager.isActualTransactionActive());
@@ -132,7 +135,7 @@ public class ConcertRestTemplate {
 		log.info("==== innerMethod concertAttatchmentApiInsert end ====");
 	}
 	
-	@Transactional
+	@Override
 	public void concertScheduleApiInsert(ConcertDto concertDto) {
 		log.info("==== innerMethod concertScheduleApiInsert start ====");
 		log.info("==== innerMethod concertScheduleApiInsert transaction Active : {}", TransactionSynchronizationManager.isActualTransactionActive());

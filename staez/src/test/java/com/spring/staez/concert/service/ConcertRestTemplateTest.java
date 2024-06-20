@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ConcertRestTemplateTest {
 	
 	@Autowired
-	private ConcertRestTemplate concertRestTemplate;
+	private ConcertRestService concertRestTemplate;
 	
 	@Test
 	@Transactional
