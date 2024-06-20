@@ -308,6 +308,10 @@
 .concert-day-title-area span{
     font-size: 18px;
     font-weight: 600;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .concert-day-img-description-area{
@@ -352,6 +356,13 @@
     font-weight: 400;
     width: 110px;
     text-align: left;
+}
+
+.theater-name-span{
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .hidden{
