@@ -4,14 +4,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // 이메일
     sgininemail();
     // 이메일 인증 전송 버튼 이벤트 리스너 등록
-    $("#emailCheckButton").on('click', (ev) => {
-        // 클릭 이벤트 발생 시 서버로 이메일 인증 요청 보내기
-        const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
-        // 클릭 못하게 설정
-        document.getElementById("emailCheckButton").disabled = true;
-        sendEmailVerificationRequest(emailInput); // 이메일 인증 요청 보내는 함수 호출
-        alert("인증번호가 전송되었습니다 잠시만 기다려주세요.");
-    });
+    const emailCheckButton = document.getElementById("emailCheckButton");
+    if (emailCheckButton) {
+        emailCheckButton.addEventListener('click', (ev) => {
+            ev.preventDefault(); // 버튼 클릭 시 기본 동작 막기
+            const nameInput = $("#input-value-id").val();
+            const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
+            document.getElementById("emailCheckButton").disabled = true;
+            verifyNameAndEmail(nameInput, emailInput); // 이메일 인증 요청 보내는 함수 호출
+            alert("인증번호가 전송되었습니다 잠시만 기다려주세요.");
+        });
+    }
     // UUID 이메일 체크
     emailSecretCode();
     // 버튼 클릭 시 색상변경
@@ -133,14 +136,16 @@ function checkAuthNum() {
 // 이메일 인증 코드 전송 함수
 function sendVerificationCode() {
     const emailInput = document.getElementById("input-value-email").value;
+    const nameInput = document.getElementById("input-value-name").value;
 
-    if (emailInput.trim().length > 0) {
-        sendEmailVerificationRequest(emailInput); // AJAX 호출 함수 호출
+    if (nameInput.trim().length > 0 && emailInput.trim().length > 0) {
+        verifyNameAndEmail(nameInput, emailInput); // 이름과 이메일 검증 함수 호출
     }
 }
 
 // 서버로부터의 이메일 인증 응답을 처리
 function handleEmailCheckResponse(response) {
+    console.log("handleEmailCheckResponse 응답: " + response); // 응답 로그 추가
     const emailCheckResult = document.getElementById("verificationEmailTr");
     emailCheckResult.style.display = "table-row";
     const verificationMessage = document.getElementById("verification-message");
@@ -154,6 +159,10 @@ function handleEmailCheckResponse(response) {
         verificationMessage.style.color = "green";
         verificationMessage.innerText = "인증번호가 성공적으로 전송되었습니다!";
         startTimer();
+    } else if (response === "emailCheck Invalid") {
+        document.getElementById("emailCheckButton").disabled = false;
+        verificationMessage.style.color = "red";
+        verificationMessage.innerText = "해당 정보가 없습니다 다시 입력해주세요!";
     }
 }
 
@@ -354,9 +363,8 @@ function clickIdPhoneEmail() {
     let id = document.getElementById("input-value-id").value;
     let phone = document.getElementById("input-value-phone").value;
     let email = document.getElementById("input-value-email").value;
-    let userName = document.getElementById("user_name").value;
 
-    clickIdPhoneEmailSelect({ userId: id, phone: phone, email: email, user_name: userName }, function(res) {
+    clickIdPhoneEmailSelect({ userId: id, phone: phone, email: email}, function(res) {
         if (res.trim() === "New Pwd Go") {
             // 모달을 보이게 함
             $('#myModal').modal('show');

@@ -99,6 +99,13 @@
 		)
 	</insert>
 	
+	<!-- 회원가입시 이메일 중복체크 -->
+	<select id="emailCheck" resultMap="userResult">
+		SELECT email
+		  FROM staez_user
+		 WHERE email = #{email}
+	</select>
+	
 	<!-- 간편로그인 이메일 유무 확인 (네이버, 카카오, 구글) -->
 	<select id="findUserByEmail" parameterType="string" resultMap="userResult">
 	    SELECT * 
@@ -147,7 +154,6 @@
 	     WHERE user_id = #{userId}
 	       AND phone = #{phone}
 	       AND email = #{email}
-	       AND user_name = #{user_name}
 	</select>
 	
 	<!-- 새로운 비밀번호 저장 -->
@@ -157,7 +163,6 @@
 	    WHERE user_id = #{userId} 
 	      AND phone = #{phone} 
 	      AND email = #{email}
-	      AND user_name = #{user_name}
 	</update>
 	
 	<!-- 이메일 존재 여부 확인 -->
@@ -173,6 +178,14 @@
 	    SET authNo = #{authNo}, send_time = NOW()
 	    WHERE email = #{email}
 	</update>
+	
+	<!-- 아이디/비번 찾기 중 이메일과 이름이 일치하는지 -->
+    <select id="emailbyIdCheck" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM staez_user
+        WHERE user_name = #{user_name}
+        AND email = #{email}
+    </select>
 	
 </mapper>
 

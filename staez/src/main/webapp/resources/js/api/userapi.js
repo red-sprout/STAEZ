@@ -31,6 +31,22 @@ function sendEmailVerificationRequest(emailInput) {
         url: "emailCheck.me",
         data: { email: emailInput },
         success: function(response) {
+            console.log("서버 응답: " + response); // 서버 응답 로그 출력
+            handleEmailCheckResponse(response);
+        },
+        error: function() {
+            alert("이미 전송 처리했습니다. 번호가 틀리다면 재전송을 누른 후 다시 전송버튼을 누르세요.");
+        }
+    });
+}
+
+// 이메일 인증 요청을 서버로 보내는 함수
+function verifyNameAndEmail(nameInput, emailInput) {
+    $.ajax({
+        url: "emailbyName.me",
+        data: { checkEmail: emailInput, userName: nameInput },
+        success: function(response) {
+            console.log("서버 응답: " + response); // 서버 응답 로그 출력
             handleEmailCheckResponse(response);
         },
         error: function() {

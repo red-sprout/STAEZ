@@ -67,7 +67,7 @@ public class LoginController {
          session.setAttribute("alertMsg", "아이디 또는 패스워드가 일치하지 않습니다.");
          return "user/loginForm";
       } else {
-         session.setAttribute("loginUser", loginUser);         
+         session.setAttribute("loginUser", loginUser);
          return "redirect:/";
       }
    }
@@ -139,7 +139,6 @@ public class LoginController {
             JsonObject memberInfo = JsonParser.parseString(responseBody).getAsJsonObject();
             JsonObject resObj = memberInfo.getAsJsonObject("response");
             
-            System.out.println("resObj : " + resObj);
             //받아온 email과 데이터베이스의 email을 비교하여 가입유무 확인 후
             //가입되어있다면 로그인, 아니라면 회원가입창으로 정보를 가지고 이동
             

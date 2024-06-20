@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
     emailSecretCode();
     // 버튼 클릭시 색상변경
     checkButton();
+    // 생년월일
+    DateInput();
 });
 // 닉네임 중복체크
 function nicknameCheck() {
@@ -179,6 +181,61 @@ function signinPwdCheck(){
     });
 }
 
+// 생년월일 다음날 설정 불가
+function DateInput(){
+    const birthDateInput = document.getElementById('birthDate');
+    const today = new Date();
+
+    // 오늘 날짜 형식으로 포맷팅
+    const todayStr = today.toISOString().split('T')[0];
+
+    birthDateInput.setAttribute('max', todayStr);
+}
+// 핸드폰 번호 전송 처리
+function signinPhoneNumber (){
+    const prefixElement = document.getElementById("phone-prefix");
+    const suffix1Element = document.getElementById("phone-suffix1");
+    const suffix2Element = document.getElementById("phone-suffix2");
+    const inputValueElement = document.getElementById("input-value-phone");
+
+    function updatePhoneNumber() {
+        const prefix = prefixElement.innerText;
+        const suffix1 = suffix1Element.value;
+        const suffix2 = suffix2Element.value;
+        const phoneNumber = prefix + suffix1 + suffix2;
+        inputValueElement.value = phoneNumber;
+    }
+    suffix1Element.addEventListener('input', updatePhoneNumber);
+    suffix2Element.addEventListener('input', updatePhoneNumber);
+}
+// 핸드폰 번호 전송 처리
+function sendPhoneNumber() {
+    // input-value-phone 요소를 가져옵니다.
+    var inputValueElement = document.getElementById("input-value-phone");
+    if (!inputValueElement) {
+        console.error("input-value-phone 요소를 찾을 수 없습니다.");
+        return;
+    }
+    // phone-prefix 요소가 존재하는지 확인
+    var prefixElement = document.getElementById("phone-prefix");
+    if (!prefixElement) {
+        console.error("phone-prefix 요소를 찾을 수 없습니다.");
+        return;
+    }
+    // 010 부분 가져오기
+    var prefix = prefixElement.innerText;
+
+    // 각 번호 입력란의 값 가져오기
+    var suffix1 = document.getElementById("phone-suffix1").value;
+    var suffix2 = document.getElementById("phone-suffix2").value;
+
+    // 전체 번호 조합하여 표시
+    var phoneNumber = prefix + suffix1 + suffix2;
+
+    // input-value-phone 필드에 번호 설정
+    inputValueElement.value = phoneNumber;
+}
+
 let authNo;
 
 // 폰 인증
@@ -199,7 +256,7 @@ function phoneClick() {
             console.log('인증번호 : ' + authNo);
             console.log('전송한 휴대폰번호 : ' + phoneInputValue);
 
-            startPTimer(); // 1분 타이머 시작
+            startPTimer(); //  타이머 시작
             $("#check_PhoneSecretBtn").prop('disabled', false); // 인증확인 버튼 활성화
         } else {
             verificationPhoneTr.style.display = "table-row";
@@ -257,6 +314,10 @@ function handleEmailCheckResponse(response) {
         verificationMessage.style.color = "green";
         verificationMessage.innerText = "인증번호가 성공적으로 전송되었습니다!";
         startTimer(); // 3분 타이머 시작
+    } else if(response === "emailCheck Duplicated"){
+        document.getElementById("emailCheckButton").disabled = false;
+        verificationMessage.style.color = "red";
+        verificationMessage.innerText = "이미 등록된 이메일입니다. 다시 입력 해주세요!";
     }
 }
 
@@ -271,6 +332,8 @@ function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput) {
     } else if (result === "emailSecretCodeCheck Yes") {
         userEmailErrorMessage.style.color = "green";
         userEmailErrorMessage.innerText = "인증이 확인되었습니다.";
+        clearInterval(timer); // 타이머 정지
+        
     } else {
         userEmailErrorMessage.style.color = "red";
         userEmailErrorMessage.innerText = "인증을 확인할 수 없습니다.";

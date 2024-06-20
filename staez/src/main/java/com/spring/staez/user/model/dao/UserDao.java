@@ -32,6 +32,11 @@ public class UserDao {
 		return sqlSession.insert("userMapper.insertUser", u);
 	}
 	
+	// 회원가입시 이메일 중복체크
+	public User emailCheck(SqlSessionTemplate sqlSession2, String email) {
+		return sqlSession.selectOne("userMapper.emailCheck", email);
+	}
+	
 	// 간편로그인 이메일 유무 확인 (네이버, 카카오, 구글)
     public User findUserByEmail(SqlSessionTemplate sqlSession, String email) {
         return sqlSession.selectOne("userMapper.findUserByEmail", email);
@@ -79,23 +84,21 @@ public class UserDao {
 	}
 	
 	// 유효성 검사 및 사용자 정보 확인
-	public String findUserByIdEmailPhone(SqlSessionTemplate sqlSession, String user_id, String phone, String email, String user_name) {
+	public String findUserByIdEmailPhone(SqlSessionTemplate sqlSession, String user_id, String phone, String email) {
 	    Map<String, Object> params = new HashMap<>();
 	    params.put("userId", user_id);
 	    params.put("phone", phone);
 	    params.put("email", email);
-	    params.put("user_name", user_name);
 	    String result = sqlSession.selectOne("userMapper.findUserByIdEmailPhone", params);
 	    return result;
 	}
 
 	//새로운 비밀번호 저장
-	public int updatePassword(SqlSessionTemplate sqlSession, String user_id, String phone, String email, String user_name, String encPwd) {
+	public int updatePassword(SqlSessionTemplate sqlSession, String user_id, String phone, String email, String encPwd) {
 	    Map<String, Object> params = new HashMap<>();
 	    params.put("userId", user_id);
 	    params.put("phone", phone);
 	    params.put("email", email);
-	    params.put("user_name", user_name);
 	    params.put("encPwd", encPwd);
 
 	    int result = sqlSession.update("userMapper.updatePassword", params);
@@ -111,5 +114,16 @@ public class UserDao {
 	    params.put("authNo", authNo);
 		return sqlSession.insert("userMapper.updateEmailAuth", params);
 	}
+	
+    // 아이디/비번 찾기 중 이메일과 이름이 일치하는지
+    public int emailbyIdCheck(String checkEmail, String userName) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("email", checkEmail);
+        params.put("user_name", userName);
+        Integer result = sqlSession.selectOne("userMapper.emailbyIdCheck", params);
+        System.out.println("DAO emailbyIdCheck result: " + result);
+        return result != null ? result : 0;
+    }
+	
 
 }

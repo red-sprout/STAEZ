@@ -38,13 +38,7 @@
                         <td  class="email-container">
                             <input type="text" id="input-value-id" name="userId" required>
                         </td>
-                    </tr>
-                    <tr>
-                        <th>이름</th>
-                        <td colspan="1">
-                            <input type="text" name="user_name" id="user_name"  required >
-                        </td>
-                    </tr>    
+                    </tr>   
                     <tr>
                         <th>휴대폰 번호</th>
                         <td class="email-container" colspan="5" >

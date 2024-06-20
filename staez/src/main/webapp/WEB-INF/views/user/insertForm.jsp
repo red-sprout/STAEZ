@@ -135,7 +135,7 @@
                     <tr>
                         <th>생년월일</th>
                         <td colspan="5" class="email-container">
-                            <input type="date" name="birth" required>
+                            <input type="date" name="birth" id="birthDate" required>
                         </td>   
                     </tr>
                     <tr>
@@ -230,7 +230,7 @@
                         <td colspan="4">
                             <div class="insert-member-div">
                                 <button type="button" id="backButton">이전</button>
-                                <button type="submit" id="submitButton" onsubmit="return validateForm()">다음</button>
+                                <button type="submit" id="submitButton" onsubmit="return validateForm()">회원가입</button>
                             </div>
                         </td>
                     </tr>
