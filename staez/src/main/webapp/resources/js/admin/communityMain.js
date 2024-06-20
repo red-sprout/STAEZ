@@ -63,7 +63,7 @@ function drawBoard(board) {
     tr.appendChild(nickname);
 
     const title = document.createElement("td");
-    title.innerHTML = simpleTextView(board.boardTitle);
+    title.innerText = simpleTextView(board.boardTitle);
     tr.appendChild(title);
 
     const content = document.createElement("td");
@@ -89,13 +89,10 @@ function drawBoard(board) {
     return tr;
 }
 
-// 글자 수 줄이기, 태그 제거
 function simpleTextView(realValue) {
     let result = realValue;
-    removableTags.forEach((tag) => result = result.replaceAll(tag, " "));
     if (result.length > 20) {
-        result = result.substring(0, 20);
-        result += "...";
+        result = "...";
     }
     return result;
 }

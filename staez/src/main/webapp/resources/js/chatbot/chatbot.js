@@ -2,7 +2,12 @@ async function getRecommendation() {
     const genre = document.getElementById('genre').value;
     const preferences = document.getElementById('preferences');
     
-    if (!genre || !preferences.value) {
+    if (!genre) {
+        alert("마이페이지에서 선호 장르를 설정하시기 바랍니다.");
+        return;
+    }
+
+    if (!preferences.value) {
         alert("AI가 참고할 수 있는 내용을 입력하시기 바랍니다.");
         return;
     }

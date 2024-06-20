@@ -58,7 +58,10 @@ public class ConcertController {
 	@RequestMapping(value = "detail.co", produces="application/json; charset=UTF-8")
 	public String selectCon(@RequestParam(value = "concertNo") String concertNo, Model model) {
 		Concert con = concertService.selectCon(Integer.parseInt(concertNo));
+		
+		// 한줄평 몇개인가?
 		ArrayList<ConcertReview> conComDlist =  concertService.selectComDetail(Integer.parseInt(concertNo));
+		
 		ArrayList<Board> conRevDlist =  concertService.selectRevDetail(Integer.parseInt(concertNo));
 		// 공연세부페이지 공연 가격
 		ArrayList<Seat> s =  concertService.selectSeatPrice(Integer.parseInt(concertNo));
@@ -119,6 +122,14 @@ public class ConcertController {
 		} else {
 			return "좋아요 실패";
 		}
+	}
+	
+	// 별점
+	@ResponseBody
+	@RequestMapping(value = "concertStar.co", produces="application/json; charset=UTF-8")
+	public String concertStar(@RequestParam(value = "concertNo")String concertNo) {
+		ArrayList<ConcertReview> star =  concertService.selectComDetail(Integer.parseInt(concertNo));
+		return new Gson().toJson(star);
 	}
 	
 	

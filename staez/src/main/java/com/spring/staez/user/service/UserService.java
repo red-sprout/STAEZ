@@ -18,6 +18,9 @@ public interface UserService {
 	//회원가입
 	int insertUser(User u);
 	
+	// 회원가입시 이메일 중복체크
+	public User emailCheck(String email);
+	
 	// 간편로그인 이메일 유무 확인 (네이버, 카카오, 구글)
 	User findUserByEmail(String email);
 	
@@ -33,13 +36,20 @@ public interface UserService {
     // 이메일로 아이디찾기
     String findEmailCheck(String checkFindEmail, String userName);
 
+    // 핸드폰으로 아이디찾기
+    String findPhoneCheck(String checkFindPhone, String userName);
+    
 	// 유효성 검사 및 사용자 정보 확인
-	String findUserByIdEmailPhone(String user_id, String phone, String email, String user_name);
+	String findUserByIdEmailPhone(String user_id, String phone, String email);
 
 	// 새로운 비밀번호 저장
-	int updatePassword(String user_id, String phone, String email, String user_name, String encPwd);
+	int updatePassword(String user_id, String phone, String email, String encPwd);
 
 	// 이메일 인증 완료하면 정보 업데이트(테이블에 이메일 데이터 있을때)
 	int updateEmailAuth(String email, String authNo);
+
+	// 아이디/비번 찾기 중 이메일과 이름이 일치하는지
+	int emailbyIdCheck(String checkEmail, String userName);
+
 
 }

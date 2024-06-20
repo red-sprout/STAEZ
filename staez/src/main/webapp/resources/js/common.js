@@ -16,7 +16,7 @@ const boardCodeMap = {
     report: 5
 }
 
-const removableTags = ["<p>", "</p>", "<div>", "</div>"];
+const removableTags = ["<p>", "</p>", "<div>", "</div>", "<br>"];
 
 // function init() {
 //     const url = window.location.pathname.split("/")[2];
@@ -38,7 +38,6 @@ function init() {
     if (regex.test(url)) {
         menubar.forEach((item) => {
             const itemUrl = item.getAttribute('href').split("/").pop();
-            console.log(itemUrl);
             if (itemUrl === url) {
                 item.style.color = "#B51B75";
             }

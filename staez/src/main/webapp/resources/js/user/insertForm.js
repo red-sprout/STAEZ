@@ -3,8 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     nicknameCheck();
     // 사용자 아이디 중복 체크
     signinIdCheck();
-    // 핸드폰 번호 전송 처리
-    signinPhoneNumber();
     // 비밀번호 본인확인 버튼
     signinPwdCheck();
     // SubmitButton 제출
@@ -13,6 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
     backPage();
     // 관심장르 3개이상 못고르게하면서 값 출력되도록
     sginingenreLike();
+    // 핸드폰 번호 전송 처리
+    signinPhoneNumber();
     // 이메일
     sgininemail();
     // 이메일 인증 전송 버튼 이벤트 리스너 등록
@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // 클릭 이벤트 발생 시 서버로 이메일 인증 요청 보내기
         const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
         // 클릭 못하게 설정
-        document.getElementById("emailCheckButton").disabled = true;
         sendEmailVerificationRequest(emailInput); // 이메일 인증 요청 보내는 함수 호출
         alert("인증번호가 전송되었습니다 잠시만 기다려주세요.");
     });
@@ -28,6 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
     emailSecretCode();
     // 버튼 클릭시 색상변경
     checkButton();
+    // 생년월일
+    DateInput();
 });
 // 닉네임 중복체크
 function nicknameCheck() {
@@ -178,6 +179,17 @@ function signinPwdCheck(){
         togglePasswordVisibility(inputField, isMouseDown);
     });
 }
+
+// 생년월일 다음날 설정 불가
+function DateInput(){
+    const birthDateInput = document.getElementById('birthDate');
+    const today = new Date();
+
+    // 오늘 날짜 형식으로 포맷팅
+    const todayStr = today.toISOString().split('T')[0];
+
+    birthDateInput.setAttribute('max', todayStr);
+}
 // 핸드폰 번호 전송 처리
 function signinPhoneNumber (){
     const prefixElement = document.getElementById("phone-prefix");
@@ -223,6 +235,58 @@ function sendPhoneNumber() {
     inputValueElement.value = phoneNumber;
 }
 
+let authNo;
+
+// 폰 인증
+function phoneClick() {
+    const phoneInputValue = document.getElementById("input-value-phone").value;
+    var verificationPhoneTr = document.getElementById("verificationPhoneTr");
+    var PverificationMessage = document.getElementById("Pverification-message");
+
+    authNo = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+    $('#phoneCheck').prop('checked', false);
+    verificationPhoneTr.style.display = "table-row";
+
+    sendPhoneAuthNoAjax({ authNo, PhoneInput: phoneInputValue }, function(res) {
+        if (res === "NNNNY") {
+            verificationPhoneTr.style.display = "table-row";
+            PverificationMessage.style.color = "green";
+            PverificationMessage.innerHTML = "인증번호가 전송되었습니다.";
+            console.log('인증번호 : ' + authNo);
+            console.log('전송한 휴대폰번호 : ' + phoneInputValue);
+
+            startPTimer(); //  타이머 시작
+            $("#check_PhoneSecretBtn").prop('disabled', false); // 인증확인 버튼 활성화
+        } else {
+            verificationPhoneTr.style.display = "table-row";
+            PverificationMessage.style.color = "red";
+            PverificationMessage.innerHTML = "전송에 실패했습니다. 핸드폰 번호를 다시 한번 확인해주세요.";
+        }
+    });
+}
+
+// 폰 인증 확인
+function checkAuthNum() {
+    const inputCode = document.getElementById("Pverification-code").value;
+    var checkResultPhoneTr = document.getElementById("checkResultPhoneTr");
+    var userPhoneErrorMessage = document.getElementById("userPhoneErrorMessage");
+    if (authNo !== inputCode) {
+        checkResultPhoneTr.style.display = "table-row";
+        userPhoneErrorMessage.style.color = "red";
+        userPhoneErrorMessage.innerHTML = "인증 실패 다시 한번 확인해주세요.";
+    } else {
+        checkResultPhoneTr.style.display = "table-row";
+        userPhoneErrorMessage.style.color = "green";
+        userPhoneErrorMessage.innerHTML = "인증에 성공하였습니다";
+
+        clearInterval(ptimer); // 타이머 정지
+        $("#check_PhoneSecretBtn").prop('disabled', true); // 인증확인 버튼 비활성화
+        $("#phoneCheckButton").prop('disabled', true); // 인증번호 전송 버튼 비활성화
+        $("#Pverification-code").prop('readonly', true); // 인증번호 입력 필드 읽기 전용
+        $('#phone-suffix1').prop('readonly', true); // 전화번호 필드 읽기 전용
+        $('#phone-suffix2').prop('readonly', true); // 전화번호 필드 읽기 전용
+    }
+}
 
 // 이메일 인증 코드 전송 함수
 function sendVerificationCode() {
@@ -241,14 +305,15 @@ function handleEmailCheckResponse(response) {
     const verificationMessage = document.getElementById("verification-message");
 
     if (response === "emailCheck No") {
-        document.getElementById("emailCheckButton").disabled = false;
         verificationMessage.style.color = "red";
         verificationMessage.innerText = "인증번호 전송이 실패했습니다 다시 입력해주세요!";
     } else if (response === "emailCheck Yes") {
-        document.getElementById("emailCheckButton").disabled = true;
         verificationMessage.style.color = "green";
         verificationMessage.innerText = "인증번호가 성공적으로 전송되었습니다!";
         startTimer(); // 3분 타이머 시작
+    } else if(response === "emailCheck Duplicated"){
+        verificationMessage.style.color = "red";
+        verificationMessage.innerText = "이미 등록된 이메일입니다. 다시 입력 해주세요!";
     }
 }
 
@@ -263,6 +328,8 @@ function callbackEmailSecret(result, emailSecretCheckResult, emailSecretInput) {
     } else if (result === "emailSecretCodeCheck Yes") {
         userEmailErrorMessage.style.color = "green";
         userEmailErrorMessage.innerText = "인증이 확인되었습니다.";
+        clearInterval(timer); // 타이머 정지
+        
     } else {
         userEmailErrorMessage.style.color = "red";
         userEmailErrorMessage.innerText = "인증을 확인할 수 없습니다.";
@@ -297,14 +364,14 @@ let ptimer;
 
 // 핸드폰 타이머 시작 함수
 function startPTimer() {
-    clearInterval(ptimer); 
+    clearInterval(ptimer); // 기존 타이머가 있으면 제거
 
-    var duration = 3 * 60;
-    var ptimerDisplay = document.getElementById('Ptimer');
+    let duration = 3 * 60;
+    const ptimerDisplay = document.getElementById('Ptimer');
 
-    ptimer = setInterval(function () {
-        var minutes = parseInt(duration / 60, 10);
-        var seconds = parseInt(duration % 60, 10);
+    ptimer = setInterval(function() {
+        const minutes = parseInt(duration / 60, 10);
+        const seconds = parseInt(duration % 60, 10);
 
         ptimerDisplay.textContent = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
         duration--;
@@ -312,9 +379,29 @@ function startPTimer() {
         if (duration < 0) {
             clearInterval(ptimer);
             ptimerDisplay.textContent = "시간 초과";
+
+            // 시간 초과 시 인증 실패 메시지 표시
+            var checkResultPhoneTr = document.getElementById("checkResultPhoneTr");
+            var userPhoneErrorMessage = document.getElementById("userPhoneErrorMessage");
+            checkResultPhoneTr.style.display = "table-row";
+            userPhoneErrorMessage.style.color = "red";
+            userPhoneErrorMessage.innerHTML = "인증 실패 다시 한번 확인해주세요.";
+
+            $("#check_PhoneSecretBtn").prop('disabled', true); // 인증확인 버튼 비활성화
         }
     }, 1000);
 }
+
+// "인증번호 전송" 버튼 클릭 이벤트 핸들러 등록
+document.getElementById("phoneCheckButton").addEventListener("click", function() {
+    phoneClick();
+    $("#check_PhoneSecretBtn").prop('disabled', false); // 인증확인 버튼 활성화
+});
+
+// "인증확인" 버튼 클릭 이벤트 핸들러 등록
+document.getElementById("check_PhoneSecretBtn").addEventListener("click", function() {
+    checkAuthNum();
+});
 
 // 이메일 타이머 시작 함수
 function startTimer() {
@@ -510,7 +597,6 @@ function signinSubmitButton(){
             userIdCheckResult.innerText !== "사용가능한 아이디입니다." ||
             passwordMessage.innerText !== "비밀번호가 일치합니다." ||
             emailSecretCheckResult.innerText !== "인증이 확인되었습니다.") {
-            alert("입력값이 올바르지 않습니다. 모든 필수 입력란을 작성해주세요.");
             return false; // 폼 제출을 막음
         }
         return true; // 폼 제출을 허용
@@ -536,6 +622,4 @@ function signinSubmitButton(){
         });
     });
 }
-
-
 
