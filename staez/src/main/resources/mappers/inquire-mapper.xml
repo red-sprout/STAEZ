@@ -73,7 +73,7 @@
 	</select>
 	
 	<select id="selectFaq" resultMap="boardResult">
-		select b.board_no, b.board_title, b.board_content, c.category_name
+		select b.board_no, b.board_title, b.board_content, c.category_name, c.category_no
 		from board b
 		join board_category bc on (b.board_no = bc.board_no)
 		join category c on (bc.category_no = c.category_no)

@@ -13,6 +13,7 @@ function showAdvertisements() {
    
     for (let i = 0; i < advertisements.length; i++) {
         advertisements[i].style.display = "none";
+        advertisements[i].classList.remove("hidden")
     }
     slideIndex++;
     if (slideIndex > advertisements.length) {
@@ -57,15 +58,26 @@ function drawOption(category){
     },(lcConcerts) => drawLatestConcert(lcConcerts, categoryNo2))
 }
 function drawPopularConcert(pcConcerts, categoryNo1){
-   
+    
     const pcConsertsArea = document.querySelector(".popularity-concert-information-slider");
     pcConsertsArea.innerHTML = ``;
+    
     if(pcConcerts.length != 0){
         for (let c of pcConcerts){
+            let categoryName;
+            let mapping;
+            if(c.originName === 'api'){
+                console.log()
+                categoryName = '연극'
+                mapping = `condeapi.co?concertId=`+c.concertPlot;
+            }else{
+                categoryName = c.categoryName;
+                mapping = `detail.co?concertNo=`+ c.concertNo;
+            }
             pcConsertsArea.innerHTML += `<div class="popularity-concert-information">
-                                            <a class="popularity-concert-information-a" href="/staez/detail.co?concertNo=`+ c.concertNo +`"><img class="popularity-concert-information-img" src="" alt=""></a>
+                                            <a class="popularity-concert-information-a" href="${mapping}"><img class="popularity-concert-information-img" src="" alt=""></a>
                                             <div class="concert-search-result-content-info">
-                                                <span class="concert-search-result-content-span1">`+ c.categoryName+`</span>
+                                                <span class="concert-search-result-content-span1">`+ categoryName+`</span>
                                                 <span class="concert-search-result-content-span2">[`+ c.concertTitle +`]</span>
                                                 <span class="concert-search-result-content-span3">`+ c.startDate + ` ~ ` + c.endDate +`</span>
                                             </div>
@@ -84,24 +96,42 @@ function popularConcertImg(categoryNo1){
 }
 
 function drawPopularConcertImg(concertImgs){
-
+    console.log(concertImgs)
     const imgArea = document.querySelectorAll(".popularity-concert-information-img");
 
     for(let i = 0; i < imgArea.length; i++){
-        imgArea[i].src="/staez" + concertImgs[i].filePath + concertImgs[i].changeName;
+        
+        if(concertImgs[i].originName === 'api'){
+            imgArea[i].src=concertImgs[i].filePath;
+        }else{
+            imgArea[i].src="/staez" + concertImgs[i].filePath + concertImgs[i].changeName;
+        }
+
     }
+    checkedButtonHidden();
 }
 
 function drawLatestConcert(lcConcerts, categoryNo2){
 
     const pcConsertsArea = document.querySelector(".latest-concert-information-slider");
     pcConsertsArea.innerHTML = ``;
+    
     if(lcConcerts != 0){
+        
         for (let c of lcConcerts){
+            let categoryName;
+            let mapping;
+            if(c.originName === 'api'){
+                categoryName = "연극"
+                mapping = `condeapi.co?concertId=`+c.concertPlot;
+            }else{
+                categoryName = c.categoryName;
+                mapping = `detail.co?concertNo=`+ c.concertNo;
+            }
             pcConsertsArea.innerHTML += `<div class="latest-concert-information">
                                             <a class="latest-concert-information-a" href="/staez/detail.co?concertNo=`+ c.concertNo +`"><img class="latest-concert-information-img" src="" alt=""></a>
                                             <div class="concert-search-result-content-info">
-                                                <span class="concert-search-result-content-span1">`+ c.categoryName+`</span>
+                                                <span class="concert-search-result-content-span1">`+ categoryName+`</span>
                                                 <span class="concert-search-result-content-span2">[`+ c.concertTitle +`]</span>
                                                 <span class="concert-search-result-content-span3">`+ c.startDate + ` ~ ` + c.endDate +`</span>
                                             </div>
@@ -125,7 +155,11 @@ function drawlatestConcertImg(concertImgs){
     const imgArea = document.querySelectorAll(".latest-concert-information-img");
 
     for(let i = 0; i < imgArea.length; i++){
-        imgArea[i].src="/staez" + concertImgs[i].filePath + concertImgs[i].changeName;
+        if(concertImgs[i].originName === 'api'){
+            imgArea[i].src=concertImgs[i].filePath;
+        }else{
+            imgArea[i].src="/staez" + concertImgs[i].filePath + concertImgs[i].changeName;
+        }
     }
     checkedButtonHidden();
 }
@@ -259,7 +293,19 @@ function drawBoardListContentCategory(boardCategory){
 
 /* 공연 리스트 슬라이드 하기 */
 
+let currentIndex1 = 0;
+const totalImg1 = 10;
+const viewImg1 = 5;
+const imgWidth1 =  10;
+
+let currentIndex2 = 0;
+const totalImg2 = 10;
+const viewImg2 = 5;
+const imgWidth2 =  10;
+
 function checkedButtonHidden(){
+    
+
     const pbutton = document.querySelector(".popularity-concert-information-area").querySelectorAll(".slider-btn");
     
     const lbutton = document.querySelector(".latest-concert-information-area").querySelectorAll(".slider-btn");
@@ -268,6 +314,9 @@ function checkedButtonHidden(){
     const lCount = document.querySelectorAll(".latest-concert-information");
    
     if(pCount.length < 6){
+        console.log(currentIndex1)
+        currentIndex1 = 0
+        updateSlider1()
         pbutton[0].classList.add("hidden")
         pbutton[1].classList.add("hidden")
     } else {
@@ -275,6 +324,8 @@ function checkedButtonHidden(){
         pbutton[1].classList.remove("hidden")
     }
     if(lCount.length < 6){
+        currentIndex2 = 0
+        updateSlider2()
         lbutton[0].classList.add("hidden")
         lbutton[1].classList.add("hidden")
     } else {
@@ -282,11 +333,6 @@ function checkedButtonHidden(){
         lbutton[1].classList.remove("hidden")
     }
 }   
-
-let currentIndex1 = 0;
-const totalImg1 = 10;
-const viewImg1 = 5;
-const imgWidth1 =  10;
 
 function slideLeft1() {
     if (currentIndex1 > 0) {
@@ -312,10 +358,6 @@ function updateSlider1() {
     slider.style.transform = `translateX(${offset}%)`;
 }
 
-let currentIndex2 = 0;
-const totalImg2 = 10;
-const viewImg2 = 5;
-const imgWidth2 =  10;
 
 function slideLeft2() {
     if (currentIndex2 > 0) {

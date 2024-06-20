@@ -22,7 +22,7 @@ public interface OthersService {
 	
 	ArrayList<Concert> selectLatestCategoryConcertImg(int cNo);
 	
-	ArrayList<Concert> selectDateCategoryConcert(String categoryNo, String concertDate);
+	int selectDateCategoryConcert(String categoryNo, String concertDate);
 	
 	ArrayList<Concert> selectPageConcert(String categoryNo, String concertDate, PageInfo pi);
 	
