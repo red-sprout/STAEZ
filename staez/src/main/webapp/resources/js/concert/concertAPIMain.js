@@ -68,7 +68,7 @@ function drawSliderMain(list, sliderContent){
     concertDiv.innerHTML += `<img src="` + c.poster + `"alt="">`
                              + `<input type="hidden" name="concertId" value="` + c.mt20id + `">`
                                   + `<div class="concert-main-upper-sen-div">
-                                      <p><span><b><h2>` + c.prfnm + `</h2></span></b></p>
+                                      <p class="overflowText"><b><h2>` + c.prfnm + `</h2></b></p>
                                       <p><span>` + c.fcltynm + `</span></p>
                                       <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
                                  + `</div>`;

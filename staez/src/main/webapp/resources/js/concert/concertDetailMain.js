@@ -3,19 +3,16 @@ $(function() {
     const concertNo =  $("input[name='concertNo']").val();
 
     conNaviDraw(conList => drawConNavi(conList));
-
-    // 하트 insert, update
-    // likeUpdate({ "userNo" : userNo, "concertNo" : concertNo}, (result) => drawLikeUpdate(result))
     
     //하트 카운트
     likeCount({ "userNo" : userNo, "concertNo" : concertNo}, (result) => drawLikeCount(result));
     conDetail({"concertNo" : concertNo}, (result) => drawConDetail(result));
-    // conPagination(result => drawConPagination(result));
+    concertStar({"concertNo" : concertNo}, (result) => drawConcertStar(result));
 });
 
 // ajax로 콘서트 navi 그려
 function drawConNavi(conList){
-
+    console.log("conList : " + conList)
     const concertNaviArea = document.querySelector(".concert-ul");
     concertNaviArea.innerHTML = ``;
   
@@ -46,6 +43,32 @@ function reservePage(){
     const concertNo =  $("input[name='concertNo']").val();
     const userNo =  $("input[name='userNo']").val();
     window.open(`/staez/selectDate.co?concertNo=`+concertNo+`&userNo=`+userNo , "_blank", "width=1001, height=601, scrollbars=no");
+}
+
+// 별점 구현
+function drawConcertStar(result) {
+    const tdStar = document.querySelector(".star");
+    let scoreSum = 0;
+    for(let c of result){
+        scoreSum += c.score
+    }
+    // 평균 점수 계산 및 반올림
+    let avgScore = Math.round(scoreSum / result.length);
+    // 별 이미지 초기화
+    tdStar.innerHTML = '';
+
+    console.log("result.length : " + result.length);
+    console.log("scoreSum : " + scoreSum);
+    console.log("avgScore : " + avgScore);
+
+    // 반올림된 평균 점수만큼 별 이미지 추가
+    for (let i = 0; i < avgScore; i++) {
+        const img = document.createElement('img');
+        img.id = "concert-detail-starImg";
+        img.src = contextPath + `/resources/img/concert/star.png`;
+        img.alt = "Star";
+        tdStar.appendChild(img);
+    }
 }
 
 

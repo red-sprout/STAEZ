@@ -56,6 +56,21 @@ function likeCount(data, callback){
     });
 }
 
+
+// 공연세부페이지: 별점표기
+function concertStar(data, callback){
+    $.ajax({
+        url: contextPath + "concertStar.co",
+        data: data,
+        success : function(result){
+            console.log(result);
+            callback(result);
+        }, error(){
+            console.log("실패");
+        }
+    });
+}
+
 // 카테고리별 공연 그려주기
 function conDetail(data, callback){
     $.ajax({

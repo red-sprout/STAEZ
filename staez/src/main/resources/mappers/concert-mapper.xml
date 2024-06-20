@@ -237,7 +237,7 @@
 	
 	
 	<select id="selectComDetail" resultMap="concertReviewResult" >
-		SELECT ROUND(AVG(score))
+		SELECT concert_no, score
 		from concert_review
 		where concert_no = #{concertNo}
 	</select>
@@ -515,10 +515,12 @@
 	<insert id="concertScheduleApiInsert">
 	        INSERT INTO concert_schedule (
 	            concert_no,
+	           
 	            start_date,
 	            end_date        
 	        ) VALUES (
 	            #{concertNo},
+	           
 	            TO_DATE(#{startDate}, 'YYYY.MM.DD'),
 	            TO_DATE(#{endDate}, 'YYYY.MM.DD')
 	        )

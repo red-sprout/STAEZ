@@ -9,6 +9,23 @@ div a:visited{text-decoration: none;}
 div a:hover{text-decoration: none;}
 div a:active{text-decoration: none;}
 
+.h2 {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 10px 0;
+    white-space: nowrap;
+}
+
+.overflowText {
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: keep-all;
+}
+
 div p {
     margin-top: 0;
     margin-bottom: 0;
@@ -33,8 +50,8 @@ html { font-size:62.5%; }
     cursor: pointer;
 }
 
-.concert-ul li:hover a > span {
-    color: #B51B75;
+.concert-ul li:hover{
+    color: #640D6B;
 }
 
 /* 공연상세페이지 노란블럭 */
@@ -116,17 +133,16 @@ html { font-size:62.5%; }
 #concert-detail-starImg{
     width: 5%;
 }
-.concert-detail-table{
-    margin-top: 30px;
-    margin-bottom: 50px;
-    height: 300px;
-}
+
 .concert-detail-table td{
-    text-align: left;  
+    text-align: left;
+    letter-spacing :0.5px;
 }
+
 .concert-detail-table span{
     font-size: 1.6rem;
     line-height: 2.5;
+    padding: 0 5px;
 }
 
 /* 공연상세페이지 달력, 예매하기 버튼 */

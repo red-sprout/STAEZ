@@ -64,56 +64,47 @@
         <div class="concert-detail-body-div">
             <table class="concert-detail-table">
                 <tr>
-                    <td>
-                        <c:forEach var="i" begin="1" end="${com.score}"> <!-- 배열 길이만큼 나눠서 avg 만들고, round 처리 필요-->
-                            <img id="concert-detail-starImg" src="${pageContext.request.contextPath}/resources/img/concert/star.png" alt="">
-                        </c:forEach>
+                    <td colspan="2" class="star">
+                        <!-- 별점 -->
                     </td>
                 </tr>
                 <tr>                    
-                    <td><h2>&lt;${con.concertTitle}&gt;</h2></td>
+                    <th colspan="2" style="text-align: left;"><h2>[${con.concertTitle}]</h2></th>
                 <tr>
                 <tr>                    
                     <td></td>
                 <tr>
-                    <td><b><span>공연기간&nbsp&nbsp</span></b>
-                        <span id="conStartDate">${con.startDate}</span> ~ <span id="conEndDate">${con.endDate}</span></td>
+                    <th><span>공연기간</span></th>
+                    <td><span id="conStartDate">${con.startDate}</span> ~ <span id="conEndDate">${con.endDate}</span></td>
                 </tr>
                 <tr>
-                    <td><b><span>공연장소&nbsp&nbsp</span></b><span>${con.theaterName}</span></td>
+                    <th><span>공연장소</span></th>
+                    <td><span>${con.theaterName}</span></td>
                 </tr>
                 <tr>
-                    <td><b><span>공연시간&nbsp&nbsp</span></b><span>${con.concertRuntime}분</span></td>
+                    <th><span>공연시간</span></th>
+                    <td><span>${con.concertRuntime}분</span></td>
                 </tr>
                 <tr>
-                    <td><b><span>관람연령&nbsp&nbsp</span></b><span>${con.ageLimit}</span></td>
+                    <th><span>관람연령</span></th>
+                    <td><span>${con.ageLimit}</span></td>
                 </tr>
                 <tr><!-- 가격??? -->
-                    <td><b><span>가격&nbsp&nbsp</span></b><span>
-                        <c:forEach var="s" items="${s}">
-                            ${s.grade}석 ${s.price}원&nbsp&nbsp
-                        </c:forEach>
-                    </span></td>
-                    <!-- 가격을세로로 적고싶을 때 -->
-                    <!-- <td colspan="2">
-                        <table>
-                            <tr>
-                                <td><b><span>가격&nbsp&nbsp</span></b></td>
-                                <td><span>R석 90,000원</span></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td><span>S석 60,000원</span></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td><span>A석 30,000원</span></td>
-                            </tr>
+                    <th style="vertical-align : top;" ><span>가&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp격</span></th>
+                    <td>
+                        <table class="concert-detail-table">
+                            <c:forEach var="s" items="${s}">
+                                <tr>
+                                    <td><span>${s.grade}석</span></td>
+                                    <td><span>${s.price}원</span></td>
+                                </tr>
+                            </c:forEach>
                         </table>
-                    </td> -->
+                    </td>
                 </tr>
-
-                    <td><b><span>주최&nbsp&nbsp</span></b><span>${con.concertProduction}</span></td>
+                <tr>
+                    <th><span>주&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp최</span></th>
+                    <td><span>${con.concertProduction}</span></td>
                 </tr>
             </table>
         </div>

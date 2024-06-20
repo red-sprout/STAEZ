@@ -9,10 +9,22 @@
     div a:hover{text-decoration: none;}
     div a:active{text-decoration: none;}
 
+    .overflowText {
+        overflow: hidden;
+        white-space: normal;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        word-break: keep-all;
+    }
+
+
     div p {
         margin-top: 0;
         margin-bottom: 0;
     }
+    
     html { font-size:62.5%; }
 
 
@@ -32,8 +44,8 @@
     .concert-ul li{
         cursor: pointer;
     }
-    .concert-ul li:hover a > span {
-        color: #B51B75;
+    .concert-ul li:hover{
+        color: #640D6B;
     }
     
 

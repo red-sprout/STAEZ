@@ -39,6 +39,28 @@ function drawConNavi(conList){
   drawAPINavi(concertNaviArea)
 }
 
+// 별점 구현
+function drawConcertStar(result) {
+  const tdStar = document.querySelector(".star");
+  let scoreSum = 0;
+  for(let c of result){
+      scoreSum += c.score
+  }
+  // 평균 점수 계산 및 반올림
+  let avgScore = Math.round(scoreSum / result.length);
+  // 별 이미지 초기화
+  tdStar.innerHTML = '';
+
+  // 반올림된 평균 점수만큼 별 이미지 추가
+  for (let i = 0; i <= avgScore; i++) {
+      const img = document.createElement('img');
+      img.id = "concert-detail-starImg";
+      img.src = contextPath + `/resources/img/concert/star.png`;
+      img.alt = "Star";
+      tdStar.appendChild(img);
+  }
+}
+
 // API용 navi 추가
 function drawAPINavi(concertNaviArea) {
   let naviLi = document.createElement('li');
