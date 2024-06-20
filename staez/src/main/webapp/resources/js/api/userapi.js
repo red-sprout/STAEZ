@@ -135,7 +135,7 @@ function sendAuthNumAjax(data, callback){
     });
 }
 
-// 핸드폰 인증
+// 아이디 찾기 핸드폰 인증
 function sendPhoneAuthNoAjax(data, callback){
     $.ajax({
         url: 'sendPhoneAuth.me',
@@ -144,6 +144,21 @@ function sendPhoneAuthNoAjax(data, callback){
         success: res => callback(res),
         error: () => {
             alert('휴대폰 인증번호 전송에 실패하였습니다');
+        }
+    });
+}
+
+// 이름과 전화번호를 검증하는 함수
+function verifyPhoneAndName(userName, phoneInput, callback) {
+    $.ajax({
+        url: "findPhoneCheck.me",
+        data: { checkFindPhone: phoneInput, userName: userName },
+        success: function(response) {
+            console.log("서버 응답: " + response); // 서버 응답 로그 출력
+            callback(response);
+        },
+        error: function() {
+            alert("서버와의 통신 중 오류가 발생했습니다. 다시 시도해주세요.");
         }
     });
 }

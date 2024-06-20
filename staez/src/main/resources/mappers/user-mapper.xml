@@ -140,8 +140,8 @@
 	</select>
 	
 	<!-- 핸드폰 아이디찾기 -->
-	<select id="findPhoneCheck" resultType="string">
-	    SELECT user_id
+	<select id="findPhoneCheck" resultType="_int">
+	    SELECT COUNT(*)
 	      FROM staez_user
 	     WHERE phone = #{phone}
 	       AND user_name = #{userName}
