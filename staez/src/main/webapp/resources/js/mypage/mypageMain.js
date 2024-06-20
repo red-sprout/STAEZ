@@ -117,7 +117,7 @@ $(function(){
                 $(inquire).append(`<tr></tr>`);
             } else{
                 const writeDate = changeDateFormat(res[i].boardWriteDate);
-                $(inquire).append(`<tr onclick='window.open("${contextPath}inquireDetail.me?boardNo=${res[i].boardNo}", "_blank", "width=800,height=700,resizable=no,location=no")'>
+                $(inquire).append(`<tr onclick='openDetail("${contextPath}inquireDetail.me?boardNo=${res[i].boardNo}")'>
                                         <td class="long-td">${res[i].boardTitle}</td>
                                         <td class="short-td"><h5>${writeDate}</h5></td>
                                    </tr>`);
@@ -133,6 +133,13 @@ $(function(){
         // });
     });
 });
+
+function openDetail(url) {
+    const detailWindow = open(url, "_blank", "width=800,height=700,resizable=no,location=no");
+    detailWindow.onbeforeunload = function() { //onbeforeunloda : 창이나 탭이 닫히기전 발생하는 이벤트
+        location.reload();
+    };
+}
 
 //날짜 포맷변경 함수
 function changeDateFormat(input) {

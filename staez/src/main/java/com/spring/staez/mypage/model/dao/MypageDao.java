@@ -182,6 +182,20 @@ public class MypageDao {
 	public int updateOneLineReview(SqlSessionTemplate sqlSession, ConcertReview concertReview) {
 		return sqlSession.update("mypageMapper.updateOneLineReview", concertReview);
 	}
+
+	public int deleteOneLineReviewAjax(SqlSessionTemplate sqlSession, int reviewNo) {
+		return sqlSession.update("mypageMapper.deleteOneLineReviewAjax", reviewNo);
+	}
+	
+	
+	public int phoneCheck(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("mypageMapper.phoneCheck", map);
+	}
+	
+	public int emailCheck(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("mypageMapper.emailCheck", map);
+	}
+
 	
 	
 	public ArrayList<PaymentsInfoDto> loadMyPaymentsAjax(SqlSessionTemplate sqlSession, int userNo) {
