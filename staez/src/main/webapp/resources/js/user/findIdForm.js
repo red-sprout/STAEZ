@@ -226,7 +226,7 @@ function addEmailValidationTwo() {
 
     emailPrefixElement.addEventListener('input', function(event) {
         const value = event.target.value;
-        const validValue = value.replace(/[^a-zA-Z]/g, ''); // 영어가 아닌 문자를 제거
+        const validValue = value.replace(/[^a-zA-Z.]/g, ''); // 영어가 아닌 문자를 제거
         if (value !== validValue) {
             event.target.value = validValue;
             verificationEmailTr.style.display = "table-row";
