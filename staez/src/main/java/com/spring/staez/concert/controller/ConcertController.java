@@ -160,7 +160,7 @@ public class ConcertController {
 		// 한줄평 총 갯수 가져오기
 		int currentPage = cpage;
 		int comCount = concertService.selectComCount(Integer.parseInt(concertNo));
-		PageInfo pi = Pagination.getPageInfo(comCount, currentPage, 5, 10);
+		PageInfo pi = Pagination.getPageInfo(comCount, currentPage, 5, 5);
 		ArrayList<ConcertReview> crList =  concertService.selectComList(pi, Integer.parseInt(concertNo));
 		
 		
@@ -181,7 +181,7 @@ public class ConcertController {
 		
 		int currentPage = rpage;
 		int revCount = concertService.selectRevCount(Integer.parseInt(concertNo));
-		PageInfo pi = Pagination.getPageInfo(revCount, currentPage, 5, 10);
+		PageInfo pi = Pagination.getPageInfo(revCount, currentPage, 5, 5);
 		ArrayList<Board> rList =  concertService.selectRevList(pi, Integer.parseInt(concertNo));
 		
 	    Map<String, Object> result = new HashMap<>();

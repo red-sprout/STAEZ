@@ -367,11 +367,17 @@ function drawRPagination(result){
         }
         
         for(let i = pi.startPage; i <= pi.endPage; i++){
+            if(pi.currentPage === i){
             drawPagination.innerHTML +=
-            `<div class="pagination current"><a class="page-link" onclick="goReviewDetail(this, `+ i +`)"
-            style="text-decoration: none; background-color:#b51b75; border: #b51b75;">
-            <h4>` + i + `</h4></a></div>`
+                `<div class="pagination current" onclick="goCommentDetail(this, ` + i + `)">
+                <h4>` + i + `</h4></div>`
+            } else {
+            drawPagination.innerHTML +=
+                `<div class="pagination" onclick="goCommentDetail(this, ` + i + `)">
+                <h4>` + i + `</h4></div>`
+            }
         }
+
 
         if(pi.currentPage === pi.maxPage){
             drawPagination.innerHTML += 

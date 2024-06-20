@@ -57,10 +57,6 @@ function drawConcertStar(result) {
     // 별 이미지 초기화
     tdStar.innerHTML = '';
 
-    console.log("result.length : " + result.length);
-    console.log("scoreSum : " + scoreSum);
-    console.log("avgScore : " + avgScore);
-
     // 반올림된 평균 점수만큼 별 이미지 추가
     for (let i = 0; i < avgScore; i++) {
         const img = document.createElement('img');
@@ -310,6 +306,14 @@ function drawConSellDetail(result){
     }
 
 
+const noticeStr = `<div class = "noticeStr">
+                      <p><h4><b>글쓰기 전 주의사항</b></h4></p>
+                      <p>※ 저속한 표현, 타인의 명예훼손, 광고성 게시물 등 게시판 운영규정에 어긋나는 글은 통보 없이 삭제될 수 있습니다.</p>
+                      <p>※ 등록된 관람평, 관람후기의 수정과 삭제는 마이페이지에서 가능합니다.</p>        
+                   </div>
+                   <br>`
+
+
 function drawCommentDetail(result){
     const drawSection = document.querySelector(".concert-detail-down-section");
     const crList = result.crList;
@@ -317,20 +321,18 @@ function drawCommentDetail(result){
 
     if(crList.length === 0){
         let divEmpty = document.createElement('p');
+        let noticeDiv = document.createElement('div');
+        drawSection.appendChild(noticeDiv);
         drawSection.appendChild(divEmpty);
-        divEmpty.innerHTML += "등록된 한줄평이 없습니다.";
+        noticeDiv.innerHTML += noticeStr;
+        divEmpty.innerHTML += "등록된 관람후기가 없습니다.";
         divEmpty.style.fontSize = '24px';
         divEmpty.style.padding = `15% 0 15% 0`;
         
     } else { 
+        drawSection.innerHTML += noticeStr;
         for(let c of result.crList){
             drawSection.innerHTML += `<div>
-                                        <p><h4><b>글쓰기 전 주의사항</b></h4></p>
-                                        <p>※ 저속한 표현, 타인의 명예훼손, 광고성 게시물 등 게시판 운영규정에 어긋나는 글은 통보 없이 삭제될 수 있습니다.</p>
-                                        <p>※ 등록된 관람평, 관람후기의 수정과 삭제는 마이페이지에서 가능합니다.</p>        
-                                    </div>
-                                    <br>
-                                    <div>
                                         <div class="concert-detail-comment-div">
                                             <table class="concert-detail-comment-table">
                                                     <tbody>
@@ -344,8 +346,7 @@ function drawCommentDetail(result){
                                                     </tbody>                 
                                             </table>
                                         </div>
-                                    </div>
-                                    <br>`
+                                    </div>`
         }
     }
     drawCPagination(result);
@@ -389,11 +390,15 @@ function drawCPagination(result){
         }
         
         for(let i = pi.startPage; i <= pi.endPage; i++){
+            if(pi.currentPage === i){
             drawPagination.innerHTML +=
-            `<div class="pagination current"><a class="page-link" onclick="goCommentDetail(this, ` + i + `)"
-            style="text-decoration: none;  background-color:#b51b75; border: #b51b75;">
-            <h4>` + i + `</h4></a></div>`
-
+                `<div class="pagination current" onclick="goCommentDetail(this, ` + i + `)">
+                <h4>` + i + `</h4></div>`
+            } else {
+            drawPagination.innerHTML +=
+                `<div class="pagination" onclick="goCommentDetail(this, ` + i + `)">
+                <h4>` + i + `</h4></div>`
+            }
             //  `<div class="pagination current"><a data-cpage="` + i + `" class="page-link" href="commentDetail.co?concertNo=`+ concertNo + `&cpage=` + i + `"
             //  style="text-decoration: none;  background-color:#b51b75; border: #b51b75;">
             //  <h4>` + i + `</h4></a></div>`
@@ -479,22 +484,21 @@ function drawReviewDetail(result){
 
     if(rList.length === 0){
         let divEmpty = document.createElement('p');
+        let noticeDiv = document.createElement('div');
+        drawSection.appendChild(noticeDiv);
         drawSection.appendChild(divEmpty);
+        noticeDiv.innerHTML += noticeStr;
         divEmpty.innerHTML += "등록된 관람후기가 없습니다.";
         divEmpty.style.fontSize = '24px';
         divEmpty.style.padding = `15% 0 15% 0`;
 
     } else {
+        drawSection.innerHTML += noticeStr
         for(let c of result.rList){
             console.log(c.path);
             let str = c.boardContent;
             let boardContentCut = str.substr(0, 50);
-            drawSection.innerHTML += `<div>
-                                                <p><h4><b>글쓰기 전 주의사항</b></h4></p>
-                                                <p>※ 저속한 표현, 타인의 명예훼손, 광고성 게시물 등 게시판 운영규정에 어긋나는 글은 통보 없이 삭제될 수 있습니다.</p>
-                                                <p>※ 등록된 관람평, 관람후기의 수정과 삭제는 마이페이지에서 가능합니다.</p>        
-                                            </div>
-                                            <br>
+            drawSection.innerHTML += `
                                             <div>
                                                 <div class="concert-detail-review-div">
                                                     <table class="concert-detail-review-table">
@@ -518,15 +522,14 @@ function drawReviewDetail(result){
                                                                 </tr>
                                                             </tbody>
                                                     </table>
-                                                </div>
-                                                <br>`
+                                                </div>`
 
                                                 // <td rowspan="4" class="concert-detail-review-table-img"><img align="center" src="`+ contextPath + c.path + `"></td>
 
 
         }   
     }
-
+    
     drawRPagination(result);
 
 }
@@ -563,10 +566,18 @@ function drawRPagination(result){
         }
         
         for(let i = pi.startPage; i <= pi.endPage; i++){
+            if(pi.currentPage === i){
             drawPagination.innerHTML +=
-            `<div class="pagination current"><a class="page-link" onclick="goReviewDetail(this, `+ i +`)"
-            style="text-decoration: none; background-color:#b51b75; border: #b51b75;">
-            <h4>` + i + `</h4></a></div>`
+                `<div class="pagination current" onclick="goCommentDetail(this, ` + i + `)">
+                <h4>` + i + `</h4></div>`
+            } else {
+            drawPagination.innerHTML +=
+                `<div class="pagination" onclick="goCommentDetail(this, ` + i + `)">
+                <h4>` + i + `</h4></div>`
+            }
+            //  `<div class="pagination current"><a data-cpage="` + i + `" class="page-link" href="commentDetail.co?concertNo=`+ concertNo + `&cpage=` + i + `"
+            //  style="text-decoration: none;  background-color:#b51b75; border: #b51b75;">
+            //  <h4>` + i + `</h4></a></div>`
         }
 
         if(pi.currentPage === pi.maxPage){
