@@ -44,7 +44,7 @@ function deleteInquire(){
             if(res === 'NNNNY'){
                 alert('삭제되었습니다');
                 close();
-                opener.reloadPage(); //팝업의 부모 요소에 접근(myInquireList.jsp의 reloadPage() 함수 실행)
+                opener.reload(); //팝업의 부모 요소에 접근
             } else{
                 alert('문의글 삭제에 실패하였습니다');
             }

@@ -57,6 +57,7 @@ public interface MypageService {
 	
 	public int insertOneLineReview(ConcertReview concertReview); //한줄평 저장
 	public int updateOneLineReview(ConcertReview concertReview); //한줄평 수정
+	public int deleteOneLineReviewAjax(int reviewNo); //한줄평 삭제
 		
 	public ArrayList<PaymentsInfoDto> loadMyPaymentsAjax(int userNo); //결제내역 ajax
 	public ArrayList<Concert> loadMyScrapAjax(int userNo); //찜목록 ajax
@@ -64,6 +65,6 @@ public interface MypageService {
 	public ArrayList<Board> loadMyBoardAjax(int userNo); //나의작성글 ajax
 	public ArrayList<Board> loadMyInquireAjax(int userNo); //문의내역 ajax
 	
-//	public int checkExistAjax(String info, int type); //이미 존재하는 데이터인지 확인
+	public int checkExistAjax(int userNo, String info, int type); //이미 존재하는 데이터인지 확인
 	
 }
