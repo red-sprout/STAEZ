@@ -1,6 +1,7 @@
 package com.spring.staez.mypage.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -193,6 +194,12 @@ public class MypageServiceImpl implements MypageService{
 	public int updateOneLineReview(ConcertReview concertReview) {
 		return mpd.updateOneLineReview(sqlSession, concertReview);
 	}
+	
+	@Override
+	public int deleteOneLineReviewAjax(int reviewNo) {
+		return mpd.deleteOneLineReviewAjax(sqlSession, reviewNo);
+
+	}
 
 	@Override
 	public ArrayList<PaymentsInfoDto> loadMyPaymentsAjax(int userNo) {
@@ -219,9 +226,27 @@ public class MypageServiceImpl implements MypageService{
 		return mpd.loadMyInquireAjax(sqlSession, userNo);
 	}
 
-//	@Override
-//	public int checkExistAjax(String info, int type) {
-//
-//	}
+
+	@Override
+	public int checkExistAjax(int userNo, String info, int type) { //type - 1 : phone, 2 : email
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("userNo", userNo);
+		
+		int result = 0; 
+		
+		switch(type) {
+		case 1:
+			map.put("phone", info);
+			result = mpd.phoneCheck(sqlSession, map);
+			break;
+		case 2:
+			map.put("email", info);
+			result = mpd.emailCheck(sqlSession, map);
+			break;
+		}
+		
+		return result;
+	}
 	
 }
