@@ -16,7 +16,7 @@ const boardCodeMap = {
     report: 5
 }
 
-const removableTags = ["<p>", "</p>", "<div>", "</div>"];
+const removableTags = ["<p>", "</p>", "<div>", "</div>", "<br>"];
 
 // function init() {
 //     const url = window.location.pathname.split("/")[2];

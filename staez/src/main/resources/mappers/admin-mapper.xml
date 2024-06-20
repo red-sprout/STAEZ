@@ -927,7 +927,7 @@
 			b.board_content,
 			u.user_id
 		FROM board b
-		JOIN board_category bc ON (b.board_no = bc.board_no)
+		LEFT JOIN board_category bc ON (b.board_no = bc.board_no)
 		JOIN staez_user u on (b.user_no = u.user_no)
 		WHERE b.board_no = #{boardNo}
 	</select>

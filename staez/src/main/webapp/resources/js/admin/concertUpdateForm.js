@@ -11,15 +11,15 @@ $(function() {
     });
 
     $("#update-submit").on("click", (ev) => {
-        let formData = new FormData()
+        let formData = new FormData();
 
         formData.append("concertNo", concertNo);
         formData.append("schedule", scheduleForm());
         formData.append("seat", gradeForm());
         formData.append("concert", concertForm());
 
-        if(!(formData.concertNo && formData.schedule && formData.seat && formData.concert)) {
-            alert("빠진 항목이 확인바랍니다.");
+        if(!(concertNo && scheduleForm() && gradeForm() && concertForm())) {
+            alert("빠진 항목 확인바랍니다.");
             return;
         }
 
@@ -322,9 +322,9 @@ function setSeat(result) {
     tbody.innerHTML = ``;
     thead.innerHTML = ``;
 
-    for (let i = 0; i <= theater.theaterCol; i++) {
+    for(let i = 0; i <= theater.theaterCol; i++) {
         const th = document.createElement("th");
-        if (i === 0) {
+        if(i === 0) {
             th.innerHTML = `&nbsp;`;
         } else {
             th.innerHTML = i;
@@ -332,9 +332,9 @@ function setSeat(result) {
         thead.appendChild(th);
     }
 
-    for (let i = 0; i <= theater.theaterRow; i++) {
+    for (let i = 1; i <= theater.theaterRow; i++) {
         const tr = document.createElement("tr");
-        const input = decimalToBase26(i);
+        const input = decimalToBase26(i - 1);
         for (let j = 0; j <= theater.theaterCol; j++) {
             const th = document.createElement("th");
             if (j === 0) {
@@ -343,7 +343,7 @@ function setSeat(result) {
                 continue;
             }
             th.setAttribute("class", "seat-yes");
-            th.setAttribute("id", (i + 1) + "-" + j);
+            th.setAttribute("id", i + "-" + j);
             for (let seat of impossibleSeatList) {
                 if (th.id === seat.impossibleSeatRow + "-" + seat.impossibleSeatCol) {
                     th.setAttribute("class", "seat-no");
