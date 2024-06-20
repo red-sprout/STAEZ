@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService{
     
     // 핸드폰으로 아이디찾기
     @Override
-	public int findPhoneCheck(String checkFindPhone, String userName) {
+	public String findPhoneCheck(String checkFindPhone, String userName) {
 		return userDao.findPhoneCheck(sqlSession, checkFindPhone, userName);
 	}
 	

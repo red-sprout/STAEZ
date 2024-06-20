@@ -110,7 +110,6 @@ function changeCheck(){
 function compare(originValue, input, checkbox){ //본래값, 입력값, 체크박스
     input.on('change', function() {
         let currentValue = input.val();
-        console.log('바뀜')
         // 이전 값과 현재 값 비교
         if (currentValue === originValue) {
             $(checkbox).prop('checked', true); // 값이 같으면 체크
@@ -310,17 +309,33 @@ function updateCombinedPhone() {
     const phone = $('input[name=phone]');
     const input1 = $('#phone1').val();
     const input2 = $('#phone2').val();
+    const reg = /^[0-9]+$/;
+
+    if(!reg.test(input1) || !reg.test(input2)){
+        $('#phone1').val(input1.replace(/[^0-9]/g, ''));      
+        $('#phone2').val(input2.replace(/[^0-9]/g, ''));
+    }
 
     phone.val('010' + input1 + input2);
     phone.trigger('change'); //js로 value값을 변경시키면 event가 발생한다고 인식하지 않음(그래서 trigger 함수 추가로 실행)
 }
 
 // 이메일 필드값 변경 시 호출되는 함수
-function updateCombinedEmail() {
+function updateCombinedEmail(event) {
     const email = $('input[name=email]');
     const emailFront = $('#email-front').val();
     const emailBack = $('#email-back').val();
     const selectElement = $('select[name=domain]');
+    const reg1 = /^[a-zA-Z0-9!#$%&'*+-/=?^_.]+$/;
+    const reg2 = /^[a-zA-Z.]+$/;
+
+    if(!reg1.test(emailFront)) {
+        $('#email-front').val(emailFront.replace(/[^a-zA-Z0-9!#$%&'*+-/=?^_.]/g, ''));
+    }
+
+    if(!reg2.test(emailBack)){
+        $('#email-back').val(emailBack.replace(/[^a-zA-Z.]/g, ''));
+    }
 
     if (selectElement.val() === 'self-input') {
         email.val(emailFront + '@' + emailBack);
@@ -328,7 +343,8 @@ function updateCombinedEmail() {
     } else {
         email.val(emailFront + '@' + selectElement.val());
         email.trigger('change');
-    }
+    }    
+
 }
 
 //이메일 도메인 select설정

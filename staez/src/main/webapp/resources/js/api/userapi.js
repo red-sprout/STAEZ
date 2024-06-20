@@ -31,7 +31,6 @@ function sendEmailVerificationRequest(emailInput) {
         url: "emailCheck.me",
         data: { email: emailInput },
         success: function(response) {
-            console.log("서버 응답: " + response); // 서버 응답 로그 출력
             handleEmailCheckResponse(response);
         },
         error: function() {
@@ -46,7 +45,6 @@ function verifyNameAndEmail(nameInput, emailInput) {
         url: "emailbyName.me",
         data: { checkEmail: emailInput, userName: nameInput },
         success: function(response) {
-            console.log("서버 응답: " + response); // 서버 응답 로그 출력
             handleEmailCheckResponse(response);
         },
         error: function() {
@@ -154,7 +152,6 @@ function verifyPhoneAndName(userName, phoneInput, callback) {
         url: "findPhoneCheck.me",
         data: { checkFindPhone: phoneInput, userName: userName },
         success: function(response) {
-            console.log("서버 응답: " + response); // 서버 응답 로그 출력
             callback(response);
         },
         error: function() {

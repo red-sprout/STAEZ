@@ -235,10 +235,9 @@ public class UserController {
 	@ResponseBody
 	@GetMapping("findPhoneCheck.me")
 	public String findPhoneCheck(@RequestParam("checkFindPhone") String checkFindPhone, @RequestParam("userName") String userName, HttpSession session) {
-	    int result = userService.findPhoneCheck(checkFindPhone, userName);
-	    
-	    if(result != 0) {
-	        return "findPhoneCheck Yes";
+	    String result = userService.findPhoneCheck(checkFindPhone, userName);
+	    if(result != null) {
+	        return result;
 	    } else {
 	        return "findPhoneCheck No";
 	    }
