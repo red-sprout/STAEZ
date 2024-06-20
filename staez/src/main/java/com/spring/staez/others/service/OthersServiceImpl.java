@@ -32,34 +32,66 @@ public class OthersServiceImpl implements OthersService{
 
 	@Override
 	public ArrayList<Concert> selectCategoryConcert(int cNo) {
-		return oDao.selectCategoryLikeConcert(sqlSession, cNo);
+		
+		if(cNo == 8) {
+			return oDao.selectApiConcert(sqlSession);
+		} else {
+			return oDao.selectCategoryLikeConcert(sqlSession, cNo);			
+		}
 	}
 
 	@Override
 	public ArrayList<Concert> selectCategoryConcertImg(int cNo) {
-		return oDao.selectCategoryConcertImg(sqlSession, cNo);
+		
+		if(cNo == 8) {
+			return oDao.selectApiConcertImg(sqlSession);
+		} else {
+			return oDao.selectCategoryConcertImg(sqlSession, cNo);			
+		}
 	}
 
 	@Override
 	public ArrayList<Concert> selectLatestCategoryConcert(int cNo) {
-		return oDao.selectLatestCategoryConcert(sqlSession, cNo);
+	
+		if(cNo == 8) {
+			return oDao.selectLatestApiConcert(sqlSession);
+		} else {
+			return oDao.selectLatestCategoryConcert(sqlSession, cNo);
+		}
 	}
 
 	@Override
 	public ArrayList<Concert> selectLatestCategoryConcertImg(int cNo) {
-		return oDao.selectLatestCategoryConcertImg(sqlSession, cNo);
+		
+		if(cNo == 8) {
+			return oDao.selectLatestApiConcertImg(sqlSession);
+		} else {
+			return oDao.selectLatestCategoryConcertImg(sqlSession, cNo);
+		}
 	}
 
 	@Override
-	public ArrayList<Concert> selectDateCategoryConcert(String categoryNo, String concertDate) {
+	public int selectDateCategoryConcert(String categoryNo, String concertDate) {
 		int cNo = Integer.parseInt(categoryNo);
+		
+		int count1 = 0;
+		int count2 = 0;
+		
 		Map data = new HashMap();
 		data.put("cNo", cNo);
 		data.put("date", concertDate);
-
-		ArrayList<Concert> dcList = oDao.selectDateCategoryConcert(sqlSession, data);
 		
-		return dcList;
+		ArrayList<Concert> dcList = oDao.selectDateCategoryConcert(sqlSession, data);
+		count1 = dcList.size();
+		ArrayList<Concert> apiList = null; 
+		if(cNo == 8) {
+			apiList = oDao.selectApiConcertList(sqlSession, data);	
+			count2 = apiList.size();
+		}
+			
+		
+		
+		return count1 + count2;
 	}
 
 	@Override
@@ -68,10 +100,13 @@ public class OthersServiceImpl implements OthersService{
 		Map data = new HashMap();
 		data.put("cNo", cNo);
 		data.put("date", concertDate);
-		
-		ArrayList<Concert> dcList = oDao.selectPageConcert(sqlSession, data, pi);
-		
-		return dcList;
+		if(cNo == 8) {
+			ArrayList<Concert> dcList = oDao.selectApiPageConcert(sqlSession, data, pi);
+			return dcList;
+		} else {	
+			ArrayList<Concert> dcList = oDao.selectPageConcert(sqlSession, data, pi);
+			return dcList;
+		}	
 	}
 
 	@Override
