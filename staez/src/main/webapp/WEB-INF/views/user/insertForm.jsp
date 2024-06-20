@@ -101,9 +101,10 @@
                                 <input type="text" name="phone" id="input-value-phone" required  >
                             </div>
                             <td>
-                                <input type="button" id="phoneCheckButton" class="check_button" value="인증번호 전송">
+                                <input type="button" id="phoneCheckButton" class="check_button" value="인증번호 전송" onclick="phoneClick()">
                             </td>
-                        </tr>
+                        </td>
+                    </tr>
                         <tr id="verificationPhoneTr">
                             <td colspan="4">
                                 <div id="verificationPhone" class="checkResult">
@@ -120,7 +121,7 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="button" class="check_button" id="check_PhoneSecretBtn" value="인증확인">
+                                <input type="button" class="check_button" id="check_PhoneSecretBtn" value="인증확인" onclick="checkAuthNum()">
                             </td>
                         </tr>
                         <tr id="checkResultPhoneTr">
@@ -134,7 +135,7 @@
                     <tr>
                         <th>생년월일</th>
                         <td colspan="5" class="email-container">
-                            <input type="date" name="birth" required>
+                            <input type="date" name="birth" id="birthDate" required>
                         </td>   
                     </tr>
                     <tr>
@@ -229,7 +230,7 @@
                         <td colspan="4">
                             <div class="insert-member-div">
                                 <button type="button" id="backButton">이전</button>
-                                <button type="submit" id="submitButton" onsubmit="return validateForm()">다음</button>
+                                <button type="submit" id="submitButton" onsubmit="return validateForm()">회원가입</button>
                             </div>
                         </td>
                     </tr>

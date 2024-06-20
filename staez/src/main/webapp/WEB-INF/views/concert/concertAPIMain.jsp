@@ -12,18 +12,19 @@
     <title>concert</title>
    
     <!-- 적용 css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertAPIMain.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/concert/concertMain.css">
 </head>
 
 <body>
+
     <div id="load">
-        
+        <!-- 로딩 페이지 -->
     </div>
 
     <div>
         <jsp:include page="../common/header.jsp" />
     </div>
-    <!-- 공연 navi -->
+        <!-- 공연 navi -->
     <input type="hidden" name="concertNo" value="${con.concertNo}">
 
     <div class="concert-navi-div">

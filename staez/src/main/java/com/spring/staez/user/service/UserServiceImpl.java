@@ -37,6 +37,12 @@ public class UserServiceImpl implements UserService{
 	public int insertUser(User u) {
 		return userDao.insertUser(sqlSession, u);
 	}
+	
+	// 회원가입시 이메일 중복체크
+	@Override
+	public User emailCheck(String email) {
+		return userDao.emailCheck(sqlSession, email);
+	}
 
 	// 간편로그인 이메일 유무 확인 (네이버, 카카오, 구글)
 	@Override
@@ -67,17 +73,23 @@ public class UserServiceImpl implements UserService{
     public String findEmailCheck(String checkFindEmail, String userName) {
         return userDao.findEmailCheck(sqlSession, checkFindEmail, userName);
     }
+    
+    // 핸드폰으로 아이디찾기
+    @Override
+	public String findPhoneCheck(String checkFindPhone, String userName) {
+		return userDao.findPhoneCheck(sqlSession, checkFindPhone, userName);
+	}
 	
 	// 유효성 검사 및 사용자 정보 확인
 	@Override
-	public String findUserByIdEmailPhone(String user_id, String phone, String email, String user_name) {
-	    return userDao.findUserByIdEmailPhone(sqlSession, user_id, phone, email, user_name);
+	public String findUserByIdEmailPhone(String user_id, String phone, String email) {
+	    return userDao.findUserByIdEmailPhone(sqlSession, user_id, phone, email);
 	}
 
 	//새로운 비밀번호 저장
 	@Override
-	public int updatePassword(String user_id, String phone, String email, String user_name, String encPwd) {
-	    return userDao.updatePassword(sqlSession, user_id, phone, email, user_name, encPwd);
+	public int updatePassword(String user_id, String phone, String email, String encPwd) {
+	    return userDao.updatePassword(sqlSession, user_id, phone, email, encPwd);
 	}
 
 	// 이메일 인증 완료하면 정보 업데이트(테이블에 이메일 데이터 있을때)
@@ -85,5 +97,14 @@ public class UserServiceImpl implements UserService{
 	public int updateEmailAuth(String email, String authNo) {
 		return userDao.updateEmailAuth(sqlSession, email , authNo);
 	}
+
+	// 아이디/비번 찾기 중 이메일과 이름이 일치하는지
+    @Override
+    public int emailbyIdCheck(String checkEmail, String userName) {
+        int result = userDao.emailbyIdCheck(checkEmail, userName);
+        System.out.println("emailbyIdCheck result: " + result);
+        return result;
+    }
+
 
 }
