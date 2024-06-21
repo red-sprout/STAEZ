@@ -87,37 +87,51 @@ public class UserController {
 	}
 
 	// 회원가입
-		@PostMapping("insert.me")
-		public String insertMember(User u, HttpSession session, Model model) {
+	@PostMapping("insert.me")
+	public String insertMember(User u, HttpSession session, Model model) {
 
-			// 비밀번호가 null인지 확인
-			if (u.getUserPwd() == null) {
-				model.addAttribute("alertMsg", "비밀번호가 입력되지 않았습니다.");
-				return "user/insertForm";
-			}
-
-			// 암호화 작업
-			String encPwd = bcryptPasswordEncoder.encode(u.getUserPwd());
-			u.setUserPwd(encPwd);
-
-			try {
-				int result = userService.insertUser(u);
-
-				if (result > 0) {
-					session.setAttribute("alertMsg", "성공적으로 회원가입이 완료되었습니다.");
-					return "redirect:/";
-				} else {
-					model.addAttribute("alertMsg", "회원가입 실패");
-					return "user/insertForm";
-				}
-			} catch (DataIntegrityViolationException e) {
-				// 제약 조건 위반 예외 처리
-				String errorMessage = "회원가입을 실패하였습니다 : " + e.getRootCause().getMessage();
-				//model.addAttribute("alertMsg", errorMessage);
-				session.setAttribute("alertMsg", errorMessage);
-				return "user/insertForm";
-			}
+		// 비밀번호가 null인지 확인
+		if (u.getUserPwd() == null) {
+			model.addAttribute("alertMsg", "비밀번호가 입력되지 않았습니다.");
+			return "user/insertForm";
 		}
+
+		// 암호화 작업
+		String encPwd = bcryptPasswordEncoder.encode(u.getUserPwd());
+		u.setUserPwd(encPwd);
+
+		try {
+			int result = userService.insertUser(u);
+
+			if (result > 0) {
+				session.setAttribute("alertMsg", "성공적으로 회원가입이 완료되었습니다.");
+				return "redirect:/";
+			} else {
+				model.addAttribute("alertMsg", "회원가입 실패");
+				return "user/insertForm";
+			}
+		} catch (DataIntegrityViolationException e) {
+			// 제약 조건 위반 예외 처리
+			String errorMessage = "회원가입을 실패하였습니다 : " + e.getRootCause().getMessage();
+			session.setAttribute("alertMsg", errorMessage);
+			return "user/insertForm";
+		}
+	}
+	
+	// 회원가입 시 핸드폰 체크
+	@ResponseBody
+	@GetMapping("insertPhoneCheck.me")
+	public String insertPhoneCheck(String checkPhone) {
+		int result = userService.insertPhoneCheck(checkPhone);
+
+		if (result > 0) { // 이미 존재한다면
+			System.out.println("onPhone : "+result);
+			return "onPhone";
+		} else { // 존재하지 않는다면
+			System.out.println("NoPhone : "+result);
+			return "NoPhone";
+		}
+	}
 	
 	// 이메일 체크 (이메일/UUID/등록날짜 등록해야댐)
     @ResponseBody
@@ -127,8 +141,6 @@ public class UserController {
         // 이메일 중복 체크
         User user = userService.emailCheck(email);
         if (user != null) {
-        	
-        	System.out.println("emailCheck Duplicated");
             return "emailCheck Duplicated"; // 이메일 중복일 경우
             
         } else {
@@ -169,11 +181,10 @@ public class UserController {
         }
        }
 
- // 아이디/비번 찾기 중 이메일과 이름이 일치하는지
+    // 아이디 찾기 중 이메일과 이름이 일치하는지
     @ResponseBody
     @GetMapping("emailbyName.me")
     public String emailbyIdCheck(@RequestParam("checkEmail") String checkEmail, @RequestParam("userName") String userName) {
-        System.out.println("Check email: " + checkEmail + "\n 이름 : " + userName); // 디버깅을 위한 로그 추가
         int result = userService.emailbyIdCheck(checkEmail, userName);
 
         if (result > 0) { // 이미 존재한다면
@@ -216,14 +227,56 @@ public class UserController {
             return "emailCheck Invalid";
         }
     }
+    
+    // 비밀번호 찾기 중 이메일과 이름과 핸드폰번호가 일치하는지
+    @ResponseBody
+    @GetMapping("emailbyNamebyPhone.me")
+    public String emailbyNamebyPhone(@RequestParam("checkEmail") String checkEmail, @RequestParam("userName") String userName, @RequestParam("phone") String phone) {
+        System.out.println("Received email: " + checkEmail + ", name: " + userName + ", phone: " + phone);
+
+        int result = userService.emailbyNamebyPhone(checkEmail, userName, phone);
+
+        if (result > 0) {
+            String shortenedAuthNo = UUID.randomUUID().toString();
+            String authNo = shortenedAuthNo.substring(0, 6);
+
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(checkEmail);
+            message.setSubject("STAEZ 이메일 인증 번호");
+            message.setText("STAEZ 인증 번호: " + authNo);
+
+            try {
+                sender.send(message);
+                System.out.println("이메일 전송 성공");
+
+                Map<String, Object> existingEmail = userService.findEmail(checkEmail);
+
+                int resultEmail;
+                if (existingEmail == null) {
+                    resultEmail = userService.registerUser(checkEmail, authNo);
+                } else {
+                    resultEmail = userService.updateEmailAuth(checkEmail, authNo);
+                }
+
+                if (resultEmail > 0) {
+                    return "emailCheck Yes";
+                } else {
+                    return "emailCheck No";
+                }
+            } catch (MailException e) {
+                System.out.println("이메일 전송 실패: " + e.getMessage());
+                return "emailCheck No";
+            }
+        } else {
+            return "emailCheck Invalid";
+        }
+    }
 
 
 	// 이메일 암호키 인증체크
 	@ResponseBody
 	@GetMapping("emailSecretCodeCheck.me")
 	public String uuidCheck(@RequestParam("authNo") String authNo, @RequestParam("email") String email) {
-//        System.out.println("authNo : " + authNo); // 디버깅을 위한 로그 추가
-//        System.out.println("email : " + email);
 		int result = userService.emailSecretCodeCheck(authNo, email);
 		if (result > 0) { // 일치하다면
 			return "emailSecretCodeCheck Yes"; // 수정된 부분

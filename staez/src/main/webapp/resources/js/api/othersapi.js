@@ -177,7 +177,6 @@ function reserveConcertList(data, callback){
         url : "ajaxReserveConcertList.ot",
         data : data,
         success : function(result){
-            console.log(result)
             callback(result)
         }, error : function(){
             console.log("실패")
@@ -214,7 +213,6 @@ function updateNolike(data, callback){
         url : "ajaxUpdateNoLike.ot",
         data : data,
         success : function(result){
-            console.log("취소")
             callback(result)
         }, error : function(){
             console.log("실패")
@@ -265,7 +263,6 @@ function keywordCategoryList(data, callback){
         url : "ajaxKeywordCategoryList.ot",
         data : data,
         success : function(result){
-            console.log(result)
             callback(result)
         }, error : function(){
             console.log("실패")

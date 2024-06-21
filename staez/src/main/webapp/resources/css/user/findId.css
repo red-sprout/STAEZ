@@ -6,6 +6,11 @@ img {
     margin-top: 80px;
 }
 
+h2 {
+    margin-bottom: 80px; /* 아래쪽 여백 30px */
+    color: #DD0D64;
+}
+
 /* 중앙 정렬을 위한 스타일 */
 main {
     display: flex;
@@ -38,7 +43,7 @@ th.findId-label {
     display: flex;
     justify-content: left;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 100px;
 }
 
 /* 이메일 선택 */
@@ -50,6 +55,7 @@ th.findId-label {
     justify-content: left; /* 중앙 정렬 */
     align-items: center;
     margin-bottom: 40px;
+    margin-top: 50px;
 }
 
 /* 휴대전화인증 칸 */

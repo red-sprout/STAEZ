@@ -16,7 +16,7 @@
 	</header>
 	<main>
 		<div id="community-wrapper">
-			<ul id="community-nav" align="left"></ul>
+			<jsp:include page="/WEB-INF/views/community/communityNav.jsp" />
 			<ul id="community-contents" align="left">
 				<li id="community-search">
 					<button>
@@ -28,6 +28,9 @@
 			</ul>
 		</div>
 	</main>
+	<c:if test="${not empty loginUser}">
+        <jsp:include page="../chatbot/chatbot.jsp" />
+    </c:if>
 	<footer>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</footer>
