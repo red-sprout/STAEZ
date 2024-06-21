@@ -96,6 +96,9 @@
             </ul>
         </div>
     </main>
+    <c:if test="${not empty loginUser}">
+        <jsp:include page="../chatbot/chatbot.jsp" />
+    </c:if>
     <div class="community-fixed">
         <div class="community-circle-area" onclick="likeToggle(this)">
             <img><h4></h4>
