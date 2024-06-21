@@ -55,7 +55,7 @@
     border-right: 1px solid #969696; /* 원하는 border 스타일 설정 */
 }
 
-.main-content>table th:nth-child(2)::after {
+.main-content>table th:nth-child(3)::after {
     border-right: none;
 }
 
@@ -64,27 +64,19 @@
     height: 50px;
 }
 
+/* 예약번호 */
+.main-content>table .tb-content>.reserve-no{
+    width: 80px;
+}
 
-.main-content>table .tb-title>#concert-info{
-    width: 620px;
-}
-.main-content>table .tb-content>td:nth-child(1){
-    width: 140px;
-}
-.main-content>table .tb-content>td:nth-child(2){
+/* 공연정보 */
+.main-content>table .tb-content>.concert-info{
     width: 500px;
 }
-.main-content>table .tb-title>#reserve-info{
-    width: 200px;
-}
 
-/*공연 포스터 이미지*/
-.main-content>table img{
-    width: 90px;
-    height: 120px;
-}
-.main-content>table img:hover{
-    cursor: pointer;
+/* 예매정보 */
+.main-content>table .tb-content>.reserve-info{
+    width: 180px;
 }
 
 .main-content>table .concert-info{
@@ -110,11 +102,11 @@
     text-align: left;
 }
 
-/* 예매정보 hover
+/* 예매정보 hover */
 .main-content>table .reserve-info:hover{
     cursor: pointer;
     background: rgb(245, 245, 245);
-} */
+}
 
 
 

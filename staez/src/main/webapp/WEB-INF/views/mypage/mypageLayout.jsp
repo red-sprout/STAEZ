@@ -47,7 +47,7 @@
                 <div class="side-menu">
                     <div class="small-title">마이페이지</div>
                     <ul>
-                        <li><a id="paymentsLog" href="${contextPath}/paymentList.me?cpage=1">결제내역</a></li>
+                        <li><a id="paymentsLog" href="${contextPath}/paymentList.me?cpage=1">예매내역</a></li>
                         <li><a id="myScrapList" href="${contextPath}/scrapList.me?cpage=1">찜목록</a></li>
                         <li><a id="oneLineReview" href="${contextPath}/reviewList.me?cpage=1">한줄평</a></li>
                     </ul>
