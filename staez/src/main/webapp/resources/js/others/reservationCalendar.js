@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
     function spanDayChange(d){
-        console.log(d)
+   
         clickedDate.innerHTML = ``; 
         clickedDate.innerHTML = `${year}-${months[month]}-${String(d).padStart(2, '0')}`;
     }
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
     function renderCalendar(reserveDate) {
-        
+      
         function getConcertDates(reserveDates) {
             return reserveDates.map(reservation => reservation.concertDate);
         }
@@ -42,8 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         const parseDates = concertDates.map(parseKoreanDate);
-        console.log("parseDates : " + parseDates)
-
+      
         const startDay = new Date(year, month, 1).getDay(); // 월의 시작 요일
         
         const endDate = new Date(year, month + 1, 0).getDate(); // 월의 마지막 날짜
@@ -88,12 +87,13 @@ document.addEventListener('DOMContentLoaded', () => {
         tophtml.textContent = `${year}년 ${months[month]}월`;
 
         const todate = document.querySelector(".reservation-day-span").innerHTML;
-        console.log(todate)
-        console.log(userNo)
-        reserveChoiceConcertList({
-            userNo,
-            todate
-        },(rConcertList) => drawDateCategoryConcert(rConcertList))
+        
+        if(!todate.includes('년')){
+            reserveChoiceConcertList({
+                userNo,
+                todate
+            },(rConcertList) => drawDateCategoryConcert(rConcertList))
+        }
     }
     
     navs.forEach(nav => {
@@ -114,6 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             date = new Date(year, month, new Date().getDate());
 
             const userNo = userInfo.value;
+            
             reserveConcertList({
                 userNo
             },(reserveDate) => renderCalendar(reserveDate))
@@ -121,9 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     
-    console.log(userInfo)
+   
     const userNo = userInfo.value;
-    console.log(userNo)
+  
     reserveConcertList({
         userNo
     },(reserveDate) => renderCalendar(reserveDate))
@@ -136,8 +137,8 @@ function clickDate(_this, daysInMonth) {
     const todate = document.querySelector(".reservation-day-span").innerHTML;
     const tomonth = todate.substring(5, 7);
     const thisMonth = _this.id;
-    console.log(thisMonth)
-    console.log("클릭시 현제 월 : " + tomonth)
+   
+
     for (let i = 0; i < liList.length; i++) {
         if (liList[i] !== _this) {
             if (liList[i].classList.contains('clickDate') || liList[i].classList.contains('clicked')) {            
@@ -174,7 +175,7 @@ const months = [
         "07", "08", "09", "10", "11", "12"
 ];
 function spanDayChange2(y, m, d){
-    console.log(clickedDate);
+  
 
     
     clickedDate.innerHTML = ``; 
@@ -184,14 +185,14 @@ function spanDayChange2(y, m, d){
     const userNo = userInfo.value;
 
     const todate = document.querySelector(".reservation-day-span").innerHTML;
-    
+   
     reserveChoiceConcertList({
         userNo,
         todate
     },(rConcertList) => drawDateCategoryConcert(rConcertList))
 }
 function drawDateCategoryConcert(result){
-    console.log("리스트 그려주는 곳 : " + result)
+
     const concertArea = document.querySelector(".reservation-day-info-area");
 
     concertArea.innerHTML = ``;
@@ -224,7 +225,7 @@ function drawDateCategoryConcert(result){
 }
 
 function spanDayChange3(y, m){
-    console.log(clickedDate);
+
 
     
     clickedDate.innerHTML = ``; 

@@ -74,10 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 month = btnId === "next" ? month + 1 : month - 1;
             }
 
-            // date = new Date(year, month, new Date().getDate());
-            // year = date.getFullYear();
-            // month = date.getMonth();
-
             renderCalendar();
         });
     });
