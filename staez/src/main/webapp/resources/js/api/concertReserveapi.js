@@ -13,7 +13,7 @@ function ajaxConcertPeriod(data, callback){
 function ajaxConcertDayOff(data, callback){
     $.ajax({
         url : "ajaxConcertDayOff.co",
-        data : data,
+        data : data,    
         success : function(result){
             callback(result)
         }, error : function(){
