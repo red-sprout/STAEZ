@@ -68,6 +68,7 @@ public class LoginController {
          return "user/loginForm";
       } else {
          session.setAttribute("loginUser", loginUser);
+         session.setAttribute("alertMsg", "로그인이 되었습니다.");
          return "redirect:/";
       }
    }
@@ -77,7 +78,7 @@ public class LoginController {
    public String logoutUser(HttpSession session) {
       session.removeAttribute("loginUser");
       session.removeAttribute("isAuth");
-
+      session.setAttribute("alertMsg", "로그아웃되었습니다.");
       return "redirect:/";
    }
    
@@ -149,6 +150,7 @@ public class LoginController {
                 if (user != null) {
                     // 사용자가 존재하면 로그인 처리
                     session.setAttribute("loginUser", user);
+                    session.setAttribute("alertMsg", "네이버 간편로그인이 되었습니다.");
                     return "redirect:/";
                 } else {
                     // 사용자가 존재하지 않으면 회원가입 페이지로 이동
@@ -257,6 +259,7 @@ public class LoginController {
                     if (user != null) {
                         // 사용자가 존재하면 로그인 처리
                         session.setAttribute("loginUser", user);
+                        session.setAttribute("alertMsg", "카카오 간편로그인이 되었습니다.");
                         return "redirect:/"; // 메인 페이지로 리다이렉트
                     } else {
                         // 사용자가 존재하지 않으면 회원가입 페이지로 이동
@@ -350,6 +353,7 @@ public class LoginController {
                     if (user != null) {
                         // 사용자가 존재하면 로그인 처리
                         session.setAttribute("loginUser", user);
+                        session.setAttribute("alertMsg", "구글 간편로그인이 되었습니다.");
                         return "redirect:/";
                     } else {
                         // 사용자가 존재하지 않으면 회원가입 페이지로 이동
