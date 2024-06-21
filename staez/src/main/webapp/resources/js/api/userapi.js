@@ -53,6 +53,20 @@ function verifyNameAndEmail(nameInput, emailInput) {
     });
 }
 
+// 이메일 인증 요청을 서버로 보내는 함수
+function verifyNameAndEmailAndPhone(nameInput, emailInput, phoneInput) {
+    $.ajax({
+        url: "emailbyNamebyPhone.me",
+        data: { checkEmail: emailInput, userName: nameInput, phone : phoneInput},
+        success: function(response) {
+            handleEmailCheckResponse(response);
+        },
+        error: function() {
+            alert("이미 전송 처리했습니다. 번호가 틀리다면 재전송을 누른 후 다시 전송버튼을 누르세요.");
+        }
+    });
+}
+
 // 암호키 체크
 function emailCheckCode(data, callback) {
     $.ajax({
@@ -133,6 +147,18 @@ function sendAuthNumAjax(data, callback){
     });
 }
 
+// 아이디 찾기 핸드폰 중복 인증
+function insertPhoneCheck(data, callback){
+    $.ajax({
+        url: 'insertPhoneCheck.me',
+        data,
+        success: res => callback(res),
+        error: () => {
+            alert('휴대폰 인증번호 전송에 실패하였습니다');
+        }
+    });
+}
+
 // 아이디 찾기 핸드폰 인증
 function sendPhoneAuthNoAjax(data, callback){
     $.ajax({
@@ -146,7 +172,7 @@ function sendPhoneAuthNoAjax(data, callback){
     });
 }
 
-// 이름과 전화번호를 검증하는 함수
+// 아이디 찾기 이름과 전화번호를 검증하는 함수
 function verifyPhoneAndName(userName, phoneInput, callback) {
     $.ajax({
         url: "findPhoneCheck.me",

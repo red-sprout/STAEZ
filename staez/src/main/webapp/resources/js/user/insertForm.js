@@ -16,13 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 이메일
     sgininemail();
     // 이메일 인증 전송 버튼 이벤트 리스너 등록
-    $("#emailCheckButton").on('click', (ev) => {
-        // 클릭 이벤트 발생 시 서버로 이메일 인증 요청 보내기
-        const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
-        // 클릭 못하게 설정
-        sendEmailVerificationRequest(emailInput); // 이메일 인증 요청 보내는 함수 호출
-        alert("인증번호가 전송되었습니다 잠시만 기다려주세요.");
-    });
+    emailCheckButton();
     // UUID 이메일 체크
     emailSecretCode();
     // 버튼 클릭시 색상변경
@@ -34,21 +28,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // 이메일 주소적는칸에 영어만 가능하게
     addEmailValidationTwo();
     // "인증번호 전송" 버튼 클릭 이벤트 핸들러 등록
-    const phoneCheckButton = document.getElementById("phoneCheckButton");
-    if (phoneCheckButton) {
-        phoneCheckButton.addEventListener("click", function() {
-            phoneClick();
-            $("#check_PhoneSecretBtn").prop('disabled', false); // 인증확인 버튼 활성화
-        });
-    }
+    phoneCheckButton();
     // "인증확인" 버튼 클릭 이벤트 핸들러 등록
-    const checkPhoneSecretBtn = document.getElementById("check_PhoneSecretBtn");
-    if (checkPhoneSecretBtn) {
-        checkPhoneSecretBtn.addEventListener("click", function() {
-            checkAuthNum();
-        });
-    }
+    checkPhoneSecretBtn();
 });
+
 // 닉네임 중복체크
 function nicknameCheck() {
     const nicknameInput = document.querySelector("#nickname");
@@ -93,7 +77,8 @@ function callbackNickCheck(result, nicknameCheckResult, nicknameInput, nicknameE
         nicknameErrorMessage.innerText = "닉네임 확인 중 오류가 발생했습니다.";
     }
 }
-// 아이디체크
+
+// 아이디 체크
 function signinIdCheck() {
     const userIdInput = document.getElementById("user_Id");
     const userIdCheckButton = document.getElementById("idcheckButton");
@@ -116,13 +101,12 @@ function signinIdCheck() {
     }
 }
 
-// 아이디체크 콜백
+// 아이디 체크 콜백
 function callbackIdCheck(result, userIdCheckResult, userIdInput, userIdErrorMessage) {
     userIdCheckResult.style.display = "table-row";
     if (result === "NNNNN") {
         userIdErrorMessage.style.color = "red";
         userIdErrorMessage.innerText = "이미 사용중인 아이디입니다.";
-        // 아이디 입력 필드의 값을 없애기
         userIdInput.value = "";
     } else {
         const idLength = userIdInput.value.length;
@@ -141,14 +125,14 @@ function callbackIdCheck(result, userIdCheckResult, userIdInput, userIdErrorMess
         }
     }
 }
-// 비밀번호 관련 
+
+// 비밀번호 유효성 검사
 function validatePassword() {
     var password1 = document.getElementById("password1").value;
     var password2 = document.getElementById("password2").value;
     var passwordMessageTr = document.getElementById("passwordMessageTr");
     var passwordErrorMessage = document.getElementById("passwordErrorMessage");
 
-    // 입력값이 모두 비어있으면 메시지를 숨깁니다.
     if (password1 === "" && password2 === "") {
         passwordMessageTr.style.display = "none";
         passwordErrorMessage.innerHTML = "";
@@ -157,13 +141,10 @@ function validatePassword() {
 
     passwordMessageTr.style.display = "table-row";
 
-    // 비밀번호가 서로 다른 경우
     if (password1 !== password2) {
         passwordErrorMessage.style.color = "red";
         passwordErrorMessage.innerHTML = "비밀번호가 다릅니다.";
     } else {
-        // 비밀번호가 일치하는 경우
-        // 비밀번호 유효성 검사: 영문, 숫자, 특수문자 포함, 8글자 이상
         var regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
         if (!regex.test(password1)) {
             passwordErrorMessage.style.color = "red";
@@ -174,6 +155,7 @@ function validatePassword() {
         }
     }
 }
+
 // 비밀번호 클릭시 보이도록 (마우스가 눌린 상태에서만)
 function togglePasswordVisibility(inputField, isMouseDown) {
     if (isMouseDown && inputField.type === "password") {
@@ -182,17 +164,18 @@ function togglePasswordVisibility(inputField, isMouseDown) {
         inputField.type = "password";
     }
 }
+
+// 비밀번호 확인
 function signinPwdCheck(){
     let isMouseDown = false;
     const pwdImgElement = document.getElementById("pwdImg");
     const inputField = document.getElementById("password1");
 
-    // 마우스 버튼이 눌린 상태인지 여부를 확인하여 상태 업데이트
     pwdImgElement.addEventListener("mousedown", function() {
         isMouseDown = true;
         togglePasswordVisibility(inputField, isMouseDown);
     });
-    // 마우스 버튼이 떼어진 상태인지 여부를 확인하여 상태 업데이트 및 비밀번호 가리기
+
     pwdImgElement.addEventListener("mouseup", function() {
         isMouseDown = false;
         togglePasswordVisibility(inputField, isMouseDown);
@@ -204,28 +187,10 @@ function DateInput(){
     const birthDateInput = document.getElementById('birthDate');
     const today = new Date();
 
-    // 오늘 날짜 형식으로 포맷팅
     const todayStr = today.toISOString().split('T')[0];
-
     birthDateInput.setAttribute('max', todayStr);
 }
-// 핸드폰 번호 전송 처리
-function signinPhoneNumber (){
-    const prefixElement = document.getElementById("phone-prefix");
-    const suffix1Element = document.getElementById("phone-suffix1");
-    const suffix2Element = document.getElementById("phone-suffix2");
-    const inputValueElement = document.getElementById("input-value-phone");
 
-    function updatePhoneNumber() {
-        const prefix = prefixElement.innerText;
-        const suffix1 = suffix1Element.value;
-        const suffix2 = suffix2Element.value;
-        const phoneNumber = prefix + suffix1 + suffix2;
-        inputValueElement.value = phoneNumber;
-    }
-    suffix1Element.addEventListener('input', updatePhoneNumber);
-    suffix2Element.addEventListener('input', updatePhoneNumber);
-}
 // 핸드폰 번호 전송 처리
 function signinPhoneNumber() {
     const prefixElement = document.getElementById("phone-prefix");
@@ -245,27 +210,31 @@ function signinPhoneNumber() {
 
     function allowOnlyNumbers(event) {
         const value = event.target.value;
-        const newValue = value.replace(/[^0-9]/g, ''); // 숫자가 아닌 문자를 제거
+        const newValue = value.replace(/[^0-9]/g, '');
         if (newValue !== value) {
             event.target.value = newValue;
             verificationPhoneTr.style.display = "table-row";
             PverificationMessage.style.color = "red";
             PverificationMessage.innerText = "숫자만 입력 가능합니다.";
         } else {
-            PverificationMessage.innerText = ""; // 숫자만 입력된 경우 메시지 제거
+            PverificationMessage.innerText = "";
         }
     }
 
     suffix1Element.addEventListener('input', updatePhoneNumber);
-    suffix1Element.addEventListener('input', allowOnlyNumbers); // 숫자만 입력 가능하도록 추가
+    suffix1Element.addEventListener('input', allowOnlyNumbers);
     suffix2Element.addEventListener('input', updatePhoneNumber);
-    suffix2Element.addEventListener('input', allowOnlyNumbers); // 숫자만 입력 가능하도록 추가
+    suffix2Element.addEventListener('input', allowOnlyNumbers);
 }
 
 let authNo;
+let isPhoneClickInProgress = false; // 전화 인증 진행 상태 변수
 
 // 폰 인증
 function phoneClick() {
+    if (isPhoneClickInProgress) return;
+    isPhoneClickInProgress = true;
+
     const phoneInputValue = document.getElementById("input-value-phone").value;
     var verificationPhoneTr = document.getElementById("verificationPhoneTr");
     var PverificationMessage = document.getElementById("Pverification-message");
@@ -275,21 +244,36 @@ function phoneClick() {
     $('#phoneCheck').prop('checked', false);
     verificationPhoneTr.style.display = "table-row";
 
-    sendPhoneAuthNoAjax({ authNo, PhoneInput: phoneInputValue }, function(res) {
-        if (res === "NNNNY") {
+    insertPhoneCheck({ checkPhone: phoneInputValue }, function(res) {
+        if (res.trim() === "onPhone") {
             verificationPhoneTr.style.display = "table-row";
-            PverificationMessage.style.color = "green";
-            stopBtn.disabled = false;
-            PverificationMessage.innerHTML = "인증번호가 전송되었습니다.";
-            console.log('인증번호 : ' + authNo);
-            console.log('전송한 휴대폰번호 : ' + phoneInputValue);
+            PverificationMessage.style.color = "red";
+            PverificationMessage.innerHTML = "해당 번호는 등록된 번호입니다. 다시 입력하세요.";
+            isPhoneClickInProgress = false;
+        } else if (res.trim() === "NoPhone") {
+            sendPhoneAuthNoAjax({ authNo: authNo, phoneInput: phoneInputValue }, function(res) {
+                if (res.trim() === "NNNNY") {
+                    verificationPhoneTr.style.display = "table-row";
+                    PverificationMessage.style.color = "green";
+                    stopBtn.disabled = false;
+                    PverificationMessage.innerHTML = "인증번호가 전송되었습니다.";
+                    console.log('인증번호 : ' + authNo);
+                    console.log('전송한 휴대폰번호 : ' + phoneInputValue);
 
-            startPTimer(); //  타이머 시작
-            $("#check_PhoneSecretBtn").prop('disabled', false); // 인증확인 버튼 활성화
+                    startPTimer();
+                    $("#check_PhoneSecretBtn").prop('disabled', false);
+                } else {
+                    verificationPhoneTr.style.display = "table-row";
+                    PverificationMessage.style.color = "red";
+                    PverificationMessage.innerHTML = "전송에 실패했습니다. 핸드폰 번호를 다시 한번 확인해주세요.";
+                }
+                isPhoneClickInProgress = false;
+            });
         } else {
             verificationPhoneTr.style.display = "table-row";
             PverificationMessage.style.color = "red";
             PverificationMessage.innerHTML = "전송에 실패했습니다. 핸드폰 번호를 다시 한번 확인해주세요.";
+            isPhoneClickInProgress = false;
         }
     });
 }
@@ -300,6 +284,7 @@ function checkAuthNum() {
     var checkResultPhoneTr = document.getElementById("checkResultPhoneTr");
     var userPhoneErrorMessage = document.getElementById("userPhoneErrorMessage");
     const stopBtn = document.getElementById("check_PhoneSecretBtn");
+
     if (authNo !== inputCode) {
         checkResultPhoneTr.style.display = "table-row";
         userPhoneErrorMessage.style.color = "red";
@@ -309,7 +294,28 @@ function checkAuthNum() {
         checkResultPhoneTr.style.display = "table-row";
         userPhoneErrorMessage.style.color = "green";
         userPhoneErrorMessage.innerHTML = "인증에 성공하였습니다";
-        clearInterval(ptimer); // 타이머 정지
+        clearInterval(ptimer);
+    }
+}
+
+// "인증번호 전송" 버튼 클릭 이벤트 핸들러 등록
+function phoneCheckButton() {
+    const phoneCheckButton = document.getElementById("phoneCheckButton");
+    if (phoneCheckButton) {
+        phoneCheckButton.addEventListener("click", function() {
+            phoneClick();
+            $("#check_PhoneSecretBtn").prop('disabled', false);
+        });
+    }
+}
+
+// "인증확인" 버튼 클릭 이벤트 핸들러 등록
+function checkPhoneSecretBtn(){
+    const checkPhoneSecretBtn = document.getElementById("check_PhoneSecretBtn");
+    if (checkPhoneSecretBtn) {
+        checkPhoneSecretBtn.addEventListener("click", function() {
+            checkAuthNum();
+        });
     }
 }
 
@@ -321,14 +327,14 @@ function addEmailValidation() {
 
     emailPrefixElement.addEventListener('input', function(event) {
         const value = event.target.value;
-        const validValue = value.replace(/[^a-zA-Z0-9]/g, ''); // 영어와 숫자가 아닌 문자를 제거
+        const validValue = value.replace(/[^a-zA-Z0-9]/g, '');
         if (value !== validValue) {
             event.target.value = validValue;
             verificationEmailTr.style.display = "table-row";
             verificationMessage.style.color = "red";
             verificationMessage.innerText = "영어 / 숫자 만 가능합니다.";
         } else {
-            verificationMessage.innerText = ""; // 올바른 입력일 경우 메시지 제거
+            verificationMessage.innerText = "";
         }
     });
 }
@@ -341,14 +347,14 @@ function addEmailValidationTwo() {
 
     emailPrefixElement.addEventListener('input', function(event) {
         const value = event.target.value;
-        const validValue = value.replace(/[^a-zA-Z.]/g, ''); // 영어가 아닌 문자를 제거
+        const validValue = value.replace(/[^a-zA-Z.]/g, '');
         if (value !== validValue) {
             event.target.value = validValue;
             verificationEmailTr.style.display = "table-row";
             verificationMessage.style.color = "red";
             verificationMessage.innerText = "한글 / 숫자는 입력이 불가능합니다.";
         } else {
-            verificationMessage.innerText = ""; // 올바른 입력일 경우 메시지 제거
+            verificationMessage.innerText = "";
         }
     });
 }
@@ -358,8 +364,8 @@ function sendVerificationCode() {
     const emailInput = document.getElementById("input-value-email").value;
 
     if (emailInput.trim().length > 0) {
-        sendEmailVerificationRequest(emailInput); // AJAX 호출 함수 호출
-        startTimer(); // 3분 타이머 시작
+        sendEmailVerificationRequest(emailInput);
+        startTimer();
     }
 }
 
@@ -381,6 +387,9 @@ function handleEmailCheckResponse(response) {
     } else if (response === "emailCheck Invalid") {
         verificationMessage.style.color = "red";
         verificationMessage.innerText = "해당 정보가 없습니다 다시 입력해주세요!";
+    } else if (response === "emailCheck Duplicated") {
+        verificationMessage.style.color = "red";
+        verificationMessage.innerText = "해당 이메일은 이미 등록된 이메일입니다. 다시 입력해주세요!";
     }
 }
 
@@ -397,9 +406,9 @@ function callbackEmailSecret(result, emailSecretCheckResult, check_emailSecretBt
     } else if (result === "emailSecretCodeCheck Yes") {
         userEmailErrorMessage.style.color = "green";
         userEmailErrorMessage.innerText = "인증이 확인되었습니다.";
-        clearInterval(timer); // 타이머 정지
-        insertMemberBtn.disabled = false; // "회원가입" 버튼 활성화
-        stopEmailBtn.disabled = true; // 인증확인버튼 비활성화
+        clearInterval(timer);
+        insertMemberBtn.disabled = false;
+        stopEmailBtn.disabled = true;
     } else {
         userEmailErrorMessage.style.color = "red";
         userEmailErrorMessage.innerText = "인증을 확인할 수 없습니다.";
@@ -429,12 +438,24 @@ function emailSecretCode() {
         }
     });
 }
-let timer; 
-let ptimer; 
+
+// 이메일 인증 전송 버튼 이벤트 리스너 등록
+function emailCheckButton(){
+    const emailCheckButton = document.getElementById("emailCheckButton");
+    emailCheckButton.addEventListener('click', function(ev) {
+        ev.preventDefault();
+        const emailInput = document.getElementById("input-value-email").value;
+        sendEmailVerificationRequest(emailInput);
+        alert("인증번호가 전송되었습니다 잠시만 기다려주세요.");
+    });
+}
+
+let timer;
+let ptimer;
 
 // 핸드폰 타이머 시작 함수
 function startPTimer() {
-    clearInterval(ptimer); // 기존 타이머가 있으면 제거
+    clearInterval(ptimer);
 
     let duration = 3 * 60;
     const ptimerDisplay = document.getElementById('Ptimer');
@@ -450,21 +471,20 @@ function startPTimer() {
             clearInterval(ptimer);
             ptimerDisplay.textContent = "시간 초과";
 
-            // 시간 초과 시 인증 실패 메시지 표시
             var checkResultPhoneTr = document.getElementById("checkResultPhoneTr");
             var userPhoneErrorMessage = document.getElementById("userPhoneErrorMessage");
             checkResultPhoneTr.style.display = "table-row";
             userPhoneErrorMessage.style.color = "red";
             userPhoneErrorMessage.innerHTML = "인증 실패 다시 한번 확인해주세요.";
 
-            $("#check_PhoneSecretBtn").prop('disabled', true); // 인증확인 버튼 비활성화
+            $("#check_PhoneSecretBtn").prop('disabled', true);
         }
     }, 1000);
 }
 
 // 이메일 타이머 시작 함수
 function startTimer() {
-    clearInterval(timer); 
+    clearInterval(timer);
 
     var duration = 3 * 60;
     var timerDisplay = document.getElementById('timer');
@@ -483,15 +503,13 @@ function startTimer() {
     }, 1000);
 }
 
-// 이메일
+// 이메일 입력
 function sgininemail() {
-    // 필요한 요소들을 가져옵니다.
     const prefixElement = document.getElementById("email-prefix");
     const suffixElement = document.getElementById("email-suffix");
     const domainList = document.getElementById("email-domain-list");
     const inputValueElement = document.getElementById("input-value-email");
 
-    // 이메일 주소를 업데이트하는 함수를 정의합니다.
     function updateEmail() {
         const prefix = prefixElement.value;
         const suffix = suffixElement.value;
@@ -505,7 +523,7 @@ function sgininemail() {
             inputValueElement.value = "";
         }
     }
-    // 도메인 리스트 변경 시 처리하는 함수를 정의합니다.
+
     function handleDomainListChange() {
         const selectedOption = domainList.options[domainList.selectedIndex].value;
 
@@ -518,65 +536,54 @@ function sgininemail() {
             suffixElement.placeholder = "직접 입력";
             suffixElement.disabled = false;
         }
-        updateEmail(); // 이메일 업데이트 함수를 호출하여 이메일 값을 업데이트합니다.
+        updateEmail();
     }
-    // 초기화 함수를 정의합니다.
+
     function init() {
-        handleDomainListChange(); // 도메인 리스트 변경 처리 함수를 호출합니다.
-        prefixElement.addEventListener('input', updateEmail); // 프리픽스 입력 시 이메일 업데이트 함수를 호출합니다.
-        suffixElement.addEventListener('input', updateEmail); // 서픽스 입력 시 이메일 업데이트 함수를 호출합니다.
-        domainList.addEventListener('change', handleDomainListChange); // 도메인 리스트 변경 시 처리하는 함수를 호출합니다.
+        handleDomainListChange();
+        prefixElement.addEventListener('input', updateEmail);
+        suffixElement.addEventListener('input', updateEmail);
+        domainList.addEventListener('change', handleDomainListChange);
     }
-    init(); // 페이지 로드 시 초기화 함수를 호출합니다.
+
+    init();
 }
 
-//주소 불러오기 - kakao 우편번호 서비스 api (https://postcode.map.daum.net/guide)
+// 주소 불러오기 - kakao 우편번호 서비스 api (https://postcode.map.daum.net/guide)
 function sample6_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+            var addr = '';
+            var extraAddr = '';
 
-            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-            var addr = ''; // 주소 변수
-            var extraAddr = ''; // (건물이름 건물 동) 변수
-
-            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+            if (data.userSelectedType === 'R') {
                 addr = data.roadAddress;
-            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+            } else {
                 addr = data.jibunAddress;
             }
 
-            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
             if(data.userSelectedType === 'R'){
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
                 if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
                     extraAddr += data.bname;
                 }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
                 if(data.buildingName !== '' && data.apartment === 'Y'){
                     extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
                 }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
                 if(extraAddr !== ''){
                     extraAddr = ' (' + extraAddr + ')';
                 }
 
-                // // 조합된 참고항목을 해당 필드에 넣는다.
                 document.getElementById("sample6_address").value = addr + extraAddr;
             } else {
                 document.getElementById("sample6_address").value = addr;
             }
 
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('sample6_postcode').value = data.zonecode;
-            // 커서를 상세주소 필드로 이동한다.
             document.getElementById("sample6_detailAddress").focus();
         }
     }).open();
 }
+
 // 주소 확인
 function updateAddressDisplay() {
     const addressInput = document.getElementsByClassName("addressInput")[0];
@@ -589,22 +596,24 @@ function updateAddressDisplay() {
         const detailAddressValue = detailAddressInput.value;
         const sample6Value = sample6_postcode.value;
 
-        // 주소와 자세한 주소를 결합하여 주소 표시 요소에 설정
         const fullAddress = "[" + sample6Value + "] " + addressValue + " " + detailAddressValue;
         addressDisplay.value = fullAddress;
     }
 }
+
 function checkAddress() {
     updateAddressDisplay();
 }
-// 이전페이지로 돌아가는
+
+// 이전페이지로 돌아가기
 function backPage(){
     var backButton = document.getElementById('backButton');
     backButton.addEventListener('click', function() {
         window.history.back();
     });
 }
-// 3개이상 못고르게하면서 값 출력되도록
+
+// 3개 이상 선택 불가 및 값 출력
 function sginingenreLike(){
     const genreLikeInput = document.querySelector("input[name='genreLike']");
     const buttons = document.querySelectorAll('.btn-staez3');
@@ -618,67 +627,62 @@ function sginingenreLike(){
                 if (selectedButtons.length < 3) {
                     button.classList.add('selected');
                 } else {
-                    // 선택 가능한 최대 개수를 초과한 경우 경고 메시지를 표시
                     alert("최대 갯수입니다.");
                 }
             }
             updateInput();
         });
     });
+
     function updateInput() {
         const selectedButtons = document.querySelectorAll('.btn-staez3.selected');
         const selectedGenres = Array.from(selectedButtons).map(button => button.getAttribute('data-genre'));
         genreLikeInput.value = selectedGenres.join(' ');
     }
 }
-// 모든정보가 저장되야 다음버튼 활성화
+
+// 모든 정보가 저장되어야 다음 버튼 활성화
 function signinSubmitButton(){
-    // 다음 버튼 클릭 이벤트
-    const submitButton = document.getElementById('submitButton'); // 버튼 요소 가져오기
-    const form = document.getElementById('enrollForm'); // 폼 요소 가져오기
+    const submitButton = document.getElementById('submitButton');
+    const form = document.getElementById('enrollForm');
 
     submitButton.addEventListener('click', function(event) {
-        event.preventDefault(); // 폼 제출을 막음
+        event.preventDefault();
         const isValid = validateForm();
         if (isValid) {
-            form.submit(); // 폼을 수동으로 제출
+            form.submit();
         } else {
             alert("입력값이 올바르지 않습니다. 모든 필수 입력란을 작성해주세요.");
         }
     });
+
     function validateForm() {   
-        var nicknameCheckResult = document.getElementById("checkResultNick"); // 닉네임 체크 결과
+        var nicknameCheckResult = document.getElementById("checkResultNick");
         var userIdCheckResult = document.getElementById("checkResultId");
-        var passwordMessage = document.getElementById("passwordMessage"); // 비밀번호 메시지
-        var emailSecretCheckResult = document.getElementById("userEmailErrorMessage"); // 이메일 인증 결과
-    
+        var passwordMessage = document.getElementById("passwordMessage");
+        var emailSecretCheckResult = document.getElementById("userEmailErrorMessage");
+
         if (nicknameCheckResult.innerText !== "사용가능한 닉네임입니다." ||
             userIdCheckResult.innerText !== "사용가능한 아이디입니다." ||
             passwordMessage.innerText !== "비밀번호가 일치합니다." ||
             emailSecretCheckResult.innerText !== "인증이 확인되었습니다.") {
-            return false; // 폼 제출을 막음
+            return false;
         }
-        return true; // 폼 제출을 허용
+        return true;
     }
 }
 
-// 버튼 클릭시 색상변경
-    function checkButton(){
+// 버튼 클릭시 색상 변경
+function checkButton(){
     var buttons = document.querySelectorAll(".check_button");
 
-    // 각 버튼에 대해 반복
     buttons.forEach(function(button) {
-        // 클릭 이벤트 리스너 추가
         button.addEventListener("mousedown", function() {
-        // 버튼에 clicked 클래스 추가
-        button.classList.add("clicked");
+            button.classList.add("clicked");
         });
-        
-        // 마우스 버튼에서 떼었을 때
+
         button.addEventListener("mouseup", function() {
-        // 버튼에 clicked 클래스 제거
-        button.classList.remove("clicked");
+            button.classList.remove("clicked");
         });
     });
 }
-

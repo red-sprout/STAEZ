@@ -37,12 +37,6 @@
                 <div class="input-PWD">
                     <input type="password" name="userPwd" placeholder="비밀번호 입력">
                 </div>
-                <div class="form-check">
-                    <label class="form-check-label" for="check1">
-                        <input type="checkbox" class="form-check-input" id="check1" name="option1" value="something" checked> 
-                        <p class="login-UZ">로그인 상태 유지</p>
-                    </label>
-                </div>
                 <button type="submit" class="btn btn-primary" id="btn-login">로그인</button>
                 <ul class="ID-PWD-USER">
                     <li><button type="button" id="findIdButton">아이디찾기</button></li>
