@@ -22,5 +22,8 @@ $(function(){
 function iquireDetailPage(boardNo){
     const contextPath = $('input[name=contextPath]').val();
     const url = contextPath + '/inquireDetail.me?boardNo=' + boardNo;
-    open(url, '_blank', "width=800, height=700, scrollbars=yes, resizable=no, location=no"); 
+    const detailWindow = open(url, '_blank', "width=800, height=700, scrollbars=yes, resizable=no, location=no"); 
+    detailWindow.onbeforeunload = function() { //onbeforeunloda : 창이나 탭이 닫히기전 발생하는 이벤트
+        location.reload();
+    };
 }
