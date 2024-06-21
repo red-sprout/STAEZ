@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="<c:url value='/resources/css/community/communityIncertForm.css'/>">
+<link rel="stylesheet" href="<c:url value='/resources/css/community/communityInsertForm.css'/>">
 </head>
 <body>
     <header>
@@ -16,8 +16,8 @@
     </header>
     <main>
         <div id="community-wrapper">
-            <ul id="community-nav" align="left"></ul>
-            <form id="community-contents"  align="left" method="post">
+            <!-- <jsp:include page="/WEB-INF/views/community/communityNav.jsp" /> -->
+            <form id="community-contents" align="left" method="post">
                 <input type="hidden" name="userNo" value="${loginUser.userNo}">
                 <li>
                     <h3>제목</h3>
@@ -46,7 +46,7 @@
                 </li>
                 <li id="community-submit">
                     <button class="btn-staez purple" type="button"><h3>작성</h3></button>
-                    <button class="btn-staez purple" type="button"><h3>목록</h3></button>
+                    <button class="btn-staez purple" type="button" onclick="location.href='main.cm'"><h3>목록</h3></button>
                 </li>
             </form>
         </div>
