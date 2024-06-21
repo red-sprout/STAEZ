@@ -184,7 +184,7 @@ public class OthersController {
 	@GetMapping(value = "ajaxChoiceReserveConcertList.ot" , produces="application/json; charset-UTF-8")
 	public String ajaxChoiceReserveConcertList(String userNo, String todate) {
 		
-
+		System.out.println(todate);
 		ArrayList<Concert> crList = oService.selectChoiceReserveConcertList(userNo, todate);
 		
 		

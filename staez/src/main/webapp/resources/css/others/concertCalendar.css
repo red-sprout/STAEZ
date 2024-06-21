@@ -312,6 +312,7 @@
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    padding: 0px 15px;
 }
 
 .concert-day-img-description-area{
