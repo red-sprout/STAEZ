@@ -60,7 +60,7 @@
             <li><button class="concert-main-list-button" onclick="allListClick(); return false;"><h3><span>전체보기</span></h3></button></li>
             <li><button class="concert-main-list-button" onclick="popularClick()"><h3><span>인기순위</span></h3></button></li>
             <li><button class="concert-main-list-button" onclick="latestClick()"><h3><span>최신공연</span></h3></button></li>
-            <li id="concert-main-list-area-parent"><button class="concert-main-list-button area" onclick="locationClick()"><h3><span>지역전체 ▼</span></h3></button>
+            <!-- <li id="concert-main-list-area-parent"><button class="concert-main-list-button area" onclick="locationClick()"><h3><span>지역전체 ▼</span></h3></button>
                 <ul class="concert-main-list-area"> 
                     <li><a onclick="locationArea('서울')">서울</a></li>
                     <li><a onclick="locationArea('경기')">경기</a></li>
@@ -70,7 +70,7 @@
                     <li><a onclick="locationArea('경상')">경상</a></li>
                     <li><a onclick="locationArea('제주')">제주</a></li>
                 </ul>
-            </li>
+            </li> -->
         </ul>
     </section>
     
