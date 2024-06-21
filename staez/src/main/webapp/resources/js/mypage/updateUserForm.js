@@ -54,6 +54,9 @@ function checkSubmitRequires() { //onclick
                 case 'emailCheck':
                     $('#email-front').focus();
                     break;
+                case 'addressCheck':
+                    $('#addressDetail').focus();
+                    break;
             }
         }
     });
@@ -100,6 +103,7 @@ function changeCheck(){
     const originNickname = $('input[name=nickname]').val();
     const originPhone = $('input[name=phone]').val();
     const originEmail = $('input[name=email]').val();
+
 
     compare(originNickname, $('input[name=nickname]'), $('#nicknameCheck'));
     compare(originPhone, $('input[name=phone]'), $('#phoneCheck'));
@@ -283,13 +287,15 @@ function execDaumPostcode() {
                 // 조합된 참고항목을 해당 필드에 넣는다.
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 $('#addressNormal').val('[' + data.zonecode + '] ' + addr + extraAddr);
-
+                $('#addressNormal').trigger('change');
             } else {
                 $('#addressNormal').val('[' + data.zonecode + '] ' + addr);
+                $('#addressNormal').trigger('change');
             }
 
             // 상세주소 필드의 readonly옵션을 없애고, 커서를 상세주소 필드로 이동한다.
             $('#addressDetail').val('').prop('readonly', false).focus();
+            $('#addressCheck').prop('checked', false);
         }
     }).open();
 }
@@ -301,7 +307,13 @@ function updateCombinedAddress() {
     const input2 = $('#addressDetail').val();
     
     address.val(input1 + '/' + input2);
-    console.log(address.val());
+    address.trigger('change');
+
+    $('#addressCheck').prop('checked', true);
+
+    if(input2 === ''){
+        $('#addressCheck').prop('checked', false);
+    }
 }
 
 // 휴대폰번호 필드 값 변경 시 호출되는 함수

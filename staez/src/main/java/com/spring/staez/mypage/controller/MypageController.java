@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -95,13 +96,22 @@ public class MypageController {
 	
 	//결제내역 상세 페이지 출력
 	@RequestMapping("reserveDetail.me")
-	public String myInquireDetail(int reserveNo, Model model) {
-		PaymentsInfoDto pay = mypageService.selectMyInquireDetail(reserveNo);
+	public String selectPaymentsDetail(int reserveNo, Model model) {
+		PaymentsInfoDto payments = mypageService.selectPaymentsDetail(reserveNo);
 		
-		model.addAttribute("inquire", pay);
+		model.addAttribute("payments", payments);
 		
 		return "mypage/paymentsDetail";
 	}
+	
+//	//결제 작업(무통장입금)
+//	@RequestMapping("deposit.me")
+//	@ResponseBody
+//	public String depositPayments(@RequestBody PaymentsInfoDto pid) {		
+//		int result = mypageService.depositPayments(pid);
+//		
+//		return result > 0 ? "success" : "failed";	
+//	};
 	
 	//찜목록 리스트 페이지 출력
 	@RequestMapping("scrapList.me")

@@ -1,4 +1,18 @@
 $(function(){
+    // loadMyPayments().then(payments => {
+    //     deposit(payments);
+    // });    
+    loadMyPayments();
+    loadMyScrap();
+    loadMyReview();
+    loadMyBoard();
+    loadMyInquire();
+
+});
+
+function loadMyPayments(){
+    // return new Promise((resolve, reject) => {
+
     loadMainPageAjax({tableType : 'myPayments'}, res => {
         const reserve = $('#reserve-td tbody');
         if(res.length > 0){
@@ -14,22 +28,28 @@ $(function(){
                                             </td>
                                             <td><h5>${res[i].tickets}</h5></td>
                                             <td>
-                                                <button class="btn-staez">
-                                                    <h5>결제하기</h5>
-                                                </button>
+                                                <span>
+                                                    ${res[i].payMethod === '카카오페이' || res[i].reserveStatus === 'Y' ? 
+                                                        '<h5>결제완료</h5>' : '<h5 class="pay-yet">결제대기중</h5>'}
+                                                </span>
                                             </td>
                                         </tr>`);
                 }
             }
         } else {
             $(reserve).append(`<tr>
-                                  <td colspan=4 class="empty">
+                                    <td colspan=4 class="empty">
                                     나의 예매 내역이 없습니다
-                                  </td>
-                               </tr>`);
+                                    </td>
+                                </tr>`);
         }
-    });
 
+        //     resolve(res); // res 값을 반환
+        // });
+    });
+}
+
+function loadMyScrap(){
     loadMainPageAjax({tableType : 'myScrap'}, res => {
         const like = $('#like tbody');
         if(res.length > 0){
@@ -53,7 +73,9 @@ $(function(){
              </tr>`);
         }
     });
+}
 
+function loadMyReview(){
     loadMainPageAjax({tableType : 'myReview'}, res => {
         const review = $('#review tbody');
         if(res.length > 0){
@@ -80,7 +102,9 @@ $(function(){
              </tr>`);
         }
     });
+}
 
+function loadMyBoard(){
     loadMainPageAjax({tableType : 'myBoard'}, res => {
         const board = $('#my-board tbody');
         if(res.length > 0){
@@ -103,7 +127,9 @@ $(function(){
              </tr>`);
         }
     });
+}
 
+function loadMyInquire(){
     loadMainPageAjax({tableType : 'myInquire'}, res => {
         const inquire = $('#my-inquire tbody');  
         if(res.length > 0){
@@ -126,7 +152,28 @@ $(function(){
              </tr>`);
         }
     });
-});
+}
+
+// function deposit(payments){
+//     $(document).on('click', '.pay-btn', function(){
+//         const btn = $(this);
+//         const index = btn.closest('tr').index(); // 클릭된 버튼이 속한 행의 인덱스를 가져옴
+//         const payment = payments[index]; // 해당 인덱스의 payments 배열 요소를 가져옴
+        
+//         console.log(payment); // 특정 인덱스의 payment 데이터 출력
+
+//         const result = confirm('결제하시겠습니까?');
+//         if(result){
+//             depositAjax(payment, res => {
+//                 if(res === 'success'){
+//                     alert('결제되었습니다.');
+//                 } else{
+//                     alert('결제실패');
+//                 }
+//             });
+//         } 
+//     });
+// }
 
 function openDetail(url) {
     const detailWindow = open(url, "_blank", "width=800,height=700,resizable=no,location=no");

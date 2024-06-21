@@ -14,7 +14,7 @@
     <table>
         <tbody>
             <tr class="tb-title">
-                <th>예약번호</th>
+                <th>예매번호</th>
                 <th>공연정보</th>
                 <th>예매정보</th>
             </tr>
@@ -42,21 +42,20 @@
                     <h5>
                         결제방식 : ${c.payMethod}
                     </h5>
-                    <h5>                        
-                        가격 : <fmt:formatNumber value="${c.price}" pattern="#,###￦" />
-                    </h5>
-                    <h5>
-                        좌석 : ${c.grade}석
-                        <c:set var="row" value="${c.reserveRow}" />
-                        <c:set var="alphabet" value="${fn:substring('ABCDEFGHIJKLMNOPQRSTUVWXYZ', row - 1, row)}" />
-                        <c:out value="${alphabet}" />${c.reserveCol}
+                    <h5 class="seat-no">
+                        <input type="hidden" name="row" value="${c.reserveRow}">
+                        <input type="hidden" name="col" value="${c.reserveCol}">
+                        <input type="hidden" name="seat" value="${c.grade}">
                     </h5>
                     
                     <h5>
                         예매시간 : <fmt:formatDate value="${c.reserveDate}" pattern="yyyy-MM-dd HH:mm" />
                     </h5>
+                    <c:if test="${c.reserveStatus eq 'Y'}">
+                        <button class="btn-staez">결제 완료</button>
+                    </c:if>
                     <c:if test="${c.reserveStatus eq 'U'}">
-                        <h4>결제 전</h4>
+                        <button class="btn-staez checked">결제대기중</button>
                     </c:if>
                 </td>
             </tr>

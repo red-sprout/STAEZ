@@ -73,10 +73,10 @@
     width: 50px;
     height: 30px;
 
+    border: 1px solid black;
     border-radius:0 10px 10px 0;
 
     background-color: #F8D082;
-
 }
 
 .main-content>.main-title>form>button>img{

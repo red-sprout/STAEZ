@@ -147,3 +147,16 @@ function deleteOneLineReviewAjax(data, callback){
         }
     });
 }
+
+// function depositAjax(data, callback){
+//     $.ajax({
+//         url: contextPath + 'deposit.me',   
+//         type: 'POST',
+//         contentType: 'application/json',
+//         data : JSON.stringify(data),
+//         success: res => callback(res),
+//         error: () => {
+//             alert('결제에 실패하였습니다');
+//         }
+//     });
+// }

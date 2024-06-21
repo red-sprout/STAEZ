@@ -102,6 +102,10 @@
     position: relative;
 }
 
+.pay-yet{
+    color: #F8D082;
+}
+
 .main-content>#reserve-td>table th::after {
     content: "";
     position: absolute;
@@ -124,7 +128,9 @@
     padding: 0 15px;
 }
 
-
+.pay-done{
+    color: red;
+}
 
 /*예매시간*/
 .main-content>#reserve-td>table #reserve-time{
@@ -139,7 +145,7 @@
 .main-content>#reserve-td>table #ticket-amount{
     width: 60px;
 }
-/*결제하기 버튼*/
+/*결제여부 확인*/
 .main-content>#reserve-td>table #reserve-btn{
     width: 140px;
 }

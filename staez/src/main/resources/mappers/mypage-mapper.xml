@@ -277,7 +277,62 @@
 		
 		ORDER BY r.reserve_no DESC
 	</select>
-
+	
+	<select id="selectPaymentsDetail" resultType="com.spring.staez.user.model.dto.PaymentsInfoDto">
+		SELECT c.concert_no AS concertNo, 
+				c.concert_title AS concertTitle,
+			    t.theater_name AS theaterName,
+				r.concert_date AS concertDate,
+				r.schedule,
+				c.concert_runtime AS concertRuntime,
+					
+				r.reserve_no AS reserveNo,
+				r.reserve_date AS reserveDate,
+				r.pay_method AS payMethod,
+				s.price,
+				r_name AS resName,
+				r_birth AS resBirth,
+				r_phone AS resPhone,
+		
+				s.grade,
+				r.reserve_row AS reserveRow,
+				r.reserve_col AS reserveCol,
+				r.reserve_status AS reserveStatus
+	
+		FROM reserve r
+		JOIN concert c ON r.concert_no = c.concert_no
+		JOIN concert_attachment ca ON c.concert_no = ca.concert_no
+		JOIN theater t ON c.theater_no = t.theater_no
+		JOIN seat s ON c.concert_no = s.concert_no
+					
+		WHERE r.reserve_no = #{reserveNo}
+		AND r.reserve_row BETWEEN seat_start_row AND seat_end_row 
+		AND r.reserve_col BETWEEN seat_start_col AND seat_end_col
+		AND r.concert_date = s.concert_date
+		AND r.reserve_status IN ('Y', 'U')
+	</select>
+	
+	<!--  
+	<select id="selectReserveNo" resultType="_int">
+		SELECT reserve_no
+		FROM reserve 
+		
+		WHERE user_no = #{userNo}
+		AND concert_date = #{concertDate}::timestamp
+		AND schedule = #{schedule}
+		AND reserve_date = #{reserveDate}::timestamp
+		AND pay_method = #{payMethod}
+		AND reserve_status = 'U'
+	</select>
+	
+	<update id="depositPayments">
+		UPDATE reserve 
+		SET reserve_status = 'Y'		
+		WHERE reserve_no = #{reserveNo}
+		AND reserve_status = 'U'
+	</update>
+	-->
+	
 	<select id="selectScrapCount" resultType="_int">
 		SELECT COUNT(cl.concert_like_no) 		
 		FROM concert_like cl
@@ -510,14 +565,17 @@
 			   reserve_date AS reserveDate, 
 			   concert_title AS concertTitle,
 			   concert_date AS concertDate,
+			   pay_method AS payMethod,
 			   schedule,
-			   tickets
-		FROM (SELECT concert_no, reserve_date, concert_title, concert_date, schedule, pay_method, COUNT(*) AS tickets
+			   tickets,
+			   reserve_status AS reserveStatus,
+			   user_no AS userNo
+		FROM (SELECT concert_no, reserve_date, concert_title, concert_date, schedule, pay_method, COUNT(*) AS tickets, reserve_status, user_no
 			  FROM reserve
 			  JOIN concert USING (concert_no)
 			  WHERE user_no = #{userNo}
 		      AND reserve_status IN ('Y', 'U')
-			  GROUP BY concert_no, reserve_date, concert_title, concert_date, schedule, pay_method
+			  GROUP BY concert_no, reserve_date, concert_title, concert_date, schedule, pay_method, reserve_status, user_no
 			  ORDER BY reserve_date DESC)
 		LIMIT 5
 	</select>
