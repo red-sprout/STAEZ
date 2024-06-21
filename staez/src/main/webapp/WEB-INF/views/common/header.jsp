@@ -43,7 +43,7 @@
                             <button type="submit">
                                 <img src="${contextPath}/resources/img/common/header/search.png" alt="">
                             </button>
-                            <input type="text" name="keyword" value="${keyword}">
+                            <input type="text" name="keyword" value="${keyword}" required>
                         </form>
                     </div>
                 </div>

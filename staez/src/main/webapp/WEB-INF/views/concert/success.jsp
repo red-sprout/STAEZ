@@ -14,7 +14,7 @@
 <body>
     
 	<div class="container">
-        <img src="steaz/resources/img/concert/loading.gif" alt="loading">
+        <div id="load"></div>
         <input type="hidden" name="userNo" value="${userNo}">
         <input type="hidden" name="concertNo" value="${concertNo}">
         <input type="hidden" name="recipientName" value="${recipientName}">
@@ -30,8 +30,13 @@
 	</div>
     <script src="${contextPath}/resources/js/api/concertReserveapi.js"></script>
     <script>
-        window.onload = function(){
+        function showLoading(){
+            const loadingPage = document.getElementById('load');
+             loadingPage.innerHTML = `<img src="/staez/resources/img/concert/loading.gif" alt="loading">`;
+        };
 
+        window.onload = function(){
+            showLoading();
             const userNo = document.querySelector("input[name = 'userNo']").value;
             const concertNo = document.querySelector("input[name = 'concertNo']").value;
             const recipientName = document.querySelector("input[name = 'recipientName']").value;
@@ -73,6 +78,27 @@
         }
     
     </script>
+
+    <style>
+    #load {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        display: block;
+        background: white;
+        z-index: 99;
+        text-align: center;
+    }
+
+    #load > img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 100;
+  }
+    </style>
     
 </body>
 </html>

@@ -618,8 +618,10 @@
     background: none;
     border: 1px solid #969696;
     border-radius: 5px;
-    margin-left: 56px;
+    margin-left: 36px;
     cursor: pointer;
+    padding: 0px 10px;
+
 }
 
 .important-span{
