@@ -55,6 +55,7 @@
 	 		<mapping path="/updateForm.cm"/>
 	 		<mapping path="/*.iq"/>
 	 		<mapping path="/*.ad"/>
+	 		<mapping path="/searchResult.me"/>
 	 		<beans:bean class="com.spring.staez.common.intercepter.LoginIntercepter" id="LoginIntercepter"/>
 	 	</interceptor>
 	 </interceptors>

@@ -158,3 +158,8 @@ function timeFormatForSeconds(timestamp) {
 
     return formattedDate;
 }
+
+function validatePhone(input) {
+    let regex = /^[0-9-]+$/;
+    return regex.test(input);
+}
