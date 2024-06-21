@@ -142,8 +142,8 @@ public class OthersDao {
 		return (ArrayList)sqlSession.selectList("othersMapper.selectkeywordCategoryList", bNo);
 	}
 	
-	public ArrayList<ProfileImg> selectKeywordUserProfilet(SqlSessionTemplate sqlSession, String keyword){
-		return (ArrayList)sqlSession.selectList("othersMapper.selectKeywordUserProfilet", keyword);
+	public ProfileImg selectKeywordUserProfilet(SqlSessionTemplate sqlSession, int bNo){
+		return sqlSession.selectOne("othersMapper.selectKeywordUserProfilet", bNo);
 	}
 	
 	public ArrayList<Concert> selectKeywordMoreEndConcertCount(SqlSessionTemplate sqlSession, String keyword){

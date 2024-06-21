@@ -1,4 +1,31 @@
 
+window.onload = function(){
+    reserveInfoSameCheck()
+}
+
+function reserveInfoSameCheck(){
+    const beforeInfo = document.querySelector(".before-info");
+
+    const userName = document.querySelector("input[name='userName']").value;
+    const birth = document.querySelector("input[name='userBirth']").value;
+    const phone = document.querySelector("input[name='userPhone']").value;
+    const email = document.querySelector("input[name='userEmail']").value;
+
+    const inputName = document.querySelector("input[name='name']");
+    const inputBirth = document.querySelector("input[name='birth']");
+    const inputPhone = document.querySelector("input[name='phone']");
+    const inputEamil = document.querySelector("input[name='email']");
+    
+    if(inputName.value !== userName || inputBirth.value !== birth
+        || inputPhone.value !== phone || inputEamil.value !== email
+    ){
+        beforeInfo.classList.remove("clicked")
+    } else {
+        beforeInfo.classList.add("clicked")
+    }
+
+    setTimeout(reserveInfoSameCheck, 1000);
+}
 
 function checkBirth(_this) {
     var birthInput = _this;

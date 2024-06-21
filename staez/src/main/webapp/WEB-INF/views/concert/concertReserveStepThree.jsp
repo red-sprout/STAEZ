@@ -60,7 +60,7 @@
                             <div><span>이메일</span><span class="important-star">*</span></div>
                             <input type="text" name="email" placeholder="@ 포함" value="">
                         </div>
-                        <div class="info-send-text"><span>SMS 문자와 이메일로 예매 정보를 보내드립니다.</span></div>
+                        <div class="info-send-text"><span>이메일로 예매 정보를 보내드립니다.</span></div>
                     </div>
                 </div>
             </div>

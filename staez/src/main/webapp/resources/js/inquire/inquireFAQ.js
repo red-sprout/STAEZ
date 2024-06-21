@@ -180,7 +180,7 @@ function drawCategoryFaq(res){
     pageArea.innerHTML = ``;
     faqContent.innerHTML = ``;
     if(res.faqs.length === 0){
-        faqContent.innerHTML += `<div style="margin-top: 30px;"><span style="font-size: 30px;">해당하는 공연 없습니다.</span></div>`
+        faqContent.innerHTML += `<div style="margin-top: 30px;"><span style="font-size: 30px;">해당하는 FAQ가 없습니다.</span></div>`
     } else {
         for(let f of res.faqs){
             faqContent.innerHTML += `<div class="faq-content-area">
