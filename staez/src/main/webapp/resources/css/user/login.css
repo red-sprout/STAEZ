@@ -105,31 +105,10 @@ input::placeholder {
     color: #d9d9d9;
 }
 
-/* 인풋 체크박스 크기전용 */
-.form-check-input {
-    zoom: 1.6;
-}
-
 /* 인풋 체크박스 위치조정 */
 #check1{
     margin-left: 0px;
 }
-
-/* 인풋 체크박스 label태그 */
-.form-check-label {
-    display: flex; /* flexbox 사용 */
-    align-items: center; /* 세로 중앙 정렬 */
-}
-
-/* 로그인상태유지를 감싸는 div태그 */
-.form-check {
-    margin-top: 10px;
-    margin-bottom: 25px;
-    border-radius: 20px;
-    display: flex; /* flexbox 사용 */
-    align-items: center; /* 세로 중앙 정렬 */
-}
-
 /* 로그인상태유지 p태그 */
 .login-UZ {
     margin-left: 25px;
@@ -145,6 +124,7 @@ input::placeholder {
     font-size: 20px;
     background-color: #d9d9d9;
     border: none;
+    margin: 30px 0px;
 }
 
 

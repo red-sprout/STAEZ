@@ -4,16 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 이메일
     sgininemail();
     // 이메일 인증 전송 버튼 이벤트 리스너 등록
-    const emailCheckButton = document.getElementById("emailCheckButton");
-    if (emailCheckButton) {
-        emailCheckButton.addEventListener('click', (ev) => {
-            ev.preventDefault(); // 버튼 클릭 시 기본 동작 막기
-            const nameInput = $("#user_name_email").val();
-            const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
-            verifyNameAndEmail(nameInput, emailInput); // 이메일 인증 요청 보내는 함수 호출
-            alert("인증번호가 전송되었습니다 잠시만 기다려주세요.");
-        });
-    }
+    emailCheckButton();
     // UUID 이메일 체크
     emailSecretCode();
     // 버튼 클릭 시 색상변경
@@ -135,9 +126,10 @@ function addEmailValidationTwo() {
 function sendVerificationCode() {
     const emailInput = document.getElementById("input-value-email").value;
     const nameInput = document.getElementById("input-value-name").value;
+    const phoneInput = document.getElementById("input-value-phone").value;
 
-    if (nameInput.trim().length > 0 && emailInput.trim().length > 0) {
-        verifyNameAndEmail(nameInput, emailInput); // 이름과 이메일 검증 함수 호출
+    if (nameInput.trim().length > 0 && emailInput.trim().length > 0 && phoneInput.trim().length > 0) {
+        verifyNameAndEmailAndPhone(nameInput, emailInput, phoneInput); // 이름과 이메일 검증 함수 호출
     }
 }
 
@@ -207,6 +199,21 @@ function emailSecretCode() {
         }
     });
 }
+
+// 이메일 인증 전송 버튼 이벤트 리스너 등록
+function emailCheckButton(){
+    const emailCheckButton = document.getElementById("emailCheckButton");
+    if (emailCheckButton) {
+        emailCheckButton.addEventListener('click', (ev) => {
+            ev.preventDefault(); // 버튼 클릭 시 기본 동작 막기
+            const nameInput = $("#user_name_email").val();
+            const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
+            verifyNameAndEmail(nameInput, emailInput); // 이메일 인증 요청 보내는 함수 호출
+            alert("인증번호가 전송되었습니다 잠시만 기다려주세요.");
+        });
+    }
+}
+
 let timer; // 전역 변수로 타이머 변수를 선언합니다.
 
 // 카운트 다운 시작 함수
