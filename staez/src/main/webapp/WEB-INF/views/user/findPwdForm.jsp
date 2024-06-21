@@ -58,6 +58,13 @@
                             </div>
                         </td>
                     </tr>
+                    <tr id="verificationPhoneTr">
+                        <td colspan="4">
+                            <div id="verificationPhone" class="checkResult">
+                                <span id="Pverification-message"></span>
+                            </div>
+                        </td>
+                    </tr>
                     <tr>
                         <th>이메일</th>
                         <td colspan="6" class="email-container" id="insertEmail" name="insertEmail">
@@ -98,7 +105,7 @@
                             </div>
                         </td>
                         <td>
-                            <input type="button" class="check_button" id="check_emailSecretBtn" value="인증확인">
+                            <input type="button" class="check_button" id="check_emailSecretBtn" value="인증확인" disabled>
                         </td>
                     </tr>
                     <tr id="checkResultEmailTr">

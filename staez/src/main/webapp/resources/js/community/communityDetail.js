@@ -48,27 +48,31 @@ function imgsrc(str) {
     return `/staez/resources/img/community/communityDetail/${str}.png`;
 }
 
+// 왼쪽 커뮤니티 대분류 항목 그리기
 function setNav(result) {
     const ul = document.getElementById("community-nav");
-    ul.innerHTML += `<li class="write-btn" onclick="location.href='main.cm'">
-                        <h2>커뮤니티 메인</h2>
+    ul.innerHTML += `<li class="community-nav-li">
+                        <h2>
+                            커뮤니티 메인
+                            <input type='radio' class="hidden" value="0">
+                        </h2>
                     </li>`;
 
-    for (let ele of result) {
+    for(let ele of result) {
         const li = document.createElement("li");
         const h2 = document.createElement("h2");
         const input = document.createElement("input");
-
+        
         li.setAttribute("class", "community-nav-li");
-        li.setAttribute("onclick", `location.href='main.cm?categoryNo=${ele.categoryNo}'`);
-
+        
         h2.innerHTML += ele.categoryName;
-        input.type = "hidden"
+        input.type = "radio"
         input.value = ele.categoryNo;
-        input.setAttribute("class", "community-hidden-input");
-
+        input.setAttribute("class", "community-hidden-input hidden");
+        
+        h2.appendChild(input);
         li.appendChild(h2);
-        li.appendChild(input)
+
         ul.appendChild(li);
     }
 
@@ -76,6 +80,28 @@ function setNav(result) {
                         <h2>글쓰기</h2>
                         <img src="${contextPath}/resources/img/community/communityMain/write.png">
                     </li>`;
+
+    ul.addEventListener("click", (ev) => navEvent(ev));
+}
+
+// navigation-bar 클릭시 이벤트
+function navEvent(ev) {
+    location.href="main.cm?categoryNo=" + communityCategoryNo()[0];
+}
+
+// 체크된 카테고리 가져오기
+function communityCategoryNo() {
+    const category = [];
+    const radio = document.querySelectorAll("input[type=radio]");
+    for(let ele of radio) {
+        if(parseInt(ele.value) === 0) {
+            continue;
+        }
+        if(ele.checked) {
+            category.push(ele.value);
+        }
+    }
+    return category;
 }
 
 function profileStatus(result, path) {
