@@ -241,7 +241,8 @@ function phoneClick() {
     const stopBtn = document.getElementById("check_PhoneSecretBtn");
 
     authNo = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
-    $('#phoneCheck').prop('checked', false);
+    //$('#phoneCheck').prop('checked', false);
+    document.getElementById('phoneCheck').checked = false;
     verificationPhoneTr.style.display = "table-row";
 
     insertPhoneCheck({ checkPhone: phoneInputValue }, function(res) {
@@ -261,7 +262,8 @@ function phoneClick() {
                     console.log('전송한 휴대폰번호 : ' + phoneInputValue);
 
                     startPTimer();
-                    $("#check_PhoneSecretBtn").prop('disabled', false);
+                    //$("#check_PhoneSecretBtn").prop('disabled', false);
+                    document.getElementById('check_PhoneSecretBtn').disabled = false;
                 } else {
                     verificationPhoneTr.style.display = "table-row";
                     PverificationMessage.style.color = "red";
@@ -304,7 +306,8 @@ function phoneCheckButton() {
     if (phoneCheckButton) {
         phoneCheckButton.addEventListener("click", function() {
             phoneClick();
-            $("#check_PhoneSecretBtn").prop('disabled', false);
+            //$("#check_PhoneSecretBtn").prop('disabled', false);
+            document.getElementById('check_PhoneSecretBtn').disabled = false;
         });
     }
 }
@@ -477,7 +480,9 @@ function startPTimer() {
             userPhoneErrorMessage.style.color = "red";
             userPhoneErrorMessage.innerHTML = "인증 실패 다시 한번 확인해주세요.";
 
-            $("#check_PhoneSecretBtn").prop('disabled', true);
+            //$("#check_PhoneSecretBtn").prop('disabled', true);
+            document.getElementById('check_PhoneSecretBtn').disabled = true;
+            
         }
     }, 1000);
 }
