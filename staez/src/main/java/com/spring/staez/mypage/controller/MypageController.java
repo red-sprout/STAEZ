@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -92,6 +93,25 @@ public class MypageController {
 		model.addAttribute("pi", pi);
 		return "mypage/mypageLayout";
 	}
+	
+	//결제내역 상세 페이지 출력
+	@RequestMapping("reserveDetail.me")
+	public String selectPaymentsDetail(int reserveNo, Model model) {
+		PaymentsInfoDto payments = mypageService.selectPaymentsDetail(reserveNo);
+		
+		model.addAttribute("payments", payments);
+		
+		return "mypage/paymentsDetail";
+	}
+	
+//	//결제 작업(무통장입금)
+//	@RequestMapping("deposit.me")
+//	@ResponseBody
+//	public String depositPayments(@RequestBody PaymentsInfoDto pid) {		
+//		int result = mypageService.depositPayments(pid);
+//		
+//		return result > 0 ? "success" : "failed";	
+//	};
 	
 	//찜목록 리스트 페이지 출력
 	@RequestMapping("scrapList.me")
@@ -528,6 +548,7 @@ public class MypageController {
 	
 	}
 	
+	//한줄평 삭제
 	@ResponseBody
 	@RequestMapping("deleteReview.me")
 	public String deleteOneLineReviewAjax(int reviewNo) {

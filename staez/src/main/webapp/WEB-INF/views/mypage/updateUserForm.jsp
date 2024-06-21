@@ -144,7 +144,7 @@
                             <td class="input-box">
                                 <input type="text" placeholder="상세주소를 입력하세요" id="addressDetail"  class="long-input"
                                     value="${fn:split(address, '/')[1]}" readonly required
-                                    onchange="updateCombinedAddress()">
+                                    oninput="updateCombinedAddress()">
                             </td>
                             <td></td>
                         </tr>
@@ -271,6 +271,7 @@
             <input type="checkbox" id="emailCheck" class="submit-requires " checked hidden>
             <input type="checkbox" id="phoneCheck" class="submit-requires " checked hidden>
             <input type="checkbox" id="nicknameCheck" class="submit-requires " checked hidden>
+            <input type="checkbox" id="addressCheck" class="submit-requires " checked hidden>
 
             <div id="submit-btn">
                 <button type="button" class="btn-staez purple">

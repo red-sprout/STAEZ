@@ -37,12 +37,17 @@ public class UserDao {
 		return sqlSession.selectOne("userMapper.emailCheck", email);
 	}
 	
+	//회원가입 시 핸드폰 체크
+	public int insertPhoneCheck(SqlSessionTemplate sqlSession, String checkPhone) {
+		return sqlSession.selectOne("userMapper.insertPhoneCheck", checkPhone);
+	}
+	
 	// 간편로그인 이메일 유무 확인 (네이버, 카카오, 구글)
     public User findUserByEmail(SqlSessionTemplate sqlSession, String email) {
         return sqlSession.selectOne("userMapper.findUserByEmail", email);
     }
 
- // 이메일 인증번호 저장을 위한 서비스
+    // 이메일 인증번호 저장을 위한 서비스
     public int registerUser(String email, String authNo ) {
         Map<String, Object> params = new HashMap<>();
         params.put("email", email);
@@ -50,7 +55,7 @@ public class UserDao {
         return sqlSession.insert("userMapper.registerUser", params);
     }
     
- // 이메일 존재 여부 확인
+    // 이메일 존재 여부 확인
     public Map<String, Object> findEmail(SqlSessionTemplate sqlSession, String email) {
         return sqlSession.selectOne("userMapper.findEmail", email);
     }
@@ -102,7 +107,6 @@ public class UserDao {
 	    params.put("encPwd", encPwd);
 
 	    int result = sqlSession.update("userMapper.updatePassword", params);
-	    System.out.println("update Dao result: " + result);
 
 	    return result;
 	}
@@ -115,15 +119,24 @@ public class UserDao {
 		return sqlSession.insert("userMapper.updateEmailAuth", params);
 	}
 	
-    // 아이디/비번 찾기 중 이메일과 이름이 일치하는지
+    // 아이디 찾기 중 이메일과 이름이 일치하는지
     public int emailbyIdCheck(String checkEmail, String userName) {
         Map<String, Object> params = new HashMap<>();
         params.put("email", checkEmail);
         params.put("user_name", userName);
         Integer result = sqlSession.selectOne("userMapper.emailbyIdCheck", params);
-        System.out.println("DAO emailbyIdCheck result: " + result);
         return result != null ? result : 0;
     }
+    
+ // 비밀번호 찾기 중 이메일과 이름과 핸드폰 번호가 일치하는지
+	public int emailbyNamebyPhone(String checkEmail, String userName, String phone) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("email", checkEmail);
+        params.put("user_name", userName);
+        params.put("phone", phone);
+        Integer result = sqlSession.selectOne("userMapper.emailbyNamebyPhone", params);
+        return result != null ? result : 0;
+	}
 	
 
 }

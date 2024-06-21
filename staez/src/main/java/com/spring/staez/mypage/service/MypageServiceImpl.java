@@ -124,6 +124,29 @@ public class MypageServiceImpl implements MypageService{
 	public ArrayList<PaymentsInfoDto> selectPaymentsList(int userNo, PageInfo pi) {
 		return mpd.selectPaymentsList(sqlSession, userNo, pi);
 	}
+	
+	@Override
+	public PaymentsInfoDto selectPaymentsDetail(int reserveNo) {
+		return mpd.selectPaymentsDetail(sqlSession, reserveNo);
+	}
+	
+//	@Override
+//	@Transactional
+//	public int depositPayments(PaymentsInfoDto pid) {
+//		ArrayList<Integer> list = mpd.selectReserveNo(sqlSession, pid);
+//		
+//		int result = 1;
+//		if(pid.getTickets() == list.size()) {
+//			for(int i: list) {
+//				result *= mpd.depositPayments(sqlSession, i);
+//			}			
+//		} else {
+//			result = 0;
+//		}
+//		
+//		return result;
+//	}
+
 
 	@Override
 	public int selectScrapCount(int userNo) {
@@ -250,5 +273,7 @@ public class MypageServiceImpl implements MypageService{
 		
 		return result;
 	}
+
+
 	
 }

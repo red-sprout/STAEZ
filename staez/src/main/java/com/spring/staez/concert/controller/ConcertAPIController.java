@@ -294,6 +294,14 @@ public class ConcertAPIController {
 		concertAPIService.requestConcertApi();
 		return "success";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "popularApi.co", produces="application/json; charset=UTF-8")
+	public String popularApi() {
+		ArrayList<Concert> list =  concertService.popularListApi();
+		return new Gson().toJson(list);
+	}
+	
 }
 
 

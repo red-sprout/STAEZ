@@ -106,6 +106,13 @@
 		 WHERE email = #{email}
 	</select>
 	
+		<!-- 아이디 중복체크 -->
+	<select id="insertPhoneCheck" resultType="int" parameterType="String">
+		SELECT COUNT(*)
+		FROM staez_user
+		WHERE phone = #{phone}
+	</select>
+	
 	<!-- 간편로그인 이메일 유무 확인 (네이버, 카카오, 구글) -->
 	<select id="findUserByEmail" parameterType="string" resultMap="userResult">
 	    SELECT * 
@@ -179,12 +186,21 @@
 	    WHERE email = #{email}
 	</update>
 	
-	<!-- 아이디/비번 찾기 중 이메일과 이름이 일치하는지 -->
+	<!-- 아이디 찾기 중 이메일과 이름이 일치하는지 -->
     <select id="emailbyIdCheck" parameterType="map" resultType="_int">
         SELECT COUNT(*)
         FROM staez_user
         WHERE user_name = #{user_name}
         AND email = #{email}
+    </select>
+    
+    <!-- 비밀번호 찾기 중 이메일과 이름과 핸드폰 번호가 일치하는지 -->
+    <select id="emailbyNamebyPhone" parameterType="map" resultType="_int">
+        SELECT COUNT(*)
+        FROM staez_user
+        WHERE user_name = #{user_name}
+        AND email = #{email}
+       	AND phone = #{phone}
     </select>
 	
 </mapper>
