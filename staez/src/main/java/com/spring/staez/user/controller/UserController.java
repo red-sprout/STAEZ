@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -86,29 +87,37 @@ public class UserController {
 	}
 
 	// 회원가입
-	@PostMapping("insert.me")
-	public String insertMember(User u, HttpSession session, Model model) {
+		@PostMapping("insert.me")
+		public String insertMember(User u, HttpSession session, Model model) {
 
-		// 비밀번호가 null인지 확인
-		if (u.getUserPwd() == null) {
-			model.addAttribute("alertMsg", "비밀번호가 입력되지 않았습니다.");
-			return " ";
+			// 비밀번호가 null인지 확인
+			if (u.getUserPwd() == null) {
+				model.addAttribute("alertMsg", "비밀번호가 입력되지 않았습니다.");
+				return "user/insertForm";
+			}
+
+			// 암호화 작업
+			String encPwd = bcryptPasswordEncoder.encode(u.getUserPwd());
+			u.setUserPwd(encPwd);
+
+			try {
+				int result = userService.insertUser(u);
+
+				if (result > 0) {
+					session.setAttribute("alertMsg", "성공적으로 회원가입이 완료되었습니다.");
+					return "redirect:/";
+				} else {
+					model.addAttribute("alertMsg", "회원가입 실패");
+					return "user/insertForm";
+				}
+			} catch (DataIntegrityViolationException e) {
+				// 제약 조건 위반 예외 처리
+				String errorMessage = "회원가입을 실패하였습니다 : " + e.getRootCause().getMessage();
+				//model.addAttribute("alertMsg", errorMessage);
+				session.setAttribute("alertMsg", errorMessage);
+				return "user/insertForm";
+			}
 		}
-
-		// 암호화 작업
-		String encPwd = bcryptPasswordEncoder.encode(u.getUserPwd());
-		u.setUserPwd(encPwd);
-
-		int result = userService.insertUser(u);
-
-		if (result > 0) {
-			session.setAttribute("alertMsg", "성공적으로 회원가입이 완료되었습니다.");
-			return "redirect:/";
-		} else {
-			model.addAttribute("alertMsg", "회원가입 실패");
-			return "redirect:/";
-		}
-	}
 	
 	// 이메일 체크 (이메일/UUID/등록날짜 등록해야댐)
     @ResponseBody

@@ -33,7 +33,7 @@
                     <tr>
                         <th>닉네임</th>
                         <td colspan="1">
-                            <input type="text" placeholder="한문 + 영문" name="nickname" id="nickname" maxlength="16" required>
+                            <input type="text" placeholder="한글 + 영문" name="nickname" id="nickname" maxlength="16" required>
                         </td>
                         <td><input type="button" id="nickNameCheckButton" class="check_nickname check_button" value="중복검사"></td>
                     </tr>
@@ -121,7 +121,7 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="button" class="check_button" id="check_PhoneSecretBtn" value="인증확인" onclick="checkAuthNum()">
+                                <input type="button" class="check_button" id="check_PhoneSecretBtn" value="인증확인" onclick="checkAuthNum()" disabled>
                             </td>
                         </tr>
                         <tr id="checkResultPhoneTr">
@@ -178,7 +178,7 @@
                             </div>
                         </td>
                         <td>
-                            <input type="button" class="check_button" id="check_emailSecretBtn" value="인증확인">
+                            <input type="button" class="check_button" id="check_emailSecretBtn" value="인증확인" disabled>
                         </td>
                     </tr>
                     <tr id="checkResultEmailTr">
@@ -230,7 +230,7 @@
                         <td colspan="4">
                             <div class="insert-member-div">
                                 <button type="button" id="backButton">이전</button>
-                                <button type="submit" id="submitButton" onsubmit="return validateForm()">회원가입</button>
+                                <button type="submit" id="submitButton" onsubmit="return validateForm()" disabled>회원가입</button>
                             </div>
                         </td>
                     </tr>
