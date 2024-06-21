@@ -245,6 +245,7 @@
 			theater_col
 		FROM theater
 		WHERE theater_name LIKE '%' || #{keyword} || '%'
+		AND LENGTH(#{keyword}) > 0
 		LIMIT 5
 	</select>
 	
