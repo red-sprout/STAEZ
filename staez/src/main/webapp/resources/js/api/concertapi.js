@@ -309,6 +309,20 @@ function popularApi(callback){
 }
 
 
+// // 콘서트api 인기순: 공연세부보기
+// function conDetailPopularApi(callback){
+//     $.ajax({
+//         url: contextPath + "conDetailPopularApi.co",
+//         type :'POST',
+//         success : function(list){
+//             console.log(list);
+//             callback(list);
+//         }, error(){
+//             console.log("실패");
+//         }
+//     });
+// }
+
 // //리뷰 노필요 reviewDetail 다시쓰기 가능! DB 저장되어 있으니까
 // function reviewDetailapi(data, callback){
 //     $.ajax({

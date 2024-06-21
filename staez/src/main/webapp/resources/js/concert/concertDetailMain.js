@@ -325,7 +325,7 @@ function drawCommentDetail(result){
         drawSection.appendChild(noticeDiv);
         drawSection.appendChild(divEmpty);
         noticeDiv.innerHTML += noticeStr;
-        divEmpty.innerHTML += "등록된 관람후기가 없습니다.";
+        divEmpty.innerHTML += "등록된 한줄평이 없습니다.";
         divEmpty.style.fontSize = '24px';
         divEmpty.style.padding = `15% 0 15% 0`;
         
