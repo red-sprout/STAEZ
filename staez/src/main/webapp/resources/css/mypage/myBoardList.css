@@ -74,9 +74,9 @@
     height: 30px;
 
     border: 1px solid black;
-    border-radius:0 10px 10px 0;
-
-    background-color: #F8D082;
+    border-left: none;
+    
+    border-radius: 0 10px 10px 0;
 }
 
 .main-content>.main-title>form>button>img{
