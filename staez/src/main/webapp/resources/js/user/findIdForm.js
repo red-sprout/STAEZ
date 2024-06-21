@@ -134,7 +134,8 @@ function phoneClick() {
     const stopBtn = document.getElementById("check_PhoneSecretBtn");
 
     authNo = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
-    $('#phoneCheck').prop('checked', false);
+    //$('#phoneCheck').prop('checked', false);
+    document.getElementById('phoneCheck').checked = false;
     verificationPhoneTr.style.display = "table-row";
 
     // 먼저 이름과 전화번호를 검증
@@ -307,8 +308,8 @@ function emailCheckButton(){
     if (emailCheckButton) {
         emailCheckButton.addEventListener('click', (ev) => {
             ev.preventDefault(); // 버튼 클릭 시 기본 동작 막기
-            const nameInput = $("#user_name_email").val();
-            const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
+            const nameInput = document.getElementById("user_name_email").value;
+            const emailInput = document.getElementById("input-value-email").value;
             verifyNameAndEmail(nameInput, emailInput); // 이메일 인증 요청 보내는 함수 호출
             alert("인증번호가 전송되었습니다 잠시만 기다려주세요.");
         });
@@ -343,7 +344,8 @@ function startPTimer() {
             userPhoneErrorMessage.style.color = "red";
             userPhoneErrorMessage.innerHTML = "인증 실패 다시 한번 확인해주세요.";
 
-            $("#check_PhoneSecretBtn").prop('disabled', true); // 인증확인 버튼 비활성화
+            //$("#check_PhoneSecretBtn").prop('disabled', true); // 인증확인 버튼 비활성화
+            document.getElementById('check_PhoneSecretBtn').disabled = true; // 인증확인 버튼 비활성화
         }
     }, 1000);
 }
@@ -353,7 +355,8 @@ const phoneCheckButton = document.getElementById("phoneCheckButton");
 if (phoneCheckButton) {
     phoneCheckButton.addEventListener("click", function() {
         phoneClick();
-        $("#check_PhoneSecretBtn").prop('disabled', false); // 인증확인 버튼 활성화
+        //$("#check_PhoneSecretBtn").prop('disabled', false); // 인증확인 버튼 활성화
+        document.getElementById('check_PhoneSecretBtn').disabled = false; // 인증확인 버튼 활성화
     });
 }
 
