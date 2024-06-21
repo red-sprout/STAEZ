@@ -313,10 +313,10 @@
     
     <!-- 공연메인페이지 정렬 -->
     <select id="popularList" resultMap="concertResult" >
-		SELECT c.concert_no,
+    		SELECT c.concert_no,
 		       c.concert_title,
-		       sub.start_date,
-		       sub.end_date,
+		       cs.start_date,
+		       cs.end_date,
 		       ca.change_name,
 		       ca.file_path,
 			   ct.category_no,
@@ -324,18 +324,19 @@
 		FROM concert c
 		LEFT JOIN(SELECT concert_no,
 				count(DISTINCT concert_like_no) as countLike,
-				min(cs.start_date) as start_date,
-				max(cs.end_date) as end_date
+				min(scs.start_date) as start_date,
+				max(scs.end_date) as end_date
 			FROM concert_like
-			JOIN concert_schedule cs USING (concert_no)
+			JOIN concert_schedule scs USING (concert_no)
 			GROUP BY concert_no
 			ORDER BY concert_no) sub ON c.concert_no = sub.concert_no
 		JOIN concert_attachment ca ON c.concert_no = ca.concert_no
 		JOIN concert_category cc on c.concert_no = cc.concert_no	
 		JOIN category ct ON cc.category_no = ct.category_no
+		JOIN concert_schedule cs ON c.concert_no = cs.concert_no
 		WHERE c.concert_status = 'Y'
-		 AND cc.category_no = #{categoryNo}
-	    ORDER BY sub.countLike desc
+		AND cc.category_no = #{categoryNo}
+	    ORDER BY sub.countLike IS NULL ASC, sub.countLike DESC
 	</select>
 	
 	<select id="latestList" resultMap="concertResult" >
@@ -366,7 +367,7 @@
 	 
 	 <!-- 콘서트 no 중복값있으니까 중복값은 그 중 하나만 보여주도록 프론트에서 처리할 필요 있음 -->
 	 <select id="highscoreList" resultMap="concertResult" >
-	 	SELECT c.concert_no,
+	 	SELECT DISTINCT c.concert_no,
 		       c.concert_title,
 		       sub.start_date,
 		       sub.end_date,
@@ -383,12 +384,14 @@
 			 FROM concert_schedule cs
 			 GROUP BY concert_no
 			 ORDER BY concert_no) sub ON c.concert_no = sub.concert_no
-		LEFT JOIN concert_review cr ON c.concert_no = cr.concert_no
+		LEFT JOIN (SELECT DISTINCT concert_no, round(avg(score)) as score
+				   FROM concert_review
+				   GROUP BY concert_no) cr ON c.concert_no = cr.concert_no
 		JOIN concert_attachment ca ON c.concert_no = ca.concert_no
 		JOIN concert_category cc ON c.concert_no = cc.concert_no	
 		JOIN category ct ON cc.category_no = ct.category_no
 		WHERE c.concert_status = 'Y'
-		AND cc.category_no = #{categoryNo}
+		AND cc.category_no = 8
 		ORDER BY score DESC NULLS LAST
 	 </select>
 	 
@@ -625,6 +628,28 @@
 		SELECT concert_plot, concert_no
 		FROM concert
 		WHERE theater_no IS NULL 
+	</select>
+	
+	<select id="popularListApi" resultMap="concertResult" >
+		SELECT c.concert_no,
+		       c.concert_title,
+			   ca.file_path,
+			   cs.start_date,
+			   cs.end_date
+		FROM concert c
+		LEFT JOIN(SELECT concert_no,
+				count(DISTINCT concert_like_no) as countLike,
+				min(scs.start_date) as start_date,
+				max(scs.end_date) as end_date
+			FROM concert_like
+			JOIN concert_schedule scs USING (concert_no)
+			GROUP BY concert_no
+			ORDER BY concert_no) sub ON c.concert_no = sub.concert_no
+		JOIN concert_attachment ca ON c.concert_no = ca.concert_no
+		JOIN concert_schedule cs ON c.concert_no = cs.concert_no
+		WHERE c.concert_status = 'Y'
+		 AND theater_no IS NULL 
+	    ORDER BY sub.countLike desc, sub.countLike is null asc
 	</select>
     
     
