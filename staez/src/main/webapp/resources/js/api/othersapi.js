@@ -273,16 +273,20 @@ function keywordCategoryList(data, callback){
     })
 }
 
-function keywordUserProfile(data, callback){
-    $.ajax({
-        url : "ajaxKeywordUserProfile.ot",
-        data : data,
-        success : function(result){
-            callback(result)
-        }, error : function(){
-            console.log("실패")
-        }
-    })
+function keywordUserProfile(data){
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "ajaxKeywordUserProfile.ot",
+            data: data,
+            dataType: "json",
+            success: function(result) {
+                resolve(result); // 성공 시 받은 데이터를 resolve
+            },
+            error: function(error) {
+                reject(error); // 실패 시 오류를 reject
+            }
+        });
+    });
 }
 
 // 검색 결과 콘서트 더보기ajax

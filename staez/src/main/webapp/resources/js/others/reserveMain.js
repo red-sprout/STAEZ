@@ -129,7 +129,7 @@ function drawLatestConcert(lcConcerts, categoryNo2){
                 mapping = `detail.co?concertNo=`+ c.concertNo;
             }
             pcConsertsArea.innerHTML += `<div class="latest-concert-information">
-                                            <a class="latest-concert-information-a" href="/staez/detail.co?concertNo=`+ c.concertNo +`"><img class="latest-concert-information-img" src="" alt=""></a>
+                                            <a class="latest-concert-information-a" href="${mapping}"><img class="latest-concert-information-img" src="" alt=""></a>
                                             <div class="concert-search-result-content-info">
                                                 <span class="concert-search-result-content-span1">`+ categoryName+`</span>
                                                 <span class="concert-search-result-content-span2">[`+ c.concertTitle +`]</span>

@@ -27,8 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
           
         const endDatePrev = new Date(year, month, 0).getDate(); // 이전 달의 마지막 날짜
          
-       
-        
 
         let datesHtml = '';
 
@@ -92,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ajaxConcertPeriod({concertNo},(concertPeriod)=>concertDayOffFunction(concertPeriod));
     
     function concertDayOffFunction(concertPeriod){
+    
         ajaxConcertDayOff({concertNo},(dayOffs)=>renderCalendar(dayOffs,concertPeriod))
     }
 });

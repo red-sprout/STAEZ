@@ -50,7 +50,7 @@ public interface OthersService {
 	
 	ArrayList<Board> selectkeywordCategoryList(int bNo);
 	
-	ArrayList<ProfileImg> selectKeywordUserProfilet(String keyword);
+	ProfileImg selectKeywordUserProfile(int bNo);
 	
 	ArrayList<Concert> selectKeywordMoreEndConcertCount(String keyword);
 	

@@ -542,13 +542,17 @@
     position: absolute;
     top: 25%;
     right: 5px;
+    cursor: pointer;
 }
 
+
 .next-step-area button{
+    width: 100%;
     font-size: 24px;
     color: white;
     background: none;
     border: none;
+    cursor: pointer;
 }   
 
 .hidden{
