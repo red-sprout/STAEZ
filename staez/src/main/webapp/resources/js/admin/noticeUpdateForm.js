@@ -19,14 +19,20 @@ window.onload = function () {
         data.userNo = $("input[name='userNo']").val();
         data.boardTitle = $("input[name='boardTitle']").val();
         data.categoryNo = categoryForm();
-        data.concertNo = $("input[name='concertNo']").val();
         data.boardContent = $(".note-editing-area>.note-editable").html();
-        updateNotice(data, res => {
-            location.href = contextPath + "main.no";
-        });
+
+        if(!(data.boardNo && data.userNo && data.boardTitle.length !== 0 
+            && data.categoryNo && data.boardContent.length - '<p><br></p>'.length !== 0)) {
+            alert("빠진 항목이 없는지 확인 바랍니다.");
+            return;
+        }
+
+        // updateNotice(data, res => {
+        //     location.href = contextPath + "main.no";
+        // });
     });
 
-    $("#community-submit button:nth-child(2)").on("click", ev => history.back());
+    $("#community-submit button:nth-child(2)").on("click", ev => location.href = `main.no`);
 }
 
 function setChecked(name) {

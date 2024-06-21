@@ -14,17 +14,21 @@ window.onload = function () {
         data.categoryNo = categoryForm();
         data.boardContent = $(".note-editing-area>.note-editable").html();
 
-        if(!(data.userNo && data.boardTitle && data.categoryNo && data.boardContent)) {
+        console.log(data.userNo);
+        console.log(data.boardTitle);
+        console.log(data.categoryNo);
+        console.log(data.boardContent.length - '<p><br></p>'.length);
+        if(!(data.userNo && data.boardTitle.length !== 0 && data.categoryNo && data.boardContent.length - '<p><br></p>'.length !== 0)) {
             alert("빠진 항목이 없는지 확인 바랍니다.");
             return;
         }
 
-        insertNotice(data, res => {
-            location.href = contextPath + res;
-        });
+        // insertNotice(data, res => {
+        //     location.href = contextPath + res;
+        // });
     });
 
-    $("#community-submit button:nth-child(2)").on("click", ev => history.back());
+    $("#community-submit button:nth-child(2)").on("click", ev => location.href = `main.no`);
 };
 
 // 썸머노트에 이미지업로드가 발생하였을 때 동작하는 함수

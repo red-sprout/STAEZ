@@ -82,3 +82,37 @@ function toggleSeat(target) {
     target.classList.toggle("seat-yes");
     target.classList.toggle("seat-no");
 }
+
+function submitTheater() {
+    if($("input[name=theaterName]").val().length === 0) {
+        alert("공연장명을 입력 바랍니다.");
+        $("input[name=theaterName]").focus();
+        return;
+    }
+
+    if($("input[name=theaterRow]").val().length === 0) {
+        alert("좌석 행 수를 입력 바랍니다.");
+        $("input[name=theaterRow]").focus();
+        return;
+    }
+
+    if($("input[name=theaterCol]").val().length === 0) {
+        alert("좌석 열 수를 입력 바랍니다.");
+        $("input[name=theaterCol]").focus();
+        return;
+    }
+
+    if($("input[name=address]").val().length === 0) {
+        alert("지역을 입력 바랍니다.");
+        $("input[name=address]").focus();
+        return;
+    }
+
+    if(!validatePhone($("input[name=telno]").val())) {
+        alert("전화번호를 입력 바랍니다.");
+        $("input[name=telno]").focus();
+        return;
+    }
+
+    $("#community-contents").submit();
+}

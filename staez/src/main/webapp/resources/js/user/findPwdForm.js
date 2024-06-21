@@ -143,10 +143,10 @@ function sendVerificationCode() {
 
 // 서버로부터의 이메일 인증 응답을 처리
 function handleEmailCheckResponse(response) {
-    console.log("handleEmailCheckResponse 응답: " + response); // 응답 로그 추가
     const emailCheckResult = document.getElementById("verificationEmailTr");
     emailCheckResult.style.display = "table-row";
     const verificationMessage = document.getElementById("verification-message");
+    const stopEmailBtn = document.getElementById("check_emailSecretBtn");
 
     if (response === "emailCheck No") {
         verificationMessage.style.color = "red";
@@ -154,13 +154,11 @@ function handleEmailCheckResponse(response) {
     } else if (response === "emailCheck Yes") {
         verificationMessage.style.color = "green";
         verificationMessage.innerText = "인증번호가 성공적으로 전송되었습니다!";
+        stopEmailBtn.disabled = false;
         startTimer();
     } else if (response === "emailCheck Invalid") {
         verificationMessage.style.color = "red";
         verificationMessage.innerText = "해당 정보가 없습니다 다시 입력해주세요!";
-    } else if (response === "emailCheck Duplicated") {
-        verificationMessage.style.color = "red";
-        verificationMessage.innerText = "이미 인증번호가 전송되었습니다. 재전송을 눌러주세요.";
     }
 }
 
@@ -168,6 +166,7 @@ function handleEmailCheckResponse(response) {
 function callbackEmailSecret(result, emailSecretCheckResult, check_emailSecretBtn) {
     const userEmailErrorMessage = document.getElementById("userEmailErrorMessage");
     const findEmailCheck = document.getElementById("findEmailCheck");
+    const stopEmailBtn = document.getElementById("check_emailSecretBtn");
     emailSecretCheckResult.style.display = "table-row";
 
     if (result === "emailSecretCodeCheck No") {
@@ -178,6 +177,7 @@ function callbackEmailSecret(result, emailSecretCheckResult, check_emailSecretBt
         userEmailErrorMessage.innerText = "인증이 확인되었습니다.";
         clearInterval(timer); // 타이머 정지
         findEmailCheck.disabled = false; // "다음" 버튼 활성화
+        stopEmailBtn.disabled = true; // 인증확인버튼 비활성화
     } else {
         userEmailErrorMessage.style.color = "red";
         userEmailErrorMessage.innerText = "인증을 확인할 수 없습니다.";
@@ -330,12 +330,7 @@ function validatePassword() {
         var newPassword = document.getElementById("newPassword").value;
         var confirmNewPassword = document.getElementById("confirmNewPassword").value;
 
-        // 비밀번호가 서로 다른 경우
-        if (newPassword !== confirmNewPassword) {
-            document.getElementById("passwordMessage").innerHTML = "비밀번호가 다릅니다.";
-            document.getElementById("passwordMessage").classList.remove("passwordCorrect");
-            document.getElementById("passwordMessage").classList.add("passwordIncorrect");
-        } else {
+        if (newPassword === confirmNewPassword) {
             // 비밀번호가 일치하는 경우
             // 비밀번호 유효성 검사: 영문, 숫자, 특수문자 포함, 8글자 이상
             var regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
@@ -343,10 +338,6 @@ function validatePassword() {
                 document.getElementById("passwordMessage").innerHTML = "영문, 숫자, 특수문자를 넣어주세요";
                 document.getElementById("passwordMessage").classList.remove("passwordCorrect");
                 document.getElementById("passwordMessage").classList.add("passwordIncorrect");
-            } else {
-                document.getElementById("passwordMessage").innerHTML = "비밀번호가 일치합니다.";
-                document.getElementById("passwordMessage").classList.remove("passwordIncorrect");
-                document.getElementById("passwordMessage").classList.add("passwordCorrect");
             }
         }
     });
@@ -381,7 +372,7 @@ function clickNewPwd() {
     let id = document.getElementById("input-value-id").value;
     let phone = document.getElementById("input-value-phone").value;
     let email = document.getElementById("input-value-email").value;
-    let userName = document.getElementById("user_name").value;
+    let userName = document.getElementById("user_name_email").value;
 
     clickNewPwdInsert({ userId: id, phone: phone, email: email,userName:userName, newPassword: newPassword }, function(res) {
 
