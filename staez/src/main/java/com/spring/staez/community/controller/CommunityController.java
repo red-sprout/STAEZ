@@ -43,7 +43,7 @@ public class CommunityController {
 	CommunityService communityService;
 	
 	@GetMapping("main.cm")
-	public String communityMain() {
+	public String communityMain() {		
 		return "community/communityMain";
 	}
 	
