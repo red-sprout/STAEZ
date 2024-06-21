@@ -294,6 +294,21 @@ function conSellDetailapi(data, callback){
 }
 
 
+// 인기순위 - 찜기준
+function popularApi(callback){
+    $.ajax({
+        url: contextPath + "popularApi.co",
+        type :'POST',
+        success : function(list){
+            console.log(list);
+            callback(list);
+        }, error(){
+            console.log("실패");
+        }
+    });
+}
+
+
 // //리뷰 노필요 reviewDetail 다시쓰기 가능! DB 저장되어 있으니까
 // function reviewDetailapi(data, callback){
 //     $.ajax({

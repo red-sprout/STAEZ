@@ -18,10 +18,19 @@ function drawConcert(res, keyword){
         concertArea.innerHTML = `<span style="font-size: 30px; font-weight: 500; width: 100%;">검색 결과가 없습니다</span>`
     } else {
         for(let c of res.cList){
+            let categoryName;
+            let mapping;
+            if(c.categoryNo === 0){
+                categoryName = "연극"
+                mapping = `condeapi.co?concertId=`+c.concertPlot;
+            }else{
+                categoryName = c.categoryName;
+                mapping = `detail.co?concertNo=`+ c.concertNo;
+            }
             concertArea.innerHTML += `<div class="concert-search-result-info">
-                                        <a href="/staez/detail.co?concertNo=`+ c.concertNo +`"><img class="concert-img" src="" alt=""></a>
+                                        <a href="${mapping}"><img class="concert-img" src="" alt=""></a>
                                         <div class="concert-search-result-content-info">
-                                            <span class="concert-search-result-content-span1">`+ c.categoryName +`</span>
+                                            <span class="concert-search-result-content-span1">`+ categoryName +`</span>
                                             <span class="concert-search-result-content-span2">[`+ c.concertTitle +`]</span>
                                             <span class="concert-search-result-content-span3">`+ c.startDate +` ~ `+ c.endDate +`</span>
                                         </div>
@@ -84,9 +93,14 @@ function clickpageConcert1(_this){
 }
 
 function drawConcertImg(res){
+    console.log(res.ciList)
     const concertImg = document.querySelectorAll(".concert-img")
     for(let i = 0; i < concertImg.length; i++){
-        concertImg[i].src="/staez" + res.ciList[i].filePath + res.ciList[i].changeName;
+        if(res.ciList[i].originName === 'api'){
+            concertImg[i].src=res.ciList[i].filePath;
+        }else{
+            concertImg[i].src="/staez" + res.ciList[i].filePath + res.ciList[i].changeName;
+        }
     }
 }
 
@@ -117,10 +131,19 @@ function drawNoEndConcert(res, keyword){
         concertArea.innerHTML = `<span style="font-size: 30px; font-weight: 500; width: 100%;">검색 결과가 없습니다</span>`
     } else {
         for(let c of res.cList){
+            let categoryName;
+            let mapping;
+            if(c.categoryNo === 0){
+                categoryName = "연극"
+                mapping = `condeapi.co?concertId=`+c.concertPlot;
+            }else{
+                categoryName = c.categoryName;
+                mapping = `detail.co?concertNo=`+ c.concertNo;
+            }
             concertArea.innerHTML += `<div class="concert-search-result-info">
-                                        <a href="/staez/detail.co?concertNo=`+ c.concertNo +`"><img class="concert-img" src="" alt=""></a>
+                                        <a href="${mapping}"><img class="concert-img" src="" alt=""></a>
                                         <div class="concert-search-result-content-info">
-                                            <span class="concert-search-result-content-span1">`+ c.categoryName +`</span>
+                                            <span class="concert-search-result-content-span1">`+ categoryName +`</span>
                                             <span class="concert-search-result-content-span2">[`+ c.concertTitle +`]</span>
                                             <span class="concert-search-result-content-span3">`+ c.startDate +` ~ `+ c.endDate +`</span>
                                         </div>
@@ -171,9 +194,14 @@ function drawNoEndConcert(res, keyword){
 }
 
 function drawMoreConcertImg(res){
+    console.log("이미지 리스트 : " + res.ciList)
     const concertImg = document.querySelectorAll(".concert-img")
     for(let i = 0; i < concertImg.length; i++){
-        concertImg[i].src="/staez" + res.ciList[i].filePath + res.ciList[i].changeName;
+        if(res.ciList[i].originName === 'api'){
+            concertImg[i].src=res.ciList[i].filePath;
+        }else{
+            concertImg[i].src="/staez" + res.ciList[i].filePath + res.ciList[i].changeName;
+        }
     } 
 }
 

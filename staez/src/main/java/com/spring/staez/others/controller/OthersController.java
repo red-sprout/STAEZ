@@ -302,12 +302,12 @@ public class OthersController {
 	
 	@ResponseBody
 	@GetMapping(value = "ajaxKeywordUserProfile.ot" , produces="application/json; charset-UTF-8")
-	public String ajaxKeywordUserProfile(String keyword) {
+	public String ajaxKeywordUserProfile(String boardNo) {
+		int bNo = Integer.parseInt(boardNo);
+		ProfileImg profile = oService.selectKeywordUserProfile(bNo);
 		
-		ArrayList<ProfileImg> profileList = oService.selectKeywordUserProfilet(keyword);
 		
-		
-		return  new Gson().toJson(profileList);
+		return  new Gson().toJson(profile);
 	}
 	
 	@ResponseBody

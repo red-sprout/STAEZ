@@ -305,10 +305,12 @@ form{
 }
 
 .next-step-area button{
+    width: 100%;
     background: none;
     border: none;
     font-size: 18px;
     color: white;
+    cursor: pointer;
 }
 
 .back-step-area>img{

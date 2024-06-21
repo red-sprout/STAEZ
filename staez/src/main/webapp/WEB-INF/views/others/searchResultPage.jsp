@@ -32,14 +32,14 @@
             </div> 
         </div>
         <div class="concert-search-result-area">
-            <div class="concert-search-result-info">
+            <!-- <div class="concert-search-result-info">
                 <a href="${contextPath}/detail.co"><img src="${contextPath}/resources/img/others/concert1.png" alt=""></a>
                 <div class="concert-search-result-content-info">
                     <span class="concert-search-result-content-span1">뮤지컬</span>
                     <span class="concert-search-result-content-span2">[시카고]</span>
                     <span class="concert-search-result-content-span3">2024.6.7 ~ 9.29</span>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="concert-search-result-title-area">
             <span>커뮤니티</span>

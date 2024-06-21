@@ -210,8 +210,9 @@ public class OthersServiceImpl implements OthersService{
 	}
 
 	@Override
-	public ArrayList<ProfileImg> selectKeywordUserProfilet(String keyword) {
-		return oDao.selectKeywordUserProfilet(sqlSession, keyword);
+	public ProfileImg selectKeywordUserProfile(int bNo) {
+		System.out.println("profile service = " + bNo);
+		return oDao.selectKeywordUserProfilet(sqlSession, bNo);
 	}
 
 	@Override
@@ -254,6 +255,7 @@ public class OthersServiceImpl implements OthersService{
 	public ArrayList<Concert> selectKeywordMoreConcertImg(String keyword, PageInfo pi) {
 		return  oDao.selectKeywordMoreConcertImg(sqlSession, keyword, pi);
 	}
+
 
 	
 }

@@ -5,43 +5,24 @@ document.addEventListener('DOMContentLoaded', function() {
     backPage();
     // 이메일
     sgininemail();
-
     // 이메일 인증 전송 버튼 이벤트 리스너 등록
-    const emailCheckButton = document.getElementById("emailCheckButton");
-    if (emailCheckButton) {
-        emailCheckButton.addEventListener('click', (ev) => {
-            ev.preventDefault(); // 버튼 클릭 시 기본 동작 막기
-            const nameInput = $("#user_name_email").val();
-            const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
-            verifyNameAndEmail(nameInput, emailInput); // 이메일 인증 요청 보내는 함수 호출
-            alert("인증번호가 전송되었습니다 잠시만 기다려주세요.");
-        });
-    }
+    emailCheckButton();
     // UUID 이메일 체크
     emailSecretCode();
     // 버튼 클릭시 색상변경
     checkButton();
-
     // 모달) 로그인 버튼 클릭 이벤트
-    const loginButton = document.getElementById('loginButton');
-    if (loginButton) {
-        loginButton.addEventListener('click', function() {
-            window.location.href = '/staez/loginForm.me';
-        });
-    }
+    LoginPage();
     // 모달) 비밀번호 찾기 클릭 이벤트
-    const pwdButton = document.getElementById('pwdFindButton');
-    if (pwdButton) {
-        pwdButton.addEventListener('click', function() {
-            window.location.href = '/staez/findPwdForm.me';
-        });
-    }
+    PwdFindPage();
     // 핸드폰 번호 전송 처리
     signinPhoneNumber();
     // 이메일 아이디적는칸에 영어와 숫자만 가능하게
     addEmailValidation();
     // 이메일 주소적는칸에 영어만 가능하게
     addEmailValidationTwo();
+    // 이메일 인증 체크박스 이벤트 리스너 추가
+    findDivEmail();
 });
 
 // 인증 모달창
@@ -150,6 +131,7 @@ function phoneClick() {
     const userName = document.getElementById("user_name_phone").value;
     var verificationPhoneTr = document.getElementById("verificationPhoneTr");
     var PverificationMessage = document.getElementById("Pverification-message");
+    const stopBtn = document.getElementById("check_PhoneSecretBtn");
 
     authNo = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
     $('#phoneCheck').prop('checked', false);
@@ -165,6 +147,7 @@ function phoneClick() {
                 if (res === "NNNNY") {
                     verificationPhoneTr.style.display = "table-row";
                     PverificationMessage.style.color = "green";
+                    stopBtn.disabled = false;
                     PverificationMessage.innerHTML = "인증번호가 전송되었습니다.";
                     console.log('인증번호 : ' + authNo);
                     console.log('전송한 휴대폰번호 : ' + phoneInputValue);
@@ -186,11 +169,13 @@ function checkAuthNum() {
     var checkResultPhoneTr = document.getElementById("checkResultPhoneTr");
     var userPhoneErrorMessage = document.getElementById("userPhoneErrorMessage");
     const findPhoneCheck = document.getElementById("findPhoneCheck");
+    const stopBtn = document.getElementById("check_PhoneSecretBtn");
     if (authNo !== inputCode) {
         checkResultPhoneTr.style.display = "table-row";
         userPhoneErrorMessage.style.color = "red";
         userPhoneErrorMessage.innerHTML = "인증 실패 다시 한번 확인해주세요.";
     } else {
+        stopBtn.disabled = true;
         checkResultPhoneTr.style.display = "table-row";
         userPhoneErrorMessage.style.color = "green";
         userPhoneErrorMessage.innerHTML = "인증에 성공하였습니다";
@@ -251,10 +236,10 @@ function sendVerificationCode() {
 
 // 서버로부터의 이메일 인증 응답을 처리
 function handleEmailCheckResponse(response) {
-    console.log("handleEmailCheckResponse 응답: " + response); // 응답 로그 추가
     const emailCheckResult = document.getElementById("verificationEmailTr");
     emailCheckResult.style.display = "table-row";
     const verificationMessage = document.getElementById("verification-message");
+    const stopEmailBtn = document.getElementById("check_emailSecretBtn");
 
     if (response === "emailCheck No") {
         verificationMessage.style.color = "red";
@@ -262,7 +247,7 @@ function handleEmailCheckResponse(response) {
     } else if (response === "emailCheck Yes") {
         verificationMessage.style.color = "green";
         verificationMessage.innerText = "인증번호가 성공적으로 전송되었습니다!";
-
+        stopEmailBtn.disabled = false;
         startTimer();
     } else if (response === "emailCheck Invalid") {
         verificationMessage.style.color = "red";
@@ -274,6 +259,7 @@ function handleEmailCheckResponse(response) {
 function callbackEmailSecret(result, emailSecretCheckResult, check_emailSecretBtn) {
     const userEmailErrorMessage = document.getElementById("userEmailErrorMessage");
     const findEmailCheck = document.getElementById("findEmailCheck");
+    const stopEmailBtn = document.getElementById("check_emailSecretBtn");
     emailSecretCheckResult.style.display = "table-row";
 
     if (result === "emailSecretCodeCheck No") {
@@ -284,6 +270,7 @@ function callbackEmailSecret(result, emailSecretCheckResult, check_emailSecretBt
         userEmailErrorMessage.innerText = "인증이 확인되었습니다.";
         clearInterval(timer); // 타이머 정지
         findEmailCheck.disabled = false; // "다음" 버튼 활성화
+        stopEmailBtn.disabled = true; // 인증확인버튼 비활성화
     } else {
         userEmailErrorMessage.style.color = "red";
         userEmailErrorMessage.innerText = "인증을 확인할 수 없습니다.";
@@ -313,6 +300,21 @@ function emailSecretCode() {
         }
     });
 }
+
+// 이메일 인증 전송 버튼 이벤트 리스너 등록
+function emailCheckButton(){
+    const emailCheckButton = document.getElementById("emailCheckButton");
+    if (emailCheckButton) {
+        emailCheckButton.addEventListener('click', (ev) => {
+            ev.preventDefault(); // 버튼 클릭 시 기본 동작 막기
+            const nameInput = $("#user_name_email").val();
+            const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
+            verifyNameAndEmail(nameInput, emailInput); // 이메일 인증 요청 보내는 함수 호출
+            alert("인증번호가 전송되었습니다 잠시만 기다려주세요.");
+        });
+    }
+}
+
 let timer; 
 let ptimer; 
 
@@ -436,6 +438,20 @@ function sgininemail() {
     init(); // 페이지 로드 시 초기화 함수를 호출합니다.
 }
 
+// 이메일 인증 체크박스 이벤트 리스너 추가
+function findDivEmail(){
+    const emailAuthCheckbox = document.getElementById('email-auth');
+    const findDivEmail = document.getElementById('find-div-email');
+
+    emailAuthCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            findDivEmail.style.marginBottom = '40px';
+        } else {
+            findDivEmail.style.marginBottom = ''; // 기본값으로 복원
+        }
+    });
+}
+
 // 버튼 클릭시 색상변경
 function checkButton(){
     var buttons = document.querySelectorAll(".check_button");
@@ -481,7 +497,6 @@ function clickGetIdPhone() {
         }
     });
 }
-
 // 로그인 버튼 클릭 이벤트
 function LoginPage(){
     var loginButton = document.getElementById('loginButton');

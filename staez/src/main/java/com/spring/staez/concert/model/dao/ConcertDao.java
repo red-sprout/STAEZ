@@ -197,5 +197,9 @@ public class ConcertDao {
 		return (ArrayList)sqlSession.selectList("concertMapper.selectConcertId", conidList);
 	}
 
+	public ArrayList<Concert> popularListApi(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("concertMapper.popularListApi");	
+	}
+
 	
 }

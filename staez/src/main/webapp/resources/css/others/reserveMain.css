@@ -169,9 +169,9 @@
     text-overflow: ellipsis;
     white-space: normal;
     overflow: hidden;
+    display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
-    display: -webkit-box;
 }
 
 .concert-search-result-content-span3{
