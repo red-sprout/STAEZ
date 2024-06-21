@@ -14,6 +14,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 <script src="<c:url value='/resources/js/common.js'/>"></script>
 <script src="${contextPath}/resources/js/api/mypageapi.js"></script>
+<script src="${contextPath}/resources/js/mypage/paymentsDetail.js"></script>
 
 <title>Insert title here</title>
 </head>
@@ -78,14 +79,12 @@
                     </tr>
                     <tr>
                         <th>좌석</th>                    
-                        <td>
-                            ${payments.grade}석
-                            <c:set var="row" value="${payments.reserveRow}" />
-                            <c:set var="alphabet" value="${fn:substring('ABCDEFGHIJKLMNOPQRSTUVWXYZ', row - 1, row)}" />
-                            <c:out value="${alphabet}" />${payments.reserveCol}
+                        <td class="seat-no">
+                            <input type="hidden" name="row" value="${payments.reserveRow}">
+                            <input type="hidden" name="col" value="${payments.reserveCol}">
+                            <input type="hidden" name="seat" value="${payments.grade}">
                         </td>
-                    </tr>
-                    
+                    </tr>                    
                 </tbody>
             </table>
             <br>
