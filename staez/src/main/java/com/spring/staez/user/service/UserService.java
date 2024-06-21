@@ -21,6 +21,9 @@ public interface UserService {
 	// 회원가입시 이메일 중복체크
 	public User emailCheck(String email);
 	
+	//회원가입 시 핸드폰 체크
+	int insertPhoneCheck(String checkPhone);
+	
 	// 간편로그인 이메일 유무 확인 (네이버, 카카오, 구글)
 	User findUserByEmail(String email);
 	
@@ -48,8 +51,11 @@ public interface UserService {
 	// 이메일 인증 완료하면 정보 업데이트(테이블에 이메일 데이터 있을때)
 	int updateEmailAuth(String email, String authNo);
 
-	// 아이디/비번 찾기 중 이메일과 이름이 일치하는지
+	// 아이디 찾기 중 이메일과 이름이 일치하는지
 	int emailbyIdCheck(String checkEmail, String userName);
+	
+	// 비밀번호 찾기 중 이메일과 이름과 핸드폰 번호가 일치하는지
+	int emailbyNamebyPhone(String checkEmail, String userName, String phone);
 
 
 }

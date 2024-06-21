@@ -118,6 +118,18 @@ public class MypageDao {
 		return list;
 	}
 	
+	public PaymentsInfoDto selectPaymentsDetail(SqlSessionTemplate sqlSession, int reserveNo) {
+		return (PaymentsInfoDto)sqlSession.selectOne("mypageMapper.selectPaymentsDetail", reserveNo);
+	}
+	
+//	public ArrayList<Integer> selectReserveNo(SqlSessionTemplate sqlSession, PaymentsInfoDto pid){
+//		return (ArrayList)sqlSession.selectList("mypageMapper.selectReserveNo", pid);
+//	}
+//	public int depositPayments(SqlSessionTemplate sqlSession, int reserveNo){
+//		return sqlSession.update("mypageMapper.depositPayments", reserveNo);
+//	}
+	
+	
 	public int selectScrapCount(SqlSessionTemplate sqlSession, int userNo) {
 		int count = sqlSession.selectOne("mypageMapper.selectScrapCount", userNo);
 		return count;

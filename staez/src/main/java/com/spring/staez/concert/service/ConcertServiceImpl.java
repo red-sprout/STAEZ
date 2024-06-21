@@ -172,6 +172,11 @@ public class ConcertServiceImpl implements ConcertService {
 		return concertDao.selectConDetailApi(sqlSession, concertNo);
 	}
 
+	@Override
+	public ArrayList<Concert> popularListApi() {
+		return concertDao.popularListApi(sqlSession);
+	}
+
 	
 
 }

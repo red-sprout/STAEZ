@@ -33,16 +33,19 @@ const removableTags = ["<p>", "</p>", "<div>", "</div>", "<br>"];
 function init() {
     const url = window.location.pathname.split("/").pop();
     const menubar = document.querySelectorAll(".menu-bar>a");
-    const regex = /\.(co|cm|no|iq|ad)$/;
+    const regexes = [/\.(co)/, /\.(cm)/, /\.(no)/, /\.(iq)/, /\.(ad)/];
 
-    if (regex.test(url)) {
-        menubar.forEach((item) => {
-            const itemUrl = item.getAttribute('href').split("/").pop();
-            if (itemUrl === url) {
-                item.style.color = "#B51B75";
-            }
-        });
-    }
+    console.log(menubar)
+    regexes.forEach((regex) => {
+        if (regex.test(url)) {
+            menubar.forEach((item) => {
+                const itemUrl = item.getAttribute('href').split("/").pop();
+                if (regex.test(itemUrl)) {
+                    item.style.color = "#B51B75";
+                }
+            });
+        }
+    })
 }
 
 function setCategory(result, id) {

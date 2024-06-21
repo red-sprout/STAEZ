@@ -5,6 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <link rel="stylesheet" href="${contextPath}/resources/css/mypage/paymentsLog.css">
+<script src="${contextPath}/resources/js/mypage/paymentsLog.js"></script>
 
 <div class="main-content">
     <div class="main-title">
@@ -13,8 +14,9 @@
     <table>
         <tbody>
             <tr class="tb-title">
-                <th colspan="2" id="concert-info">공연정보</th>
-                <th id="reserve-info">예매정보</th>
+                <th>예매번호</th>
+                <th>공연정보</th>
+                <th>예매정보</th>
             </tr>
             <c:if test="${empty clist}">
                 <tr class="tb-content">
@@ -24,8 +26,8 @@
 
             <c:forEach var="c" items="${clist}">
             <tr class="tb-content">
-                <td>
-                    <img src="${contextPath}${c.filePath}${c.changeName}" onclick="location.href='${contextPath}/detail.co?concertNo=${c.concertNo}'">
+                <td class="reserve-no">
+                    <h5>${c.reserveNo}</h5>
                 </td>
                 <td class="concert-info">
                     <h3 onclick="location.href='${contextPath}/detail.co?concertNo=${c.concertNo}'">${c.concertTitle}</h3>
@@ -36,23 +38,25 @@
                     </h4>
                 </td>
                 <td class="reserve-info">
-                    <h5>예약번호 : ${c.reserveNo}</h5>
+                    <input type="hidden" name="reserveNo" value="${c.reserveNo}">
                     <h5>
                         결제방식 : ${c.payMethod}
                     </h5>
-                    <h5>                        
-                        가격 : <fmt:formatNumber value="${c.price}" pattern="#,###￦" />
-                    </h5>
-                    <h5>
-                        좌석 : ${c.grade}석
-                        <c:set var="row" value="${c.reserveRow}" />
-                        <c:set var="alphabet" value="${fn:substring('ABCDEFGHIJKLMNOPQRSTUVWXYZ', row - 1, row)}" />
-                        <c:out value="${alphabet}" />${c.reserveCol}
+                    <h5 class="seat-no">
+                        <input type="hidden" name="row" value="${c.reserveRow}">
+                        <input type="hidden" name="col" value="${c.reserveCol}">
+                        <input type="hidden" name="seat" value="${c.grade}">
                     </h5>
                     
                     <h5>
-                        예약시간 : <fmt:formatDate value="${c.reserveDate}" pattern="yyyy-MM-dd HH:mm" />
+                        예매시간 : <fmt:formatDate value="${c.reserveDate}" pattern="yyyy-MM-dd HH:mm" />
                     </h5>
+                    <c:if test="${c.reserveStatus eq 'Y'}">
+                        <button class="btn-staez">결제 완료</button>
+                    </c:if>
+                    <c:if test="${c.reserveStatus eq 'U'}">
+                        <button class="btn-staez checked">결제대기중</button>
+                    </c:if>
                 </td>
             </tr>
             </c:forEach>

@@ -43,6 +43,12 @@ public class UserServiceImpl implements UserService{
 	public User emailCheck(String email) {
 		return userDao.emailCheck(sqlSession, email);
 	}
+	
+	//회원가입 시 핸드폰 체크
+	@Override
+	public int insertPhoneCheck(String checkPhone) {
+		return userDao.insertPhoneCheck(sqlSession, checkPhone);
+	}
 
 	// 간편로그인 이메일 유무 확인 (네이버, 카카오, 구글)
 	@Override
@@ -98,11 +104,17 @@ public class UserServiceImpl implements UserService{
 		return userDao.updateEmailAuth(sqlSession, email , authNo);
 	}
 
-	// 아이디/비번 찾기 중 이메일과 이름이 일치하는지
+	// 아이디 찾기 중 이메일과 이름이 일치하는지
     @Override
     public int emailbyIdCheck(String checkEmail, String userName) {
         int result = userDao.emailbyIdCheck(checkEmail, userName);
-        System.out.println("emailbyIdCheck result: " + result);
+        return result;
+    }
+    
+    // 비밀번호 찾기 중 이메일과 이름과 핸드폰 번호가 일치하는지
+    @Override
+    public int emailbyNamebyPhone(String checkEmail, String userName, String phone) {
+        int result = userDao.emailbyNamebyPhone(checkEmail, userName, phone);
         return result;
     }
 

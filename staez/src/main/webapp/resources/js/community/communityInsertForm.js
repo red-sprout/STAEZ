@@ -4,8 +4,8 @@ $(function() {
     communityCategory({refCategoryNo: 2, categoryLevel: 1}, (res) => {
         const navArr = [{categoryNo : 0, categoryName : "커뮤니티 메인"}, ...res];
         setCategory(res, 'community-div')
-        setNav(navArr);
-        setColor();
+        // setNav(navArr);
+        // setColor();
     });
 
     communityCategory({refCategoryNo: 2, categoryLevel: 2}, (res) => (setCategory(res, 'community-genre')));
@@ -33,8 +33,6 @@ $(function() {
             location.href = contextPath + res;
         });
     });
-
-    $("#community-submit button:nth-child(2)").on("click", ev => history.back());
 });
 
 function setNav(result) {

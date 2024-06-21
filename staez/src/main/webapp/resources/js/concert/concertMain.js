@@ -7,14 +7,43 @@ $(function() { // list는 컨트롤러에서 받아온 것
 
   conNaviDraw(conList => drawConNavi(conList));
 
-  
   ajaxCategoryList({"categoryNo": categoryNo}, (list) => {
     drawSliderMain(list, sliderContent);
     slick();
-    });
+
+  });
+    
   ajaxCategoryList({"categoryNo" : categoryNo}, (list)=>drawGridMain(list, gridContent));
+  concertStar({"concertNo" : concertNo}, (result) => drawConcertStar(result));
 
 });
+
+
+
+// // 별점 구현
+// function drawConcertStar(result) {
+//   const starDiv = document.createElement('div');
+
+//   .append(starDiv)
+//   let scoreSum = 0;
+//   for(let c of result){
+//       scoreSum += c.score
+//   }
+//   // 평균 점수 계산 및 반올림
+//   let avgScore = Math.round(scoreSum / result.length);
+//   // 별 이미지 초기화
+//   tdStar.innerHTML = '';
+
+//   // 반올림된 평균 점수만큼 별 이미지 추가
+//   for (let i = 0; i < avgScore; i++) {
+//       const img = document.createElement('img');
+//       img.id = "concert-detail-starImg";
+//       img.src = contextPath + `/resources/img/concert/star.png`;
+//       img.alt = "Star";
+//       tdStar.appendChild(img);
+//   }
+// }
+
 
 
 
@@ -39,27 +68,6 @@ function drawConNavi(conList){
   drawAPINavi(concertNaviArea)
 }
 
-// 별점 구현
-function drawConcertStar(result) {
-  const tdStar = document.querySelector(".star");
-  let scoreSum = 0;
-  for(let c of result){
-      scoreSum += c.score
-  }
-  // 평균 점수 계산 및 반올림
-  let avgScore = Math.round(scoreSum / result.length);
-  // 별 이미지 초기화
-  tdStar.innerHTML = '';
-
-  // 반올림된 평균 점수만큼 별 이미지 추가
-  for (let i = 0; i <= avgScore; i++) {
-      const img = document.createElement('img');
-      img.id = "concert-detail-starImg";
-      img.src = contextPath + `/resources/img/concert/star.png`;
-      img.alt = "Star";
-      tdStar.appendChild(img);
-  }
-}
 
 // API용 navi 추가
 function drawAPINavi(concertNaviArea) {
@@ -119,6 +127,10 @@ function drawSliderMain(list, sliderContent){
   }
 }
 
+
+
+
+
 // 그리드 그려주기
 function drawGridMain(list, gridContent){
   // const sliderContentDiv = document.createElement('div');
@@ -160,7 +172,7 @@ function drawGridMain(list, gridContent){
   const concertGridDiv = document.createElement('div');
   concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
   concertGridDiv.style.fontSize = '24px';
-  concertGridDiv.style.padding = '40% 0 50% 0';
+  concertGridDiv.style.padding = '55% 0 75.5% 0';
   concertGridDiv.style.textAlign = 'center';
 
   gridContent.appendChild(concertGridDiv);
@@ -220,7 +232,7 @@ function drawAllList(list, gridContent){
                                 + `</div>`
                                 + `<div>`
                                 +     `<p><span>` + c.categoryName + `</span></p>`
-                                +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 전체
+                                +     `<p><span><b>[` + c.concertTitle + `]</b></span></p>
                                       <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
                               + `</div>`
                               
@@ -238,7 +250,7 @@ function drawAllList(list, gridContent){
     const concertGridDiv = document.createElement('div');
     concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
     concertGridDiv.style.fontSize = '24px';
-    concertGridDiv.style.padding = '40% 0 50% 0';
+    concertGridDiv.style.padding = '55% 0 75.5% 0';
     concertGridDiv.style.textAlign = 'center';
   
     gridContent.appendChild(concertGridDiv);
@@ -265,7 +277,7 @@ function drawPopular(list, gridContent){
                               + `</div>`
                               + `<div>`
                               +     `<p><span>` + c.categoryName + `</span></p>`
-                              +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 인기
+                              +     `<p><span><b>[` + c.concertTitle + `]</b></span></p>
                                     <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
                             + `</div>`
                             
@@ -284,7 +296,7 @@ function drawPopular(list, gridContent){
   const concertGridDiv = document.createElement('div');
   concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
   concertGridDiv.style.fontSize = '24px';
-  concertGridDiv.style.padding = '40% 0 50% 0';
+  concertGridDiv.style.padding = '55% 0 75.5% 0';
   concertGridDiv.style.textAlign = 'center';
 
   gridContent.appendChild(concertGridDiv);
@@ -309,7 +321,7 @@ function drawLatest(list, gridContent){
                                 + `</div>`
                                 + `<div>`
                                 +     `<p><span>` + c.categoryName + `</span></p>`
-                                +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 최신
+                                +     `<p><span><b>[` + c.concertTitle + `]</b></span></p>
                                       <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
                               + `</div>`
                               
@@ -327,7 +339,7 @@ function drawLatest(list, gridContent){
     const concertGridDiv = document.createElement('div');
     concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
     concertGridDiv.style.fontSize = '24px';
-    concertGridDiv.style.padding = '40% 0 50% 0';
+    concertGridDiv.style.padding = '55% 0 75.5% 0';
     concertGridDiv.style.textAlign = 'center';
 
     gridContent.appendChild(concertGridDiv);
@@ -353,7 +365,7 @@ function drawHighscore(list, gridContent){
                                 + `</div>`
                                 + `<div>`
                                 +     `<p><span>` + c.categoryName + `</span></p>`
-                                +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 별점
+                                +     `<p><span><b>[` + c.concertTitle + `]</b></span></p>
                                       <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
                               + `</div>`
                               
@@ -372,7 +384,7 @@ function drawHighscore(list, gridContent){
     const concertGridDiv = document.createElement('div');
     concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
     concertGridDiv.style.fontSize = '24px';
-    concertGridDiv.style.padding = '40% 0 50% 0';
+    concertGridDiv.style.padding = '55% 0 75.5% 0';
     concertGridDiv.style.textAlign = 'center';
 
     gridContent.appendChild(concertGridDiv);
@@ -406,7 +418,7 @@ function drawLocation(list, gridContent){
                                 + `</div>`
                                 + `<div>`
                                 +     `<p><span>` + c.categoryName + `</span></p>`
-                                +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 지역전체
+                                +     `<p><span><b>[` + c.concertTitle + `]</b></span></p>
                                       <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
                               + `</div>`
                               
@@ -425,7 +437,7 @@ function drawLocation(list, gridContent){
     const concertGridDiv = document.createElement('div');
     concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
     concertGridDiv.style.fontSize = '24px';
-    concertGridDiv.style.padding = '40% 0 50% 0';
+    concertGridDiv.style.padding = '55% 0 75.5% 0';
     concertGridDiv.style.textAlign = 'center';
 
     gridContent.appendChild(concertGridDiv);
@@ -467,7 +479,7 @@ function drawLocationAll(list, gridContent){
                               + `</div>`
                               + `<div>`
                               +     `<p><span>` + c.categoryName + `</span></p>`
-                              +     `<p><span><b>[` + c.concertTitle + `]</b></span></p> 지역
+                              +     `<p><span><b>[` + c.concertTitle + `]</b></span></p>
                                     <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
                             + `</div>`
                             
@@ -504,7 +516,7 @@ function drawLocationAll(list, gridContent){
     const concertGridDiv = document.createElement('div');
     concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
     concertGridDiv.style.fontSize = '24px';
-    concertGridDiv.style.padding = '40% 0 50% 0';
+    concertGridDiv.style.padding = '55% 0 75.5% 0';
     concertGridDiv.style.textAlign = 'center';
 
     gridContent.appendChild(concertGridDiv);
@@ -524,6 +536,7 @@ function drawLocationAll(list, gridContent){
       autoplay: true,
       autoplaySpeed: 1250,
       variableWidth: true,
+      centeredSlides: true,
       prevArrow: $(".concert-main-upper-before"),
       nextArrow: $(".concert-main-upper-next"),
       responsive: [ // 반응형 웹 구현 옵션

@@ -17,8 +17,8 @@
                 <tr>
                     <th id="reserve-time">예매시간</th>
                     <th id="concert-title">공연명</th>
-                    <th id="watch-date">상연시간</th>
                     <th id="ticket-amount">매수</th>
+                    <th id="reserve-btn">상태</th>
                 </tr>
             </thead>
             <tbody>

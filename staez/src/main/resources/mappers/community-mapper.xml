@@ -84,6 +84,8 @@
 		FROM concert c
 		LEFT JOIN concert_attachment ca ON (c.concert_no = ca.concert_no)
 		WHERE concert_title LIKE '%' || #{keyword} || '%'
+		AND LENGTH(#{keyword}) > 0
+		AND concert_status = 'Y'
 		ORDER BY c.concert_no DESC
 		LIMIT 5
 	</select>

@@ -38,6 +38,8 @@ public interface MypageService {
 	
 	public int selectPaymentsCount(int userNo); //결제내역 개수
 	public ArrayList<PaymentsInfoDto> selectPaymentsList(int userNo, PageInfo pi); //결제내역 리스트
+	public PaymentsInfoDto selectPaymentsDetail(int reserveNo); //결제내역 상세
+//	public int depositPayments(PaymentsInfoDto pid); //결제 작업(무통장입금)
 
 	public int selectScrapCount(int userNo); //찜목록 개수
 	public ArrayList<Concert> selectScrapList(int userNo, PageInfo pi); //찜목록 리스트

@@ -89,6 +89,8 @@ public interface ConcertService {
 	int insertConLikeApi(Map map);
 
 	ArrayList<Concert> selectConDetailApi(int concertNo);
+
+	ArrayList<Concert> popularListApi();
 	
 
 	

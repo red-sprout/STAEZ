@@ -16,7 +16,7 @@
     </header>
     <main>
         <div id="community-wrapper">
-            <ul id="community-nav" align="left"></ul>
+            <!-- <jsp:include page="/WEB-INF/views/community/communityNav.jsp" /> -->
             <ul id="community-contents" align="left">
                 <input type="hidden" name="userNo" value="${loginUser.userNo}">
                 <input type="hidden" name="writerNo" value="${board.userNo}">
@@ -96,6 +96,9 @@
             </ul>
         </div>
     </main>
+    <c:if test="${not empty loginUser}">
+        <jsp:include page="../chatbot/chatbot.jsp" />
+    </c:if>
     <div class="community-fixed">
         <div class="community-circle-area" onclick="likeToggle(this)">
             <img><h4></h4>

@@ -70,7 +70,7 @@ function loadOneLineReview(concertNo){
         const submit = $('.modal-footer>button[type=submit]');
         const btn = $('.modal-footer>button[type=button]');
         //리뷰가 없으면 삭제버튼 숨김
-        if(res.reviewStatus === 'N'){
+        if(res.reviewStatus !== 'Y'){
             $(btn).prop('hidden', true);
             $(submit).text('저장')
         } else{

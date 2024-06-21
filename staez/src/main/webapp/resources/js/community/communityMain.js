@@ -1,8 +1,8 @@
 $(function() {
-    // 네비게이션 바 설정
-    communityCategory({refCategoryNo: 2, categoryLevel: 1}, (res) => {
-        setNav(res);
-    });
+    // // 네비게이션 바 설정
+    // communityCategory({refCategoryNo: 2, categoryLevel: 1}, (res) => {
+    //     setNav(res);
+    // });
     
     // 버튼으로 구성된 카테고리 설정
     communityCategory({refCategoryNo: 2, categoryLevel: 2}, (res) => {
@@ -290,8 +290,10 @@ function navEvent(ev) {
     initBtnAttributes("community-category");
     document.querySelector("#community-search input[name=keyword]").value = "";
     // 색, checked 속성 부여
-    ev.target.style.color = "#b51b75";
-    ev.target.children[0].setAttribute("checked", true);
+    if(!ev.target.innerText.includes("커뮤니티 메인") && !ev.target.innerText.includes("글쓰기")) {
+        ev.target.style.color = "#b51b75";
+        ev.target.children[0].setAttribute("checked", true);
+    }
     communityMainList({
         categoryNo : communityCategoryNo(),
         cPage: 1,

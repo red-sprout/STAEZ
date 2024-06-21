@@ -4,7 +4,7 @@
 
 #community-wrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 20px;
     gap: 20px;
 }
