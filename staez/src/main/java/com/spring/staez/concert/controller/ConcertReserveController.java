@@ -60,7 +60,7 @@ public class ConcertReserveController {
 	   @Value("${reserveMail.username}")
 	   private String userName;
 	   
-	// 발송자 비밀번호
+    	// 발송자 비밀번호
 	   @Value("${reserveMail.password}")
 	   private String password;
 	   
@@ -192,8 +192,7 @@ public class ConcertReserveController {
 		     }
 		     seatStr += alphaPart.toString() + "-" + parts[1] + " ";
 		}
-		System.out.println(seatStr);
-		System.out.println("컨트롤러 : " + result);
+
 		if (result > 0) {
 			if(rid.getPayMethod().equals("카카오페이")) {
 				SimpleMailMessage message = new SimpleMailMessage();
