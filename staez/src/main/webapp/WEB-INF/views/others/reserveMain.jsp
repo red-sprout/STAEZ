@@ -18,13 +18,13 @@
     </header>
     <div id="main-advertisement-area">
         <div class="advertisement element"> 
-            <img class="advertisement-img" src="${contextPath}/resources/img/others/mainAdvertisement.png" alt="">
+            <img class="advertisement-img" src="${contextPath}/resources/img/others/mainAdvertisement1.png" alt="">
         </div>   
         <div class="advertisement element hidden" > 
-            <img class="advertisement-img" src="https://cdn.crowdpic.net/detail-thumb/thumb_d_0CA14F08602139F8A297251840ADFA12.jpg" alt="">
+            <img class="advertisement-img" src="${contextPath}/resources/img/others/mainAdvertisement2.png" alt="">
         </div>
         <div class="advertisement element hidden" > 
-            <img class="advertisement-img" src="https://cdn.crowdpic.net/detail-thumb/thumb_d_0F4D6532E53C21E18BFE1B4CBFF1999A.jpg" alt="">
+            <img class="advertisement-img" src="${contextPath}/resources/img/others/mainAdvertisement3.png" alt="">
         </div> 
     </div>
     <main>
