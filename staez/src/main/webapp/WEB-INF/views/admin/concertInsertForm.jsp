@@ -99,7 +99,7 @@
                     <button class="btn-staez purple" type="button">
                         <h3>등록</h3>
                     </button>
-                    <button class="btn-staez purple" type="button" onclick="history.back(-1)">
+                    <button class="btn-staez purple" type="button" onclick="location.href = 'concertList.ad'">
                         <h3>목록</h3>
                     </button>
                 </li>

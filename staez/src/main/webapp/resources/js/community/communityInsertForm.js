@@ -23,6 +23,12 @@ $(function() {
         data.categoryNo = categoryForm();
         data.concertNo = $("input[name='concertNo']").val();
         data.boardContent = $(".note-editing-area>.note-editable").html();
+
+        if(!(data.userNo && data.boardTitle.length > 0 && data.categoryNo && data.boardContent !== '<p><br></p>')) {
+            alert("빠진 부분이 없는지 확인 바랍니다.");
+            return;
+        }
+
         insertBoard(data, res => {
             location.href = contextPath + res;
         });
@@ -163,7 +169,6 @@ function categoryForm() {
             arr.push(ele.value);
         }
     }
-    console.log(arr);
 
     return arr;
 }

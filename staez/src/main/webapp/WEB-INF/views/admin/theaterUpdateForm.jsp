@@ -22,23 +22,23 @@
                 <hr>
                 <li>
                     <h3>공연장명</h3>
-                    <input type="text" name="theaterName" class="input" value="${theater.theaterName}">
+                    <input type="text" name="theaterName" class="input" value="${theater.theaterName}" required>
                 </li>
                 <li id="period">
                     <h3>크기</h3>
                     <div class="range-form">
-                        <input type="text" name="theaterRow" class="short-input" value="${theater.theaterRow}" onkeyup="updateRow(this)">
+                        <input type="text" name="theaterRow" class="short-input" value="${theater.theaterRow}" onkeyup="updateRow(this)" required min="1">
                         <span><h3>~</h3></span>
-                        <input type="text" name="theaterCol" class="short-input" value="${theater.theaterCol}" onkeyup="updateCol(this)">
+                        <input type="text" name="theaterCol" class="short-input" value="${theater.theaterCol}" onkeyup="updateCol(this)" required min="1">
                     </div>
                 </li>
                 <li>
                     <h3>지역</h3>
-                    <input type="text" name="address" class="short-input" value="${theater.address}">
+                    <input type="text" name="address" class="short-input" value="${theater.address}" required>
                 </li>
                 <li>
                     <h3>전화번호</h3>
-                    <input type="text" name="telno" class="short-input" value="${theater.telno}">
+                    <input type="text" name="telno" class="short-input" value="${theater.telno}" required>
                 </li>
                 <li>
                     <h3>좌석 미리보기</h3>
@@ -56,10 +56,10 @@
                     </table>
                 </li>
                 <li id="community-submit">
-                    <button class="btn-staez purple" type="submit">
-                        <h3>등록</h3>
+                    <button class="btn-staez purple" type="button" onclick="submitTheater()">
+                        <h3>수정</h3>
                     </button>
-                    <button class="btn-staez purple" type="button" onclick="history.back()">
+                    <button class="btn-staez purple" type="button" onclick="location.href='theaterList.ad'">
                         <h3>목록</h3>
                     </button>
                 </li>
