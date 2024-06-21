@@ -4,9 +4,9 @@ $(function(){
     const writerNo = $("input[name=writerNo]").val();
     data.userNo = userNo;
 
-    communityCategory({ refCategoryNo: refCategoryMap.community, categoryLevel: 1 }, (res) => {
-        setNav(res);
-    });
+    // communityCategory({ refCategoryNo: refCategoryMap.community, categoryLevel: 1 }, (res) => {
+    //     setNav(res);
+    // });
 
     selectProfile({ userNo: writerNo }, (res) => {
         profileStatus(res, ".profile-area #profile-img");

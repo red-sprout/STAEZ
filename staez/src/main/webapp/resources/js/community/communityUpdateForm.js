@@ -2,10 +2,10 @@ $(function () {
     summernote();
 
     communityCategory({ refCategoryNo: 2, categoryLevel: 1 }, (res) => {
-        const navArr = [{ categoryNo: 0, categoryName: "커뮤니티 메인" }, ...res];
+        // const navArr = [{ categoryNo: 0, categoryName: "커뮤니티 메인" }, ...res];
         setCategory(res, 'community-division')
-        setNav(navArr);
-        setChecked("division");
+        // setNav(navArr);
+        // setChecked("division");
     });
 
     communityCategory({ refCategoryNo: 2, categoryLevel: 2 }, (res) => {
@@ -37,8 +37,6 @@ $(function () {
             location.href = contextPath + res;
         });
     });
-
-    $("#community-submit button:nth-child(2)").on("click", ev => history.back());
 });
 
 function setNav(result) {
