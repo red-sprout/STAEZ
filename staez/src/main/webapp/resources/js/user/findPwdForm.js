@@ -19,25 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
     addEmailValidationTwo();
     
 });
-
-
-// 핸드폰 번호 전송 처리
-function signinPhoneNumber (){
-    const prefixElement = document.getElementById("phone-prefix");
-    const suffix1Element = document.getElementById("phone-suffix1");
-    const suffix2Element = document.getElementById("phone-suffix2");
-    const inputValueElement = document.getElementById("input-value-phone");
-
-    function updatePhoneNumber() {
-        const prefix = prefixElement.innerText;
-        const suffix1 = suffix1Element.value;
-        const suffix2 = suffix2Element.value;
-        const phoneNumber = prefix + suffix1 + suffix2;
-        inputValueElement.value = phoneNumber;
-    }
-    suffix1Element.addEventListener('input', updatePhoneNumber);
-    suffix2Element.addEventListener('input', updatePhoneNumber);
-}
 // 핸드폰 번호 전송 처리
 function signinPhoneNumber() {
     const prefixElement = document.getElementById("phone-prefix");
@@ -125,8 +106,10 @@ function addEmailValidationTwo() {
 // 이메일 인증 코드 전송 함수
 function sendVerificationCode() {
     const emailInput = document.getElementById("input-value-email").value;
-    const nameInput = document.getElementById("input-value-name").value;
+    const nameInput = document.getElementById("user_name_email").value;
     const phoneInput = document.getElementById("input-value-phone").value;
+
+    console.log("Name:", nameInput, "Email:", emailInput, "Phone:", phoneInput); // 추가된 콘솔 로그
 
     if (nameInput.trim().length > 0 && emailInput.trim().length > 0 && phoneInput.trim().length > 0) {
         verifyNameAndEmailAndPhone(nameInput, emailInput, phoneInput); // 이름과 이메일 검증 함수 호출
@@ -206,9 +189,10 @@ function emailCheckButton(){
     if (emailCheckButton) {
         emailCheckButton.addEventListener('click', (ev) => {
             ev.preventDefault(); // 버튼 클릭 시 기본 동작 막기
-            const nameInput = $("#user_name_email").val();
-            const emailInput = $("#input-value-email").val(); // 이메일 입력값 가져오기
-            verifyNameAndEmail(nameInput, emailInput); // 이메일 인증 요청 보내는 함수 호출
+            const emailInput = document.getElementById("input-value-email").value;
+            const nameInput = document.getElementById("user_name_email").value;
+            const phoneInput = document.getElementById("input-value-phone").value;
+            verifyNameAndEmailAndPhone(nameInput, emailInput,phoneInput); // 이메일 인증 요청 보내는 함수 호출
             alert("인증번호가 전송되었습니다 잠시만 기다려주세요.");
         });
     }

@@ -232,45 +232,42 @@ public class UserController {
     @ResponseBody
     @GetMapping("emailbyNamebyPhone.me")
     public String emailbyNamebyPhone(@RequestParam("checkEmail") String checkEmail, @RequestParam("userName") String userName, @RequestParam("phone") String phone) {
+        System.out.println("Received email: " + checkEmail + ", name: " + userName + ", phone: " + phone);
+
         int result = userService.emailbyNamebyPhone(checkEmail, userName, phone);
 
-        if (result > 0) { // 이미 존재한다면
-            // UUID 생성
+        if (result > 0) {
             String shortenedAuthNo = UUID.randomUUID().toString();
             String authNo = shortenedAuthNo.substring(0, 6);
 
-            // 메일 전송
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(checkEmail);
             message.setSubject("STAEZ 이메일 인증 번호");
             message.setText("STAEZ 인증 번호: " + authNo);
 
             try {
-                sender.send(message); // 이메일 전송 시도
+                sender.send(message);
                 System.out.println("이메일 전송 성공");
 
-                // 이메일 존재 여부 확인
                 Map<String, Object> existingEmail = userService.findEmail(checkEmail);
 
                 int resultEmail;
                 if (existingEmail == null) {
-                    // 이메일이 없으면 등록
                     resultEmail = userService.registerUser(checkEmail, authNo);
                 } else {
-                    // 이메일이 있으면 업데이트
                     resultEmail = userService.updateEmailAuth(checkEmail, authNo);
                 }
 
-                if (resultEmail > 0) { // 저장 또는 업데이트 완료
+                if (resultEmail > 0) {
                     return "emailCheck Yes";
-                } else { // 저장 또는 업데이트 실패
+                } else {
                     return "emailCheck No";
                 }
             } catch (MailException e) {
                 System.out.println("이메일 전송 실패: " + e.getMessage());
                 return "emailCheck No";
             }
-        } else { // 존재하지 않는다면
+        } else {
             return "emailCheck Invalid";
         }
     }
