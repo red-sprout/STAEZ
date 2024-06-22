@@ -524,12 +524,12 @@
 	<insert id="concertScheduleApiInsert">
 	        INSERT INTO concert_schedule (
 	            concert_no,
-	           
+	            schedule,
 	            start_date,
 	            end_date        
 	        ) VALUES (
 	            #{concertNo},
-	           
+	            'schedule',
 	            TO_DATE(#{startDate}, 'YYYY.MM.DD'),
 	            TO_DATE(#{endDate}, 'YYYY.MM.DD')
 	        )
@@ -635,7 +635,8 @@
 		       c.concert_title,
 			   ca.file_path,
 			   cs.start_date,
-			   cs.end_date
+			   cs.end_date,
+			   c.concert_plot
 		FROM concert c
 		LEFT JOIN(SELECT concert_no,
 				count(DISTINCT concert_like_no) as countLike,

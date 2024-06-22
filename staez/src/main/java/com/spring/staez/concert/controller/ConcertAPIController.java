@@ -66,7 +66,7 @@ public class ConcertAPIController {
 		url += "&stdate=20240101"; // 시작일
 		url += "&eddate=20241231"; //끝나는일
 		url += "&cpage=1"; //현재페이지
-		url += "&rows=10"; // 포스터 경로
+		url += "&rows=100"; // 포스터 경로
 		url += "&shcate=AAAA"; //장르코드
 		
 
@@ -97,6 +97,7 @@ public class ConcertAPIController {
 		return dbArr.toString();
 		
 	}
+
 	
 	
 	@RequestMapping(value="condeapi.co", produces="application/json; charset=UTF-8") // api 공연 상세페이지 : api로 내려줌
