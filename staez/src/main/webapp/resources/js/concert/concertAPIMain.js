@@ -142,9 +142,7 @@ function drawGridMain(list, gridContent){
 
 // 공연메인페이지 전체보기
 function allListClick(){
- console.log("클릭");
   const gridContent = document.querySelector(".concert-main-grid");
-  const categoryNo = document.querySelector("input[name='categoryNo']").value;
   ajaxCategoryListAPI((list)=>drawAllList(list, gridContent));
 }
 
@@ -224,7 +222,7 @@ function drawHighscore(list, gridContent){
                                       <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
                               + `</div>`
                               
-      gridContent.appendChild(concertGridDiv);                   
+      gridContent.appendChild(concertGridDiv);         
       concertGridDiv.onclick = function goDetail(){
         location.href = 'condeapi.co?concertId=' + c.mt20id;
       }
@@ -251,14 +249,26 @@ function drawHighscore(list, gridContent){
 
 function latestClick() {
   const gridContent = document.querySelector(".concert-main-grid");
-  ajaxCategoryListAPI((list) => drawLatest(list, gridContent));
+  ajaxCategoryListAPI((list) => {
+    drawLatest(list, gridContent, currentPage, itemsPerPage);
+
+    // 무한 스크롤을 위한 스크롤 이벤트 리스너 추가
+    window.addEventListener('scroll', () => handleScroll(list, gridContent));
+  });  
 }
 
 
-
-function drawLatest(list, gridContent){
-  list.sort((a, b) => new Date(a.prfpdfrom) - new Date(b.prfpdfrom));
+function drawLatest(list, gridContent, page, itemsPerPage) {
+  list.sort((a, b) => new Date(b.prfpdfrom) - new Date(a.prfpdfrom));
   gridContent.innerHTML = ``;
+
+  if (page === 1) {
+    gridContent.innerHTML = ``;  // 처음 페이지일 경우 내용을 초기화
+  }
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = page * itemsPerPage;
+  const items = Object.values(list).slice(startIndex, endIndex);
 
   if(list.length > 0){
     gridContent.style.display = '';
@@ -266,7 +276,9 @@ function drawLatest(list, gridContent){
     gridContent.style.alignItems = '';
     gridContent.style.height = '';
 
-    for (let c of list) {
+    for (let c of items) {
+      console.log(c.poster);
+      console.log(c.prfnm);
       const concertGridDiv = document.createElement('div');
       concertGridDiv.className = 'concert-main-grid-div';
       concertGridDiv.innerHTML += `<input type="hidden" name="mt20id" value="` + c.mt20id + `"></input>`
@@ -367,14 +379,32 @@ function allListClick() {
   location.reload();
 }
 
+let currentPage = 1;  // 현재 페이지 번호
+const itemsPerPage = 10;  // 페이지당 표시할 항목 수
+let isLoading = false;  // 로딩 중인지 여부를 추적하는 변수
+
+
 // 인기순위만 DB 에서 받아오면 된다: DB에 저장된 좋아요 갯수 순이기 때문에
 function popularClick() {
+  // 분류하는거 요소 3개를 불러와서 for문을 돌려서 색 변하는 클래스 remove다 해주고 this받고 _this.classList.add 색있는 클래스 넣어주기
   const gridContent = document.querySelector(".concert-main-grid");
-  popularApi((list) => drawPopular(list, gridContent));
+  popularApi((list) => {
+    drawPopular(list, gridContent, currentPage, itemsPerPage);
+
+    // 무한 스크롤을 위한 스크롤 이벤트 리스너 추가
+    window.addEventListener('scroll', () => handleScroll(list, gridContent));
+  });  
 }
 
-function drawPopular(list, gridContent){
-  gridContent.innerHTML = ``;
+function drawPopular(list, gridContent, page, itemsPerPage) {
+  if (page === 1) {
+    gridContent.innerHTML = ``;  // 처음 페이지일 경우 내용을 초기화
+  }
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = page * itemsPerPage;
+  const items = Object.values(list).slice(startIndex, endIndex);
+
 
   if(list.length > 0){
     gridContent.style.display = '';
@@ -382,7 +412,7 @@ function drawPopular(list, gridContent){
     gridContent.style.alignItems = '';
     gridContent.style.height = '';
 
-  for (let c of list) {
+  for (let c of items) {
     const concertGridDiv = document.createElement('div');
     concertGridDiv.className = 'concert-main-grid-div';
     concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
@@ -395,9 +425,14 @@ function drawPopular(list, gridContent){
                                     <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
                             + `</div>`
                             
-    gridContent.appendChild(concertGridDiv);                   
+    gridContent.appendChild(concertGridDiv);
+    const inputElement = document.createElement('input');
+    inputElement.setAttribute('type', 'hidden');
+    inputElement.setAttribute('name', 'concertId');
+    inputElement.setAttribute('value', c.concertPlot);
+
     concertGridDiv.onclick = function goDetail(){
-      location.href = 'detail.co?concertId=' + c.concertId;
+      location.href = 'condeapi.co?concertId=' + c.concertPlot;
     }
   }
 
@@ -417,6 +452,32 @@ function drawPopular(list, gridContent){
 
   }
 }
+
+
+
+// 페이지네이션 이벤트
+function handleScroll(list, gridContent) {
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+  if (scrollTop + clientHeight >= scrollHeight - 5 && !isLoading) {
+    isLoading = true;
+    currentPage++;
+
+
+ //색 있는 클래스를 다 하나 오면 그 안에 innerHtml 인기순, 최신순, w전체 
+
+
+    // 새로운 페이지를 로드하여 그리기 함수를 호출
+    drawPopular(list, gridContent, currentPage, itemsPerPage);
+
+
+
+
+    // 로딩이 끝난 후에 isLoading 변수를 false로 설정
+    isLoading = false;
+  }
+}
+
 
   
   // 슬릭 슬라이더 api 설정
