@@ -63,6 +63,7 @@ function drawPopularConcert(pcConcerts, categoryNo1){
     pcConsertsArea.innerHTML = ``;
     
     if(pcConcerts.length != 0){
+        totalImg1 = pcConcerts.length;
         for (let c of pcConcerts){
             let categoryName;
             let mapping;
@@ -117,7 +118,7 @@ function drawLatestConcert(lcConcerts, categoryNo2){
     pcConsertsArea.innerHTML = ``;
     
     if(lcConcerts != 0){
-        
+        totalImg2 = lcConcerts.length;
         for (let c of lcConcerts){
             let categoryName;
             let mapping;
@@ -294,12 +295,12 @@ function drawBoardListContentCategory(boardCategory){
 /* 공연 리스트 슬라이드 하기 */
 
 let currentIndex1 = 0;
-const totalImg1 = 10;
+let totalImg1 = 10;
 const viewImg1 = 5;
 const imgWidth1 =  10;
 
 let currentIndex2 = 0;
-const totalImg2 = 10;
+let totalImg2 = 10;
 const viewImg2 = 5;
 const imgWidth2 =  10;
 
@@ -314,7 +315,6 @@ function checkedButtonHidden(){
     const lCount = document.querySelectorAll(".latest-concert-information");
    
     if(pCount.length < 6){
-        console.log(currentIndex1)
         currentIndex1 = 0
         updateSlider1()
         pbutton[0].classList.add("hidden")
@@ -338,7 +338,7 @@ function slideLeft1() {
     if (currentIndex1 > 0) {
         currentIndex1--;
     }else{
-        currentIndex1 = 5;
+        currentIndex1 = totalImg1-5;
     }
     updateSlider1();
 }
@@ -363,7 +363,7 @@ function slideLeft2() {
     if (currentIndex2 > 0) {
         currentIndex2--;
     }else{
-        currentIndex2 = 5;
+        currentIndex2 = totalImg2-5;
     }
     updateSlider2();
 }

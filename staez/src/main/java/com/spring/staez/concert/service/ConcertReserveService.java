@@ -25,7 +25,7 @@ public interface ConcertReserveService {
 	
 	ArrayList<Seat> selectReserveRatingSeat(int concertNo, String choiceDate, String schedule);
 	
-	ArrayList<Seat> selectImpossibleRatingSeat(int theaterNo, String choiceDate);
+	ArrayList<Seat> selectImpossibleRatingSeat(int concertNo, int theaterNo, String choiceDate);
 
 	Theater selectTheaterSeatInfo(String theaterName);
 	

@@ -267,7 +267,7 @@ public class ConcertReserveController {
 
 		ArrayList<Seat> ratingTotalSeat = crService.selectRatingTotalSeat(concertNo, choiceDate, schedule);
 		ArrayList<Seat> reserveRatingSeat = crService.selectReserveRatingSeat(concertNo, choiceDate, schedule);
-		ArrayList<Seat> impossibleRatingSeat = crService.selectImpossibleRatingSeat(theaterNo, choiceDate);
+		ArrayList<Seat> impossibleRatingSeat = crService.selectImpossibleRatingSeat(concertNo, theaterNo, choiceDate);
 
 		Map resMap = new HashMap();
 		resMap.put("totalSeat", ratingTotalSeat);
@@ -359,6 +359,7 @@ public class ConcertReserveController {
         
         
         // 카카오 결제 준비하기
+        // Map을 이용해 파라미터를 저장
         Map<String, String> parameters = new HashMap<>();
         parameters.put("cid", "TC0ONETIME");                        
         parameters.put("partner_order_id", "1234567890");             
@@ -376,27 +377,28 @@ public class ConcertReserveController {
 				+ "&seatListArray="+encodedSeatList
 				+ "&totalAmount="+String.valueOf(totalPrice));
 	    
-        
-		
-       
-        System.out.println(parameters);
         parameters.put("cancel_url", "http://localhost:8888/staez/cancel.co");       
         parameters.put("fail_url", "http://localhost:8888/staez/fail.co");         
 
-        
-        
+        // HttpHeaders(Spring Framework에서 제공하는 클래스)
+        // HTTP 요청 헤더를 설정하는 객체이다 API호출 인증 정보나 HTTP요청의 컨텐츠 타입을 설정
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "DEV_SECRET_KEY " + secretKey);
         headers.set("Content-type", "application/json");
         
+        // HttpEntity(Spring Framework에서 제공하는 클래스)
+        // HTTP 요청 또는 응답의 헤더와 바디를 포함하는 클래스이다.
+        // 주로 RestTemplate를 사용하여 RESTful 웹 서비스를 호출할 때 요청의 바디와 헤더를 정의하는 데 사용
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(parameters, headers);
 
-        // RestTemplate
-        // : Rest 방식 API를 호출할 수 있는 Spring 내장 클래스
-        //   REST API 호출 이후 응답을 받을 때까지 기다리는 동기 방식 (json, xml 응답)
+        // RestTemplate(Spring Framework에서 제공하는 클래스)
+        // Rest 방식 API를 호출할 수 있는 Spring 내장 클래스
+        // REST API 호출 이후 응답을 받을 때까지 기다리는 동기 방식 (json, xml 응답)
         RestTemplate template = new RestTemplate();
         String url = "https://open-api.kakaopay.com/online/v1/payment/ready";
         
+        // ResponseEntity(Spring Framework에서 제공하는 클래스)
+        // HTTP 응답을 나타내는 클래스로, 상태 코드, 헤더 및 응답 본문을 포함하여 외부 서비스에서 받은 응답을 처리하는 데 사용됩니다.
         ResponseEntity<ReadyResponse> responseEntity = template.postForEntity(url, requestEntity, ReadyResponse.class);
         log.info("결제준비 응답객체: " + responseEntity.getBody());
 
