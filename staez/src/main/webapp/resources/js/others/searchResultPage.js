@@ -13,8 +13,6 @@ function drawConcertList(cList, keyword){
     concertArea.innerHTML = ``;
     if(cList.length === 0){
         concertArea.innerHTML = `<span style="font-size: 30px; font-weight: 500; width: 100%;">검색 결과가 없습니다</span>`
-        const moreBtn = document.querySelector(".paging-area-container")
-        moreBtn[0].classList.add("hidden")
     } else {
         for(let c of cList){
             console.log(c)

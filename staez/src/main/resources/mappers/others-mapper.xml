@@ -506,7 +506,6 @@
 		where c.concert_title like  '%' || #{keyword} || '%'
 		and c.concert_status = 'Y'
 		and (c.age_limit = 'age_limit' or cg.category_no is not null)
-		and l.end_Date >= current_date
 		order by l.end_date asc
 		limit 5
 	</select>
@@ -524,7 +523,6 @@
 		left join concert_category cc on (c.concert_no = cc.concert_no)
 		left join category cg on (cc.category_no = cg.category_no)
 		where c.concert_title like '%' || #{keyword} || '%'
-		and l.end_date >= current_date
 		and (c.age_limit = 'age_limit' or cg.category_no is not null)
 		and c.concert_status = 'Y'
 		order by l.end_date asc
