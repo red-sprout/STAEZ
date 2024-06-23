@@ -241,8 +241,7 @@ function phoneClick() {
     const stopBtn = document.getElementById("check_PhoneSecretBtn");
 
     authNo = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
-    //$('#phoneCheck').prop('checked', false);
-    document.getElementById('phoneCheck').checked = false;
+    $('#phoneCheck').prop('checked', false);
     verificationPhoneTr.style.display = "table-row";
 
     insertPhoneCheck({ checkPhone: phoneInputValue }, function(res) {
