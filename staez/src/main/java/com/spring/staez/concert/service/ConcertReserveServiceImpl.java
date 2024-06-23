@@ -75,10 +75,11 @@ public class ConcertReserveServiceImpl implements ConcertReserveService{
 	}
 	
 	@Override
-	public ArrayList<Seat> selectImpossibleRatingSeat(int theaterNo, String choiceDate) {
+	public ArrayList<Seat> selectImpossibleRatingSeat(int concertNo, int theaterNo, String choiceDate) {
 		Map data = new HashMap();
 		data.put("tNo", theaterNo);
 		data.put("date", choiceDate);
+		data.put("cNo", concertNo);
 		return crDao.selectImpossibleRatingSeat(sqlSession, data);
 	}
 

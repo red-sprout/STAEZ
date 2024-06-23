@@ -191,6 +191,7 @@
 	where ims.impossible_seat_row between s.seat_start_row and s.seat_end_row
 	and ims.impossible_seat_col between s.seat_start_col and s.seat_end_col
 	and s.concert_Date = #{date}::date
+	and c.concert_no = #{cNo}
 	group by s.grade
    </select>
    

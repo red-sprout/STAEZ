@@ -133,6 +133,7 @@
 		where cg.category_no = #{cNo}
 		and ca.status = 'Y'
 		and cs.end_date >= current_date
+		group by c.concert_no, ca.file_path, ca.change_name
 		limit 10;
 	</select>
 	
@@ -162,7 +163,6 @@
         where c.concert_status = 'Y'
     	and cg.category_no = 8 or c.age_limit = 'age_limit'
      	and cs.end_date >= current_date
-		and l.status = 'Y'
 		group by c.concert_no, cg.category_name, c.concert_plot, ca.origin_name
 		order by c.concert_no asc
     	limit 10
@@ -191,7 +191,7 @@
 		where cg.category_no = 8 or c.age_limit = 'age_limit'
 		and ca.status = 'Y'
 		and cs.end_date >= current_date
-		and l.status = 'Y'
+		group by c.concert_no, ca.file_path, ca.change_name, ca.origin_name
 		order by c.concert_no asc
 		limit 10
 	</select>
@@ -506,7 +506,6 @@
 		where c.concert_title like  '%' || #{keyword} || '%'
 		and c.concert_status = 'Y'
 		and (c.age_limit = 'age_limit' or cg.category_no is not null)
-		and l.end_Date >= current_date
 		order by l.end_date asc
 		limit 5
 	</select>
@@ -524,7 +523,6 @@
 		left join concert_category cc on (c.concert_no = cc.concert_no)
 		left join category cg on (cc.category_no = cg.category_no)
 		where c.concert_title like '%' || #{keyword} || '%'
-		and l.end_date >= current_date
 		and (c.age_limit = 'age_limit' or cg.category_no is not null)
 		and c.concert_status = 'Y'
 		order by l.end_date asc
