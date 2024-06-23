@@ -308,6 +308,7 @@ function drawAllList(list, gridContent, page, itemsPerPage){
         location.href = 'detail.co?concertNo=' + c.concertNo;
       }
     }
+
   } else {
     gridContent.style.display = 'flex';
     gridContent.style.justifyContent = 'center';
@@ -433,7 +434,7 @@ function drawLatest(list, gridContent, page, itemsPerPage){
 }
 
 function drawHighscore(list, gridContent, page, itemsPerPage){
-
+console.log(list);
   if (page === 1) {
     gridContent.innerHTML = ``;  // 처음 페이지일 경우 내용을 초기화
   }
@@ -633,7 +634,7 @@ function handleScroll(list, gridContent, _this) {
 
     //색 있는 클래스를 다 하나 오면 그 안에 innerHtml 인기순, 최신순, 전체 
     // 새로운 페이지를 로드하여 그리기 함수를 호출
-     // popular-mode인 경우에만 drawPopular 호출
+    // popular-mode인 경우에만 drawPopular 호출
 
       if(_this === 'all'){
         drawAllList(list, gridContent, currentPage, itemsPerPage);

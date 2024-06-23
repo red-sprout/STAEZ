@@ -391,7 +391,7 @@
 		JOIN concert_category cc ON c.concert_no = cc.concert_no	
 		JOIN category ct ON cc.category_no = ct.category_no
 		WHERE c.concert_status = 'Y'
-		AND cc.category_no = 8
+		AND cc.category_no = #{categoryNo}
 		ORDER BY score DESC NULLS LAST
 	 </select>
 	 
