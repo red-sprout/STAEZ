@@ -56,9 +56,9 @@
 
     <section class="concert-main-list-section">
         <ul class="concert-main-list-ul"> <!-- 전체보기 버튼이 클릭이 안돼서 return false 붙여줌 why? 이벤트 버블링 때문?? event.stopPropagation()?? -->
-            <li><button class="concert-main-list-button allListClick category-checked" onclick="allListClick(); return false;"><h3><span>전체보기</span></h3></button></li>
-            <li><button class="concert-main-list-button popularClick" onclick="popularClick()"><h3><span>인기순위</span></h3></button></li>
-            <li><button class="concert-main-list-button latestClick" onclick="latestClick()"><h3><span>최신공연</span></h3></button></li>
+            <li><button class="concert-main-list-button" onclick="clickHandler('all'); return false;"><h3><span>전체보기</span></h3></button></li>
+            <li><button class="concert-main-list-button" onclick="clickHandler('popular')"><h3><span>인기순위</span></h3></button></li>
+            <li><button class="concert-main-list-button" onclick="clickHandler('latest')"><h3><span>최신공연</span></h3></button></li>
             <!-- <li id="concert-main-list-area-parent"><button class="concert-main-list-button area" onclick="locationClick()"><h3><span>지역전체 ▼</span></h3></button>
                 <ul class="concert-main-list-area"> 
                     <li><a onclick="locationArea('서울')">서울</a></li>

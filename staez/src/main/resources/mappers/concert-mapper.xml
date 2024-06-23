@@ -650,7 +650,7 @@
 		JOIN concert_schedule cs ON c.concert_no = cs.concert_no
 		WHERE c.concert_status = 'Y'
 		 AND theater_no IS NULL 
-	    ORDER BY sub.countLike desc, sub.countLike is null asc
+	    ORDER BY sub.countLike asc, sub.countLike is null desc
 	</select>
     
     

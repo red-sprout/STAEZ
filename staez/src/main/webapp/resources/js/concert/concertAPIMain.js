@@ -7,9 +7,12 @@ $(function() {
 
   ajaxCategoryListAPI((list)=>{
     drawSliderMain(list, sliderContent);
-    drawGridMain(list, gridContent);
+    drawGridMain(list, gridContent, currentPage, itemsPerPage);
+      window.addEventListener('scroll', () => handleScroll(list, gridContent));
     slick();
     hideLoading();
+
+
   });
 });
 
@@ -23,6 +26,8 @@ function hideLoading(){
   loadingPage.innerHTML = ``;
   loadingPage.style.display = 'none';
 };
+
+
 
 
 // ajax로 콘서트 navi 그려
@@ -82,11 +87,19 @@ function drawSliderMain(list, sliderContent){
 
   }
 }
+let currentPage = 1;  // 현재 페이지 번호
+const itemsPerPage = 10;  // 페이지당 표시할 항목 수
+let isLoading = false;  // 로딩 중인지 여부를 추적하는 변수
 
 // 그리드 그려주기
-function drawGridMain(list, gridContent){
-  
-  gridContent.innerHTML = ``;
+function drawGridMain(list, gridContent, page, itemsPerPage) {
+  if (page === 1) {
+    gridContent.innerHTML = ``;  // 처음 페이지일 경우 내용을 초기화
+  }
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = page * itemsPerPage;
+  const items = Object.values(list).slice(startIndex, endIndex);
 
   if(list.length > 0){
     gridContent.style.display = '';
@@ -94,7 +107,7 @@ function drawGridMain(list, gridContent){
     gridContent.style.alignItems = '';
     gridContent.style.height = '';
   
-  for (let c of list) {
+  for (let c of items) {
 
     const runningConcert = document.querySelector(".running-concert");
     runningConcert.innerHTML = `<br><br>
@@ -137,25 +150,53 @@ function drawGridMain(list, gridContent){
 }
 
 
+function clickHandler(_this){
 
+  console.log(_this)
+  const gridContent = document.querySelector(".concert-main-grid")
+  currentPage = 1;
 
+  window.removeEventListener('scroll', handleScroll);
 
-// 공연메인페이지 전체보기
-function allListClick(){
-  const gridContent = document.querySelector(".concert-main-grid");
-  ajaxCategoryListAPI((list)=>drawAllList(list, gridContent));
+  if(_this === 'all'){
+    ajaxCategoryListAPI((list) => 
+      { drawAllList(list, gridContent, currentPage, itemsPerPage);
+        window.addEventListener('scroll', () => handleScroll(list, gridContent, _this));
+      });
+  } else if (_this === 'popular'){
+    popularApi((list) => {
+      drawPopular(list, gridContent, currentPage, itemsPerPage);
+    
+        // 무한 스크롤을 위한 스크롤 이벤트 리스너 추가
+        window.addEventListener('scroll', () => handleScroll(list, gridContent, _this));
+      });  
+  } else {
+    ajaxCategoryListAPI((list) => {
+      drawLatest(list, gridContent, currentPage, itemsPerPage);
+      window.addEventListener('scroll', () => handleScroll(list, gridContent, _this));
+    });  
+
+  }
 }
 
 
-function highscoreClick() {
-  const gridContent = document.querySelector(".concert-main-grid");
-  const categoryNo = document.querySelector("input[name='categoryNo']").value;
 
-  ajaxCategoryListAPI((list) => drawHighscore(list, gridContent));
-}
+// // 공연메인페이지 전체보기
+// function allListClick(){
+//   const gridContent = document.querySelector(".concert-main-grid");
+//   ajaxCategoryListAPI((list)=>drawAllList(list, gridContent));
+// }
 
-function drawAllList(list, gridContent){
-  gridContent.innerHTML = ``;
+
+function drawAllList(list, gridContent, page, itemsPerPage) {
+
+  if (page === 1) {
+    gridContent.innerHTML = ``;  // 처음 페이지일 경우 내용을 초기화
+  }
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = page * itemsPerPage;
+  const items = Object.values(list).slice(startIndex, endIndex);
 
   if(list.length > 0){
     gridContent.style.display = '';
@@ -163,7 +204,7 @@ function drawAllList(list, gridContent){
     gridContent.style.alignItems = '';
     gridContent.style.height = '';
 
-    for (let c of list) {
+    for (let c of items) {
       const concertGridDiv = document.createElement('div');
       concertGridDiv.className = 'concert-main-grid-div';
       concertGridDiv.innerHTML += `<input type="hidden" name="mt20id" value="` + c.mt20id + `"></input>`
@@ -199,68 +240,9 @@ function drawAllList(list, gridContent){
 }
 
 
-
-function drawHighscore(list, gridContent){
-  gridContent.innerHTML = ``;
-
-  if(list.length > 0){
-    gridContent.style.display = '';
-    gridContent.style.justifyContent = '';
-    gridContent.style.alignItems = '';
-    gridContent.style.height = '';
-
-    for (let c of list) {
-      const concertGridDiv = document.createElement('div');
-      concertGridDiv.className = 'concert-main-grid-div';
-      concertGridDiv.innerHTML += `<input type="hidden" name="mt20id" value="` + c.mt20id + `"></input>`
-                                + `<div>`
-                                +     `<img src="` + c.poster + `"alt="">`
-                                + `</div>`
-                                + `<div>`
-                                +     `<p><span>` + c.genrenm + `</span></p>`
-                                +     `<p><span><b>[` + c.prfnm + `]</b></span></p>
-                                      <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
-                              + `</div>`
-                              
-      gridContent.appendChild(concertGridDiv);         
-      concertGridDiv.onclick = function goDetail(){
-        location.href = 'condeapi.co?concertId=' + c.mt20id;
-      }
-    }
-
-  } else {
-    gridContent.style.display = 'flex';
-    gridContent.style.justifyContent = 'center';
-    gridContent.style.alignItems = 'center';
-    gridContent.style.height = '100%';
-
-    const concertGridDiv = document.createElement('div');
-    concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
-    concertGridDiv.style.fontSize = '24px';
-    concertGridDiv.style.padding = '40% 0 50% 0';
-    concertGridDiv.style.textAlign = 'center';
-
-    gridContent.appendChild(concertGridDiv);
-
-  }
-}
-
-
-
-function latestClick() {
-  const gridContent = document.querySelector(".concert-main-grid");
-  ajaxCategoryListAPI((list) => {
-    drawLatest(list, gridContent, currentPage, itemsPerPage);
-
-    // 무한 스크롤을 위한 스크롤 이벤트 리스너 추가
-    window.addEventListener('scroll', () => handleScroll(list, gridContent));
-  });  
-}
-
-
 function drawLatest(list, gridContent, page, itemsPerPage) {
+
   list.sort((a, b) => new Date(b.prfpdfrom) - new Date(a.prfpdfrom));
-  gridContent.innerHTML = ``;
 
   if (page === 1) {
     gridContent.innerHTML = ``;  // 처음 페이지일 경우 내용을 초기화
@@ -277,8 +259,8 @@ function drawLatest(list, gridContent, page, itemsPerPage) {
     gridContent.style.height = '';
 
     for (let c of items) {
+ 
       console.log(c.poster);
-      console.log(c.prfnm);
       const concertGridDiv = document.createElement('div');
       concertGridDiv.className = 'concert-main-grid-div';
       concertGridDiv.innerHTML += `<input type="hidden" name="mt20id" value="` + c.mt20id + `"></input>`
@@ -322,7 +304,6 @@ function drawLatest(list, gridContent, page, itemsPerPage) {
 
 
 // function drawLocationAll(list, area, gridContent){
-
 //   if (!gridContent) {
 //     console.error("Element with class 'concert-main-grid' not found.");
 //     return;
@@ -340,61 +321,23 @@ function drawLatest(list, gridContent, page, itemsPerPage) {
 //       const concertGridDiv = document.createElement('div');
 //       concertGridDiv.className = 'concert-main-grid-div';
 //       concertGridDiv.innerHTML += `<input type="hidden" name="mt20id" value="` + c.mt20id + `"></input>`
-//                                 + `<div>`
-//                                 +     `<img src="` + c.poster + `"alt="">`
-//                                 + `</div>`
-//                                 + `<div>`
-//                                 +     `<p><span>` + c.genrenm + `</span></p>`
-//                                 +     `<p><span><b>[` + c.prfnm + `]</b></span></p>
-//                                       <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
-//                               + `</div>`
-                              
-//       gridContent.appendChild(concertGridDiv);                   
-//       concertGridDiv.onclick = function goDetail(){
-//         location.href = 'condeapi.co?concertId=' + c.mt20id;
-//       }
-//     // }
-//   }
 
-//   } else {
-//     gridContent.style.display = 'flex';
-//     gridContent.style.justifyContent = 'center';
-//     gridContent.style.alignItems = 'center';
-//     gridContent.style.height = '100%';
 
-//     const concertGridDiv = document.createElement('div');
-//     concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
-//     concertGridDiv.style.fontSize = '24px';
-//     concertGridDiv.style.padding = '40% 0 50% 0';
-//     concertGridDiv.style.textAlign = 'center';
 
-//     gridContent.appendChild(concertGridDiv);
 
-//   }
+
+// // 인기순위만 DB 에서 받아오면 된다: DB에 저장된 좋아요 갯수 순이기 때문에
+// function popularClick() {
+//   // 분류하는거 요소 3개를 불러와서 for문을 돌려서 색 변하는 클래스 remove다 해주고 this받고 _this.classList.add 색있는 클래스 넣어주기
+//   const gridContent = document.querySelector(".concert-main-grid");
+
+//   popularApi((list) => {
+//   drawPopular(list, gridContent, currentPage, itemsPerPage);
+
+//     // 무한 스크롤을 위한 스크롤 이벤트 리스너 추가
+//     window.addEventListener('scroll', () => handleScroll(list, gridContent));
+//   });  
 // }
-
-
-function allListClick() {
-  // 현재 페이지 리로드
-  location.reload();
-}
-
-let currentPage = 1;  // 현재 페이지 번호
-const itemsPerPage = 10;  // 페이지당 표시할 항목 수
-let isLoading = false;  // 로딩 중인지 여부를 추적하는 변수
-
-
-// 인기순위만 DB 에서 받아오면 된다: DB에 저장된 좋아요 갯수 순이기 때문에
-function popularClick() {
-  // 분류하는거 요소 3개를 불러와서 for문을 돌려서 색 변하는 클래스 remove다 해주고 this받고 _this.classList.add 색있는 클래스 넣어주기
-  const gridContent = document.querySelector(".concert-main-grid");
-  popularApi((list) => {
-    drawPopular(list, gridContent, currentPage, itemsPerPage);
-
-    // 무한 스크롤을 위한 스크롤 이벤트 리스너 추가
-    window.addEventListener('scroll', () => handleScroll(list, gridContent));
-  });  
-}
 
 function drawPopular(list, gridContent, page, itemsPerPage) {
   if (page === 1) {
@@ -453,10 +396,9 @@ function drawPopular(list, gridContent, page, itemsPerPage) {
   }
 }
 
-
-
+          
 // 페이지네이션 이벤트
-function handleScroll(list, gridContent) {
+function handleScroll(list, gridContent, _this) {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
   if (scrollTop + clientHeight >= scrollHeight - 5 && !isLoading) {
@@ -464,14 +406,19 @@ function handleScroll(list, gridContent) {
     currentPage++;
 
 
- //색 있는 클래스를 다 하나 오면 그 안에 innerHtml 인기순, 최신순, w전체 
-
-
+    //색 있는 클래스를 다 하나 오면 그 안에 innerHtml 인기순, 최신순, 전체 
     // 새로운 페이지를 로드하여 그리기 함수를 호출
-    drawPopular(list, gridContent, currentPage, itemsPerPage);
+     // popular-mode인 경우에만 drawPopular 호출
 
-
-
+      if(_this === 'all'){
+        drawAllList(list, gridContent, currentPage, itemsPerPage);
+      } else if (_this === 'popular'){
+        drawPopular(list, gridContent, currentPage, itemsPerPage);
+      } else if(_this === 'latest') {
+        drawLatest(list, gridContent, currentPage, itemsPerPage);  
+      } else{
+        drawGridMain(list, gridContent, currentPage, itemsPerPage);
+      }
 
     // 로딩이 끝난 후에 isLoading 변수를 false로 설정
     isLoading = false;

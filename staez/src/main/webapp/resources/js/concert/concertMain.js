@@ -9,15 +9,16 @@ $(function() { // list는 컨트롤러에서 받아온 것
 
   ajaxCategoryList({"categoryNo": categoryNo}, (list) => {
     drawSliderMain(list, sliderContent);
+    drawGridMain(list, gridContent, currentPage, itemsPerPage);
+      window.addEventListener('scroll', () => handleScroll(list, gridContent));
     slick();
 
   });
     
-  ajaxCategoryList({"categoryNo" : categoryNo}, (list)=>drawGridMain(list, gridContent));
-  concertStar({"concertNo" : concertNo}, (result) => drawConcertStar(result));
+  // ajaxCategoryList({"categoryNo" : categoryNo}, (list)=>drawGridMain(list, gridContent));
+  // concertStar({"concertNo" : concertNo}, (result) => drawConcertStar(result));
 
 });
-
 
 
 // // 별점 구현
@@ -128,15 +129,17 @@ function drawSliderMain(list, sliderContent){
 }
 
 
-
-
-
 // 그리드 그려주기
-function drawGridMain(list, gridContent){
-  // const sliderContentDiv = document.createElement('div');
-  // const gridContentDiv = document.createElement('div');
+function drawGridMain(list, gridContent, page, itemsPerPage){
   
-  gridContent.innerHTML = ``;
+  
+  if (page === 1) {
+    gridContent.innerHTML = ``;  // 처음 페이지일 경우 내용을 초기화
+  }
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = page * itemsPerPage;
+  const items = Object.values(list).slice(startIndex, endIndex);
 
   if(list.length > 0){
     gridContent.style.display = '';
@@ -144,7 +147,7 @@ function drawGridMain(list, gridContent){
     gridContent.style.alignItems = '';
     gridContent.style.height = '';
   
-  for (let c of list) {
+  for (let c of items) {
 
     const concertGridDiv = document.createElement('div');
     concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
@@ -181,42 +184,106 @@ function drawGridMain(list, gridContent){
 }
 
 
+function clickHandler(_this){
 
+  console.log(_this)
+  const gridContent = document.querySelector(".concert-main-grid");
+  const categoryNo = document.querySelector("input[name='categoryNo']").value;
+  
+  currentPage = 1;
+
+  window.removeEventListener('scroll', handleScroll);
+
+  if(_this === 'all'){
+    ajaxCategoryList({"categoryNo" : categoryNo}, (list) => {
+      drawAllList(list, gridContent, currentPage, itemsPerPage);
+        window.addEventListener('scroll', () => handleScroll(list, gridContent, _this));
+      });
+  } else if (_this === 'popular'){
+    popular({"categoryNo" : categoryNo}, (list) => {
+      drawPopular(list, gridContent, currentPage, itemsPerPage);
+    
+        // 무한 스크롤을 위한 스크롤 이벤트 리스너 추가
+        window.addEventListener('scroll', () => handleScroll(list, gridContent, _this));
+      });
+  } else if (_this === 'latest'){
+    latest({"categoryNo" : categoryNo}, (list) => {
+      drawLatest(list, gridContent, currentPage, itemsPerPage);
+      window.addEventListener('scroll', () => handleScroll(list, gridContent, _this));
+    });
+  } else if (_this === 'highscore'){
+    highscore({"categoryNo" : categoryNo}, (list) => {
+      drawHighscore(list, gridContent, currentPage, itemsPerPage);
+    window.addEventListener('scroll', () => handleScroll(list, gridContent, _this));
+  });
+  } else if (_this === 'locationAll'){
+    ajaxCategoryList({"categoryNo" : categoryNo, "area": _this}, (list) => { // 지역전체
+      drawLocation(list, gridContent, currentPage, itemsPerPage);
+   window.addEventListener('scroll', () => handleScroll(list, gridContent, _this));
+    });
+  } else {
+    locationAll({"categoryNo" : categoryNo, "area": _this}, (list) => {
+       drawLocationAll(list, gridContent, currentPage, itemsPerPage);
+    window.addEventListener('scroll', () => handleScroll(list, gridContent, _this));
+    });
+  }
+
+}
+
+// // 지역전체만 따로
+// function (list, gridContent, page, itemsPerPage) {
+//   const gridContent = document.querySelector(".concert-main-grid");
+//   const categoryNo = document.querySelector("input[name='categoryNo']").value;
+
+//   ajaxCategoryList({"categoryNo" : categoryNo}, (list) => drawLocation(list, gridContent));
+// }
 
 
 // 공연메인페이지 전체보기
-function allListClick(){
- console.log("클릭");
-  const gridContent = document.querySelector(".concert-main-grid");
-  const categoryNo = document.querySelector("input[name='categoryNo']").value;
-  ajaxCategoryList({"categoryNo" : categoryNo}, (list)=>drawAllList(list, gridContent));
-}
+// function allListClick(){
+//  console.log("클릭");
+//   const gridContent = document.querySelector(".concert-main-grid");
+//   const categoryNo = document.querySelector("input[name='categoryNo']").value;
+//   ajaxCategoryList({"categoryNo" : categoryNo}, (list)=>drawAllList(list, gridContent));
+// }
 
 
-// 공연메인페이지 인기순위 최신공연 별점높은
-function popularClick() {
-  const gridContent = document.querySelector(".concert-main-grid");
-  const categoryNo = document.querySelector("input[name='categoryNo']").value;
+// // 공연메인페이지 인기순위 최신공연 별점높은
+// function popularClick() {
+//   const gridContent = document.querySelector(".concert-main-grid");
+//   const categoryNo = document.querySelector("input[name='categoryNo']").value;
 
-  popular({"categoryNo" : categoryNo}, (list) => drawPopular(list, gridContent));
-}
+//   popular({"categoryNo" : categoryNo}, (list) => drawPopular(list, gridContent));
+// }
 
-function latestClick() {
-  const gridContent = document.querySelector(".concert-main-grid");
-  const categoryNo = document.querySelector("input[name='categoryNo']").value;
+// function latestClick() {
+//   const gridContent = document.querySelector(".concert-main-grid");
+//   const categoryNo = document.querySelector("input[name='categoryNo']").value;
 
-  latest({"categoryNo" : categoryNo}, (list) => drawLatest(list, gridContent));
-}
+//   latest({"categoryNo" : categoryNo}, (list) => drawLatest(list, gridContent));
+// }
 
-function highscoreClick() {
-  const gridContent = document.querySelector(".concert-main-grid");
-  const categoryNo = document.querySelector("input[name='categoryNo']").value;
+// function highscoreClick() {
+//   const gridContent = document.querySelector(".concert-main-grid");
+//   const categoryNo = document.querySelector("input[name='categoryNo']").value;
 
-  highscore({"categoryNo" : categoryNo}, (list) => drawHighscore(list, gridContent));
-}
+//   highscore({"categoryNo" : categoryNo}, (list) => drawHighscore(list, gridContent));
+// }
 
-function drawAllList(list, gridContent){
-  gridContent.innerHTML = ``;
+
+let currentPage = 1;  // 현재 페이지 번호
+const itemsPerPage = 10;  // 페이지당 표시할 항목 수
+let isLoading = false;  // 로딩 중인지 여부를 추적하는 변수
+
+function drawAllList(list, gridContent, page, itemsPerPage){
+
+  if (page === 1) {
+    gridContent.innerHTML = ``;  // 처음 페이지일 경우 내용을 초기화
+  }
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = page * itemsPerPage;
+  const items = Object.values(list).slice(startIndex, endIndex);
 
   if(list.length > 0){
     gridContent.style.display = '';
@@ -224,7 +291,7 @@ function drawAllList(list, gridContent){
     gridContent.style.alignItems = '';
     gridContent.style.height = '';
 
-    for (let c of list) {
+    for (let c of items) {
       const concertGridDiv = document.createElement('div');
       concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
                                 + `<div>`
@@ -260,8 +327,15 @@ function drawAllList(list, gridContent){
 
 
 
-function drawPopular(list, gridContent){
-  gridContent.innerHTML = ``;
+function drawPopular(list, gridContent, page, itemsPerPage){
+  if (page === 1) {
+    gridContent.innerHTML = ``;  // 처음 페이지일 경우 내용을 초기화
+  }
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = page * itemsPerPage;
+  const items = Object.values(list).slice(startIndex, endIndex);
+
 
   if(list.length > 0){
     gridContent.style.display = '';
@@ -269,7 +343,7 @@ function drawPopular(list, gridContent){
     gridContent.style.alignItems = '';
     gridContent.style.height = '';
 
-  for (let c of list) {
+  for (let c of items) {
     const concertGridDiv = document.createElement('div');
     concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
                               + `<div>`
@@ -304,8 +378,18 @@ function drawPopular(list, gridContent){
 }
 }
 
-function drawLatest(list, gridContent){
-  gridContent.innerHTML = ``;
+function drawLatest(list, gridContent, page, itemsPerPage){
+
+  list.sort((a, b) => new Date(b.prfpdfrom) - new Date(a.prfpdfrom));
+
+  if (page === 1) {
+    gridContent.innerHTML = ``;  // 처음 페이지일 경우 내용을 초기화
+  }
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = page * itemsPerPage;
+  const items = Object.values(list).slice(startIndex, endIndex);
+
 
   if(list.length > 0){
     gridContent.style.display = '';
@@ -313,7 +397,7 @@ function drawLatest(list, gridContent){
     gridContent.style.alignItems = '';
     gridContent.style.height = '';
 
-    for (let c of list) {
+    for (let c of items) {
       const concertGridDiv = document.createElement('div');
       concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
                                 + `<div>`
@@ -348,8 +432,15 @@ function drawLatest(list, gridContent){
   
 }
 
-function drawHighscore(list, gridContent){
-  gridContent.innerHTML = ``;
+function drawHighscore(list, gridContent, page, itemsPerPage){
+
+  if (page === 1) {
+    gridContent.innerHTML = ``;  // 처음 페이지일 경우 내용을 초기화
+  }
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = page * itemsPerPage;
+  const items = Object.values(list).slice(startIndex, endIndex);
 
   if(list.length > 0){
     gridContent.style.display = '';
@@ -357,7 +448,7 @@ function drawHighscore(list, gridContent){
     gridContent.style.alignItems = '';
     gridContent.style.height = '';
 
-    for (let c of list) {
+    for (let c of items) {
       const concertGridDiv = document.createElement('div');
       concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
                                 + `<div>`
@@ -393,16 +484,17 @@ function drawHighscore(list, gridContent){
 }
 
 
-// 지역전체만 따로
-function locationClick() {
-  const gridContent = document.querySelector(".concert-main-grid");
-  const categoryNo = document.querySelector("input[name='categoryNo']").value;
 
-  ajaxCategoryList({"categoryNo" : categoryNo}, (list) => drawLocation(list, gridContent));
-}
 
-function drawLocation(list, gridContent){
-  gridContent.innerHTML = ``;
+function drawLocation(list, gridContent, page, itemsPerPage){
+
+  if (page === 1) {
+    gridContent.innerHTML = ``;  // 처음 페이지일 경우 내용을 초기화
+  }
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = page * itemsPerPage;
+  const items = Object.values(list).slice(startIndex, endIndex);
 
   if(list.length > 0){
     gridContent.style.display = '';
@@ -410,7 +502,7 @@ function drawLocation(list, gridContent){
     gridContent.style.alignItems = '';
     gridContent.style.height = '';
 
-    for (let c of list) {
+    for (let c of items) {
       const concertGridDiv = document.createElement('div');
       concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
                                 + `<div>`
@@ -446,22 +538,25 @@ function drawLocation(list, gridContent){
 }
 
 
-function locationArea(area){
+// function locationArea(area){
 
-  const gridContent = document.querySelector(".concert-main-grid");
-  const categoryNo = document.querySelector("input[name='categoryNo']").value;
+//   const gridContent = document.querySelector(".concert-main-grid");
+//   const categoryNo = document.querySelector("input[name='categoryNo']").value;
 
-  locationAll({"categoryNo" : categoryNo, "area": area}, (list) => drawLocationAll(list, gridContent));
+//   locationAll({"categoryNo" : categoryNo, "area": area}, (list) => drawLocationAll(list, gridContent));
 
-}
+// }
 
 
-function drawLocationAll(list, gridContent){
+function drawLocationAll(list, gridContent, page, itemsPerPage){
 
-  if (!gridContent) {
-    console.error("Element with class 'concert-main-grid' not found.");
-    return;
+  if (page === 1) {
+    gridContent.innerHTML = ``;  // 처음 페이지일 경우 내용을 초기화
   }
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = page * itemsPerPage;
+  const items = Object.values(list).slice(startIndex, endIndex);
 
   gridContent.innerHTML = ``;
   if(list.length > 0){
@@ -471,7 +566,7 @@ function drawLocationAll(list, gridContent){
     gridContent.style.alignItems = '';
     gridContent.style.height = '';
 
-  for (let c of list) {
+  for (let c of items) {
     const concertGridDiv = document.createElement('div');
     concertGridDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
                               + `<div>`
@@ -524,6 +619,45 @@ function drawLocationAll(list, gridContent){
   }
 }
 
+
+
+
+// 페이지네이션 이벤트
+function handleScroll(list, gridContent, _this) {
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+  if (scrollTop + clientHeight >= scrollHeight - 5 && !isLoading) {
+    isLoading = true;
+    currentPage++;
+
+
+    //색 있는 클래스를 다 하나 오면 그 안에 innerHtml 인기순, 최신순, 전체 
+    // 새로운 페이지를 로드하여 그리기 함수를 호출
+     // popular-mode인 경우에만 drawPopular 호출
+
+      if(_this === 'all'){
+        drawAllList(list, gridContent, currentPage, itemsPerPage);
+      } else if (_this === 'popular'){
+        drawPopular(list, gridContent, currentPage, itemsPerPage);
+      } else if (_this === 'latest'){
+        drawLatest(list, gridContent, currentPage, itemsPerPage);  
+      } else if (_this === 'highscore'){
+        drawHighscore(list, gridContent, currentPage, itemsPerPage);  
+      } else if (_this === 'locationAll'){
+        drawLocation(list, gridContent, currentPage, itemsPerPage);  
+      } else if (_this === '서울' || _this === '경기' ||_this === '강원' ||
+                  _this === '충청' ||_this === '전라' ||_this === '경상' ||_this === '제주') {
+        drawLocationAll(list, gridContent, currentPage, itemsPerPage);
+      } else {
+        drawGridMain(list, gridContent, currentPage, itemsPerPage);
+      } 
+      
+
+    // 로딩이 끝난 후에 isLoading 변수를 false로 설정
+    isLoading = false;
+  }
+}
+
   
   // 슬릭 슬라이더 api 설정
   function slick() {
@@ -564,7 +698,3 @@ function drawLocationAll(list, gridContent){
     })
   };
   
-  
-
-
-
