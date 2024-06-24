@@ -111,7 +111,7 @@ function drawSliderMain(list, sliderContent){
     concertDiv.innerHTML += `<input type="hidden" name="concertNo" value="` + c.concertNo + `"></input>`
                                   + `<img src="` + contextPath + c.filePath + c.changeName + `"alt="">`
                                   + `<div class="concert-main-upper-sen-div">
-                                      <p><span><b><h2>` + c.concertTitle + `</h2></span></b></p>
+                                      <b><p class="overflowText">` + c.concertTitle + `</p></b>
                                       <p><span>` + c.theaterName + `</span></p>
                                       <p><span>` + c.startDate + ` - ` + c.endDate + `</span></p>`
                                  + `</div>`;
@@ -184,12 +184,30 @@ function drawGridMain(list, gridContent, page, itemsPerPage){
 }
 
 
-function clickHandler(_this){
-
-  console.log(_this)
+function clickHandler(_this, t){
   const gridContent = document.querySelector(".concert-main-grid");
   const categoryNo = document.querySelector("input[name='categoryNo']").value;
+  const ulClass =  [...document.querySelectorAll(".concert-main-list-button")];
   
+  for(let i of ulClass){
+    i.classList.remove("purple");
+  }
+
+  switch(_this) {
+  case 'all':
+    ulClass[0].classList.add("purple");
+    break;
+  case 'all':
+    ulClass[1].classList.add("purple");
+    break;
+  case 'all':
+    ulClass[2].classList.add("purple");
+    break;
+  case 'all':
+    ulClass[3].classList.add("purple");
+    break;
+  }
+
   currentPage = 1;
 
   window.removeEventListener('scroll', handleScroll);
@@ -559,7 +577,6 @@ function drawLocationAll(list, gridContent, page, itemsPerPage){
   const endIndex = page * itemsPerPage;
   const items = Object.values(list).slice(startIndex, endIndex);
 
-  gridContent.innerHTML = ``;
   if(list.length > 0){
 
     gridContent.style.display = '';

@@ -24,7 +24,7 @@
         </ul>
     </div>
     <input type="hidden" name="categoryNo" value="${cat.categoryNo}">
-    
+
     <section class="concert-main-upper-section">
 
         <div class="concert-main-upper-before">
@@ -71,14 +71,15 @@
         <h3>현재 진행중인&nbsp; <b id="concert-genre">${cat.categoryName}</b></h3>
         <br>
     </section>
+
     <hr class="concert-main-hr">
 
     <section class="concert-main-list-section">
         <ul class="concert-main-list-ul"> <!-- 전체보기 버튼이 클릭이 안돼서 return false 붙여줌 why? 이벤트 버블링 때문?? event.stopPropagation()?? -->
-            <li><button class="concert-main-list-button" onclick="clickHandler('all'); return false;"><h3><span>전체보기</span></h3></button></li>
-            <li><button class="concert-main-list-button" onclick="clickHandler('popular')"><h3><span>인기순위</span></h3></button></li>
-            <li><button class="concert-main-list-button" onclick="clickHandler('latest')"><h3><span>최신공연</span></h3></button></li>
-            <li><button class="concert-main-list-button" onclick="clickHandler('highscore')"><h3><span>별점높은</span></h3></button></li>
+            <li><button class="concert-main-list-button" onclick="clickHandler('all', this);"><h3><span>전체보기</span></h3></button></li>
+            <li><button class="concert-main-list-button" onclick="clickHandler('popular', this);"><h3><span>인기순위</span></h3></button></li>
+            <li><button class="concert-main-list-button" onclick="clickHandler('latest', this);"><h3><span>최신공연</span></h3></button></li>
+            <li><button class="concert-main-list-button" onclick="clickHandler('highscore', this);"><h3><span>별점높은</span></h3></button></li>
             <li id="concert-main-list-area-parent"><button class="concert-main-list-button area" onclick="clickHandler('locationAll')"><h3><span>지역전체 ▼</span></h3></button>
                 <ul class="concert-main-list-area"> 
                     <li><a onclick="clickHandler('서울')">서울</a></li>
