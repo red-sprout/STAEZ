@@ -234,6 +234,7 @@
     }
     .concert-main-grid-section{
         margin: auto;
+        width: 1120px;
     }
     
     .concert-main-grid{
@@ -298,7 +299,3 @@
         left: 50%;
         z-index: 100;
   }
-
-.category-checked{
-    background:orange;
-}

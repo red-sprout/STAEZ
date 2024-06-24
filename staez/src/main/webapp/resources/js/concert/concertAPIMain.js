@@ -7,8 +7,8 @@ $(function() {
 
   ajaxCategoryListAPI((list)=>{
     drawSliderMain(list, sliderContent);
-    // drawGridMain(list, gridContent, currentPage, itemsPerPage);
-    //   window.addEventListener('scroll', () => handleScroll(list, gridContent));
+    drawGridMain(list, gridContent, currentPage, itemsPerPage);
+      window.addEventListener('scroll', () => handleScroll(list, gridContent));
     slick();
     hideLoading();
 
@@ -97,62 +97,62 @@ function drawSliderMain(list, sliderContent){
 
 
 // 그리드 그려주기
-// function drawGridMain(list, gridContent, page, itemsPerPage) {
-//   if (page === 1) {
-//     gridContent.innerHTML = '';  // 처음 페이지일 경우 내용을 초기화
-//   }
+function drawGridMain(list, gridContent, page, itemsPerPage) {
+  if (page === 1) {
+    gridContent.innerHTML = '';  // 처음 페이지일 경우 내용을 초기화
+  }
 
-//   const startIndex = (page - 1) * itemsPerPage;
-//   const endIndex = page * itemsPerPage;
-//   const items = Object.values(list).slice(startIndex, endIndex);
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = page * itemsPerPage;
+  const items = Object.values(list).slice(startIndex, endIndex);
 
-//   if(list.length > 0){
-//     gridContent.style.display = '';
-//     gridContent.style.justifyContent = '';
-//     gridContent.style.alignItems = '';
-//     gridContent.style.height = '';
+  if(list.length > 0){
+    gridContent.style.display = '';
+    gridContent.style.justifyContent = '';
+    gridContent.style.alignItems = '';
+    gridContent.style.height = '';
   
-//   for (let c of items) {
+  for (let c of items) {
 
-//     const runningConcert = document.querySelector(".running-concert");
-//     runningConcert.innerHTML = `<br><br>
-//                                 <h3>현재 진행중인&nbsp; <b id="concert-genre">` + c.genrenm + `</b></h3>
-//                                 <br>`
+    const runningConcert = document.querySelector(".running-concert");
+    runningConcert.innerHTML = `<br><br>
+                                <h3>현재 진행중인&nbsp; <b id="concert-genre">` + c.genrenm + `</b></h3>
+                                <br>`
 
-//     const concertGridDiv = document.createElement('div');
-//     concertGridDiv.className = 'concert-main-grid-div';
-//     concertGridDiv.innerHTML += `<input type="hidden" name="concertId" value="` + c.mt20id + `">`
-//                               +  `<div>`
-//                               +     `<img src="` + c.poster + `"alt="">`
-//                               + `</div>`
-//                               + `<div>`
-//                               +     `<p><span>` + c.genrenm + `</span></p>`
-//                               +     `<p><span><b>[` + c.prfnm + `]</b></span></p>
-//                                     <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
-//                             + `</div> <br><br>`
+    const concertGridDiv = document.createElement('div');
+    concertGridDiv.className = 'concert-main-grid-div';
+    concertGridDiv.innerHTML += `<input type="hidden" name="concertId" value="` + c.mt20id + `">`
+                              +  `<div>`
+                              +     `<img src="` + c.poster + `"alt="">`
+                              + `</div>`
+                              + `<div>`
+                              +     `<p><span>` + c.genrenm + `</span></p>`
+                              +     `<p><span><b>[` + c.prfnm + `]</b></span></p>
+                                    <p><span>` + c.prfpdfrom + ` - ` + c.prfpdto + `</span></p>`
+                            + `</div> <br><br>`
                             
-//     gridContent.appendChild(concertGridDiv);                   
-//     concertGridDiv.onclick = function goDetail(){
-//       location.href = 'condeapi.co?concertId=' + c.mt20id;
-//     }
-//   }
+    gridContent.appendChild(concertGridDiv);                   
+    concertGridDiv.onclick = function goDetail(){
+      location.href = 'condeapi.co?concertId=' + c.mt20id;
+    }
+  }
 
-// } else {
-//   gridContent.style.display = 'flex';
-//   gridContent.style.justifyContent = 'center';
-//   gridContent.style.alignItems = 'center';
-//   gridContent.style.height = '100%';
+} else {
+  gridContent.style.display = 'flex';
+  gridContent.style.justifyContent = 'center';
+  gridContent.style.alignItems = 'center';
+  gridContent.style.height = '100%';
 
-//   const concertGridDiv = document.createElement('div');
-//   concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
-//   concertGridDiv.style.fontSize = '24px';
-//   concertGridDiv.style.padding = '40% 0 50% 0';
-//   concertGridDiv.style.textAlign = 'center';
+  const concertGridDiv = document.createElement('div');
+  concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
+  concertGridDiv.style.fontSize = '24px';
+  concertGridDiv.style.padding = '40% 0 50% 0';
+  concertGridDiv.style.textAlign = 'center';
 
-//   gridContent.appendChild(concertGridDiv);
+  gridContent.appendChild(concertGridDiv);
 
-// }
-// }
+}
+}
 
 
 function clickHandler(_this){
@@ -343,6 +343,9 @@ function drawPopular(list, gridContent, page, itemsPerPage) {
         location.href = 'condeapi.co?concertId=' + c.concertPlot;
       }
     }
+    if(endIndex === items.length){
+      isLoading = false;
+    }
 
   } else {
       gridContent.style.display = 'flex';
@@ -387,7 +390,6 @@ function handleScroll(list, gridContent, _this) {
 
     // 로딩이 끝난 후에 isLoading 변수를 false로 설정
     isLoading = false;
-    console.log(isLoading)
   }
 }
 
