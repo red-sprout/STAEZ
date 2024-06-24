@@ -175,16 +175,19 @@ function drawGridMain(list, gridContent, page, itemsPerPage){
   const concertGridDiv = document.createElement('div');
   concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
   concertGridDiv.style.fontSize = '24px';
-  concertGridDiv.style.padding = '55% 0 75.5% 0';
+  concertGridDiv.style.padding = '20% 0 20% 0';
   concertGridDiv.style.textAlign = 'center';
 
   gridContent.appendChild(concertGridDiv);
-
+  
+  if (page === 1) {
+    isLoading = true;
+  }
 }
 }
 
 
-function clickHandler(_this, t){
+function clickHandler(_this){
   const gridContent = document.querySelector(".concert-main-grid");
   const categoryNo = document.querySelector("input[name='categoryNo']").value;
   const ulClass =  [...document.querySelectorAll(".concert-main-list-button")];
@@ -197,14 +200,17 @@ function clickHandler(_this, t){
   case 'all':
     ulClass[0].classList.add("purple");
     break;
-  case 'all':
+  case 'popular':
     ulClass[1].classList.add("purple");
     break;
-  case 'all':
+  case 'latest':
     ulClass[2].classList.add("purple");
     break;
-  case 'all':
+  case 'highscore':
     ulClass[3].classList.add("purple");
+    break;
+  case 'locationAll':
+    ulClass[4].classList.add("purple");
     break;
   }
 
@@ -336,10 +342,14 @@ function drawAllList(list, gridContent, page, itemsPerPage){
     const concertGridDiv = document.createElement('div');
     concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
     concertGridDiv.style.fontSize = '24px';
-    concertGridDiv.style.padding = '55% 0 75.5% 0';
+    concertGridDiv.style.padding = '20% 0 20% 0';
     concertGridDiv.style.textAlign = 'center';
   
     gridContent.appendChild(concertGridDiv);
+
+    if (page === 1) {
+      isLoading = true;
+    }
   
   }
 }
@@ -389,10 +399,14 @@ function drawPopular(list, gridContent, page, itemsPerPage){
   const concertGridDiv = document.createElement('div');
   concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
   concertGridDiv.style.fontSize = '24px';
-  concertGridDiv.style.padding = '55% 0 75.5% 0';
+  concertGridDiv.style.padding = '20% 0 20% 0';
   concertGridDiv.style.textAlign = 'center';
 
   gridContent.appendChild(concertGridDiv);
+
+  if (page === 1) {
+    isLoading = true;
+  }
 
 }
 }
@@ -442,11 +456,14 @@ function drawLatest(list, gridContent, page, itemsPerPage){
     const concertGridDiv = document.createElement('div');
     concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
     concertGridDiv.style.fontSize = '24px';
-    concertGridDiv.style.padding = '55% 0 75.5% 0';
+    concertGridDiv.style.padding = '20% 0 20% 0';
     concertGridDiv.style.textAlign = 'center';
 
     gridContent.appendChild(concertGridDiv);
 
+    if (page === 1) {
+      isLoading = true;
+    }
   }
   
 }
@@ -494,10 +511,13 @@ console.log(list);
     const concertGridDiv = document.createElement('div');
     concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
     concertGridDiv.style.fontSize = '24px';
-    concertGridDiv.style.padding = '55% 0 75.5% 0';
+    concertGridDiv.style.padding = '20% 0 20% 0';
     concertGridDiv.style.textAlign = 'center';
 
     gridContent.appendChild(concertGridDiv);
+    if (page === 1) {
+      isLoading = true;
+    }
 
   }
 }
@@ -548,10 +568,13 @@ function drawLocation(list, gridContent, page, itemsPerPage){
     const concertGridDiv = document.createElement('div');
     concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
     concertGridDiv.style.fontSize = '24px';
-    concertGridDiv.style.padding = '55% 0 75.5% 0';
+    concertGridDiv.style.padding = '20% 0 20% 0';
     concertGridDiv.style.textAlign = 'center';
 
     gridContent.appendChild(concertGridDiv);
+    if (page === 1) {
+      isLoading = true;
+    }
 
   }
 }
@@ -629,11 +652,13 @@ function drawLocationAll(list, gridContent, page, itemsPerPage){
     const concertGridDiv = document.createElement('div');
     concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
     concertGridDiv.style.fontSize = '24px';
-    concertGridDiv.style.padding = '55% 0 75.5% 0';
+    concertGridDiv.style.padding = '20% 0 20% 0';
     concertGridDiv.style.textAlign = 'center';
 
     gridContent.appendChild(concertGridDiv);
-  
+    if (page === 1) {
+      isLoading = true;
+    }
   }
 }
 

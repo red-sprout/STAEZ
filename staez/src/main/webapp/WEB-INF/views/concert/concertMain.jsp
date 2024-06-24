@@ -80,7 +80,7 @@
             <li><button class="concert-main-list-button" onclick="clickHandler('popular', this);"><h3><span>인기순위</span></h3></button></li>
             <li><button class="concert-main-list-button" onclick="clickHandler('latest', this);"><h3><span>최신공연</span></h3></button></li>
             <li><button class="concert-main-list-button" onclick="clickHandler('highscore', this);"><h3><span>별점높은</span></h3></button></li>
-            <li id="concert-main-list-area-parent"><button class="concert-main-list-button area" onclick="clickHandler('locationAll')"><h3><span>지역전체 ▼</span></h3></button>
+            <li id="concert-main-list-area-parent"><button class="concert-main-list-button area" onclick="clickHandler('locationAll', this)"><h3><span>지역전체 ▼</span></h3></button>
                 <ul class="concert-main-list-area"> 
                     <li><a onclick="clickHandler('서울')">서울</a></li>
                     <li><a onclick="clickHandler('경기')">경기</a></li>
