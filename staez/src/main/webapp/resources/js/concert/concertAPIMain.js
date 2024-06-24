@@ -150,7 +150,9 @@ function drawGridMain(list, gridContent, page, itemsPerPage) {
   concertGridDiv.style.textAlign = 'center';
 
   gridContent.appendChild(concertGridDiv);
-
+  if (page === 1) {
+    isLoading = true;
+  }
 }
 }
 
@@ -240,7 +242,9 @@ function drawAllList(list, gridContent, page, itemsPerPage) {
     concertGridDiv.style.textAlign = 'center';
   
     gridContent.appendChild(concertGridDiv);
-  
+    if (page === 1) {
+      isLoading = true;
+    }
   }
 
 }
@@ -297,7 +301,9 @@ function drawLatest(list, gridContent, page, itemsPerPage) {
     concertGridDiv.style.textAlign = 'center';
 
     gridContent.appendChild(concertGridDiv);
-
+    if (page === 1) {
+      isLoading = true;
+    }
   }
 
 }
@@ -356,10 +362,13 @@ function drawPopular(list, gridContent, page, itemsPerPage) {
       const concertGridDiv = document.createElement('div');
       concertGridDiv.innerHTML = "등록된 공연이 없습니다.";
       concertGridDiv.style.fontSize = '24px';
-      concertGridDiv.style.padding = '55% 0 75.5% 0';
+      concertGridDiv.style.padding = '20% 0 20% 0';
       concertGridDiv.style.textAlign = 'center';
 
       gridContent.appendChild(concertGridDiv);
+      if (page === 1) {
+        isLoading = true;
+      }
     }
 }
 
