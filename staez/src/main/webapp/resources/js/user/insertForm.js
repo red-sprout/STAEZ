@@ -251,7 +251,7 @@ function phoneClick() {
             PverificationMessage.innerHTML = "해당 번호는 등록된 번호입니다. 다시 입력하세요.";
             isPhoneClickInProgress = false;
         } else if (res.trim() === "NoPhone") {
-            sendPhoneAuthNoAjax({ authNo: authNo, phoneInput: phoneInputValue }, function(res) {
+            sendPhoneAuthNoAjax({authNo, phone: phoneInputValue }, function(res) {
                 if (res.trim() === "NNNNY") {
                     verificationPhoneTr.style.display = "table-row";
                     PverificationMessage.style.color = "green";

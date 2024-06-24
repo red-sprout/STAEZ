@@ -143,7 +143,7 @@ function phoneClick() {
             PverificationMessage.style.color = "red";
             PverificationMessage.innerHTML = "해당 이름과 일치하는 핸드폰 번호가 없습니다 다시 입력하세요.";
         } else {
-            sendPhoneAuthNoAjax({ authNo, PhoneInput: phoneInputValue }, function(res) {
+            sendPhoneAuthNoAjax({ authNo, phone: phoneInputValue }, function(res) {
                 if (res === "NNNNY") {
                     verificationPhoneTr.style.display = "table-row";
                     PverificationMessage.style.color = "green";
