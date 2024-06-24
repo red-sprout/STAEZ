@@ -203,28 +203,24 @@
     position: absolute;
     top: 50%;
     left: -60px; 
-    z-index: 1;
 }
 
 .popularity-concert-information-area .right-btn{
     position: absolute;
     top: 50%;
     right: -60px; 
-    z-index: 1;
 }
 
 .latest-concert-information-area .left-btn{
     position: absolute;
     top: 50%;
     left: -60px; 
-    z-index: 1;
 }
 
 .latest-concert-information-area .right-btn{
     position: absolute;
     top: 50%;
     right: -60px; 
-    z-index: 1;
 }
 
 .latest-concert-container{
