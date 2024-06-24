@@ -58,7 +58,9 @@ public class MypageController {
 	@Value("${coolsms.api.secret}")
 	private String secretKey;
 	
-
+	@Value("${coolsms.api.sendingPhone}")
+	private String sendingPhone;
+	
 	//마이페이지 메인 출력
 	@RequestMapping("main.me")
 	public String loadToMypageMain(HttpSession session, Model model) {
@@ -598,7 +600,7 @@ public class MypageController {
 		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(serviceKey, secretKey, "https://api.coolsms.co.kr");
 		// Message 패키지가 중복될 경우 net.nurigo.sdk.message.model.Message로 치환하여 주세요
 		Message message = new Message();
-		message.setFrom("01053942839"); //계정에서 등록한 발신번호 입력
+		message.setFrom(sendingPhone); //계정에서 등록한 발신번호 입력
 		message.setTo(phone);
 		message.setText("STAEZ 인증번호는 [" + authNo + "] 입니다.");
 
@@ -610,11 +612,11 @@ public class MypageController {
 		  // 발송에 실패한 메시지 목록을 확인할 수 있습니다!
 		  System.out.println(exception.getFailedMessageList());
 		  System.out.println(exception.getMessage());
-		  return "NNNNY"; //나중에 NNNNN으로 변경해야됨
+		  return "NNNNN"; //나중에 NNNNN으로 변경해야됨
 
 		} catch (Exception exception) {
 		  System.out.println(exception.getMessage());
-		  return "NNNNY"; //나중에 NNNNN으로 변경해야됨
+		  return "NNNNN"; //나중에 NNNNN으로 변경해야됨
 		  
 		}
 	}
