@@ -175,11 +175,15 @@ function loadMyInquire(){
 //     });
 // }
 
+function refreshParent() {
+    location.reload();
+}
+
 function openDetail(url) {
-    const detailWindow = open(url, "_blank", "width=800,height=700,resizable=no,location=no");
-    detailWindow.onbeforeunload = function() { //onbeforeunloda : 창이나 탭이 닫히기전 발생하는 이벤트
-        location.reload();
-    };
+    open(url, "_blank", "width=800,height=700,resizable=no,location=no");
+    // detailWindow.onbeforeunload = function() { //onbeforeunloda : 창이나 탭이 닫히기전 발생하는 이벤트
+    //     location.reload();
+    // };
 }
 
 //날짜 포맷변경 함수

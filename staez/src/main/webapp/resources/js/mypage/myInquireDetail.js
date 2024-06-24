@@ -39,15 +39,17 @@ function deleteInquire(){
     const result = confirm('삭제하시겠습니까?');
     if(!result){
         return;
-    } else{
-        deleteInquireAjax({boardNo:boardNo}, res => {
-            if(res === 'NNNNY'){
+    } else {
+        deleteInquireAjax({boardNo: boardNo}, res => {
+            if (res === 'NNNNY') {
                 alert('삭제되었습니다');
                 close();
-                opener.reload(); //팝업의 부모 요소에 접근
-            } else{
+                if (opener && !opener.closed) {
+                    opener.refreshParent();
+                }
+            } else {
                 alert('문의글 삭제에 실패하였습니다');
             }
-        });        
+        });
     }
 }

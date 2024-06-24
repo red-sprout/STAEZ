@@ -562,7 +562,7 @@
 	<select id="loadMyPaymentsAjax" resultType="com.spring.staez.user.model.dto.PaymentsInfoDto">
 		SELECT ROW_NUMBER() OVER() AS rn, 
 			   concert_no AS concertNo,
-			   reserve_date AS reserveDate, 
+			   reserveDate, 
 			   concert_title AS concertTitle,
 			   concert_date AS concertDate,
 			   pay_method AS payMethod,
@@ -570,13 +570,13 @@
 			   tickets,
 			   reserve_status AS reserveStatus,
 			   user_no AS userNo
-		FROM (SELECT concert_no, reserve_date, concert_title, concert_date, schedule, pay_method, COUNT(*) AS tickets, reserve_status, user_no
+		FROM (SELECT concert_no, MAX(reserve_date) AS reserveDate, concert_title, concert_date, schedule, pay_method, COUNT(*) AS tickets, reserve_status, user_no
 			  FROM reserve
 			  JOIN concert USING (concert_no)
 			  WHERE user_no = #{userNo}
 		      AND reserve_status IN ('Y', 'U')
-			  GROUP BY concert_no, reserve_date, concert_title, concert_date, schedule, pay_method, reserve_status, user_no
-			  ORDER BY reserve_date DESC)
+			  GROUP BY concert_no, concert_title, concert_date, schedule, pay_method, reserve_status, user_no
+			  ORDER BY reserveDate DESC)
 		LIMIT 5
 	</select>
 	

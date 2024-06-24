@@ -82,7 +82,7 @@ public class ConcertAPIController {
 			responseText += line;
 		}
 		
-		// xml to jason
+		// xml to json
 		org.json.JSONObject xmltojsonObj = XML.toJSONObject(responseText);
 		String jsonObj = xmltojsonObj.toString();
 		

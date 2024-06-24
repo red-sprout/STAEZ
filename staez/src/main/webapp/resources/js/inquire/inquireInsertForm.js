@@ -18,7 +18,6 @@ function drawOption(category){
 function insertInquire(_this){
     const content = document.querySelector("#to-inquire-content").value
     const title = document.querySelector("input[name='boardTitle']").value
-
     if(content === "" || title === ""){
         
         alert("제목이나 내용이 빈칸이면 안됩니다.")

@@ -315,8 +315,8 @@
     <select id="popularList" resultMap="concertResult" >
     		SELECT c.concert_no,
 		       c.concert_title,
-		       cs.start_date,
-		       cs.end_date,
+		       sub.start_date,
+		       sub.end_date,
 		       ca.change_name,
 		       ca.file_path,
 			   ct.category_no,
@@ -333,7 +333,6 @@
 		JOIN concert_attachment ca ON c.concert_no = ca.concert_no
 		JOIN concert_category cc on c.concert_no = cc.concert_no	
 		JOIN category ct ON cc.category_no = ct.category_no
-		JOIN concert_schedule cs ON c.concert_no = cs.concert_no
 		WHERE c.concert_status = 'Y'
 		AND cc.category_no = #{categoryNo}
 	    ORDER BY sub.countLike IS NULL ASC, sub.countLike DESC
@@ -391,7 +390,7 @@
 		JOIN concert_category cc ON c.concert_no = cc.concert_no	
 		JOIN category ct ON cc.category_no = ct.category_no
 		WHERE c.concert_status = 'Y'
-		AND cc.category_no = 8
+		AND cc.category_no = #{categoryNo}
 		ORDER BY score DESC NULLS LAST
 	 </select>
 	 
@@ -650,7 +649,7 @@
 		JOIN concert_schedule cs ON c.concert_no = cs.concert_no
 		WHERE c.concert_status = 'Y'
 		 AND theater_no IS NULL 
-	    ORDER BY sub.countLike desc, sub.countLike is null asc
+	    ORDER BY sub.countLike asc, sub.countLike is null desc
 	</select>
     
     
