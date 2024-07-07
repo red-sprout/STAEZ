@@ -11,23 +11,15 @@
 ## 기술 스택
 ### Front-End
 
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white"/>
-<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white">
-<img src="https://img.shields.io/badge/Javascript-F7DF1E?style=flat-square&logo=Javascript&logoColor=black">
-<img src="https://img.shields.io/badge/jQuery-0769AD?style=flat-square&logo=jQuery&logoColor=black">
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=flat-square&logo=Javascript&logoColor=black"/> <img src="https://img.shields.io/badge/jQuery-0769AD?style=flat-square&logo=jQuery&logoColor=black"/>
 
 ### Back-End
 
-<img src="https://img.shields.io/badge/Java-007396?style=flat-square&logo=Java&logoColor=white">
-<img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=Spring&logoColor=white">
-<img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat-square&logo=springsecurity&logoColor=white">
-<img src="https://img.shields.io/badge/PostgreSql-4169E1?style=flat-square&logo=postgresql&logoColor=white">
+<img src="https://img.shields.io/badge/Java-007396?style=flat-square&logo=Java&logoColor=white"/> <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=Spring&logoColor=white"/> <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat-square&logo=springsecurity&logoColor=white"/> <img src="https://img.shields.io/badge/PostgreSql-4169E1?style=flat-square&logo=postgresql&logoColor=white"/>
 
 ### Communication
 
-<img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=github&logoColor=white">
-<img src="https://img.shields.io/badge/Notion-FFFFFF?style=flat-square&logo=notion&logoColor=black">
-<img src="https://img.shields.io/badge/Trello-0052CC?style=flat-square&logo=trello&logoColor=white">
+<img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/Notion-FFFFFF?style=flat-square&logo=notion&logoColor=black"/> <img src="https://img.shields.io/badge/Trello-0052CC?style=flat-square&logo=trello&logoColor=white"/>
 
 
 ## 팀원 소개
@@ -43,36 +35,36 @@
 - 메인 공연
 - 검색 결과 페이지
 - 고객센터(1대 1문의, FAQ)
-- <u>**캘린더(공연캘린더, 예매캘린더)**</u>
-- <u>**예매(단계별로 페이지 생성)**</u>
+- <ins>**캘린더(공연캘린더, 예매캘린더)**</ins>
+- <ins>**예매(단계별로 페이지 생성)**</ins>
 
 ### 김남주
-- <u>**공연 메인 페이지**</u>
+- <ins>**공연 메인 페이지**</ins>
 - 공연 세부 페이지
-- <u>**공연 API 페이지**</u>
+- <ins>**공연 API 페이지**</ins>
 - 공연 API 세부페이지
 
 ### 이원기
 - 마이페이지 메인
-- <u>**회원정보 변경**</u>
+- <ins>**회원정보 변경**</ins>
 - 찜목록
-- <u>**한줄평**</u>
+- <ins>**한줄평**</ins>
 - 예매내역
 - 커뮤니티 관리
 - 1:1 문의 내역
 
 ### 장용준
 - 로그인 페이지
-- <u>**회원가입 페이지**</u>
+- <ins>**회원가입 페이지**</ins>
 - 아이디 찾기 페이지
 - 비밀번호 찾기 페이지
 
 ### 주재완
 - 커뮤니티 페이지
 - 공지사항 페이지
-- <u>**관리자 페이지**</u>
-- <u>**공연 추천 챗봇**</u>
-- <u>**공연 API 백엔드**</u>
+- <ins>**관리자 페이지**</ins>
+- <ins>**공연 추천 챗봇**</ins>
+- <ins>**공연 API 백엔드**</ins>
 
 
 ## 사용 라이브러리 및 API
